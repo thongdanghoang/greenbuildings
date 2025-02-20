@@ -28,6 +28,7 @@
     "pattern": "Invalid value",
     "multipleOf": "The value must be a multiple of {{requiredMultiple}}",
     "required": "This field is required",
+    "uploadFile": "File uploaded is invalid, please try again",
     "business": {
       "email": {
         "exist": "Email address already exists"

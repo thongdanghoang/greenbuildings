@@ -28,6 +28,7 @@
     "multipleOf": "Giá trị phải là chia hết cho {{requiredMultiple}}",
     "pattern": "Giá trị không hợp lệ",
     "required": "Trường này là bắt buộc",
+    "uploadFile": "Tệp tải lên không hợp lệ, vui lòng thử lại",
     "business": {
       "email": {
         "exist": "Địa chỉ email đã tồn tại"
