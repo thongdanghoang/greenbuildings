@@ -38,13 +38,13 @@ spring:
             token:
               access-token-time-to-live: PT8H
   mail:
-    host: 127.0.0.1
-    port: 1025
-    username:
-    password:
+    host: ${SMTP_HOST}
+    port: ${SMTP_PORT}
+    username: ${SMTP_USERNAME}
+    password: ${SMTP_PASSWORD}
     properties:
       mail.smtp.starttls.enable: true
-      mail.smtp.auth: false
+      mail.smtp.auth: true
   application:
     name: sep490-idp
     homepage: http://localhost:4200
@@ -93,8 +93,3 @@ logging:
       springframework:
         web: DEBUG
         security: DEBUG
-      hibernate:
-        SQL: DEBUG
-        type:
-          descriptor:
-            sql: TRACE
