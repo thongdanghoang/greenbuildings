@@ -5,11 +5,25 @@
             <PatternLayout
                     pattern="%style{%d{ISO8601}} %highlight{%-5level }[%style{%t}{bright,blue}] %style{%C{10}}{bright,yellow}: %msg%n%throwable"/>
         </Console>
+        <SplunkHttp
+                name="splunkhttp"
+                url="${env:SPLUNK_URL}"
+                token="${env:ENTERPRISE_SPLUNK_TOKEN}"
+                host="${env:SPLUNK_HOST}"
+                index="${env:ENTERPRISE_SPLUNK_INDEX}"
+                source="${env:ENTERPRISE_SPLUNK_SOURCE}"
+                type="raw"
+                sourcetype="log4j"
+                messageFormat="text"
+                disableCertificateValidation="true">
+            <PatternLayout pattern="%d{ISO8601} %-5p [%t] %c: %m%n"/>
+        </SplunkHttp>
     </Appenders>
 
     <Loggers>
         <Root level="info">
             <AppenderRef ref="console"/>
+            <AppenderRef ref="splunkhttp"/>
         </Root>
     </Loggers>
 </Configuration>
