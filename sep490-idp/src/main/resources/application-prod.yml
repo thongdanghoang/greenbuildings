@@ -42,11 +42,11 @@ spring:
   mail:
     host: ${SMTP_HOST}
     port: ${SMTP_PORT}
-    username:
-    password:
+    username: ${SMTP_USERNAME}
+    password: ${SMTP_PASSWORD}
     properties:
       mail.smtp.starttls.enable: true
-      mail.smtp.auth: false
+      mail.smtp.auth: true
   application:
     name: greenbuildings-idp
     homepage: https://greenbuildings.cloud
