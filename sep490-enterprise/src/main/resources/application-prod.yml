@@ -56,11 +56,11 @@ spring:
   mail:
     host: ${SMTP_HOST}
     port: ${SMTP_PORT}
-    username:
-    password:
+    username: ${SMTP_USERNAME}
+    password: ${SMTP_PASSWORD}
     properties:
       mail.smtp.starttls.enable: true
-      mail.smtp.auth: false
+      mail.smtp.auth: true
 minio:
   endpoint: ${MINIO_ENDPOINT}
   accessKey: ${MINIO_ACCESS_KEY}
