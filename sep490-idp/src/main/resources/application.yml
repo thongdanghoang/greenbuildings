@@ -92,8 +92,3 @@ logging:
       springframework:
         web: DEBUG
         security: DEBUG
-      hibernate:
-        SQL: DEBUG
-        type:
-          descriptor:
-            sql: TRACE
