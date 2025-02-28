@@ -46,8 +46,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     public void subscribe(SubscribeRequestDTO request) {
         // Prepare building
         UUID enterpriseId = SecurityUtils.getCurrentUserEnterpriseId().orElseThrow();
-        List<BuildingEntity> buildings = buildingRepository.findAllByEnterpriseId(enterpriseId);
-        BuildingEntity buildingEntity = buildings.stream().filter(b -> b.getId().equals(request.buildingId())).findFirst().orElseThrow();
+        BuildingEntity buildingEntity = buildingRepository.findByIdAndEnterpriseId(request.buildingId(), enterpriseId).orElseThrow();
         
         // Prepare Transaction
         double amount = calculateTransactionAmount(request);
@@ -122,10 +121,10 @@ public class SubscriptionServiceImpl implements SubscriptionService {
                 .orElseThrow();
         
         if (request.monthRatio() != monthRatio.getRatio() || request.deviceRatio() != noDevicesRatio.getRatio()) {
-            throw new BusinessException("", "Subscription prices have been updated, please try again");
+            throw new BusinessException("", "validation.business.buildings.notEnoughCredit");
         }
         return (monthRatio.getRatio() * request.months())
-               + (noDevicesRatio.getRatio() * request.numberOfDevices());
+               * (noDevicesRatio.getRatio() * request.numberOfDevices());
     }
 
     @Override
