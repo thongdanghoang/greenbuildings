@@ -20,9 +20,3 @@ INSERT INTO building_permission (building_id, user_id, role) VALUES ('660e8400-e
 INSERT INTO building_permission (building_id, user_id, role) VALUES ('660e8400-e29b-41d4-a716-446655440004', '5ed84416-2e1f-4e01-afe3-5712d84e170c', 'MANAGER');
 INSERT INTO building_permission (building_id, user_id, role) VALUES ('660e8400-e29b-41d4-a716-446655440005', '5ed84416-2e1f-4e01-afe3-5712d84e170c', 'MANAGER');
 
-INSERT INTO credit_convert_ratio (
-    created_date, last_modified_date, created_by, last_modified_by,
-    id, version, ratio, convert_type
-) VALUES
-    (NOW(), NOW(), 'tran gia bao', 'tran gia bao', gen_random_uuid(), 0, 1, 'MONTH'),
-    (NOW(), NOW(), 'tran gia bao', 'tran gia bao', gen_random_uuid(), 0, 0.1, 'DEVICE');

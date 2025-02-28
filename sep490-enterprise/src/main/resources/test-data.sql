@@ -24,3 +24,10 @@ VALUES ('2025-02-16 20:36:27.019184', 'fptu.hcm@fpt.edu.vn', '2025-02-16 20:36:2
 INSERT INTO public.credit_packages (created_date, created_by, last_modified_date, last_modified_by, id, version, number_of_credits, price)
 VALUES ('2025-02-16 20:45:00.595269', 'fptu.hcm@fpt.edu.vn', '2025-02-16 20:45:00.595269', 'fptu.hcm@fpt.edu.vn',
         'b9c3a8f7-5d4e-4e2a-80c7-1f9d2b45e1a3', 0, 100,10000000);
+        
+INSERT INTO credit_convert_ratio (
+    created_date, last_modified_date, created_by, last_modified_by,
+    id, version, ratio, convert_type
+) VALUES
+    (NOW(), NOW(), 'admin', 'admin', gen_random_uuid(), 0, 1, 'MONTH'),
+    (NOW(), NOW(), 'admin', 'admin', gen_random_uuid(), 0, 0.1, 'DEVICE');
