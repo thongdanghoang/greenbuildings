@@ -29,6 +29,11 @@ export enum CreditConvertType {
   DEVICE
 }
 
+export enum TransactionType {
+  NEW_PURCHASE,
+  UPGRADE
+}
+
 export interface CreditConvertRatio extends BaseDTO {
   ratio: number;
   convertType: keyof typeof CreditConvertType;
@@ -40,11 +45,5 @@ export interface SubscribeRequest extends BaseDTO {
   numberOfDevices: number;
   monthRatio: number;
   deviceRatio: number;
-  type: keyof typeof CreditConvertType;
-}
-
-export interface Subscription extends BaseDTO {
-  numberOfMonths: number;
-  numberOfDevices: number;
-  idBuilding: UUID;
+  type: keyof typeof TransactionType;
 }

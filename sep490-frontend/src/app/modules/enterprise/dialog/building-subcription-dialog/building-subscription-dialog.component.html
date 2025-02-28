@@ -1,7 +1,7 @@
 <div class="p-dialog-header">
     <div class="inline-flex items-center justify-center gap-2">
         <p-avatar
-            image="https://www.gravatar.com/avatar/05dfd4b41340d09cae045235eb0893c3?d=mp"
+            icon="pi pi-building"
             class="flex items-center justify-center mr-2"
             size="large"
         />
@@ -17,16 +17,16 @@
         <div class="flex flex-col gap-5 p-5 items-center lg:items-start">
             <span class="text-surface-500 dark:text-surface-400 block"
                 >{{ "dialog.subscription.body.name" | translate }}:
-                {{ data.selectedBuildingDetails?.name }}</span
+                {{ data.selectedBuildingDetails.name }}</span
             >
             <span class="text-surface-500 dark:text-surface-400 block"
                 >{{ "dialog.subscription.body.numberDevices" | translate }}:
-                {{ data.selectedBuildingDetails?.numberOfDevices }}</span
+                {{ data.selectedBuildingDetails.numberOfDevices }}</span
             >
         </div>
         <span class="text-primary block mb-8 lg:0 lg:pr-12"
             >{{ "purchaseCredit.currentBalance" | translate }}:
-            {{ data.balance }}</span
+            {{ data.balance | number }}</span
         >
     </div>
 
@@ -42,13 +42,15 @@
                 <p-inputnumber
                     id="numberOfMonths"
                     type="number"
-                    formControlName="numberOfMonths"
+                    formControlName="months"
                     [showButtons]="true"
                     [step]="1"
                     buttonLayout="horizontal"
                     spinnerMode="horizontal"
                     inputId="horizontal"
                     [inputStyle]="{ width: '4rem' }"
+                    [inputStyleClass]="'text-center'"
+                    (onInput)="calculateTotalToPay()"
                 >
                     <ng-template #incrementbuttonicon>
                         <span class="pi pi-plus"></span>
@@ -72,11 +74,14 @@
                     type="number"
                     formControlName="numberOfDevices"
                     [showButtons]="true"
-                    [step]="100"
+                    [step]="50"
                     buttonLayout="horizontal"
                     spinnerMode="horizontal"
                     inputId="horizontal"
                     [inputStyle]="{ width: '4rem' }"
+                    [inputStyleClass]="'text-center'"
+                    [allowEmpty]="false"
+                    (onInput)="calculateTotalToPay()"
                 >
                     <ng-template #incrementbuttonicon>
                         <span class="pi pi-plus"></span>
@@ -94,21 +99,33 @@
     <div class="flex flex-col p-4 gap-8">
         <span class="text-surface-500 dark:text-surface-400 block"
             >{{ "dialog.subscription.body.totalCredit" | translate }}:
-            {{ data.totalCredit }}</span
+            {{ totalToPay }}</span
         >
-        <div class="flex flex-row gap-1 items-center">
-            <p-checkbox [(ngModel)]="checked" [binary]="true" />
-            <label class="ml-2">{{
-                "dialog.subscription.body.confirm"
-                    | translate
-                        : {
-                              numberOfMonths:
-                                  formGroup.get("numberOfMonths")?.value,
-                              numberOfDevices:
-                                  formGroup.get("numberOfDevices")?.value,
-                          }
-            }}</label>
-        </div>
+        @if (formGroup.valid && this.sufficientBalance) {
+            <div class="flex flex-row gap-1 items-center">
+                <p-checkbox
+                    inputId="confirm_ckb"
+                    [(ngModel)]="checked"
+                    [binary]="true"
+                />
+                <label class="ml-2" for="confirm_ckb">{{
+                    "dialog.subscription.body.confirm"
+                        | translate
+                            : {
+                                  numberOfMonths:
+                                      formGroup.get("months")?.value,
+                                  numberOfDevices:
+                                      formGroup.get("numberOfDevices")?.value,
+                              }
+                }}</label>
+            </div>
+        } @else if (!this.sufficientBalance) {
+            <p-message severity="warn">
+                {{
+                    "validation.business.buildings.notEnoughCredit" | translate
+                }}
+            </p-message>
+        }
     </div>
 </div>
 <div class="p-dialog-footer">
@@ -123,6 +140,6 @@
         label="{{ 'dialog.subscription.footer.button.buy' | translate }}"
         severity="primary"
         [disabled]="!checked"
-        (click)="buy()"
+        (click)="submit()"
     />
 </div>

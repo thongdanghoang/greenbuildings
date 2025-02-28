@@ -15,7 +15,7 @@ import {DatePickerModule} from 'primeng/datepicker';
 import {DialogModule} from 'primeng/dialog';
 import {DividerModule} from 'primeng/divider';
 import {DrawerModule} from 'primeng/drawer';
-import {DynamicDialog} from 'primeng/dynamicdialog';
+import {DialogService, DynamicDialog} from 'primeng/dynamicdialog';
 import {FloatLabelModule} from 'primeng/floatlabel';
 import {FluidModule} from 'primeng/fluid';
 import {IconField} from 'primeng/iconfield';
@@ -39,7 +39,6 @@ import {TagModule} from 'primeng/tag';
 import {ToastModule} from 'primeng/toast';
 import {ToggleSwitch} from 'primeng/toggleswitch';
 import {CardTemplateComponent} from './components/card/card-template/card-template.component';
-import {BuildingSubcriptionDialogComponent} from './components/dialog/building-subcription-dialog/building-subcription-dialog.component';
 import {ConfirmDialogComponent} from './components/dialog/confirm-dialog/confirm-dialog.component';
 import {FormFieldErrorComponent} from './components/form/form-field-error/form-field-error.component';
 import {PaymentStatusComponent} from './components/payment-status/payment-status.component';
@@ -108,8 +107,7 @@ const commons = [
     FormFieldErrorDirective,
     FormFieldErrorComponent,
     PaymentStatusComponent,
-    CardTemplateComponent,
-    BuildingSubcriptionDialogComponent
+    CardTemplateComponent
   ],
   imports: [...commons, ...primeNgModules],
   exports: [
@@ -122,9 +120,8 @@ const commons = [
     FormFieldErrorDirective,
     FormFieldErrorComponent,
     PaymentStatusComponent,
-    CardTemplateComponent,
-    BuildingSubcriptionDialogComponent
+    CardTemplateComponent
   ],
-  providers: [DatePipe, ModalProvider]
+  providers: [DatePipe, ModalProvider, DialogService, DynamicDialog]
 })
 export class SharedModule {}

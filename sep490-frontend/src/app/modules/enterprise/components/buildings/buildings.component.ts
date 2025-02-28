@@ -1,19 +1,30 @@
 import {AfterViewInit, Component, ComponentRef} from '@angular/core';
 import {Router} from '@angular/router';
 import * as L from 'leaflet';
+import {
+  DialogService,
+  DynamicDialogConfig,
+  DynamicDialogRef
+} from 'primeng/dynamicdialog';
+
 import {forkJoin, takeUntil} from 'rxjs';
 import {UUID} from '../../../../../types/uuid';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
 import {BuildingService} from '../../../../services/building.service';
 import {SubscriptionAwareComponent} from '../../../core/subscription-aware.component';
-import {Building, BuildingDetails} from '../../models/enterprise.dto';
+import {
+  BuildingSubscriptionDialogComponent,
+  SubscriptionDialogOptions
+} from '../../dialog/building-subcription-dialog/building-subscription-dialog.component';
+import {
+  Building,
+  BuildingDetails,
+  TransactionType
+} from '../../models/enterprise.dto';
 import {PopupService} from '../../services/popup.service';
-import {BuildingPopupMarkerComponent} from '../building-popup-marker/building-popup-marker.component';
-import {BuildingSubcriptionDialogComponent} from '../../../shared/components/dialog/building-subcription-dialog/building-subcription-dialog.component';
-import {DialogService, DynamicDialogRef} from 'primeng/dynamicdialog';
 import {WalletService} from '../../services/wallet.service';
-import {MessageService} from 'primeng/api';
-import {TranslateService} from '@ngx-translate/core';
+import {BuildingPopupMarkerComponent} from '../building-popup-marker/building-popup-marker.component';
+
 const iconRetinaUrl = 'assets/marker-icon-2x.png';
 const iconUrl = 'assets/marker-icon.png';
 const shadowUrl = 'assets/marker-shadow.png';
@@ -49,7 +60,6 @@ export class BuildingsComponent
   implements AfterViewInit
 {
   balance: number = 0;
-  totalCredit: number = 0;
   selectedBuildingDetails: BuildingDetails | null = null;
   ref: DynamicDialogRef | undefined;
   addBuildingLocation: boolean = false;
@@ -67,11 +77,9 @@ export class BuildingsComponent
   constructor(
     private readonly router: Router,
     private readonly buildingService: BuildingService,
-    private readonly translate: TranslateService,
     private readonly popupService: PopupService,
     public dialogService: DialogService,
-    private readonly walletService: WalletService,
-    private readonly messageService: MessageService
+    private readonly walletService: WalletService
   ) {
     super();
   }
@@ -107,27 +115,23 @@ export class BuildingsComponent
       // Update your component properties with the fetched data
       this.selectedBuildingDetails = details;
       this.balance = balance;
-      this.ref = this.dialogService.open(BuildingSubcriptionDialogComponent, {
+      const dialogConfig: DynamicDialogConfig<SubscriptionDialogOptions> = {
         width: '50rem',
         modal: true,
         data: {
           selectedBuildingDetails: this.selectedBuildingDetails,
           balance: this.balance,
-          totalCredit: this.totalCredit
+          type: TransactionType.NEW_PURCHASE
         }
-      });
+      };
+      this.ref = this.dialogService.open(
+        BuildingSubscriptionDialogComponent,
+        dialogConfig
+      );
 
       this.ref.onClose.subscribe(result => {
         if (result === 'buy') {
-          this.messageService.add({
-            severity: 'success',
-            summary: this.translate.instant(
-              'admin.packageCredit.message.success.summary'
-            ),
-            detail: this.translate.instant(
-              'admin.packageCredit.message.success.detail'
-            )
-          });
+          this.fetchBuilding();
         }
       });
     });
