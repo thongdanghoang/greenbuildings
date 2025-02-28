@@ -22,7 +22,7 @@ public class WalletController {
     
     @GetMapping("/balance")
     @RolesAllowed(UserRole.RoleNameConstant.ENTERPRISE_OWNER)
-    public ResponseEntity<Long> getBalance(@AuthenticationPrincipal UserContextData userContextData) {
+    public ResponseEntity<Double> getBalance(@AuthenticationPrincipal UserContextData userContextData) {
         return ResponseEntity.ok().body(walletService.getBalance());
     }
 }

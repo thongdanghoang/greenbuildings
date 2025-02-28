@@ -18,7 +18,7 @@ public class WalletServiceImpl implements WalletService {
     private final WalletRepository walRepo;
     
     @Override
-    public long getBalance(){
+    public double getBalance(){
         UUID enterpriseId = SecurityUtils.getCurrentUserEnterpriseId().orElseThrow();
         return walRepo
                 .findByEnterpriseId(enterpriseId)

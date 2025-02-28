@@ -24,7 +24,7 @@ public class WalletEntity extends AbstractAuditableEntity {
     private EnterpriseEntity enterprise;
     
     @Column(name = "balance")
-    private long balance; // credit
+    private double balance; // credit
     
     public static WalletEntity of(EnterpriseEntity enterprise) {
         var wallet = new WalletEntity();
@@ -33,11 +33,11 @@ public class WalletEntity extends AbstractAuditableEntity {
         return wallet;
     }
     
-    public void deposit(long amount) {
+    public void deposit(double amount) {
         balance += amount;
     }
     
-    public void withdraw(long amount) {
+    public void withdraw(double amount) {
         if (amount > balance) {
             throw new IllegalArgumentException("Insufficient balance");
         }
