@@ -26,6 +26,7 @@
     "min": "Value must be greater than or equal to {{min}}",
     "minlength": "At least {{requiredLength}} characters are required",
     "pattern": "Invalid value",
+    "multipleOf": "The value must be a multiple of {{requiredMultiple}}",
     "required": "This field is required",
     "business": {
       "email": {
@@ -33,7 +34,8 @@
       },
       "buildings": {
         "invalid": "The buildings selection is invalid",
-        "permissionWarning": "Please select a building to assign a role to this user"
+        "permissionWarning": "Please select a building to assign a role to this user",
+        "notEnoughCredit": "Enterprise do not have enough credits"
       },
       "buildingPermissions": {
         "notEmpty": "Building permissions cannot be empty",

@@ -25,6 +25,7 @@
     "maxlength": "Tối đa {{requiredLength}} ký tự được hỗ trợ",
     "min": "Giá trị phải lớn hơn hoặc bằng {{min}}",
     "minlength": "Cần có ít nhất {{requiredLength}} ký tự",
+    "multipleOf": "Giá trị phải là chia hết cho {{requiredMultiple}}",
     "pattern": "Giá trị không hợp lệ",
     "required": "Trường này là bắt buộc",
     "business": {
@@ -33,7 +34,8 @@
       },
       "buildings": {
         "invalid": "Lựa chọn tòa nhà không hợp lệ",
-        "permissionWarning": "Vui lòng chọn một tòa nhà để chỉ định vai trò cho người dùng này"
+        "permissionWarning": "Vui lòng chọn một tòa nhà để chỉ định vai trò cho người dùng này",
+        "notEnoughCredit": "Doanh nghiệp không có đủ tín dụng"
       },
       "buildingPermissions": {
         "notEmpty": "Quyền xây dựng không được để trống",

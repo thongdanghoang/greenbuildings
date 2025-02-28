@@ -25,6 +25,7 @@
     "maxlength": "最多支持{{requiredLength}}个字符",
     "min": "值必须大于或等于{{min}}",
     "minlength": "至少需要{{requiredLength}}个字符",
+    "multipleOf": "该值必须是 {{requiredMultiple}} 的倍数",
     "pattern": "无效的值",
     "required": "此字段是必填项",
     "business": {
@@ -33,7 +34,8 @@
       },
       "buildings": {
         "invalid": "建筑物选择无效",
-        "permissionWarning": "请选择一栋建筑物来为该用户分配角色"
+        "permissionWarning": "请选择一栋建筑物来为该用户分配角色",
+        "notEnoughCredit": "企业没有足够的积分"
       },
       "buildingPermissions": {
         "notEmpty": "施工权限不能为空",
