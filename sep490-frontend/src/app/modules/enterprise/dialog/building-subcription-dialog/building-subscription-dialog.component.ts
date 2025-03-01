@@ -61,7 +61,7 @@ export class BuildingSubscriptionDialogComponent extends AbstractFormComponent<S
     notificationService: MessageService,
     translate: TranslateService,
     protected subscribeService: SubscriptionService,
-    public ref: DynamicDialogRef,
+    protected ref: DynamicDialogRef,
     public config: DynamicDialogConfig
   ) {
     super(httpClient, formBuilder, notificationService, translate);
