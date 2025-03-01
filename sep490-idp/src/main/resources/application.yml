@@ -28,7 +28,7 @@ spring:
               authorization-grant-types:
                 - "authorization_code"
               redirect-uris: http://localhost:4200
-              post-logout-redirect-uris: http://localhost:4200
+              post-logout-redirect-uris: http://localhost:4200/landing
               scopes:
                 - openid
                 - email

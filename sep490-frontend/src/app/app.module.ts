@@ -79,7 +79,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
         clientId: environment.oidcClientId,
         responseType: 'code',
         scope: `${OidcScopes.OPENID} ${OidcScopes.EMAIL} ${OidcScopes.PHONE}`,
-        postLogoutRedirectUri: window.location.origin,
+        postLogoutRedirectUri: `${window.location.origin}/${AppRoutingConstants.LANDING_PATH}`,
         forbiddenRoute: AppRoutingConstants.FORBIDDEN,
         unauthorizedRoute: AppRoutingConstants.UNAUTHORIZED,
         autoUserInfo: true,
