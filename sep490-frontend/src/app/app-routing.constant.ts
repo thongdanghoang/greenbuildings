@@ -29,6 +29,7 @@ export class AppRoutingConstants {
     'credit-convert-ratio-detail';
 
   // App Routing
+  public static readonly LANDING_PATH = 'landing';
   public static readonly DASHBOARD_PATH = 'dashboard';
   public static readonly FORBIDDEN = 'forbidden';
   public static readonly UNAUTHORIZED = 'unauthorized';
