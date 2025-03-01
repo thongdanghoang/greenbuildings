@@ -79,6 +79,8 @@ export class BuildingSubscriptionDialogComponent extends AbstractFormComponent<S
       this.formStructure.numberOfDevices.value *
       this.formStructure.deviceRatio.value;
 
+    this.totalToPay = Number(this.totalToPay.toFixed(2));
+
     this.sufficientBalance = this.data.balance >= this.totalToPay;
     this.checked = false;
   }
