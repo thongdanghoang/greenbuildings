@@ -90,7 +90,7 @@
 
     document.getElementById("sign-in-by-passkey").addEventListener("click", async () => {
         const credentialsResponse = await navigator.credentials.get(credentialsRequestOptions);
-        fetch("/idp/passkey/login",
+        fetch("passkey/login",
             {
                 method: "POST",
                 body: JSON.stringify(credentialsResponse),
@@ -99,11 +99,13 @@
                     "Content-Type": "application/json;charset=utf-8",
                     [csrfHeader]: csrfToken
                 },
-                redirect: "follow"
+                // redirect: "follow"
             })
-            .then(r => document.location.href = r.url)
-            .catch(err => console.error(err))
-            .finally(() => console.log("yep, done"));
+            .then(async r => {
+                let value = await r.json();
+                document.location.href = value.url;
+            })
+            .catch(err => console.error(err));
     });
 </script>
 </body>
