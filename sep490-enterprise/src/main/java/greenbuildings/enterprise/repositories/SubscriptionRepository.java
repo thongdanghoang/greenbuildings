@@ -7,14 +7,16 @@ import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 public interface SubscriptionRepository extends AbstractBaseRepository<SubscriptionEntity> {
     
     @Query(value = """
                 select s from SubscriptionEntity s
-                    where s.startDate <= :now
+                    where s.building.id = :buildingId
+                        and s.startDate <= :now
                         and s.endDate >= :now
             """)
-    List<SubscriptionEntity> findAllValidSubscriptions(@Param("now") LocalDate now);
+    List<SubscriptionEntity> findAllValidSubscriptions(@Param("now") LocalDate now, @Param("buildingId")UUID buildingId);
     
 }
