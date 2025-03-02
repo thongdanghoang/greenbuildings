@@ -18,6 +18,7 @@ import greenbuildings.commons.api.exceptions.TechnicalException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -45,15 +46,19 @@ public class PaymentServiceImpl implements PaymentService {
     }
     
     @Override
-    public PaymentEntity createPayment(UUID creditPackageUUID) {
+    public PaymentEntity createPayment(UUID creditPackageUUID, String requestOrigin) {
         try {
+            // Validate
+            if (StringUtils.isEmpty(requestOrigin)) {
+                throw new TechnicalException("Invalid request origin");
+            }
             // Prepare
             CreditPackageEntity creditPackageEntity = packageRepo.findById(creditPackageUUID).orElseThrow();
             UUID enterpriseUUID = SecurityUtils.getCurrentUserEnterpriseId().orElseThrow();
             EnterpriseEntity enterpriseEntity = enterpriseRepo.findById(enterpriseUUID).orElseThrow();
             
             // Build info
-            PaymentEntity paymentEntity = payOSAdapter.newPayment(creditPackageEntity, enterpriseEntity);
+            PaymentEntity paymentEntity = payOSAdapter.newPayment(creditPackageEntity, enterpriseEntity, requestOrigin);
             
             return payRepo.save(paymentEntity);
         } catch (Exception e) {
