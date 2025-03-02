@@ -17,7 +17,6 @@ spring:
           issuer-uri: ${ISSUER_URI}
   application:
     name: enterprise
-    homepage: http://localhost:4200 # TODO: hard code?
   datasource:
     url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}?serverTimezone=UTC
     username: ${POSTGRES_USER}

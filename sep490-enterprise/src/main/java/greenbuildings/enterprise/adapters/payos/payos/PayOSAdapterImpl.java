@@ -7,7 +7,6 @@ import greenbuildings.enterprise.mappers.PaymentMapper;
 import greenbuildings.commons.api.enums.PaymentStatus;
 import greenbuildings.commons.api.exceptions.TechnicalException;
 import greenbuildings.commons.api.utils.EnumUtil;
-import jakarta.annotation.PostConstruct;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -36,9 +35,6 @@ public class PayOSAdapterImpl implements PayOSAdapter {
     @Value("${payment.payos.cancelPath}")
     private String cancelPath;
     
-    @Value("${spring.application.homepage}")
-    private String homepage;
-    
     private String returnUrl;
     private String cancelUrl;
     
@@ -46,21 +42,10 @@ public class PayOSAdapterImpl implements PayOSAdapter {
     private final PaymentMapper mapper;
     
     
-    @PostConstruct
-    public void setUrls() {
-        returnUrl = UriComponentsBuilder.fromUriString(homepage)
-                                        .path(returnPath)
-                                        .build()
-                                        .toUriString();
-        cancelUrl = UriComponentsBuilder.fromUriString(homepage)
-                                        .path(cancelPath)
-                                        .build()
-                                        .toUriString();
-    }
-    
     @Override
-    public PaymentEntity newPayment(@NotNull CreditPackageEntity creditPackageEntity, @NotNull EnterpriseEntity enterpriseEntity) {
+    public PaymentEntity newPayment(@NotNull CreditPackageEntity creditPackageEntity, @NotNull EnterpriseEntity enterpriseEntity, @NotNull String requestOrigin) {
         try {
+            this.setUrls(requestOrigin);
             log.info("Creating payment link for enterprise: {}", enterpriseEntity.getId());
             
             ItemData itemData = buildItemData(creditPackageEntity);
@@ -123,5 +108,16 @@ public class PayOSAdapterImpl implements PayOSAdapter {
                           .build();
     }
     
+    private void setUrls(String homepage) {
+        returnUrl = UriComponentsBuilder.fromUriString(homepage)
+                                        .path(returnPath)
+                                        .build()
+                                        .toUriString();
+        cancelUrl = UriComponentsBuilder.fromUriString(homepage)
+                                        .path(cancelPath)
+                                        .build()
+                                        .toUriString();
+        log.info("Settings up URL: {} - {}", returnUrl, cancelUrl);
+    }
     
 }

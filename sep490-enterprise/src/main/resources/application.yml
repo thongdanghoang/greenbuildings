@@ -13,8 +13,6 @@ spring:
           issuer-uri: http://localhost:8180/idp
   application:
     name: enterprise
-    homepage: http://localhost:4200
-  #    TODO: hard code?
   datasource:
     url: jdbc:postgresql://localhost:5432/sep490_enterprise?serverTimezone=UTC
     username: postgres

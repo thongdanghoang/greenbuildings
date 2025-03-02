@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public interface PayOSAdapter {
     
-    PaymentEntity newPayment(CreditPackageEntity creditPackageEntity, EnterpriseEntity enterpriseEntity);
+    PaymentEntity newPayment(CreditPackageEntity creditPackageEntity, EnterpriseEntity enterpriseEntity, String requestOrigin);
     
     Optional<PaymentStatus> getPaymentStatus(Long orderCode);
 }

@@ -13,7 +13,7 @@ public interface PaymentService {
     
     Page<PaymentEntity> search(SearchCriteriaDTO<PaymentCriteriaDTO> searchCriteria, Pageable pageable);
     
-    PaymentEntity createPayment(UUID id);
+    PaymentEntity createPayment(UUID id, String requestOrigin);
     
     void updatePaymentInfo(Long orderCode);
 }

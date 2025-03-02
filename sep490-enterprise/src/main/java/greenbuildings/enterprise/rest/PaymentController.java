@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -42,8 +43,8 @@ public class PaymentController {
     
     @PostMapping("/{id}")
     @RolesAllowed({UserRole.RoleNameConstant.ENTERPRISE_OWNER})
-    public ResponseEntity<PaymentDTO> createPayment(@PathVariable UUID id) {
-        PaymentEntity payment = paymentService.createPayment(id);
+    public ResponseEntity<PaymentDTO> createPayment(@RequestHeader("Origin") String origin, @PathVariable UUID id) {
+        PaymentEntity payment = paymentService.createPayment(id, origin);
         return ResponseEntity.ok(paymentMapper.paymentEntityToPaymentDTO(payment));
     }
     
