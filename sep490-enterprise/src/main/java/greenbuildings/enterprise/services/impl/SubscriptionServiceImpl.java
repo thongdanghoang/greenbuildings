@@ -95,7 +95,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     }
     
     private SubscriptionEntity upgradeSubscription(TransactionEntity transaction, SubscribeRequestDTO request) {
-        List<SubscriptionEntity> allValidSubscriptions = subscriptionRepository.findAllValidSubscriptions(LocalDate.now());
+        List<SubscriptionEntity> allValidSubscriptions = subscriptionRepository.findAllValidSubscriptions(LocalDate.now(), request.buildingId());
         if (allValidSubscriptions.isEmpty()) {
             throw new BusinessException(null, "You do not have any valid subscriptions");
         } else if (allValidSubscriptions.size() > 1) {
