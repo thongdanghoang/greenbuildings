@@ -19,12 +19,14 @@
 >
 
 <div class="flex gap-3 items-center">
-    <p-button
-        icon="pi pi-inbox"
-        [rounded]="true"
-        [text]="true"
-        severity="secondary"
-    />
+    @if (authenticated | async) {
+        <p-button
+            icon="pi pi-inbox"
+            [rounded]="true"
+            [text]="true"
+            severity="secondary"
+        />
+    }
 
     <p-button
         icon="pi {{ isDarkMode ? 'pi pi-moon' : 'pi pi-sun' }}"

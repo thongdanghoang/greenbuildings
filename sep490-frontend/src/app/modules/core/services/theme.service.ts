@@ -2,9 +2,18 @@ import {Injectable} from '@angular/core';
 import {definePreset} from '@primeng/themes';
 import Aura from '@primeng/themes/aura';
 import {PrimeNG, ThemeType} from 'primeng/config';
-import {BehaviorSubject, Observable, of} from 'rxjs';
+import {
+  BehaviorSubject,
+  Observable,
+  filter,
+  of,
+  switchMap,
+  takeUntil
+} from 'rxjs';
 import {UserService} from '../../../services/user.service';
 import {Theme} from '../../shared/models/user-configs';
+import {SubscriptionAwareComponent} from '../subscription-aware.component';
+import {ApplicationService} from './application.service';
 
 const MyPreset = definePreset(Aura, {
   primitive: {
@@ -40,7 +49,7 @@ const MyPreset = definePreset(Aura, {
 });
 
 @Injectable()
-export class ThemeService {
+export class ThemeService extends SubscriptionAwareComponent {
   readonly LOCAL_STORAGE_KEY = 'prefers-color-scheme';
   readonly TOKEN = 'my-app-dark';
   readonly SYSTEM_COLOR_SCHEME_QUERY = '(prefers-color-scheme: dark)';
@@ -50,8 +59,10 @@ export class ThemeService {
 
   constructor(
     private readonly config: PrimeNG,
-    private readonly userService: UserService
+    private readonly userService: UserService,
+    private readonly applicationService: ApplicationService
   ) {
+    super();
     const themeOptions = {
       prefix: 'p',
       darkModeSelector: 'system',
@@ -100,10 +111,10 @@ export class ThemeService {
     this.config.theme.set(this.userPreferredColorTheme);
     if (document.querySelector('html')?.classList.contains(this.TOKEN)) {
       localStorage.setItem(this.LOCAL_STORAGE_KEY, Theme[Theme.LIGHT]);
-      this.userService.changeTheme(Theme[Theme.LIGHT]).subscribe();
+      this.changeTheme(Theme[Theme.LIGHT] as keyof typeof Theme);
     } else {
       localStorage.setItem(this.LOCAL_STORAGE_KEY, Theme[Theme.DARK]);
-      this.userService.changeTheme(Theme[Theme.DARK]).subscribe();
+      this.changeTheme(Theme[Theme.DARK] as keyof typeof Theme);
     }
     document.querySelector('html')?.classList.toggle(this.TOKEN);
   }
@@ -114,6 +125,17 @@ export class ThemeService {
       return;
     }
     localStorage.setItem(this.LOCAL_STORAGE_KEY, theme);
+  }
+
+  private changeTheme(theme: keyof typeof Theme): void {
+    this.applicationService
+      .isAuthenticated()
+      .pipe(
+        takeUntil(this.destroy$),
+        filter(isAuthenticated => isAuthenticated),
+        switchMap(() => this.userService.changeTheme(theme))
+      )
+      .subscribe();
   }
 
   private isThemeConfigured(): boolean {

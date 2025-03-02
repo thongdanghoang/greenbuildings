@@ -32,6 +32,7 @@ import {UnauthorizedComponent} from './components/unauthorized/unauthorized.comp
 import {CoreModule} from './modules/core/core.module';
 import {HttpErrorHandlerInterceptor} from './modules/core/services/http-error-handler.interceptor';
 import {SharedModule} from './modules/shared/shared.module';
+import {LandingPageComponent} from './components/landing-page/landing-page.component';
 
 enum OidcScopes {
   OPENID = 'openid',
@@ -68,7 +69,7 @@ export const httpLoaderFactory = (
         clientId: environment.oidcClientId,
         responseType: customConfig.responseType,
         scope: `${OidcScopes.OPENID} ${OidcScopes.EMAIL} ${OidcScopes.PHONE}`,
-        postLogoutRedirectUri: `${window.location.origin}/${AppRoutingConstants.LANDING_PATH}`,
+        postLogoutRedirectUri: window.location.origin,
         forbiddenRoute: AppRoutingConstants.FORBIDDEN,
         unauthorizedRoute: AppRoutingConstants.UNAUTHORIZED,
         autoUserInfo: customConfig.autoUserInfo,
@@ -93,7 +94,8 @@ export const httpLoaderFactory = (
     HomeComponent,
     SidebarComponent,
     PricingComponent,
-    DashboardComponent
+    DashboardComponent,
+    LandingPageComponent
   ],
   imports: [
     AppRoutingModule,

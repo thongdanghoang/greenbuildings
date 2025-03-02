@@ -1,5 +1,5 @@
 import {NgModule, inject} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
+import {Router, RouterModule, Routes} from '@angular/router';
 import {
   AutoLoginPartialRoutesGuard,
   LoginResponse,
@@ -10,6 +10,7 @@ import {AppRoutingConstants} from './app-routing.constant';
 import {DashboardComponent} from './components/dashboard/dashboard.component';
 import {ForbiddenComponent} from './components/forbidden/forbidden.component';
 import {HomeComponent} from './components/home/home.component';
+import {LandingPageComponent} from './components/landing-page/landing-page.component';
 import {NotFoundComponent} from './components/not-found/not-found.component';
 import {UnauthorizedComponent} from './components/unauthorized/unauthorized.component';
 import {ApplicationService} from './modules/core/services/application.service';
@@ -17,11 +18,12 @@ import {ApplicationService} from './modules/core/services/application.service';
 const authGuard: () => Observable<LoginResponse> = () => {
   const authService = inject(OidcSecurityService);
   const applicationService = inject(ApplicationService);
+  const router = inject(Router);
 
   return authService.checkAuth().pipe(
     tap(authData => {
       if (!authData.isAuthenticated) {
-        applicationService.login();
+        void router.navigate([AppRoutingConstants.LANDING_PAGE_PATH]);
       } else {
         applicationService.postLogin();
       }
@@ -34,7 +36,11 @@ const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
-    canActivate: [AutoLoginPartialRoutesGuard, authGuard]
+    canActivate: [authGuard]
+  },
+  {
+    path: AppRoutingConstants.LANDING_PAGE_PATH,
+    component: LandingPageComponent
   },
   {
     path: AppRoutingConstants.DASHBOARD_PATH,

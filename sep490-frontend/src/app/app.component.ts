@@ -1,7 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
-import {Subject, filter, takeUntil} from 'rxjs';
+import {Observable, Subject, of, switchMap, takeUntil, tap} from 'rxjs';
+import {ApplicationService} from './modules/core/services/application.service';
 import {ThemeService} from './modules/core/services/theme.service';
+import {UserLanguage} from './modules/shared/enums/user-language.enum';
 import {UserService} from './services/user.service';
 
 @Component({
@@ -16,18 +18,32 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(
     private readonly themeService: ThemeService,
     private readonly translate: TranslateService,
-    private readonly userService: UserService
+    private readonly userService: UserService,
+    private readonly applicationService: ApplicationService
   ) {}
 
   ngOnInit(): void {
-    this.userService.userConfigs
+    this.applicationService
+      .isAuthenticated()
       .pipe(
         takeUntil(this.destroy$),
-        filter(userConfigs => !!userConfigs)
+        switchMap(isAuthenticated => {
+          if (isAuthenticated) {
+            return this.userService.userConfigs.pipe(
+              takeUntil(this.destroy$),
+              tap(userConfigs => {
+                if (userConfigs) {
+                  this.translate.use(userConfigs.language.split('-')[0]); // extract from locale
+                  this.themeService.setTheme(userConfigs.theme);
+                }
+              })
+            );
+          }
+          this.translate.use(UserLanguage.VI.split('-')[0]);
+          return of(null);
+        })
       )
-      .subscribe(userConfigs => {
-        this.translate.use(userConfigs.language.split('-')[0]);
-        this.themeService.setTheme(userConfigs.theme);
+      .subscribe(() => {
         this.themeService.initTheme();
       });
     // Listen for system theme changes
@@ -47,6 +63,10 @@ export class AppComponent implements OnInit, OnDestroy {
       'change',
       this.handleThemeChange
     );
+  }
+
+  get authenticated(): Observable<boolean> {
+    return this.applicationService.isAuthenticated();
   }
 
   private readonly handleThemeChange = (e: MediaQueryListEvent): void => {
