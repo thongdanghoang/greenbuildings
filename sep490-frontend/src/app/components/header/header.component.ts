@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
-import {Observable, map, takeUntil} from 'rxjs';
+import {Observable, map, of, switchMap, takeUntil} from 'rxjs';
 import {ApplicationService} from '../../modules/core/services/application.service';
 import {ThemeService} from '../../modules/core/services/theme.service';
 import {SubscriptionAwareComponent} from '../../modules/core/subscription-aware.component';
@@ -43,6 +43,11 @@ export class HeaderComponent
       {display: 'English', mobile: 'EN', key: UserLanguage.EN},
       {display: '中文(简体)', mobile: 'ZH', key: UserLanguage.ZH}
     ];
+    this.selectedLanguage = {
+      display: 'Tiếng Việt',
+      mobile: 'VI',
+      key: UserLanguage.VI
+    };
     this.translate.onLangChange
       .pipe(
         takeUntil(this.destroy$),
@@ -57,9 +62,18 @@ export class HeaderComponent
 
   protected changeLanguage(language: Language): void {
     this.translate.use(language.key.split('-')[0]);
-    this.userService
-      .changeLanguage(language.key)
-      .pipe(takeUntil(this.destroy$))
+    this.authenticated
+      .pipe(
+        takeUntil(this.destroy$),
+        switchMap(isAuthenticated => {
+          if (isAuthenticated) {
+            return this.userService
+              .changeLanguage(language.key)
+              .pipe(takeUntil(this.destroy$));
+          }
+          return of(null);
+        })
+      )
       .subscribe();
   }
 
