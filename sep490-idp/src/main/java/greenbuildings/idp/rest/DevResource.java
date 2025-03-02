@@ -1,5 +1,6 @@
 package greenbuildings.idp.rest;
 
+import greenbuildings.idp.producers.IdPEventProducer;
 import jakarta.annotation.security.RolesAllowed;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +27,8 @@ import java.util.UUID;
 })
 public class DevResource {
     
+    private final IdPEventProducer idPEventProducer;
+    
     @GetMapping("/test")
     public ResponseEntity<String> test(Principal principal) {
         return ResponseEntity.ok(principal.getClass().getName());
@@ -33,6 +36,7 @@ public class DevResource {
     
     @PostMapping("/test")
     public ResponseEntity<String> testPost(Principal principal, @RequestBody EnterpriseUserDTO payload) {
+        idPEventProducer.publishTestTokenEvent();
         return ResponseEntity.ok(principal.getClass().getName());
     }
     
