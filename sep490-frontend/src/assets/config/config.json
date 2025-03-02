@@ -1,0 +1,5 @@
+{
+  "responseType": "code",
+  "autoUserInfo": true,
+  "renewUserInfoAfterTokenRenew": true
+}

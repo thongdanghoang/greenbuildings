@@ -10,9 +10,12 @@ import {
   LogLevel,
   LoginResponse,
   OidcSecurityService,
-  OpenIdConfigLoader
+  OpenIdConfigLoader,
+  StsConfigHttpLoader,
+  StsConfigLoader
 } from 'angular-auth-oidc-client';
 import {providePrimeNG} from 'primeng/config';
+import {map} from 'rxjs';
 import {environment} from '../environments/environment';
 import {AppRoutingConstants} from './app-routing.constant';
 import {AppRoutingModule} from './app-routing.module';
@@ -54,6 +57,31 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http);
 }
 
+export const httpLoaderFactory = (
+  httpClient: HttpClient
+): StsConfigHttpLoader => {
+  const config$ = httpClient.get<any>(`assets/config/config.json`).pipe(
+    map((customConfig: any) => {
+      return {
+        authority: environment.oidcAuthority,
+        redirectUrl: window.location.origin,
+        clientId: environment.oidcClientId,
+        responseType: customConfig.responseType,
+        scope: `${OidcScopes.OPENID} ${OidcScopes.EMAIL} ${OidcScopes.PHONE}`,
+        postLogoutRedirectUri: `${window.location.origin}/${AppRoutingConstants.LANDING_PATH}`,
+        forbiddenRoute: AppRoutingConstants.FORBIDDEN,
+        unauthorizedRoute: AppRoutingConstants.UNAUTHORIZED,
+        autoUserInfo: customConfig.autoUserInfo,
+        renewUserInfoAfterTokenRenew: customConfig.renewUserInfoAfterTokenRenew,
+        logLevel: environment.production ? LogLevel.Warn : LogLevel.Debug,
+        secureRoutes: [environment.idpApiUrl, environment.enterpriseUrl]
+      };
+    })
+  );
+
+  return new StsConfigHttpLoader(config$);
+};
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -73,19 +101,10 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     CoreModule,
     SharedModule,
     AuthModule.forRoot({
-      config: {
-        authority: environment.oidcAuthority,
-        redirectUrl: window.location.origin,
-        clientId: environment.oidcClientId,
-        responseType: 'code',
-        scope: `${OidcScopes.OPENID} ${OidcScopes.EMAIL} ${OidcScopes.PHONE}`,
-        postLogoutRedirectUri: `${window.location.origin}/${AppRoutingConstants.LANDING_PATH}`,
-        forbiddenRoute: AppRoutingConstants.FORBIDDEN,
-        unauthorizedRoute: AppRoutingConstants.UNAUTHORIZED,
-        autoUserInfo: true,
-        renewUserInfoAfterTokenRenew: true,
-        logLevel: environment.production ? LogLevel.Warn : LogLevel.Debug,
-        secureRoutes: [environment.idpApiUrl, environment.enterpriseUrl]
+      loader: {
+        provide: StsConfigLoader,
+        useFactory: httpLoaderFactory,
+        deps: [HttpClient]
       }
     }),
     TranslateModule.forRoot({
