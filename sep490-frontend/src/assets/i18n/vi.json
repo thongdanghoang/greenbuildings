@@ -118,7 +118,8 @@
         "title": "Tòa nhà",
         "btn": {
           "add": "Thêm tòa nhà",
-          "activate": "Kích hoạt"
+          "activate": "Kích hoạt",
+          "update": "Nâng cấp"
         },
         "noRow": "Không tìm thấy tòa nhà nào."
       },

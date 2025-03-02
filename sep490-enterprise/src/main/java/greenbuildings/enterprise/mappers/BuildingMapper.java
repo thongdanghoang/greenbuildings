@@ -2,17 +2,15 @@ package greenbuildings.enterprise.mappers;
 
 import greenbuildings.enterprise.dtos.BuildingDTO;
 import greenbuildings.enterprise.entities.BuildingEntity;
-import org.mapstruct.BeanMapping;
-import org.mapstruct.Mapper;
-import org.mapstruct.MappingConstants;
-import org.mapstruct.MappingTarget;
-import org.mapstruct.NullValuePropertyMappingStrategy;
-import org.mapstruct.ReportingPolicy;
+import greenbuildings.enterprise.mappers.decorators.BuildingMapperDecorator;
+import org.mapstruct.*;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)
+@DecoratedWith(BuildingMapperDecorator.class)
 public interface BuildingMapper {
     BuildingEntity toEntity(BuildingDTO buildingDTO);
-    
+
+    @Mapping(target = "subscriptionDTO", ignore = true)
     BuildingDTO toDto(BuildingEntity buildingEntity);
     
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)

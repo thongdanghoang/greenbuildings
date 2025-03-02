@@ -115,13 +115,16 @@ export class BuildingsComponent
       // Update your component properties with the fetched data
       this.selectedBuildingDetails = details;
       this.balance = balance;
+      const transactionType = building.subscriptionDTO
+        ? TransactionType.UPGRADE
+        : TransactionType.NEW_PURCHASE;
       const dialogConfig: DynamicDialogConfig<SubscriptionDialogOptions> = {
         width: '50rem',
         modal: true,
         data: {
           selectedBuildingDetails: this.selectedBuildingDetails,
           balance: this.balance,
-          type: TransactionType.NEW_PURCHASE
+          type: transactionType
         }
       };
       this.ref = this.dialogService.open(
@@ -195,7 +198,10 @@ export class BuildingsComponent
       })
       .pipe(takeUntil(this.destroy$))
       .subscribe(buildings => {
-        this.buildings = buildings.results;
+        this.buildings = buildings.results.map(building => ({
+          ...building,
+          subscription: building.subscriptionDTO ?? null
+        }));
         buildings.results.forEach(building => {
           const marker = L.marker([building.latitude, building.longitude]);
           marker.addTo(this.map);

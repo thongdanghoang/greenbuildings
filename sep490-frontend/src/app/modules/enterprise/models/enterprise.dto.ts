@@ -4,11 +4,10 @@ import {UUID} from '../../../../types/uuid';
 export interface Building extends BaseDTO {
   name: string;
   address?: string;
-  validFromInclusive?: Date;
-  validToInclusive?: Date;
   activated?: boolean;
   latitude: number;
   longitude: number;
+  subscriptionDTO?: Subscription;
 }
 
 export interface BuildingDetails extends BaseDTO {
@@ -46,4 +45,10 @@ export interface SubscribeRequest extends BaseDTO {
   monthRatio: number;
   deviceRatio: number;
   type: keyof typeof TransactionType;
+}
+
+export interface Subscription extends BaseDTO {
+  startDate?: Date;
+  endDate?: Date;
+  maxNumberOfDevices?: number;
 }

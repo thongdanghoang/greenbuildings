@@ -118,7 +118,8 @@
         "title": "Buildings",
         "btn": {
           "add": "Add building",
-          "activate": "Activate"
+          "activate": "Activate",
+          "update": "Update"
         },
         "noRow": "No buildings found."
       },
