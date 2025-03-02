@@ -48,7 +48,6 @@ spring:
   application:
     name: sep490-idp
     homepage: http://localhost:4200
-#    TODO : hard code ?
   datasource:
     url: jdbc:postgresql://localhost:5432/sep490_idp?serverTimezone=UTC
     username: postgres

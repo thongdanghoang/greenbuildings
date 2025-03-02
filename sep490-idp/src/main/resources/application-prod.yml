@@ -49,8 +49,7 @@ spring:
       mail.smtp.auth: false
   application:
     name: greenbuildings-idp
-    homepage: http://localhost:4200
-#    TODO : hard code ?
+    homepage: https://greenbuildings.cloud
   datasource:
     url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}?serverTimezone=UTC
     username: ${POSTGRES_USER}
