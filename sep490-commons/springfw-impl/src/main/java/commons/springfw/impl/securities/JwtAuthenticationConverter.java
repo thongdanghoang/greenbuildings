@@ -69,7 +69,6 @@ public class JwtAuthenticationConverter
                         email,
                         enterpriseId,
                         StringUtils.EMPTY,
-                        StringUtils.EMPTY, // can't initialize language from JWT
                         List.copyOf(authorities),
                         List.copyOf(buildingPermissions)
                 )

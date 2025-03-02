@@ -2,15 +2,14 @@ package greenbuildings.idp.security;
 
 import commons.springfw.impl.entities.AbstractBaseEntity;
 import commons.springfw.impl.securities.UserContextData;
+import greenbuildings.commons.api.dto.auth.BuildingPermissionDTO;
+import greenbuildings.idp.entity.UserEntity;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
-import greenbuildings.commons.api.dto.auth.BuildingPermissionDTO;
-import greenbuildings.idp.entity.UserEntity;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Getter
 public class MvcUserContextData extends UserContextData {
@@ -21,8 +20,7 @@ public class MvcUserContextData extends UserContextData {
                               List<BuildingPermissionDTO> permissions) {
         super(userEntity.getEmail(),
               Optional.ofNullable(userEntity.getEnterprise()).map(AbstractBaseEntity::getId).orElse(null),
-                userEntity.getPassword(),
-              userEntity.getLocale(),
+              userEntity.getPassword(),
               List.copyOf(authorities),
               List.copyOf(permissions));
         this.userEntity = userEntity;
