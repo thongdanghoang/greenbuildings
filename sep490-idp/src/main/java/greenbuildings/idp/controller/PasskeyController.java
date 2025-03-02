@@ -15,6 +15,8 @@ import greenbuildings.idp.security.MvcUserContextData;
 import greenbuildings.idp.service.AuthenticatorService;
 import greenbuildings.idp.service.impl.LoginService;
 
+import java.util.NoSuchElementException;
+
 @Controller
 @RequiredArgsConstructor
 @Slf4j
@@ -28,7 +30,7 @@ public class PasskeyController {
         try {
             var user = authenticatorService.authenticate(verification);
             loginService.login(user);
-        } catch (EntityNotFoundException ex) {
+        } catch (EntityNotFoundException | NoSuchElementException ex) {
             return "redirect:/login?message=login.error.noPasskey";
         }
 
