@@ -7,7 +7,7 @@ export interface Building extends BaseDTO {
   activated?: boolean;
   latitude: number;
   longitude: number;
-  subscriptionDTO?: Subscription | null;
+  subscriptionDTO?: Subscription;
 }
 
 export interface BuildingDetails extends BaseDTO {

@@ -137,27 +137,19 @@
             </div>
         </div>
         <div class="p-2 flex justify-end">
-            @if (building.subscriptionDTO === null) {
-                <p-button
-                    class="*:w-24"
-                    severity="primary"
-                    (click)="openDialog(building)"
-                    [label]="
-                        'enterprise.buildings.overview.btn.activate' | translate
-                    "
-                    outlined
-                />
-            } @else {
-                <p-button
-                    class="*:w-24"
-                    severity="primary"
-                    (click)="openDialog(building)"
-                    [label]="
-                        'enterprise.buildings.overview.btn.update' | translate
-                    "
-                    outlined
-                />
-            }
+            <p-button
+                class="*:w-24"
+                severity="primary"
+                (click)="openDialog(building)"
+                [label]="
+                    building.subscriptionDTO === null
+                        ? ('enterprise.buildings.overview.btn.activate'
+                          | translate)
+                        : ('enterprise.buildings.overview.btn.update'
+                          | translate)
+                "
+                outlined
+            />
         </div>
     </div>
 </ng-template>
