@@ -93,7 +93,7 @@
                     </div>
                     <div>{{ building.numberOfDevices }}</div>
                 </div>
-                @if (building.subscription !== null) {
+                @if (building.subscriptionDTO !== null) {
                     <div class="flex flex-col gap-1">
                         <div class="text-sm">
                             {{
@@ -103,7 +103,7 @@
                         </div>
                         <div>
                             {{
-                                building.subscription?.startDate
+                                building.subscriptionDTO?.startDate
                                     | date: "dd.MM.yyyy"
                             }}
                         </div>
@@ -117,7 +117,7 @@
                         </div>
                         <div>
                             {{
-                                building.subscription?.endDate
+                                building.subscriptionDTO?.endDate
                                     | date: "dd.MM.yyyy"
                             }}
                         </div>
@@ -137,7 +137,7 @@
             </div>
         </div>
         <div class="p-2 flex justify-end">
-            @if (building.subscription === null) {
+            @if (building.subscriptionDTO === null) {
                 <p-button
                     class="*:w-24"
                     severity="primary"

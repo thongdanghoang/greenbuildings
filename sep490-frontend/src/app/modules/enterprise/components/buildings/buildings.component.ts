@@ -198,10 +198,7 @@ export class BuildingsComponent
       })
       .pipe(takeUntil(this.destroy$))
       .subscribe(buildings => {
-        this.buildings = buildings.results.map(building => ({
-          ...building,
-          subscription: building.subscriptionDTO ?? null
-        }));
+        this.buildings = buildings.results;
         buildings.results.forEach(building => {
           const marker = L.marker([building.latitude, building.longitude]);
           marker.addTo(this.map);
