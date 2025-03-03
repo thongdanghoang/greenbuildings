@@ -118,7 +118,8 @@
         "title": "建筑物",
         "btn": {
           "add": "添加建筑物",
-          "activate": "激活"
+          "activate": "激活",
+          "update": "更新"
         },
         "noRow": "未找到任何建筑物。"
       },

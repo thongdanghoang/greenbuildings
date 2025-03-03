@@ -115,13 +115,16 @@ export class BuildingsComponent
       // Update your component properties with the fetched data
       this.selectedBuildingDetails = details;
       this.balance = balance;
+      const transactionType = building.subscriptionDTO
+        ? TransactionType.UPGRADE
+        : TransactionType.NEW_PURCHASE;
       const dialogConfig: DynamicDialogConfig<SubscriptionDialogOptions> = {
         width: '50rem',
         modal: true,
         data: {
           selectedBuildingDetails: this.selectedBuildingDetails,
           balance: this.balance,
-          type: TransactionType.NEW_PURCHASE
+          type: transactionType
         }
       };
       this.ref = this.dialogService.open(
