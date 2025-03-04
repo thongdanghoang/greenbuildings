@@ -8,6 +8,7 @@ import {AccordionModule} from 'primeng/accordion';
 import {AutoFocusModule} from 'primeng/autofocus';
 import {AvatarModule} from 'primeng/avatar';
 import {BadgeModule} from 'primeng/badge';
+import {BlockUIModule} from 'primeng/blockui';
 import {ButtonModule} from 'primeng/button';
 import {CardModule} from 'primeng/card';
 import {CheckboxModule} from 'primeng/checkbox';
@@ -18,8 +19,8 @@ import {DrawerModule} from 'primeng/drawer';
 import {DialogService, DynamicDialog} from 'primeng/dynamicdialog';
 import {FloatLabelModule} from 'primeng/floatlabel';
 import {FluidModule} from 'primeng/fluid';
-import {IconField} from 'primeng/iconfield';
-import {InputIcon} from 'primeng/inputicon';
+import {IconFieldModule} from 'primeng/iconfield';
+import {InputIconModule} from 'primeng/inputicon';
 import {InputNumberModule} from 'primeng/inputnumber';
 import {InputSwitchModule} from 'primeng/inputswitch';
 import {InputTextModule} from 'primeng/inputtext';
@@ -27,17 +28,19 @@ import {MenuModule} from 'primeng/menu';
 import {MenubarModule} from 'primeng/menubar';
 import {MessageModule} from 'primeng/message';
 import {MessagesModule} from 'primeng/messages';
-import {MultiSelect} from 'primeng/multiselect';
+import {MultiSelectModule} from 'primeng/multiselect';
 import {PaginatorModule} from 'primeng/paginator';
 import {PasswordModule} from 'primeng/password';
+import {ProgressSpinnerModule} from 'primeng/progressspinner';
 import {RippleModule} from 'primeng/ripple';
-import {Select} from 'primeng/select';
+import {SelectModule} from 'primeng/select';
 import {SelectButtonModule} from 'primeng/selectbutton';
+import {SliderModule} from 'primeng/slider';
 import {TableModule} from 'primeng/table';
 import {TabMenuModule} from 'primeng/tabmenu';
 import {TagModule} from 'primeng/tag';
 import {ToastModule} from 'primeng/toast';
-import {ToggleSwitch} from 'primeng/toggleswitch';
+import {ToggleSwitchModule} from 'primeng/toggleswitch';
 import {CardTemplateComponent} from './components/card/card-template/card-template.component';
 import {ConfirmDialogComponent} from './components/dialog/confirm-dialog/confirm-dialog.component';
 import {FormFieldErrorComponent} from './components/form/form-field-error/form-field-error.component';
@@ -47,7 +50,6 @@ import {ErrorMessagesDirective} from './directives/error-messages.directive';
 import {FormFieldErrorDirective} from './directives/form-field-error.directive';
 import {TranslateParamsPipe} from './pipes/translate-params.pipe';
 import {ModalProvider} from './services/modal-provider';
-import {SliderModule} from 'primeng/slider';
 
 const primeNgModules = [
   AccordionModule,
@@ -55,6 +57,7 @@ const primeNgModules = [
   AvatarModule,
   BadgeModule,
   ButtonModule,
+  BlockUIModule,
   CardModule,
   CheckboxModule,
   DatePickerModule,
@@ -65,24 +68,25 @@ const primeNgModules = [
   FloatLabelModule,
   FluidModule,
   InputNumberModule,
-  IconField,
-  InputIcon,
+  IconFieldModule,
+  InputIconModule,
   InputTextModule,
   InputSwitchModule,
   MessageModule,
   MessagesModule,
   MenuModule,
   MenubarModule,
-  Select,
+  SelectModule,
   SelectButtonModule,
   TableModule,
   TabMenuModule,
   ToastModule,
   PaginatorModule,
   PasswordModule,
+  ProgressSpinnerModule,
   RippleModule,
-  MultiSelect,
-  ToggleSwitch,
+  MultiSelectModule,
+  ToggleSwitchModule,
   TagModule,
   SliderModule,
   InputNumberModule
