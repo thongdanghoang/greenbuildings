@@ -2,18 +2,14 @@ import {Injectable} from '@angular/core';
 import {definePreset} from '@primeng/themes';
 import Aura from '@primeng/themes/aura';
 import {PrimeNG, ThemeType} from 'primeng/config';
-import {
-  BehaviorSubject,
-  Observable,
-  filter,
-  of,
-  switchMap,
-  takeUntil
-} from 'rxjs';
-import {UserService} from '../../../services/user.service';
-import {Theme} from '../../shared/models/user-configs';
+import {BehaviorSubject, Observable, of} from 'rxjs';
 import {SubscriptionAwareComponent} from '../subscription-aware.component';
-import {ApplicationService} from './application.service';
+
+enum Theme {
+  DARK,
+  LIGHT,
+  SYSTEM
+}
 
 const MyPreset = definePreset(Aura, {
   primitive: {
@@ -57,11 +53,7 @@ export class ThemeService extends SubscriptionAwareComponent {
   systemPreferredColorTheme: ThemeType;
   userPreferredColorTheme: ThemeType;
 
-  constructor(
-    private readonly config: PrimeNG,
-    private readonly userService: UserService,
-    private readonly applicationService: ApplicationService
-  ) {
+  constructor(private readonly config: PrimeNG) {
     super();
     const themeOptions = {
       prefix: 'p',
@@ -111,31 +103,10 @@ export class ThemeService extends SubscriptionAwareComponent {
     this.config.theme.set(this.userPreferredColorTheme);
     if (document.querySelector('html')?.classList.contains(this.TOKEN)) {
       localStorage.setItem(this.LOCAL_STORAGE_KEY, Theme[Theme.LIGHT]);
-      this.changeTheme(Theme[Theme.LIGHT] as keyof typeof Theme);
     } else {
       localStorage.setItem(this.LOCAL_STORAGE_KEY, Theme[Theme.DARK]);
-      this.changeTheme(Theme[Theme.DARK] as keyof typeof Theme);
     }
     document.querySelector('html')?.classList.toggle(this.TOKEN);
-  }
-
-  setTheme(theme: keyof typeof Theme): void {
-    if (theme === Theme[Theme.SYSTEM]) {
-      localStorage.removeItem(this.LOCAL_STORAGE_KEY);
-      return;
-    }
-    localStorage.setItem(this.LOCAL_STORAGE_KEY, theme);
-  }
-
-  private changeTheme(theme: keyof typeof Theme): void {
-    this.applicationService
-      .isAuthenticated()
-      .pipe(
-        takeUntil(this.destroy$),
-        filter(isAuthenticated => isAuthenticated),
-        switchMap(() => this.userService.changeTheme(theme))
-      )
-      .subscribe();
   }
 
   private isThemeConfigured(): boolean {

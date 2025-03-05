@@ -3,7 +3,7 @@ import {TranslateService} from '@ngx-translate/core';
 import {Observable, Subject, of, switchMap, takeUntil, tap} from 'rxjs';
 import {ApplicationService} from './modules/core/services/application.service';
 import {ThemeService} from './modules/core/services/theme.service';
-import {UserLanguage} from './modules/shared/enums/user-language.enum';
+import {UserLocale} from './modules/shared/enums/user-language.enum';
 import {UserService} from './services/user.service';
 
 @Component({
@@ -34,18 +34,16 @@ export class AppComponent implements OnInit, OnDestroy {
               tap(userConfigs => {
                 if (userConfigs) {
                   this.translate.use(userConfigs.language.split('-')[0]); // extract from locale
-                  this.themeService.setTheme(userConfigs.theme);
                 }
               })
             );
           }
-          this.translate.use(UserLanguage.VI.split('-')[0]);
+          this.translate.use(UserLocale.VI.split('-')[0]);
           return of(null);
         })
       )
-      .subscribe(() => {
-        this.themeService.initTheme();
-      });
+      .subscribe();
+    this.themeService.initTheme();
     // Listen for system theme changes
     this.systemThemeMediaQuery = window.matchMedia(
       this.themeService.SYSTEM_COLOR_SCHEME_QUERY
