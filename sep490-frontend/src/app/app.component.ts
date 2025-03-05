@@ -1,9 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
-import {Observable, Subject, of, switchMap, takeUntil, tap} from 'rxjs';
+import {Observable, Subject, filter, switchMap, take} from 'rxjs';
 import {ApplicationService} from './modules/core/services/application.service';
 import {ThemeService} from './modules/core/services/theme.service';
-import {UserLocale} from './modules/shared/enums/user-language.enum';
 import {UserService} from './services/user.service';
 
 @Component({
@@ -23,26 +22,7 @@ export class AppComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.applicationService
-      .isAuthenticated()
-      .pipe(
-        takeUntil(this.destroy$),
-        switchMap(isAuthenticated => {
-          if (isAuthenticated) {
-            return this.userService.userConfigs.pipe(
-              takeUntil(this.destroy$),
-              tap(userConfigs => {
-                if (userConfigs) {
-                  this.translate.use(userConfigs.language.split('-')[0]); // extract from locale
-                }
-              })
-            );
-          }
-          this.translate.use(UserLocale.VI.split('-')[0]);
-          return of(null);
-        })
-      )
-      .subscribe();
+    this.translate.setDefaultLang('vi');
     this.themeService.initTheme();
     // Listen for system theme changes
     this.systemThemeMediaQuery = window.matchMedia(
@@ -52,6 +32,15 @@ export class AppComponent implements OnInit, OnDestroy {
       'change',
       this.handleThemeChange
     );
+    this.authenticated
+      .pipe(
+        filter(auth => auth),
+        take(1),
+        switchMap(() => this.userService.userConfigs)
+      )
+      .subscribe(configs => {
+        this.translate.use(configs.language.split('-')[0]);
+      });
   }
 
   ngOnDestroy(): void {
