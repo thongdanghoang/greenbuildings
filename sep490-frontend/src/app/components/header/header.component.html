@@ -29,7 +29,7 @@
     }
 
     <p-button
-        icon="pi {{ isDarkMode ? 'pi pi-moon' : 'pi pi-sun' }}"
+        icon="pi {{ (isDarkMode | async) ? 'pi pi-moon' : 'pi pi-sun' }}"
         [rounded]="true"
         [text]="true"
         (onClick)="toggleLightDark()"

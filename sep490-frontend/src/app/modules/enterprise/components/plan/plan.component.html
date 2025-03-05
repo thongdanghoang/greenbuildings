@@ -46,10 +46,10 @@
     </div>
 </div>
 <div
-    class="bg-[#F4FCFD] block items-center justify-center my-8 py-24 mx-4 rounded-md border-[#E5E7EB] border"
+    class="bg-primary-50 dark:bg-primary-950 block items-center justify-center my-8 py-24 mx-4 rounded-md border-gray-50 dark:border-gray-950 border"
 >
     <div
-        class="flex flex-col lg:flex-row items-center justify-stretch text-black"
+        class="flex flex-col lg:flex-row items-center justify-stretch text-black dark:text-white"
     >
         <p class="ml-0 lg:ml-20">
             {{ "purchaseCredit.currentBalance" | translate }}
@@ -64,11 +64,11 @@
 </div>
 
 <div
-    class="bg-[#F4FCFD] block items-center justify-center my-4 mx-4 rounded-md border-[#E5E7EB] border"
+    class="bg-primary-50 dark:bg-primary-950 block items-center justify-center my-4 mx-4 rounded-md border-gray-50 dark:border-gray-950 border"
 >
     <div class="flex flex-col gap-16">
         <div
-            class="bg-white rounded-md border-[#E5E7EB] border px-4 py-2 mt-8 mx-6 flex justify-center items-center lg:justify-start"
+            class="bg-white dark:bg-zinc-900 rounded-md border-gray-50 dark:border-zinc-900 border px-4 py-2 mt-8 mx-6 flex justify-center items-center lg:justify-start"
         >
             <p>{{ "purchaseCredit.selectCreditPackage" | translate }}</p>
         </div>
@@ -77,11 +77,11 @@
         >
             @for (pkg of creditPackages; track pkg.id) {
                 <card-template
-                    class="text-center rounded-lg border border-[#e0e0e0] bg-white max-w-40 w-full cursor-pointer transition-all duration-300"
+                    class="text-center rounded-lg border border-gray-50 bg-white max-w-40 w-full cursor-pointer transition-all duration-300 dark:border-gray-950 dark:bg-zinc-900"
                     [ngClass]="{
                         'border-primary border-2 shadow-lg shadow-primary/20':
                             selectedPackage?.id === pkg.id,
-                        'border-[#e0e0e0] hover:border-primary/50 hover:shadow-md':
+                        'border-gray-50 hover:border-primary/50 hover:shadow-md':
                             selectedPackage?.id !== pkg.id,
                     }"
                     (click)="selectPackage(pkg)"
@@ -95,7 +95,7 @@
                         />
                     </div>
                     <!-- Body: Credit Value -->
-                    <div body class="text-lg font-semibold">
+                    <div body class="text-lg font-semibold border-b">
                         {{ pkg.numberOfCredits }}
                         {{ "payment.history.credit.title" | translate }}
                     </div>
@@ -103,7 +103,7 @@
                     <!-- Footer: Price -->
                     <div
                         footer
-                        class="text-gray-600 text-base font-medium text-center"
+                        class="text-gray-600 dark:text-gray-400 text-base font-medium text-center"
                     >
                         {{ pkg.price | number: "1.0-0" }} VND
                     </div>
@@ -122,12 +122,12 @@
 </div>
 
 <div
-    class="block items-center justify-center my-8 mx-4 rounded-md border-[#E5E7EB] border"
+    class="block items-center justify-center my-8 mx-4 rounded-md border-gray-50 dark:border-gray-950 border"
 >
     <p-accordion [value]="0">
         @for (tab of tabs; track tab.title) {
             <p-accordion-panel [value]="tab.value">
-                <p-accordion-header class="bg-[#F4FCFD]">{{
+                <p-accordion-header class="bg-primary-50 dark:bg-primary-950">{{
                     tab.title | translate
                 }}</p-accordion-header>
                 <p-accordion-content>
