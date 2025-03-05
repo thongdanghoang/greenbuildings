@@ -240,10 +240,11 @@ export class BuildingsComponent
     }
 
     const tiles = L.tileLayer(
-      'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+      'http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',
       {
         maxZoom: 18,
-        minZoom: 1
+        minZoom: 1,
+        subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
       }
     );
 
