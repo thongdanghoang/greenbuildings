@@ -1,7 +1,7 @@
 package greenbuildings.enterprise.dtos;
 
 import green_buildings.commons.api.validators.MultipleOf;
-import greenbuildings.enterprise.entities.TransactionType;
+import greenbuildings.enterprise.entities.enums.TransactionType;
 import jakarta.validation.constraints.Min;
 
 import java.util.UUID;

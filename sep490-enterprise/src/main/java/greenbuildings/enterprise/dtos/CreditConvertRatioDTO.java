@@ -1,6 +1,6 @@
 package greenbuildings.enterprise.dtos;
 
-import greenbuildings.enterprise.entities.CreditConvertType;
+import greenbuildings.enterprise.entities.enums.CreditConvertType;
 
 import java.util.UUID;
 

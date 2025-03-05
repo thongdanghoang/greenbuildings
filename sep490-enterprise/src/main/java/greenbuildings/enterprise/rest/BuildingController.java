@@ -65,4 +65,14 @@ public class BuildingController {
         return ResponseEntity.status(HttpStatus.CREATED).body(buildingMapper.toDto(createdBuilding));
     }
     
+    @PostMapping("/machine")
+    public void addMachine() {
+        // TODO
+    }
+    
+    @PostMapping("/activity")
+    public void addEmissionActivity() {
+        // TODO
+    }
+    
 }
