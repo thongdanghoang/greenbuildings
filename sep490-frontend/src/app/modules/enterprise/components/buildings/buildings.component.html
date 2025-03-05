@@ -23,11 +23,7 @@
     </ng-template>
 </p-selectbutton>
 
-<div
-    [hidden]="listView"
-    class="border-black border-2 border-solid"
-    style="height: 600px"
->
+<div [hidden]="listView" style="height: 600px">
     <div class="h-full" id="map"></div>
 </div>
 
@@ -66,23 +62,26 @@
 
 <ng-template #cardTemplate let-building>
     <div class="rounded box-shadow border-t-2 border-t-primary *:w-full">
-        <div class="p-4 rounded-t bg-primary-50 flex justify-between">
+        <div
+            class="p-4 rounded-t bg-primary-50 dark:bg-primary-950 flex justify-between"
+        >
             <div class="text-xl font-bold">{{ building.name }}</div>
             <div class="">
                 <p-button
                     (onClick)="viewBuildingDetails(building.id)"
                     icon="pi pi-info"
                     text
+                    severity="info"
                 />
                 <p-button
                     icon="pi pi-map"
                     text
                     (onClick)="zoomTo(building.latitude, building.longitude)"
                 />
-                <p-button icon="pi pi-trash" severity="warn" text />
+                <p-button icon="pi pi-trash" severity="danger" text />
             </div>
         </div>
-        <div class="p-4 border-b">
+        <div class="p-4 border-b dark:bg-zinc-900">
             <div class="grid grid-cols-4">
                 <div class="flex flex-col gap-1">
                     <div class="text-sm">
@@ -136,7 +135,7 @@
                 </div>
             </div>
         </div>
-        <div class="p-2 flex justify-end">
+        <div class="p-2 flex justify-end dark:bg-zinc-900">
             <p-button
                 class="*:w-24"
                 severity="primary"

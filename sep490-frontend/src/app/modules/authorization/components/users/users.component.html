@@ -1,7 +1,7 @@
 <h1 class="font-bold text-lg text-primary">
     {{ "enterprise.Users.title" | translate }}
 </h1>
-<p class="font-light">{{ "enterprise.Users.description" | translate }}</p>
+<p class="font-light mb-4">{{ "enterprise.Users.description" | translate }}</p>
 <table-template
     *ngIf="!applicationService.isMobile()"
     [fetch]="fetchUsers"
