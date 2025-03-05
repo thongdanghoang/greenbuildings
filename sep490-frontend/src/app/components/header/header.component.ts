@@ -4,13 +4,13 @@ import {Observable, map, of, switchMap, takeUntil} from 'rxjs';
 import {ApplicationService} from '../../modules/core/services/application.service';
 import {ThemeService} from '../../modules/core/services/theme.service';
 import {SubscriptionAwareComponent} from '../../modules/core/subscription-aware.component';
-import {UserLanguage} from '../../modules/shared/enums/user-language.enum';
+import {UserLocale} from '../../modules/shared/enums/user-language.enum';
 import {UserService} from '../../services/user.service';
 
 interface Language {
   display: string;
   mobile: string;
-  key: UserLanguage;
+  key: UserLocale;
 }
 
 @Component({
@@ -39,14 +39,14 @@ export class HeaderComponent
 
   ngOnInit(): void {
     this.languages = [
-      {display: 'Tiếng Việt', mobile: 'VI', key: UserLanguage.VI},
-      {display: 'English', mobile: 'EN', key: UserLanguage.EN},
-      {display: '中文(简体)', mobile: 'ZH', key: UserLanguage.ZH}
+      {display: 'Tiếng Việt', mobile: 'VI', key: UserLocale.VI},
+      {display: 'English', mobile: 'EN', key: UserLocale.EN},
+      {display: '中文(简体)', mobile: 'ZH', key: UserLocale.ZH}
     ];
     this.selectedLanguage = {
       display: 'Tiếng Việt',
       mobile: 'VI',
-      key: UserLanguage.VI
+      key: UserLocale.VI
     };
     this.translate.onLangChange
       .pipe(

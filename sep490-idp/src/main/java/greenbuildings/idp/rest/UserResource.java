@@ -28,30 +28,18 @@ public class UserResource {
     
     private final UserService userService;
     
-    @GetMapping("/configs")
+    @GetMapping("/locale")
     public ResponseEntity<UserConfigs> getLanguage(@AuthenticationPrincipal UserContextData userContextData) {
         var userEntity = userService.findByEmail(userContextData.getUsername()).orElseThrow();
         var userLocaleResponse = UserConfigs
                 .builder()
                 .language(UserLocale.fromCode(userEntity.getLocale()).getCode())
-                .theme(userEntity.getTheme())
                 .build();
         return ResponseEntity.ok(userLocaleResponse);
     }
     
-    @PutMapping("/theme/{theme}")
-    public ResponseEntity<Void> changeTheme(@PathVariable("theme") String theme,
-                                            @AuthenticationPrincipal UserContextData userContextData) {
-        var userEntity = userService.findByEmail(userContextData.getUsername()).orElseThrow();
-        
-        userEntity.setTheme(theme);
-        
-        userService.update(userEntity);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-    }
-    
-    @PutMapping("/language/{language}")
-    public ResponseEntity<Void> changeLanguage(@PathVariable("language") String locale,
+    @PutMapping("/locale/{locale}")
+    public ResponseEntity<Void> changeLanguage(@PathVariable("locale") String locale,
                                                @AuthenticationPrincipal UserContextData userContextData) {
         if (Arrays.stream(UserLocale.values())
                   .map(UserLocale::getCode)
