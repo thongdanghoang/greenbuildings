@@ -273,5 +273,72 @@
         }
       }
     }
+  },
+  "landingPage": {
+    "carousel": {
+      "title": "Your Gateway to Sustainable Business",
+      "description": "Streamline Your Sustainability Initiatives with Unprecedented Transparency, Security, and Data Integrity."
+    },
+    "intro": {
+      "title": "Getting Started with Green Building",
+      "description": "Begin your journey towards efficient carbon management and sustainability with Green Building. Our platform is designed to make it easy for you to calculate, monitor, and disclose your company's carbon footprint.",
+      "item1": "Access your personalized dashboard to view your progress",
+      "item2": "Set targets",
+      "item3": "Showcase your commitment to a greener future",
+      "register": "Register"
+    },
+    "dashBoard": {
+      "header": "Human Resource Management",
+      "title": "Create Your Business Dashboard",
+      "item1": {
+        "title": "Visualize and calculate",
+        "detail": "Visualize and calculate your company's carbon footprint and sustainability performance."
+      },
+      "item2": {
+        "title": "Set, track, and achieve",
+        "detail": "Set, track, and achieve ambitious sustainability goals."
+      },
+      "item3": {
+        "title": "Manage and disclose",
+        "detail": "Manage and disclose your carbon credits with transparency and security."
+      },
+      "item4": {
+        "title": "Share your sustainability story",
+        "detail": "Share your sustainability story with your audience through personalized dashboard links."
+      }
+    },
+    "testimonial": {
+      "title": "Testimonial",
+      "subtitle": "Trusted by Leading Companies",
+      "description": "GreenBuilding is proud to be the carbon management platform of choice for numerous forward-thinking companies across various industries. Our clients rely on GreenBuilding to streamline their sustainability initiatives and demonstrate their commitment to a greener future. Some of our valued customers include: \"companies that are already using the platform\""
+    },
+    "reason": {
+      "subtitle": "Carbon Clarity",
+      "title": "Why Choose GreenBuilding",
+      "description": "The GreenBuilding platform combines the power of Power BI to offer a comprehensive carbon management solution that provides paralleled transparency and data security. By using GreenBuilding, you can:"
+    },
+    "whyChoose": {
+      "item1": {
+        "title": "Accurately calculate",
+        "description": "Accurately calculate and disclose your GHG emissions for regulatory compliance."
+      },
+      "item2": {
+        "title": "Build trust and credibility",
+        "description": "Build trust and credibility with customers, investors, and partners."
+      },
+      "item3": {
+        "title": "Enhance your company's brand",
+        "description": "Enhance your company's brand image and attract eco-conscious stakeholders."
+      },
+      "item4": {
+        "title": "Foster a culture",
+        "description": "Foster a culture of sustainability within your orzanization."
+      }
+    },
+    "footer": {
+      "support": "Get Support",
+      "detailSupport": "Our dedicated customer support team is here to help you make the most of the GreenBuilding platform. Whether you need assistance with account setup, carbon calculation, or dashboard customization, we're just a click away. Contact us for any inquiries or guidance you may need.",
+      "contact": "Contact us"
+    }
   }
 }

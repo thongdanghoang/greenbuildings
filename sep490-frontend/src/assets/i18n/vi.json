@@ -273,5 +273,72 @@
         }
       }
     }
+  },
+  "landingPage": {
+    "carousel": {
+      "title": "Cổng thông tin của bạn đến với doanh nghiệp bền vững",
+      "description": "Tối ưu hóa các sáng kiến phát triển bền vững của bạn với tính minh bạch, bảo mật và toàn vẹn dữ liệu chưa từng có."
+    },
+    "intro": {
+      "title": "Bắt đầu với Green Building",
+      "description": "Bắt đầu hành trình hướng tới quản lý carbon hiệu quả và phát triển bền vững với Green Building. Nền tảng của chúng tôi được thiết kế để giúp bạn dễ dàng tính toán, theo dõi và công bố lượng khí thải carbon của công ty bạn.",
+      "item1": "Truy cập bảng điều khiển được cá nhân hóa của bạn để xem tiến trình của bạn",
+      "item2": "Đặt mục tiêu",
+      "item3": "Thể hiện cam kết của bạn đối với một tương lai xanh hơn",
+      "register": "Đăng Kí"
+    },
+    "dashBoard": {
+      "header": "Quản lý nguồn nhân lực",
+      "title": "Tạo bảng điều khiển doanh nghiệp của bạn",
+      "item1": {
+        "title": "Hình dung và tính toán",
+        "detail": "Hình dung và tính toán lượng khí thải carbon và hiệu suất phát triển bền vững của công ty bạn."
+      },
+      "item2": {
+        "title": "Thiết lập, theo dõi và đạt được",
+        "detail": "Đặt ra, theo dõi và đạt được các mục tiêu phát triển bền vững đầy tham vọng."
+      },
+      "item3": {
+        "title": "Quản lý và tiết lộ",
+        "detail": "Quản lý và công bố tín chỉ carbon của bạn một cách minh bạch và an toàn."
+      },
+      "item4": {
+        "title": "Chia sẻ câu chuyện phát triển bền vững của bạn",
+        "detail": "Chia sẻ câu chuyện phát triển bền vững của bạn với khán giả thông qua các liên kết bảng điều khiển được cá nhân hóa."
+      }
+    },
+    "testimonial": {
+      "title": "Lời chứng thực",
+      "subtitle": "Được các công ty hàng đầu tin tưởng",
+      "description": "GreenBuilding tự hào là nền tảng quản lý carbon được các công ty có tư duy tiến bộ lựa chọn trong nhiều ngành công nghiệp khác nhau. Khách hàng của chúng tôi tin tưởng GreenBuilding sẽ hợp lý hóa các sáng kiến \u200B\u200Bphát triển bền vững của họ và chứng minh cam kết của họ đối với một tương lai xanh hơn. Một số khách hàng có giá trị của chúng tôi bao gồm: \"các công ty đã sử dụng nền tảng này\""
+    },
+    "reason": {
+      "subtitle": "Độ trong của Carbon",
+      "title": "Tại sao nên chọn GreenBuilding",
+      "description": "Nền tảng GreenBuilding kết hợp sức mạnh của Power BI để cung cấp giải pháp quản lý carbon toàn diện, cung cấp tính minh bạch song song và bảo mật dữ liệu. Bằng cách sử dụng GreenBuilding, bạn có thể:"
+    },
+    "whyChoose": {
+      "item1": {
+        "title": "Tính toán chính xác",
+        "description": "Tính toán và công bố chính xác lượng khí thải GHG của bạn để tuân thủ quy định."
+      },
+      "item2": {
+        "title": "Xây dựng lòng tin và uy tín",
+        "description": "Xây dựng lòng tin và uy tín với khách hàng, nhà đầu tư và đối tác."
+      },
+      "item3": {
+        "title": "Nâng cao thương hiệu công ty của bạn",
+        "description": "Nâng cao hình ảnh thương hiệu công ty của bạn và thu hút các bên liên quan có ý thức về môi trường"
+      },
+      "item4": {
+        "title": "Nuôi dưỡng văn hóa",
+        "description": "Nuôi dưỡng văn hóa bền vững trong tổ chức của bạn."
+      }
+    },
+    "footer": {
+      "support": "Nhận hỗ trợ",
+      "detailSupport": "Nhóm hỗ trợ khách hàng tận tâm của chúng tôi luôn sẵn sàng giúp bạn tận dụng tối đa nền tảng GreenBuilding. Cho dù bạn cần hỗ trợ thiết lập tài khoản, tính toán lượng carbon hay tùy chỉnh bảng điều khiển, chúng tôi chỉ cách bạn một cú nhấp chuột. Hãy liên hệ với chúng tôi để được giải đáp mọi thắc mắc hoặc hướng dẫn bạn cần.",
+      "contact": "Liên hệ với chúng tôi"
+    }
   }
 }
