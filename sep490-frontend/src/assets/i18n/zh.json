@@ -273,5 +273,72 @@
         }
       }
     }
+  },
+  "landingPage": {
+    "carousel": {
+      "title": "通往可持续商业的大门",
+      "description": "通过前所未有的透明度、安全性和数据完整性优化您的可持续发展计划。"
+    },
+    "intro": {
+      "title": "简介 Green Building",
+      "description": "通过 Green Building 开启高效碳管理和可持续发展之旅。我们的平台旨在让您轻松计算、监控和披露公司的碳足迹。",
+      "item1": "访问您的个性化仪表板以查看您的进度",
+      "item2": "设定目标",
+      "item3": "展示对绿色和未来的承诺",
+      "register": "登记"
+    },
+    "dashBoard": {
+      "header": "人力资源管理",
+      "title": "创建您的业务仪表盘",
+      "item1": {
+        "title": "可视化和计算",
+        "detail": "可视化和计算贵公司的碳足迹和可持续发展绩效。"
+      },
+      "item2": {
+        "title": "设定、跟踪和实现",
+        "detail": "设定、跟踪和实现雄心勃勃的可持续发展目标。"
+      },
+      "item3": {
+        "title": "管理和披露",
+        "detail": "以透明和安全的方式管理和披露您的碳信用额度。"
+      },
+      "item4": {
+        "title": "分享您的可持续发展故事",
+        "detail": "通过个性化仪表板链接与您的受众分享您的可持续发展故事。"
+      }
+    },
+    "testimonial": {
+      "title": "评价",
+      "subtitle": "受到领先公司的信任",
+      "description": "GreenBuilding 很自豪能成为各行各业众多有远见的公司首选的碳管理平台。我们的客户依靠 GreenBuilding 来简化他们的可持续发展计划，并展示他们对更绿色未来的承诺。我们的一些重要客户包括：“已经在使用该平台的公司”"
+    },
+    "reason": {
+      "subtitle": "碳清晰度",
+      "title": "为何选择绿色建筑",
+      "description": "GreenBuilding 平台结合 Power BI 的强大功能，提供全面的碳管理解决方案，同时提供并行的透明度和数据安全性。通过使用 GreenBuilding，您可以："
+    },
+    "whyChoose": {
+      "item1": {
+        "title": "精确计算",
+        "description": "准确计算并披露您的温室气体排放量以遵守法规。"
+      },
+      "item2": {
+        "title": "建立信任和信誉",
+        "description": "与客户、投资者和合作伙伴建立信任和声誉。"
+      },
+      "item3": {
+        "title": "提升您的公司品牌",
+        "description": "提升您的企业品牌形象并吸引具有环保意识的利益相关者。"
+      },
+      "item4": {
+        "title": "培育文化",
+        "description": "在您的组织中培育可持续发展的文化。"
+      }
+    },
+    "footer": {
+      "support": "获取支持",
+      "detailSupport": "我们专门的客户支持团队将竭诚帮助您充分利用 GreenBuilding 平台。无论您需要帮助设置帐户、计算碳足迹还是自定义仪表板，只需点击一下即可。如有任何问题或需要指导，请联系我们。",
+      "contact": "联系我们"
+    }
   }
 }

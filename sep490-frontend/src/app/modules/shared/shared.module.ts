@@ -50,6 +50,8 @@ import {ErrorMessagesDirective} from './directives/error-messages.directive';
 import {FormFieldErrorDirective} from './directives/form-field-error.directive';
 import {TranslateParamsPipe} from './pipes/translate-params.pipe';
 import {ModalProvider} from './services/modal-provider';
+import {CarouselModule} from 'primeng/carousel';
+import {ImageModule} from 'primeng/image';
 
 const primeNgModules = [
   AccordionModule,
@@ -89,7 +91,9 @@ const primeNgModules = [
   ToggleSwitchModule,
   TagModule,
   SliderModule,
-  InputNumberModule
+  InputNumberModule,
+  CarouselModule,
+  ImageModule
 ];
 
 const commons = [
