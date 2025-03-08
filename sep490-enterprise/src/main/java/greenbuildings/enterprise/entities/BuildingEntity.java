@@ -1,13 +1,11 @@
 package greenbuildings.enterprise.entities;
 
 import commons.springfw.impl.entities.AbstractAuditableEntity;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
@@ -16,9 +14,6 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "buildings")
@@ -52,11 +47,5 @@ public class BuildingEntity extends AbstractAuditableEntity {
     @DecimalMax("180.0")
     @Column(name = "longitude")
     private double longitude;
-    
-    @OneToMany(mappedBy = "building", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<EmissionActivityEntity> emissionActivities = new ArrayList<>();
-    
-    @OneToMany(mappedBy = "building", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<MachineEntity> machines = new ArrayList<>();
     
 }

@@ -1,37 +1,55 @@
 package greenbuildings.enterprise.entities;
 
-import commons.springfw.impl.entities.AbstractBaseEntity;
+import commons.springfw.impl.entities.AbstractAuditableEntity;
+import greenbuildings.enterprise.enums.EmissionUnit;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "emission_activity")
+@Table(name = "activity_data")
 @Getter
 @Setter
-public class EmissionActivityEntity extends AbstractBaseEntity {
+@NoArgsConstructor
+public class EmissionActivityEntity extends AbstractAuditableEntity {
     
-    @ManyToOne
-    @JoinColumn(name = "building_id", nullable = false)
-    private BuildingEntity building;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "emission_source_id")
+    private EmissionSourceEntity emissionSourceEntity;
     
-    @Column(nullable = false, length = 255)
-    private String name;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "emission_factor_id")
+    private EmissionFactorEntity emissionFactorEntity;
     
-    @Column(length = 1000)
-    private String description;
+    @NotNull
+    @Positive
+    @Column(name = "value")
+    private BigDecimal value;
     
-    @Column(nullable = false, precision = 20)
-    private BigDecimal data; // unit must be same of emission factor
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(name = "unit")
+    private EmissionUnit unit;
     
-    @ManyToOne
-    @JoinColumn(name = "emission_factor_id", nullable = false)
-    private EmissionFactorEntity emissionFactor;
+    @NotNull
+    @Column(name = "start_date")
+    private LocalDateTime startDate;
+    
+    @NotNull
+    @Column(name = "end_date")
+    private LocalDateTime endDate;
     
 }

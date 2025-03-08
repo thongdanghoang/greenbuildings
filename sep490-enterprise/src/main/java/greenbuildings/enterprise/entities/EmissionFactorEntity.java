@@ -1,49 +1,74 @@
 package greenbuildings.enterprise.entities;
 
-import commons.springfw.impl.entities.AbstractBaseEntity;
-import greenbuildings.enterprise.entities.enums.EmissionSource;
-import greenbuildings.enterprise.entities.enums.FuelType;
-import greenbuildings.enterprise.entities.enums.UnitType;
+import commons.springfw.impl.entities.AbstractAuditableEntity;
+import greenbuildings.enterprise.enums.EmissionUnit;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "emission_factor")
 @Getter
 @Setter
-public class EmissionFactorEntity extends AbstractBaseEntity {
+@NoArgsConstructor
+public class EmissionFactorEntity extends AbstractAuditableEntity {
     
-    @Column(name = "emission_source", nullable = false)
-    @Enumerated(EnumType.STRING)
-    private EmissionSource emissionSource;
-    
-    @Column(name = "fuel_type", nullable = false)
-    @Enumerated(EnumType.STRING)
-    private FuelType fuelType;
-    
-    @Column(name = "co2", nullable = false, precision = 20)
+    @Column(name = "co2")
     private BigDecimal co2 = BigDecimal.ZERO;
     
-    @Column(name = "ch4", nullable = false, precision = 20)
+    @Column(name = "ch4")
     private BigDecimal ch4 = BigDecimal.ZERO;
     
-    @Column(name = "n2o", nullable = false, precision = 20)
+    @Column(name = "n2o")
     private BigDecimal n2o = BigDecimal.ZERO;
     
-    @Column(name = "co2e", nullable = false, precision = 20)
-    private BigDecimal co2e = BigDecimal.ZERO;
+    @Column(name = "name")
+    private String name;
     
-    @Column(name = "is_direct_convert", nullable = false)
-    private boolean isDirectConvert;
-    
-    @Column(name = "input_unit", nullable = false)
+    @NotNull
     @Enumerated(EnumType.STRING)
-    private UnitType inputUnit;
+    @Column(name = "unit_numerator")
+    private EmissionUnit emissionUnitNumerator;
+    
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(name = "unit_denominator")
+    private EmissionUnit emissionUnitDenominator;
+    
+    @Column(name = "source")
+    private String source;
+    
+    @Column(name = "description")
+    private String description;
+    
+    @NotNull
+    @Column(name = "valid_from")
+    private LocalDateTime validFrom;
+    
+    @Column(name = "valid_to")
+    private LocalDateTime validTo;
+    
+    @Column(name = "is_direct_emission")
+    private boolean isDirectEmission;
+    
+    @Column(name = "conversion_value")
+    private BigDecimal conversionValue;
+    
+    @Column(name = "conversion_unit_numerator")
+    @Enumerated(EnumType.STRING)
+    private EmissionUnit conversionUnitNumerator;
+    
+    
+    @Column(name = "conversion_unit_denominator")
+    @Enumerated(EnumType.STRING)
+    private EmissionUnit conversionUnitDenominator;
 }

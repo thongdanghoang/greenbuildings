@@ -1,6 +1,6 @@
 package greenbuildings.enterprise.utils;
 
-import greenbuildings.enterprise.entities.enums.UnitType;
+import greenbuildings.enterprise.enums.EmissionUnit;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -24,7 +24,7 @@ class CalculationUtilsTest {
             "LITER, CUBIC_METER, 1000, 1",
             "GRAM, KILOGRAM, 1000, 1"
     })
-    void testValidConversions(UnitType from, UnitType to, double value, double expected) {
+    void testValidConversions(EmissionUnit from, EmissionUnit to, double value, double expected) {
         BigDecimal result = CalculationUtils.convertUnit(from, to, BigDecimal.valueOf(value));
         assertEquals(0, result.compareTo(BigDecimal.valueOf(expected)));
     }
@@ -32,21 +32,21 @@ class CalculationUtilsTest {
     @Test
     void testTrailingZeros() {
         BigDecimal bigDecimal = CalculationUtils
-                .convertUnit(UnitType.MEGAGRAM, UnitType.MEGAGRAM, BigDecimal.valueOf(1.000000000));
+                .convertUnit(EmissionUnit.MEGAGRAM, EmissionUnit.MEGAGRAM, BigDecimal.valueOf(1.000000000));
         assertEquals(BigDecimal.valueOf(1), bigDecimal);
     }
     
     @Test
     void testHalfUpRounded() {
         BigDecimal bigDecimal = CalculationUtils
-                .convertUnit(UnitType.MEGAGRAM, UnitType.MEGAGRAM, BigDecimal.valueOf(1.0));
+                .convertUnit(EmissionUnit.MEGAGRAM, EmissionUnit.MEGAGRAM, BigDecimal.valueOf(1.0));
         assertEquals(BigDecimal.valueOf(1), bigDecimal);
     }
     
     @Test
     void testInvalidConversion() {
         assertThrows(IllegalArgumentException.class, () -> {
-            CalculationUtils.convertUnit(UnitType.KILOGRAM, UnitType.LITER, BigDecimal.ONE);
+            CalculationUtils.convertUnit(EmissionUnit.KILOGRAM, EmissionUnit.LITER, BigDecimal.ONE);
         });
     }
     
