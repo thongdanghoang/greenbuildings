@@ -1,7 +1,8 @@
 package greenbuildings.enterprise.utils;
 
 
-import greenbuildings.enterprise.entities.enums.UnitType;
+import greenbuildings.enterprise.enums.EmissionUnit;
+import greenbuildings.enterprise.enums.GwpConfiguration;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -27,9 +28,7 @@ public class CalculationUtils {
     
     // References: AR5 2015
     // https://ghgprotocol.org/sites/default/files/ghgp/Global-Warming-Potential-Values%20%28Feb%2016%202016%29_1.pdf
-    public static final double GWP_CO2 = 1;
-    public static final double GWP_CH4 = 28;
-    public static final double GWP_N2O = 265;
+    static GwpConfiguration defaultGwpConfig = GwpConfiguration.AR5;
     
     
     private CalculationUtils() {
@@ -37,15 +36,17 @@ public class CalculationUtils {
     }
     
     public static double calculateCO2e(double co2, double ch4, double n2o) {
-        return (GWP_CO2 * co2) + (GWP_CH4 * ch4) + (GWP_N2O * n2o);
+        return defaultGwpConfig.getCO2() * co2
+               + defaultGwpConfig.getCH4() * ch4
+               + defaultGwpConfig.getN2O() * n2o;
     }
     
-    public static BigDecimal convertUnit(UnitType from, UnitType to, BigDecimal value) {
-        if (!UnitType.isSameCategory(from, to)) {
+    public static BigDecimal convertUnit(EmissionUnit from, EmissionUnit to, BigDecimal value) {
+        if (!from.isSameCategory(to)) {
             throw new IllegalArgumentException("Cannot convert " + from + " to " + to);
         }
-        BigDecimal fromFactor = BigDecimal.valueOf(from.getBaseConvertRatio());
-        BigDecimal toFactor = BigDecimal.valueOf(to.getBaseConvertRatio());
+        BigDecimal fromFactor = from.getBaseConvertRatio();
+        BigDecimal toFactor = to.getBaseConvertRatio();
         
         return value.multiply(toFactor)
                     .divide(fromFactor, 20, RoundingMode.HALF_UP)
