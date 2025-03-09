@@ -1,61 +1,293 @@
-INSERT INTO emission_factor (created_date, created_by, last_modified_date, last_modified_by, id, version, co2, ch4, n2o, name, unit_numerator, unit_denominator, source, description, valid_from, valid_to, is_direct_emission, conversion_value, conversion_unit_numerator, conversion_unit_denominator) VALUES (null, null, null, null, '2caee9ee-aac5-4b48-b10f-b2aa8756c784', 0, 98.300000, 1.000000, 1.500000, 'Hệ số phát thải của than antraxit', 'KILOGRAM', 'TERAJOULE', 'Công nghiệp năng lượng', null, '2025-01-01 00:00:00.000000', null, false, 26.700000, 'TERAJOULE', 'GIGAGRAM');
-INSERT INTO emission_factor (created_date, created_by, last_modified_date, last_modified_by, id, version, co2, ch4, n2o, name, unit_numerator, unit_denominator, source, description, valid_from, valid_to, is_direct_emission, conversion_value, conversion_unit_numerator, conversion_unit_denominator) VALUES (null, null, null, null, 'd5c22076-0f53-4057-a52c-c6a181e300e8', 0, 96.100000, 1.000000, 1.500000, 'Hệ số phát thải của than sub-bitum', 'KILOGRAM', 'TERAJOULE', 'Công nghiệp năng lượng', null, '2025-01-01 00:00:00.000000', null, false, 18.900000, 'TERAJOULE', 'GIGAGRAM');
-INSERT INTO emission_factor (created_date, created_by, last_modified_date, last_modified_by, id, version, co2, ch4, n2o, name, unit_numerator, unit_denominator, source, description, valid_from, valid_to, is_direct_emission, conversion_value, conversion_unit_numerator, conversion_unit_denominator) VALUES (null, null, null, null, '50a2e1ab-7654-46cf-b354-166646cd979a', 0, 73.300000, 3.000000, 0.600000, 'Hệ số phát thải của dầu thô', 'KILOGRAM', 'TERAJOULE', 'Công nghiệp năng lượng', null, '2025-01-01 00:00:00.000000', null, false, 42.300000, 'TERAJOULE', 'GIGAGRAM');
-INSERT INTO emission_factor (created_date, created_by, last_modified_date, last_modified_by, id, version, co2, ch4, n2o, name, unit_numerator, unit_denominator, source, description, valid_from, valid_to, is_direct_emission, conversion_value, conversion_unit_numerator, conversion_unit_denominator) VALUES (null, null, null, null, '42f2f582-e5fb-4742-94b7-992b3e3d1a3f', 0, 74.100000, 3.000000, 0.600000, 'Hệ số phát thải của dầu diesel', 'KILOGRAM', 'TERAJOULE', 'Công nghiệp năng lượng', null, '2025-01-01 00:00:00.000000', null, false, 43.000000, 'TERAJOULE', 'GIGAGRAM');
-INSERT INTO emission_factor (created_date, created_by, last_modified_date, last_modified_by, id, version, co2, ch4, n2o, name, unit_numerator, unit_denominator, source, description, valid_from, valid_to, is_direct_emission, conversion_value, conversion_unit_numerator, conversion_unit_denominator) VALUES (null, null, null, null, '4e8f2425-f39c-4049-a037-827c293b14fb', 0, 77.400000, 3.000000, 0.600000, 'Hệ số phát thải của dầu nhiên liệu', 'KILOGRAM', 'TERAJOULE', 'Công nghiệp năng lượng', null, '2025-01-01 00:00:00.000000', null, false, 40.400000, 'TERAJOULE', 'GIGAGRAM');
-INSERT INTO emission_factor (created_date, created_by, last_modified_date, last_modified_by, id, version, co2, ch4, n2o, name, unit_numerator, unit_denominator, source, description, valid_from, valid_to, is_direct_emission, conversion_value, conversion_unit_numerator, conversion_unit_denominator) VALUES (null, null, null, null, 'beaa421a-8ae5-4876-a6b8-25a8107253a1', 0, 56.100000, 1.000000, 0.100000, 'Hệ số phát thải của khí tự nhiên', 'KILOGRAM', 'TERAJOULE', 'Công nghiệp năng lượng', null, '2025-01-01 00:00:00.000000', null, false, 48.000000, 'TERAJOULE', 'GIGAGRAM');
-INSERT INTO emission_factor (created_date, created_by, last_modified_date, last_modified_by, id, version, co2, ch4, n2o, name, unit_numerator, unit_denominator, source, description, valid_from, valid_to, is_direct_emission, conversion_value, conversion_unit_numerator, conversion_unit_denominator) VALUES (null, null, null, null, 'b3c34c39-6ef3-4d22-9f2a-9ef8105fd2e0', 0, 100.000000, 30.000000, 4.000000, 'Hệ số phát thải của sinh khối', 'KILOGRAM', 'TERAJOULE', 'Công nghiệp năng lượng', null, '2025-01-01 00:00:00.000000', null, false, 11.600000, 'TERAJOULE', 'GIGAGRAM');
-INSERT INTO emission_factor (created_date, created_by, last_modified_date, last_modified_by, id, version, co2, ch4, n2o, name, unit_numerator, unit_denominator, source, description, valid_from, valid_to, is_direct_emission, conversion_value, conversion_unit_numerator, conversion_unit_denominator) VALUES (null, null, null, null, '91eb11d9-149f-48d1-8850-4ebfe1c80d00', 0, 112.000000, 200.000000, 4.000000, 'Hệ số phát thải của than củi ', 'KILOGRAM', 'TERAJOULE', 'Công nghiệp năng lượng', null, '2025-01-01 00:00:00.000000', null, false, 0.029500, 'TERAJOULE', 'GIGAGRAM');
-INSERT INTO emission_factor (created_date, created_by, last_modified_date, last_modified_by, id, version, co2, ch4, n2o, name, unit_numerator, unit_denominator, source, description, valid_from, valid_to, is_direct_emission, conversion_value, conversion_unit_numerator, conversion_unit_denominator) VALUES (null, null, null, null, '94623b50-1178-46eb-a872-f0e6578efaa0', 0, 98.300000, 10.000000, 1.500000, 'Hệ số phát thải của than antraxit', 'KILOGRAM', 'TERAJOULE', 'Công nghiệp sản xuất và xây dựng ', null, '2025-01-01 00:00:00.000000', null, false, 30.000000, 'TERAJOULE', 'GIGAGRAM');
-INSERT INTO emission_factor (created_date, created_by, last_modified_date, last_modified_by, id, version, co2, ch4, n2o, name, unit_numerator, unit_denominator, source, description, valid_from, valid_to, is_direct_emission, conversion_value, conversion_unit_numerator, conversion_unit_denominator) VALUES (null, null, null, null, '437f7962-3bde-423f-8383-a51946e08fd4', 0, 74.100000, 3.000000, 0.600000, 'Hệ số phát thải của dầu diesel', 'KILOGRAM', 'TERAJOULE', 'Công nghiệp sản xuất và xây dựng ', null, '2025-01-01 00:00:00.000000', null, false, 43.000000, 'TERAJOULE', 'GIGAGRAM');
-INSERT INTO emission_factor (created_date, created_by, last_modified_date, last_modified_by, id, version, co2, ch4, n2o, name, unit_numerator, unit_denominator, source, description, valid_from, valid_to, is_direct_emission, conversion_value, conversion_unit_numerator, conversion_unit_denominator) VALUES (null, null, null, null, 'cbab060d-a64b-4160-ba74-395af4c6b513', 0, 77.400000, 3.000000, 0.600000, 'Hệ số phát thải của dầu nhiên liệu', 'KILOGRAM', 'TERAJOULE', 'Công nghiệp sản xuất và xây dựng ', null, '2025-01-01 00:00:00.000000', null, false, 40.400000, 'TERAJOULE', 'GIGAGRAM');
-INSERT INTO emission_factor (created_date, created_by, last_modified_date, last_modified_by, id, version, co2, ch4, n2o, name, unit_numerator, unit_denominator, source, description, valid_from, valid_to, is_direct_emission, conversion_value, conversion_unit_numerator, conversion_unit_denominator) VALUES (null, null, null, null, 'c83edef6-1a6a-4897-9a3a-4c68ecc58ae1', 0, 63.100000, 1.000000, 0.100000, 'Hệ số phát thải của khí hoả long', 'KILOGRAM', 'TERAJOULE', 'Công nghiệp sản xuất và xây dựng ', null, '2025-01-01 00:00:00.000000', null, false, 38.700000, 'TERAJOULE', 'GIGAGRAM');
-INSERT INTO emission_factor (created_date, created_by, last_modified_date, last_modified_by, id, version, co2, ch4, n2o, name, unit_numerator, unit_denominator, source, description, valid_from, valid_to, is_direct_emission, conversion_value, conversion_unit_numerator, conversion_unit_denominator) VALUES (null, null, null, null, '4c79e881-5514-4e59-8048-af3763ab968c', 0, 56.100000, 1.000000, 0.100000, 'Hệ số phát thải của khí tự nhiên', 'KILOGRAM', 'TERAJOULE', 'Công nghiệp sản xuất và xây dựng ', null, '2025-01-01 00:00:00.000000', null, false, 48.000000, 'TERAJOULE', 'GIGAGRAM');
-INSERT INTO emission_factor (created_date, created_by, last_modified_date, last_modified_by, id, version, co2, ch4, n2o, name, unit_numerator, unit_denominator, source, description, valid_from, valid_to, is_direct_emission, conversion_value, conversion_unit_numerator, conversion_unit_denominator) VALUES (null, null, null, null, '3f63bd4e-ff90-4df4-a6f3-d159f8a7fe6f', 0, null, 30.000000, 4.000000, 'Hệ số phát thải của sinh khối', 'KILOGRAM', 'TERAJOULE', 'Công nghiệp sản xuất và xây dựng ', null, '2025-01-01 00:00:00.000000', null, false, 11.600000, 'TERAJOULE', 'GIGAGRAM');
-INSERT INTO emission_factor (created_date, created_by, last_modified_date, last_modified_by, id, version, co2, ch4, n2o, name, unit_numerator, unit_denominator, source, description, valid_from, valid_to, is_direct_emission, conversion_value, conversion_unit_numerator, conversion_unit_denominator) VALUES (null, null, null, null, '02f0bf93-9c6e-4cbc-a1f2-d231ab6a1126', 0, 70.000000, null, null, 'Hệ số phát thải của xăng hàng không ( Aviation Gasoline )', 'KILOGRAM', 'TERAJOULE', 'Giao thông vân tải hàng không nội địa ', null, '2025-01-01 00:00:00.000000', null, false, 44.300000, 'TERAJOULE', 'GIGAGRAM');
-INSERT INTO emission_factor (created_date, created_by, last_modified_date, last_modified_by, id, version, co2, ch4, n2o, name, unit_numerator, unit_denominator, source, description, valid_from, valid_to, is_direct_emission, conversion_value, conversion_unit_numerator, conversion_unit_denominator) VALUES (null, null, null, null, '06e128dc-2217-4ad9-9613-bd435be42863', 0, 74.100000, 3.900000, 3.900000, 'Hệ số phát thải của dầu diesel', 'KILOGRAM', 'TERAJOULE', 'Giao thông vân tải đường bộ ', null, '2025-01-01 00:00:00.000000', null, false, 43.000000, 'TERAJOULE', 'GIGAGRAM');
-INSERT INTO emission_factor (created_date, created_by, last_modified_date, last_modified_by, id, version, co2, ch4, n2o, name, unit_numerator, unit_denominator, source, description, valid_from, valid_to, is_direct_emission, conversion_value, conversion_unit_numerator, conversion_unit_denominator) VALUES (null, null, null, null, '18e1c926-76a5-4211-8a91-67de1d29e40d', 0, 69.300000, 62.000000, 0.200000, 'Hệ số phát thải của xăng ', 'KILOGRAM', 'TERAJOULE', 'Giao thông vân tải đường bộ ', null, '2025-01-01 00:00:00.000000', null, false, 0.027000, 'TERAJOULE', 'GIGAGRAM');
-INSERT INTO emission_factor (created_date, created_by, last_modified_date, last_modified_by, id, version, co2, ch4, n2o, name, unit_numerator, unit_denominator, source, description, valid_from, valid_to, is_direct_emission, conversion_value, conversion_unit_numerator, conversion_unit_denominator) VALUES (null, null, null, null, 'fa1eb305-e83b-4d82-8906-c51c3cc03ebf', 0, 63.100000, 62.000000, 0.200000, 'Hệ số phát thải của khí hoả long', 'KILOGRAM', 'TERAJOULE', 'Giao thông vân tải đường bộ ', null, '2025-01-01 00:00:00.000000', null, false, 38.700000, 'TERAJOULE', 'GIGAGRAM');
-INSERT INTO emission_factor (created_date, created_by, last_modified_date, last_modified_by, id, version, co2, ch4, n2o, name, unit_numerator, unit_denominator, source, description, valid_from, valid_to, is_direct_emission, conversion_value, conversion_unit_numerator, conversion_unit_denominator) VALUES (null, null, null, null, 'd1ed4d56-1b8b-46a6-bc1d-0781c5da30ba', 0, 56.100000, 92.000000, 3.000000, 'Hệ số phát thải của khí tự nhiên', 'KILOGRAM', 'TERAJOULE', 'Giao thông vân tải đường bộ ', null, '2025-01-01 00:00:00.000000', null, false, 48.000000, 'TERAJOULE', 'GIGAGRAM');
-INSERT INTO emission_factor (created_date, created_by, last_modified_date, last_modified_by, id, version, co2, ch4, n2o, name, unit_numerator, unit_denominator, source, description, valid_from, valid_to, is_direct_emission, conversion_value, conversion_unit_numerator, conversion_unit_denominator) VALUES (null, null, null, null, 'a5ff6596-84e6-4ad2-90aa-8e455b9e61a3', 0, 74.100000, 4.150000, 28.600000, 'Hệ số phát thải của dầu diesel', 'KILOGRAM', 'TERAJOULE', 'Giao thông vân tải đường sắt', null, '2025-01-01 00:00:00.000000', null, false, 43.000000, 'TERAJOULE', 'GIGAGRAM');
-INSERT INTO emission_factor (created_date, created_by, last_modified_date, last_modified_by, id, version, co2, ch4, n2o, name, unit_numerator, unit_denominator, source, description, valid_from, valid_to, is_direct_emission, conversion_value, conversion_unit_numerator, conversion_unit_denominator) VALUES (null, null, null, null, 'e20cdb7e-d0fd-40f8-bdbc-ce6a334189d3', 0, 74.100000, 7.000000, 2.000000, 'Hệ số phát thải của dầu diesel', 'KILOGRAM', 'TERAJOULE', 'Giao thông vân tải đường thuỷ nội địa và hàng hải nội địa', null, '2025-01-01 00:00:00.000000', null, false, 43.000000, 'TERAJOULE', 'GIGAGRAM');
-INSERT INTO emission_factor (created_date, created_by, last_modified_date, last_modified_by, id, version, co2, ch4, n2o, name, unit_numerator, unit_denominator, source, description, valid_from, valid_to, is_direct_emission, conversion_value, conversion_unit_numerator, conversion_unit_denominator) VALUES (null, null, null, null, '8da180c0-1bc5-45cf-8ddc-7bbb8190d098', 0, 77.400000, 7.000000, 2.000000, 'Hệ số phát thải của dầu nhiên liệu', 'KILOGRAM', 'TERAJOULE', 'Giao thông vân tải đường thuỷ nội địa và hàng hải nội địa', null, '2025-01-01 00:00:00.000000', null, false, 40.400000, 'TERAJOULE', 'GIGAGRAM');
-INSERT INTO emission_factor (created_date, created_by, last_modified_date, last_modified_by, id, version, co2, ch4, n2o, name, unit_numerator, unit_denominator, source, description, valid_from, valid_to, is_direct_emission, conversion_value, conversion_unit_numerator, conversion_unit_denominator) VALUES (null, null, null, null, '4c15a811-32b5-4bf5-98f2-532312f1e7dc', 0, 98.300000, 10.000000, 1.500000, 'Hệ số phát thải của than antraxit', 'KILOGRAM', 'TERAJOULE', 'Thương mại và dịch vụ', null, '2025-01-01 00:00:00.000000', null, false, 30.000000, 'TERAJOULE', 'GIGAGRAM');
-INSERT INTO emission_factor (created_date, created_by, last_modified_date, last_modified_by, id, version, co2, ch4, n2o, name, unit_numerator, unit_denominator, source, description, valid_from, valid_to, is_direct_emission, conversion_value, conversion_unit_numerator, conversion_unit_denominator) VALUES (null, null, null, null, '266bf24f-4fa4-4635-9053-99633094e110', 0, 74.100000, 10.000000, 0.600000, 'Hệ số phát thải của dầu diesel', 'KILOGRAM', 'TERAJOULE', 'Thương mại và dịch vụ', null, '2025-01-01 00:00:00.000000', null, false, 43.000000, 'TERAJOULE', 'GIGAGRAM');
-INSERT INTO emission_factor (created_date, created_by, last_modified_date, last_modified_by, id, version, co2, ch4, n2o, name, unit_numerator, unit_denominator, source, description, valid_from, valid_to, is_direct_emission, conversion_value, conversion_unit_numerator, conversion_unit_denominator) VALUES (null, null, null, null, 'ca7f3d4f-c1e0-40a1-90db-df8e1724687b', 0, 63.100000, 5.000000, 0.100000, 'Hệ số phát thải của khí hoả long', 'KILOGRAM', 'TERAJOULE', 'Thương mại và dịch vụ', null, '2025-01-01 00:00:00.000000', null, false, 38.700000, 'TERAJOULE', 'GIGAGRAM');
-INSERT INTO emission_factor (created_date, created_by, last_modified_date, last_modified_by, id, version, co2, ch4, n2o, name, unit_numerator, unit_denominator, source, description, valid_from, valid_to, is_direct_emission, conversion_value, conversion_unit_numerator, conversion_unit_denominator) VALUES (null, null, null, null, '3d7cc6e1-5fbb-4320-8a6f-09254b61171f', 0, 112.000000, 200.000000, 1.000000, 'Hệ số phát thải của than củi ', 'KILOGRAM', 'TERAJOULE', 'Thương mại và dịch vụ', null, '2025-01-01 00:00:00.000000', null, false, 0.029500, 'TERAJOULE', 'GIGAGRAM');
-INSERT INTO emission_factor (created_date, created_by, last_modified_date, last_modified_by, id, version, co2, ch4, n2o, name, unit_numerator, unit_denominator, source, description, valid_from, valid_to, is_direct_emission, conversion_value, conversion_unit_numerator, conversion_unit_denominator) VALUES (null, null, null, null, '40fd35da-54fb-4d0c-9874-7a5ff489ac32', 0, 98.300000, 300.000000, 1.500000, 'Hệ số phát thải của than antraxit', 'KILOGRAM', 'TERAJOULE', 'Dân dụng', null, '2025-01-01 00:00:00.000000', null, false, 30.000000, 'TERAJOULE', 'GIGAGRAM');
-INSERT INTO emission_factor (created_date, created_by, last_modified_date, last_modified_by, id, version, co2, ch4, n2o, name, unit_numerator, unit_denominator, source, description, valid_from, valid_to, is_direct_emission, conversion_value, conversion_unit_numerator, conversion_unit_denominator) VALUES (null, null, null, null, '785bba92-024d-4007-bc4a-a5d9e5001774', 0, 71.900000, 10.000000, 0.600000, 'Hệ số phát thải của dầu hoả', 'KILOGRAM', 'TERAJOULE', 'Dân dụng', null, '2025-01-01 00:00:00.000000', null, false, 43.800000, 'TERAJOULE', 'GIGAGRAM');
-INSERT INTO emission_factor (created_date, created_by, last_modified_date, last_modified_by, id, version, co2, ch4, n2o, name, unit_numerator, unit_denominator, source, description, valid_from, valid_to, is_direct_emission, conversion_value, conversion_unit_numerator, conversion_unit_denominator) VALUES (null, null, null, null, '212b8b66-515d-4617-84bb-0fb6d1943c74', 0, 63.100000, 5.000000, 0.100000, 'Hệ số phát thải của khí hoả long', 'KILOGRAM', 'TERAJOULE', 'Dân dụng', null, '2025-01-01 00:00:00.000000', null, false, 38.700000, 'TERAJOULE', 'GIGAGRAM');
-INSERT INTO emission_factor (created_date, created_by, last_modified_date, last_modified_by, id, version, co2, ch4, n2o, name, unit_numerator, unit_denominator, source, description, valid_from, valid_to, is_direct_emission, conversion_value, conversion_unit_numerator, conversion_unit_denominator) VALUES (null, null, null, null, 'cca8449f-1411-498f-a780-6c6009db70b1', 0, 100.000000, 300.000000, 4.000000, 'Hệ số phát thải của sinh khối', 'KILOGRAM', 'TERAJOULE', 'Dân dụng', null, '2025-01-01 00:00:00.000000', null, false, 11.600000, 'TERAJOULE', 'GIGAGRAM');
-INSERT INTO emission_factor (created_date, created_by, last_modified_date, last_modified_by, id, version, co2, ch4, n2o, name, unit_numerator, unit_denominator, source, description, valid_from, valid_to, is_direct_emission, conversion_value, conversion_unit_numerator, conversion_unit_denominator) VALUES (null, null, null, null, '626a3e3b-caab-476d-b2d1-7d79b1eb3ddc', 0, 112.000000, 200.000000, 1.000000, 'Hệ số phát thải của than củi ', 'KILOGRAM', 'TERAJOULE', 'Dân dụng', null, '2025-01-01 00:00:00.000000', null, false, 0.029500, 'TERAJOULE', 'GIGAGRAM');
-INSERT INTO emission_factor (created_date, created_by, last_modified_date, last_modified_by, id, version, co2, ch4, n2o, name, unit_numerator, unit_denominator, source, description, valid_from, valid_to, is_direct_emission, conversion_value, conversion_unit_numerator, conversion_unit_denominator) VALUES (null, null, null, null, '84a3fab2-50d4-4910-aeb0-a018d469cd95', 0, 69.300000, 10.000000, 0.600000, 'Hệ số phát thải của xăng ', 'KILOGRAM', 'TERAJOULE', 'Nông nghiệp. lâm nghiệp và thuỷ sản ', null, '2025-01-01 00:00:00.000000', null, false, 0.027000, 'TERAJOULE', 'GIGAGRAM');
-INSERT INTO emission_factor (created_date, created_by, last_modified_date, last_modified_by, id, version, co2, ch4, n2o, name, unit_numerator, unit_denominator, source, description, valid_from, valid_to, is_direct_emission, conversion_value, conversion_unit_numerator, conversion_unit_denominator) VALUES (null, null, null, null, '65e32f0a-6c07-49b3-8941-aad1a9bb97c9', 0, 74.100000, 10.000000, 0.600000, 'Hệ số phát thải của dầu diesel', 'KILOGRAM', 'TERAJOULE', 'Nông nghiệp. lâm nghiệp và thuỷ sản ', null, '2025-01-01 00:00:00.000000', null, false, 43.000000, 'TERAJOULE', 'GIGAGRAM');
-INSERT INTO emission_factor (created_date, created_by, last_modified_date, last_modified_by, id, version, co2, ch4, n2o, name, unit_numerator, unit_denominator, source, description, valid_from, valid_to, is_direct_emission, conversion_value, conversion_unit_numerator, conversion_unit_denominator) VALUES (null, null, null, null, 'c28fdef4-cd09-4fe6-a4c5-6ab23fa2aab2', 0, null, 300.000000, 4.000000, 'Hệ số phát thải của sinh khối', 'KILOGRAM', 'TERAJOULE', 'Nông nghiệp. lâm nghiệp và thuỷ sản ', null, '2025-01-01 00:00:00.000000', null, false, 11.600000, 'TERAJOULE', 'GIGAGRAM');
-INSERT INTO emission_factor (created_date, created_by, last_modified_date, last_modified_by, id, version, co2, ch4, n2o, name, unit_numerator, unit_denominator, source, description, valid_from, valid_to, is_direct_emission, conversion_value, conversion_unit_numerator, conversion_unit_denominator) VALUES (null, null, null, null, 'd3f5d99c-d06c-4570-ad31-21b9a424094d', 0, 0.002150, 0.010350, null, 'Hệ số phát thải rò rỉ từ sản xuất dầu ', 'GIGAGRAM', 'THOUSAND_CUBIC_METER', 'Khai thác dầu', 'tổng sản phẩm dầu ', '2025-01-01 00:00:00.000000', null, true, null, null, null);
-INSERT INTO emission_factor (created_date, created_by, last_modified_date, last_modified_by, id, version, co2, ch4, n2o, name, unit_numerator, unit_denominator, source, description, valid_from, valid_to, is_direct_emission, conversion_value, conversion_unit_numerator, conversion_unit_denominator) VALUES (null, null, null, null, '168eb4cd-4020-4769-a56b-4924d827c07c', 0, 0.040500, 0.000025, 0.000001, 'Hệ số phát thải do đốt cháy tự nhiên từ sản xuất dầu ', 'GIGAGRAM', 'THOUSAND_CUBIC_METER', 'Khai thác dầu ', 'tổng sản phẩm dầu ', '2025-01-01 00:00:00.000000', null, true, null, null, null);
-INSERT INTO emission_factor (created_date, created_by, last_modified_date, last_modified_by, id, version, co2, ch4, n2o, name, unit_numerator, unit_denominator, source, description, valid_from, valid_to, is_direct_emission, conversion_value, conversion_unit_numerator, conversion_unit_denominator) VALUES (null, null, null, null, '169d7d37-48d5-4963-9e8d-93c78a483dba', 0, 0.002490, 0.019600, null, 'Hệ số phát thải phát tán trong sản xuất dầu ', 'GIGAGRAM', 'THOUSAND_CUBIC_METER', 'Khai thác dầu ', 'tổng sản phẩm dầu ', '2025-01-01 00:00:00.000000', null, true, null, null, null);
-INSERT INTO emission_factor (created_date, created_by, last_modified_date, last_modified_by, id, version, co2, ch4, n2o, name, unit_numerator, unit_denominator, source, description, valid_from, valid_to, is_direct_emission, conversion_value, conversion_unit_numerator, conversion_unit_denominator) VALUES (null, null, null, null, '3f3d7696-4c90-4246-b2a8-1bf34b366bf6', 0, 0.067500, null, null, 'Hệ số phát thải rò rỉ trong xử lý khí', 'GIGAGRAM', 'MILLION_CUBIC_METER', 'Khai thác khí tự nhiên ', 'tổng lượng khí thô đầu vào', '2025-01-01 00:00:00.000000', null, true, null, null, null);
-INSERT INTO emission_factor (created_date, created_by, last_modified_date, last_modified_by, id, version, co2, ch4, n2o, name, unit_numerator, unit_denominator, source, description, valid_from, valid_to, is_direct_emission, conversion_value, conversion_unit_numerator, conversion_unit_denominator) VALUES (null, null, null, null, '73f543d4-6363-4b59-8eeb-58c2e60f0111', 0, 0.003550, 0.000000, 0.000000, 'Hệ số phát thải do đốt cháy tự nhiên từ sản xuất dầu ', 'GIGAGRAM', 'MILLION_CUBIC_METER', 'Khai thác khí tự nhiên ', 'tổng sản phẩm khí ', '2025-01-01 00:00:00.000000', null, true, null, null, null);
-INSERT INTO emission_factor (created_date, created_by, last_modified_date, last_modified_by, id, version, co2, ch4, n2o, name, unit_numerator, unit_denominator, source, description, valid_from, valid_to, is_direct_emission, conversion_value, conversion_unit_numerator, conversion_unit_denominator) VALUES (null, null, null, null, '16a47674-e680-41ab-93e7-7b64c59b5f6f', 0, 0.001400, 0.000001, 0.000000, 'Hệ số phát thải do đốt cháy tự nhiên từ sản xuất khí', 'GIGAGRAM', 'MILLION_CUBIC_METER', 'Khai thác khí tự nhiên ', 'tổng sản phẩm khí ', '2025-01-01 00:00:00.000000', null, true, null, null, null);
-INSERT INTO emission_factor (created_date, created_by, last_modified_date, last_modified_by, id, version, co2, ch4, n2o, name, unit_numerator, unit_denominator, source, description, valid_from, valid_to, is_direct_emission, conversion_value, conversion_unit_numerator, conversion_unit_denominator) VALUES (null, null, null, null, '5c23299a-0730-4685-a3ec-4f7608bce585', 0, 0.000097, 0.012190, null, 'Hệ số phát thải phát tán trong sản xuất khí ', 'GIGAGRAM', 'MILLION_CUBIC_METER', 'Khai thác khí tự nhiên ', 'tổng sản phẩm khí ', '2025-01-01 00:00:00.000000', null, true, null, null, null);
-INSERT INTO emission_factor (created_date, created_by, last_modified_date, last_modified_by, id, version, co2, ch4, n2o, name, unit_numerator, unit_denominator, source, description, valid_from, valid_to, is_direct_emission, conversion_value, conversion_unit_numerator, conversion_unit_denominator) VALUES (null, null, null, null, '19c92145-1b16-4816-8c4a-de4db21136f0', 0, 0.000250, 0.000790, null, 'Hệ số phát thải phát tán trong xử lý khí ', 'GIGAGRAM', 'MILLION_CUBIC_METER', 'Khai thác khí tự nhiên ', 'tổng sản phẩm khí thô đầu vào', '2025-01-01 00:00:00.000000', null, true, null, null, null);
-INSERT INTO emission_factor (created_date, created_by, last_modified_date, last_modified_by, id, version, co2, ch4, n2o, name, unit_numerator, unit_denominator, source, description, valid_from, valid_to, is_direct_emission, conversion_value, conversion_unit_numerator, conversion_unit_denominator) VALUES (null, null, null, null, 'b784a73b-a4b1-40ae-87db-792c746c5d74', 0, null, 15.000000, null, 'Carbon hữu cơ phân huỷ (DOC) của thức ăn, chất hữu cơ', 'PERCENT', null, 'Phát thải từ bãi chôn lấp chất thải rắn ', null, '2025-01-01 00:00:00.000000', null, true, null, null, null);
-INSERT INTO emission_factor (created_date, created_by, last_modified_date, last_modified_by, id, version, co2, ch4, n2o, name, unit_numerator, unit_denominator, source, description, valid_from, valid_to, is_direct_emission, conversion_value, conversion_unit_numerator, conversion_unit_denominator) VALUES (null, null, null, null, '74ff361b-265f-4d60-a7b0-e45a10da7352', 0, null, 20.000000, null, 'Carbon hữu cơ phân huỷ (DOC) của cây cối', 'PERCENT', null, 'Phát thải từ bãi chôn lấp chất thải rắn ', null, '2025-01-01 00:00:00.000000', null, true, null, null, null);
-INSERT INTO emission_factor (created_date, created_by, last_modified_date, last_modified_by, id, version, co2, ch4, n2o, name, unit_numerator, unit_denominator, source, description, valid_from, valid_to, is_direct_emission, conversion_value, conversion_unit_numerator, conversion_unit_denominator) VALUES (null, null, null, null, 'bd38ddb8-637e-4ba4-b31f-e4b0270725ba', 0, null, 40.000000, null, 'Carbon hữu cơ phân huỷ (DOC) của giấy', 'PERCENT', null, 'Phát thải từ bãi chôn lấp chất thải rắn ', null, '2025-01-01 00:00:00.000000', null, true, null, null, null);
-INSERT INTO emission_factor (created_date, created_by, last_modified_date, last_modified_by, id, version, co2, ch4, n2o, name, unit_numerator, unit_denominator, source, description, valid_from, valid_to, is_direct_emission, conversion_value, conversion_unit_numerator, conversion_unit_denominator) VALUES (null, null, null, null, 'ec88c3ca-3f6c-4717-ac19-31af77fcf70a', 0, null, 43.000000, null, 'Carbon hữu cơ phân huỷ (DOC) của gỗ', 'PERCENT', null, 'Phát thải từ bãi chôn lấp chất thải rắn ', null, '2025-01-01 00:00:00.000000', null, true, null, null, null);
-INSERT INTO emission_factor (created_date, created_by, last_modified_date, last_modified_by, id, version, co2, ch4, n2o, name, unit_numerator, unit_denominator, source, description, valid_from, valid_to, is_direct_emission, conversion_value, conversion_unit_numerator, conversion_unit_denominator) VALUES (null, null, null, null, '7279d953-2751-4a31-9dce-814e87566f8a', 0, null, 24.000000, null, 'Carbon hữu cơ phân huỷ (DOC) của dệt may ', 'PERCENT', null, 'Phát thải từ bãi chôn lấp chất thải rắn ', null, '2025-01-01 00:00:00.000000', null, true, null, null, null);
-INSERT INTO emission_factor (created_date, created_by, last_modified_date, last_modified_by, id, version, co2, ch4, n2o, name, unit_numerator, unit_denominator, source, description, valid_from, valid_to, is_direct_emission, conversion_value, conversion_unit_numerator, conversion_unit_denominator) VALUES (null, null, null, null, 'a370b7ea-a566-47c8-b24b-a7ec82c3cdff', 0, null, 24.000000, null, 'Carbon hữu cơ phân huỷ (DOC) của tã lót', 'PERCENT', null, 'Phát thải từ bãi chôn lấp chất thải rắn ', null, '2025-01-01 00:00:00.000000', null, true, null, null, null);
-INSERT INTO emission_factor (created_date, created_by, last_modified_date, last_modified_by, id, version, co2, ch4, n2o, name, unit_numerator, unit_denominator, source, description, valid_from, valid_to, is_direct_emission, conversion_value, conversion_unit_numerator, conversion_unit_denominator) VALUES (null, null, null, null, 'e141192e-dab4-4076-a0aa-6895d1e6c8d0', 0, null, 5.000000, null, 'Carbon hữu cơ phân huỷ (DOC) của bùn thải', 'PERCENT', null, 'Phát thải từ bãi chôn lấp chất thải rắn ', null, '2025-01-01 00:00:00.000000', null, true, null, null, null);
-INSERT INTO emission_factor (created_date, created_by, last_modified_date, last_modified_by, id, version, co2, ch4, n2o, name, unit_numerator, unit_denominator, source, description, valid_from, valid_to, is_direct_emission, conversion_value, conversion_unit_numerator, conversion_unit_denominator) VALUES (null, null, null, null, '756cc79d-e770-4854-9765-997f1c35735f', 0, null, 15.000000, null, 'Carbon hữu cơ phân huỷ (DOC) của chát thải công nghiệp ', 'PERCENT', null, 'Phát thải từ bãi chôn lấp chất thải rắn ', null, '2025-01-01 00:00:00.000000', null, true, null, null, null);
-INSERT INTO emission_factor (created_date, created_by, last_modified_date, last_modified_by, id, version, co2, ch4, n2o, name, unit_numerator, unit_denominator, source, description, valid_from, valid_to, is_direct_emission, conversion_value, conversion_unit_numerator, conversion_unit_denominator) VALUES (null, null, null, null, '6b0f49e0-abec-47b4-9575-89277a671717', 0, null, 10.000000, null, 'Tỷ lệ DOC dễ phân huỷ trong điều kiện kỵ khí (DOCf) - Chất thải khó phân huỷ: gỗ. sản phẩm chế tạo từ gỗ. cành cây.…', 'PERCENT', null, 'Phát thải từ bãi chôn lấp chất thải rắn ', null, '2025-01-01 00:00:00.000000', null, true, null, null, null);
-INSERT INTO emission_factor (created_date, created_by, last_modified_date, last_modified_by, id, version, co2, ch4, n2o, name, unit_numerator, unit_denominator, source, description, valid_from, valid_to, is_direct_emission, conversion_value, conversion_unit_numerator, conversion_unit_denominator) VALUES (null, null, null, null, 'fe0030d8-0124-406e-b37a-55a01e09f598', 0, null, 50.000000, null, 'Tỷ lệ DOC dễ phân huỷ trong điều kiện kỵ khí (DOCf) - Chất thải phân huỷ trung bình : giấy. các sản phẩm dệt may. tã lót.', 'PERCENT', null, 'Phát thải từ bãi chôn lấp chất thải rắn ', null, '2025-01-01 00:00:00.000000', null, true, null, null, null);
-INSERT INTO emission_factor (created_date, created_by, last_modified_date, last_modified_by, id, version, co2, ch4, n2o, name, unit_numerator, unit_denominator, source, description, valid_from, valid_to, is_direct_emission, conversion_value, conversion_unit_numerator, conversion_unit_denominator) VALUES (null, null, null, null, '19f0f391-1f57-408b-bb77-0a3865f54234', 0, null, 70.000000, null, 'Tỷ lệ DOC dễ phân huỷ trong điều kiện kỵ khí (DOCf) - Chất thải dễ phân huỷ  : thức ăn thừa. cỏ ( rác vườn trừ cây cảnh)', 'PERCENT', null, 'Phát thải từ bãi chôn lấp chất thải rắn ', null, '2025-01-01 00:00:00.000000', null, true, null, null, null);
-INSERT INTO emission_factor (created_date, created_by, last_modified_date, last_modified_by, id, version, co2, ch4, n2o, name, unit_numerator, unit_denominator, source, description, valid_from, valid_to, is_direct_emission, conversion_value, conversion_unit_numerator, conversion_unit_denominator) VALUES (null, null, null, null, 'd3586046-2e57-440a-aa78-f6191d1f7aa5', 0, null, 50.000000, null, 'Tỷ lệ lượng trong khí từ bãi rác ', 'PERCENT', null, 'Phát thải từ bãi chôn lấp chất thải rắn ', null, '2025-01-01 00:00:00.000000', null, true, null, null, null);
-INSERT INTO emission_factor (created_date, created_by, last_modified_date, last_modified_by, id, version, co2, ch4, n2o, name, unit_numerator, unit_denominator, source, description, valid_from, valid_to, is_direct_emission, conversion_value, conversion_unit_numerator, conversion_unit_denominator) VALUES (null, null, null, null, '001007ad-6f98-401e-99a9-28531b961d0c', 0, null, 10.000000, null, 'Xử lý chất thải bằng phương pháp ủ phân sinh học (composting) - Hệ số phát thải theo trọng lượng khô', 'GRAM', 'KILOGRAM', 'Xử lý chất thải rắn bằng phương pháp sinh học', null, '2025-01-01 00:00:00.000000', null, true, null, null, null);
-INSERT INTO emission_factor (created_date, created_by, last_modified_date, last_modified_by, id, version, co2, ch4, n2o, name, unit_numerator, unit_denominator, source, description, valid_from, valid_to, is_direct_emission, conversion_value, conversion_unit_numerator, conversion_unit_denominator) VALUES (null, null, null, null, '77573294-c505-485b-ac98-02529c91f7bd', 0, null, 4.000000, null, 'Xử lý chất thải bằng phương pháp ủ phân sinh học (composting) - Hệ số phát thải theo trọng lượng ướt', 'GRAM', 'KILOGRAM', 'Xử lý chất thải rắn bằng phương pháp sinh học', null, '2025-01-01 00:00:00.000000', null, true, null, null, null);
-INSERT INTO emission_factor (created_date, created_by, last_modified_date, last_modified_by, id, version, co2, ch4, n2o, name, unit_numerator, unit_denominator, source, description, valid_from, valid_to, is_direct_emission, conversion_value, conversion_unit_numerator, conversion_unit_denominator) VALUES (null, null, null, null, '7dab700f-b5ae-46c9-a841-4e33efc280a6', 0, null, null, 0.600000, 'Xử lý chất thải bằng phương pháp ủ phân sinh học (composting) - Hệ số phát thải theo trọng lượng khô', 'GRAM', 'KILOGRAM', 'Xử lý chất thải rắn bằng phương pháp sinh học', null, '2025-01-01 00:00:00.000000', null, true, null, null, null);
-INSERT INTO emission_factor (created_date, created_by, last_modified_date, last_modified_by, id, version, co2, ch4, n2o, name, unit_numerator, unit_denominator, source, description, valid_from, valid_to, is_direct_emission, conversion_value, conversion_unit_numerator, conversion_unit_denominator) VALUES (null, null, null, null, '5505b14d-93e4-490c-9ae0-1f20663e1fab', 0, null, null, 0.240000, 'Xử lý chất thải bằng phương pháp ủ phân sinh học (composting) - Hệ số phát thải theo trọng lượng ướt', 'GRAM', 'KILOGRAM', 'Xử lý chất thải rắn bằng phương pháp sinh học', null, '2025-01-01 00:00:00.000000', null, true, null, null, null);
-INSERT INTO emission_factor (created_date, created_by, last_modified_date, last_modified_by, id, version, co2, ch4, n2o, name, unit_numerator, unit_denominator, source, description, valid_from, valid_to, is_direct_emission, conversion_value, conversion_unit_numerator, conversion_unit_denominator) VALUES (null, null, null, null, 'a3914dad-0587-47ab-9165-3d092dc8854d', 0, null, 2.000000, null, 'Xử lý bằng hầm Biogas kỵ khí- Hệ số phát thải theo trọng lượng khô', 'GRAM', 'KILOGRAM', 'Xử lý chất thải rắn bằng phương pháp sinh học', null, '2025-01-01 00:00:00.000000', null, true, null, null, null);
-INSERT INTO emission_factor (created_date, created_by, last_modified_date, last_modified_by, id, version, co2, ch4, n2o, name, unit_numerator, unit_denominator, source, description, valid_from, valid_to, is_direct_emission, conversion_value, conversion_unit_numerator, conversion_unit_denominator) VALUES (null, null, null, null, 'd23155e0-661d-42ec-b86e-b45f53c083d8', 0, null, 0.800000, null, 'Xử lý bằng hầm Biogas kỵ khí- Hệ số phát thải theo trọng lượng ướt', 'GRAM', 'KILOGRAM', 'Xử lý chất thải rắn bằng phương pháp sinh học', null, '2025-01-01 00:00:00.000000', null, true, null, null, null);
-INSERT INTO emission_factor (created_date, created_by, last_modified_date, last_modified_by, id, version, co2, ch4, n2o, name, unit_numerator, unit_denominator, source, description, valid_from, valid_to, is_direct_emission, conversion_value, conversion_unit_numerator, conversion_unit_denominator) VALUES (null, null, null, null, '7077f1c0-feac-403f-8643-ae35813209c9', 0, 0.692500, null, null, 'Phát thải lưới điện Việt Nam ', 'KILOGRAM', 'KWH', 'Việt Nam', null, '2025-01-01 00:00:00.000000', null, true, null, null, null);
+-- IMPORT INTO i18n, emission_source
+DO $$
+    DECLARE
+        translations TEXT[][] := ARRAY [
+            ['Công nghiệp năng lượng', 'Energy Industry', '能源工业'],
+            ['Công nghiệp sản xuất và xây dựng', 'Manufacturing and Construction Industry', '制造与建筑工业'],
+            ['Giao thông vận tải hàng không nội địa', 'Domestic Air Transport', '国内航空运输'],
+            ['Giao thông vận tải đường bộ', 'Road Transport', '公路运输'],
+            ['Giao thông vận tải đường sắt', 'Rail Transport', '铁路运输'],
+            ['Giao thông vận tải đường thuỷ nội địa và hàng hải nội địa', 'Inland Waterway and Domestic Maritime Transport', '内河及国内海上运输'],
+            ['Thương mại và dịch vụ', 'Commerce and Services', '商业与服务'],
+            ['Dân dụng', 'Residential', '民用'],
+            ['Nông nghiệp, lâm nghiệp và thuỷ sản', 'Agriculture, Forestry, and Fisheries', '农业、林业和渔业'],
+            ['Khai thác than hầm lò', 'Underground Coal Mining', '地下煤炭开采'],
+            ['Khai thác dầu', 'Oil Extraction', '石油开采'],
+            ['Khai thác khí tự nhiên', 'Natural Gas Extraction', '天然气开采'],
+            ['Phát thải từ bãi chôn lấp chất thải rắn', 'Emissions from Solid Waste Landfills', '固体废物填埋场排放'],
+            ['Xử lý chất thải rắn bằng phương pháp sinh học', 'Biological Solid Waste Treatment', '生物固体废物处理'],
+            ['Thiêu đốt chất thải (chất thải rắn sinh hoạt)', 'Incineration of Waste (Household Solid Waste)', '焚烧废物（生活固体废物）'],
+            ['Thiêu đốt chất thải', 'Waste Incineration', '废物焚烧'],
+            ['Thiêu đốt chất thải - Lò đốt vỉ động liên tục', 'Waste Incineration - Continuous Grate Incinerator', '废物焚烧 - 连续炉排焚烧炉'],
+            ['Thiêu đốt chất thải - Lò đốt tầng sôi liên tục', 'Waste Incineration - Continuous Fluidized Bed Incinerator', '废物焚烧 - 连续流化床焚烧炉'],
+            ['Thiêu đốt chất thải - Lò đốt vỉ động bán liên tục', 'Waste Incineration - Semi-Continuous Grate Incinerator', '废物焚烧 - 半连续炉排焚烧炉'],
+            ['Thiêu đốt chất thải - Lò đốt tầng sôi bán liên tục', 'Waste Incineration - Semi-Continuous Fluidized Bed Incinerator', '废物焚烧 - 半连续流化床焚烧炉'],
+            ['Thiêu đốt chất thải - Lò đốt vỉ động - đốt hàng loạt', 'Waste Incineration - Batch Grate Incinerator', '废物焚烧 - 批次炉排焚烧炉'],
+            ['Thiêu đốt chất thải - Lò đốt tầng sôi - đốt hàng loạt', 'Waste Incineration - Batch Fluidized Bed Incinerator', '废物焚烧 - 批次流化床焚烧炉'],
+            ['Đốt lộ thiên chất thải', 'Open Burning of Waste', '露天焚烧废物'],
+            ['Xử lý và xả nước thải sinh hoạt', 'Domestic Wastewater Treatment and Discharge', '生活污水处理与排放'],
+            ['Xử lý và xả nước thải công nghiệp', 'Industrial Wastewater Treatment and Discharge', '工业污水处理与排放'],
+            ['Sử dụng điện', 'Electricity Use', '电力使用'],
+            ['Khai thác than lộ thiên', 'Open-pit coal mining', '露天煤矿开采'],
+            ['Nông nghiệp. lâm nghiệp và thuỷ sản', 'Agriculture, forestry, and fisheries', '农业、林业和渔业']
+            ];
+    BEGIN
+        FOR i IN 1..array_length(translations, 1)
+            LOOP
+                INSERT INTO emission_source (version, name_vi, name_en, name_zh)
+                VALUES (0, translations[i][1], translations[i][2], translations[i][3]);
+            END LOOP;
+    END
+$$;
+
+
+-- IMPORT INTO i18n, fuel, energy conversion
+DO $$
+    DECLARE
+        fuel_names TEXT[][] := ARRAY[
+            -- Format: [Vietnamese, English, Chinese, conversion_value, conversion_unit_numerator, conversion_unit_denominator]
+            ['Dầu thô', 'Crude Oil', '原油', '44.5', 'TERAJOULE', 'GIGAGRAM'],
+            ['Orimulsion', 'Orimulsion', '奥里乳化油', '27.5', 'TERAJOULE', 'GIGAGRAM'],
+            ['Khí tự nhiên lỏng', 'Natural Gas Liquids', '天然气液体', NULL, NULL, NULL],
+            ['Khí tự nhiên', 'Natural Gas', '天然气', ' 0.037683', 'TERAJOULE', 'GIGAGRAM'],
+            ['Etan', 'Ethane', '乙烷', '47.5', 'TERAJOULE', 'GIGAGRAM'],
+            ['Propan', 'Propane', '丙烷', '46.3', 'TERAJOULE', 'GIGAGRAM'],
+            ['Butan', 'Butane', '丁烷', '45.5', 'TERAJOULE', 'GIGAGRAM'],
+            ['Xăng động cơ', 'Motor Gasoline', '车用汽油', '44.3', 'TERAJOULE', 'THOUSAND_CUBIC_METER'],
+            ['Xăng hàng không', 'Aviation Gasoline', '航空汽油', '44.3', 'TERAJOULE', 'THOUSAND_CUBIC_METER'],
+            ['Xăng phản lực', 'Jet Gasoline', '喷气汽油', '44.1', 'TERAJOULE', 'THOUSAND_CUBIC_METER'],
+            ['Nhiên liệu phản lực', 'Jet Kerosene', '喷气煤油', '44.1', 'TERAJOULE', 'THOUSAND_CUBIC_METER'],
+            ['Dầu hỏa', 'Kerosene', '煤油', '34.4', 'TERAJOULE', 'THOUSAND_CUBIC_METER'],
+            ['Dầu hỏa khác', 'Other Kerosene', '其他煤油', '43.8', 'TERAJOULE', 'THOUSAND_CUBIC_METER'],
+            ['Dầu đá phiến', 'Shale Oil', '页岩油', '40.2', 'TERAJOULE', 'GIGAGRAM'],
+            ['Dầu diesel', 'Gas Diesel Oil', '燃气柴油', '43', 'TERAJOULE', 'THOUSAND_CUBIC_METER'],
+            ['Dầu nhiên liệu', 'Fuel Oil', '燃料油', '39.358', 'TERAJOULE', 'THOUSAND_CUBIC_METER'],
+            ['Dầu nhiên liệu cặn', 'Residual Fuel Oil', '残余燃料油', '40.4', 'TERAJOULE', 'GIGAGRAM'],
+            ['Khí dầu mỏ hóa lỏng', 'Liquefied Petroleum Gas', '液化石油气', '47.3', 'TERAJOULE', 'GIGAGRAM'],
+            ['Naphta', 'Naphtha', '石脑油', '44.5', 'TERAJOULE', 'THOUSAND_CUBIC_METER'],
+            ['Khí tự nhiên', 'Natural Gas', '天然气', '39.9', 'TERAJOULE', 'MILLION_CUBIC_METER'],
+            ['Dầu bôi trơn', 'Lubricants', '润滑油', '40.2', 'TERAJOULE', 'GIGAGRAM'],
+            ['Than cốc dầu mỏ', 'Petroleum Coke', '石油焦', '32.5', 'TERAJOULE', 'GIGAGRAM'],
+            ['Nguyên liệu lọc dầu', 'Refinery Feedstocks', '炼油原料', '43.3', 'TERAJOULE', 'GIGAGRAM'],
+            ['Khí nhà máy lọc dầu', 'Refinery Gas', '炼油厂气体', '44.5', 'TERAJOULE', 'GIGAGRAM'],
+            ['Sáp paraffin', 'Paraffin Waxes', '石蜡', '40', 'TERAJOULE', 'GIGAGRAM'],
+            ['Sản phẩm dầu mỏ khác', 'Other Petroleum Products', '其他石油产品', '41', 'TERAJOULE', 'GIGAGRAM'],
+            ['Than antraxit', 'Anthracite', '无烟煤', '30', 'TERAJOULE', 'GIGAGRAM'],
+            ['Than cốc', 'Coking Coal', '焦煤', '28.2', 'TERAJOULE', 'GIGAGRAM'],
+            ['Than bitum khác', 'Other Bituminous Coal', '其他烟煤', '25.8', 'TERAJOULE', 'GIGAGRAM'],
+            ['Than bán bitum', 'Sub-bituminous Coal', '次烟煤', '18.9', 'TERAJOULE', 'GIGAGRAM'],
+            ['Than non', 'Lignite', '褐煤', '11.9', 'TERAJOULE', 'GIGAGRAM'],
+            ['Dầu đá phiến và cát dầu', 'Oil Shale and Tar Sands', '油页岩和油砂', '8.9', 'TERAJOULE', 'GIGAGRAM'],
+            ['Than non ép viên', 'Brown Coal Briquettes', '褐煤球', '20', 'TERAJOULE', 'GIGAGRAM'],
+            ['Nhiên liệu ép', 'Patent Fuel', '专利燃料', '0.020', 'TERAJOULE', 'MEGAGRAM'],
+            ['Than cốc lò luyện / Than cốc từ than non', 'Coke Oven Coke / Lignite Coke', '焦炉焦炭 / 褐煤焦炭', '0.0282', 'TERAJOULE', 'MEGAGRAM'],
+            ['Than cốc', 'Gas Coke', '煤气焦炭', '0.0285', 'TERAJOULE', 'MEGAGRAM'],
+            ['Hắc ín than', 'Coal Tar', '煤焦油', '0.0326', 'TERAJOULE', 'MEGAGRAM'],
+            ['Khí nhà máy khí', 'Gas Works Gas', '煤气厂气体', '0.0176', 'TERAJOULE', 'THOUSAND_CUBIC_METER'],
+            ['Khí lò cốc', 'Coke Oven Gas', '焦炉煤气', '0.0176', 'TERAJOULE', 'THOUSAND_CUBIC_METER'],
+            ['Khí lò cao', 'Blast Furnace Gas', '高炉煤气', '0.0036', 'TERAJOULE', 'THOUSAND_CUBIC_METER'],
+            ['Khí lò luyện thép oxy', 'Oxygen Steel Furnace Gas', '氧气转炉煤气', '0.0070', 'TERAJOULE', 'THOUSAND_CUBIC_METER'],
+            ['Khí tự nhiên (khô)', 'Natural Gas (Dry)', '天然气（干）', '0.0480', 'TERAJOULE', 'MEGAGRAM'],
+            ['Rác thải đô thị - phần không sinh khối', 'Municipal Wastes (Non-Biomass Fraction)', '城市废物（非生物质部分）', '0.0100', 'TERAJOULE', 'MEGAGRAM'],
+            ['Rác thải công nghiệp', 'Industrial Wastes', '工业废物', '0.0150', 'TERAJOULE', 'MEGAGRAM'],
+            ['Dầu thải', 'Waste Oils', '废油', '0.0402', 'TERAJOULE', 'MEGAGRAM'],
+            ['Than bùn', 'Peat', '泥炭', '0.0098', 'TERAJOULE', 'MEGAGRAM'],
+            ['Gỗ / Phế thải gỗ', 'Wood / Wood Waste', '木材 / 木材废料', '0.0156', 'TERAJOULE', 'MEGAGRAM'],
+            ['Dung dịch sunphit', 'Sulphite Lyes', '亚硫酸盐液', '0.0118', 'TERAJOULE', 'MEGAGRAM'],
+            ['Sinh khối rắn sơ cấp khác', 'Other Primary Solid Biomass', '其他初级固体生物质', '0.0125', 'TERAJOULE', 'MEGAGRAM'],
+            ['Than củi', 'Charcoal', '木炭', '0.0295', 'TERAJOULE', 'MEGAGRAM'],
+            ['Xăng sinh học', 'Biogasoline', '生物汽油', '0.0270', 'TERAJOULE', 'MEGAGRAM'],
+            ['Diesel sinh học', 'Biodiesels', '生物柴油', '0.0270', 'TERAJOULE', 'MEGAGRAM'],
+            ['Nhiên liệu sinh học lỏng khác', 'Other Liquid Biofuels', '其他液体生物燃料', '0.0270', 'TERAJOULE', 'MEGAGRAM'],
+            ['Khí bãi rác', 'Landfill Gas', '垃圾填埋气', '0.0190', 'TERAJOULE', 'THOUSAND_CUBIC_METER'],
+            ['Khí bùn', 'Sludge Gas', '污泥气', '0.0190', 'TERAJOULE', 'THOUSAND_CUBIC_METER'],
+            ['Khí sinh học khác', 'Other Biogas', '其他沼气', '0.0190', 'TERAJOULE', 'THOUSAND_CUBIC_METER'],
+            ['Sinh khối', 'Biomass Fraction', '生物质部分', '13600', 'TERAJOULE', 'MEGAGRAM'],
+            ['Rác thải đô thị - phần sinh khối', 'Municipal Wastes (Biomass Fraction)', '城市废物（生物质部分）', '0.0100', 'TERAJOULE', 'MEGAGRAM'],
+            ['Municipal Solid Waste (MSW)', 'Municipal Solid Waste (MSW)', '城市固体废物', '0.0105', 'TERAJOULE', 'MEGAGRAM'],
+            ['Nhựa', 'Plastics', '塑料', '0.036', 'TERAJOULE', 'MEGAGRAM'],
+            ['Dệt may', 'Textiles', '纺织品', '0.015', 'TERAJOULE', 'MEGAGRAM'],
+            ['Cao su', 'Rubber', '橡胶', '0.03', 'TERAJOULE', 'MEGAGRAM'],
+            ['Tã lót', 'Nappies', '尿布', '0.0175', 'TERAJOULE', 'MEGAGRAM'],
+            ['Rác thải công nghiệp', 'Industrial Solid Waste', '工业固体废物', '0.0115', 'TERAJOULE', 'MEGAGRAM'],
+            ['Rác thải nguy hại', 'Hazardous Waste', '危险废物', NULL, NULL, NULL],
+            ['Rác thải lâm sàng', 'Clinical Waste', '临床废物', '0.02', 'TERAJOULE', 'MEGAGRAM'],
+            ['Bùn thải', 'Sewage Sludge', '污水污泥', '0.0125', 'TERAJOULE', 'MEGAGRAM']
+            ];
+        fuel_id UUID;
+        i INT;
+    BEGIN
+        FOR i IN 1 .. array_length(fuel_names, 1) LOOP
+                -- Insert into fuel table
+                INSERT INTO fuel (version, name_vi, name_en, name_zh)
+                VALUES (0, fuel_names[i][1], fuel_names[i][2], fuel_names[i][3])
+                RETURNING id INTO fuel_id;
+
+                INSERT INTO energy_conversion (version, fuel_id,
+                                               conversion_value,
+                                               conversion_unit_numerator,
+                                               conversion_unit_denominator)
+                VALUES (0, fuel_id,
+                        fuel_names[i][4]::NUMERIC(20,6),
+                        fuel_names[i][5],
+                        fuel_names[i][6]
+                       );
+            END LOOP;
+    END $$;
+
+-- FACTOR
+DO $$
+    DECLARE
+        factor_data    TEXT[][] := ARRAY [
+            -- Format:
+            -- [factor_name_vi, factor_name_en. factor_name_zh, co2 value, ch4 value, n2o value, unit_numerator, unit_denominator,emission_source_vi,is_direct_emission
+            -- conversion_fuel_vi, conversion_value]
+            ['Hệ số phát thải của than antraxit', 'Emission factor of anthracite coal', '无烟煤的排放因子', '98.300', '1', '1.5',
+                'KILOGRAM', 'TERAJOULE', 'Công nghiệp năng lượng', 'Than antraxit', 'false'],
+            ['Hệ số phát thải của than sub-bitum', 'Emission factor of sub-bituminous coal', '次烟煤的排放因子', '96.100', '1', '1.5',
+                'KILOGRAM', 'TERAJOULE', 'Công nghiệp năng lượng', 'Than bán bitum', 'false'],
+            ['Hệ số phát thải của dầu thô', 'Emission factor of crude oil', '原油的排放因子', '73.300', '3', '0.6', 'KILOGRAM',
+                'TERAJOULE', 'Công nghiệp năng lượng', 'Dầu thô', 'false'],
+            ['Hệ số phát thải của dầu diesel', 'Emission factor of diesel oil', '柴油的排放因子', '74.100', '3', '0.6', 'KILOGRAM',
+                'TERAJOULE', 'Công nghiệp năng lượng', 'Dầu diesel', 'false'],
+            ['Hệ số phát thải của dầu diesel (đường bộ)', 'Emission factor of diesel oil (road transport)', '柴油（公路运输）的排放因子',
+                '74.100', '3.9', '3.9', 'KILOGRAM', 'TERAJOULE', 'Giao thông vận tải đường bộ', 'Dầu diesel', 'false'],
+            ['Hệ số phát thải của xăng', 'Emission factor of gasoline', '汽油的排放因子', '69.300', '62', '0.2', 'KILOGRAM',
+                'TERAJOULE', 'Giao thông vận tải đường bộ', 'Xăng động cơ', 'false'],
+            ['Hệ số phát thải của than củi', 'Emission factor of charcoal', '木炭的排放因子', '112.000', '200', '4', 'KILOGRAM',
+                'TERAJOULE', 'Công nghiệp năng lượng', 'Than củi', 'false'],
+            ['Hệ số phát thải của xăng hàng không', 'Emission factor of aviation gasoline', '航空汽油的排放因子', '70.000', '0.5', '2',
+                'KILOGRAM', 'TERAJOULE', 'Giao thông vận tải hàng không nội địa', 'Xăng hàng không', 'false'],
+            ['Hệ số phát thải của dầu nhiên liệu', 'Emission factor of fuel oil', '燃油的排放因子', '77.400', '3', '0.6', 'KILOGRAM',
+                'TERAJOULE', 'Công nghiệp năng lượng', 'Dầu nhiên liệu', 'false'],
+            ['Hệ số phát thải của khí tự nhiên', 'Emission factor of natural gas', '天然气的排放因子', '56.100', '1', '0.1',
+                'KILOGRAM', 'TERAJOULE', 'Công nghiệp năng lượng', 'Khí tự nhiên', 'false'],
+            ['Hệ số phát thải của sinh khối', 'Emission factor of biomass', '生物质的排放因子', '100.000', '30', '4', 'KILOGRAM',
+                'TERAJOULE', 'Công nghiệp năng lượng', 'Sinh khối', 'false'],
+            ['Hệ số phát thải của than antraxit', 'Emission factor of anthracite coal', '无烟煤的排放因子', '98.3', '10', '1.5',
+                'KILOGRAM', 'TERAJOULE', 'Công nghiệp sản xuất và xây dựng', 'Than antraxit', 'false'],
+            ['Hệ số phát thải của dầu diesel', 'Emission factor of diesel oil', '柴油的排放因子', '74.100', '3', '0.6', 'KILOGRAM',
+                'TERAJOULE', 'Công nghiệp sản xuất và xây dựng', 'Dầu diesel', 'false'],
+            ['Hệ số phát thải của dầu nhiên liệu', 'Emission factor of fuel oil', '燃油的排放因子', '77.400', '3', '0.6', 'KILOGRAM',
+                'TERAJOULE', 'Công nghiệp sản xuất và xây dựng', 'Dầu nhiên liệu', 'false'],
+            ['Hệ số phát thải của khí hoả long', 'Emission factor of blast furnace gas', '高炉煤气的排放因子', '63.100', '1', '0.1',
+                'KILOGRAM', 'TERAJOULE', 'Công nghiệp sản xuất và xây dựng', 'Khí dầu mỏ hóa lỏng', 'false'],
+            ['Hệ số phát thải của khí tự nhiên', 'Emission factor of natural gas', '天然气的排放因子', '56.100', '1', '0.1',
+                'KILOGRAM', 'TERAJOULE', 'Công nghiệp sản xuất và xây dựng', 'Khí tự nhiên', 'false'],
+            ['Hệ số phát thải của sinh khối', 'Emission factor of biomass', '生物质的排放因子', '0', '30', '4', 'KILOGRAM',
+                'TERAJOULE', 'Công nghiệp sản xuất và xây dựng', 'Sinh khối', 'false'],
+            ['Hệ số phát thải của nhiên liệu hàng không', 'Emission factor of aviation fuel (Jet Kerosene)',
+                '航空燃料（喷气煤油）的排放因子', '71.500', '0.5', '2', 'KILOGRAM', 'TERAJOULE', 'Giao thông vận tải hàng không nội địa',
+                'Nhiên liệu phản lực', 'false'],
+            ['Hệ số phát thải của dầu diesel', 'Emission factor of diesel oil', '柴油的排放因子', '74.100', '3.9', '3.9', 'KILOGRAM',
+                'TERAJOULE', 'Giao thông vận tải đường bộ', 'Dầu diesel', 'false'],
+            ['Hệ số phát thải của khí hoả long', 'Emission factor of blast furnace gas', '高炉煤气的排放因子', '63.100', '62', '0.2',
+                'KILOGRAM', 'TERAJOULE', 'Giao thông vận tải đường bộ', 'Khí dầu mỏ hóa lỏng', 'false'],
+            ['Hệ số phát thải của khí tự nhiên', 'Emission factor of natural gas', '天然气的排放因子', '56.100', '92', '3', 'KILOGRAM',
+                'TERAJOULE', 'Giao thông vận tải đường bộ', 'Khí tự nhiên', 'false'],
+            ['Hệ số phát thải của dầu diesel', 'Emission factor of diesel oil', '柴油的排放因子', '74.100', '4.15', '28.6',
+                'KILOGRAM', 'TERAJOULE', 'Giao thông vận tải đường sắt', 'Dầu diesel', 'false'],
+            ['Hệ số phát thải của dầu diesel', 'Emission factor of diesel oil', '柴油的排放因子', '74.100', '7', '2', 'KILOGRAM',
+                'TERAJOULE', 'Giao thông vận tải đường thuỷ nội địa và hàng hải nội địa', 'Dầu diesel', 'false'],
+            ['Hệ số phát thải của dầu nhiên liệu', 'Emission factor of fuel oil', '燃油的排放因子', '77.400', '7', '2', 'KILOGRAM',
+                'TERAJOULE', 'Giao thông vận tải đường thuỷ nội địa và hàng hải nội địa', 'Dầu nhiên liệu', 'false'],
+            ['Hệ số phát thải của than antraxit', 'Emission factor of anthracite coal', '无烟煤的排放因子', '98.3', '10', '1.5',
+                'KILOGRAM', 'TERAJOULE', 'Thương mại và dịch vụ', 'Than antraxit', 'false'],
+            ['Hệ số phát thải của dầu diesel', 'Emission factor of diesel oil', '柴油的排放因子', '74.100', '10', '0.6', 'KILOGRAM',
+                'TERAJOULE', 'Thương mại và dịch vụ', 'Dầu diesel', 'false'],
+            ['Hệ số phát thải của khí hoả long', 'Emission factor of blast furnace gas', '高炉煤气的排放因子', '63.100', '5', '0.1',
+                'KILOGRAM', 'TERAJOULE', 'Thương mại và dịch vụ', 'Khí dầu mỏ hóa lỏng', 'false'],
+            ['Hệ số phát thải của than củi', 'Emission factor of charcoal', '木炭的排放因子', '112.000', '200', '1', 'KILOGRAM',
+                'TERAJOULE', 'Thương mại và dịch vụ', 'Than củi', 'false'],
+            ['Hệ số phát thải của than antraxit', 'Emission factor of anthracite coal', '无烟煤的排放因子', '98.300', '300', '1.5',
+                'KILOGRAM', 'TERAJOULE', 'Dân dụng', 'Than antraxit', 'false'],
+            ['Hệ số phát thải của dầu hoả', 'Emission factor of kerosene', '煤油的排放因子', '71.900', '10', '0.6', 'KILOGRAM',
+                'TERAJOULE', 'Dân dụng', 'Dầu hỏa', 'false'],
+            ['Hệ số phát thải của khí hoả long', 'Emission factor of blast furnace gas', '高炉煤气的排放因子', '63.100', '5', '0.1',
+                'KILOGRAM', 'TERAJOULE', 'Dân dụng', 'Khí dầu mỏ hóa lỏng', 'false'],
+            ['Hệ số phát thải của sinh khối', 'Emission factor of biomass', '生物质的排放因子', '100.000', '300', '4', 'KILOGRAM',
+                'TERAJOULE', 'Dân dụng', 'Rác thải đô thị - phần sinh khối', 'false'],
+            ['Hệ số phát thải của xăng', 'Emission factor of gasoline', '汽油的排放因子', '69.300', '10', '0.6', 'KILOGRAM',
+                'TERAJOULE', 'Nông nghiệp. lâm nghiệp và thuỷ sản', 'Xăng động cơ', 'false'],
+            ['Hệ số phát thải của dầu diesel', 'Emission factor of diesel oil', '柴油的排放因子', '74.100', '10', '0.6', 'KILOGRAM',
+                'TERAJOULE', 'Nông nghiệp. lâm nghiệp và thuỷ sản', 'Dầu diesel', 'false'],
+            ['Hệ số phát thải của sinh khối', 'Emission factor of biomass', '生物质的排放因子', '0', '300', '4', 'KILOGRAM',
+                'TERAJOULE', 'Nông nghiệp. lâm nghiệp và thuỷ sản', 'Sinh khối', 'false'],
+            ['Hệ số phát tán trong khai thác than hầm lò', 'Emission factor in underground coal mining',
+                '地下煤矿开采中的甲烷排放因子', '0', '16', '0', 'CUBIC_METER', 'MEGAGRAM', 'Khai thác than hầm lò', null, 'true'],
+            ['Hệ số phát tán sau khai thác than hầm lò', 'Emission factor after underground coal mining', '地下煤矿开采后甲烷排放因子', '0',
+                '0.1697', '0', 'CUBIC_METER', 'MEGAGRAM', 'Khai thác than hầm lò', null, 'true'],
+            ['Hệ số phát tán trong khai thác than lộ thiên', 'Emission factor in surface coal mining', '露天煤矿开采中的甲烷排放因子', '0',
+                '0.05375', '0', 'CUBIC_METER', 'MEGAGRAM', 'Khai thác than lộ thiên', null, 'true'],
+            ['Hệ số phát tán sau khai thác than lộ thiên', 'Emission factor after surface coal mining', '露天煤矿开采后甲烷排放因子', '0',
+                '0.1697', '0', 'CUBIC_METER', 'MEGAGRAM', 'Khai thác than lộ thiên', null, 'true'],
+            ['Hệ số phát thải rò rỉ từ sản xuất dầu', 'Emission factor of leakage from oil production', '石油生产泄漏排放因子',
+                '0.00215', '0.01035', '0', 'GIGAGRAM', 'THOUSAND_CUBIC_METER', 'Khai thác dầu', null, 'true'],
+            ['Hệ số phát thải do đốt cháy tự nhiên từ sản xuất dầu', 'Emission factor of natural combustion from oil production', '石油生产自然燃烧排放因子',
+                '0.0405', '0.000025', '0.00000064', 'GIGAGRAM', 'THOUSAND_CUBIC_METER', 'Khai thác dầu', null, 'true'],
+            ['Hệ số phát thải phát tán trong sản xuất dầu', 'Emission factor of fugitive emissions in oil production', '石油生产中的无组织排放因子',
+                '0.00249', '0.0196', '0', 'GIGAGRAM', 'THOUSAND_CUBIC_METER', 'Khai thác dầu', null, 'true'],
+            ['Hệ số phát thải rò rỉ trong xử lý khí', 'Emission factor of leakage in gas processing', '天然气处理泄漏排放因子',
+                '0.0675', '0', '0', 'GIGAGRAM', 'MILLION_CUBIC_METER', 'Khai thác khí tự nhiên', null, 'true'],
+            ['Hệ số phát thải do đốt cháy tự nhiên từ sản xuất dầu', 'Emission factor of natural combustion from oil production', '石油生产自然燃烧排放因子',
+                '0.00355', '0.00000024', '3.90E-08', 'GIGAGRAM', 'MILLION_CUBIC_METER', 'Khai thác khí tự nhiên', null, 'true'],
+            ['Hệ số phát thải do đốt cháy tự nhiên từ sản xuất khí', 'Emission factor of natural combustion from gas production', '天然气生产自然燃烧排放因子',
+                '0.0014', '0.00000088', '2.50E-08', 'GIGAGRAM', 'MILLION_CUBIC_METER', 'Khai thác khí tự nhiên', null, 'true'],
+            ['Hệ số phát thải phát tán trong sản xuất khí', 'Emission factor of fugitive emissions in gas production', '天然气生产中的无组织排放因子',
+                '0.000097', '0.01219', '0', 'GIGAGRAM', 'MILLION_CUBIC_METER', 'Khai thác khí tự nhiên', null, 'true'],
+            ['Hệ số phát thải phát tán trong xử lý khí', 'Emission factor of fugitive emissions in gas processing', '天然气处理中的无组织排放因子',
+                '0.00025', '0.00079', '0', 'GIGAGRAM', 'MILLION_CUBIC_METER THÔ ĐẦU VÀO', 'Khai thác khí tự nhiên', null, 'true']
+            ];
+        source_id      UUID;
+        conversion_id  UUID;
+        i              INT;
+    BEGIN
+        FOR i IN 1 .. array_length(factor_data, 1)
+            LOOP
+                SELECT id
+                INTO source_id
+                FROM emission_source
+                WHERE name_vi = factor_data[i][9];
+
+                IF source_id IS NULL THEN
+                    RAISE EXCEPTION 'No matching emission_source found for name_vi: %', factor_data[i][9];
+                END IF;
+
+                IF factor_data[i][11] = 'false' THEN
+                    SELECT ec.id
+                    INTO conversion_id
+                    FROM energy_conversion ec
+                    JOIN fuel f ON ec.fuel_id = f.id
+                    WHERE f.name_vi = factor_data[i][10];
+
+                    IF conversion_id IS NULL THEN
+                        RAISE EXCEPTION 'No matching energy_conversion found for name_vi: %', factor_data[i][10];
+                    END IF;
+                ELSE
+                    conversion_id := NULL; -- Direct emission, no conversion
+                END IF;
+
+                -- Step 4: Insert into emission_factor
+                INSERT INTO emission_factor (version, created_by, created_date, last_modified_date, last_modified_by,
+                                             co2, ch4, n2o,
+                                             name_vi, name_en, name_zh,
+                                             unit_numerator, unit_denominator,
+                                             emission_source_id,
+                                             description,
+                                             valid_from, valid_to,
+                                             is_direct_emission,
+                                             energy_conversion_id)
+                VALUES (0, 'seed_data_sql', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'seed_data_sql',
+                        factor_data[i][4]::DECIMAL(20, 6), factor_data[i][5]::DECIMAL(20, 6), factor_data[i][6]::DECIMAL(20, 6),
+                        factor_data[i][1], factor_data[i][2], factor_data[i][3],
+                        factor_data[i][7], factor_data[i][8],
+                        source_id,
+                        '',
+                        '2025-01-01 00:00:00',
+                        '2030-01-01 00:00:00',
+                        factor_data[i][11]::BOOLEAN,
+                        conversion_id);
+            END LOOP;
+    END
+$$;
+
