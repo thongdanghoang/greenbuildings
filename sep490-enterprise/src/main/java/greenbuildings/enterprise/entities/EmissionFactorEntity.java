@@ -6,6 +6,8 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -31,21 +33,29 @@ public class EmissionFactorEntity extends AbstractAuditableEntity {
     @Column(name = "n2o")
     private BigDecimal n2o = BigDecimal.ZERO;
     
-    @Column(name = "name")
-    private String name;
+    @Column(name = "name_vi")
+    private String nameVN;
+    
+    @Column(name = "name_en")
+    private String nameEN;
+    
+    @Column(name = "name_zh")
+    private String nameZH;
     
     @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "unit_numerator")
-    private EmissionUnit emissionUnitNumerator;
+    private EmissionUnit emissionUnitNumerator; // Mostly kgCO2, kgN20, kgCH4
     
     @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "unit_denominator")
-    private EmissionUnit emissionUnitDenominator;
+    private EmissionUnit emissionUnitDenominator; // Mostly TJ, there are some special cases with direct conversion
     
-    @Column(name = "source")
-    private String source;
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "emission_source_id")
+    private EmissionSourceEntity source;
     
     @Column(name = "description")
     private String description;
@@ -60,15 +70,7 @@ public class EmissionFactorEntity extends AbstractAuditableEntity {
     @Column(name = "is_direct_emission")
     private boolean isDirectEmission;
     
-    @Column(name = "conversion_value")
-    private BigDecimal conversionValue;
-    
-    @Column(name = "conversion_unit_numerator")
-    @Enumerated(EnumType.STRING)
-    private EmissionUnit conversionUnitNumerator;
-    
-    
-    @Column(name = "conversion_unit_denominator")
-    @Enumerated(EnumType.STRING)
-    private EmissionUnit conversionUnitDenominator;
+    @ManyToOne(optional = false) // Maybe null in case of direct conversion
+    @JoinColumn(name = "energy_conversion_id")
+    private EnergyConversionEntity energyConversion;
 }

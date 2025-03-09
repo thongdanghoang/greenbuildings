@@ -6,9 +6,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "emission_source")
-public class EmissionSourceEntity extends AbstractBaseEntity {
-
+@Table(name = "fuel")
+public class FuelEntity extends AbstractBaseEntity {
+    
     @Column(name = "name_vi")
     private String nameVN;
     
