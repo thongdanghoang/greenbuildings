@@ -1,4 +1,4 @@
-package greenbuildings.enterprise.entities;
+package greenbuildings.enterprise.enums;
 
 public enum TransactionType {
     NEW_PURCHASE,

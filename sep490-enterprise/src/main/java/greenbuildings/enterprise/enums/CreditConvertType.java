@@ -1,4 +1,4 @@
-package greenbuildings.enterprise.entities;
+package greenbuildings.enterprise.enums;
 
 public enum CreditConvertType {
     MONTH,
