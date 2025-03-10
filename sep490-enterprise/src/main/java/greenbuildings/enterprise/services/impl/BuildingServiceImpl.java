@@ -1,5 +1,6 @@
 package greenbuildings.enterprise.services.impl;
 
+import greenbuildings.commons.api.exceptions.BusinessException;
 import greenbuildings.enterprise.entities.BuildingEntity;
 import greenbuildings.enterprise.repositories.BuildingRepository;
 import greenbuildings.enterprise.services.BuildingService;
@@ -21,6 +22,9 @@ public class BuildingServiceImpl implements BuildingService {
     
     @Override
     public BuildingEntity createBuilding(BuildingEntity building) {
+      if(buildingRepository.existsByName(building.getName())) {
+          throw new BusinessException("name", "business.buildings.name.exist");
+      }
         return buildingRepository.save(building);
     }
     

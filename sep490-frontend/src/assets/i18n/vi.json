@@ -33,6 +33,9 @@
         "exist": "Địa chỉ email đã tồn tại"
       },
       "buildings": {
+        "name": {
+          "exist": "Tên tòa nhà đã tồn tại"
+        },
         "invalid": "Lựa chọn tòa nhà không hợp lệ",
         "permissionWarning": "Vui lòng chọn một tòa nhà để chỉ định vai trò cho người dùng này",
         "notEnoughCredit": "Doanh nghiệp không có đủ tín dụng"
