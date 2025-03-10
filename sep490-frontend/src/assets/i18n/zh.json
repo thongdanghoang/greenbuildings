@@ -33,6 +33,9 @@
         "exist": "电子邮件地址已存在"
       },
       "buildings": {
+        "name": {
+          "exist": "名称建筑已存在"
+        },
         "invalid": "建筑物选择无效",
         "permissionWarning": "请选择一栋建筑物来为该用户分配角色",
         "notEnoughCredit": "企业没有足够的积分"

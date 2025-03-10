@@ -1,5 +1,7 @@
 package greenbuildings.enterprise.services.impl;
 
+import commons.springfw.impl.utils.SecurityUtils;
+import greenbuildings.commons.api.exceptions.BusinessException;
 import greenbuildings.enterprise.entities.BuildingEntity;
 import greenbuildings.enterprise.repositories.BuildingRepository;
 import greenbuildings.enterprise.services.BuildingService;
@@ -9,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -21,6 +24,10 @@ public class BuildingServiceImpl implements BuildingService {
     
     @Override
     public BuildingEntity createBuilding(BuildingEntity building) {
+      UUID enterpriseId = SecurityUtils.getCurrentUserEnterpriseId().orElseThrow();
+      if(buildingRepository.existsByNameBuildingInEnterprise(building.getName(),enterpriseId)) {
+          throw new BusinessException("name", "business.buildings.name.exist");
+      }
         return buildingRepository.save(building);
     }
     
