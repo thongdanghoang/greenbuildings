@@ -2,6 +2,7 @@ package greenbuildings.enterprise.repositories;
 
 import commons.springfw.impl.repositories.AbstractBaseRepository;
 import greenbuildings.enterprise.entities.BuildingEntity;
+import jakarta.validation.constraints.NotBlank;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -16,5 +17,6 @@ public interface BuildingRepository extends AbstractBaseRepository<BuildingEntit
     List<BuildingEntity> findAllByEnterpriseId(UUID enterpriseId);
     
     Optional<BuildingEntity> findByIdAndEnterpriseId(UUID id, UUID enterpriseId);
-    
+
+    boolean existsByName(@NotBlank String name);
 }
