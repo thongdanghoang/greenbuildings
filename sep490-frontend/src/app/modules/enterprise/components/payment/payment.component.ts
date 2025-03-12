@@ -13,7 +13,7 @@ import {
   SearchCriteriaDto,
   SearchResultDto,
   SortDto
-} from '../../../shared/models/models';
+} from '../../../shared/models/base-models';
 import {Observable} from 'rxjs';
 import {ApplicationService} from '../../../core/services/application.service';
 import {PaymentStatus} from '../../enums/payment-status';

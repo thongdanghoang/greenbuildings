@@ -10,7 +10,7 @@ import {
 import {
   SearchCriteriaDto,
   SearchResultDto
-} from '../modules/shared/models/models';
+} from '../modules/shared/models/base-models';
 
 @Injectable({
   providedIn: 'root'

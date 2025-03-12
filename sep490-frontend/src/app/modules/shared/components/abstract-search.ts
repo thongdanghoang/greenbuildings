@@ -3,7 +3,7 @@ import {TranslateService} from '@ngx-translate/core';
 import {MessageService} from 'primeng/api';
 import {Observable, of, takeUntil} from 'rxjs';
 import {SubscriptionAwareComponent} from '../../core/subscription-aware.component';
-import {SearchCriteriaDto, SearchResultDto} from '../models/models';
+import {SearchCriteriaDto, SearchResultDto} from '../models/base-models';
 import {TranslateParamsPipe} from '../pipes/translate-params.pipe';
 
 @Directive()

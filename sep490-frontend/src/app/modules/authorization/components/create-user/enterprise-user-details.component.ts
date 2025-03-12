@@ -18,7 +18,7 @@ import {filter, map, switchMap, takeUntil, tap} from 'rxjs';
 import {UUID} from '../../../../../types/uuid';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
 import {AbstractFormComponent} from '../../../shared/components/form/abstract-form-component';
-import {SelectableItem} from '../../../shared/models/models';
+import {SelectableItem} from '../../../shared/models/base-models';
 import {BuildingPermissionRole} from '../../enums/building-permission-role';
 import {UserRole} from '../../enums/role-names';
 import {UserScope} from '../../enums/user-scope';
