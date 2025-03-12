@@ -18,22 +18,24 @@ import java.util.NoSuchElementException;
 @Slf4j
 public class RestExceptionHandler {
     
-    private static TechnicalErrorResponse technicalError(Throwable exception, String errorMsg) {
+    private static TechnicalErrorResponse technicalError(Throwable ex, String errorMsg) {
+        log.error("Technical exception occurred. Correlation ID: {}", MDC.get(MDCContext.CORRELATION_ID), ex);
         return new TechnicalErrorResponse(MDC.get(MDCContext.CORRELATION_ID), errorMsg);
     }
     
-    private static BusinessErrorResponse businessError(BusinessException exception) {
+    private static BusinessErrorResponse businessError(BusinessException ex) {
+        log.error("Business exception occurred. Correlation ID: {}", MDC.get(MDCContext.CORRELATION_ID), ex);
         return new BusinessErrorResponse(
                 MDC.get(MDCContext.CORRELATION_ID),
-                exception.getField(),
-                exception.getI18nKey(),
-                exception.getArgs()
+                ex.getField(),
+                ex.getI18nKey(),
+                ex.getArgs()
         );
     }
     
     @ExceptionHandler(Exception.class)
     public ResponseEntity<TechnicalErrorResponse> handleGenericException(Exception ex) {
-        log.error("Unhandled exception occurred. Correlation ID: {}", MDC.get(MDCContext.CORRELATION_ID), ex);
+        // log.error("Unhandled exception occurred. Correlation ID: {}", MDC.get(MDCContext.CORRELATION_ID), ex);
         return ResponseEntity
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(technicalError(ex, ex.getMessage()));
