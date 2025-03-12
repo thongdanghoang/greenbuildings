@@ -9,11 +9,15 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 
 @Entity
 @Table(name = "energy_conversion")
+@Getter
+@Setter
 public class EnergyConversionEntity extends AbstractBaseEntity {
     
     @OneToOne

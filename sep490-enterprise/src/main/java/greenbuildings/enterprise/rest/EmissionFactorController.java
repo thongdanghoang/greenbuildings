@@ -1,6 +1,7 @@
 package greenbuildings.enterprise.rest;
 
-import greenbuildings.enterprise.entities.EmissionFactorEntity;
+import greenbuildings.enterprise.dtos.EmissionFactorDTO;
+import greenbuildings.enterprise.mappers.EmissionFactorMapper;
 import greenbuildings.enterprise.services.EmissionFactorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,9 +16,10 @@ import java.util.List;
 public class EmissionFactorController {
     
     private final EmissionFactorService emissionFactorService;
+    private final EmissionFactorMapper emissionFactorMapper;
     
     @GetMapping
-    public List<EmissionFactorEntity> findAll() {
-        return emissionFactorService.findAll();
+    public List<EmissionFactorDTO> findAll() {
+        return emissionFactorService.findAll().stream().map(emissionFactorMapper::toDTO).toList();
     }
 }
