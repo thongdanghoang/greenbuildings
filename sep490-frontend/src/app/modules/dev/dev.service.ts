@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {delay, Observable, of} from 'rxjs';
-import { SearchCriteriaDto, SearchResultDto } from '../shared/models/models';
+import { SearchCriteriaDto, SearchResultDto } from '../shared/models/base-models';
 import {ProductCriteria} from './components/toolbox/toolbox.component';
 
 export interface Product {

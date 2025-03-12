@@ -10,7 +10,7 @@ import {TranslateService} from '@ngx-translate/core';
 import {MessageService} from 'primeng/api';
 import {of, take, takeUntil} from 'rxjs';
 import {SubscriptionAwareComponent} from '../../../core/subscription-aware.component';
-import {BusinessErrorParam} from '../../models/models';
+import {BusinessErrorParam} from '../../models/base-models';
 
 @Directive()
 export abstract class AbstractFormComponent<T>

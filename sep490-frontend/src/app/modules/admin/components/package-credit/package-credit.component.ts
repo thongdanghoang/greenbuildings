@@ -13,7 +13,7 @@ import {
   SearchCriteriaDto,
   SearchResultDto,
   SortDto
-} from '../../../shared/models/models';
+} from '../../../shared/models/base-models';
 import {Observable, takeUntil} from 'rxjs';
 
 import {CreditPackage} from '../../../enterprise/models/enterprise.dto';

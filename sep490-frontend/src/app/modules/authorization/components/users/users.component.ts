@@ -18,7 +18,7 @@ import {TableTemplateColumn} from '../../../shared/components/table-template/tab
 import {
   SearchCriteriaDto,
   SearchResultDto
-} from '../../../shared/models/models';
+} from '../../../shared/models/base-models';
 import {ModalProvider} from '../../../shared/services/modal-provider';
 import {EnterpriseUser} from '../../models/enterprise-user';
 import {EnterpriseUserService} from '../../services/enterprise-user.service';

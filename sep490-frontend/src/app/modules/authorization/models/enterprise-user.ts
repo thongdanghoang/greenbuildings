@@ -1,5 +1,5 @@
 import {UUID} from '../../../../types/uuid';
-import {BaseDTO} from '../../shared/models/models';
+import {BaseDTO} from '../../shared/models/base-models';
 import {BuildingPermissionRole} from '../enums/building-permission-role';
 import {UserRole} from '../enums/role-names';
 import {UserScope} from '../enums/user-scope';
