@@ -49,6 +49,10 @@ import {TableTemplateComponent} from './components/table-template/table-template
 import {ErrorMessagesDirective} from './directives/error-messages.directive';
 import {FormFieldErrorDirective} from './directives/form-field-error.directive';
 import {TranslateParamsPipe} from './pipes/translate-params.pipe';
+import {EmissionFactorService} from './services/emission-factor.service';
+import {EmissionSourceService} from './services/emission-source.service';
+import {EnergyConversionService} from './services/energy-conversion.service';
+import {FuelService} from './services/fuel.service';
 import {ModalProvider} from './services/modal-provider';
 import {CarouselModule} from 'primeng/carousel';
 import {ImageModule} from 'primeng/image';
@@ -130,6 +134,15 @@ const commons = [
     PaymentStatusComponent,
     CardTemplateComponent
   ],
-  providers: [DatePipe, ModalProvider, DialogService, DynamicDialog]
+  providers: [
+    DatePipe,
+    ModalProvider,
+    DialogService,
+    DynamicDialog,
+    EmissionFactorService,
+    EmissionSourceService,
+    FuelService,
+    EnergyConversionService
+  ]
 })
 export class SharedModule {}

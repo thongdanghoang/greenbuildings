@@ -4,9 +4,13 @@ import commons.springfw.impl.entities.AbstractBaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "emission_source")
+@Getter
+@Setter
 public class EmissionSourceEntity extends AbstractBaseEntity {
 
     @Column(name = "name_vi")
