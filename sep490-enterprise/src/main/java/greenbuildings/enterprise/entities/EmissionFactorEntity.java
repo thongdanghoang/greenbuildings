@@ -70,7 +70,7 @@ public class EmissionFactorEntity extends AbstractAuditableEntity {
     @Column(name = "is_direct_emission")
     private boolean isDirectEmission;
     
-    @ManyToOne(optional = false) // Maybe null in case of direct conversion
+    @ManyToOne(optional = true) // Maybe null in case of direct conversion
     @JoinColumn(name = "energy_conversion_id")
     private EnergyConversionEntity energyConversion;
 }
