@@ -1,6 +1,7 @@
 package greenbuildings.enterprise.adapters.payos.payos;
 
 import greenbuildings.enterprise.entities.CreditPackageEntity;
+import greenbuildings.enterprise.entities.CreditPackageVersionEntity;
 import greenbuildings.enterprise.entities.EnterpriseEntity;
 import greenbuildings.enterprise.entities.PaymentEntity;
 import greenbuildings.enterprise.mappers.PaymentMapper;
@@ -43,17 +44,17 @@ public class PayOSAdapterImpl implements PayOSAdapter {
     
     
     @Override
-    public PaymentEntity newPayment(@NotNull CreditPackageEntity creditPackageEntity, @NotNull EnterpriseEntity enterpriseEntity, @NotNull String requestOrigin) {
+    public PaymentEntity newPayment(@NotNull CreditPackageVersionEntity creditPackageVersionEntity, @NotNull EnterpriseEntity enterpriseEntity, @NotNull String requestOrigin) {
         try {
             this.setUrls(requestOrigin);
             log.info("Creating payment link for enterprise: {}", enterpriseEntity.getId());
             
-            ItemData itemData = buildItemData(creditPackageEntity);
-            PaymentData paymentData = getPaymentData(creditPackageEntity, enterpriseEntity, itemData);
+            ItemData itemData = buildItemData(creditPackageVersionEntity);
+            PaymentData paymentData = getPaymentData(creditPackageVersionEntity, enterpriseEntity, itemData);
             CheckoutResponseData payOSResult = payOS.createPaymentLink(paymentData);
             
             log.info("Payment link created successfully for order code: {}", payOSResult.getOrderCode());
-            return preparePaymentEntity(enterpriseEntity, payOSResult, creditPackageEntity);
+            return preparePaymentEntity(enterpriseEntity, payOSResult, creditPackageVersionEntity);
         } catch (Exception ex) {
             log.error("Failed to create payment link for enterprise: {}", enterpriseEntity.getId(), ex);
             throw new TechnicalException("Failed to create payment link", ex);
@@ -73,31 +74,32 @@ public class PayOSAdapterImpl implements PayOSAdapter {
     }
     
     private PaymentEntity preparePaymentEntity(EnterpriseEntity enterpriseEntity, CheckoutResponseData payOSResult,
-                                               CreditPackageEntity creditPackageEntity) {
+                                               CreditPackageVersionEntity creditPackageVersionEntity) {
         PaymentEntity paymentEntity = new PaymentEntity();
         paymentEntity.setEnterprise(enterpriseEntity);
         paymentEntity.setStatus(PaymentStatus.PENDING);
         paymentEntity.setAmount(payOSResult.getAmount());
-        paymentEntity.setNumberOfCredits(creditPackageEntity.getNumberOfCredits());
+        paymentEntity.setNumberOfCredits(creditPackageVersionEntity.getNumberOfCredits());
+        paymentEntity.setCreditPackageVersionEntity(creditPackageVersionEntity);
         mapper.updatePaymentFromCheckoutData(payOSResult, paymentEntity);
         return paymentEntity;
     }
     
     
-    private ItemData buildItemData(CreditPackageEntity creditPackageEntity) {
+    private ItemData buildItemData(CreditPackageVersionEntity creditPackageVersionEntity) {
         return ItemData.builder()
                        .name(CREDIT_ITEM)
-                       .quantity(creditPackageEntity.getNumberOfCredits())
+                       .quantity(creditPackageVersionEntity.getNumberOfCredits())
                        .price(0) // total price will be set at PaymentData
                        .build();
     }
     
-    private PaymentData getPaymentData(CreditPackageEntity creditPackageEntity,
+    private PaymentData getPaymentData(CreditPackageVersionEntity creditPackageVersionEntity,
                                        EnterpriseEntity enterpriseEntity,
                                        ItemData itemData) {
         return PaymentData.builder()
                           .orderCode(System.currentTimeMillis())
-                          .amount((int) creditPackageEntity.getPrice())
+                          .amount((int) creditPackageVersionEntity.getPrice())
                           .description("Credit purchase") // max 25 chars
                           .buyerName(enterpriseEntity.getName())
                           .buyerEmail(enterpriseEntity.getEmail())

@@ -3,6 +3,7 @@ package greenbuildings.enterprise.rest;
 import commons.springfw.impl.mappers.CommonMapper;
 import greenbuildings.enterprise.dtos.CreditPackageDTO;
 import greenbuildings.enterprise.entities.CreditPackageEntity;
+import greenbuildings.enterprise.entities.CreditPackageVersionEntity;
 import greenbuildings.enterprise.mappers.CreditPackageMapper;
 import greenbuildings.enterprise.services.CreditPackageService;
 import greenbuildings.commons.api.dto.SearchCriteriaDTO;
@@ -54,19 +55,21 @@ public class CreditPackageController {
     }
 
     private ResponseEntity<Void> createNewCreditPackage(CreditPackageDTO creditPackageDTO) {
-        var creditPackageEntity = mapper.dtoToCreateCreditPackage(creditPackageDTO);
-        return saveUserAndReturnResponse(creditPackageEntity, HttpStatus.CREATED);
+        var creditPackageVersionEntity = mapper.dtoToCreateCreditPackage(creditPackageDTO);
+        return saveUserAndReturnResponse(creditPackageVersionEntity, HttpStatus.CREATED);
     }
 
     private Optional<ResponseEntity<Void>> updateExistingCreditPackage(CreditPackageDTO creditPackageDTO) {
         return creditPackageService.findById(creditPackageDTO.id())
-                .map(entity -> {
-                  CreditPackageEntity creditPackageEntity =  mapper.dtoToUpdateCreditPackage(entity, creditPackageDTO);
-                    return saveUserAndReturnResponse(creditPackageEntity, HttpStatus.OK);
+                .map(existingEntity -> {
+                    CreditPackageEntity creditPackageEntity = existingEntity.getCreditPackageEntity();
+                    CreditPackageVersionEntity updatedEntity = mapper.dtoToUpdateCreditPackage(creditPackageEntity, creditPackageDTO);
+                    return saveUserAndReturnResponse(updatedEntity, HttpStatus.OK);
                 });
     }
 
-    private ResponseEntity<Void> saveUserAndReturnResponse(CreditPackageEntity entity, HttpStatus status) {
+
+    private ResponseEntity<Void> saveUserAndReturnResponse(CreditPackageVersionEntity entity, HttpStatus status) {
         creditPackageService.createOrUpdate(entity);
         return ResponseEntity.status(status).build();
     }
@@ -74,7 +77,8 @@ public class CreditPackageController {
     @DeleteMapping
     @RolesAllowed({UserRole.RoleNameConstant.SYSTEM_ADMIN})
     public ResponseEntity<Void> deleteCreditPackages(@RequestBody Set<UUID> packageIds) {
-        creditPackageService.deletePackages(packageIds);
+        UUID firstPackageId = packageIds.iterator().next();
+        creditPackageService.deletePackage(firstPackageId);
         return ResponseEntity.noContent().build();
     }
 
