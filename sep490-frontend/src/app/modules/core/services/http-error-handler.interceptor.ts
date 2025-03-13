@@ -8,7 +8,7 @@ import {Injectable} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {MessageService} from 'primeng/api';
 import {Observable, catchError, throwError} from 'rxjs';
-import {BusinessErrorParam} from '../../shared/models/models';
+import {BusinessErrorParam} from '../../shared/models/base-models';
 
 @Injectable()
 export class HttpErrorHandlerInterceptor implements HttpInterceptor {

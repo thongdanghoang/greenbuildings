@@ -13,7 +13,7 @@ import {PaginatorState} from 'primeng/paginator';
 import {Table} from 'primeng/table';
 import {takeUntil} from 'rxjs';
 import {ApplicationConstant} from '../../../../application.constant';
-import {SearchResultDto, SortDto} from '../../models/models';
+import {SearchResultDto, SortDto} from '../../models/base-models';
 import {AbstractSearchComponent} from '../abstract-search';
 
 export interface TableTemplateColumn {

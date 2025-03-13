@@ -1,4 +1,4 @@
-import {BaseDTO} from '../../shared/models/models';
+import {BaseDTO} from '../../shared/models/base-models';
 import {PaymentStatus} from '../enums/payment-status';
 
 export interface PaymentDTO extends BaseDTO {

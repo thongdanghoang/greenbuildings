@@ -1,7 +1,7 @@
 package greenbuildings.enterprise.rest;
 
-import greenbuildings.enterprise.entities.FuelEntity;
-import greenbuildings.enterprise.repositories.FuelRepository;
+import greenbuildings.enterprise.dtos.FuelDTO;
+import greenbuildings.enterprise.mappers.FuelMapper;
 import greenbuildings.enterprise.services.FuelService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,10 +16,11 @@ import java.util.List;
 public class FuelController {
     
     private final FuelService fuelService;
+    private final FuelMapper fuelMapper;
     
     @GetMapping
-    public List<FuelEntity> findAll() {
-        return fuelService.findAll();
+    public List<FuelDTO> findAll() {
+        return fuelService.findAll().stream().map(fuelMapper::toEntity).toList();
     }
     
 }

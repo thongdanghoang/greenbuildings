@@ -1,6 +1,9 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {SearchCriteriaDto, SearchResultDto} from '../../shared/models/models';
+import {
+  SearchCriteriaDto,
+  SearchResultDto
+} from '../../shared/models/base-models';
 import {Observable} from 'rxjs';
 import {AppRoutingConstants} from '../../../app-routing.constant';
 import {CreditPackage} from '../../enterprise/models/enterprise.dto';

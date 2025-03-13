@@ -1,4 +1,4 @@
-import {BaseDTO} from '../../shared/models/models';
+import {BaseDTO} from '../../shared/models/base-models';
 import {UUID} from '../../../../types/uuid';
 
 export interface Building extends BaseDTO {

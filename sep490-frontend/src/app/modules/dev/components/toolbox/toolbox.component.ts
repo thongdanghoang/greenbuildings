@@ -4,7 +4,7 @@ import {Observable} from 'rxjs';
 import {ApplicationService} from '../../../core/services/application.service';
 import {SubscriptionAwareComponent} from '../../../core/subscription-aware.component';
 import {TableTemplateColumn} from '../../../shared/components/table-template/table-template.component';
-import {SearchCriteriaDto, SearchResultDto} from '../../../shared/models/models';
+import {SearchCriteriaDto, SearchResultDto} from '../../../shared/models/base-models';
 import {ModalProvider} from '../../../shared/services/modal-provider';
 import {Product} from '../../dev.service';
 
