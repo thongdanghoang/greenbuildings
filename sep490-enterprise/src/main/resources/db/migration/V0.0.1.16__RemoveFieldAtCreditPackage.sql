@@ -1,0 +1,3 @@
+ALTER TABLE credit_packages DROP COLUMN number_of_credits;
+ALTER TABLE credit_packages DROP COLUMN price;
+CREATE INDEX credit_packages_versions_fk_credit_packages_idx ON credit_packages_versions(credit_package_id);

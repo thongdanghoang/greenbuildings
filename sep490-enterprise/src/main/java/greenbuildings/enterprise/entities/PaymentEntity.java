@@ -30,6 +30,11 @@ public class PaymentEntity extends AbstractAuditableEntity {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "enterprise_id", nullable = false)
     private EnterpriseEntity enterprise;
+
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "credit_packages_versions_id")
+    private CreditPackageVersionEntity creditPackageVersionEntity;
     
     @NotNull
     @Enumerated(EnumType.STRING)
@@ -74,5 +79,6 @@ public class PaymentEntity extends AbstractAuditableEntity {
     
     @Column(name = "qr_code")
     private String qrCode;
+
     
 }

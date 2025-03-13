@@ -16,13 +16,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class CreditPackageEntity extends AbstractAuditableEntity {
-
-    @Column(name = "number_of_credits", nullable = false)
-    @Min(0)
-    private int numberOfCredits = 0;
-    
-    @Column(name = "price", nullable = false)
-    @Min(0)
-    private long price = 0;
-    
+    @Column(name = "active")
+    private boolean active;
 }

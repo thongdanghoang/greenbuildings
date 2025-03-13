@@ -1,6 +1,7 @@
 package greenbuildings.enterprise.services;
 
 import greenbuildings.enterprise.entities.CreditPackageEntity;
+import greenbuildings.enterprise.entities.CreditPackageVersionEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -11,13 +12,13 @@ import java.util.UUID;
 
 public interface CreditPackageService {
     
-    List<CreditPackageEntity> findAll();
+    List<CreditPackageVersionEntity> findAll();
     
-    Optional<CreditPackageEntity> findById(UUID id);
+    Optional<CreditPackageVersionEntity> findById(UUID id);
 
-    void createOrUpdate(CreditPackageEntity creditPackage);
+    void createOrUpdate(CreditPackageVersionEntity creditPackageVersionEntity);
 
-    void deletePackages(Set<UUID> packageIds);
+    void deletePackage(UUID packageId);
 
-    Page<CreditPackageEntity> search(Pageable pageable);
+    Page<CreditPackageVersionEntity> search(Pageable pageable);
 }

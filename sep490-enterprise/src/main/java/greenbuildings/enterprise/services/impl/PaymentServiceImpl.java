@@ -3,14 +3,9 @@ package greenbuildings.enterprise.services.impl;
 import commons.springfw.impl.utils.SecurityUtils;
 import greenbuildings.enterprise.adapters.payos.payos.PayOSAdapter;
 import greenbuildings.enterprise.dtos.PaymentCriteriaDTO;
-import greenbuildings.enterprise.entities.CreditPackageEntity;
-import greenbuildings.enterprise.entities.EnterpriseEntity;
-import greenbuildings.enterprise.entities.PaymentEntity;
-import greenbuildings.enterprise.entities.WalletEntity;
-import greenbuildings.enterprise.repositories.CreditPackageRepository;
-import greenbuildings.enterprise.repositories.EnterpriseRepository;
-import greenbuildings.enterprise.repositories.PaymentRepository;
-import greenbuildings.enterprise.repositories.WalletRepository;
+import greenbuildings.enterprise.entities.*;
+import greenbuildings.enterprise.mappers.PaymentMapper;
+import greenbuildings.enterprise.repositories.*;
 import greenbuildings.enterprise.services.PaymentService;
 import greenbuildings.commons.api.dto.SearchCriteriaDTO;
 import greenbuildings.commons.api.enums.PaymentStatus;
@@ -34,6 +29,7 @@ public class PaymentServiceImpl implements PaymentService {
     private final CreditPackageRepository packageRepo;
     private final EnterpriseRepository enterpriseRepo;
     private final WalletRepository walletRepository;
+    private final CreditPackageVersionRepository creditPackageVersionRepository;
     
     private final PayOSAdapter payOSAdapter;
     
@@ -46,19 +42,19 @@ public class PaymentServiceImpl implements PaymentService {
     }
     
     @Override
-    public PaymentEntity createPayment(UUID creditPackageUUID, String requestOrigin) {
+    public PaymentEntity createPayment(UUID creditPackageVersionUUID, String requestOrigin) {
         try {
             // Validate
             if (StringUtils.isEmpty(requestOrigin)) {
                 throw new TechnicalException("Invalid request origin");
             }
             // Prepare
-            CreditPackageEntity creditPackageEntity = packageRepo.findById(creditPackageUUID).orElseThrow();
+            CreditPackageVersionEntity creditPackageVersionEntity = creditPackageVersionRepository.findById(creditPackageVersionUUID).orElseThrow();
             UUID enterpriseUUID = SecurityUtils.getCurrentUserEnterpriseId().orElseThrow();
             EnterpriseEntity enterpriseEntity = enterpriseRepo.findById(enterpriseUUID).orElseThrow();
             
             // Build info
-            PaymentEntity paymentEntity = payOSAdapter.newPayment(creditPackageEntity, enterpriseEntity, requestOrigin);
+            PaymentEntity paymentEntity = payOSAdapter.newPayment(creditPackageVersionEntity, enterpriseEntity, requestOrigin);
             
             return payRepo.save(paymentEntity);
         } catch (Exception e) {
