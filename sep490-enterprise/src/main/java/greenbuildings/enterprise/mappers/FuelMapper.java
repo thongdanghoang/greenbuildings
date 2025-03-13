@@ -8,6 +8,6 @@ import org.mapstruct.MappingConstants;
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface FuelMapper {
     
-    FuelDTO toEntity(FuelEntity fuelEntity);
+    FuelDTO toDTO(FuelEntity fuelEntity);
     
 }
