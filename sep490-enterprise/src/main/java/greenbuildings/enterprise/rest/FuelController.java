@@ -20,7 +20,7 @@ public class FuelController {
     
     @GetMapping
     public List<FuelDTO> findAll() {
-        return fuelService.findAll().stream().map(fuelMapper::toEntity).toList();
+        return fuelService.findAll().stream().map(fuelMapper::toDTO).toList();
     }
     
 }
