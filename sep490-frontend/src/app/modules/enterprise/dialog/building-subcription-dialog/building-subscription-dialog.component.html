@@ -6,7 +6,9 @@
             size="large"
         />
         <span class="font-bold whitespace-nowrap">{{
-            "dialog.subscription.header.title" | translate
+            data.type === TransactionType.NEW_PURCHASE
+                ? ("dialog.subscription.header.title" | translate)
+                : ("dialog.subscription.header.titleUpdate" | translate)
         }}</span>
     </div>
 </div>
@@ -24,10 +26,14 @@
                 {{ data.selectedBuildingDetails.numberOfDevices }}</span
             >
         </div>
-        <span class="text-primary block mb-8 lg:0 lg:pr-12"
-            >{{ "purchaseCredit.currentBalance" | translate }}:
-            {{ data.balance | number }}</span
+        <div
+            class="flex flex-col gap-2 p-5 items-center lg:items-start justify-center"
         >
+            <span class="text-primary block mb-8 lg:0 lg:pr-12"
+                >{{ "purchaseCredit.currentBalance" | translate }}:
+                {{ data.balance | number }}</span
+            >
+        </div>
     </div>
 
     <form
@@ -97,10 +103,31 @@
         </div>
     </form>
     <div class="flex flex-col p-4 gap-8">
-        <span class="text-surface-500 dark:text-surface-400 block"
-            >{{ "dialog.subscription.body.totalCredit" | translate }}:
-            {{ totalToPay }}</span
+        <div
+            class="flex flex-col-reverse lg:flex-row justify-between items-center gap-2"
         >
+            <span class="text-surface-500 dark:text-surface-400 block"
+                >{{ "dialog.subscription.body.totalCredit" | translate }}:
+                {{ totalToPay }}</span
+            >
+            @if (data.type === TransactionType.UPGRADE) {
+                <div class="flex flex-col lg:flex-row lg:gap-5">
+                    <span class="text-surface-500 dark:text-surface-400 block"
+                        >{{
+                            "enterprise.buildings.details.labels.validFromInclusive"
+                                | translate
+                        }}: {{ data.building.subscriptionDTO?.startDate }}</span
+                    >
+
+                    <span class="text-surface-500 dark:text-surface-400 block"
+                        >{{
+                            "enterprise.buildings.details.labels.validToInclusive"
+                                | translate
+                        }}: {{ data.building.subscriptionDTO?.endDate }}</span
+                    >
+                </div>
+            }
+        </div>
         @if (formGroup.valid && this.sufficientBalance) {
             <div class="flex flex-row gap-1 items-center">
                 <p-checkbox

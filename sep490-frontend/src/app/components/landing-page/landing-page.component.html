@@ -34,7 +34,7 @@
     </ng-template>
 </p-carousel>
 <!-- About Section Start -->
-<div class="bg-gray-100 py-16">
+<div class="py-16">
     <div class="container mx-auto px-6 lg:px-20">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <!-- Left: Images -->
@@ -61,7 +61,7 @@
             <div class="animate-fadeInRight">
                 <div class="text-start">
                     <h1
-                        class="text-4xl md:text-5xl font-bold leading-tight text-gray-900 mt-2"
+                        class="text-4xl md:text-5xl font-bold leading-tight mt-2"
                     >
                         {{ "landingPage.intro.title" | translate }}
                     </h1>
@@ -69,19 +69,19 @@
                         {{ "landingPage.intro.description" | translate }}
                     </p>
                     <div class="mt-6 space-y-3">
-                        <p class="flex items-center text-gray-700">
+                        <p class="flex items-center">
                             <i
                                 class="pi pi-check text-primary text-lg mr-3"
                             ></i>
                             {{ "landingPage.intro.item1" | translate }}
                         </p>
-                        <p class="flex items-center text-gray-700">
+                        <p class="flex items-center">
                             <i
                                 class="pi pi-check text-primary text-lg mr-3"
                             ></i>
                             {{ "landingPage.intro.item2" | translate }}
                         </p>
-                        <p class="flex items-center text-gray-700">
+                        <p class="flex items-center">
                             <i
                                 class="pi pi-check text-primary text-lg mr-3"
                             ></i>
@@ -89,12 +89,12 @@
                         </p>
                     </div>
                     <div class="flex items-center justify-end">
-                        <a
-                            href="#"
-                            class="mt-6 inline-block bg-primary text-white font-semibold rounded-full px-6 py-3 hover:bg-blue-700 transition-all"
+                        <p-button
+                            class="mt-6 inline-block bg-primary text-white font-semibold rounded-full hover:bg-blue-700 transition-all"
+                            (click)="login()"
                         >
                             {{ "landingPage.intro.register" | translate }}
-                        </a>
+                        </p-button>
                     </div>
                 </div>
             </div>
@@ -103,7 +103,7 @@
 </div>
 <!-- About Section End -->
 <!-- Team Section Start -->
-<div class="bg-gray-100 py-16">
+<div class="py-16">
     <div class="container mx-auto px-6 lg:px-20">
         <!-- Section Title -->
         <div class="text-center mb-10 animate-fadeInUp">
@@ -112,7 +112,7 @@
             >
                 {{ "landingPage.dashBoard.header" | translate }}
             </h4>
-            <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mt-2">
+            <h1 class="text-4xl md:text-5xl font-bold mt-2">
                 {{ "landingPage.dashBoard.title" | translate }}
             </h1>
         </div>
@@ -209,15 +209,13 @@
     <div class="container mx-auto px-6 lg:px-36">
         <!-- Section Title -->
         <div class="text-center mb-10 animate-fadeInUp">
-            <h4
-                class="text-lg font-semibold text-white uppercase tracking-wide"
-            >
+            <h4 class="text-lg font-semibold uppercase tracking-wide">
                 {{ "landingPage.testimonial.title" | translate }}
             </h4>
-            <h1 class="text-4xl md:text-5xl font-bold text-white mt-2">
+            <h1 class="text-4xl md:text-5xl font-bold mt-2">
                 {{ "landingPage.testimonial.subtitle" | translate }}
             </h1>
-            <p class="text-white mt-5">
+            <p class="mt-5">
                 {{ "landingPage.testimonial.description" | translate }}
             </p>
         </div>
@@ -225,7 +223,7 @@
 </div>
 <!-- Testimonial Section End -->
 <!-- Blog Section Start -->
-<div class="bg-gray-100 py-16">
+<div class="py-16">
     <div class="container mx-auto px-6 lg:px-20">
         <!-- Section Title -->
         <div class="text-center mb-10 animate-fadeInUp">
@@ -234,10 +232,10 @@
             >
                 {{ "landingPage.reason.subtitle" | translate }}
             </h4>
-            <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mt-2">
+            <h1 class="text-4xl md:text-5xl font-bold mt-2">
                 {{ "landingPage.reason.title" | translate }}
             </h1>
-            <p class="text-gray-600 mt-4 max-w-3xl mx-auto">
+            <p class="mt-4 max-w-3xl mx-auto">
                 {{ "landingPage.reason.description" | translate }}
             </p>
         </div>
@@ -255,8 +253,8 @@
                 />
                 <div class="p-6">
                     <a
-                        href="#"
-                        class="block text-2xl font-bold text-gray-900 hover:text-primary transition-all"
+                        (click)="login()"
+                        class="block text-2xl font-bold text-gray-900 hover:text-primary transition-all cursor-pointer"
                     >
                         {{ "landingPage.whyChoose.item1.title" | translate }}
                     </a>
@@ -280,8 +278,8 @@
                 />
                 <div class="p-6">
                     <a
-                        href="#"
-                        class="block text-2xl font-bold text-gray-900 hover:text-primary transition-all"
+                        (click)="login()"
+                        class="block text-2xl font-bold text-gray-900 hover:text-primary transition-all cursor-pointer"
                     >
                         {{ "landingPage.whyChoose.item2.title" | translate }}</a
                     >
@@ -304,8 +302,8 @@
                 />
                 <div class="p-6">
                     <a
-                        href="#"
-                        class="block text-2xl font-bold text-gray-900 hover:text-primary transition-all"
+                        (click)="login()"
+                        class="block text-2xl font-bold text-gray-900 hover:text-primary transition-all cursor-pointer"
                         >{{
                             "landingPage.whyChoose.item3.title" | translate
                         }}</a
@@ -328,8 +326,8 @@
                 />
                 <div class="p-6">
                     <a
-                        href="#"
-                        class="block text-2xl font-bold text-gray-900 hover:text-primary transition-all"
+                        (click)="login()"
+                        class="block text-2xl font-bold text-gray-900 hover:text-primary transition-all cursor-pointer"
                         >{{
                             "landingPage.whyChoose.item4.title" | translate
                         }}</a
