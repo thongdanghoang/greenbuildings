@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {ApplicationService} from '../../modules/core/services/application.service';
 
 interface CarouselItem {
   image: string;
@@ -14,7 +15,7 @@ interface CarouselItem {
 export class LandingPageComponent implements OnInit {
   carouselItems!: CarouselItem[];
 
-  constructor() {}
+  constructor(protected readonly applicationService: ApplicationService) {}
 
   ngOnInit(): void {
     this.carouselItems = [
@@ -25,5 +26,8 @@ export class LandingPageComponent implements OnInit {
         description: 'landingPage.carousel.description'
       }
     ];
+  }
+  protected login(): void {
+    this.applicationService.login();
   }
 }

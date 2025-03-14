@@ -256,7 +256,8 @@
   "dialog": {
     "subscription": {
       "header": {
-        "title": "Mua gói đăng ký"
+        "title": "Mua gói đăng ký",
+        "titleUpdate": "Nâng cấp gói đăng ký"
       },
       "body": {
         "name": "Tên",

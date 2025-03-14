@@ -256,7 +256,8 @@
   "dialog": {
     "subscription": {
       "header": {
-        "title": "购买订阅"
+        "title": "购买订阅",
+        "titleUpdate": "更新订阅"
       },
       "body": {
         "name": "姓名",

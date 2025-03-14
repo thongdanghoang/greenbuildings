@@ -124,7 +124,8 @@ export class BuildingsComponent
         data: {
           selectedBuildingDetails: this.selectedBuildingDetails,
           balance: this.balance,
-          type: transactionType
+          type: transactionType,
+          building
         }
       };
       this.ref = this.dialogService.open(

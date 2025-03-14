@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {AbstractFormComponent} from '../../../shared/components/form/abstract-form-component';
 import {multipleOfValidator} from '../../../shared/validators/MultipleOfValidator';
 import {
+  Building,
   BuildingDetails,
   CreditConvertRatio,
   CreditConvertType,
@@ -24,6 +25,7 @@ export interface SubscriptionDialogOptions {
   selectedBuildingDetails: BuildingDetails;
   balance: number;
   type: TransactionType;
+  building: Building;
 }
 
 @Component({
@@ -36,6 +38,7 @@ export class BuildingSubscriptionDialogComponent extends AbstractFormComponent<S
   checked: boolean = false;
   totalToPay: number = 0;
   sufficientBalance: boolean = true;
+  protected readonly TransactionType = TransactionType;
   protected readonly formStructure = {
     months: new FormControl(0, {
       nonNullable: true,

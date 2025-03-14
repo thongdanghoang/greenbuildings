@@ -256,7 +256,8 @@
   "dialog": {
     "subscription": {
         "header": {
-          "title": "Buy Subscription"
+          "title": "Buy Subscription",
+          "titleUpdate": "Update Subscription"
         },
       "body": {
         "name": "Name",
