@@ -33,6 +33,9 @@
         "exist": "Email address already exists"
       },
       "buildings": {
+        "name": {
+          "exist": "Name building already exists"
+        },
         "invalid": "The buildings selection is invalid",
         "permissionWarning": "Please select a building to assign a role to this user",
         "notEnoughCredit": "Enterprise do not have enough credits"
