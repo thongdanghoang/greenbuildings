@@ -11,6 +11,7 @@ public interface BuildingMapper {
     BuildingEntity toEntity(BuildingDTO buildingDTO);
 
     @Mapping(target = "subscriptionDTO", ignore = true)
+    @Mapping(target = "emissionActivities", ignore = true)
     BuildingDTO toDto(BuildingEntity buildingEntity);
     
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)

@@ -11,7 +11,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -33,7 +32,7 @@ public class BuildingServiceImpl implements BuildingService {
     
     @Override
     public Optional<BuildingEntity> findById(UUID id) {
-        return buildingRepository.findById(id);
+        return buildingRepository.findByIdWithGraph(id);
     }
     
     @Override

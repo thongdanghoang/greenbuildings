@@ -122,6 +122,7 @@
         "btn": {
           "add": "Add building",
           "activate": "Activate",
+          "activity": "Emission Activity",
           "update": "Update"
         },
         "noRow": "No buildings found."

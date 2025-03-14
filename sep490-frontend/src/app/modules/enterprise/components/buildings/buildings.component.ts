@@ -64,13 +64,15 @@ export class BuildingsComponent
   ref: DynamicDialogRef | undefined;
   addBuildingLocation: boolean = false;
   buildingLocation: MapLocation | null = null;
-  viewMode: ViewMode = ViewMode.MAP;
+  viewMode: ViewMode = ViewMode.LIST;
   buildings: Building[] = [];
 
   justifyOptions: any[] = [
     {icon: 'pi pi-map', value: ViewMode.MAP},
     {icon: 'pi pi-list', value: ViewMode.LIST}
   ];
+
+  protected readonly AppRoutingConstants = AppRoutingConstants;
 
   private map!: L.Map;
 
@@ -105,6 +107,14 @@ export class BuildingsComponent
 
   get listView(): boolean {
     return this.viewMode === ViewMode.LIST;
+  }
+
+  hasSubscription(building: Building): boolean {
+    return building?.subscriptionDTO !== null;
+  }
+
+  getEmissionActivityPath(building: Building): string {
+    return `/${AppRoutingConstants.ENTERPRISE_PATH}/${AppRoutingConstants.EMISSION_ACTIVITY_PATH}/${building?.id}`;
   }
 
   openDialog(building: Building): void {

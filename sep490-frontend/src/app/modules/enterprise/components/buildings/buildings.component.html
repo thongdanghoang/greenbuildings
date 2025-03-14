@@ -149,6 +149,16 @@
                 "
                 outlined
             />
+            <p-button
+                *ngIf="hasSubscription(building)"
+                class="*:mw-24 ml-2"
+                severity="info"
+                label="{{
+                    'enterprise.buildings.overview.btn.activity' | translate
+                }}"
+                [routerLink]="getEmissionActivityPath(building)"
+                outlined
+            />
         </div>
     </div>
 </ng-template>

@@ -15,6 +15,7 @@ import {RegionService} from './services/region.service';
 import {SubscriptionService} from './services/subscription.service';
 import {WalletService} from './services/wallet.service';
 import {BuildingPopupMarkerComponent} from './components/building-popup-marker/building-popup-marker.component';
+import {EmissionActivityComponent} from './components/emission-activity/emission-activity.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import {BuildingPopupMarkerComponent} from './components/building-popup-marker/b
     BuildingsComponent,
     BuildingDetailsComponent,
     BuildingPopupMarkerComponent,
-    BuildingSubscriptionDialogComponent
+    BuildingSubscriptionDialogComponent,
+    EmissionActivityComponent
   ],
   imports: [SharedModule, EnterpriseRoutingModule],
   providers: [
