@@ -1,11 +1,13 @@
 package greenbuildings.enterprise.entities;
 
 import commons.springfw.impl.entities.AbstractAuditableEntity;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -14,6 +16,9 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "emission_activity")
@@ -35,6 +40,9 @@ public class EmissionActivityEntity extends AbstractAuditableEntity {
     @ManyToOne
     @JoinColumn(name = "emission_source_id")
     private EmissionSourceEntity source;
+    
+    @OneToMany(mappedBy = "emissionActivityEntity", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
+    private Set<EmissionActivityRecordEntity> records = new HashSet<>();
     
     @NotBlank
     @Size(max = 255)

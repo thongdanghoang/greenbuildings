@@ -122,6 +122,7 @@
         "btn": {
           "add": "Thêm tòa nhà",
           "activate": "Kích hoạt",
+          "activity": "Hoạt động phát thải",
           "update": "Nâng cấp"
         },
         "noRow": "Không tìm thấy tòa nhà nào."

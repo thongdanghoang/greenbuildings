@@ -1,13 +1,13 @@
 package greenbuildings.enterprise.dtos;
 
-import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 public record EmissionActivityDTO (
         UUID id,
         int version,
         UUID buildingID,
-        List<EmissionActivityRecordDTO> records,
+        Set<EmissionActivityRecordDTO> records,
         UUID emissionFactorID,
         UUID emissionSourceID,
         String name,

@@ -1,5 +1,6 @@
 import {BaseDTO} from '../../shared/models/base-models';
 import {UUID} from '../../../../types/uuid';
+import {EmissionUnit} from '../../shared/models/shared-models';
 
 export interface Building extends BaseDTO {
   name: string;
@@ -16,6 +17,27 @@ export interface BuildingDetails extends BaseDTO {
   latitude: number;
   longitude: number;
   address: string;
+  subscriptionDTO?: Subscription;
+  emissionActivities: EmissionActivity[];
+}
+
+export interface EmissionActivity extends BaseDTO {
+  records: EmissionActivityRecord[];
+  buildingID: UUID;
+  emissionFactorID: UUID;
+  emissionSourceID: UUID;
+  name: string;
+  type: string;
+  category: string;
+  description: string;
+  quantity: number;
+}
+
+export interface EmissionActivityRecord extends BaseDTO {
+  value: number;
+  unit: keyof typeof EmissionUnit;
+  startDate: Date;
+  endDate: Date;
 }
 
 export interface CreditPackage extends BaseDTO {
