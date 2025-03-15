@@ -2,8 +2,8 @@ package greenbuildings.enterprise.services;
 
 import greenbuildings.enterprise.entities.EmissionSourceEntity;
 
-import java.util.List;
+import java.util.Set;
 
 public interface EmissionSourceService {
-    List<EmissionSourceEntity> findAll();
+    Set<EmissionSourceEntity> findAll();
 }

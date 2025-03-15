@@ -2,8 +2,8 @@ package greenbuildings.enterprise.services;
 
 import greenbuildings.enterprise.entities.FuelEntity;
 
-import java.util.List;
+import java.util.Set;
 
 public interface FuelService {
-    List<FuelEntity> findAll();
+    Set<FuelEntity> findAll();
 }

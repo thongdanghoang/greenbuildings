@@ -6,9 +6,11 @@ import greenbuildings.enterprise.services.FuelService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Service
 @Transactional(rollbackOn = Throwable.class)
@@ -19,9 +21,9 @@ public class FuelServiceImpl implements FuelService {
     private final FuelRepository fuelRepository;
     
     @Override
-    public List<FuelEntity> findAll() {
-        // TODO: adapt cache ?
-        return fuelRepository.findAll();
+    @Cacheable("fuels")
+    public Set<FuelEntity> findAll() {
+        return new HashSet<>(fuelRepository.findAll());
     }
     
     
