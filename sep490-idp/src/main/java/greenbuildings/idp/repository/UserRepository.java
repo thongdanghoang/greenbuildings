@@ -25,7 +25,6 @@ public interface UserRepository extends AbstractBaseRepository<UserEntity> {
             SELECT u
             FROM UserEntity u
             WHERE u.id = :id
-            AND u.deleted = false
             """)
     Optional<UserEntity> findByIdWithBuildingPermissions(UUID id);
     
@@ -34,7 +33,6 @@ public interface UserRepository extends AbstractBaseRepository<UserEntity> {
             SELECT u
             FROM UserEntity u
             WHERE u.email = :email
-            AND u.deleted = false
             """)
     Optional<UserEntity> findByEmailWithBuildingPermissions(String email);
     
@@ -43,7 +41,6 @@ public interface UserRepository extends AbstractBaseRepository<UserEntity> {
                 SELECT u
                 FROM UserEntity u
                 WHERE u.id IN (:ids)
-                AND u.deleted = false
             """)
     List<UserEntity> findByIDsWithPermissions(Set<UUID> ids);
     
@@ -53,7 +50,6 @@ public interface UserRepository extends AbstractBaseRepository<UserEntity> {
             WHERE u.role <> greenbuildings.commons.api.security.UserRole.ENTERPRISE_OWNER
             AND u.enterprise.enterprise = :enterpriseId
             AND (LOWER(u.firstName) LIKE LOWER(CONCAT('%', :name, '%')) OR LOWER(u.lastName) LIKE LOWER(CONCAT('%', :name, '%')))
-            AND u.deleted = false
             """
     )
     Page<UUID> findByName(String name, UUID enterpriseId, Pageable pageable);
@@ -62,7 +58,6 @@ public interface UserRepository extends AbstractBaseRepository<UserEntity> {
             SELECT u
             FROM UserEntity u
             WHERE u.id IN :ids
-            AND u.deleted = false
             """
     )
     List<UserEntity> findByIDs(Set<UUID> ids);
