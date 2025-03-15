@@ -23,6 +23,7 @@ import lombok.Setter;
 import org.hibernate.annotations.Filter;
 import org.hibernate.annotations.FilterDef;
 import org.hibernate.annotations.ParamDef;
+import org.hibernate.annotations.SoftDelete;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -44,6 +45,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Getter
 @Setter
+@SoftDelete
 public class UserEntity extends AbstractAuditableEntity {
     
     public static final String WITH_ENTERPRISE_PERMISSIONS_ENTITY_GRAPH = "user-permissions-entity-graph";
@@ -88,9 +90,6 @@ public class UserEntity extends AbstractAuditableEntity {
     
     @Column(name = "locale", length = 5)
     private String locale = "vi-VN";
-    
-    @Column(name = "deleted")
-    private boolean deleted;
     
     public static UserEntity register(
             String email,

@@ -187,10 +187,7 @@ public class UserServiceImpl extends SagaManager implements UserService {
         if (users.stream().anyMatch(user -> user.getRole() == UserRole.ENTERPRISE_OWNER)) {
             throw new BusinessException("userIds", "user.cannot.delete.owner");
         }
-        for (UserEntity user : users) {
-            user.setDeleted(true);
-        }
-        userRepo.saveAll(users);
+        userRepo.deleteAll(users);
     }
     
     @Override

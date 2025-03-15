@@ -14,6 +14,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.SoftDelete;
 
 import java.util.UUID;
 
@@ -23,6 +24,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Getter
 @Setter
+@SoftDelete
 public class UserEnterpriseEntity extends AbstractAuditableEntity {
     
     @NotNull

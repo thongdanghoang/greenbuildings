@@ -251,7 +251,7 @@ export class BuildingsComponent
     }
 
     const tiles = L.tileLayer(
-      'http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',
+      'https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',
       {
         maxZoom: 18,
         minZoom: 1,
