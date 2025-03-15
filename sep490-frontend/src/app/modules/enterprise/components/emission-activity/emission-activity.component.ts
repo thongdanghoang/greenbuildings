@@ -1,14 +1,18 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
 import {MessageService} from 'primeng/api';
-import {Observer, filter, map, switchMap, takeUntil} from 'rxjs';
+import {Observer, filter, map, switchMap, takeUntil, Observable} from 'rxjs';
 import {validate} from 'uuid';
 import {UUID} from '../../../../../types/uuid';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
 import {BuildingService} from '../../../../services/building.service';
 import {SubscriptionAwareComponent} from '../../../core/subscription-aware.component';
-import {BuildingDetails} from '../../models/enterprise.dto';
+import {BuildingDetails, EmissionActivity} from '../../models/enterprise.dto';
+import {ApplicationService} from "../../../core/services/application.service";
+import {ActivitySearchCriteria, EmissionActivityService} from "../../services/emission-activity.service";
+import {SearchCriteriaDto, SearchResultDto} from "../../../shared/models/base-models";
+import {TableTemplateColumn} from "../../../shared/components/table-template/table-template.component";
 
 @Component({
   selector: 'app-emission-activity',
@@ -19,10 +23,14 @@ export class EmissionActivityComponent
   extends SubscriptionAwareComponent
   implements OnInit
 {
-  buildingDetail!: BuildingDetails;
+  private buildingDetail!: BuildingDetails;
+  protected fetchActivity!: (criteria: SearchCriteriaDto<ActivitySearchCriteria>) => Observable<SearchResultDto<EmissionActivity>>;
+  protected searchCriteria!: ActivitySearchCriteria;
+  protected cols: TableTemplateColumn[] = [];
+  protected readonly searchEvent: EventEmitter<void> = new EventEmitter();
 
   readonly fetchBuildingObserver: Observer<BuildingDetails> = {
-    next: async building => {
+    next: building => {
       if (!building.subscriptionDTO) {
         this.msgService.add({
           severity: 'error',
@@ -30,16 +38,16 @@ export class EmissionActivityComponent
           life: 3000,
           sticky: true
         });
-        await this.router.navigate([
+        void this.router.navigate([
           AppRoutingConstants.ENTERPRISE_PATH,
           AppRoutingConstants.BUILDING_PATH
         ]);
       } else {
-        this.buildingDetail = building;
+        this.handleAfterSuccessValidation(building);
       }
     },
-    error: async () => {
-      await this.router.navigate([
+    error: () => {
+      void this.router.navigate([
         AppRoutingConstants.ENTERPRISE_PATH,
         AppRoutingConstants.BUILDING_PATH
       ]);
@@ -52,13 +60,42 @@ export class EmissionActivityComponent
     private readonly msgService: MessageService,
     private readonly router: Router,
     private readonly translate: TranslateService,
-    private readonly buildingService: BuildingService
+    private readonly buildingService: BuildingService,
+    private readonly activityService: EmissionActivityService,
+    protected readonly applicationService: ApplicationService
   ) {
     super();
   }
 
   ngOnInit(): void {
     this.fetchAndValidateBuilding();
+    this.fetchActivity = this.activityService.fetchActivityOfBuilding.bind(this);
+  }
+  handleAfterSuccessValidation(building: BuildingDetails): void {
+    this.buildingDetail = building;
+    this.buildSearchCriteria();
+    this.buildCols();
+    this.searchEvent.emit();
+  }
+
+  buildSearchCriteria(): void {
+    this.searchCriteria = {
+      buildingId: this.buildingDetail.id,
+      emissionSourceId: undefined,
+      name: '',
+      type: '',
+      category: '',
+      description: '',
+      quantity: 0
+    }
+  }
+
+  buildCols(): void {
+    this.cols.push({
+      header: 'name',
+      field: 'name',
+      sortable: true
+    })
   }
 
   fetchAndValidateBuilding(): void {

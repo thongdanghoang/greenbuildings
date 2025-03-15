@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -22,6 +23,11 @@ public class EmissionFactorServiceImpl implements EmissionFactorService {
     public List<EmissionFactorEntity> findAll() {
         // TODO: adapt cache?
         return emissionFactorRepository.findAll();
+    }
+
+    @Override
+    public List<EmissionFactorEntity> findBySource(UUID sourceId) {
+        return emissionFactorRepository.findBySourceId(sourceId);
     }
 
 }
