@@ -153,6 +153,11 @@
     },
     "emission": {
       "activity": {
+        "currentNoActivities": "Số hoạt động hiện tại:",
+        "maxNoActivities": "Số hoạt động tối đa:",
+        "subscriptionDetail": "Chi tiết đăng ký",
+        "subscriptionDuration": "Thời gian đăng ký:",
+        "remainingDays": "Số ngày còn lại:",
         "table": {
           "name": "Tên",
           "type": "Loại",

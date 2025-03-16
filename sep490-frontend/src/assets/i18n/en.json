@@ -153,6 +153,11 @@
     },
     "emission": {
       "activity": {
+        "currentNoActivities": "Current number of activities:",
+        "maxNoActivities": "Max number of activities:",
+        "subscriptionDetail": "Subscription Detail",
+        "subscriptionDuration": "Subscription Duration:",
+        "remainingDays": "Remaining Days:",
         "table": {
           "name": "Name",
           "type": "Type",

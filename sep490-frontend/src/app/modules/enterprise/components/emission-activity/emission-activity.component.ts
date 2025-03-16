@@ -1,6 +1,7 @@
 import {Component, EventEmitter, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
+import moment from 'moment';
 import {MessageService} from 'primeng/api';
 import {Observable, Observer, filter, map, switchMap, takeUntil} from 'rxjs';
 import {validate} from 'uuid';
@@ -36,7 +37,7 @@ export class EmissionActivityComponent
   protected cols: TableTemplateColumn[] = [];
   protected readonly searchEvent: EventEmitter<void> = new EventEmitter();
 
-  private buildingDetail!: BuildingDetails;
+  protected buildingDetail!: BuildingDetails;
   private readonly fetchBuildingObserver: Observer<BuildingDetails> = {
     next: building => {
       if (!building.subscriptionDTO) {
@@ -123,5 +124,15 @@ export class EmissionActivityComponent
         switchMap(id => this.buildingService.getBuildingDetails(id as UUID))
       )
       .subscribe(this.fetchBuildingObserver);
+  }
+
+  getRemainingDays(): number | string {
+    if (!this.buildingDetail?.subscriptionDTO?.endDate) {
+      return 'N/A'; // Handle missing date
+    }
+    const endDate = moment(this.buildingDetail.subscriptionDTO.endDate);
+    const today = moment();
+    const diff = endDate.diff(today, 'days'); // Difference in days
+    return diff >= 0 ? diff : 'Expired';
   }
 }
