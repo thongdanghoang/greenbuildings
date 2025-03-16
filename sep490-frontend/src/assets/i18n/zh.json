@@ -153,6 +153,11 @@
     },
     "emission": {
       "activity": {
+        "currentNoActivities": "当前活动数量：",
+        "maxNoActivities": "最大活动数量：",
+        "subscriptionDetail": "订阅详情",
+        "subscriptionDuration": "订阅时长：",
+        "remainingDays": "剩余天数：",
         "table": {
           "name": "名称",
           "type": "类型",
