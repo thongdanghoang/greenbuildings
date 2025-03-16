@@ -150,7 +150,18 @@
           "detail": "Đã xóa tào nhà không thành công"
         }
       }
+    },
+    "emission": {
+      "activity": {
+        "table": {
+          "name": "Tên",
+          "type": "Loại",
+          "category": "Danh mục",
+          "quantity": "Số lượng"
+        }
+      }
     }
+
   },
   "enum": {
     "role": {

@@ -150,6 +150,16 @@
           "detail": "房屋删除失败"
         }
       }
+    },
+    "emission": {
+      "activity": {
+        "table": {
+          "name": "名称",
+          "type": "类型",
+          "category": "类别",
+          "quantity": "数量"
+        }
+      }
     }
   },
   "enum": {
