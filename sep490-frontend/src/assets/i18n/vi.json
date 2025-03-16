@@ -139,7 +139,18 @@
           "address": "Địa chỉ"
         }
       }
+    },
+    "emission": {
+      "activity": {
+        "table": {
+          "name": "Tên",
+          "type": "Loại",
+          "category": "Danh mục",
+          "quantity": "Số lượng"
+        }
+      }
     }
+
   },
   "enum": {
     "role": {
