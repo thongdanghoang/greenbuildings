@@ -17,6 +17,7 @@ import {DialogModule} from 'primeng/dialog';
 import {DividerModule} from 'primeng/divider';
 import {DrawerModule} from 'primeng/drawer';
 import {DialogService, DynamicDialog} from 'primeng/dynamicdialog';
+import {Fieldset} from 'primeng/fieldset';
 import {FloatLabelModule} from 'primeng/floatlabel';
 import {FluidModule} from 'primeng/fluid';
 import {IconFieldModule} from 'primeng/iconfield';
@@ -101,7 +102,8 @@ const primeNgModules = [
   CarouselModule,
   ImageModule,
   ToggleButtonModule,
-  ChipModule
+  ChipModule,
+  Fieldset
 ];
 
 const commons = [

@@ -1,3 +1,82 @@
+<div *ngIf="buildingDetail">
+    <div class="mb-2 md:w-1/2">
+        <p-card header="{{ buildingDetail.name }}">
+            <ng-template pTemplate="subtitle">
+                <i class="pi pi-map-marker"></i>
+                {{ buildingDetail.address }}
+            </ng-template>
+            <p>
+                {{
+                    "enterprise.emission.activity.currentNoActivities"
+                        | translate
+                }}
+                {{
+                    buildingDetail?.emissionActivities
+                        ? buildingDetail.emissionActivities?.length
+                        : 0
+                }}
+            </p>
+            <p-fieldset
+                legend="{{
+                    'enterprise.emission.activity.subscriptionDetail'
+                        | translate
+                }}"
+                collapsed="true"
+                [toggleable]="true"
+            >
+                <p>
+                    <i class="pi pi-star"></i>
+                    {{
+                        "enterprise.emission.activity.maxNoActivities"
+                            | translate
+                    }}
+                    {{ buildingDetail.subscriptionDTO?.maxNumberOfDevices }}
+                </p>
+                <p>
+                    <i class="pi pi-calendar"></i>
+                    {{
+                        "enterprise.emission.activity.subscriptionDuration"
+                            | translate
+                    }}
+
+                    {{
+                        buildingDetail.subscriptionDTO?.startDate
+                            | date: "dd/MM/yyyy"
+                    }}
+                    -
+                    {{
+                        buildingDetail.subscriptionDTO?.endDate
+                            | date: "dd/MM/yyyy"
+                    }}
+                </p>
+                <p>
+                    <i class="pi pi-hourglass"></i>
+                    {{
+                        "enterprise.emission.activity.remainingDays" | translate
+                    }}
+                    {{ getRemainingDays() }}
+                </p>
+            </p-fieldset>
+            <ng-template pTemplate="footer">
+                <div class="flex gap-4 mt-1">
+                    <p-button
+                        label="Generate Report"
+                        class="w-full"
+                        severity="success"
+                        styleClass="w-full"
+                    />
+                    <p-button
+                        label="New Activity"
+                        class="w-full"
+                        severity="primary"
+                        styleClass="w-full"
+                    />
+                </div>
+            </ng-template>
+        </p-card>
+    </div>
+</div>
+
 <table-template
     *ngIf="!applicationService.isMobile()"
     [fetch]="fetchActivity"
