@@ -224,6 +224,11 @@
   "admin": {
     "packageCredit": {
       "title": "信用套餐",
+      "active": "在",
+      "inactive": "离开",
+      "versionList": "历史信用包版本",
+      "current": "当前的",
+      "outdated": "过时的",
       "table": {
         "numberCredit": "信用金额",
         "price": "价格"
@@ -236,11 +241,11 @@
       "message": {
         "success": {
           "summary": "成功",
-          "detail": "信用包已删除"
+          "detail": "成功转换"
         },
         "error": {
           "summary": "错误",
-          "detail": "信用包删除失败"
+          "detail": "转换失败"
         }
       }
     },

@@ -2,6 +2,7 @@ package greenbuildings.enterprise.rest;
 
 import commons.springfw.impl.mappers.CommonMapper;
 import greenbuildings.enterprise.dtos.CreditPackageDTO;
+import greenbuildings.enterprise.dtos.GetCreditPackageDTOAdmin;
 import greenbuildings.enterprise.entities.CreditPackageEntity;
 import greenbuildings.enterprise.entities.CreditPackageVersionEntity;
 import greenbuildings.enterprise.mappers.CreditPackageMapper;
@@ -84,13 +85,13 @@ public class CreditPackageController {
 
     @PostMapping("/search")
     @RolesAllowed({UserRole.RoleNameConstant.SYSTEM_ADMIN})
-    public ResponseEntity<SearchResultDTO<CreditPackageDTO>> search(@RequestBody SearchCriteriaDTO<Void> searchCriteria ) {
+    public ResponseEntity<SearchResultDTO<GetCreditPackageDTOAdmin>> search(@RequestBody SearchCriteriaDTO<Void> searchCriteria ) {
         var pageable = CommonMapper.toPageable(searchCriteria.page(), searchCriteria.sort());
         var searchResults = creditPackageService.search(pageable);
         return ResponseEntity.ok(
                 CommonMapper.toSearchResultDTO(
                         searchResults,
-                        mapper::entityToDTO));
+                        mapper::entityToDTOAdmin));
     }
 
     

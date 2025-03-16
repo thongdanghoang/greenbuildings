@@ -56,6 +56,8 @@ import {FuelService} from './services/fuel.service';
 import {ModalProvider} from './services/modal-provider';
 import {CarouselModule} from 'primeng/carousel';
 import {ImageModule} from 'primeng/image';
+import {ToggleButtonModule} from 'primeng/togglebutton';
+import {ChipModule} from 'primeng/chip';
 
 const primeNgModules = [
   AccordionModule,
@@ -97,7 +99,9 @@ const primeNgModules = [
   SliderModule,
   InputNumberModule,
   CarouselModule,
-  ImageModule
+  ImageModule,
+  ToggleButtonModule,
+  ChipModule
 ];
 
 const commons = [

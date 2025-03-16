@@ -224,6 +224,11 @@
   "admin": {
   "packageCredit": {
     "title": "Package Credit",
+    "active": "on",
+    "inactive": "off",
+    "versionList": "Credit package version history",
+    "current": "current",
+    "outdated": "outdated",
     "table": {
       "numberCredit": "Number of Credits",
       "price": "Price"
@@ -236,11 +241,11 @@
     "message": {
       "success": {
         "summary": "Success",
-        "detail": "Package Credit deleted"
+        "detail": "Successful conversion"
       },
       "error": {
         "summary": "Error",
-        "detail": "Package Credit deleted unsuccessfully"
+        "detail": "Conversion failed"
       }
     }
   },

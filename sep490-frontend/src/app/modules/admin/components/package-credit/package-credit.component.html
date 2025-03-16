@@ -3,9 +3,7 @@
     [fetch]="fetchData"
     [columns]="cols"
     [captionTemplateRef]="captionTemplateRef"
-    [sort]="sort"
     [triggerSearch]="triggerSearch"
-    [checkbox]="true"
     (selectionChange)="onSelectionChange($event)"
 >
 </table-template>
@@ -41,12 +39,78 @@
             severity="info"
             (onClick)="onEdit(rowData)"
         />
-        <p-button
-            icon="pi pi-trash"
-            [rounded]="true"
-            [text]="true"
-            severity="danger"
-            (onClick)="onDelete(rowData)"
-        />
     </div>
 </ng-template>
+<ng-template #activeTemplate let-rowData>
+    <div class="flex items-center gap-2">
+        <span class="text-xs text-gray-600">{{
+            rowData.active
+                ? ("admin.packageCredit.active" | translate)
+                : ("admin.packageCredit.inactive" | translate)
+        }}</span>
+        <p-inputSwitch
+            [ngModel]="rowData.active"
+            (onChange)="onDelete(rowData)"
+        ></p-inputSwitch>
+    </div>
+</ng-template>
+<ng-template #viewVersionsTemplate let-rowData>
+    <p-button
+        icon="pi pi-eye"
+        [rounded]="true"
+        [text]="true"
+        severity="primary"
+        (onClick)="onViewVersions(rowData)"
+    />
+</ng-template>
+
+<p-dialog
+    [(visible)]="isDialogVisible"
+    modal
+    [closable]="true"
+    [header]="'admin.packageCredit.versionList' | translate"
+    [style]="{ width: '500px' }"
+>
+    <div *ngIf="selectedPackageVersions.length > 0; else noDataTemplate">
+        <div class="grid gap-3">
+            <div
+                *ngFor="let version of selectedPackageVersions"
+                class="p-3 border border-gray-300 rounded-lg shadow-sm flex items-center justify-between"
+            >
+                <div class="flex items-center gap-3">
+                    <i class="pi pi-bitcoin text-yellow-500 text-lg"></i>
+                    <span class="font-semibold text-lg">{{
+                        version.numberOfCredits
+                    }}</span>
+                </div>
+                <div class="flex items-center gap-3">
+                    <i class="pi pi-dollar text-green-500 text-lg"></i>
+                    <span class="font-semibold text-lg"
+                        >{{ version.price | number: "1.0-0" }} VND</span
+                    >
+                </div>
+                <p-chip
+                    [label]="
+                        version.active
+                            ? ('admin.packageCredit.current' | translate)
+                            : ('admin.packageCredit.outdated' | translate)
+                    "
+                    [styleClass]="
+                        version.active
+                            ? 'bg-green-500 text-white'
+                            : 'bg-red-500 text-white'
+                    "
+                ></p-chip>
+            </div>
+        </div>
+    </div>
+
+    <ng-template #noDataTemplate>
+        <div
+            class="flex flex-col items-center justify-center text-gray-500 text-lg py-4"
+        >
+            <i class="pi pi-info-circle text-2xl mb-2"></i>
+            <p>{{ "admin.packageCredit.noVersions" | translate }}</p>
+        </div>
+    </ng-template>
+</p-dialog>

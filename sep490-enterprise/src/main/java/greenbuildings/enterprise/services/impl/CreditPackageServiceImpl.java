@@ -31,6 +31,7 @@ public class CreditPackageServiceImpl implements CreditPackageService {
             CreditPackageVersionEntity creditPackageVersionEntity = creditPackageVersionRepository.findActiveTrueAndId(creditPackageEntity.getId());
             creditPackageVersionEntityList.add(creditPackageVersionEntity);
         }
+        creditPackageVersionEntityList.sort(Comparator.comparing(CreditPackageVersionEntity::getNumberOfCredits));
         return creditPackageVersionEntityList;
     }
     
@@ -74,7 +75,7 @@ public class CreditPackageServiceImpl implements CreditPackageService {
         Optional<CreditPackageEntity> creditPackageEntityOptional = creditPackageRepository.findById(creditPackageVersionEntity.getCreditPackageEntity().getId());
         if (creditPackageEntityOptional.isPresent()) {
             CreditPackageEntity creditPackageEntity = creditPackageEntityOptional.get();
-            creditPackageEntity.setActive(false);
+            creditPackageEntity.setActive(!creditPackageEntity.isActive());
             creditPackageRepository.save(creditPackageEntity);
         } else {
             throw new BusinessException("packageId", "package.entity.not.found", Collections.emptyList());
@@ -83,12 +84,13 @@ public class CreditPackageServiceImpl implements CreditPackageService {
 
     @Override
     public Page<CreditPackageVersionEntity> search(Pageable pageable) {
-        List<CreditPackageEntity> creditPackageEntityList = creditPackageRepository.findAllByActiveTrue();
+        List<CreditPackageEntity> creditPackageEntityList = creditPackageRepository.findAll();
         List<CreditPackageVersionEntity> creditPackageVersionEntityList = new ArrayList<>();
         for(CreditPackageEntity creditPackageEntity : creditPackageEntityList) {
             CreditPackageVersionEntity creditPackageVersionEntity = creditPackageVersionRepository.findActiveTrueAndId(creditPackageEntity.getId());
             creditPackageVersionEntityList.add(creditPackageVersionEntity);
         }
+        creditPackageVersionEntityList.sort(Comparator.comparing(CreditPackageVersionEntity::getNumberOfCredits));
         // Convert list to Page
         int start = (int) pageable.getOffset();
         int end = Math.min((start + pageable.getPageSize()), creditPackageVersionEntityList.size());

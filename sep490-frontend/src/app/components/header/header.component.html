@@ -18,6 +18,17 @@
     </p-drawer></ng-container
 >
 
+@if (isLandingPage) {
+    <img
+        ngSrc="assets/images/logo.svg"
+        alt="Logo"
+        width="100"
+        height="35"
+        priority
+    />
+    <div class="max-w-screen w-full"></div>
+}
+
 <div class="flex gap-3 items-center">
     @if (authenticated | async) {
         <p-button

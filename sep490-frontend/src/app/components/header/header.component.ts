@@ -6,6 +6,7 @@ import {ThemeService} from '../../modules/core/services/theme.service';
 import {SubscriptionAwareComponent} from '../../modules/core/subscription-aware.component';
 import {UserLocale} from '../../modules/shared/enums/user-language.enum';
 import {UserService} from '../../services/user.service';
+import {Router} from '@angular/router';
 
 interface Language {
   display: string;
@@ -31,7 +32,8 @@ export class HeaderComponent
     protected readonly applicationService: ApplicationService,
     private readonly userService: UserService,
     private readonly themeService: ThemeService,
-    private readonly translate: TranslateService
+    private readonly translate: TranslateService,
+    private readonly router: Router
   ) {
     super();
     this.authenticated = this.applicationService.isAuthenticated();
@@ -70,6 +72,10 @@ export class HeaderComponent
         switchMap(() => this.userService.changeLanguage(language.key))
       )
       .subscribe();
+  }
+
+  protected get isLandingPage(): boolean {
+    return this.router.url.includes('/landing-page');
   }
 
   protected login(): void {
