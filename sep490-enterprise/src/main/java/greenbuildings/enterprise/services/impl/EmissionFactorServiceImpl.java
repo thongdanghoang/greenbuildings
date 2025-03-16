@@ -10,7 +10,9 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -25,5 +27,10 @@ public class EmissionFactorServiceImpl implements EmissionFactorService {
     public Set<EmissionFactorEntity> findAll() {
         return new HashSet<>(emissionFactorRepository.findAll());
     }
-    
+
+    @Override
+    public List<EmissionFactorEntity> findBySource(UUID sourceId) {
+        return emissionFactorRepository.findBySourceId(sourceId);
+    }
+
 }

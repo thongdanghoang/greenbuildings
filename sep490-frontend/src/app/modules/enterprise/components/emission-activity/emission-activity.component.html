@@ -1,1 +1,11 @@
-<p>emission-activity works!</p>
+<table-template
+    *ngIf="!applicationService.isMobile()"
+    [fetch]="fetchActivity"
+    [columns]="cols"
+    [searchOnInit]="false"
+    [sort]="undefined"
+    [criteria]="searchCriteria"
+    [triggerSearch]="searchEvent"
+    [checkbox]="true"
+>
+</table-template>

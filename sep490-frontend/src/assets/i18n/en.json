@@ -150,6 +150,16 @@
           "detail": "Building deleted unsuccessfully"
         }
       }
+    },
+    "emission": {
+      "activity": {
+        "table": {
+          "name": "Name",
+          "type": "Type",
+          "category": "Category",
+          "quantity": "Quantity"
+        }
+      }
     }
   },
   "enum": {
