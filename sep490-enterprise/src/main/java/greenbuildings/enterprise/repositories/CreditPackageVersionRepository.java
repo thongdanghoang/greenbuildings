@@ -25,4 +25,12 @@ public interface CreditPackageVersionRepository extends AbstractBaseRepository<C
             and c.id = :creditPackageVersionId
             """)
     CreditPackageVersionEntity findActiveTrueAndIdVersion(UUID creditPackageVersionId);
+
+    @Query("""
+            SELECT c
+            FROM CreditPackageVersionEntity c
+            WHERE c.creditPackageEntity.id = :creditPackageId
+            ORDER BY c.active DESC
+            """)
+    List<CreditPackageVersionEntity> findAllByIdCreditPackage(UUID creditPackageId);
 }

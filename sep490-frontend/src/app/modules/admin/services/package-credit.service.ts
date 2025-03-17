@@ -6,7 +6,10 @@ import {
 } from '../../shared/models/base-models';
 import {Observable} from 'rxjs';
 import {AppRoutingConstants} from '../../../app-routing.constant';
-import {CreditPackage} from '../../enterprise/models/enterprise.dto';
+import {
+  CreditPackage,
+  CreditPackageAdmin
+} from '../../enterprise/models/enterprise.dto';
 import {UUID} from '../../../../types/uuid';
 
 @Injectable()
@@ -15,8 +18,8 @@ export class PackageCreditService {
   constructor(private readonly httpClient: HttpClient) {}
   public getCreditPackages(
     criteria: SearchCriteriaDto<void>
-  ): Observable<SearchResultDto<CreditPackage>> {
-    return this.httpClient.post<SearchResultDto<CreditPackage>>(
+  ): Observable<SearchResultDto<CreditPackageAdmin>> {
+    return this.httpClient.post<SearchResultDto<CreditPackageAdmin>>(
       `${AppRoutingConstants.ENTERPRISE_API_URL}/${this.CREDIT_PACKAGE_ENDPOINT}/search`,
       criteria
     );

@@ -45,6 +45,19 @@ export interface CreditPackage extends BaseDTO {
   price: number;
 }
 
+export interface CreditPackageAdmin extends BaseDTO {
+  numberOfCredits: number;
+  price: number;
+  active: boolean;
+  packageVersionDTOList: CreditPackageVersion[];
+}
+
+export interface CreditPackageVersion extends BaseDTO {
+  numberOfCredits: number;
+  price: number;
+  active: boolean;
+}
+
 export enum CreditConvertType {
   MONTH,
   DEVICE

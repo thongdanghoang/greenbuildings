@@ -224,6 +224,11 @@
   "admin": {
     "packageCredit": {
       "title": "Gói tín dụng",
+      "active": "bật",
+      "inactive": "tắt",
+      "versionList": "Lịch sử phiên bản gói tín dụng",
+      "current": "hiện tại",
+      "outdated": "lỗi thời",
       "table": {
         "numberCredit": "Số lượng tín dụng",
         "price": "Giá"
@@ -236,11 +241,11 @@
       "message": {
         "success": {
           "summary": "Thành công",
-          "detail": "Đã xóa gói tín dụng"
+          "detail": "Chuyển đổi thành công"
         },
         "error": {
           "summary": "Lỗi",
-          "detail": "Xóa Gói tín dụng không thành công"
+          "detail": "Chuyển đổi không thành công"
         }
       }
     },

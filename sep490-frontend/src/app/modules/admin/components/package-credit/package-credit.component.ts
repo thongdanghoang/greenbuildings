@@ -14,9 +14,12 @@ import {
   SearchResultDto,
   SortDto
 } from '../../../shared/models/base-models';
-import {Observable, takeUntil} from 'rxjs';
+import {Observable} from 'rxjs';
 
-import {CreditPackage} from '../../../enterprise/models/enterprise.dto';
+import {
+  CreditPackageAdmin,
+  CreditPackageVersion
+} from '../../../enterprise/models/enterprise.dto';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
 import {Router} from '@angular/router';
 import {SubscriptionAwareComponent} from '../../../core/subscription-aware.component';
@@ -38,14 +41,20 @@ export class PackageCreditComponent
   priceTemplate!: TemplateRef<any>;
   @ViewChild('actionsTemplate', {static: true})
   actionsTemplate!: TemplateRef<any>;
+  @ViewChild('activeTemplate', {static: true})
+  activeTemplate!: TemplateRef<any>;
+  @ViewChild('viewVersionsTemplate', {static: true})
+  viewVersionsTemplate!: TemplateRef<any>;
   cols: TableTemplateColumn[] = [];
   triggerSearch: EventEmitter<void> = new EventEmitter();
   sort!: SortDto;
+  selectedPackageVersions: CreditPackageVersion[] = [];
+  isDialogVisible = false;
   protected fetchData!: (
     criteria: SearchCriteriaDto<void>
-  ) => Observable<SearchResultDto<CreditPackage>>;
+  ) => Observable<SearchResultDto<CreditPackageAdmin>>;
   protected readonly AppRoutingConstants = AppRoutingConstants;
-  protected selected: CreditPackage[] = [];
+  protected selected: CreditPackageAdmin[] = [];
   private readonly router = inject(Router);
   constructor(
     protected readonly applicationService: ApplicationService,
@@ -71,31 +80,39 @@ export class PackageCreditComponent
   buildCols(): void {
     this.cols.push({
       field: 'numberOfCredits',
-      header: 'admin.packageCredit.table.numberCredit',
-      sortable: true
+      header: 'admin.packageCredit.table.numberCredit'
     });
     this.cols.push({
       field: 'price',
       header: 'admin.packageCredit.table.price',
-      sortable: true,
       templateRef: this.priceTemplate
+    });
+    this.cols.push({
+      field: 'viewVersions',
+      header: '',
+      templateRef: this.viewVersionsTemplate
     });
     this.cols.push({
       field: 'actions',
       header: '',
       templateRef: this.actionsTemplate
     });
+    this.cols.push({
+      field: 'active',
+      header: '',
+      templateRef: this.activeTemplate
+    });
   }
-  onSelectionChange(selectedPackages: CreditPackage[]): void {
+  onSelectionChange(selectedPackages: CreditPackageAdmin[]): void {
     this.selected = selectedPackages;
   }
 
-  onDelete(rowData: CreditPackage): void {
+  onDelete(rowData: CreditPackageAdmin): void {
     this.selected = [rowData];
-    this.confirmDelete();
+    this.deletePackages();
   }
 
-  onEdit(rowData: CreditPackage): void {
+  onEdit(rowData: CreditPackageAdmin): void {
     this.selected = [rowData];
     const pkgId = this.selected[0].id; // Retrieve the selected user's ID.
     void this.router.navigate([
@@ -103,26 +120,13 @@ export class PackageCreditComponent
       pkgId
     ]);
   }
-
-  confirmDelete(): void {
-    this.modalProvider
-      .showConfirm({
-        message: this.translate.instant('common.defaultConfirmMessage'),
-        header: this.translate.instant('common.confirmHeader'),
-        icon: 'pi pi-info-circle',
-        acceptButtonStyleClass: 'p-button-danger p-button-text min-w-20',
-        rejectButtonStyleClass: 'p-button-contrast p-button-text min-w-20',
-        acceptIcon: 'none',
-        acceptLabel: this.translate.instant('common.accept'),
-        rejectIcon: 'none',
-        rejectLabel: this.translate.instant('common.reject')
-      })
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((result: boolean): void => {
-        if (result) {
-          this.deletePackages();
-        }
-      });
+  onViewVersions(pkg: CreditPackageAdmin): void {
+    if (pkg.packageVersionDTOList && pkg.packageVersionDTOList.length > 0) {
+      this.selectedPackageVersions = Array.from(pkg.packageVersionDTOList);
+    } else {
+      this.selectedPackageVersions = [];
+    }
+    this.isDialogVisible = true;
   }
 
   private deletePackages(): void {
