@@ -35,7 +35,7 @@ public enum EmissionUnit {
     GIGAJOULE(UnitCategory.ENERGY, new BigDecimal("1000")),  // 1,000 GJ = 1 TJ
     MEGAJOULE(UnitCategory.ENERGY, new BigDecimal("1000000")), // 1,000,000 MJ = 1 TJ
     
-    PERCENT(UnitCategory.PERCENT, new BigDecimal("1")),
+    PERCENT(UnitCategory.PERCENT, new BigDecimal("1")),//dv dau ra
     PIECES(UnitCategory.PIECES, new BigDecimal("1"));
     
     private final UnitCategory category;
