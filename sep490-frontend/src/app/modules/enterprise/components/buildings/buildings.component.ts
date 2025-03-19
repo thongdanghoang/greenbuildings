@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ComponentRef} from '@angular/core';
+import {Component, ComponentRef, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import * as L from 'leaflet';
 import {
@@ -57,7 +57,7 @@ export interface MapLocation {
 })
 export class BuildingsComponent
   extends SubscriptionAwareComponent
-  implements AfterViewInit
+  implements OnInit
 {
   balance: number = 0;
   selectedBuildingDetails: BuildingDetails | null = null;
@@ -86,7 +86,7 @@ export class BuildingsComponent
     super();
   }
 
-  ngAfterViewInit(): void {
+  ngOnInit(): void {
     this.initMap();
     this.fetchBuilding();
     this.map.on('click', e => {
@@ -221,7 +221,9 @@ export class BuildingsComponent
           );
           marker.bindPopup(markerPopup);
         });
-        if (this.buildings.length > 0) {
+        if (this.buildings.length === 1) {
+          this.zoomTo(this.buildings[0].latitude, this.buildings[0].longitude);
+        } else if (this.buildings.length > 0) {
           const latLngs = buildings.results.map(building =>
             L.latLng(building.latitude, building.longitude)
           );
@@ -254,7 +256,7 @@ export class BuildingsComponent
       'https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',
       {
         maxZoom: 18,
-        minZoom: 1,
+        minZoom: 2,
         subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
       }
     );

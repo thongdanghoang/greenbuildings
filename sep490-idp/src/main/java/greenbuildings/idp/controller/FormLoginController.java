@@ -63,9 +63,9 @@ public class FormLoginController {
     
     @PostMapping("/signup")
     public String processSignup(@Valid @ModelAttribute("signupDTO") SignupDTO signupDTO, BindingResult result, Model model) {
-//        if (result.hasErrors()) {
-//            return "signup";
-//        }
+        if (result.hasErrors()) {
+            return "signup";
+        }
         SignupResult signupResult = userService.signup(signupDTO, model);
         model.addAttribute(ERROR_MSG, signupResult.getErrorMessage());
         return signupResult.getRedirectUrl();
