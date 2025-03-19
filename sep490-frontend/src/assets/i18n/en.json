@@ -218,12 +218,12 @@
     },
    "admin": {
      "title": "Admin",
-     "packageCredit": "Package Credit"
+     "packageCredit": "Credit Package"
    }
 },
   "admin": {
   "packageCredit": {
-    "title": "Package Credit",
+    "title": "Credit Package",
     "active": "on",
     "inactive": "off",
     "versionList": "Credit package version history",
