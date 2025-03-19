@@ -158,6 +158,17 @@
         "subscriptionDetail": "Chi tiết đăng ký",
         "subscriptionDuration": "Thời gian đăng ký:",
         "remainingDays": "Số ngày còn lại:",
+        "new": "Hoạt động mới",
+        "dialog": {
+          "title": "Hoạt động phát thải mới",
+          "EmissionSource": "Nguồn phát thải",
+          "EmissionFactor": "Hệ số phát thải",
+          "Name": "Tên phát thải",
+          "Type": "Loại",
+          "Category": "Danh mục",
+          "Description": "Mô tả",
+          "Quantity": "Số lượng"
+        },
         "table": {
           "name": "Tên",
           "type": "Loại",

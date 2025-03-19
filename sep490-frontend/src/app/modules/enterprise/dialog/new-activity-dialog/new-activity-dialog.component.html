@@ -1,6 +1,8 @@
 <div class="w-[300px] sm:w-[400px] md:w-[500px] mt-4">
     <div class="p-dialog-header p-0 border-b">
-        <span class="text-xl font-semibold">Dialog Title</span>
+        <span class="text-xl font-semibold">{{
+            "enterprise.emission.activity.dialog.title" | translate
+        }}</span>
         <button
             pButton
             type="button"
@@ -48,7 +50,8 @@
                                 </ng-template>
                             </p-select>
                             <label>{{
-                                "enterprise.EmissionSourceID" | translate
+                                "enterprise.emission.activity.dialog.EmissionSource"
+                                    | translate
                             }}</label>
                         </p-iftalabel>
 
@@ -80,13 +83,14 @@
                                 </ng-template>
                             </p-select>
                             <label>{{
-                                "enterprise.EmissionFactorID" | translate
+                                "enterprise.emission.activity.dialog.EmissionFactor"
+                                    | translate
                             }}</label>
                         </p-iftalabel>
                         <!-- Step 1 Footer -->
                         <div class="flex justify-end">
                             <p-button
-                                label="Next"
+                                label="{{ 'common.next' | translate }}"
                                 icon="pi pi-arrow-right"
                                 iconPos="right"
                                 [disabled]="
@@ -114,7 +118,10 @@
                                 class="w-full"
                                 autocomplete="off"
                             />
-                            <label>{{ "enterprise.Name" | translate }}</label>
+                            <label>{{
+                                "enterprise.emission.activity.dialog.Name"
+                                    | translate
+                            }}</label>
                         </p-iftalabel>
 
                         <!-- Type -->
@@ -125,7 +132,10 @@
                                 class="w-full"
                                 autocomplete="off"
                             />
-                            <label>{{ "enterprise.Type" | translate }}</label>
+                            <label>{{
+                                "enterprise.emission.activity.dialog.Type"
+                                    | translate
+                            }}</label>
                         </p-iftalabel>
 
                         <!-- Category -->
@@ -137,7 +147,8 @@
                                 autocomplete="off"
                             />
                             <label>{{
-                                "enterprise.Category" | translate
+                                "enterprise.emission.activity.dialog.Category"
+                                    | translate
                             }}</label>
                         </p-iftalabel>
 
@@ -150,7 +161,8 @@
                                 autocomplete="off"
                             />
                             <label>{{
-                                "enterprise.Description" | translate
+                                "enterprise.emission.activity.dialog.Description"
+                                    | translate
                             }}</label>
                         </p-iftalabel>
 
@@ -170,20 +182,21 @@
                                 </ng-template>
                             </p-inputnumber>
                             <label>{{
-                                "enterprise.Quantity" | translate
+                                "enterprise.emission.activity.dialog.Quantity"
+                                    | translate
                             }}</label>
                         </p-iftalabel>
                     </form>
                     <!-- Step 2 Footer -->
                     <div class="flex justify-between">
                         <p-button
-                            label="Back"
+                            label="{{ 'common.back' | translate }}"
                             severity="secondary"
                             icon="pi pi-arrow-left"
                             (onClick)="activateCallback(1)"
                         ></p-button>
                         <p-button
-                            label="Submit"
+                            label="{{ 'common.save' | translate }}"
                             icon="pi pi-check"
                             severity="primary"
                             [disabled]="formGroup.invalid"

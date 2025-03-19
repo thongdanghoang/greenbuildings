@@ -67,7 +67,9 @@
                     ></p-button>
 
                     <p-button
-                        label="New Activity"
+                        label="{{
+                            'enterprise.emission.activity.new' | translate
+                        }}"
                         class="flex-1"
                         (onClick)="openNewActivityDialog()"
                         severity="primary"
