@@ -28,10 +28,13 @@ export class EmissionActivityService {
   public fetchActivityOfBuilding(
     criteria: SearchCriteriaDto<ActivitySearchCriteria>
   ): Observable<SearchResultDto<EmissionActivity>> {
-    // console.log(this.httpClient);
     return this.httpClient.post<SearchResultDto<EmissionActivity>>(
       `${AppRoutingConstants.ENTERPRISE_API_URL}/${this.EMISSION_ACTIVITY_PATH}/building`,
       criteria
     );
+  }
+
+  public getCreateNewActivityURL(): string {
+    return `${AppRoutingConstants.ENTERPRISE_API_URL}/${this.EMISSION_ACTIVITY_PATH}`;
   }
 }

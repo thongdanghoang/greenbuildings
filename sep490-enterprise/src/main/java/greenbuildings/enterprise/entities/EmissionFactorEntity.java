@@ -74,3 +74,8 @@ public class EmissionFactorEntity extends AbstractAuditableEntity {
     @JoinColumn(name = "energy_conversion_id")
     private EnergyConversionEntity energyConversion;
 }
+
+// Note:
+// Despite the default value of optional in @ManyToOne is true => the column may be null
+// The generated SQL will be inner join
+// But with explicitly define optional = true => the generated SQL will be left join
