@@ -8,4 +8,6 @@ import org.springframework.data.domain.Page;
 
 public interface EmissionActivityService {
     Page<EmissionActivityEntity> search(SearchCriteriaDTO<EmissionActivityCriteria> searchCriteria);
+    
+    EmissionActivityEntity add(EmissionActivityEntity entity);
 }

@@ -61,16 +61,18 @@
                 <div class="flex gap-4 mt-1">
                     <p-button
                         label="Generate Report"
-                        class="w-full"
+                        class="flex-1"
                         severity="success"
-                        styleClass="w-full"
-                    />
+                        styleClass="w-full h-12"
+                    ></p-button>
+
                     <p-button
                         label="New Activity"
-                        class="w-full"
+                        class="flex-1"
+                        (onClick)="openNewActivityDialog()"
                         severity="primary"
-                        styleClass="w-full"
-                    />
+                        styleClass="w-full h-12"
+                    ></p-button>
                 </div>
             </ng-template>
         </p-card>

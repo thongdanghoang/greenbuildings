@@ -27,9 +27,10 @@ public class EmissionActivityController {
         return ResponseEntity.ok(CommonMapper.toSearchResultDTO(list, mapper::toDTO));
     }
 
-    @PostMapping("")
-    public void addEmissionActivity(EmissionActivityDTO dto) {
-        //TODO
+    @PostMapping
+    public ResponseEntity<EmissionActivityDTO> addEmissionActivity(@RequestBody EmissionActivityDTO dto) {
+        EmissionActivityEntity entity = this.mapper.createNewActivity(dto);
+        return ResponseEntity.ok(mapper.toDTO(emissionActivityService.add(entity)));
     }
     
 }

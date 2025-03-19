@@ -36,11 +36,6 @@ public class EmissionActivityEntity extends AbstractAuditableEntity {
     @JoinColumn(name = "emission_factor_id")
     private EmissionFactorEntity emissionFactorEntity;
     
-    @NotNull
-    @ManyToOne
-    @JoinColumn(name = "emission_source_id")
-    private EmissionSourceEntity source;
-    
     @OneToMany(mappedBy = "emissionActivityEntity", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
     private Set<EmissionActivityRecordEntity> records = new HashSet<>();
     

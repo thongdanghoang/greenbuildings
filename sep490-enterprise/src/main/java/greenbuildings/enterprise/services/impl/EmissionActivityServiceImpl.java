@@ -28,4 +28,9 @@ public class EmissionActivityServiceImpl implements EmissionActivityService {
                         searchCriteria.criteria().buildingId(),
                         CommonMapper.toPageable(searchCriteria.page(), searchCriteria.sort()));
     }
+    
+    @Override
+    public EmissionActivityEntity add(EmissionActivityEntity entity) {
+        return emissionActivityRepository.save(entity);
+    }
 }

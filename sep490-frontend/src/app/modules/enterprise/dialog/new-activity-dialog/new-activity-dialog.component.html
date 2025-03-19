@@ -1,0 +1,197 @@
+<div class="w-[300px] sm:w-[400px] md:w-[500px] mt-4">
+    <div class="p-dialog-header p-0 border-b">
+        <span class="text-xl font-semibold">Dialog Title</span>
+        <button
+            pButton
+            type="button"
+            icon="pi pi-times"
+            class="p-button-rounded p-button-text"
+            (click)="closeDialog()"
+        ></button>
+    </div>
+
+    <p-stepper [value]="1" class="block">
+        <p-step-panels class="block h-full">
+            <!-- Step 1 Panel -->
+            <p-step-panel [value]="1">
+                <ng-template #content let-activateCallback="activateCallback">
+                    <form
+                        [formGroup]="formGroup"
+                        class="p-0 min-h-[400px] p-dialog-content flex flex-col overflow-hidden"
+                    >
+                        <!-- Emission Source -->
+                        <p-iftalabel class="my-2">
+                            <p-select
+                                [options]="emissionSources"
+                                optionLabel="nameEN"
+                                optionValue="id"
+                                formControlName="emissionSourceID"
+                                class="w-full break-words"
+                                (onChange)="onSourceChange()"
+                            >
+                                <ng-template
+                                    pTemplate="selectedItem"
+                                    let-source
+                                >
+                                    <div class="flex align-items-center gap-2">
+                                        <div>
+                                            {{ getLocalizedName(source) }}
+                                        </div>
+                                    </div>
+                                </ng-template>
+                                <ng-template let-source pTemplate="item">
+                                    <div class="flex align-items-center gap-2">
+                                        <div style="white-space: normal">
+                                            {{ getLocalizedName(source) }}
+                                        </div>
+                                    </div>
+                                </ng-template>
+                            </p-select>
+                            <label>{{
+                                "enterprise.EmissionSourceID" | translate
+                            }}</label>
+                        </p-iftalabel>
+
+                        <!-- Emission Factor -->
+                        <p-iftalabel class="my-2 flex-grow">
+                            <p-select
+                                [options]="availableEmissionFactors"
+                                optionLabel="nameEN"
+                                optionValue="id"
+                                formControlName="emissionFactorID"
+                                class="w-full"
+                            >
+                                <ng-template
+                                    pTemplate="selectedItem"
+                                    let-factor
+                                >
+                                    <div class="flex align-items-center gap-2">
+                                        <div>
+                                            {{ getLocalizedName(factor) }}
+                                        </div>
+                                    </div>
+                                </ng-template>
+                                <ng-template let-factor pTemplate="item">
+                                    <div class="flex align-items-center gap-2">
+                                        <div style="white-space: normal">
+                                            {{ getLocalizedName(factor) }}
+                                        </div>
+                                    </div>
+                                </ng-template>
+                            </p-select>
+                            <label>{{
+                                "enterprise.EmissionFactorID" | translate
+                            }}</label>
+                        </p-iftalabel>
+                        <!-- Step 1 Footer -->
+                        <div class="flex justify-end">
+                            <p-button
+                                label="Next"
+                                icon="pi pi-arrow-right"
+                                iconPos="right"
+                                [disabled]="
+                                    !this.formStructure.emissionFactorID.value
+                                "
+                                (onClick)="activateCallback(2)"
+                            ></p-button>
+                        </div>
+                    </form>
+                </ng-template>
+            </p-step-panel>
+
+            <!-- Step 2 Panel -->
+            <p-step-panel [value]="2">
+                <ng-template #content let-activateCallback="activateCallback">
+                    <form
+                        [formGroup]="formGroup"
+                        class="p-0 min-h-[400px] p-dialog-content"
+                    >
+                        <!-- Name -->
+                        <p-iftalabel class="my-2">
+                            <input
+                                pInputText
+                                formControlName="name"
+                                class="w-full"
+                                autocomplete="off"
+                            />
+                            <label>{{ "enterprise.Name" | translate }}</label>
+                        </p-iftalabel>
+
+                        <!-- Type -->
+                        <p-iftalabel class="my-2">
+                            <input
+                                pInputText
+                                formControlName="type"
+                                class="w-full"
+                                autocomplete="off"
+                            />
+                            <label>{{ "enterprise.Type" | translate }}</label>
+                        </p-iftalabel>
+
+                        <!-- Category -->
+                        <p-iftalabel class="my-2">
+                            <input
+                                pInputText
+                                formControlName="category"
+                                class="w-full"
+                                autocomplete="off"
+                            />
+                            <label>{{
+                                "enterprise.Category" | translate
+                            }}</label>
+                        </p-iftalabel>
+
+                        <!-- Description -->
+                        <p-iftalabel class="my-2">
+                            <input
+                                pInputText
+                                formControlName="description"
+                                class="w-full"
+                                autocomplete="off"
+                            />
+                            <label>{{
+                                "enterprise.Description" | translate
+                            }}</label>
+                        </p-iftalabel>
+
+                        <!-- Quantity -->
+                        <p-iftalabel class="my-2">
+                            <p-inputnumber
+                                formControlName="quantity"
+                                class="w-full"
+                                [showButtons]="true"
+                                [min]="0"
+                            >
+                                <ng-template pTemplate="incrementbuttonicon">
+                                    <span class="pi pi-plus"></span>
+                                </ng-template>
+                                <ng-template pTemplate="decrementbuttonicon">
+                                    <span class="pi pi-minus"></span>
+                                </ng-template>
+                            </p-inputnumber>
+                            <label>{{
+                                "enterprise.Quantity" | translate
+                            }}</label>
+                        </p-iftalabel>
+                    </form>
+                    <!-- Step 2 Footer -->
+                    <div class="flex justify-between">
+                        <p-button
+                            label="Back"
+                            severity="secondary"
+                            icon="pi pi-arrow-left"
+                            (onClick)="activateCallback(1)"
+                        ></p-button>
+                        <p-button
+                            label="Submit"
+                            icon="pi pi-check"
+                            severity="primary"
+                            [disabled]="formGroup.invalid"
+                            (onClick)="submit()"
+                        ></p-button>
+                    </div>
+                </ng-template>
+            </p-step-panel>
+        </p-step-panels>
+    </p-stepper>
+</div>

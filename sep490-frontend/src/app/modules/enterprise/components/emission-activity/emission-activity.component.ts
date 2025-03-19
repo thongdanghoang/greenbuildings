@@ -3,12 +3,18 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
 import moment from 'moment';
 import {MessageService} from 'primeng/api';
+import {
+  DialogService,
+  DynamicDialogConfig,
+  DynamicDialogRef
+} from 'primeng/dynamicdialog';
 import {Observable, Observer, filter, map, switchMap, takeUntil} from 'rxjs';
 import {validate} from 'uuid';
 import {UUID} from '../../../../../types/uuid';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
 import {BuildingService} from '../../../../services/building.service';
 import {SubscriptionAwareComponent} from '../../../core/subscription-aware.component';
+import {NewActivityDialogComponent} from '../../dialog/new-activity-dialog/new-activity-dialog.component';
 import {BuildingDetails, EmissionActivity} from '../../models/enterprise.dto';
 import {ApplicationService} from '../../../core/services/application.service';
 import {
@@ -30,6 +36,7 @@ export class EmissionActivityComponent
   extends SubscriptionAwareComponent
   implements OnInit
 {
+  ref: DynamicDialogRef | undefined;
   protected fetchActivity!: (
     criteria: SearchCriteriaDto<ActivitySearchCriteria>
   ) => Observable<SearchResultDto<EmissionActivity>>;
@@ -71,6 +78,7 @@ export class EmissionActivityComponent
     private readonly translate: TranslateService,
     private readonly buildingService: BuildingService,
     private readonly activityService: EmissionActivityService,
+    private readonly dialogService: DialogService,
     protected readonly applicationService: ApplicationService
   ) {
     super();
@@ -134,5 +142,20 @@ export class EmissionActivityComponent
     const today = moment();
     const diff = endDate.diff(today, 'days'); // Difference in days
     return diff >= 0 ? diff : 'Expired';
+  }
+
+  openNewActivityDialog(): void {
+    const config: DynamicDialogConfig<UUID> = {
+      data: this.buildingDetail.id,
+      closeOnEscape: true,
+      dismissableMask: true,
+      showHeader: false
+    };
+    this.ref = this.dialogService.open(NewActivityDialogComponent, config);
+    this.ref.onClose.subscribe(rs => {
+      if (rs) {
+        this.searchEvent.emit();
+      }
+    });
   }
 }
