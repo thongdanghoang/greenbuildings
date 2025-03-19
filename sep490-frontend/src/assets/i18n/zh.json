@@ -158,6 +158,17 @@
         "subscriptionDetail": "订阅详情",
         "subscriptionDuration": "订阅时长：",
         "remainingDays": "剩余天数：",
+        "new": "新活动",
+        "dialog": {
+          "title": "新增排放活动",
+          "EmissionSource": "排放来源",
+          "EmissionFactor": "排放因子",
+          "Name": "排放名称",
+          "Type": "类型",
+          "Category": "类别",
+          "Description": "描述",
+          "Quantity": "数量"
+        },
         "table": {
           "name": "名称",
           "type": "类型",
