@@ -37,4 +37,13 @@ export class EmissionActivityService {
   public getCreateNewActivityURL(): string {
     return `${AppRoutingConstants.ENTERPRISE_API_URL}/${this.EMISSION_ACTIVITY_PATH}`;
   }
+
+  public deleteActivities(ids: UUID[]): Observable<void> {
+    return this.httpClient.delete<void>(
+      `${AppRoutingConstants.ENTERPRISE_API_URL}/${this.EMISSION_ACTIVITY_PATH}`,
+      {
+        body: ids
+      }
+    );
+  }
 }

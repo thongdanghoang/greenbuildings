@@ -45,6 +45,7 @@ export class TableTemplateComponent<
   @Input() checkbox: boolean = false;
   @Input() searchOnInit: boolean = true;
   @Input() triggerSearch: EventEmitter<void> | undefined;
+  @Input() triggerClearSelected: EventEmitter<void> | undefined;
   @Output() readonly selectionChange: EventEmitter<R[]> = new EventEmitter();
   selected: R[] | undefined;
   paginatorTemplateString: string;
@@ -67,6 +68,13 @@ export class TableTemplateComponent<
       this.triggerSearch
         .pipe(takeUntil(this.destroy$))
         .subscribe((): void => this.submit());
+    }
+    if (this.triggerClearSelected) {
+      this.triggerClearSelected
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((): void => {
+          this.selected = [];
+        });
     }
     this.registerSubscription(
       this.translate.onLangChange.subscribe((): void => {

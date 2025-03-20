@@ -15,4 +15,10 @@ public interface EmissionActivityRepository extends JpaRepository<EmissionActivi
     Set<EmissionActivityEntity> findByBuildingId(UUID id);
 
     Page<EmissionActivityEntity> findAllByBuildingId(UUID id, Pageable pageable);
+    
+    Integer countAllByIdIn(Set<UUID> ids);
+    
+    default boolean existsAllById(Set<UUID> ids) {
+        return countAllByIdIn(ids).equals(ids.size());
+    }
 }

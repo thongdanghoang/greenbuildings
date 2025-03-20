@@ -9,6 +9,7 @@
     "accept": "是",
     "reject": "否",
     "create": "创建",
+    "search": "搜索",
     "save": "保存",
     "revert": "撤销",
     "back": "返回",
@@ -157,6 +158,7 @@
         "maxNoActivities": "最大活动数量：",
         "subscriptionDetail": "订阅详情",
         "subscriptionDuration": "订阅时长：",
+        "deleteWithCount": "删除（{{count}}）个活动",
         "remainingDays": "剩余天数：",
         "new": "新活动",
         "dialog": {
