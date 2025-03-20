@@ -20,62 +20,62 @@
                     <!-- Enterprise Name -->
                     <div class="mb-4">
                         <input required
-                               class="w-full max-w-[400px] mt-1 p-2 border border-current rounded focus:ring focus:ring-primary focus:outline-none"
+                               class="w-full mt-1 p-2 border border-current rounded focus:ring focus:ring-primary focus:outline-none"
                                id="enterprise_name" name="enterprise_name" th:field="*{enterpriseName}"
                                th:placeholder="#{signup.placeholder.enterpriseName}">
-                        <p th:if="${#fields.hasErrors('enterpriseName')}" class="w-full max-w-[400px] text-red-500 text-sm mt-1"
+                        <p th:if="${#fields.hasErrors('enterpriseName')}" class="w-full text-red-500 text-sm mt-1"
                            th:errors="*{enterpriseName}"></p>
                     </div>
                     <!-- Email -->
                     <div class="mb-4">
                         <input type="email" required
-                               class="w-full max-w-[400px] mt-1 p-2 border border-current rounded focus:ring focus:ring-primary focus:outline-none"
+                               class="w-full mt-1 p-2 border border-current rounded focus:ring focus:ring-primary focus:outline-none"
                                id="email" name="email" th:field="*{email}" th:placeholder="#{signup.placeholder.email}">
-                        <p th:if="${#fields.hasErrors('email')}" class="w-full max-w-[400px] text-red-500 text-sm mt-1"
+                        <p th:if="${#fields.hasErrors('email')}" class="w-full text-red-500 text-sm mt-1"
                            th:errors="*{email}"></p>
                     </div>
                     <!-- TAX ID -->
                     <div class="mb-4">
                         <input required
-                               class="w-full max-w-[400px] mt-1 p-2 border border-current rounded focus:ring focus:ring-primary focus:outline-none"
+                               class="w-full mt-1 p-2 border border-current rounded focus:ring focus:ring-primary focus:outline-none"
                                id="tax" name="tax" th:field="*{enterpriseTaxNumber}"
                                th:placeholder="#{signup.placeholder.enterpriseTaxNumber}">
                         <p th:if="${#fields.hasErrors('enterpriseTaxNumber')}"
-                           class="w-full max-w-[400px] text-red-500 text-sm mt-1"
+                           class="w-full text-red-500 text-sm mt-1"
                            th:errors="*{enterpriseTaxNumber}"></p>
                     </div>
                     <!-- Hotline -->
                     <div class="mb-4">
                         <input required
-                               class="w-full max-w-[400px] mt-1 p-2 border border-current rounded focus:ring focus:ring-primary focus:outline-none"
+                               class="w-full mt-1 p-2 border border-current rounded focus:ring focus:ring-primary focus:outline-none"
                                id="hotline" name="hotline" th:field="*{enterpriseHotline}"
                                th:placeholder="#{signup.placeholder.enterpriseHotline}">
                         <p th:if="${#fields.hasErrors('enterpriseHotline')}"
-                           class="w-full max-w-[400px] text-red-500 text-sm mt-1"
+                           class="w-full text-red-500 text-sm mt-1"
                            th:errors="*{enterpriseHotline}"></p>
                     </div>
                     <!-- Password -->
                     <div class="mb-4">
                         <input type="password" required
-                               class="w-full max-w-[400px] mt-1 p-2 border border-current rounded focus:ring focus:ring-primary focus:outline-none"
+                               class="w-full mt-1 p-2 border border-current rounded focus:ring focus:ring-primary focus:outline-none"
                                id="password" name="password" th:field="*{password}"
                                th:placeholder="#{signup.placeholder.password}">
-                        <p th:if="${#fields.hasErrors('password')}" class="w-full max-w-[400px] text-red-500 text-sm mt-1"
+                        <p th:if="${#fields.hasErrors('password')}" class="w-full text-red-500 text-sm mt-1"
                            th:errors="*{password}"></p>
                     </div>
                     <!-- Confirm Password -->
                     <div class="mb-4">
                         <input type="password" required
-                               class="w-full max-w-[400px] mt-1 p-2 border border-current rounded focus:ring focus:ring-primary focus:outline-none"
+                               class="w-full mt-1 p-2 border border-current rounded focus:ring focus:ring-primary focus:outline-none"
                                id="confirmPassword" name="confirmPassword" th:field="*{confirmPassword}"
                                th:placeholder="#{signup.placeholder.confirmPassword}">
-                        <p th:if="${#fields.hasErrors('confirmPassword')}" class="w-full max-w-[400px] text-red-500 text-sm mt-1"
+                        <p th:if="${#fields.hasErrors('confirmPassword')}" class="w-full text-red-500 text-sm mt-1"
                            th:errors="*{confirmPassword}"></p>
                     </div>
                 </div>
                 <div class="flex-1">
                     <div class="flex items-center justify-center" th:if="${errorMsg}">
-                        <div class="animate-fadeIn bg-red-100 max-w-[400px] w-full border border-red-400 text-red-700 px-4 py-3 rounded relative mt-4">
+                        <div class="animate-fadeIn bg-red-100 w-full border border-red-400 text-red-700 px-4 py-3 rounded relative mt-4">
                             <span th:text="#{${errorMsg}}"></span>
                         </div>
                     </div>

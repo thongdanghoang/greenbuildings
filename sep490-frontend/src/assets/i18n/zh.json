@@ -8,6 +8,7 @@
     "accept": "是",
     "reject": "否",
     "create": "创建",
+    "search": "搜索",
     "save": "保存",
     "revert": "撤销",
     "back": "返回",
@@ -137,6 +138,33 @@
           "validFromInclusive": "有效日期",
           "validToInclusive": "有效日期",
           "address": "地址"
+        }
+      }
+    },
+    "emission": {
+      "activity": {
+        "currentNoActivities": "当前活动数量：",
+        "maxNoActivities": "最大活动数量：",
+        "subscriptionDetail": "订阅详情",
+        "subscriptionDuration": "订阅时长：",
+        "deleteWithCount": "删除（{{count}}）个活动",
+        "remainingDays": "剩余天数：",
+        "new": "新活动",
+        "dialog": {
+          "title": "新增排放活动",
+          "EmissionSource": "排放来源",
+          "EmissionFactor": "排放因子",
+          "Name": "排放名称",
+          "Type": "类型",
+          "Category": "类别",
+          "Description": "描述",
+          "Quantity": "数量"
+        },
+        "table": {
+          "name": "名称",
+          "type": "类型",
+          "category": "类别",
+          "quantity": "数量"
         }
       }
     }

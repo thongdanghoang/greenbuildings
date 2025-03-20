@@ -1,11 +1,20 @@
 package greenbuildings.enterprise.rest;
 
+import commons.springfw.impl.mappers.CommonMapper;
+import greenbuildings.commons.api.dto.SearchCriteriaDTO;
+import greenbuildings.commons.api.dto.SearchResultDTO;
+import greenbuildings.enterprise.dtos.EmissionActivityCriteria;
 import greenbuildings.enterprise.dtos.EmissionActivityDTO;
+import greenbuildings.enterprise.entities.EmissionActivityEntity;
+import greenbuildings.enterprise.mappers.EmissionActivityMapper;
 import greenbuildings.enterprise.services.EmissionActivityService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Set;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/emission-activity")
@@ -13,10 +22,24 @@ import org.springframework.web.bind.annotation.RestController;
 public class EmissionActivityController {
     
     private final EmissionActivityService emissionActivityService;
+    private final EmissionActivityMapper mapper;
+
+    @PostMapping("/building")
+    public ResponseEntity<SearchResultDTO<EmissionActivityDTO>> findAllByCriteria(@RequestBody SearchCriteriaDTO<EmissionActivityCriteria> criteria) {
+        Page<EmissionActivityEntity> list = emissionActivityService.search(criteria);
+        return ResponseEntity.ok(CommonMapper.toSearchResultDTO(list, mapper::toDTO));
+    }
+
+    @PostMapping
+    public ResponseEntity<EmissionActivityDTO> addEmissionActivity(@RequestBody EmissionActivityDTO dto) {
+        EmissionActivityEntity entity = this.mapper.createNewActivity(dto);
+        return ResponseEntity.ok(mapper.toDTO(emissionActivityService.add(entity)));
+    }
     
-    @PostMapping("")
-    public void addEmissionActivity(EmissionActivityDTO dto) {
-        // TODO
+    @DeleteMapping
+    public ResponseEntity<Void> deleteActivities(@RequestBody Set<UUID> ids) {
+        emissionActivityService.deleteActivities(ids);
+        return ResponseEntity.noContent().build();
     }
     
 }

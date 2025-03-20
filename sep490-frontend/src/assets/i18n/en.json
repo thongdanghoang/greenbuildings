@@ -7,6 +7,7 @@
     "confirmHeader": "Confirmation",
     "accept": "Yes",
     "reject": "No",
+    "search": "Search",
     "create": "Create",
     "save": "Save",
     "revert": "Revert",
@@ -139,6 +140,33 @@
           "address": "Address"
         }
       }
+    },
+    "emission": {
+      "activity": {
+        "currentNoActivities": "Current number of activities:",
+        "maxNoActivities": "Max number of activities:",
+        "subscriptionDetail": "Subscription Detail",
+        "deleteWithCount": "Delete ({{count}}) activities",
+        "subscriptionDuration": "Subscription Duration:",
+        "new": "New Activity",
+        "remainingDays": "Remaining Days:",
+        "dialog": {
+          "title": "New Emission Activity",
+          "EmissionSource": "Emission Source",
+          "EmissionFactor": "Emission Factor",
+          "Name": "Emission Name",
+          "Type": "Type",
+          "Category": "Category",
+          "Description": "Description",
+          "Quantity": "Quantity"
+        },
+        "table": {
+          "name": "Name",
+          "type": "Type",
+          "category": "Category",
+          "quantity": "Quantity"
+        }
+      }
     }
   },
   "enum": {
@@ -220,7 +248,7 @@
      "title": "Admin",
      "packageCredit": "Credit Package"
    }
-},
+  },
   "admin": {
   "packageCredit": {
     "title": "Credit Package",

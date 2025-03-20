@@ -16,6 +16,8 @@ import {SubscriptionService} from './services/subscription.service';
 import {WalletService} from './services/wallet.service';
 import {BuildingPopupMarkerComponent} from './components/building-popup-marker/building-popup-marker.component';
 import {EmissionActivityComponent} from './components/emission-activity/emission-activity.component';
+import {EmissionActivityService} from './services/emission-activity.service';
+import {NewActivityDialogComponent} from './dialog/new-activity-dialog/new-activity-dialog.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +28,7 @@ import {EmissionActivityComponent} from './components/emission-activity/emission
     BuildingDetailsComponent,
     BuildingPopupMarkerComponent,
     BuildingSubscriptionDialogComponent,
+    NewActivityDialogComponent,
     EmissionActivityComponent
   ],
   imports: [SharedModule, EnterpriseRoutingModule],
@@ -36,7 +39,8 @@ import {EmissionActivityComponent} from './components/emission-activity/emission
     PaymentService,
     WalletService,
     CreditPackageService,
-    SubscriptionService
+    SubscriptionService,
+    EmissionActivityService
   ]
 })
 export class EnterpriseModule {}

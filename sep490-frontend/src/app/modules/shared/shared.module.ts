@@ -17,9 +17,11 @@ import {DialogModule} from 'primeng/dialog';
 import {DividerModule} from 'primeng/divider';
 import {DrawerModule} from 'primeng/drawer';
 import {DialogService, DynamicDialog} from 'primeng/dynamicdialog';
+import {Fieldset} from 'primeng/fieldset';
 import {FloatLabelModule} from 'primeng/floatlabel';
 import {FluidModule} from 'primeng/fluid';
 import {IconFieldModule} from 'primeng/iconfield';
+import {IftaLabel} from 'primeng/iftalabel';
 import {InputIconModule} from 'primeng/inputicon';
 import {InputNumberModule} from 'primeng/inputnumber';
 import {InputSwitchModule} from 'primeng/inputswitch';
@@ -36,6 +38,7 @@ import {RippleModule} from 'primeng/ripple';
 import {SelectModule} from 'primeng/select';
 import {SelectButtonModule} from 'primeng/selectbutton';
 import {SliderModule} from 'primeng/slider';
+import {StepperModule} from 'primeng/stepper';
 import {TableModule} from 'primeng/table';
 import {TabMenuModule} from 'primeng/tabmenu';
 import {TagModule} from 'primeng/tag';
@@ -101,7 +104,10 @@ const primeNgModules = [
   CarouselModule,
   ImageModule,
   ToggleButtonModule,
-  ChipModule
+  ChipModule,
+  Fieldset,
+  IftaLabel,
+  StepperModule
 ];
 
 const commons = [

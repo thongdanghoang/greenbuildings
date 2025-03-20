@@ -25,7 +25,6 @@ export interface EmissionActivity extends BaseDTO {
   records: EmissionActivityRecord[];
   buildingID: UUID;
   emissionFactorID: UUID;
-  emissionSourceID: UUID;
   name: string;
   type: string;
   category: string;
