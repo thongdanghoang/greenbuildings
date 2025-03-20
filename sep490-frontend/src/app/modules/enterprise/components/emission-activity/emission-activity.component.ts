@@ -14,6 +14,7 @@ import {UUID} from '../../../../../types/uuid';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
 import {BuildingService} from '../../../../services/building.service';
 import {SubscriptionAwareComponent} from '../../../core/subscription-aware.component';
+import {ModalProvider} from '../../../shared/services/modal-provider';
 import {NewActivityDialogComponent} from '../../dialog/new-activity-dialog/new-activity-dialog.component';
 import {BuildingDetails, EmissionActivity} from '../../models/enterprise.dto';
 import {ApplicationService} from '../../../core/services/application.service';
@@ -43,8 +44,11 @@ export class EmissionActivityComponent
   protected searchCriteria!: ActivitySearchCriteria;
   protected cols: TableTemplateColumn[] = [];
   protected readonly searchEvent: EventEmitter<void> = new EventEmitter();
+  protected readonly clearSelectedEvent: EventEmitter<void> =
+    new EventEmitter();
 
   protected buildingDetail!: BuildingDetails;
+  protected selected: EmissionActivity[] = [];
   private readonly fetchBuildingObserver: Observer<BuildingDetails> = {
     next: building => {
       if (!building.subscriptionDTO) {
@@ -79,6 +83,7 @@ export class EmissionActivityComponent
     private readonly buildingService: BuildingService,
     private readonly activityService: EmissionActivityService,
     private readonly dialogService: DialogService,
+    private readonly modalProvider: ModalProvider,
     protected readonly applicationService: ApplicationService
   ) {
     super();
@@ -97,6 +102,10 @@ export class EmissionActivityComponent
     this.searchCriteria.buildingId = this.buildingDetail.id;
     this.buildCols();
     this.searchEvent.emit();
+  }
+
+  onSelectionChange(selected: EmissionActivity[]): void {
+    this.selected = selected;
   }
 
   buildCols(): void {
@@ -155,6 +164,43 @@ export class EmissionActivityComponent
     this.ref.onClose.subscribe(rs => {
       if (rs) {
         this.searchEvent.emit();
+      }
+    });
+  }
+
+  confirmDelete(): void {
+    this.modalProvider
+      .showConfirm({
+        message: this.translate.instant('common.defaultConfirmMessage'),
+        header: this.translate.instant('common.confirmHeader'),
+        icon: 'pi pi-info-circle',
+        acceptButtonStyleClass: 'p-button-danger p-button-text min-w-20',
+        rejectButtonStyleClass: 'p-button-contrast p-button-text min-w-20',
+        acceptIcon: 'none',
+        acceptLabel: this.translate.instant('common.accept'),
+        rejectIcon: 'none',
+        rejectLabel: this.translate.instant('common.reject')
+      })
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((result: boolean): void => {
+        if (result) {
+          this.deleteActivites();
+        }
+      });
+  }
+
+  private deleteActivites(): void {
+    const ids: UUID[] = this.selected.map(activity => activity.id);
+
+    this.activityService.deleteActivities(ids).subscribe({
+      next: () => {
+        this.msgService.add({
+          severity: 'success',
+          summary: this.translate.instant('common.success')
+        });
+        this.selected = []; // Clear local selection
+        this.searchEvent.emit(); // Refresh table
+        this.clearSelectedEvent.emit();
       }
     });
   }

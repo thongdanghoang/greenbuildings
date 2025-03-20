@@ -2,6 +2,7 @@ package greenbuildings.enterprise.services.impl;
 
 import commons.springfw.impl.mappers.CommonMapper;
 import greenbuildings.commons.api.dto.SearchCriteriaDTO;
+import greenbuildings.commons.api.exceptions.BusinessException;
 import greenbuildings.enterprise.dtos.EmissionActivityCriteria;
 import greenbuildings.enterprise.entities.EmissionActivityEntity;
 import greenbuildings.enterprise.repositories.EmissionActivityRepository;
@@ -11,6 +12,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
+
+import java.util.Collections;
+import java.util.Set;
+import java.util.UUID;
 
 @Service
 @Transactional(rollbackOn = Throwable.class)
@@ -32,5 +37,13 @@ public class EmissionActivityServiceImpl implements EmissionActivityService {
     @Override
     public EmissionActivityEntity add(EmissionActivityEntity entity) {
         return emissionActivityRepository.save(entity);
+    }
+    
+    @Override
+    public void deleteActivities(Set<UUID> ids) {
+        if (!emissionActivityRepository.existsAllById(ids)) {
+            throw new BusinessException("ids", "http.error.status.404", Collections.emptyList());
+        }
+        emissionActivityRepository.deleteAllById(ids);
     }
 }
