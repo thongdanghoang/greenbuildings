@@ -13,6 +13,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Set;
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/emission-activity")
 @RequiredArgsConstructor
@@ -31,6 +34,12 @@ public class EmissionActivityController {
     public ResponseEntity<EmissionActivityDTO> addEmissionActivity(@RequestBody EmissionActivityDTO dto) {
         EmissionActivityEntity entity = this.mapper.createNewActivity(dto);
         return ResponseEntity.ok(mapper.toDTO(emissionActivityService.add(entity)));
+    }
+    
+    @DeleteMapping
+    public ResponseEntity<Void> deleteActivities(@RequestBody Set<UUID> ids) {
+        emissionActivityService.deleteActivities(ids);
+        return ResponseEntity.noContent().build();
     }
     
 }

@@ -9,6 +9,7 @@
     [sort]="undefined"
     [criteria]="searchCriteria"
     [triggerSearch]="searchEvent"
+    [triggerClearSelected]="clearSelectedEvent"
     [captionTemplateRef]="captionTemplateRef"
     [checkbox]="true"
     (selectionChange)="onSelectionChange($event)"
@@ -23,7 +24,7 @@
                     [(ngModel)]="searchCriteria.criteria"
                     type="text"
                     pInputText
-                    placeholder="Search"
+                    placeholder="{{ 'common.search' | translate }}"
                     (keydown.enter)="search()"
                 />
             </p-iconfield>

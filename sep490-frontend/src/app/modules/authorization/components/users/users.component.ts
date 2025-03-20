@@ -46,6 +46,8 @@ export class UsersComponent
   ) => Observable<SearchResultDto<EnterpriseUser>>;
   protected cols: TableTemplateColumn[] = [];
   protected readonly searchEvent: EventEmitter<void> = new EventEmitter();
+  protected readonly clearSelectedEvent: EventEmitter<void> =
+    new EventEmitter();
   protected selected: EnterpriseUser[] = [];
   protected searchCriteria: UserCriteria = {criteria: ''};
   private readonly router = inject(Router);
@@ -148,6 +150,7 @@ export class UsersComponent
         });
         this.selected = []; // Clear local selection
         this.searchEvent.emit(); // Refresh table
+        this.clearSelectedEvent.emit();
       },
       error: () => {
         this.messageService.add({

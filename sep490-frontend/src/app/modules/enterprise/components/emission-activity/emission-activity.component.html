@@ -5,17 +5,17 @@
                 <i class="pi pi-map-marker"></i>
                 {{ buildingDetail.address }}
             </ng-template>
-            <p>
+            <!--<p>
                 {{
                     "enterprise.emission.activity.currentNoActivities"
                         | translate
                 }}
                 {{
                     buildingDetail?.emissionActivities
-                        ? buildingDetail.emissionActivities?.length
+                        ? buildingDetail.emissionActivities.length
                         : 0
                 }}
-            </p>
+            </p>-->
             <p-fieldset
                 legend="{{
                     'enterprise.emission.activity.subscriptionDetail'
@@ -86,9 +86,46 @@
     [fetch]="fetchActivity"
     [columns]="cols"
     [searchOnInit]="false"
-    [sort]="undefined"
+    [captionTemplateRef]="captionTemplateRef"
     [criteria]="searchCriteria"
     [triggerSearch]="searchEvent"
+    [triggerClearSelected]="clearSelectedEvent"
+    (selectionChange)="onSelectionChange($event)"
     [checkbox]="true"
 >
 </table-template>
+<ng-template #captionTemplateRef>
+    <div class="flex items-center justify-between">
+        <div class="flex gap-2.5">
+            <p-iconfield>
+                <p-inputicon styleClass="pi pi-search" />
+                <input
+                    type="text"
+                    pInputText
+                    placeholder="{{ 'common.search' | translate }}"
+                />
+            </p-iconfield>
+            <p-button
+                severity="primary"
+                [label]="'enterprise.Users.search' | translate"
+                icon="pi pi-search"
+                outlined
+            />
+        </div>
+        <div class="flex gap-2.5">
+            <p-button
+                severity="danger"
+                [label]="
+                    selected.length
+                        ? ('enterprise.emission.activity.deleteWithCount'
+                          | translate: { count: selected.length })
+                        : ('enterprise.Users.delete' | translate)
+                "
+                icon="pi pi-trash"
+                outlined
+                [disabled]="!selected || !selected.length"
+                (onClick)="confirmDelete()"
+            />
+        </div>
+    </div>
+</ng-template>
