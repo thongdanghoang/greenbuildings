@@ -218,7 +218,10 @@
     },
     "admin": {
       "title": "Quản trị viên",
-      "packageCredit": "Gói tín dụng"
+      "packageCredit": "Gói tín dụng",
+      "creditRatio": "Tỷ lệ tín dụng",
+      "emissionSource": "Nguồn phát thải",
+      "fuel": "Nhiên liệu"
     }
   },
   "admin": {
@@ -260,6 +263,9 @@
       },
       "updateRatio": "Cập nhật tỷ lệ",
       "adjustRatio": "Điều chỉnh tỷ lệ"
+    },
+    "emissionSource": {
+      "name" : "Nguồn phát thải"
     }
   },
   "dialog": {

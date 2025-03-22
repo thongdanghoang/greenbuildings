@@ -9,6 +9,10 @@ import {CreateUpdatePackageCreditComponent} from './components/create-update-pac
 import {CreditConvertRatioComponent} from './components/credit-convert-ratio/credit-convert-ratio.component';
 import {CreditConvertRatioService} from './services/credit-convert-ratio.service';
 import {UpdateRatioComponent} from './components/update-ratio/update-ratio.component';
+import {EmissionSourceComponent} from './components/emission-source/emission-source.component';
+import {EmissionSourceService} from './services/emission-source.service';
+import {FuelConversionComponent} from './components/fuel-conversion/fuel-conversion.component';
+import {FuelConversionService} from './services/fuel-conversion.service';
 
 @NgModule({
   declarations: [
@@ -16,9 +20,16 @@ import {UpdateRatioComponent} from './components/update-ratio/update-ratio.compo
     PackageCreditComponent,
     CreateUpdatePackageCreditComponent,
     CreditConvertRatioComponent,
-    UpdateRatioComponent
+    UpdateRatioComponent,
+    EmissionSourceComponent,
+    FuelConversionComponent
   ],
   imports: [SharedModule, AdminRoutingModule],
-  providers: [PackageCreditService, CreditConvertRatioService]
+  providers: [
+    PackageCreditService,
+    CreditConvertRatioService,
+    EmissionSourceService,
+    FuelConversionService
+  ]
 })
 export class AdminModule {}

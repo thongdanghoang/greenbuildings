@@ -1,0 +1,38 @@
+<h1 class="font-bold text-lg text-primary">
+    {{ "sidebar.admin.fuel" | translate }}
+</h1>
+<table-template
+    *ngIf="!applicationService.isMobile()"
+    [fetch]="fetchEmissionSource"
+    [columns]="cols"
+    [sort]="undefined"
+    [criteria]="searchCriteria"
+    [triggerSearch]="searchEvent"
+    [captionTemplateRef]="captionTemplateRef"
+    [checkbox]="true"
+    (selectionChange)="onSelectionChange($event)"
+>
+</table-template>
+<ng-template #captionTemplateRef>
+    <div class="flex items-center justify-start">
+        <div class="flex gap-2.5">
+            <p-iconfield>
+                <p-inputicon styleClass="pi pi-search" />
+                <input
+                    [(ngModel)]="searchCriteria.criteria"
+                    type="text"
+                    pInputText
+                    placeholder="Search"
+                    (keydown.enter)="search()"
+                />
+            </p-iconfield>
+            <p-button
+                severity="primary"
+                [label]="'enterprise.Users.search' | translate"
+                icon="pi pi-search"
+                outlined
+                (onClick)="search()"
+            />
+        </div>
+    </div>
+</ng-template>

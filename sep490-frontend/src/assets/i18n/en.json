@@ -218,7 +218,10 @@
     },
    "admin": {
      "title": "Admin",
-     "packageCredit": "Credit Package"
+     "packageCredit": "Credit Package",
+     "creditRatio": "Credit Ratio",
+     "emissionSource": "Emission Source",
+     "fuel": "Fuel"
    }
 },
   "admin": {
@@ -260,6 +263,9 @@
       },
       "updateRatio": "Update Ratio",
       "adjustRatio": "Adjust the ratio"
+    },
+    "emissionSource": {
+      "name" : "Emission source"
     }
 },
   "dialog": {

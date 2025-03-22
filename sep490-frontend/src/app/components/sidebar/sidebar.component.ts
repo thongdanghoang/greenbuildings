@@ -114,9 +114,19 @@ export class SidebarComponent
             route: `/${AppRoutingConstants.ADMIN_PATH}/${AppRoutingConstants.PACKAGE_CREDIT_PATH}`
           },
           {
-            label: 'Credit Ratio',
+            label: 'sidebar.admin.creditRatio',
             icon: 'pi pi-percentage',
             route: `/${AppRoutingConstants.ADMIN_PATH}/${AppRoutingConstants.CREDIT_CONVERT_RATIO}`
+          },
+          {
+            label: 'sidebar.admin.emissionSource',
+            icon: 'pi pi-asterisk',
+            route: `/${AppRoutingConstants.ADMIN_PATH}/${AppRoutingConstants.EMISSION_SOURCE}`
+          },
+          {
+            label: 'sidebar.admin.fuel',
+            icon: 'pi pi-asterisk',
+            route: `/${AppRoutingConstants.ADMIN_PATH}/${AppRoutingConstants.FUEL_CONVERSION}`
           }
         ]
       }
