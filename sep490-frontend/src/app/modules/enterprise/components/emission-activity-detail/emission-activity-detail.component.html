@@ -1,0 +1,188 @@
+<div class="p-4">
+    <p-card [header]="'enterprise.emission.activity.details.title' | translate">
+        <ng-template pTemplate="subtitle">
+            <i class="pi pi-info-circle"></i>
+            {{ "enterprise.emission.activity.details.subtitle" | translate }}
+        </ng-template>
+
+        <div class="grid">
+            <div class="col-12">
+                <p-fieldset
+                    [legend]="
+                        'enterprise.emission.activity.details.basicInfo'
+                            | translate
+                    "
+                >
+                    <form
+                        [formGroup]="formGroup"
+                        (ngSubmit)="submit()"
+                        class="grid grid-cols-1 md:grid-cols-2 gap-4"
+                    >
+                        <p-iftalabel class="my-2 col-span-2 md:col-span-1">
+                            <input
+                                pInputText
+                                formControlName="name"
+                                class="w-full"
+                                autocomplete="off"
+                            />
+                            <label>{{
+                                "enterprise.emission.activity.table.name"
+                                    | translate
+                            }}</label>
+                        </p-iftalabel>
+
+                        <p-iftalabel class="my-2 col-span-2 md:col-span-1">
+                            <input
+                                pInputText
+                                formControlName="type"
+                                class="w-full"
+                                autocomplete="off"
+                            />
+                            <label>{{
+                                "enterprise.emission.activity.table.type"
+                                    | translate
+                            }}</label>
+                        </p-iftalabel>
+
+                        <p-iftalabel class="my-2 col-span-2 md:col-span-1">
+                            <input
+                                pInputText
+                                [value]="getFactorName()"
+                                id="factorName"
+                                class="w-full"
+                                disabled
+                            />
+                            <label for="factorName">{{
+                                "enterprise.emission.activity.record.table.factor"
+                                    | translate
+                            }}</label>
+                        </p-iftalabel>
+
+                        <p-iftalabel class="my-2 col-span-2 md:col-span-1">
+                            <input
+                                pInputText
+                                class="w-full"
+                                [value]="getSourceName()"
+                                id="sourceName"
+                                disabled
+                            />
+                            <label for="sourceName">{{
+                                "enterprise.emission.activity.record.table.source"
+                                    | translate
+                            }}</label>
+                        </p-iftalabel>
+
+                        <p-iftalabel class="my-2 col-span-2 md:col-span-1">
+                            <input
+                                pInputText
+                                formControlName="category"
+                                class="w-full"
+                                autocomplete="off"
+                            />
+                            <label>{{
+                                "enterprise.emission.activity.table.category"
+                                    | translate
+                            }}</label>
+                        </p-iftalabel>
+
+                        <p-iftalabel class="my-2 col-span-2">
+                            <p-inputnumber
+                                formControlName="quantity"
+                                class="w-full"
+                                [showButtons]="true"
+                                [min]="0"
+                            >
+                                <ng-template pTemplate="incrementbuttonicon">
+                                    <span class="pi pi-plus"></span>
+                                </ng-template>
+                                <ng-template pTemplate="decrementbuttonicon">
+                                    <span class="pi pi-minus"></span>
+                                </ng-template>
+                            </p-inputnumber>
+                            <label>{{
+                                "enterprise.emission.activity.table.quantity"
+                                    | translate
+                            }}</label>
+                        </p-iftalabel>
+
+                        <p-iftalabel class="my-2 col-span-2">
+                            <input
+                                pInputText
+                                formControlName="description"
+                                class="w-full"
+                            />
+                            <label>{{
+                                "enterprise.emission.activity.dialog.Description"
+                                    | translate
+                            }}</label>
+                        </p-iftalabel>
+
+                        <div
+                            class="md:col-span-2 flex justify-between gap-2 mt-4"
+                        >
+                            <p-button
+                                [label]="'common.back' | translate"
+                                [severity]="'warn'"
+                                (onClick)="onBack()"
+                            ></p-button>
+
+                            <p-button
+                                type="submit"
+                                [label]="'common.update' | translate"
+                                [disabled]="!formGroup.valid"
+                            ></p-button>
+                        </div>
+                    </form>
+                </p-fieldset>
+            </div>
+        </div>
+    </p-card>
+
+    <div class="mt-4">
+        <p-card
+            [header]="'enterprise.emission.activity.record.title' | translate"
+        >
+            <table-template
+                *ngIf="!applicationService.isMobile()"
+                [fetch]="fetchRecords"
+                [columns]="cols"
+                [searchOnInit]="false"
+                [criteria]="searchCriteria"
+                [triggerSearch]="searchEvent"
+                [captionTemplateRef]="captionTemplateRef"
+                [triggerClearSelected]="clearSelectedEvent"
+                (selectionChange)="onSelectionChange($event)"
+                [checkbox]="true"
+            >
+            </table-template>
+
+            <ng-template #captionTemplateRef>
+                <div class="flex items-center flex-row-reverse">
+                    <div class="flex gap-2.5">
+                        <p-button
+                            severity="danger"
+                            [label]="
+                                selected.length
+                                    ? ('enterprise.emission.activity.record.deleteWithCount'
+                                      | translate: { count: selected.length })
+                                    : ('enterprise.Users.delete' | translate)
+                            "
+                            icon="pi pi-trash"
+                            outlined
+                            [disabled]="!selected || !selected.length"
+                            (onClick)="confirmDelete()"
+                        />
+                        <p-button
+                            [label]="
+                                'enterprise.emission.activity.record.new'
+                                    | translate
+                            "
+                            [severity]="'primary'"
+                            (onClick)="onNewRecord()"
+                        ></p-button>
+                    </div>
+                </div>
+            </ng-template>
+        </p-card>
+    </div>
+</div>

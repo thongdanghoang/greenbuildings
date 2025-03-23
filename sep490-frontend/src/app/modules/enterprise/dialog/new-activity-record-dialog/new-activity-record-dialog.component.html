@@ -1,0 +1,96 @@
+<div class="p-4">
+    <div class="flex justify-between items-center mb-4">
+        <h2 class="text-xl font-semibold">
+            {{ "enterprise.emission.activity.record.new" | translate }}
+        </h2>
+        <button
+            pButton
+            icon="pi pi-times"
+            class="p-button-rounded p-button-text"
+            (click)="onCancel()"
+        ></button>
+    </div>
+
+    <form
+        [formGroup]="formGroup"
+        (ngSubmit)="submit()"
+        class="grid grid-cols-1 md:grid-cols-2 gap-4 overflow-hidden"
+    >
+        <p-iftalabel class="my-2">
+            <p-dropdown
+                formControlName="unit"
+                [options]="unitOptions"
+                class="w-full break-words"
+                [placeholder]="
+                    'enterprise.emission.activity.record.table.unit' | translate
+                "
+            ></p-dropdown>
+            <label>{{
+                "enterprise.emission.activity.record.table.unit" | translate
+            }}</label>
+        </p-iftalabel>
+
+        <p-iftalabel class="my-2">
+            <p-inputnumber
+                formControlName="value"
+                class="w-full"
+                [showButtons]="true"
+                [min]="0"
+            >
+                <ng-template pTemplate="incrementbuttonicon">
+                    <span class="pi pi-plus"></span>
+                </ng-template>
+                <ng-template pTemplate="decrementbuttonicon">
+                    <span class="pi pi-minus"></span>
+                </ng-template>
+            </p-inputnumber>
+            <label>{{
+                "enterprise.emission.activity.record.table.value" | translate
+            }}</label>
+        </p-iftalabel>
+
+        <p-iftalabel class="my-2">
+            <p-date-picker
+                formControlName="startDate"
+                class="w-full"
+                [inline]="true"
+                [placeholder]="
+                    'enterprise.emission.activity.record.table.startDate'
+                        | translate
+                "
+            ></p-date-picker>
+            <label>{{
+                "enterprise.emission.activity.record.table.startDate"
+                    | translate
+            }}</label>
+        </p-iftalabel>
+
+        <p-iftalabel class="my-2">
+            <p-date-picker
+                [inline]="true"
+                formControlName="endDate"
+                class="w-full"
+                [placeholder]="
+                    'enterprise.emission.activity.record.table.endDate'
+                        | translate
+                "
+            ></p-date-picker>
+            <label>{{
+                "enterprise.emission.activity.record.table.endDate" | translate
+            }}</label>
+        </p-iftalabel>
+
+        <div class="md:col-span-2 flex justify-end gap-2 mt-4">
+            <p-button
+                type="button"
+                (click)="onCancel()"
+                [label]="'common.cancel' | translate"
+            ></p-button>
+            <p-button
+                type="submit"
+                [label]="'common.save' | translate"
+                [disabled]="!formGroup.valid"
+            ></p-button>
+        </div>
+    </form>
+</div>

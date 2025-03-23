@@ -4,6 +4,7 @@ import {AppRoutingConstants} from '../../app-routing.constant';
 import {BuildingDetailsComponent} from './components/building-details/building-details.component';
 import {BuildingsComponent} from './components/buildings/buildings.component';
 import {EmissionActivityComponent} from './components/emission-activity/emission-activity.component';
+import {EmissionActivityDetailComponent} from './components/emission-activity-detail/emission-activity-detail.component';
 import {PaymentComponent} from './components/payment/payment.component';
 import {PlanComponent} from './components/plan/plan.component';
 import {EnterpriseComponent} from './enterprise.component';
@@ -29,6 +30,10 @@ const routes: Routes = [
       {
         path: `${AppRoutingConstants.EMISSION_ACTIVITY_PATH}/:buildingId`,
         component: EmissionActivityComponent
+      },
+      {
+        path: `${AppRoutingConstants.EMISSION_ACTIVITY_DETAIL_PATH}/:emissionId`,
+        component: EmissionActivityDetailComponent
       }
     ]
   }

@@ -15,6 +15,7 @@
     "back": "返回",
     "next": "下一个",
     "cancel": "取消",
+    "update": "更新",
     "error": {
       "title": "错误",
       "technicalServerError": "发生意外服务器错误。请联系您的管理员，提供此关键 correlationId = {{correlationId}} 以获取更多信息。"
@@ -176,6 +177,27 @@
           "type": "类型",
           "category": "类别",
           "quantity": "数量"
+        },
+        "details": {
+          "title": "排放活动详情",
+          "subtitle": "查看和管理排放活动详情",
+          "basicInfo": "基本信息",
+          "measurements": "测量",
+          "unit": "单位",
+          "date": "日期"
+        },
+        "new": "新记录",
+        "record": {
+          "title": "排放记录",
+          "deleteWithCount": "删除（{{count}}）条记录",
+          "table": {
+            "value": "数值",
+            "unit": "单位",
+            "startDate": "开始日期",
+            "endDate": "结束日期",
+            "factor": "排放系数",
+            "source": "排放源"
+          }
         }
       }
     }
@@ -365,7 +387,7 @@
     "testimonial": {
       "title": "评价",
       "subtitle": "受到领先公司的信任",
-      "description": "GreenBuilding 很自豪能成为各行各业众多有远见的公司首选的碳管理平台。我们的客户依靠 GreenBuilding 来简化他们的可持续发展计划，并展示他们对更绿色未来的承诺。我们的一些重要客户包括：“已经在使用该平台的公司”"
+      "description": "GreenBuilding 很自豪能成为各行各业众多有远见的公司首选的碳管理平台。我们的客户依靠 GreenBuilding 来简化他们的可持续发展计划，并展示他们对更绿色未来的承诺。我们的一些重要客户包括：已经在使用该平台的公司"
     },
     "reason": {
       "subtitle": "碳清晰度",
@@ -395,5 +417,30 @@
       "detailSupport": "我们专门的客户支持团队将竭诚帮助您充分利用 GreenBuilding 平台。无论您需要帮助设置帐户、计算碳足迹还是自定义仪表板，只需点击一下即可。如有任何问题或需要指导，请联系我们。",
       "contact": "联系我们"
     }
+  },
+  "unit": {
+    "GRAM": "克",
+    "KILOGRAM": "千克",
+    "MEGAGRAM": "兆克",
+    "GIGAGRAM": "吉克",
+    "TERAGRAM": "太克",
+    "MILLILITER": "毫升",
+    "CENTILITER": "厘升",
+    "DECILITER": "分升",
+    "LITER": "升",
+    "CUBIC_METER": "立方米",
+    "UK_GALLON": "英制加仑",
+    "US_GALLON": "美制加仑",
+    "BARREL": "桶",
+    "PECK": "配克",
+    "THOUSAND_CUBIC_METER": "千立方米",
+    "MILLION_CUBIC_METER": "百万立方米",
+    "WH": "瓦时",
+    "KWH": "千瓦时",
+    "TERAJOULE": "太焦",
+    "GIGAJOULE": "吉焦",
+    "MEGAJOULE": "兆焦",
+    "PERCENT": "百分比",
+    "PIECES": "件"
   }
 }

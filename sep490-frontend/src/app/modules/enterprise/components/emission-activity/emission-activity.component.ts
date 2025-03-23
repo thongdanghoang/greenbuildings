@@ -1,4 +1,10 @@
-import {Component, EventEmitter, OnInit} from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  OnInit,
+  TemplateRef,
+  ViewChild
+} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
 import moment from 'moment';
@@ -38,6 +44,8 @@ export class EmissionActivityComponent
   implements OnInit
 {
   ref: DynamicDialogRef | undefined;
+  @ViewChild('actionsTemplate', {static: true})
+  actionsTemplate!: TemplateRef<any>;
   protected fetchActivity!: (
     criteria: SearchCriteriaDto<ActivitySearchCriteria>
   ) => Observable<SearchResultDto<EmissionActivity>>;
@@ -129,6 +137,11 @@ export class EmissionActivityComponent
       field: 'quantity',
       sortable: true
     });
+    this.cols.push({
+      field: 'actions',
+      header: '',
+      templateRef: this.actionsTemplate
+    });
   }
 
   fetchAndValidateBuilding(): void {
@@ -166,6 +179,14 @@ export class EmissionActivityComponent
         this.searchEvent.emit();
       }
     });
+  }
+
+  openActivityDetailsDialog(activity: EmissionActivity): void {
+    void this.router.navigate([
+      AppRoutingConstants.ENTERPRISE_PATH,
+      AppRoutingConstants.EMISSION_ACTIVITY_DETAIL_PATH,
+      activity.id
+    ]);
   }
 
   confirmDelete(): void {

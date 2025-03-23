@@ -5,6 +5,7 @@ import greenbuildings.commons.api.dto.SearchCriteriaDTO;
 import greenbuildings.commons.api.dto.SearchResultDTO;
 import greenbuildings.enterprise.dtos.EmissionActivityCriteria;
 import greenbuildings.enterprise.dtos.EmissionActivityDTO;
+import greenbuildings.enterprise.dtos.EmissionActivityDetailsDTO;
 import greenbuildings.enterprise.entities.EmissionActivityEntity;
 import greenbuildings.enterprise.mappers.EmissionActivityMapper;
 import greenbuildings.enterprise.services.EmissionActivityService;
@@ -24,6 +25,12 @@ public class EmissionActivityController {
     private final EmissionActivityService emissionActivityService;
     private final EmissionActivityMapper mapper;
 
+    @GetMapping("/{id}")
+    public ResponseEntity<EmissionActivityDetailsDTO> getEmissionActivityDetails(@PathVariable UUID id) {
+        EmissionActivityEntity entity = emissionActivityService.getEmissionActivityDetails(id);
+        return ResponseEntity.ok(mapper.toDetailsDTO(entity));
+    }
+    
     @PostMapping("/building")
     public ResponseEntity<SearchResultDTO<EmissionActivityDTO>> findAllByCriteria(@RequestBody SearchCriteriaDTO<EmissionActivityCriteria> criteria) {
         Page<EmissionActivityEntity> list = emissionActivityService.search(criteria);
@@ -31,9 +38,14 @@ public class EmissionActivityController {
     }
 
     @PostMapping
-    public ResponseEntity<EmissionActivityDTO> addEmissionActivity(@RequestBody EmissionActivityDTO dto) {
-        EmissionActivityEntity entity = this.mapper.createNewActivity(dto);
-        return ResponseEntity.ok(mapper.toDTO(emissionActivityService.add(entity)));
+    public ResponseEntity<EmissionActivityDetailsDTO> addOrUpdateEmissionActivity(@RequestBody EmissionActivityDTO dto) {
+        EmissionActivityEntity entity;
+        if (dto.id() == null) {
+            entity = this.mapper.updateActivity(dto);
+        } else {
+            entity = this.mapper.createNewActivity(dto);
+        }
+        return ResponseEntity.ok(mapper.toDetailsDTO(emissionActivityService.addOrUpdate(entity)));
     }
     
     @DeleteMapping
@@ -41,5 +53,4 @@ public class EmissionActivityController {
         emissionActivityService.deleteActivities(ids);
         return ResponseEntity.noContent().build();
     }
-    
 }
