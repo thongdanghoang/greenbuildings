@@ -14,8 +14,8 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface BuildingRepository extends AbstractBaseRepository<BuildingEntity> {
-    
-    Page<BuildingEntity> findByEnterpriseId(UUID enterpriseId, Pageable pageable);
+
+    Page<BuildingEntity> findByEnterpriseIdAndDeleted(UUID enterpriseId, boolean deleted, Pageable pageable);
     
     List<BuildingEntity> findAllByEnterpriseId(UUID enterpriseId);
     

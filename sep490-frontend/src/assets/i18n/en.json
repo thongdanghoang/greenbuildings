@@ -4,6 +4,7 @@
     "success": "Success",
     "saveSuccess": "Save successfully!",
     "defaultConfirmMessage": "Do you want to delete this row?",
+    "buildingConfirmMessage": "Do you want to delete this building?",
     "confirmHeader": "Confirmation",
     "accept": "Yes",
     "reject": "No",
@@ -137,6 +138,16 @@
           "validFromInclusive": "Valid from",
           "validToInclusive": "Valid to",
           "address": "Address"
+        }
+      },
+      "message": {
+        "success": {
+          "summary": "Success",
+          "detail": "Building deleted"
+        },
+        "error": {
+          "summary": "Error",
+          "detail": "Building deleted unsuccessfully"
         }
       }
     }

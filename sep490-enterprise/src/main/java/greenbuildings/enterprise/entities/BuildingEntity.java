@@ -67,6 +67,9 @@ public class BuildingEntity extends AbstractAuditableEntity {
     @DecimalMax("180.0")
     @Column(name = "longitude")
     private double longitude;
+
+    @Column(name = "deleted")
+    private boolean deleted;
     
     @OneToMany(mappedBy = "building", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
     private Set<EmissionActivityEntity> emissionActivities = new HashSet<>();

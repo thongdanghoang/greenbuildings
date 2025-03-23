@@ -12,7 +12,7 @@
         <p th:text="${error}" class="mt-6 text-pretty text-lg font-medium text-gray-500 sm:text-xl/8">An unexpected error
             occurred. Please try again later.</p>
         <div class="mt-10 flex items-center justify-center gap-x-6">
-            <a href="/"
+            <a th:href="${frontendUrl}"
                class="rounded-md bg-primary px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary">Return
                 to Home</a>
             <a href="/contact-us" class="text-sm font-semibold text-gray-900">Contact support <span

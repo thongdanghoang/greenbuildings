@@ -2,6 +2,7 @@
   "common": {
     "noRow": "Không tìm thấy bản ghi nào.",
     "defaultConfirmMessage": "Bạn có muốn xóa hàng này không?",
+    "buildingConfirmMessage": "Bạn có muốn xóa tòa nhà này không?",
     "confirmHeader": "Xác nhận",
     "accept": "Đồng ý",
     "reject": "Không",
@@ -137,6 +138,16 @@
           "validFromInclusive": "Hiệu lực từ",
           "validToInclusive": "Hiệu lực đến",
           "address": "Địa chỉ"
+        }
+      },
+      "message": {
+        "success": {
+          "summary": "Thành công",
+          "detail": "Đã xóa tòa nhà"
+        },
+        "error": {
+          "summary": "Lỗi",
+          "detail": "Đã xóa tào nhà không thành công"
         }
       }
     }

@@ -4,6 +4,7 @@
     "success": "成功",
     "saveSuccess": "保存成功!",
     "defaultConfirmMessage": "是否删除此行？",
+    "buildingConfirmMessage": "您想删除这栋建筑吗？",
     "confirmHeader": "确认",
     "accept": "是",
     "reject": "否",
@@ -137,6 +138,16 @@
           "validFromInclusive": "有效日期",
           "validToInclusive": "有效日期",
           "address": "地址"
+        }
+      },
+      "message": {
+        "success": {
+          "summary": "成功",
+          "detail": "建筑物已删除"
+        },
+        "error": {
+          "summary": "错误",
+          "detail": "房屋删除失败"
         }
       }
     }
