@@ -40,6 +40,18 @@ export interface EmissionActivityRecord extends BaseDTO {
   endDate: Date;
 }
 
+export interface EmissionSource extends BaseDTO {
+  nameVN: string;
+  nameEN: string;
+  nameZH: string;
+}
+
+export interface FuelConversion extends BaseDTO {
+  nameVN: string;
+  nameEN: string;
+  nameZH: string;
+}
+
 export interface CreditPackage extends BaseDTO {
   numberOfCredits: number;
   price: number;

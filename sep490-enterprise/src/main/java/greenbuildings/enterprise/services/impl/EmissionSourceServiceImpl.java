@@ -1,5 +1,10 @@
 package greenbuildings.enterprise.services.impl;
 
+import commons.springfw.impl.mappers.CommonMapper;
+import commons.springfw.impl.utils.SecurityUtils;
+import greenbuildings.commons.api.dto.SearchCriteriaDTO;
+import greenbuildings.enterprise.dtos.EmissionSourceCriteriaDTO;
+import greenbuildings.enterprise.dtos.EmissionSourceDTO;
 import greenbuildings.enterprise.entities.EmissionSourceEntity;
 import greenbuildings.enterprise.repositories.EmissionSourceRepository;
 import greenbuildings.enterprise.services.EmissionSourceService;
@@ -7,10 +12,14 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(rollbackOn = Throwable.class)
@@ -25,6 +34,15 @@ public class EmissionSourceServiceImpl implements EmissionSourceService {
     public Set<EmissionSourceEntity> findAll() {
         return new HashSet<>(emissionSourceRepository.findAll());
     }
-    
-    
+
+    @Override
+    public Page<EmissionSourceEntity> search(SearchCriteriaDTO<EmissionSourceCriteriaDTO> searchCriteria, Pageable pageable) {
+        var emissionSourceIDs = emissionSourceRepository.findByName(
+                searchCriteria.criteria().criteria(),
+               pageable);
+        var results = emissionSourceRepository.findAllById(emissionSourceIDs.toSet())
+                .stream()
+                .collect(Collectors.toMap(EmissionSourceEntity::getId, Function.identity()));
+        return emissionSourceIDs.map(results::get);
+    }
 }

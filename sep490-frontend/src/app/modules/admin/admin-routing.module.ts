@@ -7,6 +7,8 @@ import {PackageCreditComponent} from './components/package-credit/package-credit
 import {CreateUpdatePackageCreditComponent} from './components/create-update-package-credit/create-update-package-credit.component';
 import {CreditConvertRatioComponent} from './components/credit-convert-ratio/credit-convert-ratio.component';
 import {UpdateRatioComponent} from './components/update-ratio/update-ratio.component';
+import {EmissionSourceComponent} from './components/emission-source/emission-source.component';
+import {FuelConversionComponent} from './components/fuel-conversion/fuel-conversion.component';
 
 const routes: Routes = [
   {
@@ -32,6 +34,14 @@ const routes: Routes = [
       {
         path: `${AppRoutingConstants.PACKAGE_CREDIT_DETAILS_PATH}/:id`,
         component: CreateUpdatePackageCreditComponent
+      },
+      {
+        path: `${AppRoutingConstants.EMISSION_SOURCE}`,
+        component: EmissionSourceComponent
+      },
+      {
+        path: `${AppRoutingConstants.FUEL_CONVERSION}`,
+        component: FuelConversionComponent
       }
     ]
   }

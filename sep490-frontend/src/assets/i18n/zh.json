@@ -218,7 +218,10 @@
     },
     "admin": {
       "title": "行政人员",
-      "packageCredit": "套餐信用"
+      "packageCredit": "套餐信用",
+      "creditRatio": "信贷比率",
+      "emissionSource": "排放源",
+      "fuel": "燃料"
     }
   },
   "admin": {
@@ -260,6 +263,9 @@
       },
       "updateRatio": "更新比率",
       "adjustRatio": "调整比例"
+    },
+    "emissionSource": {
+      "name" : "排放源"
     }
   },
   "dialog": {
