@@ -24,6 +24,9 @@ import {
 import {PopupService} from '../../services/popup.service';
 import {WalletService} from '../../services/wallet.service';
 import {BuildingPopupMarkerComponent} from '../building-popup-marker/building-popup-marker.component';
+import {MessageService} from 'primeng/api';
+import {ModalProvider} from '../../../shared/services/modal-provider';
+import {TranslateService} from '@ngx-translate/core';
 
 const iconRetinaUrl = 'assets/marker-icon-2x.png';
 const iconUrl = 'assets/marker-icon.png';
@@ -81,7 +84,10 @@ export class BuildingsComponent
     private readonly buildingService: BuildingService,
     private readonly popupService: PopupService,
     public dialogService: DialogService,
-    private readonly walletService: WalletService
+    private readonly walletService: WalletService,
+    private readonly messageService: MessageService,
+    private readonly modalProvider: ModalProvider,
+    private readonly translate: TranslateService
   ) {
     super();
   }
@@ -176,6 +182,27 @@ export class BuildingsComponent
     }
   }
 
+  confirmDelete(buildingId: UUID): void {
+    this.modalProvider
+      .showConfirm({
+        message: this.translate.instant('common.buildingConfirmMessage'),
+        header: this.translate.instant('common.confirmHeader'),
+        icon: 'pi pi-info-circle',
+        acceptButtonStyleClass: 'p-button-danger p-button-text min-w-20',
+        rejectButtonStyleClass: 'p-button-contrast p-button-text min-w-20',
+        acceptIcon: 'none',
+        acceptLabel: this.translate.instant('common.accept'),
+        rejectIcon: 'none',
+        rejectLabel: this.translate.instant('common.reject')
+      })
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((result: boolean): void => {
+        if (result) {
+          this.deleteBuilding(buildingId);
+        }
+      });
+  }
+
   cancelAddBuilding(): void {
     this.addBuildingLocation = false;
     this.map.eachLayer(layer => {
@@ -262,5 +289,33 @@ export class BuildingsComponent
     );
 
     tiles.addTo(this.map);
+  }
+
+  private deleteBuilding(buildingId: UUID): void {
+    this.buildingService.deleteBuildingById(buildingId).subscribe({
+      next: () => {
+        this.messageService.add({
+          severity: 'success',
+          summary: this.translate.instant(
+            'enterprise.buildings.message.success.summary'
+          ),
+          detail: this.translate.instant(
+            'enterprise.buildings.message.success.detail'
+          )
+        });
+        this.fetchBuilding(); // Refresh the buildings list
+      },
+      error: () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: this.translate.instant(
+            'enterprise.buildings.message.error.summary'
+          ),
+          detail: this.translate.instant(
+            'enterprise.buildings.message.error.detail'
+          )
+        });
+      }
+    });
   }
 }

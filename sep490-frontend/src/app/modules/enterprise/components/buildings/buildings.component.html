@@ -78,7 +78,12 @@
                     text
                     (onClick)="zoomTo(building.latitude, building.longitude)"
                 />
-                <p-button icon="pi pi-trash" severity="danger" text />
+                <p-button
+                    icon="pi pi-trash"
+                    severity="danger"
+                    text
+                    (onClick)="confirmDelete(building.id)"
+                />
             </div>
         </div>
         <div class="p-4 border-b dark:bg-zinc-900">

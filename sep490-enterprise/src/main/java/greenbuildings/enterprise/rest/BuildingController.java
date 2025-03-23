@@ -14,12 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Objects;
 import java.util.UUID;
@@ -63,6 +58,12 @@ public class BuildingController {
         building.setEnterprise(enterprise);
         var createdBuilding = buildingService.createBuilding(building);
         return ResponseEntity.status(HttpStatus.CREATED).body(buildingMapper.toDto(createdBuilding));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteBuilding(@PathVariable UUID id) {
+         buildingService.deleteBuilding(id);
+        return ResponseEntity.noContent().build();
     }
     
 }

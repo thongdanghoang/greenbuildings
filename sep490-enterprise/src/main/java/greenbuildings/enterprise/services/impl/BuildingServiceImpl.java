@@ -37,6 +37,19 @@ public class BuildingServiceImpl implements BuildingService {
     
     @Override
     public Page<BuildingEntity> getEnterpriseBuildings(UUID enterpriseId, Pageable page) {
-        return buildingRepository.findByEnterpriseId(enterpriseId, page);
+        return buildingRepository.findByEnterpriseIdAndDeleted(enterpriseId,false, page);
     }
+     @Override
+    public void deleteBuilding(UUID id) {
+        UUID enterpriseId = SecurityUtils.getCurrentUserEnterpriseId().orElseThrow();
+         var optionalBuilding = buildingRepository.findByIdAndEnterpriseId(id, enterpriseId);
+         if(optionalBuilding.isPresent()) {
+             var building = optionalBuilding.get();
+             if(!building.isDeleted()) {
+                 building.setDeleted(true);
+                 buildingRepository.save(building);
+             }
+         }
+    }
+
 }

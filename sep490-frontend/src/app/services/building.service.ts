@@ -28,6 +28,12 @@ export class BuildingService {
     );
   }
 
+  public deleteBuildingById(id: UUID): Observable<void> {
+    return this.httpClient.delete<void>(
+      `${AppRoutingConstants.ENTERPRISE_API_URL}/${AppRoutingConstants.BUILDING_PATH}/${id}`
+    );
+  }
+
   searchBuildings(
     searchCriteria: SearchCriteriaDto<void>
   ): Observable<SearchResultDto<Building>> {
