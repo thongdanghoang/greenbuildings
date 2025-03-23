@@ -11,6 +11,7 @@
     "search": "Search",
     "create": "Create",
     "save": "Save",
+    "update": "Update",
     "revert": "Revert",
     "back": "Back",
     "next": "Next",
@@ -176,6 +177,27 @@
           "type": "Type",
           "category": "Category",
           "quantity": "Quantity"
+        },
+        "details": {
+          "title": "Emission Activity Details",
+          "subtitle": "View and manage emission activity details",
+          "basicInfo": "Basic Information",
+          "measurements": "Measurements",
+          "unit": "Unit",
+          "date": "Date"
+        },
+        "record": {
+          "title": "Emission Records",
+          "new": "New Activity Record",
+          "deleteWithCount": "Delete ({{count}}) records",
+          "table": {
+            "value": "Value",
+            "unit": "Unit",
+            "startDate": "Start Date",
+            "endDate": "End Date",
+            "factor": "Emission Factor",
+            "source": "Emission Source"
+          }
         }
       }
     }
@@ -395,5 +417,30 @@
       "detailSupport": "Our dedicated customer support team is here to help you make the most of the GreenBuilding platform. Whether you need assistance with account setup, carbon calculation, or dashboard customization, we're just a click away. Contact us for any inquiries or guidance you may need.",
       "contact": "Contact us"
     }
+  },
+  "unit": {
+    "GRAM": "Gram",
+    "KILOGRAM": "Kilogram",
+    "MEGAGRAM": "Megagram",
+    "GIGAGRAM": "Gigagram",
+    "TERAGRAM": "Teragram",
+    "MILLILITER": "Milliliter",
+    "CENTILITER": "Centiliter",
+    "DECILITER": "Deciliter",
+    "LITER": "Liter",
+    "CUBIC_METER": "Cubic meter",
+    "UK_GALLON": "UK Gallon",
+    "US_GALLON": "US Gallon",
+    "BARREL": "Barrel",
+    "PECK": "Peck",
+    "THOUSAND_CUBIC_METER": "Thousand cubic meter",
+    "MILLION_CUBIC_METER": "Million cubic meter",
+    "WH": "Watt hour",
+    "KWH": "Kilowatt hour",
+    "TERAJOULE": "Terajoule",
+    "GIGAJOULE": "Gigajoule",
+    "MEGAJOULE": "Megajoule",
+    "PERCENT": "Percent",
+    "PIECES": "Pieces"
   }
 }

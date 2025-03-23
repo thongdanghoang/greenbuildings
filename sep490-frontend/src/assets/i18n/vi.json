@@ -10,6 +10,7 @@
     "saveSuccess": "Lưu thành công!",
     "search": "Tìm kiếm",
     "create": "Tạo",
+    "update": "Cập nhật",
     "save": "Lưu",
     "revert": "Hoàn tác",
     "back": "Quay lại",
@@ -176,10 +177,30 @@
           "type": "Loại",
           "category": "Danh mục",
           "quantity": "Số lượng"
+        },
+        "details": {
+          "title": "Chi tiết hoạt động phát thải",
+          "subtitle": "Xem và quản lý chi tiết hoạt động phát thải",
+          "basicInfo": "Thông tin cơ bản",
+          "measurements": "Đo lường",
+          "unit": "Đơn vị",
+          "date": "Ngày"
+        },
+        "record": {
+          "title": "Bản ghi phát thải",
+          "new": "Bản ghi phát thải mới",
+          "deleteWithCount": "Xóa ({{count}}) bản ghi",
+          "table": {
+            "value": "Giá trị",
+            "unit": "Đơn vị",
+            "startDate": "Ngày bắt đầu",
+            "endDate": "Ngày kết thúc",
+            "factor": "Hệ số phát thải",
+            "source": "Nguồn phát thải"
+          }
         }
       }
     }
-
   },
   "enum": {
     "role": {
@@ -396,5 +417,30 @@
       "detailSupport": "Nhóm hỗ trợ khách hàng tận tâm của chúng tôi luôn sẵn sàng giúp bạn tận dụng tối đa nền tảng GreenBuilding. Cho dù bạn cần hỗ trợ thiết lập tài khoản, tính toán lượng carbon hay tùy chỉnh bảng điều khiển, chúng tôi chỉ cách bạn một cú nhấp chuột. Hãy liên hệ với chúng tôi để được giải đáp mọi thắc mắc hoặc hướng dẫn bạn cần.",
       "contact": "Liên hệ với chúng tôi"
     }
+  },
+  "unit": {
+    "GRAM": "Gram",
+    "KILOGRAM": "Kilogram",
+    "MEGAGRAM": "Megagram",
+    "GIGAGRAM": "Gigagram",
+    "TERAGRAM": "Teragram",
+    "MILLILITER": "Mililít",
+    "CENTILITER": "Xentilít",
+    "DECILITER": "Đềxilít",
+    "LITER": "Lít",
+    "CUBIC_METER": "Mét khối",
+    "UK_GALLON": "Gallon Anh",
+    "US_GALLON": "Gallon Mỹ",
+    "BARREL": "Thùng",
+    "PECK": "Peck",
+    "THOUSAND_CUBIC_METER": "Nghìn mét khối",
+    "MILLION_CUBIC_METER": "Triệu mét khối",
+    "WH": "Oát giờ",
+    "KWH": "Kilôoát giờ",
+    "TERAJOULE": "Terajoule",
+    "GIGAJOULE": "Gigajoule",
+    "MEGAJOULE": "Megajoule",
+    "PERCENT": "Phần trăm",
+    "PIECES": "Cái"
   }
 }

@@ -10,12 +10,14 @@ import {AvatarModule} from 'primeng/avatar';
 import {BadgeModule} from 'primeng/badge';
 import {BlockUIModule} from 'primeng/blockui';
 import {ButtonModule} from 'primeng/button';
+import {Calendar} from 'primeng/calendar';
 import {CardModule} from 'primeng/card';
 import {CheckboxModule} from 'primeng/checkbox';
 import {DatePickerModule} from 'primeng/datepicker';
 import {DialogModule} from 'primeng/dialog';
 import {DividerModule} from 'primeng/divider';
 import {DrawerModule} from 'primeng/drawer';
+import {DropdownModule} from 'primeng/dropdown';
 import {DialogService, DynamicDialog} from 'primeng/dynamicdialog';
 import {Fieldset} from 'primeng/fieldset';
 import {FloatLabelModule} from 'primeng/floatlabel';
@@ -107,7 +109,9 @@ const primeNgModules = [
   ChipModule,
   Fieldset,
   IftaLabel,
-  StepperModule
+  StepperModule,
+  Calendar,
+  DropdownModule
 ];
 
 const commons = [

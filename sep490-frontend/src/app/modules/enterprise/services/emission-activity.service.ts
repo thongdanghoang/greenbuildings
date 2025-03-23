@@ -1,7 +1,10 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {EmissionActivity} from '../models/enterprise.dto';
+import {
+  EmissionActivity,
+  EmissionActivityDetails
+} from '../models/enterprise.dto';
 import {AppRoutingConstants} from '../../../app-routing.constant';
 import {UUID} from '../../../../types/uuid';
 import {
@@ -11,12 +14,7 @@ import {
 
 export interface ActivitySearchCriteria {
   buildingId: UUID;
-  emissionSourceId?: UUID;
   name?: string;
-  type?: string;
-  category?: string;
-  description?: string;
-  quantity?: number;
 }
 
 @Injectable()
@@ -44,6 +42,14 @@ export class EmissionActivityService {
       {
         body: ids
       }
+    );
+  }
+
+  public getActivityDetails(
+    activityId: UUID
+  ): Observable<EmissionActivityDetails> {
+    return this.httpClient.get<EmissionActivityDetails>(
+      `${AppRoutingConstants.ENTERPRISE_API_URL}/${this.EMISSION_ACTIVITY_PATH}/${activityId}`
     );
   }
 }

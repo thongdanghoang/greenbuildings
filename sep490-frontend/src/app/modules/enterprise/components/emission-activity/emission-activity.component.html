@@ -5,17 +5,6 @@
                 <i class="pi pi-map-marker"></i>
                 {{ buildingDetail.address }}
             </ng-template>
-            <!--<p>
-                {{
-                    "enterprise.emission.activity.currentNoActivities"
-                        | translate
-                }}
-                {{
-                    buildingDetail?.emissionActivities
-                        ? buildingDetail.emissionActivities.length
-                        : 0
-                }}
-            </p>-->
             <p-fieldset
                 legend="{{
                     'enterprise.emission.activity.subscriptionDetail'
@@ -102,6 +91,7 @@
                 <input
                     type="text"
                     pInputText
+                    [(ngModel)]="searchCriteria.name"
                     placeholder="{{ 'common.search' | translate }}"
                 />
             </p-iconfield>
@@ -110,6 +100,7 @@
                 [label]="'enterprise.Users.search' | translate"
                 icon="pi pi-search"
                 outlined
+                (onClick)="searchEvent.emit()"
             />
         </div>
         <div class="flex gap-2.5">
@@ -128,4 +119,13 @@
             />
         </div>
     </div>
+</ng-template>
+<ng-template #actionsTemplate let-activity>
+    <p-button
+        icon="pi pi-file-edit"
+        [rounded]="true"
+        [text]="true"
+        severity="contrast"
+        (onClick)="openActivityDetailsDialog(activity)"
+    />
 </ng-template>

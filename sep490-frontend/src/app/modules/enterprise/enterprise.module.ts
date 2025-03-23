@@ -2,12 +2,15 @@ import {NgModule} from '@angular/core';
 import {SharedModule} from '../shared/shared.module';
 import {BuildingDetailsComponent} from './components/building-details/building-details.component';
 import {BuildingsComponent} from './components/buildings/buildings.component';
+import {EmissionActivityDetailComponent} from './components/emission-activity-detail/emission-activity-detail.component';
 import {PaymentComponent} from './components/payment/payment.component';
 import {PlanComponent} from './components/plan/plan.component';
 import {BuildingSubscriptionDialogComponent} from './dialog/building-subcription-dialog/building-subscription-dialog.component';
+import {NewActivityRecordDialogComponent} from './dialog/new-activity-record-dialog/new-activity-record-dialog.component';
 import {EnterpriseRoutingModule} from './enterprise-routing.module';
 import {EnterpriseComponent} from './enterprise.component';
 import {CreditPackageService} from './services/credit-package.service';
+import {EmissionActivityRecordService} from './services/emission-activity-record.service';
 import {MarkerService} from './services/marker.service';
 import {PaymentService} from './services/payment.service';
 import {PopupService} from './services/popup.service';
@@ -29,7 +32,9 @@ import {NewActivityDialogComponent} from './dialog/new-activity-dialog/new-activ
     BuildingPopupMarkerComponent,
     BuildingSubscriptionDialogComponent,
     NewActivityDialogComponent,
-    EmissionActivityComponent
+    EmissionActivityComponent,
+    EmissionActivityDetailComponent,
+    NewActivityRecordDialogComponent
   ],
   imports: [SharedModule, EnterpriseRoutingModule],
   providers: [
@@ -40,7 +45,8 @@ import {NewActivityDialogComponent} from './dialog/new-activity-dialog/new-activ
     WalletService,
     CreditPackageService,
     SubscriptionService,
-    EmissionActivityService
+    EmissionActivityService,
+    EmissionActivityRecordService
   ]
 })
 export class EnterpriseModule {}
