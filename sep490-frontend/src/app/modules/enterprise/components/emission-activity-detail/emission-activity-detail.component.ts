@@ -3,6 +3,10 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {Observable, Observer, filter, map, switchMap, takeUntil} from 'rxjs';
 import {validate} from 'uuid';
 import {UUID} from '../../../../../types/uuid';
+import {
+  NewActivityRecordDialogComponent,
+  NewActivityRecordDialogConfig
+} from '../../dialog/new-activity-record-dialog/new-activity-record-dialog.component';
 import {EmissionActivityService} from '../../services/emission-activity.service';
 import {
   EmissionActivityRecordCriteria,
@@ -30,7 +34,6 @@ import {
 } from '@angular/forms';
 import {HttpClient} from '@angular/common/http';
 import {DialogService, DynamicDialogConfig} from 'primeng/dynamicdialog';
-import {NewActivityRecordDialogComponent} from '../../dialog/new-activity-record-dialog/new-activity-record-dialog.component';
 
 @Component({
   selector: 'app-emission-activity-detail',
@@ -182,8 +185,11 @@ export class EmissionActivityDetailComponent
   }
 
   onNewRecord(): void {
-    const config: DynamicDialogConfig<UUID> = {
-      data: this.activity.id,
+    const config: DynamicDialogConfig<NewActivityRecordDialogConfig> = {
+      data: {
+        activityId: this.activity.id.toString(),
+        factor: this.activity.emissionFactor
+      },
       closeOnEscape: true,
       dismissableMask: true,
       showHeader: false

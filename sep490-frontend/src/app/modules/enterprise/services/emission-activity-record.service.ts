@@ -20,6 +20,8 @@ export class EmissionActivityRecordService {
   public readonly EMISSION_ACTIVITY_RECORD_PATH: string =
     'emission-activity-record';
 
+  public readonly newRecordURL: string = `${AppRoutingConstants.ENTERPRISE_API_URL}/${this.EMISSION_ACTIVITY_RECORD_PATH}`;
+
   constructor(private readonly http: HttpClient) {}
 
   search(

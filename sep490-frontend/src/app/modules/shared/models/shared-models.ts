@@ -41,6 +41,16 @@ export enum EmissionUnit {
   PIECES = 'PIECES'
 }
 
+export enum UnitCategory {
+  MASS = 'MASS',
+  VOLUME = 'VOLUME',
+  ELECTRIC = 'ELECTRIC',
+  ENERGY = 'ENERGY',
+  PERCENT = 'PERCENT',
+  PIECES = 'PIECES',
+  UNKNOWN = 'UNKNOWN'
+}
+
 export interface EmissionSourceDTO extends BaseDTO {
   nameVN: string;
   nameEN: string;

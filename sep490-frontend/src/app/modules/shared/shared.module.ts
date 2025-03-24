@@ -63,6 +63,7 @@ import {CarouselModule} from 'primeng/carousel';
 import {ImageModule} from 'primeng/image';
 import {ToggleButtonModule} from 'primeng/togglebutton';
 import {ChipModule} from 'primeng/chip';
+import {UnitService} from './services/unit.service';
 
 const primeNgModules = [
   AccordionModule,
@@ -156,7 +157,8 @@ const commons = [
     EmissionFactorService,
     EmissionSourceService,
     FuelService,
-    EnergyConversionService
+    EnergyConversionService,
+    UnitService
   ]
 })
 export class SharedModule {}
