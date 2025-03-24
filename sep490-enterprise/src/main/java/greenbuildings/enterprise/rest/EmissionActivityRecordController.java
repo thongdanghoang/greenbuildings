@@ -5,6 +5,7 @@ import greenbuildings.commons.api.dto.SearchCriteriaDTO;
 import greenbuildings.commons.api.dto.SearchResultDTO;
 import greenbuildings.enterprise.dtos.EmissionActivityRecordCriteria;
 import greenbuildings.enterprise.dtos.EmissionActivityRecordDTO;
+import greenbuildings.enterprise.dtos.NewEmissionActivityRecordDTO;
 import greenbuildings.enterprise.entities.EmissionActivityRecordEntity;
 import greenbuildings.enterprise.mappers.EmissionActivityRecordMapper;
 import greenbuildings.enterprise.services.EmissionActivityRecordService;
@@ -25,5 +26,11 @@ public class EmissionActivityRecordController {
     public ResponseEntity<SearchResultDTO<EmissionActivityRecordDTO>> findAllByCriteria(@RequestBody SearchCriteriaDTO<EmissionActivityRecordCriteria> criteria) {
         Page<EmissionActivityRecordEntity> list = recordService.search(criteria);
         return ResponseEntity.ok(CommonMapper.toSearchResultDTO(list, recordMapper::toDTO));
+    }
+
+    @PostMapping
+    public ResponseEntity<EmissionActivityRecordDTO> addOrUpdateRecord(@RequestBody NewEmissionActivityRecordDTO dto) {
+        EmissionActivityRecordEntity entity = recordService.addOrUpdate(recordMapper.newToEntity(dto));
+        return ResponseEntity.ok(recordMapper.toDTO(entity));
     }
 } 

@@ -10,6 +10,33 @@
             (click)="onCancel()"
         ></button>
     </div>
+    <div class="grid grid-cols-1 gap-4">
+        <p-iftalabel class="my-2 col-span-1">
+            <input
+                pInputText
+                [value]="getFactorName()"
+                class="w-full"
+                [disabled]="true"
+            />
+            <label>{{
+                "enterprise.emission.activity.record.table.factor"
+                    | translate
+            }}</label>
+        </p-iftalabel>
+        <p-iftalabel class="my-2 col-span-1">
+            <input
+                pInputText
+                class="w-full"
+                [value]="getSourceName()"
+                id="sourceName"
+                disabled
+            />
+            <label for="sourceName">{{
+                "enterprise.emission.activity.record.table.source"
+                    | translate
+            }}</label>
+        </p-iftalabel>
+    </div>
 
     <form
         [formGroup]="formGroup"

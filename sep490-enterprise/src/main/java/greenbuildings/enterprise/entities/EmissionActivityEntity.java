@@ -88,5 +88,10 @@ public class EmissionActivityEntity extends AbstractAuditableEntity {
     @Size(max = 1000)
     @Column(name = "description")
     private String description;
+
+    public void addRecord(EmissionActivityRecordEntity record) {
+        records.add(record);
+        record.setEmissionActivityEntity(this);
+    }
     
 }
