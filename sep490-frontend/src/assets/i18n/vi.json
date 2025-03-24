@@ -41,7 +41,8 @@
         },
         "invalid": "Lựa chọn tòa nhà không hợp lệ",
         "permissionWarning": "Vui lòng chọn một tòa nhà để chỉ định vai trò cho người dùng này",
-        "notEnoughCredit": "Doanh nghiệp không có đủ tín dụng"
+        "notEnoughCredit": "Doanh nghiệp không có đủ tín dụng",
+        "ratioNotMatch": "Tỷ lệ không khớp, vui lòng thử lại"
       },
       "buildingPermissions": {
         "notEmpty": "Quyền xây dựng không được để trống",
@@ -126,7 +127,7 @@
           "add": "Thêm tòa nhà",
           "activate": "Kích hoạt",
           "activity": "Hoạt động phát thải",
-          "update": "Nâng cấp"
+          "update": "Nâng cấp gói đăng ký"
         },
         "noRow": "Không tìm thấy tòa nhà nào."
       },
@@ -139,7 +140,8 @@
           "maxNumberOfDevices": "Ước tính số lượng thiết bị kiểm kê trong tòa nhà",
           "validFromInclusive": "Hiệu lực từ",
           "validToInclusive": "Hiệu lực đến",
-          "address": "Địa chỉ"
+          "address": "Địa chỉ",
+          "currentMaxNumberOfDevices": "Số lượng thiết bị tối đa hiện tại"
         }
       },
       "message": {
@@ -340,6 +342,7 @@
         "numberDevices": "Số lượng thiết bị hiện tại",
         "numberMonth": "Số tháng",
         "numberMaxDevice": "Số lượng thiết bị tối đa",
+        "numberMaxDeviceUpgrade": "Số lượng thiết bị thêm (Nâng cấp)",
         "totalCredit": "Tổng cộng",
         "confirm": "Xác nhận đăng ký {{numberOfMonths}} tháng và {{numberOfDevices}} thiết bị"
       },

@@ -116,6 +116,13 @@ export class EmissionActivityComponent
     this.selected = selected;
   }
 
+  goBack(): void {
+    void this.router.navigate([
+      AppRoutingConstants.ENTERPRISE_PATH,
+      AppRoutingConstants.BUILDING_PATH
+    ]);
+  }
+
   buildCols(): void {
     this.cols.push({
       header: 'enterprise.emission.activity.table.name',

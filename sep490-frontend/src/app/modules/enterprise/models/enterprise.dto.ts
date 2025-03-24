@@ -1,6 +1,9 @@
 import {BaseDTO} from '../../shared/models/base-models';
 import {UUID} from '../../../../types/uuid';
-import {EmissionFactorDTO, EmissionUnit} from '../../shared/models/shared-models';
+import {
+  EmissionFactorDTO,
+  EmissionUnit
+} from '../../shared/models/shared-models';
 
 export interface Building extends BaseDTO {
   name: string;

@@ -250,11 +250,7 @@ export class EmissionActivityDetailComponent
   protected override onSubmitFormDataSuccess(
     result: EmissionActivityDetails
   ): void {
-    this.activity.name = result.name;
-    this.activity.type = result.type;
-    this.activity.category = result.category;
-    this.activity.description = result.description;
-    this.activity.quantity = result.quantity;
+    this.activity = result;
     this.updateFormStructureData();
   }
 }
