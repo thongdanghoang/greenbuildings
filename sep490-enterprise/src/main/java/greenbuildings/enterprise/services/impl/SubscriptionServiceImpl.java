@@ -156,6 +156,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
             log.warn("Building {} has more than one valid subscriptions", request.buildingId());
         }
         SubscriptionEntity subscription = allValidSubscriptions.getFirst();
+        subscription.setMaxNumberOfDevices(subscription.getMaxNumberOfDevices() + request.numberOfDevices());
         subscription.setEndDate(subscription.getEndDate().plusMonths(request.months()));
         subscription.addTransaction(transaction);
         return subscription;
