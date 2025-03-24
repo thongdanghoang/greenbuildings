@@ -235,6 +235,10 @@ export class EmissionActivityDetailComponent
     return this.activity.emissionFactor.emissionSourceDTO.nameVN;
   }
 
+  disableUpdateBtn(): boolean {
+    return this.formGroup.pristine || !this.formGroup.valid;
+  }
+
   protected override initializeFormControls(): {
     [key: string]: AbstractControl;
   } {
