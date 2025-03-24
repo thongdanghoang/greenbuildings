@@ -23,6 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.UUID;
 
@@ -74,7 +75,60 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         subscriptionRepository.save(subscription);
     }
     
-    private static TransactionEntity createNewTransaction(SubscribeRequestDTO request, BuildingEntity buildingEntity, double amount) {
+    private double calculateTransactionAmount(SubscribeRequestDTO request) {
+        List<CreditConvertRatioEntity> creditConvertRatios = getCreditConvertRatios();
+        CreditConvertRatioEntity monthRatio = creditConvertRatios
+                .stream()
+                .filter(x -> x.getConvertType().equals(CreditConvertType.MONTH))
+                .findFirst()
+                .orElseThrow();
+        CreditConvertRatioEntity noDevicesRatio = creditConvertRatios
+                .stream()
+                .filter(x -> x.getConvertType().equals(CreditConvertType.DEVICE))
+                .findFirst()
+                .orElseThrow();
+        
+        if (request.monthRatio() != monthRatio.getRatio() || request.deviceRatio() != noDevicesRatio.getRatio()) {
+            throw new BusinessException("", "validation.business.buildings.ratioNotMatch");
+        }
+        if (request.type() == TransactionType.NEW_PURCHASE) {
+            return calculateTransactionAmountForNew(request, monthRatio, noDevicesRatio);
+        } else {
+            return calculateTransactionAmountForUpdate(request, monthRatio, noDevicesRatio);
+        }
+    }
+    
+    private double calculateTransactionAmountForUpdate(SubscribeRequestDTO requestDTO, CreditConvertRatioEntity monthRatio,
+                                                       CreditConvertRatioEntity noDevicesRatio) {
+        double months = requestDTO.months();
+        double numberOfDevices = requestDTO.numberOfDevices();
+        SubscriptionEntity subscription = subscriptionRepository.findAllValidSubscriptions(LocalDate.now(), requestDTO.buildingId())
+                                                                .stream()
+                                                                .findFirst()
+                                                                .orElseThrow();
+        
+        if (months == 0 && numberOfDevices == 0) {
+            throw new BusinessException(null, "validation.business.buildings.ratioNotMatch");
+        } else if (months > 0 && numberOfDevices == 0) {
+            double maxNumberOfDevices = subscription.getMaxNumberOfDevices();
+            return months * monthRatio.getRatio() * maxNumberOfDevices * noDevicesRatio.getRatio();
+        } else if (numberOfDevices > 0 && months == 0) {
+            long numberOfLeftDays = 0;
+            LocalDate endDate = subscription.getEndDate();
+            LocalDate currentDate = LocalDate.now();
+            numberOfLeftDays = ChronoUnit.DAYS.between(currentDate, endDate);
+            return numberOfDevices * noDevicesRatio.getRatio() * numberOfLeftDays * (monthRatio.getRatio() / 30);
+        }
+        LocalDate endDate = subscription.getEndDate();
+        LocalDate currentDate = LocalDate.now();
+        long numberOfLeftDays = ChronoUnit.DAYS.between(currentDate, endDate);
+        double oldTotal = numberOfDevices * noDevicesRatio.getRatio() * numberOfLeftDays * (monthRatio.getRatio() / 30);
+        double newTotal = (numberOfDevices + subscription.getMaxNumberOfDevices()) * noDevicesRatio.getRatio() * months * monthRatio.getRatio();
+        
+        return (int) oldTotal + newTotal;
+    }
+    
+    private TransactionEntity createNewTransaction(SubscribeRequestDTO request, BuildingEntity buildingEntity, double amount) {
         TransactionEntity transaction = new TransactionEntity();
         transaction.setBuilding(buildingEntity);
         transaction.setEnterprise(buildingEntity.getEnterprise());
@@ -107,33 +161,18 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         return subscription;
     }
     
-    private double calculateTransactionAmount(SubscribeRequestDTO request) {
-        List<CreditConvertRatioEntity> creditConvertRatios = getCreditConvertRatios();
-        CreditConvertRatioEntity monthRatio = creditConvertRatios
-                .stream()
-                .filter(x -> x.getConvertType().equals(CreditConvertType.MONTH))
-                .findFirst()
-                .orElseThrow();
-        CreditConvertRatioEntity noDevicesRatio = creditConvertRatios
-                .stream()
-                .filter(x -> x.getConvertType().equals(CreditConvertType.DEVICE))
-                .findFirst()
-                .orElseThrow();
-        
-        if (request.monthRatio() != monthRatio.getRatio() || request.deviceRatio() != noDevicesRatio.getRatio()) {
-            throw new BusinessException("", "validation.business.buildings.notEnoughCredit");
-        }
+    private double calculateTransactionAmountForNew(SubscribeRequestDTO request, CreditConvertRatioEntity monthRatio, CreditConvertRatioEntity noDevicesRatio) {
         return (monthRatio.getRatio() * request.months())
                * (noDevicesRatio.getRatio() * request.numberOfDevices());
     }
-
+    
     @Override
     public CreditConvertRatioEntity getCreditConvertRatioDetail(UUID id) {
         return creditConvertRatioRepository.findById(id).orElseThrow();
     }
-
+    
     public void updateCreditConvertRatio(CreditConvertRatioDTO creditConvertRatioDTO) {
-           var creditConvertRatioEntity = getCreditConvertRatioDetail(creditConvertRatioDTO.id());
+        var creditConvertRatioEntity = getCreditConvertRatioDetail(creditConvertRatioDTO.id());
         creditConvertRatioEntity.setRatio(creditConvertRatioDTO.ratio());
         creditConvertRatioRepository.save(creditConvertRatioEntity);
     }

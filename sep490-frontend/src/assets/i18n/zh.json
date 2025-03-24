@@ -37,11 +37,12 @@
       },
       "buildings": {
         "name": {
-          "exist": "名称建筑已存在"
+          "exist": "名称建筑已存在",
         },
         "invalid": "建筑物选择无效",
         "permissionWarning": "请选择一栋建筑物来为该用户分配角色",
-        "notEnoughCredit": "企业没有足够的积分"
+        "notEnoughCredit": "企业没有足够的积分",
+        "ratioNotMatch": "比率不匹配，请重试"
       },
       "buildingPermissions": {
         "notEmpty": "施工权限不能为空",
@@ -126,7 +127,7 @@
           "add": "添加建筑物",
           "activate": "激活",
           "activity": "排放活动",
-          "update": "更新"
+          "update": "更新 "
         },
         "noRow": "未找到任何建筑物。"
       },
@@ -139,7 +140,8 @@
           "maxNumberOfDevices": "估计建筑物内的设备库存量",
           "validFromInclusive": "有效日期",
           "validToInclusive": "有效日期",
-          "address": "地址"
+          "address": "地址",
+          "currentMaxNumberOfDevices": "当前最大设备数量"
         }
       },
       "message": {

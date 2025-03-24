@@ -41,7 +41,8 @@
         },
         "invalid": "The buildings selection is invalid",
         "permissionWarning": "Please select a building to assign a role to this user",
-        "notEnoughCredit": "Enterprise do not have enough credits"
+        "notEnoughCredit": "Enterprise do not have enough credits",
+        "ratioNotMatch": "The ratio is not match, please try again"
       },
       "buildingPermissions": {
         "notEmpty": "Building permissions cannot be empty",
@@ -126,7 +127,7 @@
           "add": "Add building",
           "activate": "Activate",
           "activity": "Emission Activity",
-          "update": "Update"
+          "update": "Update Subscription"
         },
         "noRow": "No buildings found."
       },
@@ -139,7 +140,8 @@
           "maxNumberOfDevices": "Estimate the amount of equipment inventory in the building",
           "validFromInclusive": "Valid from",
           "validToInclusive": "Valid to",
-          "address": "Address"
+          "address": "Address",
+          "currentMaxNumberOfDevices": "Current max number of devices"
         }
       },
       "message": {
@@ -340,6 +342,7 @@
         "numberDevices": "Current number of devices",
         "numberMonth": "Number of months",
         "numberMaxDevice": "Maximum number of devices",
+        "numberMaxDeviceUpgrade": "Additional number of devices (Upgrade)",
         "totalCredit": "Total",
         "confirm": "Confirm subscription {{numberOfMonths}} months and {{numberOfDevices}} devices"
       },

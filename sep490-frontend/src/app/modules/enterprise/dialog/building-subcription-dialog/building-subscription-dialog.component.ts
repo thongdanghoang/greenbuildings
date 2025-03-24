@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import moment from 'moment';
 import {AbstractFormComponent} from '../../../shared/components/form/abstract-form-component';
 import {multipleOfValidator} from '../../../shared/validators/MultipleOfValidator';
 import {
@@ -6,7 +7,6 @@ import {
   BuildingDetails,
   CreditConvertRatio,
   CreditConvertType,
-  SubscribeRequest,
   TransactionType
 } from '../../models/enterprise.dto';
 import {
@@ -33,7 +33,7 @@ export interface SubscriptionDialogOptions {
   templateUrl: './building-subscription-dialog.component.html',
   styleUrl: './building-subscription-dialog.component.css'
 })
-export class BuildingSubscriptionDialogComponent extends AbstractFormComponent<SubscribeRequest> {
+export class BuildingSubscriptionDialogComponent extends AbstractFormComponent<void> {
   data: SubscriptionDialogOptions;
   checked: boolean = false;
   totalToPay: number = 0;
@@ -41,16 +41,10 @@ export class BuildingSubscriptionDialogComponent extends AbstractFormComponent<S
   protected readonly TransactionType = TransactionType;
   protected readonly formStructure = {
     months: new FormControl(0, {
-      nonNullable: true,
-      validators: [Validators.min(1), Validators.max(100), Validators.required]
+      nonNullable: true
     }),
     numberOfDevices: new FormControl(0, {
-      nonNullable: true,
-      validators: [
-        Validators.min(50),
-        Validators.required,
-        multipleOfValidator(50)
-      ]
+      nonNullable: true
     }),
     buildingId: new FormControl('', {nonNullable: true}),
     monthRatio: new FormControl(0, {nonNullable: true}),
@@ -76,16 +70,64 @@ export class BuildingSubscriptionDialogComponent extends AbstractFormComponent<S
   }
 
   calculateTotalToPay(): void {
-    this.totalToPay =
-      this.formStructure.months.value *
-      this.formStructure.monthRatio.value *
-      this.formStructure.numberOfDevices.value *
-      this.formStructure.deviceRatio.value;
+    if (this.data.type === TransactionType.NEW_PURCHASE) {
+      this.totalToPay =
+        this.formStructure.months.value *
+        this.formStructure.monthRatio.value *
+        this.formStructure.numberOfDevices.value *
+        this.formStructure.deviceRatio.value;
+    } else {
+      this.totalToPay = this.calculateUpdateTotalPayForUpdate();
+    }
 
-    this.totalToPay = Number(this.totalToPay.toFixed(2));
+    this.totalToPay = Number(this.totalToPay.toFixed(0));
 
     this.sufficientBalance = this.data.balance >= this.totalToPay;
     this.checked = false;
+  }
+
+  // eslint-disable-next-line max-lines-per-function
+  calculateUpdateTotalPayForUpdate(): number {
+    const months = this.formStructure.months.value;
+    const numberOfDevices = this.formStructure.numberOfDevices.value;
+    const monthRatio = this.formStructure.monthRatio.value;
+    const deviceRatio = this.formStructure.deviceRatio.value;
+    if (months === 0 && numberOfDevices === 0) {
+      return 0;
+    } else if (months > 0 && numberOfDevices === 0) {
+      return (
+        months *
+        monthRatio *
+        this.data.building.subscriptionDTO!.maxNumberOfDevices! *
+        deviceRatio
+      );
+    } else if (numberOfDevices > 0 && months === 0) {
+      const numberOfLeftDays = this.data.selectedBuildingDetails
+        ?.subscriptionDTO?.endDate
+        ? moment(
+            this.data.selectedBuildingDetails.subscriptionDTO.endDate
+          ).diff(moment(), 'days')
+        : 0;
+      return (
+        numberOfDevices * deviceRatio * numberOfLeftDays * (monthRatio / 30)
+      );
+    }
+    const numberOfLeftDays = this.data.selectedBuildingDetails?.subscriptionDTO
+      ?.endDate
+      ? moment(this.data.selectedBuildingDetails.subscriptionDTO.endDate).diff(
+          moment(),
+          'days'
+        )
+      : 0;
+    const oldTotal =
+      numberOfDevices * deviceRatio * numberOfLeftDays * (monthRatio / 30);
+    const newTotal =
+      (numberOfDevices +
+        this.data.building.subscriptionDTO!.maxNumberOfDevices!) *
+      deviceRatio *
+      months *
+      monthRatio;
+    return oldTotal + newTotal;
   }
 
   populateHiddenFields(): void {
@@ -95,9 +137,34 @@ export class BuildingSubscriptionDialogComponent extends AbstractFormComponent<S
     this.formStructure.type.setValue(this.data.type.toString());
   }
 
+  setValidators(): void {
+    if (this.data.type === TransactionType.NEW_PURCHASE) {
+      this.formStructure.numberOfDevices.setValidators([
+        Validators.min(50),
+        Validators.required,
+        multipleOfValidator(50)
+      ]);
+      this.formStructure.months.setValidators([
+        Validators.min(1),
+        Validators.max(100),
+        Validators.required
+      ]);
+    } else {
+      this.formStructure.numberOfDevices.setValidators([
+        Validators.min(0),
+        multipleOfValidator(50)
+      ]);
+      this.formStructure.months.setValidators([
+        Validators.min(0),
+        Validators.max(100)
+      ]);
+    }
+  }
+
   protected initializeData(): void {
     this.populateHiddenFields();
     this.fetchConversionRate();
+    this.setValidators();
   }
 
   protected initializeFormControls(): {[p: string]: AbstractControl} {

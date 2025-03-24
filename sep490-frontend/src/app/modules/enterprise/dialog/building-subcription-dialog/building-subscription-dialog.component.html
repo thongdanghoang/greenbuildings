@@ -14,21 +14,36 @@
 </div>
 <div class="p-dialog-content">
     <div
-        class="flex flex-col lg:flex-row items-center justify-between px-4 border-primary border mb-4"
+        class="flex flex-col lg:flex-row justify-between px-4 border-primary border mb-4"
     >
         <div class="flex flex-col gap-5 p-5 items-center lg:items-start">
             <span class="text-surface-500 dark:text-surface-400 block"
                 >{{ "dialog.subscription.body.name" | translate }}:
                 {{ data.selectedBuildingDetails.name }}</span
             >
-            <span class="text-surface-500 dark:text-surface-400 block"
-                >{{ "dialog.subscription.body.numberDevices" | translate }}:
-                {{ data.selectedBuildingDetails.numberOfDevices }}</span
-            >
+            <span *ngIf="data.type === TransactionType.UPGRADE">
+                <span class="text-surface-500 dark:text-surface-400 block"
+                    >{{
+                        "enterprise.buildings.details.labels.validFromInclusive"
+                            | translate
+                    }}: {{ data.building.subscriptionDTO?.startDate }}</span
+                >
+                <span class="text-surface-500 dark:text-surface-400 block"
+                    >{{
+                        "enterprise.buildings.details.labels.validToInclusive"
+                            | translate
+                    }}: {{ data.building.subscriptionDTO?.endDate }}</span
+                >
+                <span class="text-surface-500 dark:text-surface-400 block">
+                    {{
+                        "enterprise.buildings.details.labels.currentMaxNumberOfDevices"
+                            | translate
+                    }}:
+                    {{ data.building.subscriptionDTO?.maxNumberOfDevices }}
+                </span>
+            </span>
         </div>
-        <div
-            class="flex flex-col gap-2 p-5 items-center lg:items-start justify-center"
-        >
+        <div class="gap-2 p-5 h-full">
             <span class="text-primary block mb-8 lg:0 lg:pr-12"
                 >{{ "purchaseCredit.currentBalance" | translate }}:
                 {{ data.balance | number }}</span
@@ -73,7 +88,11 @@
         <div class="mb-2 block" errorMessages>
             <div class="flex items-center gap-2 justify-evenly mb-4">
                 <label class="font-semibold w-44">{{
-                    "dialog.subscription.body.numberMaxDevice" | translate
+                    data.type === TransactionType.NEW_PURCHASE
+                        ? ("dialog.subscription.body.numberMaxDevice"
+                          | translate)
+                        : ("dialog.subscription.body.numberMaxDeviceUpgrade"
+                          | translate)
                 }}</label>
                 <p-inputnumber
                     id="numberOfDevices"
@@ -110,25 +129,13 @@
                 >{{ "dialog.subscription.body.totalCredit" | translate }}:
                 {{ totalToPay }}</span
             >
-            @if (data.type === TransactionType.UPGRADE) {
-                <div class="flex flex-col lg:flex-row lg:gap-5">
-                    <span class="text-surface-500 dark:text-surface-400 block"
-                        >{{
-                            "enterprise.buildings.details.labels.validFromInclusive"
-                                | translate
-                        }}: {{ data.building.subscriptionDTO?.startDate }}</span
-                    >
-
-                    <span class="text-surface-500 dark:text-surface-400 block"
-                        >{{
-                            "enterprise.buildings.details.labels.validToInclusive"
-                                | translate
-                        }}: {{ data.building.subscriptionDTO?.endDate }}</span
-                    >
-                </div>
-            }
         </div>
-        @if (formGroup.valid && this.sufficientBalance) {
+        @if (
+            formGroup.valid &&
+            this.sufficientBalance &&
+            (this.formStructure.months.value > 0 ||
+                this.formStructure.numberOfDevices.value > 0)
+        ) {
             <div class="flex flex-row gap-1 items-center">
                 <p-checkbox
                     inputId="confirm_ckb"
