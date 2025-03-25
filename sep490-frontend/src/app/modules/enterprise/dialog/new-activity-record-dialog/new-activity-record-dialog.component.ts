@@ -60,6 +60,21 @@ export class NewActivityRecordDialogComponent extends AbstractFormComponent<Emis
     this.initUnits();
   }
 
+  /* eslint-disable dot-notation */
+  override prepareDataBeforeSubmit(): void {
+    if (
+      this.formGroup.controls['startDate'].value >
+      this.formGroup.controls['endDate'].value
+    ) {
+      const temp = this.formGroup.controls['startDate'].value;
+      this.formGroup.controls['startDate'].setValue(
+        this.formGroup.controls['endDate'].value
+      );
+      this.formGroup.controls['endDate'].setValue(temp);
+    }
+  }
+  /* eslint-enable dot-notation */
+
   override submitFormDataUrl(): string {
     return this.emissionActivityRecordService.newRecordURL;
   }
@@ -101,7 +116,7 @@ export class NewActivityRecordDialogComponent extends AbstractFormComponent<Emis
 
   initUnits(): void {
     const supportedUnits = this.unitService.getSameUnitType(
-      this.data!.factor.emissionUnitNumerator
+      this.data!.factor.emissionUnitDenominator
     );
     this.unitOptions = supportedUnits.map(unit => ({
       label: this.translate.instant(`unit.${unit}`),

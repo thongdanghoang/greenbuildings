@@ -40,7 +40,7 @@ public class EmissionActivityController {
     @PostMapping
     public ResponseEntity<EmissionActivityDetailsDTO> addOrUpdateEmissionActivity(@RequestBody EmissionActivityDTO dto) {
         EmissionActivityEntity entity;
-        if (dto.id() == null) {
+        if (dto.id() != null) {
             entity = this.mapper.updateActivity(dto);
         } else {
             entity = this.mapper.createNewActivity(dto);
