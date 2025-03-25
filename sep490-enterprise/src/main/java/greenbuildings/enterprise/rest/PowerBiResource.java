@@ -19,7 +19,7 @@ import java.nio.charset.StandardCharsets;
 @Slf4j
 public class PowerBiResource {
     
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> test() throws IOException {
         log.info("Hello power-bi!!!");
         try (InputStream inputStream = Thread.currentThread()
