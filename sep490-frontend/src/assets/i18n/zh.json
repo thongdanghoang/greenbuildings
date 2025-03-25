@@ -37,7 +37,7 @@
       },
       "buildings": {
         "name": {
-          "exist": "名称建筑已存在",
+          "exist": "名称建筑已存在"
         },
         "invalid": "建筑物选择无效",
         "permissionWarning": "请选择一栋建筑物来为该用户分配角色",
@@ -342,6 +342,7 @@
         "numberDevices": "当前设备数量",
         "numberMonth": "月份数",
         "numberMaxDevice": "最大设备数量",
+        "numberMaxDeviceUpgrade": "额外设备数量（升级）",
         "totalCredit": "全部的",
         "confirm": "确认订阅 {{numberOfMonths}} 个月 和 {{numberOfDevices}} 设备"
       },
