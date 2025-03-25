@@ -14,6 +14,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Set;
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/emission-activity-record")
 @RequiredArgsConstructor
@@ -32,5 +35,11 @@ public class EmissionActivityRecordController {
     public ResponseEntity<EmissionActivityRecordDTO> addOrUpdateRecord(@RequestBody NewEmissionActivityRecordDTO dto) {
         EmissionActivityRecordEntity entity = recordService.addOrUpdate(recordMapper.newToEntity(dto));
         return ResponseEntity.ok(recordMapper.toDTO(entity));
+    }
+    
+    @DeleteMapping
+    public ResponseEntity<Void> deleteActivities(@RequestBody Set<UUID> ids) {
+        recordService.deleteRecords(ids);
+        return ResponseEntity.noContent().build();
     }
 } 

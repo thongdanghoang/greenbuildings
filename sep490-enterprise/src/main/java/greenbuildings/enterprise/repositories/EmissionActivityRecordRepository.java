@@ -7,9 +7,16 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
+import java.util.Set;
 import java.util.UUID;
 
 @Repository
 public interface EmissionActivityRecordRepository extends JpaRepository<EmissionActivityRecordEntity, UUID>, JpaSpecificationExecutor<EmissionActivityRecordEntity> {
     Page<EmissionActivityRecordEntity> findAllByEmissionActivityEntityId(UUID emissionActivityId, Pageable pageable);
+    
+    Integer countAllByIdIn(Set<UUID> ids);
+    
+    default boolean existsAllById(Set<UUID> ids) {
+        return countAllByIdIn(ids).equals(ids.size());
+    }
 }

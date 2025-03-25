@@ -32,4 +32,13 @@ export class EmissionActivityRecordService {
       criteria
     );
   }
+
+  public deleteRecords(ids: UUID[]): Observable<void> {
+    return this.http.delete<void>(
+      `${AppRoutingConstants.ENTERPRISE_API_URL}/${this.EMISSION_ACTIVITY_RECORD_PATH}`,
+      {
+        body: ids
+      }
+    );
+  }
 }
