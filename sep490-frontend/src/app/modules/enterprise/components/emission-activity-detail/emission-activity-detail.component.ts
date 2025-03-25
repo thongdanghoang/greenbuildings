@@ -173,7 +173,19 @@ export class EmissionActivityDetailComponent
   }
 
   confirmDelete(): void {
-    // Implement delete functionality if needed
+    const ids: UUID[] = this.selected.map(record => record.id);
+
+    this.emissionActivityRecordService.deleteRecords(ids).subscribe({
+      next: () => {
+        this.notificationService.add({
+          severity: 'success',
+          summary: this.translate.instant('common.success')
+        });
+        this.selected = []; // Clear local selection
+        this.searchEvent.emit(); // Refresh table
+        this.clearSelectedEvent.emit();
+      }
+    });
   }
 
   onBack(): void {

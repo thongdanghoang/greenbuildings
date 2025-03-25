@@ -3,7 +3,7 @@ package greenbuildings.enterprise.dtos;
 import greenbuildings.enterprise.enums.EmissionUnit;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.UUID;
 
 public record EmissionActivityRecordDTO(
@@ -11,7 +11,7 @@ public record EmissionActivityRecordDTO(
         int version,
         BigDecimal value,
         EmissionUnit unit,
-        LocalDateTime startDate,
-        LocalDateTime endDate
+        LocalDate startDate,
+        LocalDate endDate
 ) {
 }

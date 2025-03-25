@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "activity_data_record")
@@ -42,10 +42,10 @@ public class EmissionActivityRecordEntity extends AbstractAuditableEntity {
     
     @NotNull
     @Column(name = "start_date")
-    private LocalDateTime startDate;
+    private LocalDate startDate;
     
     @NotNull
     @Column(name = "end_date")
-    private LocalDateTime endDate;
+    private LocalDate endDate;
     
 }
