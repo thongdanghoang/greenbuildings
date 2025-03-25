@@ -71,17 +71,15 @@ public class EmissionActivityEntity extends AbstractAuditableEntity {
     @Column(name = "name")
     private String name;
     
-    @NotBlank
     @Size(max = 255)
     @Column(name = "type")
     private String type;
     
-    @NotBlank
     @Size(max = 255)
     @Column(name = "category")
     private String category;
     
-    @Min(1)
+    @Min(0)
     @Column(name = "quantity")
     private int quantity;
     
@@ -89,9 +87,9 @@ public class EmissionActivityEntity extends AbstractAuditableEntity {
     @Column(name = "description")
     private String description;
 
-    public void addRecord(EmissionActivityRecordEntity record) {
-        records.add(record);
-        record.setEmissionActivityEntity(this);
+    public void addRecord(EmissionActivityRecordEntity iRecord) {
+        records.add(iRecord);
+        iRecord.setEmissionActivityEntity(this);
     }
     
 }
