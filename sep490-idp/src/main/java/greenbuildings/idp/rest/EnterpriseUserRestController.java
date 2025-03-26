@@ -1,10 +1,14 @@
 package greenbuildings.idp.rest;
 
 import commons.springfw.impl.mappers.CommonMapper;
+import commons.springfw.impl.securities.UserContextData;
+import greenbuildings.idp.dto.UserByBuildingDTO;
 import jakarta.annotation.security.RolesAllowed;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -49,6 +53,16 @@ public class EnterpriseUserRestController {
                 CommonMapper.toSearchResultDTO(
                         searchResults,
                         userMapper::userEntityToEnterpriseUserDTO));
+    }
+
+    @PostMapping("/search/{buildingId}")
+    public ResponseEntity<SearchResultDTO<UserByBuildingDTO>> searchUserByBuildings(@RequestBody SearchCriteriaDTO<Void> searchCriteria, @PathVariable UUID buildingId) {
+        var pageable = CommonMapper.toPageable(searchCriteria.page(), searchCriteria.sort());
+        Page<UserEntity> searchResults = userService.getUserByBuilding(buildingId, pageable);
+        var searchResultDTO = CommonMapper.toSearchResultDTO(
+                searchResults,
+                userEntity -> userMapper.userEntityToUserByBuildingDTO(userEntity, buildingId)  );
+        return ResponseEntity.ok(searchResultDTO);
     }
     
     @PostMapping()

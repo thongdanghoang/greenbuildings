@@ -10,6 +10,8 @@
     "reject": "No",
     "search": "Search",
     "create": "Create",
+    "login": "LOGIN",
+    "logout": "LOGOUT",
     "save": "Save",
     "update": "Update",
     "revert": "Revert",
@@ -202,7 +204,9 @@
           }
         }
       }
-    }
+    },
+    "permissionInBuilding": "Permission In Buildings",
+    "userInBuildings": "User in buildings"
   },
   "enum": {
     "role": {

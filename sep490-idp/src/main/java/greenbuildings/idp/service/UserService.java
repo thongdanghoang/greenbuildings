@@ -7,6 +7,7 @@ import greenbuildings.idp.dto.SignupResult;
 import greenbuildings.idp.dto.UserCriteriaDTO;
 import greenbuildings.idp.entity.UserEntity;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.ui.Model;
 
 import java.util.Optional;
@@ -31,4 +32,6 @@ public interface UserService {
     Optional<UserEntity> findByEmail(String email);
     
     void update(UserEntity user);
+
+    Page<UserEntity> getUserByBuilding(UUID buldingId, Pageable pageable);
 }

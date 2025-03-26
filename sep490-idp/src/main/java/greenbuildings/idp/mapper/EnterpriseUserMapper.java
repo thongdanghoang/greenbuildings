@@ -3,6 +3,7 @@ package greenbuildings.idp.mapper;
 import greenbuildings.commons.api.dto.auth.BuildingPermissionDTO;
 import greenbuildings.idp.dto.EnterpriseUserDTO;
 import greenbuildings.idp.dto.EnterpriseUserDetailsDTO;
+import greenbuildings.idp.dto.UserByBuildingDTO;
 import greenbuildings.idp.entity.BuildingPermissionEntity;
 import greenbuildings.idp.entity.UserEntity;
 import greenbuildings.idp.mapper.decoratos.EnterpriseUserMapperDecorator;
@@ -16,6 +17,7 @@ import org.mapstruct.Named;
 
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 @DecoratedWith(EnterpriseUserMapperDecorator.class)
@@ -24,6 +26,10 @@ public interface EnterpriseUserMapper {
     @Mapping(target = "scope", source = "enterprise.scope")
     @Mapping(target = "name", source = ".", qualifiedByName = "toFullName")
     EnterpriseUserDTO userEntityToEnterpriseUserDTO(UserEntity user);
+
+    @Mapping(target = "role", ignore = true)
+    @Mapping(target = "name", source = "user", qualifiedByName = "toFullName")
+    UserByBuildingDTO userEntityToUserByBuildingDTO(UserEntity user, UUID buildingId);
     
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "version", ignore = true)

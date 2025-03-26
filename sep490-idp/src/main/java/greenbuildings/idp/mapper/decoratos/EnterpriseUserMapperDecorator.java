@@ -2,6 +2,7 @@ package greenbuildings.idp.mapper.decoratos;
 
 import commons.springfw.impl.utils.SecurityUtils;
 import greenbuildings.commons.api.dto.auth.BuildingPermissionDTO;
+import greenbuildings.idp.dto.UserByBuildingDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -12,6 +13,7 @@ import greenbuildings.idp.mapper.EnterpriseUserMapper;
 import greenbuildings.idp.repository.BuildingPermissionRepository;
 import greenbuildings.idp.repository.UserRepository;
 
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Component
@@ -50,6 +52,20 @@ public abstract class EnterpriseUserMapperDecorator implements EnterpriseUserMap
             .forEach(bp -> {
                 bp.setId(buildingPermissions.get(bp.getBuilding()));
             });
+    }
+
+    @Override
+    public UserByBuildingDTO userEntityToUserByBuildingDTO(UserEntity user, UUID buildingId) {
+        UserByBuildingDTO dto = delegate.userEntityToUserByBuildingDTO( user, buildingId );
+        UserEntity userEntity = userRepository.findByIdWithBuildingPermissions(user.getId()).orElseThrow();
+        BuildingPermissionEntity buildingPermissionEntity = userEntity.getBuildingPermissions().stream()
+                .filter(bp -> bp.getBuilding().equals(buildingId))
+                .findFirst()
+                .orElse(null);
+        if (buildingPermissionEntity != null) {
+           dto = dto.withRole(buildingPermissionEntity.getRole());
+        }
+        return dto;
     }
     
     private UserEntity getCurrentUser() {
