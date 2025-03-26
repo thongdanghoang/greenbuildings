@@ -29,12 +29,36 @@
         <input pInputText formControlName="name" id="name" type="text" />
         <form-field-error></form-field-error>
     </div>
-    <span></span>
-
+    <ng-container *ngIf="hasSubscription">
+        <div class="flex flex-col gap-2" errorMessages>
+            <label class="font-medium text-lg" for="startDate">{{
+                "enterprise.buildings.details.labels.validFromInclusive"
+                    | translate
+            }}</label>
+            <input
+                pInputText
+                [formControl]="startDateControl"
+                id="startDate"
+                type="text"
+                [disabled]="false"
+            />
+            <form-field-error></form-field-error>
+        </div>
+    </ng-container>
+    <ng-container *ngIf="!hasSubscription">
+        <span></span>
+    </ng-container>
     <div class="flex flex-col gap-2" errorMessages>
         <label class="font-medium text-lg" for="numberOfDevices">{{
             "enterprise.buildings.details.labels.numberOfDevices" | translate
         }}</label>
+        <div class="flex items-center gap-2 text-xs font-semibold text-primary">
+            <i class="pi pi-info-circle"></i>
+            {{
+                "enterprise.buildings.details.labels.maxNumberOfDevices"
+                    | translate
+            }}
+        </div>
         <input
             pInputText
             formControlName="numberOfDevices"
@@ -43,13 +67,28 @@
         />
         <form-field-error></form-field-error>
     </div>
-    <div class="flex items-center gap-2">
-        <i class="pi pi-info-circle text-lg"></i>
-        {{
-            "enterprise.buildings.details.labels.maxNumberOfDevices" | translate
-        }}
-    </div>
-
+    <ng-container *ngIf="hasSubscription">
+        <div class="flex flex-col gap-2" errorMessages>
+            <span></span>
+            <span></span>
+            <span></span>
+            <label class="font-medium text-lg" for="endDate">{{
+                "enterprise.buildings.details.labels.validToInclusive"
+                    | translate
+            }}</label>
+            <input
+                pInputText
+                [formControl]="endDateControl"
+                id="endDate"
+                type="text"
+                [disabled]="false"
+            />
+            <form-field-error></form-field-error>
+        </div>
+    </ng-container>
+    <ng-container *ngIf="!hasSubscription">
+        <span></span>
+    </ng-container>
     <div class="flex flex-col gap-2" errorMessages>
         <label class="font-medium text-lg" for="address">{{
             "enterprise.buildings.details.labels.address" | translate
@@ -57,25 +96,58 @@
         <input pInputText formControlName="address" id="address" />
         <form-field-error></form-field-error>
     </div>
+    <ng-container *ngIf="hasSubscription">
+        <div class="flex flex-col gap-2" errorMessages>
+            <label class="font-medium text-lg" for="maxNumberOfDevices">{{
+                "enterprise.buildings.details.labels.haveSubscriptionOfNumberOfDevices"
+                    | translate
+            }}</label>
+            <input
+                pInputText
+                [formControl]="maxNumberOfDevicesControl"
+                id="maxNumberOfDevices"
+                type="text"
+                [disabled]="false"
+            />
+            <form-field-error></form-field-error>
+        </div>
+    </ng-container>
+    <span></span>
+    <div class="flex gap-4 justify-end">
+        <p-button
+            (onClick)="reset()"
+            class="*:min-w-24"
+            label="{{ 'common.revert' | translate }}"
+            [outlined]="true"
+        />
+        <p-button
+            (onClick)="submit()"
+            class="*:min-w-16"
+            label="{{ (isEdit ? 'common.save' : 'common.create') | translate }}"
+        />
+    </div>
 </form>
-
-<div class="flex gap-4 justify-end">
-    <p-button
-        (onClick)="reset()"
-        class="*:min-w-24"
-        label="{{ 'common.revert' | translate }}"
-        [outlined]="true"
-    />
-    <p-button
-        (onClick)="submit()"
-        class="*:min-w-16"
-        label="{{ (isEdit ? 'common.save' : 'common.create') | translate }}"
-    />
-</div>
 
 <ng-template>
     <p-floatlabel variant="on">
         <input pInputText formControlName="name" id="on_label" />
         <label for="on_label">On Label</label>
     </p-floatlabel>
+</ng-template>
+@if (isEdit) {
+    <div class="flex items-center justify-center lg:justify-start">
+        <p class="text-primary font-bold px-4">
+            {{ "enterprise.userInBuildings" | translate }}
+        </p>
+    </div>
+    <table-template
+        *ngIf="!applicationService.isMobile()"
+        [fetch]="fetchData"
+        [columns]="cols"
+        [triggerSearch]="triggerSearch"
+    >
+    </table-template>
+}
+<ng-template #permissionTemplate let-rowData>
+    <p>{{ "enum.permissionRole." + rowData.role | translate }}</p>
 </ng-template>

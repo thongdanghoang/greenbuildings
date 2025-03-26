@@ -87,16 +87,20 @@
             </div>
         </div>
         <div class="p-4 border-b dark:bg-zinc-900">
-            <div class="grid grid-cols-4">
-                <div class="flex flex-col gap-1">
+            <div class="grid grid-cols-5">
+                <div class="flex flex-col gap-1 lg:w-max">
                     <div class="text-sm">
                         {{
-                            "enterprise.buildings.details.labels.numberOfDevices"
-                                | translate
+                            building.subscriptionDTO
+                                ? ("enterprise.buildings.details.labels.haveSubscriptionOfNumberOfDevices"
+                                  | translate)
+                                : ("enterprise.buildings.details.labels.numberOfDevices"
+                                  | translate)
                         }}
                     </div>
                     <div>{{ building.numberOfDevices }}</div>
                 </div>
+                <div></div>
                 @if (building.subscriptionDTO !== null) {
                     <div class="flex flex-col gap-1">
                         <div class="text-sm">

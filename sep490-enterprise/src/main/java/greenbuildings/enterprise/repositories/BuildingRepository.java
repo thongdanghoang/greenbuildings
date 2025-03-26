@@ -25,7 +25,7 @@ public interface BuildingRepository extends AbstractBaseRepository<BuildingEntit
     @Query(value = "SELECT b FROM BuildingEntity b where b.id=:id")
     Optional<BuildingEntity> findByIdWithGraph(@NotNull UUID id);
 
-    @Query("SELECT CASE WHEN COUNT(b) > 0 THEN true ELSE false END FROM BuildingEntity b WHERE b.name = :name AND b.enterprise.id = :enterpriseId")
+    @Query("SELECT CASE WHEN COUNT(b) > 0 THEN true ELSE false END FROM BuildingEntity b WHERE b.name = :name AND b.enterprise.id = :enterpriseId AND b.deleted = false")
     boolean existsByNameBuildingInEnterprise(@NotBlank String name, UUID enterpriseId);
 
 }

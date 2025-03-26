@@ -1,22 +1,22 @@
-<ng-container *ngIf="applicationService.isMobile()">
-    <p-button
-        icon="pi pi-bars"
-        [rounded]="true"
-        [text]="true"
-        severity="secondary"
-        class="block sm:hidden"
-        (onClick)="visible = true"
-    />
+<!--<ng-container *ngIf="applicationService.isMobile()">-->
+<!--    <p-button-->
+<!--        icon="pi pi-bars"-->
+<!--        [rounded]="true"-->
+<!--        [text]="true"-->
+<!--        severity="secondary"-->
+<!--        class="block sm:hidden"-->
+<!--        (onClick)="visible = true"-->
+<!--    />-->
 
-    <p-drawer [(visible)]="visible" header="Drawer">
-        <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.
-        </p>
-    </p-drawer></ng-container
->
+<!--    <p-drawer [(visible)]="visible" header="Drawer">-->
+<!--        <p>-->
+<!--            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do-->
+<!--            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim-->
+<!--            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut-->
+<!--            aliquip ex ea commodo consequat.-->
+<!--        </p>-->
+<!--    </p-drawer></ng-container-->
+<!--&gt;-->
 
 @if (isLandingPage) {
     <img
@@ -49,19 +49,37 @@
     @if (authenticated | async) {
         <img
             class="rounded-full"
-            ngSrc="assets/images/avatar.jpeg"
+            ngSrc="assets/images/avatar3D.jpg"
             alt="Avatar"
             width="32"
             height="32"
             priority
-            (click)="logout()"
+        />
+        <p-button
+            icon="pi pi-power-off"
+            class="lg:*:w-40"
+            iconPos="right"
+            [label]="
+                applicationService.isMobile()
+                    ? null
+                    : ('common.logout' | translate)
+            "
+            severity="primary"
+            outlined
+            (onClick)="logout()"
         />
     } @else {
         <p-button
             icon="pi pi-sign-in"
-            [rounded]="true"
-            [text]="true"
-            severity="secondary"
+            class="lg:*:w-40"
+            iconPos="right"
+            [label]="
+                applicationService.isMobile()
+                    ? null
+                    : ('common.login' | translate)
+            "
+            severity="primary"
+            outlined
             (onClick)="login()"
         />
     }

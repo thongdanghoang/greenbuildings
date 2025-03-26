@@ -24,6 +24,12 @@ public class BuildingServiceImpl implements BuildingService {
     @Override
     public BuildingEntity createBuilding(BuildingEntity building) {
       UUID enterpriseId = SecurityUtils.getCurrentUserEnterpriseId().orElseThrow();
+      if(building.getId() != null) {
+          var oldBuilding = buildingRepository.findById(building.getId()).orElseThrow();
+          if(oldBuilding.getName().equals(building.getName())) {
+              return buildingRepository.save(building);
+          }
+      }
       if(buildingRepository.existsByNameBuildingInEnterprise(building.getName(),enterpriseId)) {
           throw new BusinessException("name", "business.buildings.name.exist");
       }

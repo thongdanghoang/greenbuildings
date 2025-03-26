@@ -30,6 +30,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -170,6 +171,12 @@ public class UserServiceImpl extends SagaManager implements UserService {
                 .stream()
                 .collect(Collectors.toMap(UserEntity::getId, Function.identity()));
         return userIDs.map(results::get);
+    }
+
+    @Override
+    public Page<UserEntity> getUserByBuilding(UUID buldingId, Pageable pageable) {
+        //UUID enterpriseId = SecurityUtils.getCurrentUserEnterpriseId().orElseThrow();
+        return userRepo.findUserAndBuilding(buldingId, pageable);
     }
     
     @Override
