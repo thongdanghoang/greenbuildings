@@ -1,0 +1,105 @@
+<ng-container *ngIf="accessTokens.length > 0; else noTokens">
+    <div class="flex justify-between items-center py-2 border-b">
+        <p class="text-xl">Power BI access tokens</p>
+        <ng-container *ngTemplateOutlet="generateNewToken"></ng-container>
+    </div>
+
+    <p>
+        Tokens you have generated that can be used to access the GreenBuildings
+        Power BI.
+    </p>
+
+    @if (newestCreatedTokenId && newestCreatedTokenKey) {
+        <div class="border rounded-lg">
+            <div class="bg-green-100 rounded-t p-3 text-black">
+                <i class="pi pi-check text-green-700"></i>
+                {{ newestCreatedTokenKey }}
+                <i
+                    class="pi pi-copy text-primary hover:cursor-pointer"
+                    (click)="copyToClipboard(newestCreatedTokenKey)"
+                ></i>
+            </div>
+            <ng-container
+                *ngTemplateOutlet="
+                    tokenRowTemplate;
+                    context: { $implicit: newestCreatedToken }
+                "
+            ></ng-container>
+        </div>
+    }
+
+    <div class="border rounded-lg">
+        @for (token of accessTokens; track token.id) {
+            @if (token.id !== newestCreatedTokenId) {
+                <ng-container
+                    *ngTemplateOutlet="
+                        tokenRowTemplate;
+                        context: { $implicit: token }
+                    "
+                ></ng-container>
+            }
+        }
+    </div>
+</ng-container>
+
+<ng-template #generateNewToken>
+    <p-button
+        label="Generate new token"
+        outlined
+        size="small"
+        (onClick)="navigateToDetail()"
+    />
+</ng-template>
+
+<ng-template #noTokens>
+    <div class="flex justify-between items-center py-2 border-b">
+        <p class="text-xl">Power BI access tokens</p>
+    </div>
+    <div class="h-96 flex flex-col items-center justify-center gap-4">
+        <i class="pi pi-key text-2xl"></i>
+        <h3 class="text-xl font-semibold">No Power BI access token created</h3>
+        <p class="text-base">
+            Need an API token for scripts or testing? Generate a personal access
+            token for quick access to the GreenBuildings Power BI.
+        </p>
+        <ng-container *ngTemplateOutlet="generateNewToken"></ng-container>
+    </div>
+</ng-template>
+
+<ng-template #tokenRowTemplate let-token>
+    <div class="p-3 border-b">
+        <div class="flex items-baseline justify-between gap-4">
+            <div>
+                <strong
+                    class="text-primary hover:cursor-pointer"
+                    (click)="navigateToDetail(token.id)"
+                    >{{ token.note }}</strong
+                >
+                —
+                <span class="text-sm italic">
+                    {{ token.scopes }}
+                </span>
+            </div>
+            <div class="flex items-center min-w-fit gap-3">
+                <div class="min-w-fit text-xs">
+                    Last used in
+                    {{
+                        token.lastUsed
+                            ? (token.lastUsed | date: "EEE, MMM dd yyyy")
+                            : "Never used"
+                    }}
+                </div>
+                <p-button
+                    label="Delete"
+                    severity="danger"
+                    size="small"
+                    outlined
+                    (onClick)="showDeleteConfirmDialog(token.id)"
+                />
+            </div>
+        </div>
+        <p class="mt-1 text-sm italic">
+            Expires on {{ token.expirationTime | date: "EEE, MMM dd yyyy" }}.
+        </p>
+    </div>
+</ng-template>

@@ -60,6 +60,11 @@
       }
     }
   },
+  "notFound": {
+    "title": "Page Not Found",
+    "description": "Sorry, we couldn’t find the page you’re looking for.",
+    "backHome": "Back to Home"
+  },
   "http": {
     "error": {
       "status": {
@@ -289,44 +294,50 @@
       "manage": "Manage",
       "users": "Users",
       "subscription": "Subscription",
-      "payment": "Payment"
-    },
-   "admin": {
-     "title": "Admin",
-     "packageCredit": "Credit Package",
-     "creditRatio": "Credit Ratio",
-     "emissionSource": "Emission Source",
-     "fuel": "Fuel"
-   }
-  },
-  "admin": {
-  "packageCredit": {
-    "title": "Credit Package",
-    "active": "on",
-    "inactive": "off",
-    "versionList": "Credit package version history",
-    "current": "current",
-    "outdated": "outdated",
-    "table": {
-      "numberCredit": "Number of Credits",
-      "price": "Price"
-    },
-    "input": {
-      "enterNumberCredit": "Enter Credits",
-      "enterPrice": "Enter Price"
-    },
-    "addPackageCredit": "Add Package Credit",
-    "message": {
-      "success": {
-        "summary": "Success",
-        "detail": "Successful conversion"
-      },
-      "error": {
-        "summary": "Error",
-        "detail": "Conversion failed"
+      "payment": "Payment",
+      "settings": {
+        "label": "Settings",
+        "items": {
+          "powerBiAccessToken": "Power BI Access Token"
+        }
       }
+    },
+    "admin": {
+      "title": "Admin",
+      "packageCredit": "Credit Package",
+      "creditRatio": "Credit Ratio",
+      "emissionSource": "Emission Source",
+      "fuel": "Fuel"
     }
   },
+  "admin": {
+    "packageCredit": {
+      "title": "Credit Package",
+      "active": "on",
+      "inactive": "off",
+      "versionList": "Credit package version history",
+      "current": "current",
+      "outdated": "outdated",
+      "table": {
+        "numberCredit": "Number of Credits",
+        "price": "Price"
+      },
+      "input": {
+        "enterNumberCredit": "Enter Credits",
+        "enterPrice": "Enter Price"
+      },
+      "addPackageCredit": "Add Package Credit",
+      "message": {
+        "success": {
+          "summary": "Success",
+          "detail": "Successful conversion"
+        },
+        "error": {
+          "summary": "Error",
+          "detail": "Conversion failed"
+        }
+      }
+    },
     "ratio": {
       "title": "RATIO",
       "type": {
@@ -340,19 +351,19 @@
       "adjustRatio": "Adjust the ratio"
     },
     "emissionSource": {
-      "name" : "Emission source",
+      "name": "Emission source",
       "addEmissionSource": "Add Emission Source"
     },
     "fuel": {
       "addFuel": "Add Fuel"
     }
-},
+  },
   "dialog": {
     "subscription": {
-        "header": {
-          "title": "Buy Subscription",
-          "titleUpdate": "Update Subscription"
-        },
+      "header": {
+        "title": "Buy Subscription",
+        "titleUpdate": "Update Subscription"
+      },
       "body": {
         "name": "Name",
         "numberDevices": "Current number of devices",
@@ -364,7 +375,7 @@
       },
       "footer": {
         "button": {
-          "buy" : "Buy",
+          "buy": "Buy",
           "cancel": "Cancel"
         }
       }
@@ -461,5 +472,21 @@
     "MEGAJOULE": "Megajoule",
     "PERCENT": "Percent",
     "PIECES": "Pieces"
+  },
+  "powerBi": {
+    "accessToken": {
+      "expiration": {
+        "7days": "7 days",
+        "30days": "30 days",
+        "60days": "60 days",
+        "90days": "90 days",
+        "custom": "Custom",
+        "never": "No expiration"
+      },
+      "save": "Save",
+      "create": "Generate token",
+      "regenerate": "Regenerate token",
+      "cancel": "Cancel"
+    }
   }
 }

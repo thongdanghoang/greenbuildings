@@ -28,7 +28,7 @@ public class UserInfoService {
     
     private Map<String, Object> buildUserClaims(UserEntity user) {
         return OidcUserInfo.builder()
-                           .subject(user.getEmail())
+                           .subject(user.getId().toString())
                            .givenName(user.getFirstName())
                            .familyName(user.getLastName())
                            .email(user.getEmail())
@@ -57,6 +57,8 @@ public class UserInfoService {
                                            .map(UUID::toString)
                                            .orElse(null));
         claims.put("permissions", buildingPermissions);
+        claims.put("sub", user.getId().toString());
+        claims.put("email", user.getEmail());
         return claims;
     }
 }

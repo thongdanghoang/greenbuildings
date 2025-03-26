@@ -1,4 +1,4 @@
-package greenbuildings.idp.validation;
+package greenbuildings.idp.validators;
 
 
 public interface Validator<T extends ToBeValidated> {

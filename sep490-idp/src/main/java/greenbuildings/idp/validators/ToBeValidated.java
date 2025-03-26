@@ -1,4 +1,4 @@
-package greenbuildings.idp.validation;
+package greenbuildings.idp.validators;
 
 import lombok.Getter;
 import lombok.Setter;

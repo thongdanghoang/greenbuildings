@@ -23,7 +23,7 @@ import greenbuildings.idp.service.UserService;
 import greenbuildings.idp.utils.IEmailUtil;
 import greenbuildings.idp.utils.IMessageUtil;
 import greenbuildings.idp.utils.SEPMailMessage;
-import greenbuildings.idp.validation.Validator;
+import greenbuildings.idp.validators.Validator;
 import greenbuildings.idp.validators.UserValidator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -232,6 +232,12 @@ public class UserServiceImpl extends SagaManager implements UserService {
     @Override
     public UserEntity getEnterpriseUserDetail(UUID id) {
         return userRepo.findByIdWithBuildingPermissions(id).orElseThrow();
+    }
+    
+    @Transactional(readOnly = true)
+    @Override
+    public Optional<UserEntity> findById(UUID id) {
+        return userRepo.findById(id);
     }
     
     @Override

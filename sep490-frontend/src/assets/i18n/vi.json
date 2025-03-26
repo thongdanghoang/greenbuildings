@@ -60,6 +60,11 @@
       }
     }
   },
+  "notFound": {
+    "title": "Không tìm thấy trang",
+    "description": "Rất tiếc, chúng tôi không tìm thấy trang bạn đang tìm kiếm.",
+    "backHome": "Quay lại trang chủ"
+  },
   "http": {
     "error": {
       "status": {
@@ -289,7 +294,13 @@
       "manage": "Quản lý",
       "users": "Người sử dụng",
       "subscription": "Nạp",
-      "payment": "Thanh toán"
+      "payment": "Thanh toán",
+      "settings": {
+        "label": "Cài đặt",
+        "items": {
+          "powerBiAccessToken": "Power BI Access Token"
+        }
+      }
     },
     "admin": {
       "title": "Quản trị viên",
@@ -340,7 +351,7 @@
       "adjustRatio": "Điều chỉnh tỷ lệ"
     },
     "emissionSource": {
-      "name" : "Nguồn phát thải",
+      "name": "Nguồn phát thải",
       "addEmissionSource": "Thêm Nguồn Phát Thải"
     },
     "fuel": {
@@ -364,7 +375,7 @@
       },
       "footer": {
         "button": {
-          "buy" : "Mua",
+          "buy": "Mua",
           "cancel": "Hủy"
         }
       }
@@ -461,5 +472,21 @@
     "MEGAJOULE": "Megajoule: MJ",
     "PERCENT": "Phần trăm: %",
     "PIECES": "Cái: pcs"
+  },
+  "powerBi": {
+    "accessToken": {
+      "expiration": {
+        "7days": "7 ngày",
+        "30days": "30 ngày",
+        "60days": "60 ngày",
+        "90days": "90 ngày",
+        "custom": "Tùy chỉnh",
+        "never": "Không bao giờ"
+      },
+      "save": "Lưu",
+      "create": "Tạo token",
+      "regenerate": "Tạo lại token",
+      "cancel": "Hủy"
+    }
   }
 }

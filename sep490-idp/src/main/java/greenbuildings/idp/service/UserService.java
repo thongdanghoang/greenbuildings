@@ -29,6 +29,8 @@ public interface UserService {
     
     UserEntity getEnterpriseUserDetail(UUID id);
     
+    Optional<UserEntity> findById(UUID id);
+    
     Optional<UserEntity> findByEmail(String email);
     
     void update(UserEntity user);

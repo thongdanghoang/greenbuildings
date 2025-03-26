@@ -1,0 +1,63 @@
+<div class="flex justify-between items-center py-2 border-b">
+    <p class="text-xl">Regenerate Power BI access token</p>
+</div>
+
+<div
+    class="bg-yellow-50 dark:bg-yellow-950 border-yellow-200 dark:border-yellow-800 border rounded-lg"
+>
+    <div class="flex items-center gap-5 p-5">
+        Submitting this form will generate a new token. Be aware that any
+        scripts or applications using this token will need to be updated.
+    </div>
+</div>
+
+<div>
+    <label class="font-semibold">Expiration</label>
+    <div class="flex gap-2">
+        <p-select
+            [(ngModel)]="expirationTime"
+            [options]="selectableExpirationTimes"
+            scrollHeight="300px"
+            class="min-w-64"
+        >
+            <ng-template #selectedItem let-selectedOption>
+                <div class="flex items-center gap-2" *ngIf="selectedOption">
+                    <i class="pi pi-calendar"></i>
+                    <div>{{ selectedOption.label | translate }}</div>
+                    @if (expirationTime) {
+                        <div>({{ expirationTime | date: "MMM d, yyyy" }})</div>
+                    }
+                </div>
+            </ng-template>
+            <ng-template let-selectedOption #item>
+                <div class="flex items-center gap-2">
+                    <div>{{ selectedOption.label | translate }}</div>
+                </div>
+            </ng-template>
+        </p-select>
+        @if (expirationTime === null) {
+            <p-datepicker
+                [(ngModel)]="expirationTime"
+                [iconDisplay]="'input'"
+                [showIcon]="true"
+            ></p-datepicker>
+        }
+    </div>
+    <small>The token will expire on the selected date</small>
+</div>
+
+<div class="flex gap-4">
+    <p-button
+        (onClick)="regenerateAccessToken()"
+        size="small"
+        class="*:min-w-16"
+        label="{{ 'powerBi.accessToken.regenerate' | translate }}"
+    />
+    <p-button
+        (onClick)="navigateToPowerBiAccessTokens()"
+        size="small"
+        class="*:min-w-24"
+        label="{{ 'powerBi.accessToken.cancel' | translate }}"
+        [outlined]="true"
+    />
+</div>

@@ -12,6 +12,11 @@ export class AppRoutingConstants {
   public static readonly ADMIN_PATH = 'admin';
   public static readonly USER_DETAILS = 'user-details';
   public static readonly USER_PROFILE = 'user-profile';
+  public static readonly SETTINGS = 'settings';
+  public static readonly POWER_BI = 'power-bi';
+  public static readonly ACCESS_TOKEN = 'tokens';
+  public static readonly REGENERATE = 'regenerate';
+  public static readonly POWER_BI_ACCESS_TOKEN = `${AppRoutingConstants.POWER_BI}/tokens`;
 
   // Enterprise Module
   public static readonly ENTERPRISE_PATH = 'enterprise';
