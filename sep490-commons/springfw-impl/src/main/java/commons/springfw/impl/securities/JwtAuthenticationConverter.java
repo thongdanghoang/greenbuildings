@@ -23,11 +23,8 @@ public class JwtAuthenticationConverter
     
     @Override
     public JwtAuthenticationTokenDecorator convert(Jwt source) {
-        var email = Objects.requireNonNull(source.getClaims().get("sub")).toString();
-        if (StringUtils.isBlank(email)) {
-            return null;
-        }
-        
+        var userId = UUID.fromString(Objects.requireNonNull(source.getClaims().get("sub")).toString());
+        var email = Objects.requireNonNull(source.getClaims().get("email")).toString();
         var authoritiesClaim = Objects.requireNonNull(source.getClaims().get("authorities"));
         Set<SimpleGrantedAuthority> authorities = Collections.emptySet();
         if (authoritiesClaim instanceof List<?> authoritiesLists) {
@@ -67,6 +64,7 @@ public class JwtAuthenticationConverter
                 source,
                 new UserContextData(
                         email,
+                        userId,
                         enterpriseId,
                         StringUtils.EMPTY,
                         List.copyOf(authorities),

@@ -13,6 +13,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class UserContextData implements UserDetails {
     private final String username;
+    private final UUID id;
     private final UUID enterpriseId;
     private final String password;
     private final List<GrantedAuthority> authorities;

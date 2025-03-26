@@ -25,7 +25,9 @@ import org.hibernate.annotations.FilterDef;
 import org.hibernate.annotations.ParamDef;
 import org.hibernate.annotations.SoftDelete;
 
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -59,6 +61,11 @@ public class UserEntity extends AbstractAuditableEntity {
                cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH},
                orphanRemoval = true)
     private Set<BuildingPermissionEntity> buildingPermissions = new LinkedHashSet<>();
+    
+    @OneToMany(mappedBy = "user",
+               cascade = CascadeType.ALL,
+               orphanRemoval = true)
+    private List<PowerBiAuthority> powerBiApiKeys = new ArrayList<>();
     
     @NotNull
     @Enumerated(EnumType.STRING)

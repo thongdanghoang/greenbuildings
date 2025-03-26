@@ -37,5 +37,4 @@ public class EnterpriseEventProducer {
         kafkaTemplate.send(msg);
     }
     
-    
 }

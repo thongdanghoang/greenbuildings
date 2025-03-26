@@ -1,0 +1,111 @@
+<div class="flex justify-between items-center py-2 border-b">
+    <p class="text-xl">
+        {{
+            isEdit ? "Edit Power BI access token" : "New Power BI access token"
+        }}
+    </p>
+</div>
+
+@if (isEdit) {
+    <div
+        class="bg-yellow-50 dark:bg-yellow-950 border-yellow-200 dark:border-yellow-800 border rounded-lg"
+    >
+        <div class="flex items-center gap-5 p-5" *ngIf="isEdit">
+            <div class="">
+                If you’ve lost or forgotten this token, you can regenerate it,
+                but be aware that any scripts or applications using this token
+                will need to be updated.
+            </div>
+            <p-button
+                label="Regenerate token"
+                severity="warn"
+                (onClick)="navigateToRegenerate()"
+                size="small"
+            />
+        </div>
+    </div>
+}
+
+<form [formGroup]="formGroup">
+    <div class="flex flex-col *:max-w-96" errorMessages>
+        <label for="name" class="font-semibold">Token name</label>
+        <input id="name" type="text" pInputText formControlName="note" />
+        <small>What’s this token for?</small>
+        <form-field-error></form-field-error>
+    </div>
+
+    <label class="font-semibold">Expiration</label>
+    @if (isEdit) {
+        <div>
+            This token expired on
+            <strong>{{
+                powerBiAuthorityFormStructure.expirationTime.value
+                    | date: "MMM d, yyyy"
+            }}</strong
+            >. To set a new expiration date, you must
+            <a class="text-primary" [routerLink]="regenerateTokenLink"
+                >regenerate the token</a
+            >.
+        </div>
+    }
+    <div errorMessages *ngIf="!isEdit">
+        <div class="flex gap-2">
+            <p-select
+                formControlName="expirationTime"
+                [options]="selectableExpirationTimes"
+                scrollHeight="300px"
+                class="min-w-64"
+            >
+                <ng-template #selectedItem let-selectedOption>
+                    <div class="flex items-center gap-2" *ngIf="selectedOption">
+                        <i class="pi pi-calendar"></i>
+                        <div>{{ selectedOption.label | translate }}</div>
+                        @if (
+                            powerBiAuthorityFormStructure.expirationTime.value
+                        ) {
+                            <div>
+                                ({{
+                                    powerBiAuthorityFormStructure.expirationTime
+                                        .value | date: "MMM d, yyyy"
+                                }})
+                            </div>
+                        }
+                    </div>
+                </ng-template>
+                <ng-template let-selectedOption #item>
+                    <div class="flex items-center gap-2">
+                        <div>{{ selectedOption.label | translate }}</div>
+                    </div>
+                </ng-template>
+            </p-select>
+            @if (powerBiAuthorityFormStructure.expirationTime.value === null) {
+                <p-datepicker
+                    formControlName="expirationTime"
+                    [iconDisplay]="'input'"
+                    [showIcon]="true"
+                ></p-datepicker>
+            }
+        </div>
+        <small>The token will expire on the selected date</small>
+        <form-field-error></form-field-error>
+    </div>
+</form>
+
+<div class="flex gap-4">
+    <p-button
+        size="small"
+        (onClick)="submit()"
+        class="*:min-w-16"
+        label="{{
+            (isEdit ? 'powerBi.accessToken.save' : 'powerBi.accessToken.create')
+                | translate
+        }}"
+    />
+    <p-button
+        size="small"
+        (onClick)="cancel()"
+        class="*:min-w-24"
+        label="{{ 'powerBi.accessToken.cancel' | translate }}"
+        [outlined]="true"
+    />
+</div>

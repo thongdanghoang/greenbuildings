@@ -4,7 +4,7 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
-import greenbuildings.idp.validation.ToBeValidated;
+import greenbuildings.idp.validators.ToBeValidated;
 
 import static greenbuildings.commons.api.utils.CommonConstant.*;
 

@@ -19,6 +19,7 @@ public class MvcUserContextData extends UserContextData {
                               List<GrantedAuthority> authorities,
                               List<BuildingPermissionDTO> permissions) {
         super(userEntity.getEmail(),
+              userEntity.getId(),
               Optional.ofNullable(userEntity.getEnterprise()).map(AbstractBaseEntity::getId).orElse(null),
               userEntity.getPassword(),
               List.copyOf(authorities),

@@ -21,6 +21,8 @@ export class SidebarComponent
 {
   items: MenuItem[] | undefined;
 
+  private readonly POWER_BI_ACCESS_TOKEN_PATH = `${AppRoutingConstants.AUTH_PATH}/${AppRoutingConstants.SETTINGS}/${AppRoutingConstants.POWER_BI_ACCESS_TOKEN}`;
+
   constructor(
     private readonly applicationService: ApplicationService,
     private readonly router: Router
@@ -97,6 +99,16 @@ export class SidebarComponent
             label: 'sidebar.owner.payment',
             icon: 'pi pi-wallet',
             route: `/${AppRoutingConstants.ENTERPRISE_PATH}/${AppRoutingConstants.PAYMENT_PATH}`
+          }
+        ]
+      },
+      {
+        label: 'sidebar.owner.settings.label',
+        items: [
+          {
+            label: 'sidebar.owner.settings.items.powerBiAccessToken',
+            icon: 'pi pi-cog',
+            route: `/${this.POWER_BI_ACCESS_TOKEN_PATH}`
           }
         ]
       }

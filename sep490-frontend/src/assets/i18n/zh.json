@@ -60,6 +60,11 @@
       }
     }
   },
+  "notFound": {
+    "title": "页面未找到",
+    "description": "抱歉，我们找不到您要查找的页面。",
+    "backHome": "返回首页"
+  },
   "http": {
     "error": {
       "status": {
@@ -288,7 +293,13 @@
       "manage": "管理",
       "users": "用户",
       "subscription": "订阅",
-      "payment": "支付"
+      "payment": "支付",
+      "settings": {
+        "label": "设置",
+        "items": {
+          "powerBiAccessToken": "Power BI 访问令牌"
+        }
+      }
     },
     "admin": {
       "title": "行政人员",
@@ -339,7 +350,7 @@
       "adjustRatio": "调整比例"
     },
     "emissionSource": {
-      "name" : "排放源",
+      "name": "排放源",
       "addEmissionSource": "添加排放源"
     },
     "fuel": {
@@ -363,7 +374,7 @@
       },
       "footer": {
         "button": {
-          "buy" : "买",
+          "buy": "买",
           "cancel": "取消"
         }
       }
@@ -460,5 +471,21 @@
     "MEGAJOULE": "兆焦",
     "PERCENT": "百分比",
     "PIECES": "件"
+  },
+  "powerBi": {
+    "accessToken": {
+      "expiration": {
+        "7days": "7天",
+        "30days": "30天",
+        "60days": "60天",
+        "90days": "90天",
+        "custom": "自定义",
+        "never": "无到期期限"
+      },
+      "save": "保存",
+      "create": "生成访问令牌",
+      "regenerate": "重新生成访问令牌",
+      "cancel": "取消"
+    }
   }
 }
