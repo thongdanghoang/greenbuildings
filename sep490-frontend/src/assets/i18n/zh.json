@@ -10,6 +10,8 @@
     "reject": "否",
     "create": "创建",
     "search": "搜索",
+    "login": "登录",
+    "logout": "登出",
     "save": "保存",
     "revert": "撤销",
     "back": "返回",
@@ -202,7 +204,9 @@
           }
         }
       }
-    }
+    },
+    "permissionInBuilding": "建筑许可",
+    "userInBuildings": "建筑物内用户"
   },
   "enum": {
     "role": {

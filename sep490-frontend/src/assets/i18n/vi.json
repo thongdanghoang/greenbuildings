@@ -10,6 +10,8 @@
     "saveSuccess": "Lưu thành công!",
     "search": "Tìm kiếm",
     "create": "Tạo",
+    "login": "ĐĂNG NHẬP",
+    "logout": "ĐĂNG XUẤT",
     "update": "Cập nhật",
     "save": "Lưu",
     "revert": "Hoàn tác",
@@ -202,7 +204,9 @@
           }
         }
       }
-    }
+    },
+    "permissionInBuilding": "Quyền trong tòa nhà",
+    "userInBuildings": "Người dùng trong tòa nhà"
   },
   "enum": {
     "role": {

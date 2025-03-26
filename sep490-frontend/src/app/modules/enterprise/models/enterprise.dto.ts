@@ -4,6 +4,7 @@ import {
   EmissionFactorDTO,
   EmissionUnit
 } from '../../shared/models/shared-models';
+import {BuildingPermissionRole} from '../../authorization/enums/building-permission-role';
 
 export interface Building extends BaseDTO {
   name: string;
@@ -111,4 +112,9 @@ export interface Subscription extends BaseDTO {
   startDate?: Date;
   endDate?: Date;
   maxNumberOfDevices?: number;
+}
+export interface UserByBuilding {
+  id: UUID;
+  name: string;
+  role: keyof typeof BuildingPermissionRole;
 }
