@@ -12,6 +12,7 @@ public record EmissionActivityRecordDTO(
         BigDecimal value,
         EmissionUnit unit,
         LocalDate startDate,
-        LocalDate endDate
+        LocalDate endDate,
+        RecordFileDTO file
 ) {
 }

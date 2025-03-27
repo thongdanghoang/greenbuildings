@@ -189,6 +189,24 @@
                     </div>
                 </div>
             </ng-template>
+
+            <ng-template #fileTemplate let-rowData>
+                <p-button
+                    *ngIf="rowData.file"
+                    [label]="rowData.file.fileName"
+                    icon="pi pi-download"
+                    class="w-full"
+                    [style]="{ maxWidth: '200px' }"
+                    [styleClass]="'p-button-text p-button-sm'"
+                    (onClick)="onDownloadFile(rowData)"
+                >
+                    <ng-template pTemplate="label">
+                        <span class="truncate block">{{
+                            rowData.file.fileName
+                        }}</span>
+                    </ng-template>
+                </p-button>
+            </ng-template>
         </p-card>
     </div>
 </div>

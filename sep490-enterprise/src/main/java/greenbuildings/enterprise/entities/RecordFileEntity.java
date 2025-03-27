@@ -1,6 +1,6 @@
 package greenbuildings.enterprise.entities;
 
-import commons.springfw.impl.entities.AbstractBaseEntity;
+import commons.springfw.impl.entities.AbstractAuditableEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToOne;
@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
-public class RecordFileEntity extends AbstractBaseEntity {
+public class RecordFileEntity extends AbstractAuditableEntity {
     
     @OneToOne(mappedBy = "file")
     private EmissionActivityRecordEntity record;

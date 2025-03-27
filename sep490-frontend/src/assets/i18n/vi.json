@@ -203,7 +203,8 @@
             "factor": "Hệ số phát thải",
             "source": "Nguồn phát thải",
             "file": {
-              "choose": "Chọn file"
+              "title": "Tập tin",
+              "choose": "Chọn tập tin"
             }
           }
         }

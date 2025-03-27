@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
@@ -42,11 +43,10 @@ public class EmissionActivityRecordController {
         Page<EmissionActivityRecordEntity> list = recordService.search(criteria);
         return ResponseEntity.ok(CommonMapper.toSearchResultDTO(list, recordMapper::toDTO));
     }
-
+    
     @PostMapping
-    public ResponseEntity<?> createRecord(
-            @RequestPart("record") NewEmissionActivityRecordDTO recordDTO,
-            @RequestPart(value = "file", required = false) MultipartFile file) {
+    public ResponseEntity<?> createRecord(@RequestPart("record") NewEmissionActivityRecordDTO recordDTO,
+                                          @RequestPart(value = "file", required = false) MultipartFile file) {
         recordService.createWithFile(recordMapper.newToEntity(recordDTO), file);
         return ResponseEntity.ok().build();
     }
@@ -58,33 +58,24 @@ public class EmissionActivityRecordController {
     }
     
     @PostMapping("/{recordId}/file")
-    public ResponseEntity<RecordFileEntity> uploadFile(
-            @PathVariable UUID recordId,
-            @RequestParam("file") MultipartFile file) {
+    public ResponseEntity<RecordFileEntity> uploadFile(@PathVariable UUID recordId, @RequestParam("file") MultipartFile file) {
         return ResponseEntity.ok(recordService.uploadFile(recordId, file));
     }
     
     @DeleteMapping("/{recordId}/file/{fileId}")
-    public ResponseEntity<Void> deleteFile(
-            @PathVariable UUID recordId,
-            @PathVariable UUID fileId
-                                          ) {
+    public ResponseEntity<Void> deleteFile(@PathVariable UUID recordId, @PathVariable UUID fileId) {
         recordService.deleteFile(recordId, fileId);
         return ResponseEntity.ok().build();
     }
     
     @GetMapping("/{recordId}/file/{fileId}/url")
-    public ResponseEntity<String> getFileUrl(
-            @PathVariable UUID recordId,
-            @PathVariable UUID fileId
-                                            ) {
-        return ResponseEntity.ok(recordService.getFileUrl(recordId, fileId));
+    public ResponseEntity<Map<String, String>> getFileUrl(@PathVariable UUID recordId, @PathVariable UUID fileId) {
+        String fileUrl = recordService.getFileUrl(recordId, fileId);
+        return ResponseEntity.ok(Map.of("url", fileUrl));
     }
     
     @GetMapping("/{recordId}/file")
-    public ResponseEntity<List<RecordFileEntity>> getRecordFiles(
-            @PathVariable UUID recordId
-                                                                ) {
+    public ResponseEntity<List<RecordFileEntity>> getRecordFiles(@PathVariable UUID recordId) {
         return ResponseEntity.ok(recordService.getRecordFiles(recordId));
     }
 } 
