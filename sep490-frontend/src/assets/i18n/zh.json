@@ -20,7 +20,8 @@
     "update": "更新",
     "error": {
       "title": "错误",
-      "technicalServerError": "发生意外服务器错误。请联系您的管理员，提供此关键 correlationId = {{correlationId}} 以获取更多信息。"
+      "technicalServerError": "发生意外服务器错误。请联系您的管理员，提供此关键 correlationId = {{correlationId}} 以获取更多信息。",
+      "fileSizeError": "文件大小必须小于 5MB 且必须是 PDF 或图像文件。"
     }
   },
   "validation": {
@@ -200,7 +201,10 @@
             "startDate": "开始日期",
             "endDate": "结束日期",
             "factor": "排放系数",
-            "source": "排放源"
+            "source": "排放源",
+            "file": {
+              "choose": "选择文件"
+            }
           }
         }
       }

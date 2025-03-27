@@ -12,7 +12,9 @@ import {BlockUIModule} from 'primeng/blockui';
 import {ButtonModule} from 'primeng/button';
 import {Calendar} from 'primeng/calendar';
 import {CardModule} from 'primeng/card';
+import {CarouselModule} from 'primeng/carousel';
 import {CheckboxModule} from 'primeng/checkbox';
+import {ChipModule} from 'primeng/chip';
 import {DatePickerModule} from 'primeng/datepicker';
 import {DialogModule} from 'primeng/dialog';
 import {DividerModule} from 'primeng/divider';
@@ -20,10 +22,12 @@ import {DrawerModule} from 'primeng/drawer';
 import {DropdownModule} from 'primeng/dropdown';
 import {DialogService, DynamicDialog} from 'primeng/dynamicdialog';
 import {Fieldset} from 'primeng/fieldset';
+import {FileUpload} from 'primeng/fileupload';
 import {FloatLabelModule} from 'primeng/floatlabel';
 import {FluidModule} from 'primeng/fluid';
 import {IconFieldModule} from 'primeng/iconfield';
 import {IftaLabel} from 'primeng/iftalabel';
+import {ImageModule} from 'primeng/image';
 import {InputIconModule} from 'primeng/inputicon';
 import {InputNumberModule} from 'primeng/inputnumber';
 import {InputSwitchModule} from 'primeng/inputswitch';
@@ -45,6 +49,7 @@ import {TableModule} from 'primeng/table';
 import {TabMenuModule} from 'primeng/tabmenu';
 import {TagModule} from 'primeng/tag';
 import {ToastModule} from 'primeng/toast';
+import {ToggleButtonModule} from 'primeng/togglebutton';
 import {ToggleSwitchModule} from 'primeng/toggleswitch';
 import {CardTemplateComponent} from './components/card/card-template/card-template.component';
 import {ConfirmDialogComponent} from './components/dialog/confirm-dialog/confirm-dialog.component';
@@ -59,10 +64,6 @@ import {EmissionSourceService} from './services/emission-source.service';
 import {EnergyConversionService} from './services/energy-conversion.service';
 import {FuelService} from './services/fuel.service';
 import {ModalProvider} from './services/modal-provider';
-import {CarouselModule} from 'primeng/carousel';
-import {ImageModule} from 'primeng/image';
-import {ToggleButtonModule} from 'primeng/togglebutton';
-import {ChipModule} from 'primeng/chip';
 import {UnitService} from './services/unit.service';
 
 const primeNgModules = [
@@ -112,7 +113,8 @@ const primeNgModules = [
   IftaLabel,
   StepperModule,
   Calendar,
-  DropdownModule
+  DropdownModule,
+  FileUpload
 ];
 
 const commons = [

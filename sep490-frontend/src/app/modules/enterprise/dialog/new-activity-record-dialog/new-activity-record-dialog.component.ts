@@ -1,21 +1,14 @@
+import {HttpClient} from '@angular/common/http';
 import {Component} from '@angular/core';
+import {AbstractControl, FormBuilder, FormControl, Validators} from '@angular/forms';
+import {TranslateService} from '@ngx-translate/core';
+import {MessageService} from 'primeng/api';
+import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
+import {takeUntil} from 'rxjs';
 import {AbstractFormComponent} from '../../../shared/components/form/abstract-form-component';
+import {EmissionFactorDTO, EmissionUnit} from '../../../shared/models/shared-models';
 import {UnitService} from '../../../shared/services/unit.service';
 import {EmissionActivityRecord} from '../../models/enterprise.dto';
-import {
-  EmissionFactorDTO,
-  EmissionUnit
-} from '../../../shared/models/shared-models';
-import {
-  AbstractControl,
-  FormBuilder,
-  FormControl,
-  Validators
-} from '@angular/forms';
-import {HttpClient} from '@angular/common/http';
-import {MessageService} from 'primeng/api';
-import {TranslateService} from '@ngx-translate/core';
-import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
 import {EmissionActivityRecordService} from '../../services/emission-activity-record.service';
 
 export interface NewActivityRecordDialogConfig {
@@ -29,6 +22,8 @@ export interface NewActivityRecordDialogConfig {
 })
 export class NewActivityRecordDialogComponent extends AbstractFormComponent<EmissionActivityRecord> {
   unitOptions: {label: string; value: EmissionUnit}[] = [];
+  selectedFile: File | null = null;
+
   data?: NewActivityRecordDialogConfig;
   constructor(
     protected override readonly httpClient: HttpClient,
@@ -75,21 +70,72 @@ export class NewActivityRecordDialogComponent extends AbstractFormComponent<Emis
   }
   /* eslint-enable dot-notation */
 
+  override submitForm(): void {
+    if (this.formGroup.valid) {
+      const formData = new FormData();
+
+      // Add record data
+      const recordData = this.formGroup.value;
+      formData.append(
+        'record',
+        new Blob([JSON.stringify(recordData)], {type: 'application/json'})
+      );
+
+      // Add file if selected
+      if (this.selectedFile) {
+        formData.append('file', this.selectedFile);
+      }
+
+      // Submit both record and file
+      this.httpClient
+        .post(this.submitFormDataUrl(), formData)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe({
+          next: r => {
+            this.onSubmitFormDataSuccess(r);
+            this.enableSubmitBtn();
+          },
+          error: error => {
+            this.displayFormResultErrors(error.error);
+            this.onSubmitFormRequestError(error);
+            this.enableSubmitBtn();
+          }
+        });
+    }
+  }
+
   override submitFormDataUrl(): string {
     return this.emissionActivityRecordService.newRecordURL;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   override onSubmitFormDataSuccess(result: any): void {
     this.notificationService.add({
       severity: 'success',
       summary: this.translate.instant('common.success'),
       detail: this.translate.instant('common.saveSuccess')
     });
-    this.dialogRef.close(result);
+    this.dialogRef.close(true);
   }
 
   onCancel(): void {
     this.dialogRef.close();
+  }
+
+  onFileSelect(event: any): void {
+    const file: File = event.files[0];
+    if (
+      file.size > 5 * 1024 * 1024 ||
+      (file.type !== 'application/pdf' && !file.type.startsWith('image/'))
+    ) {
+      this.notificationService.add({
+        severity: 'error',
+        summary: this.translate.instant('common.error.title'),
+        detail: this.translate.instant('common.error.fileSizeError')
+      });
+      return;
+    }
+    this.selectedFile = file;
   }
 
   getFactorName(): string {

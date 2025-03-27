@@ -53,6 +53,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'com.splunk.logging:splunk-library-javalogging:1.11.8'
 	implementation 'org.springframework.boot:spring-boot-starter-log4j2'
+	implementation 'io.minio:minio:8.5.17'
 
 	// Database
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
