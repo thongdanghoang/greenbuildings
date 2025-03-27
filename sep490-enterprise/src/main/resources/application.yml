@@ -50,6 +50,13 @@ spring:
       auto-offset-reset: latest
       group-id: sep490-enterprise
 
+minio:
+  endpoint: http://localhost:9000
+  accessKey: minioadmin
+  secretKey: minioadmin
+  bucket:
+    name: sep490-files
+
 logging:
   level:
     root: INFO
