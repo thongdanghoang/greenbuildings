@@ -1,10 +1,7 @@
 package greenbuildings.enterprise.services.impl;
-
-import commons.springfw.impl.mappers.CommonMapper;
-import commons.springfw.impl.utils.SecurityUtils;
 import greenbuildings.commons.api.dto.SearchCriteriaDTO;
 import greenbuildings.enterprise.dtos.EmissionSourceCriteriaDTO;
-import greenbuildings.enterprise.dtos.EmissionSourceDTO;
+
 import greenbuildings.enterprise.entities.EmissionSourceEntity;
 import greenbuildings.enterprise.repositories.EmissionSourceRepository;
 import greenbuildings.enterprise.services.EmissionSourceService;
@@ -17,7 +14,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
+import java.util.UUID;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -44,5 +43,15 @@ public class EmissionSourceServiceImpl implements EmissionSourceService {
                 .stream()
                 .collect(Collectors.toMap(EmissionSourceEntity::getId, Function.identity()));
         return emissionSourceIDs.map(results::get);
+    }
+
+    @Override
+    public void createOrUpdate(EmissionSourceEntity emissionSourceEntity) {
+        emissionSourceRepository.save(emissionSourceEntity);
+    }
+
+    @Override
+    public Optional<EmissionSourceEntity> findById(UUID id) {
+        return emissionSourceRepository.findById(id);
     }
 }

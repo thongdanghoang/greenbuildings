@@ -2,7 +2,6 @@ package greenbuildings.enterprise.services.impl;
 
 import greenbuildings.commons.api.dto.SearchCriteriaDTO;
 import greenbuildings.enterprise.dtos.FuelCriteriaDTO;
-import greenbuildings.enterprise.dtos.FuelDTO;
 import greenbuildings.enterprise.entities.FuelEntity;
 import greenbuildings.enterprise.repositories.FuelRepository;
 import greenbuildings.enterprise.services.FuelService;
@@ -15,7 +14,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
+import java.util.UUID;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -42,5 +43,15 @@ public class FuelServiceImpl implements FuelService {
                 .stream()
                 .collect(Collectors.toMap(FuelEntity::getId, Function.identity()));
         return fuelIDs.map(results::get);
+    }
+
+    @Override
+    public void createOrUpdate(FuelEntity fuelEntity) {
+        fuelRepository.save(fuelEntity);
+    }
+
+    @Override
+    public Optional<FuelEntity> findById(UUID id) {
+        return fuelRepository.findById(id);
     }
 }

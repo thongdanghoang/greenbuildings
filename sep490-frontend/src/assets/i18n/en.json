@@ -138,8 +138,9 @@
         "create": "Create",
         "labels": {
           "name": "Building name",
-          "numberOfDevices": "Number of devices",
-          "maxNumberOfDevices": "Estimate the amount of equipment inventory in the building",
+          "numberOfDevices": "Expected number of activities",
+          "haveSubscriptionOfNumberOfDevices": "Max number of activities in subscription",
+          "maxNumberOfDevices": "Estimate the amount of activities inventory in the building",
           "validFromInclusive": "Valid from",
           "validToInclusive": "Valid to",
           "address": "Address",
@@ -332,7 +333,11 @@
       "adjustRatio": "Adjust the ratio"
     },
     "emissionSource": {
-      "name" : "Emission source"
+      "name" : "Emission source",
+      "addEmissionSource": "Add Emission Source"
+    },
+    "fuel": {
+      "addFuel": "Add Fuel"
     }
 },
   "dialog": {

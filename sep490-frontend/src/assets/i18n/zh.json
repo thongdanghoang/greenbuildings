@@ -138,8 +138,9 @@
         "create": "创建",
         "labels": {
           "name": "建筑名称",
-          "numberOfDevices": "设备数量",
-          "maxNumberOfDevices": "估计建筑物内的设备库存量",
+          "numberOfDevices": "预计活动数量",
+          "haveSubscriptionOfNumberOfDevices": "订阅中的最大活动数量",
+          "maxNumberOfDevices": "估计建筑物内的活动库存量",
           "validFromInclusive": "有效日期",
           "validToInclusive": "有效日期",
           "address": "地址",
@@ -332,7 +333,11 @@
       "adjustRatio": "调整比例"
     },
     "emissionSource": {
-      "name" : "排放源"
+      "name" : "排放源",
+      "addEmissionSource": "添加排放源"
+    },
+    "fuel": {
+      "addFuel": "添加燃料"
     }
   },
   "dialog": {
