@@ -181,7 +181,7 @@
           "name": "Name",
           "type": "Type",
           "category": "Category",
-          "quantity": "Quantity"
+          "quantity": "Quantity",
         },
         "details": {
           "title": "Emission Activity Details",
@@ -203,6 +203,7 @@
             "factor": "Emission Factor",
             "source": "Emission Source",
             "file": {
+              "title": "File",
               "choose": "Choose file"
             }
           }

@@ -191,7 +191,6 @@
           "unit": "单位",
           "date": "日期"
         },
-        "new": "新记录",
         "record": {
           "title": "排放记录",
           "deleteWithCount": "删除（{{count}}）条记录",
@@ -203,6 +202,7 @@
             "factor": "排放系数",
             "source": "排放源",
             "file": {
+              "title": "文件",
               "choose": "选择文件"
             }
           }
