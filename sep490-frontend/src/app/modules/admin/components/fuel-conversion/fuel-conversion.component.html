@@ -14,7 +14,7 @@
 >
 </table-template>
 <ng-template #captionTemplateRef>
-    <div class="flex items-center justify-start">
+    <div class="flex items-center justify-between">
         <div class="flex gap-2.5">
             <p-iconfield>
                 <p-inputicon styleClass="pi pi-search" />
@@ -34,5 +34,32 @@
                 (onClick)="search()"
             />
         </div>
+        <div class="flex gap-2.5">
+            <p-button
+                severity="primary"
+                [label]="'admin.fuel.addFuel' | translate"
+                icon="pi pi-user-plus"
+                outlined
+                (onClick)="addFuel()"
+            />
+        </div>
+    </div>
+</ng-template>
+<ng-template #actionsTemplate let-rowData>
+    <div class="flex">
+        <p-button
+            icon="pi pi-pencil"
+            [rounded]="true"
+            [text]="true"
+            severity="info"
+            (onClick)="onEdit(rowData)"
+        />
+        <p-button
+            icon="pi pi-trash"
+            [rounded]="true"
+            [text]="true"
+            severity="danger"
+            (onClick)="onDelete(rowData)"
+        />
     </div>
 </ng-template>

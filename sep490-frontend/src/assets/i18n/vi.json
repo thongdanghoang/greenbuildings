@@ -139,8 +139,9 @@
         "create": "Tạo mới",
         "labels": {
           "name": "Tên tòa nhà",
-          "numberOfDevices": "Số lượng thiết bị",
-          "maxNumberOfDevices": "Ước tính số lượng thiết bị kiểm kê trong tòa nhà",
+          "numberOfDevices": "Số lượng hoạt động dự kiến",
+          "haveSubscriptionOfNumberOfDevices": "Số lượng hoạt động tối đa trong đăng ký",
+          "maxNumberOfDevices": "Ước tính số lượng hoạt động kiểm kê trong tòa nhà",
           "validFromInclusive": "Hiệu lực từ",
           "validToInclusive": "Hiệu lực đến",
           "address": "Địa chỉ",
@@ -337,7 +338,11 @@
       "adjustRatio": "Điều chỉnh tỷ lệ"
     },
     "emissionSource": {
-      "name" : "Nguồn phát thải"
+      "name" : "Nguồn phát thải",
+      "addEmissionSource": "Thêm Nguồn Phát Thải"
+    },
+    "fuel": {
+      "addFuel": "Thêm nhiên liệu"
     }
   },
   "dialog": {

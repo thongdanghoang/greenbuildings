@@ -1,4 +1,10 @@
-import {Component, EventEmitter, OnInit} from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  OnInit,
+  TemplateRef,
+  ViewChild
+} from '@angular/core';
 import {SubscriptionAwareComponent} from '../../../core/subscription-aware.component';
 import {ApplicationService} from '../../../core/services/application.service';
 import {MessageService} from 'primeng/api';
@@ -12,6 +18,13 @@ import {
 } from '../../../shared/models/base-models';
 import {Observable} from 'rxjs';
 import {EmissionSourceService} from '../../services/emission-source.service';
+import {
+  DialogService,
+  DynamicDialogConfig,
+  DynamicDialogRef
+} from 'primeng/dynamicdialog';
+import {UUID} from '../../../../../types/uuid';
+import {EmissionSourceDialogComponent} from '../../dialog/emission-source-dialog/emission-source-dialog.component';
 export interface EmissionSourceCriteria {
   criteria: string;
 }
@@ -24,6 +37,9 @@ export class EmissionSourceComponent
   extends SubscriptionAwareComponent
   implements OnInit
 {
+  @ViewChild('actionsTemplate', {static: true})
+  actionsTemplate!: TemplateRef<any>;
+  ref: DynamicDialogRef | undefined;
   protected fetchEmissionSource!: (
     criteria: SearchCriteriaDto<EmissionSourceCriteria>
   ) => Observable<SearchResultDto<EmissionSource>>;
@@ -36,7 +52,8 @@ export class EmissionSourceComponent
     private readonly emissionSourceService: EmissionSourceService,
     private readonly messageService: MessageService,
     private readonly modalProvider: ModalProvider,
-    private readonly translate: TranslateService
+    private readonly translate: TranslateService,
+    private readonly dialogService: DialogService
   ) {
     super();
   }
@@ -61,6 +78,11 @@ export class EmissionSourceComponent
       field: 'nameZH',
       header: '排放源'
     });
+    this.cols.push({
+      field: 'actions',
+      header: '',
+      templateRef: this.actionsTemplate
+    });
   }
 
   onSelectionChange(selectedUsers: EmissionSource[]): void {
@@ -69,5 +91,44 @@ export class EmissionSourceComponent
 
   search(): void {
     this.searchEvent.emit();
+  }
+
+  openNewActivityDialog(emissionId?: UUID): void {
+    // Made emissionId optional with ?
+    const config: DynamicDialogConfig<UUID | undefined> = {
+      // Allow undefined in config.data
+      data: emissionId, // Will be undefined for add, UUID for edit
+      closeOnEscape: true,
+      dismissableMask: true,
+      showHeader: false
+    };
+
+    // Clean up previous dialog if it exists
+    if (this.ref) {
+      this.ref.close();
+    }
+
+    // Open the dialog with EmissionSourceDialogComponent
+    this.ref = this.dialogService.open(EmissionSourceDialogComponent, config);
+    this.ref.onClose.subscribe((result: boolean | undefined) => {
+      if (result) {
+        this.searchEvent.emit(); // Refresh the list if dialog closed with a result
+      }
+    });
+  }
+
+  // Add a new emission source
+  addEmissionSource(): void {
+    this.openNewActivityDialog(undefined); // Explicitly pass undefined for clarity
+  }
+
+  // Edit an existing emission source
+  onEdit(rowData: EmissionSource): void {
+    this.selected = [rowData];
+    const emissionId = this.selected[0].id; // Fixed typo: emisstionId -> emissionId
+    this.openNewActivityDialog(emissionId);
+  }
+  onDelete(rowData: EmissionSource): void {
+    this.selected = [rowData];
   }
 }

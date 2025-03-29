@@ -21,4 +21,15 @@ export class EmissionSourceService {
       criteria
     );
   }
+
+  public getEmissionSourceById(
+    emssionSourceId: string
+  ): Observable<EmissionSource> {
+    return this.httpClient.get<EmissionSource>(
+      `${AppRoutingConstants.ENTERPRISE_API_URL}/emission-source/${emssionSourceId}`
+    );
+  }
+  public get createOrUpdateEmissionSourceURL(): string {
+    return `${AppRoutingConstants.ENTERPRISE_API_URL}/emission-source`;
+  }
 }

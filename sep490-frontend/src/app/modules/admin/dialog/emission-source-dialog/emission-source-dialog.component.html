@@ -1,0 +1,120 @@
+<div class="w-[300px] sm:w-[400px] md:w-[500px] mt-4">
+    <!-- Dialog Header -->
+    <div class="p-dialog-header p-0 border-b">
+        <span class="text-xl font-semibold">
+            {{ "admin.emissionSource.name" | translate }}
+        </span>
+        <button
+            pButton
+            type="button"
+            icon="pi pi-times"
+            class="p-button-rounded p-button-text"
+            (click)="closeDialog()"
+        ></button>
+    </div>
+
+    <!-- Stepper with Three Steps -->
+    <p-stepper [value]="1" class="block">
+        <p-step-panels class="block h-full">
+            <!-- Step 1: Vietnamese Name -->
+            <p-step-panel [value]="1">
+                <ng-template #content let-activateCallback="activateCallback">
+                    <div
+                        class="p-0 min-h-[150px] p-dialog-content flex flex-col overflow-hidden"
+                    >
+                        <form [formGroup]="formGroup">
+                            <p-iftalabel class="my-2">
+                                <input
+                                    pInputText
+                                    formControlName="nameVN"
+                                    class="w-full"
+                                    autocomplete="off"
+                                />
+                                <label>{{ "Name (VN)" | translate }}</label>
+                            </p-iftalabel>
+                        </form>
+                        <div class="flex justify-end mt-2">
+                            <p-button
+                                label="{{ 'common.next' | translate }}"
+                                icon="pi pi-arrow-right"
+                                iconPos="right"
+                                (onClick)="activateCallback(2)"
+                            ></p-button>
+                        </div>
+                    </div>
+                </ng-template>
+            </p-step-panel>
+
+            <!-- Step 2: English Name -->
+            <p-step-panel [value]="2">
+                <ng-template #content let-activateCallback="activateCallback">
+                    <div
+                        class="p-0 min-h-[150px] p-dialog-content flex flex-col overflow-hidden"
+                    >
+                        <form [formGroup]="formGroup">
+                            <p-iftalabel class="my-2">
+                                <input
+                                    pInputText
+                                    formControlName="nameEN"
+                                    class="w-full"
+                                    autocomplete="off"
+                                />
+                                <label>{{ "Name (EN)" | translate }}</label>
+                            </p-iftalabel>
+                        </form>
+                        <div class="flex justify-between mt-2">
+                            <p-button
+                                label="{{ 'common.back' | translate }}"
+                                severity="secondary"
+                                icon="pi pi-arrow-left"
+                                (onClick)="activateCallback(1)"
+                            ></p-button>
+                            <p-button
+                                label="{{ 'common.next' | translate }}"
+                                icon="pi pi-arrow-right"
+                                iconPos="right"
+                                (onClick)="activateCallback(3)"
+                            ></p-button>
+                        </div>
+                    </div>
+                </ng-template>
+            </p-step-panel>
+
+            <!-- Step 3: Chinese Name -->
+            <p-step-panel [value]="3">
+                <ng-template #content let-activateCallback="activateCallback">
+                    <div
+                        class="p-0 min-h-[150px] p-dialog-content flex flex-col overflow-hidden"
+                    >
+                        <form [formGroup]="formGroup">
+                            <p-iftalabel class="my-2">
+                                <input
+                                    pInputText
+                                    formControlName="nameZH"
+                                    class="w-full"
+                                    autocomplete="off"
+                                />
+                                <label>{{ "Name (ZH)" | translate }}</label>
+                            </p-iftalabel>
+                        </form>
+                        <div class="flex justify-between mt-2">
+                            <p-button
+                                label="{{ 'common.back' | translate }}"
+                                severity="secondary"
+                                icon="pi pi-arrow-left"
+                                (onClick)="activateCallback(2)"
+                            ></p-button>
+                            <p-button
+                                label="{{ 'common.save' | translate }}"
+                                icon="pi pi-check"
+                                severity="primary"
+                                [disabled]="formGroup.invalid"
+                                (onClick)="submit()"
+                            ></p-button>
+                        </div>
+                    </div>
+                </ng-template>
+            </p-step-panel>
+        </p-step-panels>
+    </p-stepper>
+</div>
