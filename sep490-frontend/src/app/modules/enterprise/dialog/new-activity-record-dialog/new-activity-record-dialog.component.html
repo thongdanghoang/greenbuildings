@@ -1,4 +1,4 @@
-<div class="p-4">
+<div class="p-4 max-w-sm sm:max-w-md md:min-w-[500px]">
     <div class="flex justify-between items-center mb-4">
         <h2 class="text-xl font-semibold">
             {{ "enterprise.emission.activity.record.new" | translate }}
@@ -39,7 +39,7 @@
     <form
         [formGroup]="formGroup"
         (ngSubmit)="submit()"
-        class="grid grid-cols-1 md:grid-cols-2 gap-4 overflow-hidden"
+        class="grid grid-cols-1 md:grid-cols-1 gap-4"
     >
         <p-iftalabel class="my-2">
             <p-dropdown
@@ -56,28 +56,29 @@
         </p-iftalabel>
 
         <p-iftalabel class="my-2">
-            <p-inputnumber
-                formControlName="value"
-                class="w-full"
-                [showButtons]="true"
-                [min]="0"
-            >
-                <ng-template pTemplate="incrementbuttonicon">
-                    <span class="pi pi-plus"></span>
-                </ng-template>
-                <ng-template pTemplate="decrementbuttonicon">
-                    <span class="pi pi-minus"></span>
-                </ng-template>
+            <p-inputnumber formControlName="value" class="w-full" [min]="0">
             </p-inputnumber>
             <label>{{
                 "enterprise.emission.activity.record.table.value" | translate
             }}</label>
         </p-iftalabel>
 
+        <p-fileUpload
+            mode="basic"
+            chooseLabel="{{
+                'enterprise.emission.activity.record.table.file.choose'
+                    | translate
+            }}"
+            [auto]="false"
+            accept="image/*,application/pdf"
+            (onSelect)="onFileSelect($event)"
+        ></p-fileUpload>
+
         <p-iftalabel class="my-2">
             <p-date-picker
                 formControlName="startDate"
                 class="w-full"
+                [style]="{ width: '100%' }"
                 [inline]="true"
                 [placeholder]="
                     'enterprise.emission.activity.record.table.startDate'
@@ -95,6 +96,7 @@
                 [inline]="true"
                 formControlName="endDate"
                 class="w-full"
+                [style]="{ width: '100%' }"
                 [placeholder]="
                     'enterprise.emission.activity.record.table.endDate'
                         | translate
@@ -105,7 +107,7 @@
             }}</label>
         </p-iftalabel>
 
-        <div class="md:col-span-2 flex justify-between gap-2 mt-4">
+        <div class="flex justify-between">
             <p-button
                 type="button"
                 (click)="onCancel()"

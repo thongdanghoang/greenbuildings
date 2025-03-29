@@ -20,7 +20,8 @@
     "cancel": "Hủy",
     "error": {
       "title": "Lỗi",
-      "technicalServerError": "Đã xảy ra lỗi máy chủ không mong muốn. Vui lòng liên hệ với System Admin có correlationId = {{correlationId}} để biết thêm thông tin."
+      "technicalServerError": "Đã xảy ra lỗi máy chủ không mong muốn. Vui lòng liên hệ với System Admin có correlationId = {{correlationId}} để biết thêm thông tin.",
+      "fileSizeError": "Kích thước file phải nhỏ hơn 5MB và phải là file PDF hoặc hình ảnh."
     }
   },
   "validation": {
@@ -201,7 +202,11 @@
             "startDate": "Ngày bắt đầu",
             "endDate": "Ngày kết thúc",
             "factor": "Hệ số phát thải",
-            "source": "Nguồn phát thải"
+            "source": "Nguồn phát thải",
+            "file": {
+              "title": "Tập tin",
+              "choose": "Chọn tập tin"
+            }
           }
         }
       }

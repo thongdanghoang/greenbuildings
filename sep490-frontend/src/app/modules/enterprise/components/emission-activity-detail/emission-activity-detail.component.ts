@@ -1,39 +1,45 @@
-import {Component, EventEmitter, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {Observable, Observer, filter, map, switchMap, takeUntil} from 'rxjs';
-import {validate} from 'uuid';
-import {UUID} from '../../../../../types/uuid';
+import {HttpClient} from '@angular/common/http';
 import {
-  NewActivityRecordDialogComponent,
-  NewActivityRecordDialogConfig
-} from '../../dialog/new-activity-record-dialog/new-activity-record-dialog.component';
-import {EmissionActivityService} from '../../services/emission-activity.service';
-import {
-  EmissionActivityRecordCriteria,
-  EmissionActivityRecordService
-} from '../../services/emission-activity-record.service';
-import {
-  EmissionActivityDetails,
-  EmissionActivityRecord
-} from '../../models/enterprise.dto';
-import {AppRoutingConstants} from '../../../../app-routing.constant';
-import {MessageService} from 'primeng/api';
-import {TranslateService} from '@ngx-translate/core';
-import {ApplicationService} from '../../../core/services/application.service';
-import {
-  SearchCriteriaDto,
-  SearchResultDto
-} from '../../../shared/models/base-models';
-import {TableTemplateColumn} from '../../../shared/components/table-template/table-template.component';
-import {AbstractFormComponent} from '../../../shared/components/form/abstract-form-component';
+  Component,
+  EventEmitter,
+  OnInit,
+  TemplateRef,
+  ViewChild
+} from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
   FormControl,
   Validators
 } from '@angular/forms';
-import {HttpClient} from '@angular/common/http';
+import {ActivatedRoute, Router} from '@angular/router';
+import {TranslateService} from '@ngx-translate/core';
+import {MessageService} from 'primeng/api';
 import {DialogService, DynamicDialogConfig} from 'primeng/dynamicdialog';
+import {Observable, Observer, filter, map, switchMap, takeUntil} from 'rxjs';
+import {validate} from 'uuid';
+import {UUID} from '../../../../../types/uuid';
+import {AppRoutingConstants} from '../../../../app-routing.constant';
+import {ApplicationService} from '../../../core/services/application.service';
+import {AbstractFormComponent} from '../../../shared/components/form/abstract-form-component';
+import {TableTemplateColumn} from '../../../shared/components/table-template/table-template.component';
+import {
+  SearchCriteriaDto,
+  SearchResultDto
+} from '../../../shared/models/base-models';
+import {
+  NewActivityRecordDialogComponent,
+  NewActivityRecordDialogConfig
+} from '../../dialog/new-activity-record-dialog/new-activity-record-dialog.component';
+import {
+  EmissionActivityDetails,
+  EmissionActivityRecord
+} from '../../models/enterprise.dto';
+import {
+  EmissionActivityRecordCriteria,
+  EmissionActivityRecordService
+} from '../../services/emission-activity-record.service';
+import {EmissionActivityService} from '../../services/emission-activity.service';
 
 @Component({
   selector: 'app-emission-activity-detail',
@@ -62,6 +68,8 @@ export class EmissionActivityDetailComponent
   searchCriteria: EmissionActivityRecordCriteria = {
     emissionActivityId: '' as UUID
   };
+  @ViewChild('fileTemplate', {static: true})
+  fileTemplate!: TemplateRef<any>;
   searchEvent = new EventEmitter<void>();
   clearSelectedEvent = new EventEmitter<void>();
   fetchRecords!: (
@@ -164,6 +172,12 @@ export class EmissionActivityDetailComponent
         field: 'endDate',
         header: 'enterprise.emission.activity.record.table.endDate',
         sortable: true
+      },
+      {
+        field: 'file',
+        header: 'enterprise.emission.activity.record.table.file.title',
+        sortable: false,
+        templateRef: this.fileTemplate
       }
     ];
   }
@@ -194,6 +208,15 @@ export class EmissionActivityDetailComponent
       AppRoutingConstants.EMISSION_ACTIVITY_PATH,
       this.activity.building.id
     ]);
+  }
+
+  onDownloadFile(record: EmissionActivityRecord): void {
+    this.emissionActivityRecordService
+      .getFileUrl(record.id as string, record.file.id as string)
+      .subscribe((result: any) => {
+        const url = result.url;
+        window.open(url, '_blank'); // Open in a new tab
+      });
   }
 
   onNewRecord(): void {

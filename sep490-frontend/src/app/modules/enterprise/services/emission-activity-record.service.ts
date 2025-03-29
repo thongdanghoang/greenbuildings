@@ -1,13 +1,13 @@
-import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {UUID} from '../../../../types/uuid';
+import {AppRoutingConstants} from '../../../app-routing.constant';
 import {
   SearchCriteriaDto,
   SearchResultDto
 } from '../../shared/models/base-models';
 import {EmissionActivityRecord} from '../models/enterprise.dto';
-import {AppRoutingConstants} from '../../../app-routing.constant';
 
 export interface EmissionActivityRecordCriteria {
   emissionActivityId: UUID;
@@ -39,6 +39,12 @@ export class EmissionActivityRecordService {
       {
         body: ids
       }
+    );
+  }
+
+  getFileUrl(recordId: string, fileId: string): Observable<any> {
+    return this.http.get<any>(
+      `${AppRoutingConstants.ENTERPRISE_API_URL}/${this.EMISSION_ACTIVITY_RECORD_PATH}/${recordId}/file/${fileId}/url`
     );
   }
 }
