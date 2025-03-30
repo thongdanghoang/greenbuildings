@@ -165,27 +165,6 @@
                                     | translate
                             }}</label>
                         </p-iftalabel>
-
-                        <!-- Quantity -->
-                        <p-iftalabel class="my-2">
-                            <p-inputnumber
-                                formControlName="quantity"
-                                class="w-full"
-                                [showButtons]="true"
-                                [min]="0"
-                            >
-                                <ng-template pTemplate="incrementbuttonicon">
-                                    <span class="pi pi-plus"></span>
-                                </ng-template>
-                                <ng-template pTemplate="decrementbuttonicon">
-                                    <span class="pi pi-minus"></span>
-                                </ng-template>
-                            </p-inputnumber>
-                            <label>{{
-                                "enterprise.emission.activity.dialog.Quantity"
-                                    | translate
-                            }}</label>
-                        </p-iftalabel>
                     </form>
                     <!-- Step 2 Footer -->
                     <div class="flex justify-between">

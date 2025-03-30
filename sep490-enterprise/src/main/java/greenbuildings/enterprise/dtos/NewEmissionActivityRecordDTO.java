@@ -1,6 +1,7 @@
 package greenbuildings.enterprise.dtos;
 
 import greenbuildings.enterprise.enums.EmissionUnit;
+import jakarta.validation.constraints.Min;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -13,6 +14,7 @@ public record NewEmissionActivityRecordDTO(
         BigDecimal value,
         EmissionUnit unit,
         LocalDateTime startDate,
-        LocalDateTime endDate
+        LocalDateTime endDate,
+        @Min(0) int quantity
 ) {
 }

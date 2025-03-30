@@ -53,4 +53,8 @@ public class EmissionActivityRecordEntity extends AbstractAuditableEntity {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "file_id", referencedColumnName = "id")
     private RecordFileEntity file;
+    
+    @Min(0)
+    @Column(name = "quantity")
+    private int quantity;
 }

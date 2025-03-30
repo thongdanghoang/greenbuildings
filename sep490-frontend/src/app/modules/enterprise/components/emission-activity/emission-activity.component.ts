@@ -140,8 +140,8 @@ export class EmissionActivityComponent
       sortable: true
     });
     this.cols.push({
-      header: 'enterprise.emission.activity.table.quantity',
-      field: 'quantity',
+      header: 'enterprise.emission.activity.table.description',
+      field: 'description',
       sortable: true
     });
     this.cols.push({

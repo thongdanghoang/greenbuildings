@@ -58,7 +58,6 @@ export class EmissionActivityDetailComponent
     emissionFactorID: new FormControl('', [Validators.required]),
     type: new FormControl(''),
     category: new FormControl(''),
-    quantity: new FormControl(0, [Validators.required, Validators.min(0)]),
     description: new FormControl(''),
     records: new FormControl([])
   };
@@ -131,7 +130,6 @@ export class EmissionActivityDetailComponent
     this.formStructure.name.setValue(this.activity.name);
     this.formStructure.type.setValue(this.activity.type);
     this.formStructure.category.setValue(this.activity.category);
-    this.formStructure.quantity.setValue(this.activity.quantity);
     this.formStructure.description.setValue(this.activity.description);
   }
 
@@ -151,6 +149,7 @@ export class EmissionActivityDetailComponent
     this.updateFormStructureData();
   }
 
+  // eslint-disable-next-line max-lines-per-function
   buildCols(): void {
     this.cols = [
       {
@@ -162,6 +161,17 @@ export class EmissionActivityDetailComponent
         field: 'unit',
         header: 'enterprise.emission.activity.record.table.unit',
         sortable: true
+      },
+      {
+        field: 'quantity',
+        header: 'enterprise.emission.activity.record.table.quantity',
+        sortable: true
+      },
+      {
+        field: 'ghg',
+        header: 'enterprise.emission.activity.record.table.ghg',
+        sortable: true,
+        sortField: 'quantity'
       },
       {
         field: 'startDate',

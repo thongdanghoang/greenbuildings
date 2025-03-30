@@ -10,6 +10,7 @@
     "reject": "Không",
     "success": "Thành công",
     "saveSuccess": "Lưu thành công!",
+    "download": "Tải xuống",
     "search": "Tìm kiếm",
     "create": "Tạo",
     "login": "ĐĂNG NHẬP",
@@ -189,7 +190,8 @@
           "name": "Tên",
           "type": "Loại",
           "category": "Danh mục",
-          "quantity": "Số lượng"
+          "quantity": "Số lượng",
+          "description": "Mô tả"
         },
         "details": {
           "title": "Chi tiết hoạt động phát thải",
@@ -202,6 +204,7 @@
         "record": {
           "title": "Bản ghi phát thải",
           "new": "Bản ghi phát thải mới",
+          "dateWarning": "Ngày bản ghi phát thải trong tương lai, báo cáo có thể không chính xác",
           "deleteWithCount": "Xóa ({{count}}) bản ghi",
           "table": {
             "value": "Giá trị",
@@ -210,6 +213,8 @@
             "endDate": "Ngày kết thúc",
             "factor": "Hệ số phát thải",
             "source": "Nguồn phát thải",
+            "quantity": "Số hoạt động",
+            "ghg": "Khí nhà kính (kgCO2e)",
             "file": {
               "title": "Tập tin",
               "choose": "Chọn tập tin"

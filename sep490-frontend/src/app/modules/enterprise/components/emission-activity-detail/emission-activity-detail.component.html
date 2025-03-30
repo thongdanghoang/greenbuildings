@@ -98,26 +98,6 @@
                         </p-iftalabel>
 
                         <p-iftalabel class="my-2 col-span-2">
-                            <p-inputnumber
-                                formControlName="quantity"
-                                class="w-full"
-                                [showButtons]="true"
-                                [min]="0"
-                            >
-                                <ng-template pTemplate="incrementbuttonicon">
-                                    <span class="pi pi-plus"></span>
-                                </ng-template>
-                                <ng-template pTemplate="decrementbuttonicon">
-                                    <span class="pi pi-minus"></span>
-                                </ng-template>
-                            </p-inputnumber>
-                            <label>{{
-                                "enterprise.emission.activity.table.quantity"
-                                    | translate
-                            }}</label>
-                        </p-iftalabel>
-
-                        <p-iftalabel class="my-2 col-span-2">
                             <input
                                 pInputText
                                 formControlName="description"
@@ -193,18 +173,14 @@
             <ng-template #fileTemplate let-rowData>
                 <p-button
                     *ngIf="rowData.file"
-                    [label]="rowData.file.fileName"
+                    [label]="'common.download' | translate"
+                    [pTooltip]="rowData.file.fileName"
                     icon="pi pi-download"
                     class="w-full"
                     [style]="{ maxWidth: '200px' }"
                     [styleClass]="'p-button-text p-button-sm'"
                     (onClick)="onDownloadFile(rowData)"
                 >
-                    <ng-template pTemplate="label">
-                        <span class="truncate block">{{
-                            rowData.file.fileName
-                        }}</span>
-                    </ng-template>
                 </p-button>
             </ng-template>
         </p-card>

@@ -14,6 +14,7 @@
     "create": "Create",
     "login": "LOGIN",
     "logout": "Logout",
+    "download": "Download",
     "save": "Save",
     "update": "Update",
     "revert": "Revert",
@@ -189,7 +190,8 @@
           "name": "Name",
           "type": "Type",
           "category": "Category",
-          "quantity": "Quantity"
+          "quantity": "Quantity",
+          "description": "Description"
         },
         "details": {
           "title": "Emission Activity Details",
@@ -203,6 +205,7 @@
           "title": "Emission Records",
           "new": "New Activity Record",
           "deleteWithCount": "Delete ({{count}}) records",
+          "dateWarning": "Record date are in the future, the report might be inaccurate",
           "table": {
             "value": "Value",
             "unit": "Unit",
@@ -210,6 +213,8 @@
             "endDate": "End Date",
             "factor": "Emission Factor",
             "source": "Emission Source",
+            "quantity": "Number of activities",
+            "ghg": "Greenhouse gas (kgCO2e)",
             "file": {
               "title": "File",
               "choose": "Choose file"

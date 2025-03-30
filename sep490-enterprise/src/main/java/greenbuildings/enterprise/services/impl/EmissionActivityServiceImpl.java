@@ -54,7 +54,6 @@ public class EmissionActivityServiceImpl implements EmissionActivityService {
         existing.setType(entity.getType());
         existing.setCategory(entity.getCategory());
         existing.setDescription(entity.getDescription());
-        existing.setQuantity(entity.getQuantity());
     }
     
     @Override

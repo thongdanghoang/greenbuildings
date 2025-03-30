@@ -13,6 +13,7 @@ import org.mapstruct.MappingConstants;
 @DecoratedWith(EmissionActivityRecordMapperDecorator.class)
 public interface EmissionActivityRecordMapper {
 
+    @Mapping(target = "ghg", ignore = true)
     EmissionActivityRecordDTO toDTO(EmissionActivityRecordEntity emissionActivityEntity);
 
     @Mapping(target = "emissionActivityEntity", ignore = true)
