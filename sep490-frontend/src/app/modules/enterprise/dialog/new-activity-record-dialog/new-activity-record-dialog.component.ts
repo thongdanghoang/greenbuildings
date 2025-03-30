@@ -55,7 +55,8 @@ export class NewActivityRecordDialogComponent extends AbstractFormComponent<Emis
       value: new FormControl(0, [Validators.required, Validators.min(0)]),
       unit: new FormControl('', [Validators.required]),
       startDate: new FormControl(new Date(), [Validators.required]),
-      endDate: new FormControl(new Date(), [Validators.required])
+      endDate: new FormControl(new Date(), [Validators.required]),
+      quantity: new FormControl(0, [Validators.required, Validators.min(0)])
     };
   }
 
@@ -116,6 +117,7 @@ export class NewActivityRecordDialogComponent extends AbstractFormComponent<Emis
     return this.emissionActivityRecordService.newRecordURL;
   }
 
+  /* eslint-disable dot-notation */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   override onSubmitFormDataSuccess(result: any): void {
     this.notificationService.add({
@@ -123,8 +125,20 @@ export class NewActivityRecordDialogComponent extends AbstractFormComponent<Emis
       summary: this.translate.instant('common.success'),
       detail: this.translate.instant('common.saveSuccess')
     });
+    if (
+      this.formGroup.controls['startDate'].value > Date.now() ||
+      this.formGroup.controls['endDate'].value > Date.now()
+    ) {
+      this.notificationService.add({
+        severity: 'warn',
+        summary: this.translate.instant(
+          'enterprise.emission.activity.record.dateWarning'
+        )
+      });
+    }
     this.dialogRef.close(true);
   }
+  /* eslint-enable dot-notation */
 
   onCancel(): void {
     this.dialogRef.close();

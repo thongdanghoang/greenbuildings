@@ -66,7 +66,7 @@ import {FuelService} from './services/fuel.service';
 import {ModalProvider} from './services/modal-provider';
 import {UnitService} from './services/unit.service';
 import {PopoverModule} from 'primeng/popover';
-
+import {TooltipModule} from 'primeng/tooltip';
 const primeNgModules = [
   AccordionModule,
   AutoFocusModule,
@@ -116,7 +116,8 @@ const primeNgModules = [
   Calendar,
   DropdownModule,
   FileUpload,
-  PopoverModule
+  PopoverModule,
+  TooltipModule
 ];
 
 const commons = [

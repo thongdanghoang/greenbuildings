@@ -40,7 +40,6 @@ export class NewActivityDialogComponent extends AbstractFormComponent<EmissionAc
     type: new FormControl(''),
     category: new FormControl(''),
     description: new FormControl(''),
-    quantity: new FormControl(null, [Validators.required, Validators.min(0)]),
     records: new FormControl([])
   };
 

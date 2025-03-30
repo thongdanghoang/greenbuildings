@@ -33,7 +33,6 @@ export interface EmissionActivity extends BaseDTO {
   type: string;
   category: string;
   description: string;
-  quantity: number;
 }
 
 export interface EmissionActivityDetails extends BaseDTO {
@@ -50,9 +49,11 @@ export interface EmissionActivityDetails extends BaseDTO {
 export interface EmissionActivityRecord extends BaseDTO {
   value: number;
   unit: keyof typeof EmissionUnit;
+  quantity: number;
   startDate: Date;
   endDate: Date;
   file: EmissionActivityRecordFile;
+  ghg: number;
 }
 
 export interface EmissionActivityRecordFile extends BaseDTO {

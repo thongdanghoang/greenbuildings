@@ -1,6 +1,5 @@
 package greenbuildings.enterprise.dtos;
 
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
@@ -16,7 +15,6 @@ public record EmissionActivityDTO (
         @NotEmpty String name,
         String type,
         String category,
-        String description,
-        @Min(0) int quantity
+        String description
 ) {
 }

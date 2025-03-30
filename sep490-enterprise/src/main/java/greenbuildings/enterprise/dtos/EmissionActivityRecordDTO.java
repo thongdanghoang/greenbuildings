@@ -13,6 +13,8 @@ public record EmissionActivityRecordDTO(
         EmissionUnit unit,
         LocalDate startDate,
         LocalDate endDate,
-        RecordFileDTO file
+        RecordFileDTO file,
+        int quantity,
+        double ghg
 ) {
 }

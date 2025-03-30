@@ -14,6 +14,7 @@
     "search": "搜索",
     "login": "登录",
     "logout": "登出",
+    "download": "下载",
     "save": "保存",
     "revert": "撤销",
     "back": "返回",
@@ -189,7 +190,8 @@
           "name": "名称",
           "type": "类型",
           "category": "类别",
-          "quantity": "数量"
+          "quantity": "数量",
+          "description": "描述"
         },
         "details": {
           "title": "排放活动详情",
@@ -202,6 +204,7 @@
         "record": {
           "title": "排放记录",
           "deleteWithCount": "删除（{{count}}）条记录",
+          "dateWarning": "记录日期在将来，报告可能不准确",
           "table": {
             "value": "数值",
             "unit": "单位",
@@ -209,6 +212,8 @@
             "endDate": "结束日期",
             "factor": "排放系数",
             "source": "排放源",
+            "quantity": "活动数量",
+            "ghg": "温室气体（kgCO2e）",
             "file": {
               "title": "文件",
               "choose": "选择文件"

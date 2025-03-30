@@ -12,7 +12,6 @@ import jakarta.persistence.Table;
 import jakarta.persistence.NamedEntityGraph;
 import jakarta.persistence.NamedAttributeNode;
 import jakarta.persistence.NamedSubgraph;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -78,10 +77,6 @@ public class EmissionActivityEntity extends AbstractAuditableEntity {
     @Size(max = 255)
     @Column(name = "category")
     private String category;
-    
-    @Min(0)
-    @Column(name = "quantity")
-    private int quantity;
     
     @Size(max = 1000)
     @Column(name = "description")
