@@ -25,7 +25,7 @@ public class EmissionFactorServiceImpl implements EmissionFactorService {
     @Override
     @Cacheable("emissionFactors")
     public Set<EmissionFactorEntity> findAll() {
-        return new HashSet<>(emissionFactorRepository.findAll());
+        return new HashSet<>(emissionFactorRepository.findAllByActiveIsTrue());
     }
 
     @Override
