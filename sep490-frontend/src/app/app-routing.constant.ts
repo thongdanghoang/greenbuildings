@@ -11,6 +11,7 @@ export class AppRoutingConstants {
   public static readonly USERS_PATH = 'users';
   public static readonly ADMIN_PATH = 'admin';
   public static readonly USER_DETAILS = 'user-details';
+  public static readonly USER_PROFILE = 'user-profile';
 
   // Enterprise Module
   public static readonly ENTERPRISE_PATH = 'enterprise';

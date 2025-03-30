@@ -2,6 +2,7 @@ package greenbuildings.idp.rest;
 
 import commons.springfw.impl.mappers.CommonMapper;
 import commons.springfw.impl.securities.UserContextData;
+import commons.springfw.impl.utils.SecurityUtils;
 import greenbuildings.idp.dto.UserByBuildingDTO;
 import jakarta.annotation.security.RolesAllowed;
 import lombok.RequiredArgsConstructor;
@@ -44,6 +45,18 @@ public class EnterpriseUserRestController {
         var userDetailsEntity = userService.getEnterpriseUserDetail(id);
         var userDetails = userMapper.userEntityToEnterpriseUserDetailDTO(userDetailsEntity);
         return ResponseEntity.ok(userDetails);
+    }
+
+    @GetMapping("/enterprise-owner")
+    public ResponseEntity<EnterpriseUserDetailsDTO> getEnterpriseOwnerDetail() {
+        String email = SecurityUtils.getCurrentUserEmail().orElseThrow();
+        var enterpriseOwnerDetail = userService.findByEmail(email);
+        if(enterpriseOwnerDetail.isPresent()) {
+            var userDetailsEntity = userService.getEnterpriseUserDetail(enterpriseOwnerDetail.get().getId());
+            var userDetails = userMapper.userEntityToEnterpriseUserDetailDTO(userDetailsEntity);
+            return ResponseEntity.ok(userDetails);
+        }
+         return ResponseEntity.notFound().build();
     }
     
     @PostMapping("/search")

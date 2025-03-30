@@ -33,6 +33,7 @@ import {CoreModule} from './modules/core/core.module';
 import {HttpErrorHandlerInterceptor} from './modules/core/services/http-error-handler.interceptor';
 import {SharedModule} from './modules/shared/shared.module';
 import {LandingPageComponent} from './components/landing-page/landing-page.component';
+import {Popover} from 'primeng/popover';
 
 enum OidcScopes {
   OPENID = 'openid',
@@ -115,7 +116,8 @@ export const httpLoaderFactory = (
         useFactory: HttpLoaderFactory,
         deps: [HttpClient]
       }
-    })
+    }),
+    Popover
   ],
   providers: [
     provideAnimationsAsync(),

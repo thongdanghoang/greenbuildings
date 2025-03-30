@@ -1,5 +1,7 @@
 {
   "common": {
+    "rechargeNow": "Nạp ngay",
+    "profile": "Hồ sơ",
     "noRow": "Không tìm thấy bản ghi nào.",
     "defaultConfirmMessage": "Bạn có muốn xóa hàng này không?",
     "buildingConfirmMessage": "Bạn có muốn xóa tòa nhà này không?",
@@ -11,7 +13,7 @@
     "search": "Tìm kiếm",
     "create": "Tạo",
     "login": "ĐĂNG NHẬP",
-    "logout": "ĐĂNG XUẤT",
+    "logout": "Đăng xuất",
     "update": "Cập nhật",
     "save": "Lưu",
     "revert": "Hoàn tác",

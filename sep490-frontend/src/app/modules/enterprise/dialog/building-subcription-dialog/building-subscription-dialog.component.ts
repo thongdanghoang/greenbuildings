@@ -20,6 +20,7 @@ import {MessageService} from 'primeng/api';
 import {TranslateService} from '@ngx-translate/core';
 import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
 import {SubscriptionService} from '../../services/subscription.service';
+import {AppRoutingConstants} from '../../../../app-routing.constant';
 
 export interface SubscriptionDialogOptions {
   selectedBuildingDetails: BuildingDetails;
@@ -39,6 +40,7 @@ export class BuildingSubscriptionDialogComponent extends AbstractFormComponent<v
   totalToPay: number = 0;
   sufficientBalance: boolean = true;
   protected readonly TransactionType = TransactionType;
+  protected readonly AppRoutingConstants = AppRoutingConstants;
   protected readonly formStructure = {
     months: new FormControl(0, {
       nonNullable: true

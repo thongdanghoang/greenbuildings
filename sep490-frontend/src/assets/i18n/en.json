@@ -1,5 +1,7 @@
 {
   "common": {
+    "rechargeNow": "Recharge now",
+    "profile": "Profile",
     "noRow": "Nothing has been found.",
     "success": "Success",
     "saveSuccess": "Save successfully!",
@@ -11,7 +13,7 @@
     "search": "Search",
     "create": "Create",
     "login": "LOGIN",
-    "logout": "LOGOUT",
+    "logout": "Logout",
     "save": "Save",
     "update": "Update",
     "revert": "Revert",

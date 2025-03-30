@@ -48,26 +48,39 @@
 
     @if (authenticated | async) {
         <img
-            class="rounded-full"
+            (click)="op.toggle($event)"
+            class="rounded-full cursor-pointer"
             ngSrc="assets/images/avatar3D.jpg"
             alt="Avatar"
             width="32"
             height="32"
             priority
         />
-        <p-button
-            icon="pi pi-power-off"
-            class="lg:*:w-40"
-            iconPos="right"
-            [label]="
-                applicationService.isMobile()
-                    ? null
-                    : ('common.logout' | translate)
-            "
-            severity="primary"
-            outlined
-            (onClick)="logout()"
-        />
+        <p-popover #op>
+            <p-menu
+                [model]="menuItems"
+                class="flex *:border-none"
+                styleClass="w-full md:w-60"
+            >
+                <ng-template #item let-item>
+                    <a
+                        pRipple
+                        [routerLink]="item.route"
+                        class="flex items-center p-menu-item-link"
+                    >
+                        <span [class]="item.icon"></span>
+                        <span class="ml-2 w-full block">{{
+                            item.label | translate
+                        }}</span>
+                        <p-badge
+                            *ngIf="item.badge"
+                            class="ml-auto"
+                            [value]="item.badge"
+                        />
+                    </a>
+                </ng-template>
+            </p-menu>
+        </p-popover>
     } @else {
         <p-button
             icon="pi pi-sign-in"

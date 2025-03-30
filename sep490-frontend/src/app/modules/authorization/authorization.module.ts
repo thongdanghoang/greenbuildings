@@ -6,12 +6,14 @@ import {AuthorizationComponent} from './authorization.component';
 import {EnterpriseUserDetailsComponent} from './components/create-user/enterprise-user-details.component';
 import {UsersComponent} from './components/users/users.component';
 import {EnterpriseUserService} from './services/enterprise-user.service';
+import {UserProfileComponent} from './components/user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
     AuthorizationComponent,
     EnterpriseUserDetailsComponent,
-    UsersComponent
+    UsersComponent,
+    UserProfileComponent
   ],
   imports: [SharedModule, AuthorizationRoutingModule],
   providers: [EnterpriseUserService]
