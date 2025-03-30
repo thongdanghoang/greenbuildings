@@ -65,6 +65,7 @@ import {EnergyConversionService} from './services/energy-conversion.service';
 import {FuelService} from './services/fuel.service';
 import {ModalProvider} from './services/modal-provider';
 import {UnitService} from './services/unit.service';
+import {PopoverModule} from 'primeng/popover';
 
 const primeNgModules = [
   AccordionModule,
@@ -114,7 +115,8 @@ const primeNgModules = [
   StepperModule,
   Calendar,
   DropdownModule,
-  FileUpload
+  FileUpload,
+  PopoverModule
 ];
 
 const commons = [
