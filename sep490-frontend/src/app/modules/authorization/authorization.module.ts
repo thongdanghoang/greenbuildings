@@ -10,6 +10,7 @@ import {PowerBiRegenerateAccessTokenComponent} from './components/power-bi-regen
 import {UserProfileComponent} from './components/user-profile/user-profile.component';
 import {UsersComponent} from './components/users/users.component';
 import {EnterpriseUserService} from './services/enterprise-user.service';
+import {PowerBiAccessTokenService} from './services/power-bi-access-token.service';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,6 @@ import {EnterpriseUserService} from './services/enterprise-user.service';
     PowerBiRegenerateAccessTokenComponent
   ],
   imports: [SharedModule, AuthorizationRoutingModule],
-  providers: [EnterpriseUserService]
+  providers: [EnterpriseUserService, PowerBiAccessTokenService]
 })
 export class AuthorizationModule {}
