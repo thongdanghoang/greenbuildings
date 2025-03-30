@@ -1,5 +1,7 @@
 {
   "common": {
+    "rechargeNow": "立即充值",
+    "profile": "轮廓",
     "noRow": "未找到任何记录",
     "success": "成功",
     "saveSuccess": "保存成功!",

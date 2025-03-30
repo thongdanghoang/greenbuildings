@@ -154,11 +154,25 @@
                 }}</label>
             </div>
         } @else if (!this.sufficientBalance) {
-            <p-message severity="warn">
-                {{
-                    "validation.business.buildings.notEnoughCredit" | translate
-                }}
-            </p-message>
+            <div class="flex flex-row items-center justify-between">
+                <p-message severity="warn">
+                    {{
+                        "validation.business.buildings.notEnoughCredit"
+                            | translate
+                    }}
+                </p-message>
+                <a
+                    [routerLink]="[
+                        '/',
+                        AppRoutingConstants.ENTERPRISE_PATH,
+                        AppRoutingConstants.PLAN_PATH,
+                    ]"
+                    (click)="closeDialog()"
+                    class="text-primary hover:underline"
+                >
+                    {{ "common.rechargeNow" | translate }}
+                </a>
+            </div>
         }
     </div>
 </div>

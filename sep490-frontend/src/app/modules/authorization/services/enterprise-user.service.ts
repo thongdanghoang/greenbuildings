@@ -41,4 +41,10 @@ export class EnterpriseUserService {
       `${AppRoutingConstants.IDP_API_URL}/enterprise-user/${userId}`
     );
   }
+
+  public getUserOwner(): Observable<EnterpriseUserDetails> {
+    return this.httpClient.get<EnterpriseUserDetails>(
+      `${AppRoutingConstants.IDP_API_URL}/enterprise-user/enterprise-owner`
+    );
+  }
 }

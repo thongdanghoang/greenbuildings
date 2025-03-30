@@ -7,6 +7,8 @@ import {SubscriptionAwareComponent} from '../../modules/core/subscription-aware.
 import {UserLocale} from '../../modules/shared/enums/user-language.enum';
 import {UserService} from '../../services/user.service';
 import {Router} from '@angular/router';
+import {MenuItem} from 'primeng/api';
+import {AppRoutingConstants} from '../../app-routing.constant';
 
 interface Language {
   display: string;
@@ -23,6 +25,7 @@ export class HeaderComponent
   extends SubscriptionAwareComponent
   implements OnInit
 {
+  menuItems: MenuItem[] | undefined;
   protected readonly authenticated: Observable<boolean>;
   protected languages: Language[] | undefined;
   protected selectedLanguage: Language | undefined;
@@ -38,12 +41,23 @@ export class HeaderComponent
     super();
     this.authenticated = this.applicationService.isAuthenticated();
   }
-
   ngOnInit(): void {
     this.languages = [
       {display: 'Tiếng Việt', mobile: 'VI', key: UserLocale.VI},
       {display: 'English', mobile: 'EN', key: UserLocale.EN},
       {display: '中文(简体)', mobile: 'ZH', key: UserLocale.ZH}
+    ];
+    this.menuItems = [
+      {
+        label: 'common.profile',
+        icon: 'pi pi-user',
+        command: (): void => this.userProfile()
+      },
+      {
+        label: 'common.logout',
+        icon: 'pi pi-power-off',
+        command: (): void => this.logout()
+      }
     ];
     this.selectedLanguage = {
       display: 'Tiếng Việt',
@@ -84,6 +98,12 @@ export class HeaderComponent
 
   protected logout(): void {
     this.applicationService.logout();
+  }
+
+  protected userProfile(): void {
+    void this.router.navigate([
+      `/${AppRoutingConstants.AUTH_PATH}/${AppRoutingConstants.USER_PROFILE}`
+    ]);
   }
 
   protected get isDarkMode(): Observable<boolean> {

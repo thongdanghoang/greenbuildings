@@ -1,0 +1,299 @@
+<div class="sm:px-5">
+    @if (isEdit) {
+        <h1 class="font-bold text-lg">
+            {{ "enterprise.Users.detail" | translate }}
+        </h1>
+    } @else {
+        <h1 class="font-bold text-lg">
+            {{ "enterprise.Users.create" | translate }}
+        </h1>
+    }
+</div>
+<form [formGroup]="formGroup" class="sm:mt-5 sm:px-5 py-5">
+    @if (isEdit) {
+        <!-- ID -->
+        <div class="grid grid-cols-12 sm:gap-4 gap-2 items-center my-3 mb-8">
+            <label for="email" class="font-normal sm:col-span-3 col-span-12">{{
+                "enterprise.Users.id" | translate
+            }}</label>
+            <div class="sm:col-span-6 col-span-12 *:w-full">
+                <input type="text" pInputText formControlName="id" />
+            </div>
+        </div>
+
+        <!--   createdDate   -->
+        <div class="grid grid-cols-12 sm:gap-4 gap-2 items-center my-3 mb-8">
+            <label for="email" class="font-normal sm:col-span-3 col-span-12">{{
+                "enterprise.Users.createdDate" | translate
+            }}</label>
+            <p-fluid class="sm:col-span-6 col-span-12 *:w-full">
+                <p-datepicker
+                    formControlName="createdDate"
+                    [showTime]="true"
+                ></p-datepicker>
+            </p-fluid>
+        </div>
+    }
+
+    <!-- Email -->
+    <div
+        class="grid grid-cols-12 sm:gap-4 gap-2 items-center my-3"
+        errorMessages
+    >
+        <label for="email" class="font-normal sm:col-span-3 col-span-12">{{
+            "enterprise.Users.email" | translate
+        }}</label>
+        <div class="sm:col-span-6 col-span-12">
+            <input
+                formControlName="email"
+                class="w-full"
+                type="text"
+                id="email"
+                pInputText
+                [placeholder]="
+                    'enterprise.Users.placeholders.enterEmail' | translate
+                "
+            />
+            <form-field-error></form-field-error>
+        </div>
+    </div>
+
+    @if (isEdit) {
+        <!-- Email Verified -->
+        <div
+            class="sm:grid sm:grid-cols-12 sm:gap-4 gap-2 flex justify-between items-center my-3 mb-6"
+        >
+            <label for="email" class="font-normal sm:col-span-3">{{
+                "enterprise.Users.emailVerified" | translate
+            }}</label>
+            <div class="sm:col-span-6">
+                <p-checkbox formControlName="emailVerified" [binary]="true" />
+            </div>
+        </div>
+    }
+
+    <!-- First Name -->
+    <div
+        class="grid grid-cols-12 sm:gap-4 gap-2 items-center my-3"
+        errorMessages
+    >
+        <label for="firstName" class="font-normal sm:col-span-3 col-span-12">{{
+            "enterprise.Users.firstName" | translate
+        }}</label>
+        <div class="sm:col-span-6 col-span-12">
+            <input
+                formControlName="firstName"
+                class="w-full"
+                type="text"
+                id="firstName"
+                pInputText
+                [placeholder]="
+                    'enterprise.Users.placeholders.enterFirstName' | translate
+                "
+            />
+            <form-field-error></form-field-error>
+        </div>
+    </div>
+
+    <!-- Last Name -->
+    <div
+        class="grid grid-cols-12 sm:gap-4 gap-2 items-center my-3"
+        errorMessages
+    >
+        <label for="lastName" class="font-normal sm:col-span-3 col-span-12">{{
+            "enterprise.Users.lastName" | translate
+        }}</label>
+        <div class="sm:col-span-6 col-span-12">
+            <input
+                formControlName="lastName"
+                class="w-full"
+                type="text"
+                id="lastName"
+                pInputText
+                [placeholder]="
+                    'enterprise.Users.placeholders.enterLastName' | translate
+                "
+            />
+            <form-field-error></form-field-error>
+        </div>
+    </div>
+
+    <!-- Scope -->
+    @if (roleOwner) {
+        <div class="grid grid-cols-12 sm:gap-4 gap-2 items-center my-3">
+            <label class="sm:col-span-3 col-span-12 font-semibold text-xl">
+                {{ "enterprise.Users.scope" | translate }}
+            </label>
+            <div
+                class="sm:col-span-3 col-span-12"
+                [ngClass]="scopeBuildings ? 'sm:col-span-3' : 'sm:col-span-6'"
+                errorMessages
+            >
+                <p-select
+                    formControlName="scope"
+                    optionLabel="label"
+                    (onChange)="onScopeChange()"
+                    [options]="scopeOptions"
+                    [placeholder]="
+                        'enterprise.Users.placeholders.selectScope' | translate
+                    "
+                    optionValue="value"
+                    optionDisabled="disabled"
+                    class="w-full"
+                >
+                    <ng-template #selectedItem let-selectedOption>
+                        <div>
+                            {{ selectedOption.label | translate }}
+                        </div></ng-template
+                    >
+                    <ng-template #item let-item
+                        ><div>{{ item.label | translate }}</div></ng-template
+                    >
+                </p-select>
+                <form-field-error></form-field-error>
+            </div>
+            @if (scopeBuildings) {
+                <div class="sm:col-span-3 col-span-12 *:w-full" errorMessages>
+                    <p-multiselect
+                        [options]="selectableBuildings"
+                        (onChange)="onBuildingSelect($event)"
+                        formControlName="selectedBuildingIds"
+                        optionLabel="label"
+                        optionValue="value"
+                        [placeholder]="
+                            'enterprise.Users.placeholders.selectBuildings'
+                                | translate
+                        "
+                        lazy="true"
+                    ></p-multiselect>
+                    <form-field-error></form-field-error>
+                </div>
+            }
+        </div>
+        <!-- Role -->
+        <div class="grid grid-cols-12 sm:gap-4 gap-2 items-center my-3">
+            @if (enterpriseUserStructure.scope.value !== "") {
+                <div class="sm:col-span-3 col-span-12 h-full">
+                    <label class="font-semibold text-xl">{{
+                        "enterprise.Users.role" | translate
+                    }}</label>
+                </div>
+            }
+            @if (scopeBuildings) {
+                <div class="sm:col-span-6 col-span-12">
+                    @if (
+                        enterpriseUserStructure.buildingPermissions.controls
+                            .length === 0
+                    ) {
+                        <p-message
+                            icon="pi pi-exclamation-triangle"
+                            severity="warn"
+                            variant="outlined"
+                            >{{
+                                "validation.business.buildings.permissionWarning"
+                                    | translate
+                            }}</p-message
+                        >
+                    } @else {
+                        <ng-container formArrayName="buildingPermissions"
+                            ><div
+                                *ngFor="
+                                    let permission of enterpriseUserStructure
+                                        .buildingPermissions.controls;
+                                    let i = index
+                                "
+                            >
+                                <div
+                                    [formGroupName]="i"
+                                    class="flex justify-between items-start *:w-full gap-4"
+                                >
+                                    <p class="mt-2.5 w-fit">
+                                        {{ getBuildingName(permission) }}
+                                    </p>
+
+                                    <div class="*:w-full" errorMessages>
+                                        <p-select
+                                            [options]="permissionRoleOptions"
+                                            formControlName="role"
+                                            optionLabel="label"
+                                            optionValue="value"
+                                            [placeholder]="
+                                                'enterprise.Users.placeholders.selectRole'
+                                                    | translate
+                                            "
+                                        >
+                                            <ng-template
+                                                #selectedItem
+                                                let-selectedOption
+                                            >
+                                                <div>
+                                                    {{
+                                                        selectedOption.label
+                                                            | translate
+                                                    }}
+                                                </div></ng-template
+                                            >
+                                            <ng-template #item let-item
+                                                ><div>
+                                                    {{ item.label | translate }}
+                                                </div></ng-template
+                                            >
+                                        </p-select>
+                                        <form-field-error></form-field-error>
+                                    </div>
+                                </div></div
+                        ></ng-container>
+                    }
+                </div>
+            }
+            @if (scopeEnterprise) {
+                <div class="sm:col-span-6 col-span-12" errorMessages>
+                    <p-select
+                        formControlName="enterprisePermission"
+                        id="enterprisePermission"
+                        optionValue="value"
+                        optionLabel="label"
+                        [options]="buildingPermissionScopeEnterprise"
+                        (onChange)="onEnterprisePermissionChange($event)"
+                        [placeholder]="
+                            'enterprise.Users.placeholders.selectRole'
+                                | translate
+                        "
+                        class="w-full"
+                    >
+                        <ng-template #selectedItem let-selectedOption>
+                            <div>
+                                {{ selectedOption.label | translate }}
+                            </div></ng-template
+                        >
+                        <ng-template #item let-item
+                            ><div>
+                                {{ item.label | translate }}
+                            </div></ng-template
+                        >
+                    </p-select>
+                    <form-field-error></form-field-error>
+                </div>
+            }
+        </div>
+    }
+    <!-- Buttons -->
+    <div class="flex justify-end sm:justify-start gap-4 *:min-w-24">
+        <!-- Create Button -->
+        <p-button
+            [label]="(isEdit ? 'common.save' : 'common.create') | translate"
+            styleClass="w-full"
+            severity="primary"
+            [disabled]="disableSubmitButton"
+            (onClick)="submit()"
+        ></p-button>
+
+        <!-- Revert Button -->
+        <p-button
+            [label]="'common.revert' | translate"
+            styleClass="w-full"
+            severity="secondary"
+            (onClick)="reset()"
+        ></p-button>
+    </div>
+</form>

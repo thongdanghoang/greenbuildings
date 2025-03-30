@@ -4,6 +4,7 @@ import {AppRoutingConstants} from '../../app-routing.constant';
 import {AuthorizationComponent} from './authorization.component';
 import {EnterpriseUserDetailsComponent} from './components/create-user/enterprise-user-details.component';
 import {UsersComponent} from './components/users/users.component';
+import {UserProfileComponent} from './components/user-profile/user-profile.component';
 
 const routes: Routes = [
   {
@@ -18,6 +19,10 @@ const routes: Routes = [
       {
         path: `${AppRoutingConstants.USER_DETAILS}/:id`,
         component: EnterpriseUserDetailsComponent
+      },
+      {
+        path: `${AppRoutingConstants.USER_PROFILE}`,
+        component: UserProfileComponent
       }
     ]
   }
