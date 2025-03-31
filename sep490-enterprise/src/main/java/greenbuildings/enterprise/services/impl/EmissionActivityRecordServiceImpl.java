@@ -8,16 +8,15 @@ import greenbuildings.enterprise.dtos.EmissionActivityRecordCriteria;
 import greenbuildings.enterprise.entities.EmissionActivityRecordEntity;
 import greenbuildings.enterprise.entities.RecordFileEntity;
 import greenbuildings.enterprise.repositories.EmissionActivityRecordRepository;
-import greenbuildings.enterprise.repositories.EmissionActivityRepository;
 import greenbuildings.enterprise.repositories.RecordFileRepository;
 import greenbuildings.enterprise.services.CalculationService;
 import greenbuildings.enterprise.services.EmissionActivityRecordService;
 import greenbuildings.enterprise.services.MinioService;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
@@ -28,12 +27,11 @@ import java.util.UUID;
 
 
 @Service
-@Transactional(rollbackOn = Throwable.class)
+@Transactional(rollbackFor = Throwable.class)
 @RequiredArgsConstructor
 public class EmissionActivityRecordServiceImpl implements EmissionActivityRecordService {
-
+    
     private final EmissionActivityRecordRepository recordRepository;
-    private final EmissionActivityRepository activityRepository;
     private final MinioService minioService;
     private final RecordFileRepository fileRepository;
     private final CalculationService calculationService;
@@ -54,8 +52,8 @@ public class EmissionActivityRecordServiceImpl implements EmissionActivityRecord
     public EmissionActivityRecordEntity addOrUpdate(EmissionActivityRecordEntity entity) {
         return recordRepository.save(entity);
     }
-
-        
+    
+    
     @Override
     public void createWithFile(EmissionActivityRecordEntity record, MultipartFile file) {
         boolean isSaving = record.getId() == null;
@@ -129,7 +127,7 @@ public class EmissionActivityRecordServiceImpl implements EmissionActivityRecord
         }
         recordRepository.deleteAllById(ids);
     }
-
+    
     @Override
     @Transactional
     public RecordFileEntity uploadFile(UUID recordId, MultipartFile file) {
@@ -137,7 +135,6 @@ public class EmissionActivityRecordServiceImpl implements EmissionActivityRecord
     }
     
     @Override
-    @Transactional
     public void deleteFile(UUID recordId, UUID fileId) {
         EmissionActivityRecordEntity record = recordRepository.findById(recordId)
             .orElseThrow(() -> new BusinessException(null, "Record not found"));

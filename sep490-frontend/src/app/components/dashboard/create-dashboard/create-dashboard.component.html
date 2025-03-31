@@ -1,0 +1,44 @@
+<p-floatlabel variant="in">
+    <textarea
+        pTextarea
+        id="over_label"
+        [(ngModel)]="powerBiEmbedded"
+        rows="7"
+        cols="50"
+        style="resize: none"
+        class="h-full"
+    ></textarea>
+    <label for="over_label">Embedded iframe</label>
+</p-floatlabel>
+
+@if (powerBiEmbedded && !isValid()) {
+    <div class="text-red-600 min-h-6">
+        Invalid iframe code. Please check the format.
+    </div>
+}
+
+<small>
+    <p>Paste the iframe code from Power BI here.</p>
+    <p>Make sure to include the entire iframe code.</p>
+    <p>Example:</p>
+    <pre>
+        &lt;iframe
+            width="800"
+            height="600"
+            src="https://app.powerbi.com/reportEmbed..."
+            frameborder="0"
+            allowFullScreen="true"&gt;
+        &lt;/iframe&gt;
+    </pre>
+</small>
+
+<div class="flex justify-end gap-4">
+    <p-button size="small" (onClick)="close()" outlined>Close</p-button>
+    <p-button
+        size="small"
+        [raised]="true"
+        (onClick)="submit()"
+        [disabled]="!isValid()"
+        >Submit</p-button
+    >
+</div>

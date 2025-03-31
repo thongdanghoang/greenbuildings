@@ -3,14 +3,14 @@ package greenbuildings.enterprise.services.impl;
 import greenbuildings.enterprise.entities.EnterpriseEntity;
 import greenbuildings.enterprise.repositories.EnterpriseRepository;
 import greenbuildings.enterprise.services.EnterpriseService;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
 @Service
-@Transactional(rollbackOn = Throwable.class)
+@Transactional(rollbackFor = Throwable.class)
 @RequiredArgsConstructor
 public class EnterpriseServiceImpl implements EnterpriseService {
     

@@ -1,32 +1,36 @@
 package greenbuildings.enterprise.services.impl;
 
 import commons.springfw.impl.utils.SecurityUtils;
-import greenbuildings.enterprise.adapters.payos.payos.PayOSAdapter;
-import greenbuildings.enterprise.dtos.PaymentCriteriaDTO;
-import greenbuildings.enterprise.entities.*;
-import greenbuildings.enterprise.mappers.PaymentMapper;
-import greenbuildings.enterprise.repositories.*;
-import greenbuildings.enterprise.services.PaymentService;
 import greenbuildings.commons.api.dto.SearchCriteriaDTO;
 import greenbuildings.commons.api.enums.PaymentStatus;
 import greenbuildings.commons.api.exceptions.TechnicalException;
-import jakarta.transaction.Transactional;
+import greenbuildings.enterprise.adapters.payos.payos.PayOSAdapter;
+import greenbuildings.enterprise.dtos.PaymentCriteriaDTO;
+import greenbuildings.enterprise.entities.CreditPackageVersionEntity;
+import greenbuildings.enterprise.entities.EnterpriseEntity;
+import greenbuildings.enterprise.entities.PaymentEntity;
+import greenbuildings.enterprise.entities.WalletEntity;
+import greenbuildings.enterprise.repositories.CreditPackageVersionRepository;
+import greenbuildings.enterprise.repositories.EnterpriseRepository;
+import greenbuildings.enterprise.repositories.PaymentRepository;
+import greenbuildings.enterprise.repositories.WalletRepository;
+import greenbuildings.enterprise.services.PaymentService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
 @Service
 @Slf4j
-@Transactional(rollbackOn = Throwable.class)
+@Transactional(rollbackFor = Throwable.class)
 @RequiredArgsConstructor
 public class PaymentServiceImpl implements PaymentService {
     private final PaymentRepository payRepo;
-    private final CreditPackageRepository packageRepo;
     private final EnterpriseRepository enterpriseRepo;
     private final WalletRepository walletRepository;
     private final CreditPackageVersionRepository creditPackageVersionRepository;

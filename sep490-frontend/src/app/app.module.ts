@@ -33,6 +33,7 @@ import {CoreModule} from './modules/core/core.module';
 import {HttpErrorHandlerInterceptor} from './modules/core/services/http-error-handler.interceptor';
 import {SharedModule} from './modules/shared/shared.module';
 import {LandingPageComponent} from './components/landing-page/landing-page.component';
+import {CreateDashboardComponent} from './components/dashboard/create-dashboard/create-dashboard.component';
 
 enum OidcScopes {
   OPENID = 'openid',
@@ -95,7 +96,8 @@ export const httpLoaderFactory = (
     SidebarComponent,
     PricingComponent,
     DashboardComponent,
-    LandingPageComponent
+    LandingPageComponent,
+    CreateDashboardComponent
   ],
   imports: [
     AppRoutingModule,

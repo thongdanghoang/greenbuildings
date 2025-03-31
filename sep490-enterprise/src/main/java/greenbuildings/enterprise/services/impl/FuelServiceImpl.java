@@ -5,13 +5,13 @@ import greenbuildings.enterprise.dtos.FuelCriteriaDTO;
 import greenbuildings.enterprise.entities.FuelEntity;
 import greenbuildings.enterprise.repositories.FuelRepository;
 import greenbuildings.enterprise.services.FuelService;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.Optional;
@@ -21,7 +21,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
-@Transactional(rollbackOn = Throwable.class)
+@Transactional(rollbackFor = Throwable.class)
 @Slf4j
 @RequiredArgsConstructor
 public class FuelServiceImpl implements FuelService {

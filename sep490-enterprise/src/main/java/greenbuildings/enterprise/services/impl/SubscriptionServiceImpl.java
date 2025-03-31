@@ -17,10 +17,10 @@ import greenbuildings.enterprise.repositories.WalletRepository;
 import greenbuildings.enterprise.services.SubscriptionService;
 import greenbuildings.commons.api.exceptions.BusinessException;
 import greenbuildings.commons.api.exceptions.TechnicalException;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-@Transactional(rollbackOn = Throwable.class)
+@Transactional(rollbackFor = Throwable.class)
 @RequiredArgsConstructor
 @Slf4j
 public class SubscriptionServiceImpl implements SubscriptionService {
