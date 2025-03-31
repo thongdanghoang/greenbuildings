@@ -30,14 +30,6 @@ public interface UserRepository extends AbstractBaseRepository<UserEntity> {
     
     @EntityGraph(UserEntity.WITH_ENTERPRISE_PERMISSIONS_ENTITY_GRAPH)
     @Query("""
-            SELECT u
-            FROM UserEntity u
-            WHERE u.email = :email
-            """)
-    Optional<UserEntity> findByEmailWithBuildingPermissions(String email);
-    
-    @EntityGraph(UserEntity.WITH_ENTERPRISE_PERMISSIONS_ENTITY_GRAPH)
-    @Query("""
                 SELECT u
                 FROM UserEntity u
                 WHERE u.id IN (:ids)

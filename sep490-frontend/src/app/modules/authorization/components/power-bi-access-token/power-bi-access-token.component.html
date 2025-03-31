@@ -28,15 +28,23 @@
         </div>
     }
 
-    <div class="border rounded-lg">
+    <div
+        *ngIf="
+            accessTokens.length > 0 &&
+            accessTokens[0].id !== newestCreatedTokenId
+        "
+        class="border rounded-lg"
+    >
         @for (token of accessTokens; track token.id) {
             @if (token.id !== newestCreatedTokenId) {
-                <ng-container
-                    *ngTemplateOutlet="
-                        tokenRowTemplate;
-                        context: { $implicit: token }
-                    "
-                ></ng-container>
+                <div class="border-b last:border-b-0">
+                    <ng-container
+                        *ngTemplateOutlet="
+                            tokenRowTemplate;
+                            context: { $implicit: token }
+                        "
+                    ></ng-container>
+                </div>
             }
         }
     </div>
@@ -67,7 +75,7 @@
 </ng-template>
 
 <ng-template #tokenRowTemplate let-token>
-    <div class="p-3 border-b">
+    <div class="p-3">
         <div class="flex items-baseline justify-between gap-4">
             <div>
                 <strong
