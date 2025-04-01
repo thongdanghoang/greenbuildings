@@ -17,9 +17,8 @@ public interface EmissionFactorRepository extends JpaRepository<EmissionFactorEn
     // With entity graph: nested association need to be loaded explicitly
     // ex: conversion.fuel
     // One query only: inner join with not-null fields and left join nullable fields
-    @Override
     @EntityGraph(attributePaths = {"source", "energyConversion", "energyConversion.fuel"})
-    List<EmissionFactorEntity> findAll();
+    List<EmissionFactorEntity> findAllByActiveIsTrue();
 
     @Query("""
             SELECT e.id
