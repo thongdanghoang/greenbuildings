@@ -170,18 +170,34 @@
                 </div>
             </ng-template>
 
-            <ng-template #fileTemplate let-rowData>
+            <ng-template #actionsTemplate let-record>
                 <p-button
-                    *ngIf="rowData.file"
-                    [label]="'common.download' | translate"
-                    [pTooltip]="rowData.file.fileName"
-                    icon="pi pi-download"
-                    class="w-full"
-                    [style]="{ maxWidth: '200px' }"
-                    [styleClass]="'p-button-text p-button-sm'"
-                    (onClick)="onDownloadFile(rowData)"
-                >
-                </p-button>
+                    icon="pi pi-file-edit"
+                    [rounded]="true"
+                    [text]="true"
+                    severity="contrast"
+                    (onClick)="openEditRecordDialog(record)"
+                />
+            </ng-template>
+
+            <ng-template #fileTemplate let-rowData>
+                <div *ngIf="rowData.file">
+                    <p-button
+                        [pTooltip]="rowData.file.fileName"
+                        icon="pi pi-download"
+                        class="w-full"
+                        [style]="{ maxWidth: '200px' }"
+                        [styleClass]="'p-button-text p-button-sm'"
+                        (onClick)="onDownloadFile(rowData)"
+                    >
+                    </p-button>
+                    <p-button
+                        icon="pi pi-trash"
+                        severity="danger"
+                        [text]="true"
+                        (onClick)="removeFile(rowData)"
+                    />
+                </div>
             </ng-template>
         </p-card>
     </div>

@@ -3,17 +3,20 @@ package greenbuildings.enterprise.services.impl;
 import commons.springfw.impl.mappers.CommonMapper;
 import greenbuildings.commons.api.dto.SearchCriteriaDTO;
 import greenbuildings.commons.api.exceptions.BusinessException;
+import greenbuildings.commons.api.exceptions.TechnicalException;
 import greenbuildings.enterprise.dtos.EmissionActivityRecordCriteria;
 import greenbuildings.enterprise.entities.EmissionActivityRecordEntity;
 import greenbuildings.enterprise.entities.RecordFileEntity;
 import greenbuildings.enterprise.repositories.EmissionActivityRecordRepository;
 import greenbuildings.enterprise.repositories.EmissionActivityRepository;
 import greenbuildings.enterprise.repositories.RecordFileRepository;
+import greenbuildings.enterprise.services.CalculationService;
 import greenbuildings.enterprise.services.EmissionActivityRecordService;
 import greenbuildings.enterprise.services.MinioService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -33,13 +36,18 @@ public class EmissionActivityRecordServiceImpl implements EmissionActivityRecord
     private final EmissionActivityRepository activityRepository;
     private final MinioService minioService;
     private final RecordFileRepository fileRepository;
-
+    private final CalculationService calculationService;
+    
     @Override
     public Page<EmissionActivityRecordEntity> search(SearchCriteriaDTO<EmissionActivityRecordCriteria> searchCriteria) {
-        return recordRepository
+        Page<EmissionActivityRecordEntity> page = recordRepository
                 .findAllByEmissionActivityEntityId(
                         searchCriteria.criteria().emissionActivityId(),
                         CommonMapper.toPageable(searchCriteria.page(), searchCriteria.sort()));
+        
+        List<EmissionActivityRecordEntity> modifiedContent = calculationService.calculate(searchCriteria.criteria().emissionActivityId(), page.getContent());
+
+        return new PageImpl<>(modifiedContent, page.getPageable(), page.getTotalElements());
     }
     
     @Override
@@ -50,8 +58,17 @@ public class EmissionActivityRecordServiceImpl implements EmissionActivityRecord
         
     @Override
     public void createWithFile(EmissionActivityRecordEntity record, MultipartFile file) {
-        record = recordRepository.save(record);
+        boolean isSaving = record.getId() == null;
         
+        if (isSaving) {
+            newRecord(record, file);
+        } else {
+            updateRecord(record, file);
+        }
+    }
+    
+    private void newRecord(EmissionActivityRecordEntity record, MultipartFile file) {
+        record = recordRepository.save(record);
         if (file != null) {
             String minioPath = minioService.uploadFile(file, record.getId().toString());
             
@@ -68,10 +85,47 @@ public class EmissionActivityRecordServiceImpl implements EmissionActivityRecord
         }
     }
     
+    private void updateRecord(EmissionActivityRecordEntity record, MultipartFile file) {
+        EmissionActivityRecordEntity existing = recordRepository.findById(record.getId()).orElseThrow();
+        
+        if (file == null) {
+            record.setFile(existing.getFile());
+            recordRepository.save(record);
+        } else {
+            try {
+                if (existing.getFile() != null) {
+                    minioService.deleteFile(existing.getFile().getMinioPath());
+                    fileRepository.delete(existing.getFile());
+                }
+                
+                String minioPath = minioService.uploadFile(file, record.getId().toString());
+                
+                RecordFileEntity fileEntity = new RecordFileEntity();
+                fileEntity.setFileName(file.getOriginalFilename());
+                fileEntity.setContentType(file.getContentType());
+                fileEntity.setFileSize(file.getSize());
+                fileEntity.setMinioPath(minioPath);
+                fileEntity.setUploadDate(LocalDateTime.now());
+                fileEntity.setRecord(record);
+                record.setFile(fileEntity);
+                
+                recordRepository.save(record);
+            } catch (Exception e) {
+                throw new TechnicalException(e);
+            }
+        }
+    }
+    
     @Override
     public void deleteRecords(Set<UUID> ids) {
-        if (!recordRepository.existsAllById(ids)) {
+        List<EmissionActivityRecordEntity> list = recordRepository.findAllByIdIn(ids);
+        if (list.isEmpty() || list.size() != ids.size()) {
             throw new BusinessException("ids", "http.error.status.404", Collections.emptyList());
+        }
+        for (EmissionActivityRecordEntity record : list) {
+            if (record.getFile() != null) {
+                minioService.deleteFile(record.getFile().getMinioPath());
+            }
         }
         recordRepository.deleteAllById(ids);
     }
@@ -99,6 +153,7 @@ public class EmissionActivityRecordServiceImpl implements EmissionActivityRecord
         minioService.deleteFile(file.getMinioPath());
         
         // Delete from database
+        file.getRecord().setFile(null);
         fileRepository.delete(file);
     }
     

@@ -42,6 +42,12 @@ export class EmissionActivityRecordService {
     );
   }
 
+  public deleteRecordFile(recordId: UUID, fileId: UUID): Observable<void> {
+    return this.http.delete<void>(
+      `${AppRoutingConstants.ENTERPRISE_API_URL}/${this.EMISSION_ACTIVITY_RECORD_PATH}/${recordId}/file/${fileId}`
+    );
+  }
+
   getFileUrl(recordId: string, fileId: string): Observable<any> {
     return this.http.get<any>(
       `${AppRoutingConstants.ENTERPRISE_API_URL}/${this.EMISSION_ACTIVITY_RECORD_PATH}/${recordId}/file/${fileId}/url`
