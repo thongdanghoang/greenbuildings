@@ -41,10 +41,13 @@ export class UserProfileComponent extends AbstractFormComponent<EnterpriseUserDe
     id: new FormControl<UUID | null>({value: null, disabled: true}),
     createdDate: new FormControl<Date | null>({value: null, disabled: true}),
     version: new FormControl(null),
-    email: new FormControl<string>('', {
-      nonNullable: true,
-      validators: [Validators.required, Validators.email]
-    }),
+    email: new FormControl<string>(
+      {value: '', disabled: true},
+      {
+        nonNullable: true,
+        validators: [Validators.required, Validators.email]
+      }
+    ),
     emailVerified: new FormControl<boolean>({value: false, disabled: true}),
     firstName: new FormControl<string>('', {
       validators: [Validators.required]

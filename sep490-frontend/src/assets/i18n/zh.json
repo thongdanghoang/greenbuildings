@@ -311,7 +311,8 @@
       "packageCredit": "套餐信用",
       "creditRatio": "信贷比率",
       "emissionSource": "排放源",
-      "fuel": "燃料"
+      "fuel": "燃料",
+      "emissionFactor": "排放因子"
     }
   },
   "admin": {
@@ -360,6 +361,17 @@
     },
     "fuel": {
       "addFuel": "添加燃料"
+    },
+    "emissionFactor": {
+      "numerator": "排放单位分子",
+      "denominator": "排放单位分母",
+      "description": "描述",
+      "isDirectEmission": "直接排放"
+    },
+    "energyConversion": {
+      "conversionValue": "转换值",
+      "conversionUnitNumerator": "转换单位分子",
+      "conversionUnitDenominator": "转换单位分母"
     }
   },
   "dialog": {

@@ -15,6 +15,8 @@ import {FuelConversionComponent} from './components/fuel-conversion/fuel-convers
 import {FuelConversionService} from './services/fuel-conversion.service';
 import {EmissionSourceDialogComponent} from './dialog/emission-source-dialog/emission-source-dialog.component';
 import {FuelDialogComponent} from './dialog/fuel-dialog/fuel-dialog.component';
+import {EmissionFactorComponent} from './components/emission-factor/emission-factor.component';
+import {EmissionFactorService} from './services/emission_factor.service';
 
 @NgModule({
   declarations: [
@@ -26,14 +28,16 @@ import {FuelDialogComponent} from './dialog/fuel-dialog/fuel-dialog.component';
     EmissionSourceComponent,
     FuelConversionComponent,
     EmissionSourceDialogComponent,
-    FuelDialogComponent
+    FuelDialogComponent,
+    EmissionFactorComponent
   ],
   imports: [SharedModule, AdminRoutingModule],
   providers: [
     PackageCreditService,
     CreditConvertRatioService,
     EmissionSourceService,
-    FuelConversionService
+    FuelConversionService,
+    EmissionFactorService
   ]
 })
 export class AdminModule {}

@@ -312,7 +312,8 @@
       "packageCredit": "Gói tín dụng",
       "creditRatio": "Tỷ lệ tín dụng",
       "emissionSource": "Nguồn phát thải",
-      "fuel": "Nhiên liệu"
+      "fuel": "Nhiên liệu",
+      "emissionFactor": "Hệ số phát thải"
     }
   },
   "admin": {
@@ -361,6 +362,17 @@
     },
     "fuel": {
       "addFuel": "Thêm nhiên liệu"
+    },
+    "emissionFactor": {
+      "numerator": "Tử số đơn vị phát thải",
+      "denominator": "Mẫu số đơn vị phát thải",
+      "description": "Mô tả",
+      "isDirectEmission": "Phát thải trực tiếp"
+    },
+    "energyConversion": {
+      "conversionValue": "Giá trị chuyển đổi",
+      "conversionUnitNumerator": "Tử số đơn vị chuyển đổi",
+      "conversionUnitDenominator": "Mẫu số đơn vị chuyển đổi"
     }
   },
   "dialog": {

@@ -9,6 +9,7 @@ import {CreditConvertRatioComponent} from './components/credit-convert-ratio/cre
 import {UpdateRatioComponent} from './components/update-ratio/update-ratio.component';
 import {EmissionSourceComponent} from './components/emission-source/emission-source.component';
 import {FuelConversionComponent} from './components/fuel-conversion/fuel-conversion.component';
+import {EmissionFactorComponent} from './components/emission-factor/emission-factor.component';
 
 const routes: Routes = [
   {
@@ -42,6 +43,10 @@ const routes: Routes = [
       {
         path: `${AppRoutingConstants.FUEL_CONVERSION}`,
         component: FuelConversionComponent
+      },
+      {
+        path: `${AppRoutingConstants.EMISSION_FACTOR}`,
+        component: EmissionFactorComponent
       }
     ]
   }

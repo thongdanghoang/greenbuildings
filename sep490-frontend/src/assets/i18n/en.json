@@ -307,13 +307,14 @@
         }
       }
     },
-    "admin": {
-      "title": "Admin",
-      "packageCredit": "Credit Package",
-      "creditRatio": "Credit Ratio",
-      "emissionSource": "Emission Source",
-      "fuel": "Fuel"
-    }
+   "admin": {
+     "title": "Admin",
+     "packageCredit": "Credit Package",
+     "creditRatio": "Credit Ratio",
+     "emissionSource": "Emission Source",
+     "fuel": "Fuel",
+     "emissionFactor": "Emission Factor"
+   }
   },
   "admin": {
     "packageCredit": {
@@ -361,6 +362,17 @@
     },
     "fuel": {
       "addFuel": "Add Fuel"
+    },
+    "emissionFactor": {
+      "numerator": "Emission Unit Numerator",
+      "denominator": "Emission Unit Denominator",
+      "description": "Description",
+      "isDirectEmission": "Direct Emission"
+    },
+    "energyConversion": {
+      "conversionValue": "Conversion Value",
+      "conversionUnitNumerator": "Conversion Unit Numerator",
+      "conversionUnitDenominator": "Conversion Unit Denominator"
     }
   },
   "dialog": {

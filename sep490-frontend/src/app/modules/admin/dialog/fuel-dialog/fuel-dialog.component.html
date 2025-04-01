@@ -13,16 +13,16 @@
         ></button>
     </div>
 
-    <!-- Stepper with Three Steps -->
+    <!-- Stepper with Two Steps -->
     <p-stepper [value]="1" class="block">
         <p-step-panels class="block h-full">
-            <!-- Step 1: Vietnamese Name -->
+            <!-- Step 1: Fuel Names (Vietnamese, English, Chinese) -->
             <p-step-panel [value]="1">
                 <ng-template #content let-activateCallback="activateCallback">
                     <div
-                        class="p-0 min-h-[150px] p-dialog-content flex flex-col overflow-hidden"
+                        class="p-0 min-h-[400px] p-dialog-content flex flex-col overflow-hidden"
                     >
-                        <form [formGroup]="formGroup">
+                        <div [formGroup]="fuelFormGroup">
                             <p-iftalabel class="my-2">
                                 <input
                                     pInputText
@@ -32,7 +32,25 @@
                                 />
                                 <label>{{ "Name (VN)" | translate }}</label>
                             </p-iftalabel>
-                        </form>
+                            <p-iftalabel class="my-2">
+                                <input
+                                    pInputText
+                                    formControlName="nameEN"
+                                    class="w-full"
+                                    autocomplete="off"
+                                />
+                                <label>{{ "Name (EN)" | translate }}</label>
+                            </p-iftalabel>
+                            <p-iftalabel class="my-2">
+                                <input
+                                    pInputText
+                                    formControlName="nameZH"
+                                    class="w-full"
+                                    autocomplete="off"
+                                />
+                                <label>{{ "Name (ZH)" | translate }}</label>
+                            </p-iftalabel>
+                        </div>
                         <div class="flex justify-end mt-2">
                             <p-button
                                 label="{{ 'common.next' | translate }}"
@@ -45,64 +63,62 @@
                 </ng-template>
             </p-step-panel>
 
-            <!-- Step 2: English Name -->
+            <!-- Step 2: Conversion Details -->
             <p-step-panel [value]="2">
                 <ng-template #content let-activateCallback="activateCallback">
                     <div
-                        class="p-0 min-h-[150px] p-dialog-content flex flex-col overflow-hidden"
+                        class="p-0 min-h-[400px] p-dialog-content flex flex-col overflow-hidden"
                     >
-                        <form [formGroup]="formGroup">
+                        <div [formGroup]="formGroup">
                             <p-iftalabel class="my-2">
                                 <input
                                     pInputText
-                                    formControlName="nameEN"
+                                    formControlName="conversionValue"
                                     class="w-full"
                                     autocomplete="off"
+                                    type="number"
                                 />
-                                <label>{{ "Name (EN)" | translate }}</label>
+                                <label>{{
+                                    "Conversion Value" | translate
+                                }}</label>
                             </p-iftalabel>
-                        </form>
+                            <p-iftalabel class="my-2">
+                                <p-dropdown
+                                    [options]="emissionUnits"
+                                    formControlName="conversionUnitNumerator"
+                                    optionLabel="label"
+                                    optionValue="value"
+                                    [style]="{ width: '100%' }"
+                                    placeholder="{{
+                                        'Select Numerator Unit' | translate
+                                    }}"
+                                ></p-dropdown>
+                                <label>{{
+                                    "Numerator Unit" | translate
+                                }}</label>
+                            </p-iftalabel>
+                            <p-iftalabel class="my-2">
+                                <p-dropdown
+                                    [options]="emissionUnits"
+                                    formControlName="conversionUnitDenominator"
+                                    optionLabel="label"
+                                    optionValue="value"
+                                    [style]="{ width: '100%' }"
+                                    placeholder="{{
+                                        'Select Denominator Unit' | translate
+                                    }}"
+                                ></p-dropdown>
+                                <label>{{
+                                    "Denominator Unit" | translate
+                                }}</label>
+                            </p-iftalabel>
+                        </div>
                         <div class="flex justify-between mt-2">
                             <p-button
                                 label="{{ 'common.back' | translate }}"
                                 severity="secondary"
                                 icon="pi pi-arrow-left"
                                 (onClick)="activateCallback(1)"
-                            ></p-button>
-                            <p-button
-                                label="{{ 'common.next' | translate }}"
-                                icon="pi pi-arrow-right"
-                                iconPos="right"
-                                (onClick)="activateCallback(3)"
-                            ></p-button>
-                        </div>
-                    </div>
-                </ng-template>
-            </p-step-panel>
-
-            <!-- Step 3: Chinese Name -->
-            <p-step-panel [value]="3">
-                <ng-template #content let-activateCallback="activateCallback">
-                    <div
-                        class="p-0 min-h-[150px] p-dialog-content flex flex-col overflow-hidden"
-                    >
-                        <form [formGroup]="formGroup">
-                            <p-iftalabel class="my-2">
-                                <input
-                                    pInputText
-                                    formControlName="nameZH"
-                                    class="w-full"
-                                    autocomplete="off"
-                                />
-                                <label>{{ "Name (ZH)" | translate }}</label>
-                            </p-iftalabel>
-                        </form>
-                        <div class="flex justify-between mt-2">
-                            <p-button
-                                label="{{ 'common.back' | translate }}"
-                                severity="secondary"
-                                icon="pi pi-arrow-left"
-                                (onClick)="activateCallback(2)"
                             ></p-button>
                             <p-button
                                 label="{{ 'common.save' | translate }}"
