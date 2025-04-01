@@ -22,6 +22,7 @@ import {EmissionActivityRecordService} from '../../services/emission-activity-re
 export interface NewActivityRecordDialogConfig {
   activityId: string;
   factor: EmissionFactorDTO;
+  editRecord?: EmissionActivityRecord;
 }
 
 @Component({
@@ -33,6 +34,7 @@ export class NewActivityRecordDialogComponent extends AbstractFormComponent<Emis
   selectedFile: File | null = null;
 
   data?: NewActivityRecordDialogConfig;
+
   constructor(
     protected override readonly httpClient: HttpClient,
     protected override readonly formBuilder: FormBuilder,
@@ -62,6 +64,7 @@ export class NewActivityRecordDialogComponent extends AbstractFormComponent<Emis
 
   override initializeData(): void {
     this.initUnits();
+    this.handleUpdate();
   }
 
   /* eslint-disable dot-notation */
@@ -138,7 +141,41 @@ export class NewActivityRecordDialogComponent extends AbstractFormComponent<Emis
     }
     this.dialogRef.close(true);
   }
+
+  handleUpdate(): void {
+    if (this.data?.editRecord) {
+      this.formGroup.controls['startDate'].setValue(
+        new Date(this.data.editRecord.startDate)
+      );
+      this.formGroup.controls['endDate'].setValue(
+        new Date(this.data.editRecord.endDate)
+      );
+      this.formGroup.controls['value'].setValue(this.data.editRecord.value);
+      this.formGroup.controls['unit'].setValue(this.data.editRecord.unit);
+      this.formGroup.controls['quantity'].setValue(
+        this.data.editRecord.quantity
+      );
+      this.formGroup.controls['id'].setValue(this.data.editRecord.id);
+      this.formGroup.controls['version'].setValue(this.data.editRecord.version);
+    }
+  }
   /* eslint-enable dot-notation */
+
+  onDownloadFile(): void {
+    this.emissionActivityRecordService
+      .getFileUrl(
+        this.data?.editRecord!.id as string,
+        this.data?.editRecord!.file.id as string
+      )
+      .subscribe((result: any) => {
+        const url = result.url;
+        window.open(url, '_blank'); // Open in a new tab
+      });
+  }
+
+  removeFile(): void {
+    //
+  }
 
   onCancel(): void {
     this.dialogRef.close();
@@ -183,9 +220,17 @@ export class NewActivityRecordDialogComponent extends AbstractFormComponent<Emis
   }
 
   initUnits(): void {
-    const supportedUnits = this.unitService.getSameUnitType(
-      this.data!.factor.emissionUnitDenominator
-    );
+    let supportedUnits: EmissionUnit[] = [];
+
+    if (this.data!.factor.isDirectEmission) {
+      supportedUnits = this.unitService.getSameUnitType(
+        this.data!.factor.emissionUnitDenominator
+      );
+    } else {
+      supportedUnits = this.unitService.getSameUnitType(
+        this.data!.factor.energyConversionDTO!.conversionUnitDenominator
+      );
+    }
     this.unitOptions = supportedUnits.map(unit => ({
       label: this.translate.instant(`unit.${unit}`),
       value: unit

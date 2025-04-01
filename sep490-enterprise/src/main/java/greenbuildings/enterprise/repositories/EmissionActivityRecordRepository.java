@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -19,4 +20,6 @@ public interface EmissionActivityRecordRepository extends JpaRepository<Emission
     default boolean existsAllById(Set<UUID> ids) {
         return countAllByIdIn(ids).equals(ids.size());
     }
+    
+    List<EmissionActivityRecordEntity> findAllByIdIn(Set<UUID> ids);
 }

@@ -69,6 +69,8 @@ export class EmissionActivityDetailComponent
   };
   @ViewChild('fileTemplate', {static: true})
   fileTemplate!: TemplateRef<any>;
+  @ViewChild('actionsTemplate', {static: true})
+  actionsTemplate!: TemplateRef<any>;
   searchEvent = new EventEmitter<void>();
   clearSelectedEvent = new EventEmitter<void>();
   fetchRecords!: (
@@ -188,6 +190,11 @@ export class EmissionActivityDetailComponent
         header: 'enterprise.emission.activity.record.table.file.title',
         sortable: false,
         templateRef: this.fileTemplate
+      },
+      {
+        field: 'actions',
+        header: '',
+        templateRef: this.actionsTemplate
       }
     ];
   }
@@ -229,11 +236,47 @@ export class EmissionActivityDetailComponent
       });
   }
 
+  removeFile(record: EmissionActivityRecord): void {
+    this.emissionActivityRecordService
+      .deleteRecordFile(record.id, record.file.id)
+      .subscribe({
+        next: () => {
+          this.notificationService.add({
+            severity: 'success',
+            summary: this.translate.instant('common.success')
+          });
+          this.searchEvent.emit();
+        }
+      });
+  }
+
   onNewRecord(): void {
     const config: DynamicDialogConfig<NewActivityRecordDialogConfig> = {
       data: {
         activityId: this.activity.id.toString(),
         factor: this.activity.emissionFactor
+      },
+      closeOnEscape: true,
+      dismissableMask: true,
+      showHeader: false
+    };
+    const ref = this.dialogService.open(
+      NewActivityRecordDialogComponent,
+      config
+    );
+    ref.onClose.subscribe(result => {
+      if (result) {
+        this.searchEvent.emit();
+      }
+    });
+  }
+
+  openEditRecordDialog(record: EmissionActivityRecord): void {
+    const config: DynamicDialogConfig<NewActivityRecordDialogConfig> = {
+      data: {
+        activityId: this.activity.id.toString(),
+        factor: this.activity.emissionFactor,
+        editRecord: record
       },
       closeOnEscape: true,
       dismissableMask: true,

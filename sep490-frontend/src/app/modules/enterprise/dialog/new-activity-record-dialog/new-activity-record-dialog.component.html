@@ -81,7 +81,14 @@
             accept="image/*,application/pdf"
             (onSelect)="onFileSelect($event)"
         ></p-fileUpload>
-
+        <p
+            *ngIf="data?.editRecord?.file && selectedFile === null"
+            class="text-center text-primary hover:underline cursor-pointer"
+        >
+            <a (click)="onDownloadFile()">
+                {{ data?.editRecord?.file?.fileName }}
+            </a>
+        </p>
         <p-iftalabel class="my-2">
             <p-date-picker
                 formControlName="startDate"

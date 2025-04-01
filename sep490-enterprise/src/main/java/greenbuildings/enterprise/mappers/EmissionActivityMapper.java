@@ -25,6 +25,7 @@ public interface EmissionActivityMapper {
     @Mapping(target = "building", source = "building")
     @Mapping(target = "building.emissionActivities", ignore = true)
     @Mapping(target = "emissionFactor", source = "emissionFactorEntity")
+    @Mapping(target = "emissionFactor.isDirectEmission", source = "emissionFactorEntity.directEmission")
     @Mapping(target = "emissionFactor.emissionSourceDTO", source = "emissionFactorEntity.source")
     @Mapping(target = "emissionFactor.energyConversionDTO", source = "emissionFactorEntity.energyConversion")
     @Mapping(target = "records", ignore = true)

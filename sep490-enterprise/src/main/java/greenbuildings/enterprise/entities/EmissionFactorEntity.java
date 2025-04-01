@@ -68,7 +68,7 @@ public class EmissionFactorEntity extends AbstractAuditableEntity {
     private LocalDateTime validTo;
     
     @Column(name = "is_direct_emission")
-    private boolean isDirectEmission;
+    private boolean directEmission;
     
     @ManyToOne(optional = true) // Maybe null in case of direct conversion
     @JoinColumn(name = "energy_conversion_id")
