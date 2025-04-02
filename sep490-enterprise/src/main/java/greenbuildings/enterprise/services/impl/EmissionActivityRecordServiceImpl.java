@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
@@ -44,7 +45,7 @@ public class EmissionActivityRecordServiceImpl implements EmissionActivityRecord
                         CommonMapper.toPageable(searchCriteria.page(), searchCriteria.sort()));
         
         List<EmissionActivityRecordEntity> modifiedContent = calculationService.calculate(searchCriteria.criteria().emissionActivityId(), page.getContent());
-
+        modifiedContent.forEach(entity -> entity.setGhg(entity.getGhg().setScale(2, RoundingMode.HALF_UP)));
         return new PageImpl<>(modifiedContent, page.getPageable(), page.getTotalElements());
     }
     
