@@ -5,12 +5,9 @@ import {
   SearchResultDto
 } from '../../shared/models/base-models';
 import {Observable} from 'rxjs';
-import {
-  EmissionSource,
-  FuelConversion
-} from '../../enterprise/models/enterprise.dto';
 import {AppRoutingConstants} from '../../../app-routing.constant';
 import {FuelConversionCriteria} from '../components/fuel-conversion/fuel-conversion.component';
+import {EnergyConversionDTO} from '../../shared/models/shared-models';
 
 @Injectable()
 export class FuelConversionService {
@@ -18,19 +15,21 @@ export class FuelConversionService {
 
   public getFuelConversion(
     criteria: SearchCriteriaDto<FuelConversionCriteria>
-  ): Observable<SearchResultDto<FuelConversion>> {
-    return this.httpClient.post<SearchResultDto<FuelConversion>>(
-      `${AppRoutingConstants.ENTERPRISE_API_URL}/fuel/search`,
+  ): Observable<SearchResultDto<EnergyConversionDTO>> {
+    return this.httpClient.post<SearchResultDto<EnergyConversionDTO>>(
+      `${AppRoutingConstants.ENTERPRISE_API_URL}/energy-conversion/search`,
       criteria
     );
   }
 
-  public getFuelConversionById(fuelId: string): Observable<EmissionSource> {
-    return this.httpClient.get<FuelConversion>(
-      `${AppRoutingConstants.ENTERPRISE_API_URL}/fuel/${fuelId}`
+  public getFuelConversionById(
+    fuelId: string
+  ): Observable<EnergyConversionDTO> {
+    return this.httpClient.get<EnergyConversionDTO>(
+      `${AppRoutingConstants.ENTERPRISE_API_URL}/energy-conversion/${fuelId}`
     );
   }
   public get createOrUpdateFuelConversionURL(): string {
-    return `${AppRoutingConstants.ENTERPRISE_API_URL}/fuel`;
+    return `${AppRoutingConstants.ENTERPRISE_API_URL}/energy-conversion`;
   }
 }

@@ -1,15 +1,14 @@
 <h1 class="font-bold text-lg text-primary">
-    {{ "sidebar.admin.fuel" | translate }}
+    {{ "enterprise.emission.activity.dialog.EmissionFactor" | translate }}
 </h1>
 <table-template
     *ngIf="!applicationService.isMobile()"
-    [fetch]="fetchFuel"
+    [fetch]="fetchEmissionFactor"
     [columns]="cols"
     [sort]="undefined"
     [criteria]="searchCriteria"
     [triggerSearch]="searchEvent"
     [captionTemplateRef]="captionTemplateRef"
-    [checkbox]="true"
     (selectionChange)="onSelectionChange($event)"
 >
 </table-template>
@@ -34,29 +33,37 @@
                 (onClick)="search()"
             />
         </div>
-        <div class="flex gap-2.5">
-            <p-button
-                severity="primary"
-                [label]="'admin.fuel.addFuel' | translate"
-                icon="pi pi-user-plus"
-                outlined
-                (onClick)="addFuel()"
-            />
-        </div>
+        <div class="flex gap-2.5"></div>
     </div>
 </ng-template>
 <ng-template #actionsTemplate let-rowData>
-    <div class="flex">
-        <p-button
-            icon="pi pi-pencil"
-            [rounded]="true"
-            [text]="true"
-            severity="info"
-            (onClick)="onEdit(rowData)"
-        />
+    <div class="flex items-center gap-2">
+        <span class="text-xs text-gray-600">{{
+            rowData.active
+                ? ("admin.packageCredit.active" | translate)
+                : ("admin.packageCredit.inactive" | translate)
+        }}</span>
+        <p-inputSwitch
+            [ngModel]="rowData.active"
+            (onChange)="onDelete(rowData)"
+        ></p-inputSwitch>
     </div>
 </ng-template>
+<ng-template #emissionSourceTemplate let-data>
+    {{ getLocalizedEmissionSourceName(data.emissionSourceDTO) }}
+</ng-template>
 
-<ng-template #fuelTemplate let-data>
-    {{ getLocalizedFuelName(data.fuel) }}
+<ng-template #energyConversionTemplate let-data>
+    {{ getLocalizedFuelName(data.energyConversionDTO.fuel) }}
+</ng-template>
+
+<ng-template #isDirectEmissionTemplate let-data>
+    <p-checkbox
+        [binary]="true"
+        [ngModel]="data.isDirectEmission"
+        [disabled]="true"
+    ></p-checkbox>
+</ng-template>
+<ng-template #nameTemplate let-data>
+    {{ getLocalizedEmissionFactorName(data) }}
 </ng-template>

@@ -1,10 +1,14 @@
 package greenbuildings.enterprise.repositories;
 
 import greenbuildings.enterprise.entities.EmissionFactorEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 public interface EmissionFactorRepository extends JpaRepository<EmissionFactorEntity, UUID> {
@@ -15,5 +19,17 @@ public interface EmissionFactorRepository extends JpaRepository<EmissionFactorEn
     // One query only: inner join with not-null fields and left join nullable fields
     @EntityGraph(attributePaths = {"source", "energyConversion", "energyConversion.fuel"})
     List<EmissionFactorEntity> findAllByActiveIsTrue();
+
+    @Query("""
+        SELECT e.id
+        FROM EmissionFactorEntity e
+        WHERE (LOWER(e.nameEN) LIKE LOWER(CONCAT('%', :name, '%')) OR LOWER(e.nameVN) LIKE LOWER(CONCAT('%', :name, '%')) OR LOWER(e.nameZH) LIKE LOWER(CONCAT('%', :name, '%')))
+        ORDER BY e.active desc\s
+       \s"""
+    )
+    Page<UUID> findByName(String name, Pageable pageable);
+
+    @EntityGraph(attributePaths = {"source", "energyConversion", "energyConversion.fuel"})
+    List<EmissionFactorEntity> findAllById(UUID id);
     
 }

@@ -1,5 +1,5 @@
 <h1 class="font-bold text-lg text-primary">
-    {{ "sidebar.admin.fuel" | translate }}
+    {{ "admin.emissionSource.name" | translate }}
 </h1>
 <table-template
     *ngIf="!applicationService.isMobile()"
@@ -53,13 +53,6 @@
             [text]="true"
             severity="info"
             (onClick)="onEdit(rowData)"
-        />
-        <p-button
-            icon="pi pi-trash"
-            [rounded]="true"
-            [text]="true"
-            severity="danger"
-            (onClick)="onDelete(rowData)"
         />
     </div>
 </ng-template>

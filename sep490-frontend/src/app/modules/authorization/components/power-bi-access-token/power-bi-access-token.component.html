@@ -1,12 +1,13 @@
 <ng-container *ngIf="accessTokens.length > 0; else noTokens">
     <div class="flex justify-between items-center py-2 border-b">
-        <p class="text-xl">Power BI access tokens</p>
+        <p class="text-xl">
+            {{ "sidebar.owner.settings.items.powerBiAccessToken" | translate }}
+        </p>
         <ng-container *ngTemplateOutlet="generateNewToken"></ng-container>
     </div>
 
     <p>
-        Tokens you have generated that can be used to access the GreenBuildings
-        Power BI.
+        {{ "powerBi.tokenGenerated" | translate }}
     </p>
 
     @if (newestCreatedTokenId && newestCreatedTokenKey) {
@@ -52,7 +53,7 @@
 
 <ng-template #generateNewToken>
     <p-button
-        label="Generate new token"
+        [label]="'powerBi.buttonGenerateToken' | translate"
         outlined
         size="small"
         (onClick)="navigateToDetail()"
@@ -61,14 +62,17 @@
 
 <ng-template #noTokens>
     <div class="flex justify-between items-center py-2 border-b">
-        <p class="text-xl">Power BI access tokens</p>
+        <p class="text-xl">
+            {{ "sidebar.owner.settings.items.powerBiAccessToken" | translate }}
+        </p>
     </div>
     <div class="h-96 flex flex-col items-center justify-center gap-4">
         <i class="pi pi-key text-2xl"></i>
-        <h3 class="text-xl font-semibold">No Power BI access token created</h3>
+        <h3 class="text-xl font-semibold">
+            {{ "powerBi.noAccessToken" | translate }}
+        </h3>
         <p class="text-base">
-            Need an API token for scripts or testing? Generate a personal access
-            token for quick access to the GreenBuildings Power BI.
+            {{ "powerBi.description" | translate }}
         </p>
         <ng-container *ngTemplateOutlet="generateNewToken"></ng-container>
     </div>
@@ -90,7 +94,7 @@
             </div>
             <div class="flex items-center min-w-fit gap-3">
                 <div class="min-w-fit text-xs">
-                    Last used in
+                    {{ "powerBi.lastUsed" | translate }}
                     {{
                         token.lastUsed
                             ? (token.lastUsed | date: "EEE, MMM dd yyyy")
@@ -98,7 +102,7 @@
                     }}
                 </div>
                 <p-button
-                    label="Delete"
+                    label="{{ 'powerBi.delete' | translate }}"
                     severity="danger"
                     size="small"
                     outlined
@@ -107,7 +111,8 @@
             </div>
         </div>
         <p class="mt-1 text-sm italic">
-            Expires on {{ token.expirationTime | date: "EEE, MMM dd yyyy" }}.
+            {{ "powerBi.expirationOn" | translate }}
+            {{ token.expirationTime | date: "EEE, MMM dd yyyy" }}.
         </p>
     </div>
 </ng-template>

@@ -48,6 +48,9 @@ public class EnterpriseUserRestController {
     }
 
     @GetMapping("/enterprise-owner")
+    @RolesAllowed({UserRole.RoleNameConstant.ENTERPRISE_OWNER,
+            UserRole.RoleNameConstant.ENTERPRISE_EMPLOYEE,
+            UserRole.RoleNameConstant.SYSTEM_ADMIN})
     public ResponseEntity<EnterpriseUserDetailsDTO> getEnterpriseOwnerDetail() {
         String email = SecurityUtils.getCurrentUserEmail().orElseThrow();
         var enterpriseOwnerDetail = userService.findByEmail(email);

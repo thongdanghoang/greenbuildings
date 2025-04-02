@@ -153,7 +153,7 @@
           "validFromInclusive": "Valid from",
           "validToInclusive": "Valid to",
           "address": "Address",
-          "currentMaxNumberOfDevices": "Current max number of devices"
+          "currentMaxNumberOfDevices": "Current max number of activities"
         }
       },
       "message": {
@@ -307,13 +307,14 @@
         }
       }
     },
-    "admin": {
-      "title": "Admin",
-      "packageCredit": "Credit Package",
-      "creditRatio": "Credit Ratio",
-      "emissionSource": "Emission Source",
-      "fuel": "Fuel"
-    }
+   "admin": {
+     "title": "Admin",
+     "packageCredit": "Credit Package",
+     "creditRatio": "Credit Ratio",
+     "emissionSource": "Emission Source",
+     "fuel": "Fuel",
+     "emissionFactor": "Emission Factor"
+   }
   },
   "admin": {
     "packageCredit": {
@@ -361,6 +362,17 @@
     },
     "fuel": {
       "addFuel": "Add Fuel"
+    },
+    "emissionFactor": {
+      "numerator": "Emission Unit Numerator",
+      "denominator": "Emission Unit Denominator",
+      "description": "Description",
+      "isDirectEmission": "Direct Emission"
+    },
+    "energyConversion": {
+      "conversionValue": "Conversion Value",
+      "conversionUnitNumerator": "Conversion Unit Numerator",
+      "conversionUnitDenominator": "Conversion Unit Denominator"
     }
   },
   "dialog": {
@@ -371,12 +383,12 @@
       },
       "body": {
         "name": "Name",
-        "numberDevices": "Current number of devices",
+        "numberDevices": "Current number of activities",
         "numberMonth": "Number of months",
-        "numberMaxDevice": "Maximum number of devices",
-        "numberMaxDeviceUpgrade": "Additional number of devices (Upgrade)",
+        "numberMaxDevice": "Maximum number of activities",
+        "numberMaxDeviceUpgrade": "Additional number of activities (Upgrade)",
         "totalCredit": "Total",
-        "confirm": "Confirm subscription {{numberOfMonths}} months and {{numberOfDevices}} devices"
+        "confirm": "Confirm subscription {{numberOfMonths}} months and {{numberOfDevices}} activities"
       },
       "footer": {
         "button": {
@@ -492,6 +504,55 @@
       "create": "Generate token",
       "regenerate": "Regenerate token",
       "cancel": "Cancel"
-    }
+    },
+    "noAccessToken": "No Power BI access token created",
+    "description": "Need an API token for scripts or testing? Generate a personal access token for quick access to the GreenBuildings Power BI.",
+    "buttonGenerateToken": "Generate new token",
+    "small": "The token will expire on the selected date",
+    "newAccessToken": "New Power BI access token",
+    "editAccessToken": "Edit Power BI access token",
+    "tokenName": "Token name",
+    "whatToken": "What’s this token for?",
+    "expiration": "Expiration",
+    "tokenGenerated": "Tokens you have generated that can be used to access the GreenBuildings Power BI.",
+    "delete": "Delete",
+    "lastUsed": "Last used in",
+    "expirationOn": "Expires on",
+    "dialog": {
+      "config": "Confirmation",
+      "message": "Are you sure that you want to proceed?",
+      "acceptLabel": "Accept",
+      "reject": "Reject"
+    },
+    "messageService": {
+      "success": {
+        "summary": "Deleted",
+        "detail": "Token deleted successfully"
+      },
+      "error": {
+        "summary": "Error",
+        "detail": "Failed to delete token"
+      }
+    },
+    "msgForgotToken": "If you’ve lost or forgotten this token, you can regenerate it, but be aware that any scripts or applications using this token will need to be updated.",
+    "buttonCreateToken": "Regenerate token",
+    "thisTokenExpireOn": "This token expired on",
+    "toSetNewExpireDate": ". To set a new expiration date, you must",
+    "regenerateToken": "regenerate the token",
+    "regenerateTokenTitle": "Regenerate Power BI access token",
+    "submitThisForm": "Submitting this form will generate a new token. Be aware that any scripts or applications using this token will need to be updated.",
+    "tokenWillExpire": "The token will expire on the selected date",
+    "dashboard": "Power BI Dashboards",
+    "noPowerBi": "No Power BI Dashboards created",
+    "needPowerBi": "Need a Power BI dashboard for scripts or testing? Add a embedded dashboard for quick view the Green Buildings data.",
+    "addNewDashBoard": "Add new dashboard",
+    "selectDashboard": "Select a Dashboard",
+    "embeddedIfFrame": "Embedded iframe",
+    "invalidIfFrame": "Invalid iframe code. Please check the format.",
+    "pastedIfFrame": "Paste the iframe code from Power BI here.",
+    "makeSure": "Make sure to include the entire iframe code.",
+    "example": "Example:",
+    "close": "Close",
+    "submit": "Submit"
   }
 }

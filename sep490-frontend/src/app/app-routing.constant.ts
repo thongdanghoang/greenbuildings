@@ -38,6 +38,7 @@ export class AppRoutingConstants {
     'credit-convert-ratio-detail';
   public static readonly EMISSION_SOURCE = 'emission-resource';
   public static readonly FUEL_CONVERSION = 'fuel-conversion';
+  public static readonly EMISSION_FACTOR = 'emission-factor';
 
   // App Routing
   public static readonly LANDING_PAGE_PATH = 'landing-page';

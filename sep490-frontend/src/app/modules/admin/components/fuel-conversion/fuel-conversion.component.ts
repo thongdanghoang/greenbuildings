@@ -11,7 +11,6 @@ import {
   SearchResultDto
 } from '../../../shared/models/base-models';
 import {Observable} from 'rxjs';
-import {FuelConversion} from '../../../enterprise/models/enterprise.dto';
 import {TableTemplateColumn} from '../../../shared/components/table-template/table-template.component';
 import {ApplicationService} from '../../../core/services/application.service';
 import {MessageService} from 'primeng/api';
@@ -25,6 +24,10 @@ import {
 } from 'primeng/dynamicdialog';
 import {UUID} from '../../../../../types/uuid';
 import {FuelDialogComponent} from '../../dialog/fuel-dialog/fuel-dialog.component';
+import {
+  EnergyConversionDTO,
+  FuelDTO
+} from '../../../shared/models/shared-models';
 export interface FuelConversionCriteria {
   criteria: string;
 }
@@ -37,15 +40,17 @@ export class FuelConversionComponent
   extends SubscriptionAwareComponent
   implements OnInit
 {
+  @ViewChild('fuelTemplate', {static: true})
+  fuelTemplate!: TemplateRef<any>;
   @ViewChild('actionsTemplate', {static: true})
   actionsTemplate!: TemplateRef<any>;
   ref: DynamicDialogRef | undefined;
   protected fetchFuel!: (
     criteria: SearchCriteriaDto<FuelConversionCriteria>
-  ) => Observable<SearchResultDto<FuelConversion>>;
+  ) => Observable<SearchResultDto<EnergyConversionDTO>>;
   protected cols: TableTemplateColumn[] = [];
   protected readonly searchEvent: EventEmitter<void> = new EventEmitter();
-  protected selected: FuelConversion[] = [];
+  protected selected: EnergyConversionDTO[] = [];
   protected searchCriteria: FuelConversionCriteria = {criteria: ''};
   constructor(
     protected readonly applicationService: ApplicationService,
@@ -64,18 +69,35 @@ export class FuelConversionComponent
       this.fuelConversionService
     );
   }
+
+  getLocalizedFuelName(source: FuelDTO | undefined): string {
+    if (!source) return '';
+
+    let lang = this.translate.currentLang.toUpperCase(); // Changed from const to let
+    if (lang === 'VI') {
+      lang = 'VN'; // Now this works because lang is mutable
+    }
+
+    return (source[`name${lang}` as keyof FuelDTO] as string) || source.nameEN;
+  }
+
   buildCols(): void {
     this.cols.push({
-      field: 'nameVN',
-      header: 'Nhiên liệu'
+      field: 'fuel',
+      header: 'sidebar.admin.fuel',
+      templateRef: this.fuelTemplate
     });
     this.cols.push({
-      field: 'nameEN',
-      header: 'Fuel'
+      field: 'conversionValue',
+      header: 'admin.energyConversion.conversionValue'
     });
     this.cols.push({
-      field: 'nameZH',
-      header: '燃料'
+      field: 'conversionUnitNumerator',
+      header: 'admin.energyConversion.conversionUnitNumerator'
+    });
+    this.cols.push({
+      field: 'conversionUnitDenominator',
+      header: 'admin.energyConversion.conversionUnitDenominator'
     });
     this.cols.push({
       field: 'actions',
@@ -84,7 +106,7 @@ export class FuelConversionComponent
     });
   }
 
-  onSelectionChange(selectedUsers: FuelConversion[]): void {
+  onSelectionChange(selectedUsers: EnergyConversionDTO[]): void {
     this.selected = selectedUsers;
   }
 
@@ -122,12 +144,9 @@ export class FuelConversionComponent
   }
 
   // Edit an existing emission source
-  onEdit(rowData: FuelConversion): void {
+  onEdit(rowData: EnergyConversionDTO): void {
     this.selected = [rowData];
     const fuelId = this.selected[0].id; // Fixed typo: emisstionId -> emissionId
     this.openNewActivityDialog(fuelId);
-  }
-  onDelete(rowData: FuelConversion): void {
-    this.selected = [rowData];
   }
 }

@@ -137,8 +137,13 @@ export class SidebarComponent
           },
           {
             label: 'sidebar.admin.fuel',
-            icon: 'pi pi-asterisk',
+            icon: 'pi pi-sliders-v',
             route: `/${AppRoutingConstants.ADMIN_PATH}/${AppRoutingConstants.FUEL_CONVERSION}`
+          },
+          {
+            label: 'sidebar.admin.emissionFactor',
+            icon: 'pi pi-sliders-h',
+            route: `/${AppRoutingConstants.ADMIN_PATH}/${AppRoutingConstants.EMISSION_FACTOR}`
           }
         ]
       }

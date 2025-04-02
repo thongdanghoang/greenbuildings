@@ -9,6 +9,7 @@ import {AppRoutingConstants} from '../../app-routing.constant';
 import {SubscriptionAwareComponent} from '../../modules/core/subscription-aware.component';
 import {BaseDTO, SelectableItem} from '../../modules/shared/models/base-models';
 import {CreateDashboardComponent} from './create-dashboard/create-dashboard.component';
+import {TranslateService} from '@ngx-translate/core';
 
 interface EnterpriseDashboardDTO extends BaseDTO {
   title: string;
@@ -39,7 +40,8 @@ export class DashboardComponent
     private readonly sanitizer: DomSanitizer,
     private readonly httpClient: HttpClient,
     private readonly dialogService: DialogService,
-    private readonly messageService: MessageService
+    private readonly messageService: MessageService,
+    public readonly translate: TranslateService
   ) {
     super();
   }
@@ -89,7 +91,7 @@ export class DashboardComponent
   openCreateDashboardModal(): void {
     this.ref = this.dialogService.open(CreateDashboardComponent, {
       data: {},
-      header: 'Add new dashboard',
+      header: this.translate.instant('powerBi.addNewDashBoard'),
       modal: true
     });
     this.ref.onClose

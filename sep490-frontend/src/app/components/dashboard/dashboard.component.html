@@ -1,13 +1,13 @@
 <ng-container *ngIf="dashboards.length > 0; else noDashboards">
     <div class="flex justify-between items-center py-2 border-b">
-        <p class="text-xl">Power BI Dashboards</p>
+        <p class="text-xl">{{ "powerBi.dashboard" | translate }}</p>
         <div class="flex gap-4">
             <ng-container *ngTemplateOutlet="addNewDashboard"></ng-container>
             <p-select
                 [options]="selectableDashboards"
                 [(ngModel)]="selectedDashboard"
                 optionLabel="label"
-                placeholder="Select a Dashboard"
+                [placeholder]="'powerBi.selectDashboard' | translate"
                 class="w-full md:w-56"
                 size="small"
                 (onChange)="onChange($event)"
@@ -18,7 +18,7 @@
 
 <ng-template #addNewDashboard>
     <p-button
-        label="Add new dashboard"
+        [label]="'powerBi.addNewDashBoard' | translate"
         outlined
         size="small"
         (onClick)="openCreateDashboardModal()"
@@ -27,14 +27,15 @@
 
 <ng-template #noDashboards>
     <div class="flex justify-between items-center py-2 border-b">
-        <p class="text-xl">Power BI Dashboards</p>
+        <p class="text-xl">{{ "powerBi.dashboard" | translate }}</p>
     </div>
     <div class="h-96 flex flex-col items-center justify-center gap-4">
         <i class="pi pi-chart-bar text-2xl"></i>
-        <h3 class="text-xl font-semibold">No Power BI Dashboards created</h3>
+        <h3 class="text-xl font-semibold">
+            {{ "powerBi.noPowerBi" | translate }}
+        </h3>
         <p class="text-base">
-            Need a Power BI dashboard for scripts or testing? Add a embedded
-            dashboard for quick view the Green Buildings data.
+            {{ "powerBi.needPowerBi" | translate }}
         </p>
         <ng-container *ngTemplateOutlet="addNewDashboard"></ng-container>
     </div>

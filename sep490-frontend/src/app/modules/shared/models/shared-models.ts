@@ -79,4 +79,5 @@ export interface EmissionFactorDTO extends BaseDTO {
   validTo?: Date;
   isDirectEmission: boolean;
   energyConversionDTO?: EnergyConversionDTO;
+  active: boolean;
 }
