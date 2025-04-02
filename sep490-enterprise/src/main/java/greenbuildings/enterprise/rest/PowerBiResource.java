@@ -1,5 +1,6 @@
 package greenbuildings.enterprise.rest;
 
+import greenbuildings.enterprise.securities.PowerBiAuthenticationFacade;
 import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,9 +23,13 @@ import java.nio.charset.StandardCharsets;
 @Slf4j
 public class PowerBiResource {
     
+    private final PowerBiAuthenticationFacade authenticationFacade;
+    
     @GetMapping(value = "/poc", produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("@powerBiSecurityCheckerBean.checkIfUserHasPermission(#apiKey)")
     public ResponseEntity<String> poc(@PathVariable @NotBlank String apiKey) throws IOException {
+        var contextData = authenticationFacade.getAuthentication().getPrincipal();
+        // TODO: use context data to get the buildings according to buildings permissions and enterprise Id
         try (InputStream inputStream = Thread.currentThread()
                                              .getContextClassLoader()
                                              .getResourceAsStream("power-bi-response.json")) {

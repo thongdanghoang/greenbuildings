@@ -122,7 +122,7 @@ export class EnterpriseUserDetailsComponent extends AbstractFormComponent<Enterp
       label: 'enum.scope.BUILDING'
     }
   ];
-  protected selectableBuildings: SelectableItem<any>[] = this.buildings.map(
+  protected selectableBuildings: SelectableItem<UUID>[] = this.buildings.map(
     building => ({
       disabled: false,
       value: building.id,

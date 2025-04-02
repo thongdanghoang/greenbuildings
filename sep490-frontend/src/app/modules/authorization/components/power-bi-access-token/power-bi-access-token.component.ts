@@ -7,7 +7,7 @@ import {AppRoutingConstants} from '../../../../app-routing.constant';
 import {ApplicationConstant} from '../../../../application.constant';
 import {SubscriptionAwareComponent} from '../../../core/subscription-aware.component';
 import {ModalProvider} from '../../../shared/services/modal-provider';
-import {PowerBiAuthority} from '../../models/power-bi-authority.dto';
+import {PowerBiAuthority} from '../../models/power-bi-access-token.dto';
 import {PowerBiAccessTokenService} from '../../services/power-bi-access-token.service';
 import {TranslateService} from '@ngx-translate/core';
 
@@ -23,12 +23,6 @@ export class PowerBiAccessTokenComponent
   protected accessTokens: PowerBiAuthority[] = [];
   protected newestCreatedTokenId: UUID | null = null;
   protected newestCreatedTokenKey: string | null = null;
-  protected mockScopes: string[] = [
-    'gist, read:org, read:user, repo',
-    'gist, read:org, read:user, repo, user:email, workflow',
-    'codespace, copilot, delete:packages, delete_repo, gist, notifications, project, repo, user, workflow, write:discussion, write:packages',
-    'admin:enterprise, admin:gpg_key, admin:org, admin:org_hook, admin:public_key, admin:repo_hook, admin:ssh_signing_key, audit_log, codespace, copilot, delete:packages, delete_repo, gist, notifications, project, repo, user, workflow, write:discussion, write:packages'
-  ];
 
   constructor(
     private readonly powerBiService: PowerBiAccessTokenService,
@@ -41,9 +35,24 @@ export class PowerBiAccessTokenComponent
   }
 
   ngOnInit(): void {
-    const newestPowerBiAccessToken = sessionStorage.getItem(
+    this.initializeData();
+  }
+
+  get newestPowerBiAccessToken(): string | null {
+    return sessionStorage.getItem(
       ApplicationConstant.NEWEST_POWER_BI_ACCESS_TOKEN_KEY
     );
+  }
+
+  get newestCreatedToken(): PowerBiAuthority | null {
+    return (
+      this.accessTokens.find(token => token.id === this.newestCreatedTokenId) ||
+      null
+    );
+  }
+
+  initializeData(): void {
+    const newestPowerBiAccessToken = this.newestPowerBiAccessToken;
     if (newestPowerBiAccessToken) {
       const token = JSON.parse(newestPowerBiAccessToken);
       this.newestCreatedTokenKey = token.apiKey;
@@ -61,11 +70,7 @@ export class PowerBiAccessTokenComponent
           tokens.map(
             (token: PowerBiAuthority): PowerBiAuthority => ({
               ...token,
-              lastUsed: this.randomDate(new Date(2012, 0, 1), new Date()),
-              scopes:
-                this.mockScopes[
-                  Math.floor(Math.random() * this.mockScopes.length)
-                ]
+              lastUsed: this.randomDate(new Date(2012, 0, 1), new Date())
             })
           )
         ),
@@ -85,13 +90,6 @@ export class PowerBiAccessTokenComponent
       AppRoutingConstants.ACCESS_TOKEN,
       id ?? 'new'
     ]);
-  }
-
-  get newestCreatedToken(): PowerBiAuthority | null {
-    return (
-      this.accessTokens.find(token => token.id === this.newestCreatedTokenId) ||
-      null
-    );
   }
 
   copyToClipboard(text: string): void {
@@ -143,8 +141,8 @@ export class PowerBiAccessTokenComponent
               'powerBi.messageService.success.detail'
             )
           });
-          // Refresh the token list
-          this.ngOnInit();
+          this.initializeData();
+          this.clearNewestPowerBiAccessToken();
         },
         error: (): void => {
           this.messageService.add({
@@ -158,6 +156,11 @@ export class PowerBiAccessTokenComponent
           });
         }
       });
+  }
+
+  private clearNewestPowerBiAccessToken(): void {
+    this.newestCreatedTokenId = null;
+    this.newestCreatedTokenKey = null;
   }
 
   private randomDate(start: Date, end: Date): Date {

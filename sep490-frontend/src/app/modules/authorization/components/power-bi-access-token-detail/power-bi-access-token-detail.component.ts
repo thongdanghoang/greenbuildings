@@ -4,6 +4,8 @@ import {
   AbstractControl,
   FormBuilder,
   FormControl,
+  ValidationErrors,
+  ValidatorFn,
   Validators
 } from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -16,8 +18,12 @@ import {AppRoutingConstants} from '../../../../app-routing.constant';
 import {ApplicationConstant} from '../../../../application.constant';
 import {AbstractFormComponent} from '../../../shared/components/form/abstract-form-component';
 import {SelectableItem} from '../../../shared/models/base-models';
-import {PowerBiAuthority} from '../../models/power-bi-authority.dto';
+import {
+  PowerBiAuthority,
+  PowerBiScope
+} from '../../models/power-bi-access-token.dto';
 import {PowerBiAccessTokenService} from '../../services/power-bi-access-token.service';
+import {PowerBiAccessTokenExpirationOptions} from '../power-bi-access-token-expiration-options';
 
 @Component({
   selector: 'app-power-bi-access-token-detail',
@@ -25,47 +31,42 @@ import {PowerBiAccessTokenService} from '../../services/power-bi-access-token.se
   styleUrl: './power-bi-access-token-detail.component.css'
 })
 export class PowerBiAccessTokenDetailComponent extends AbstractFormComponent<PowerBiAuthority> {
-  readonly defaultExpirationTimeOption: SelectableItem<Date> = {
-    label: 'powerBi.accessToken.expiration.30days',
-    value: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)
-  };
-  readonly customExpirationTimeOption: SelectableItem<null> = {
-    label: 'powerBi.accessToken.expiration.custom',
-    value: null
-  };
-
   protected readonly powerBiAuthorityFormStructure = {
     id: new FormControl<UUID | null>({value: null, disabled: true}),
     version: new FormControl(null),
     note: new FormControl(null, [Validators.required]),
     expirationTime: new FormControl<Date>(
-      this.defaultExpirationTimeOption.value,
+      PowerBiAccessTokenExpirationOptions.defaultExpirationTimeOption.value,
       {
         nonNullable: true,
         validators: [Validators.required]
       }
+    ),
+    scope: new FormControl<string>('', {
+      nonNullable: true,
+      validators: [Validators.required]
+    }),
+    buildings: new FormControl<UUID[]>(
+      [],
+      [this.selectedBuildingIdsValidator().bind(this)]
     )
   };
-  protected selectableExpirationTimes: SelectableItem<Date | null>[] = [
+
+  protected selectableExpirationTimes: SelectableItem<Date | null>[] =
+    PowerBiAccessTokenExpirationOptions.selectableExpirationTimes;
+  protected scopeOptions: SelectableItem<keyof typeof PowerBiScope>[] = [
     {
-      label: 'powerBi.accessToken.expiration.7days',
-      value: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
+      disabled: false,
+      value: PowerBiScope[PowerBiScope.ENTERPRISE] as keyof typeof PowerBiScope,
+      label: 'enum.scope.ENTERPRISE'
     },
-    this.defaultExpirationTimeOption,
     {
-      label: 'powerBi.accessToken.expiration.60days',
-      value: new Date(Date.now() + 60 * 24 * 60 * 60 * 1000)
-    },
-    {
-      label: 'powerBi.accessToken.expiration.90days',
-      value: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000)
-    },
-    this.customExpirationTimeOption,
-    {
-      label: 'powerBi.accessToken.expiration.never',
-      value: new Date(Date.now() + 100 * 365 * 24 * 60 * 60 * 1000)
+      disabled: false,
+      value: PowerBiScope[PowerBiScope.BUILDING] as keyof typeof PowerBiScope,
+      label: 'enum.scope.BUILDING'
     }
   ];
+  protected selectablePowerBiScopes: SelectableItem<any>[] = [];
 
   constructor(
     httpClient: HttpClient,
@@ -77,6 +78,13 @@ export class PowerBiAccessTokenDetailComponent extends AbstractFormComponent<Pow
     private readonly powerBiService: PowerBiAccessTokenService
   ) {
     super(httpClient, formBuilder, notificationService, translate);
+  }
+
+  get scopeBuilding(): boolean {
+    return (
+      this.powerBiAuthorityFormStructure.scope.value ===
+      PowerBiScope[PowerBiScope.BUILDING]
+    );
   }
 
   get regenerateTokenLink(): string {
@@ -117,6 +125,19 @@ export class PowerBiAccessTokenDetailComponent extends AbstractFormComponent<Pow
     ]);
   }
 
+  fetchBuilding(): void {
+    this.powerBiService
+      .getSelectableBuildings()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(buildings => {
+        this.selectablePowerBiScopes = buildings.map(building => ({
+          disabled: false,
+          value: building.id,
+          label: building.name
+        }));
+      });
+  }
+
   protected override initializeFormControls(): {
     [key: string]: AbstractControl;
   } {
@@ -140,6 +161,7 @@ export class PowerBiAccessTokenDetailComponent extends AbstractFormComponent<Pow
           new Date(accessToken.expirationTime)
         );
       });
+    this.fetchBuilding();
   }
 
   protected override submitFormDataUrl(): string {
@@ -162,5 +184,17 @@ export class PowerBiAccessTokenDetailComponent extends AbstractFormComponent<Pow
         AppRoutingConstants.ACCESS_TOKEN
       ]);
     }
+  }
+
+  private selectedBuildingIdsValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      if (!this.powerBiAuthorityFormStructure) {
+        return null;
+      }
+      if (this.scopeBuilding) {
+        return control.value.length > 0 ? null : {required: true};
+      }
+      return null;
+    };
   }
 }

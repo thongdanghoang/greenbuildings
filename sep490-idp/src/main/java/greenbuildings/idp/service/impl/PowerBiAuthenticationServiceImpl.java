@@ -1,6 +1,7 @@
 package greenbuildings.idp.service.impl;
 
 import greenbuildings.commons.api.events.KafkaEventTopicConstant;
+import greenbuildings.commons.api.events.PowerBiAccessTokenAuthResult;
 import greenbuildings.idp.entity.PowerBiAuthority;
 import greenbuildings.idp.exceptions.PowerBiAuthorityNoteAlreadyExists;
 import greenbuildings.idp.repository.PowerBiAuthorityRepository;
@@ -35,7 +36,7 @@ public class PowerBiAuthenticationServiceImpl implements PowerBiAuthenticationSe
         if (Objects.nonNull(powerBiAuthority.getId())) {
             return repository.save(powerBiAuthority);
         }
-        if(repository.existsByNote((powerBiAuthority.getNote()))) {
+        if (repository.existsByNote((powerBiAuthority.getNote()))) {
             throw new PowerBiAuthorityNoteAlreadyExists();
         }
         powerBiAuthority.setApiKey(UUID.randomUUID().toString());
@@ -74,13 +75,20 @@ public class PowerBiAuthenticationServiceImpl implements PowerBiAuthenticationSe
         sendAuthResponse(hasPermission, correlationId);
     }
     
-    private boolean checkIfUserHasPermission(String apiKey) {
-        return repository.findByApiKey(apiKey).isPresent();
+    private PowerBiAccessTokenAuthResult checkIfUserHasPermission(String apiKey) {
+        return repository.findByApiKey(apiKey)
+                         .map(biAuthority -> PowerBiAccessTokenAuthResult
+                                 .builder()
+                                 .enterpriseId(biAuthority.getEnterpriseId())
+                                 .buildings(biAuthority.getBuildings())
+                                 .scope(biAuthority.getScope())
+                                 .build())
+                         .orElse(PowerBiAccessTokenAuthResult.builder().build()); // payload can't be null, if enterpriseId null => no permission
     }
     
-    private void sendAuthResponse(boolean isAuthenticated, String correlationId) {
+    private void sendAuthResponse(PowerBiAccessTokenAuthResult result, String correlationId) {
         var message = MessageBuilder
-                .withPayload(isAuthenticated) // TODO: [DANO] replace with scope
+                .withPayload(result)
                 .setHeader(KafkaHeaders.TOPIC, KafkaEventTopicConstant.POWER_BI_AUTHENTICATION_RESPONSE_EVENT)
                 .setHeader(KafkaHeaders.CORRELATION_ID, correlationId)
                 .build();
