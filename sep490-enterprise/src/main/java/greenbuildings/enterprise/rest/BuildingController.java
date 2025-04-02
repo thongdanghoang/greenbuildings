@@ -6,6 +6,7 @@ import greenbuildings.commons.api.dto.SearchCriteriaDTO;
 import greenbuildings.commons.api.dto.SearchResultDTO;
 import greenbuildings.commons.api.security.UserRole;
 import greenbuildings.enterprise.dtos.BuildingDTO;
+import greenbuildings.enterprise.dtos.dashboard.SelectableBuildingDTO;
 import greenbuildings.enterprise.mappers.BuildingMapper;
 import greenbuildings.enterprise.services.BuildingService;
 import greenbuildings.enterprise.services.EnterpriseService;
@@ -16,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -36,6 +38,13 @@ public class BuildingController {
     public ResponseEntity<BuildingDTO> getBuildingById(@PathVariable UUID id) {
         var building = buildingService.findById(id);
         return ResponseEntity.ok(buildingMapper.toDto(building.orElseThrow()));
+    }
+    
+    @GetMapping("/selectable")
+    public ResponseEntity<List<SelectableBuildingDTO>> getAllBuildings(@AuthenticationPrincipal UserContextData userContextData) {
+        var enterpriseIdFromContext = Objects.requireNonNull(userContextData.getEnterpriseId());
+        var buildings = buildingService.findBuildingsByEnterpriseId(enterpriseIdFromContext);
+        return ResponseEntity.ok(buildings.stream().map(buildingMapper::toSelectableBuildingDTO).toList());
     }
     
     @PostMapping("/search")

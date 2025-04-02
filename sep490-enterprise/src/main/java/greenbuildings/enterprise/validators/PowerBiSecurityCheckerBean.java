@@ -1,8 +1,10 @@
 package greenbuildings.enterprise.validators;
 
 import greenbuildings.commons.api.events.KafkaEventTopicConstant;
+import greenbuildings.commons.api.events.PowerBiAccessTokenAuthResult;
 import greenbuildings.commons.api.exceptions.TechnicalException;
 import greenbuildings.commons.api.utils.MDCContext;
+import greenbuildings.enterprise.securities.PowerBiAuthentication;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.MDC;
@@ -11,6 +13,7 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.KafkaHeaders;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.support.MessageBuilder;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import java.util.Objects;
@@ -28,16 +31,24 @@ public class PowerBiSecurityCheckerBean {
     private final KafkaTemplate<String, Object> kafkaTemplate;
     
     protected static final int TRANSACTION_TIMEOUT = 2;
-    private final ConcurrentHashMap<String, CompletableFuture<Boolean>> authResponses = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<String, CompletableFuture<PowerBiAccessTokenAuthResult>> authResponses = new ConcurrentHashMap<>();
     
     public boolean checkIfUserHasPermission(String apiKey) {
-        var future = new CompletableFuture<Boolean>();
+        var future = new CompletableFuture<PowerBiAccessTokenAuthResult>();
         var correlationId = MDC.get(MDCContext.CORRELATION_ID);
         authResponses.put(correlationId, future);
         sendAuthRequest(apiKey);
         
         try { // Wait synchronously for response
-            return future.get(TRANSACTION_TIMEOUT, TimeUnit.SECONDS);
+            var result = future.get(TRANSACTION_TIMEOUT, TimeUnit.SECONDS);
+            if (Objects.nonNull(result.enterpriseId())) {
+                var contextHolderStrategy = SecurityContextHolder.getContextHolderStrategy();
+                var context = contextHolderStrategy.createEmptyContext();
+                var powerBiAuthentication = new PowerBiAuthentication(result);
+                context.setAuthentication(powerBiAuthentication);
+                contextHolderStrategy.setContext(context);
+            }
+            return Objects.nonNull(result.enterpriseId());
         } catch (TimeoutException e) {
             throw new TechnicalException("Request timeout", e);
         } catch (ExecutionException e) {
@@ -65,7 +76,7 @@ public class PowerBiSecurityCheckerBean {
     }
     
     @KafkaListener(topics = KafkaEventTopicConstant.POWER_BI_AUTHENTICATION_RESPONSE_EVENT)
-    public void handleAuthResponse(Message<Boolean> authResponseMsg) {
+    public void handleAuthResponse(Message<PowerBiAccessTokenAuthResult> authResponseMsg) {
         var correlationId = Objects.requireNonNull(authResponseMsg.getHeaders().get(KafkaHeaders.CORRELATION_ID, String.class));
         var authResponse = authResponseMsg.getPayload();
         var future = authResponses.get(correlationId);

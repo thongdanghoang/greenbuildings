@@ -1,6 +1,7 @@
 package greenbuildings.enterprise.mappers;
 
 import greenbuildings.enterprise.dtos.BuildingDTO;
+import greenbuildings.enterprise.dtos.dashboard.SelectableBuildingDTO;
 import greenbuildings.enterprise.entities.BuildingEntity;
 import greenbuildings.enterprise.mappers.decorators.BuildingMapperDecorator;
 import org.mapstruct.*;
@@ -15,6 +16,7 @@ public interface BuildingMapper {
     BuildingDTO toDto(BuildingEntity buildingEntity);
     
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    BuildingEntity partialUpdate(BuildingDTO buildingDTO, @MappingTarget
-    BuildingEntity buildingEntity);
+    BuildingEntity partialUpdate(BuildingDTO buildingDTO, @MappingTarget BuildingEntity buildingEntity);
+    
+    SelectableBuildingDTO toSelectableBuildingDTO(BuildingEntity source);
 }

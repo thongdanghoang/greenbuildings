@@ -54,6 +54,7 @@ public class PowerBiResource {
             var powerBiAuthorityEntity = service.findById(request.id()).orElseThrow();
             powerBiAuthority = mapper.updateApiKey(request, powerBiAuthorityEntity, userEntity);
         }
+        powerBiAuthority.setEnterpriseId(userContextData.getEnterpriseId());
         var powerBiAuthorityPersisted = service.createOrUpdate(powerBiAuthority);
         var response = ApiKeyResponse.builder()
                                      .apiKey(Objects.nonNull(request.id()) ? null : powerBiAuthorityPersisted.getApiKey())
@@ -63,8 +64,7 @@ public class PowerBiResource {
     }
     
     @Builder
-    public record RegenerateTokenBody(@NotNull LocalDateTime expirationTime) {
-    }
+    public record RegenerateTokenBody(@NotNull LocalDateTime expirationTime) { }
     
     @PostMapping("/{id}/regenerate")
     public ResponseEntity<ApiKeyResponse> regenerateApiKey(@PathVariable UUID id, @RequestBody RegenerateTokenBody request) {

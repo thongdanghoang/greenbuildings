@@ -4,15 +4,20 @@ import {BaseDTO} from '../../shared/models/base-models';
 export interface PowerBiAuthority extends BaseDTO {
   note: string;
   expirationTime: Date;
+  scope: keyof typeof PowerBiScope;
+  buildings: UUID[];
   lastUsed?: Date; // TODO: replace with lastUsed
-  scopes?: string; // TODO: replace with scopes
-}
-
-export interface PowerBiAuthorityGenerateRequest {
-  note: string;
-  expirationTime: string;
 }
 
 export interface PowerBiAuthorityGenerateResponse {
   apiKey: UUID;
+}
+
+export enum PowerBiScope {
+  BUILDING,
+  ENTERPRISE
+}
+
+export interface PowerBiBuilding extends BaseDTO {
+  name: string;
 }

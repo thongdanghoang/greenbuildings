@@ -9,6 +9,7 @@ import {ApplicationConstant} from '../../../../application.constant';
 import {SubscriptionAwareComponent} from '../../../core/subscription-aware.component';
 import {SelectableItem} from '../../../shared/models/base-models';
 import {PowerBiAccessTokenService} from '../../services/power-bi-access-token.service';
+import {PowerBiAccessTokenExpirationOptions} from '../power-bi-access-token-expiration-options';
 
 @Component({
   selector: 'app-power-bi-regenerate-access-token',
@@ -16,37 +17,10 @@ import {PowerBiAccessTokenService} from '../../services/power-bi-access-token.se
   styleUrl: './power-bi-regenerate-access-token.component.css'
 })
 export class PowerBiRegenerateAccessTokenComponent extends SubscriptionAwareComponent {
-  readonly defaultExpirationTimeOption: SelectableItem<Date> = {
-    label: 'powerBi.accessToken.expiration.30days',
-    value: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)
-  };
-  readonly customExpirationTimeOption: SelectableItem<null> = {
-    label: 'powerBi.accessToken.expiration.custom',
-    value: null
-  };
-  protected selectableExpirationTimes: SelectableItem<Date | null>[] = [
-    {
-      label: 'powerBi.accessToken.expiration.7days',
-      value: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
-    },
-    this.defaultExpirationTimeOption,
-    {
-      label: 'powerBi.accessToken.expiration.60days',
-      value: new Date(Date.now() + 60 * 24 * 60 * 60 * 1000)
-    },
-    {
-      label: 'powerBi.accessToken.expiration.90days',
-      value: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000)
-    },
-    this.customExpirationTimeOption,
-    {
-      label: 'powerBi.accessToken.expiration.never',
-      value: new Date(Date.now() + 100 * 365 * 24 * 60 * 60 * 1000)
-    }
-  ];
-
   protected expirationTime: Date | null =
-    this.defaultExpirationTimeOption.value;
+    PowerBiAccessTokenExpirationOptions.defaultExpirationTimeOption.value;
+  protected selectableExpirationTimes: SelectableItem<Date | null>[] =
+    PowerBiAccessTokenExpirationOptions.selectableExpirationTimes;
 
   constructor(
     private readonly activatedRoute: ActivatedRoute,

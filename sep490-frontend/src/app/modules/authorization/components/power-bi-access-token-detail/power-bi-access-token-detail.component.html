@@ -36,22 +36,8 @@
         <form-field-error></form-field-error>
     </div>
 
-    <label class="font-semibold">{{ "powerBi.expiration" | translate }}</label>
-    @if (isEdit) {
-        <div>
-            {{ "powerBi.thisTokenExpireOn" | translate }}
-            <strong>{{
-                powerBiAuthorityFormStructure.expirationTime.value
-                    | date: "MMM d, yyyy"
-            }}</strong
-            >{{ "powerBi.toSetNewExpireDate" | translate }}
-            <a class="text-primary" [routerLink]="regenerateTokenLink">{{
-                "powerBi.regenerateToken" | translate
-            }}</a
-            >.
-        </div>
-    }
-    <div errorMessages *ngIf="!isEdit">
+    <label class="font-semibold">Expiration</label>
+    <div errorMessages *ngIf="!isEdit; else regenerateTokenLinkTemplate">
         <div class="flex gap-2">
             <p-select
                 formControlName="expirationTime"
@@ -92,6 +78,49 @@
         <small>{{ "powerBi.small" | translate }}</small>
         <form-field-error></form-field-error>
     </div>
+
+    <label class="font-semibold">Scope</label>
+    <div class="flex gap-8 *:max-w-96 *:w-full">
+        <div class="flex flex-col" errorMessages>
+            <p-select
+                formControlName="scope"
+                optionLabel="label"
+                [options]="scopeOptions"
+                [placeholder]="
+                    'enterprise.Users.placeholders.selectScope' | translate
+                "
+                optionValue="value"
+                optionDisabled="disabled"
+                class="w-full"
+            >
+                <ng-template #selectedItem let-selectedOption>
+                    <div>
+                        {{ selectedOption.label | translate }}
+                    </div></ng-template
+                >
+                <ng-template #item let-item
+                    ><div>{{ item.label | translate }}</div></ng-template
+                >
+            </p-select>
+            <form-field-error></form-field-error>
+        </div>
+        @if (scopeBuilding) {
+            <div class="flex flex-col" errorMessages>
+                <p-multiselect
+                    [options]="selectablePowerBiScopes"
+                    formControlName="buildings"
+                    optionLabel="label"
+                    optionValue="value"
+                    [placeholder]="
+                        'enterprise.Users.placeholders.selectBuildings'
+                            | translate
+                    "
+                    lazy="true"
+                ></p-multiselect>
+                <form-field-error></form-field-error>
+            </div>
+        }
+    </div>
 </form>
 
 <div class="flex gap-4">
@@ -112,3 +141,18 @@
         [outlined]="true"
     />
 </div>
+
+<ng-template #regenerateTokenLinkTemplate>
+    <div class="mb-6">
+        {{ "powerBi.thisTokenExpireOn" | translate }}
+        <strong>{{
+            powerBiAuthorityFormStructure.expirationTime.value
+                | date: "MMM d, yyyy"
+        }}</strong
+        >{{ "powerBi.toSetNewExpireDate" | translate }}
+        <a class="text-primary" [routerLink]="regenerateTokenLink">{{
+            "powerBi.regenerateToken" | translate
+        }}</a
+        >.
+    </div>
+</ng-template>

@@ -5,14 +5,22 @@ import {UUID} from '../../../../types/uuid';
 import {AppRoutingConstants} from '../../../app-routing.constant';
 import {
   PowerBiAuthority,
-  PowerBiAuthorityGenerateResponse
-} from '../models/power-bi-authority.dto';
+  PowerBiAuthorityGenerateResponse,
+  PowerBiBuilding
+} from '../models/power-bi-access-token.dto';
 
 @Injectable()
 export class PowerBiAccessTokenService {
   public readonly POWER_BI_AUTHORITY_URL: string = `${AppRoutingConstants.IDP_API_URL}/auth/power-bi`;
+  public readonly ENTERPRISE_BUILDINGS_URL: string = `${AppRoutingConstants.ENTERPRISE_API_URL}/buildings`;
 
   constructor(private readonly httpClient: HttpClient) {}
+
+  getSelectableBuildings(): Observable<PowerBiBuilding[]> {
+    return this.httpClient.get<PowerBiBuilding[]>(
+      `${this.ENTERPRISE_BUILDINGS_URL}/selectable`
+    );
+  }
 
   getMyAccessToken(): Observable<PowerBiAuthority[]> {
     return this.httpClient.get<PowerBiAuthority[]>(
