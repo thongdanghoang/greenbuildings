@@ -16,4 +16,5 @@ public interface EmissionFactorService {
     List<EmissionFactorEntity> findBySource(UUID sourceId);
 
     Page<EmissionFactorEntity> search(SearchCriteriaDTO<EmissionFactorCriteriaDTO> searchCriteria, Pageable pageable);
+    void delete(UUID id);
 }

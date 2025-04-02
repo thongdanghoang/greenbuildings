@@ -21,10 +21,11 @@ public interface EmissionFactorRepository extends JpaRepository<EmissionFactorEn
     List<EmissionFactorEntity> findAllByActiveIsTrue();
 
     @Query("""
-            SELECT e.id
-            FROM EmissionFactorEntity e
-            WHERE (LOWER(e.nameEN) LIKE LOWER(CONCAT('%', :name, '%')) OR LOWER(e.nameVN) LIKE LOWER(CONCAT('%', :name, '%')) OR LOWER(e.nameZH) LIKE LOWER(CONCAT('%', :name, '%')))
-            """
+        SELECT e.id
+        FROM EmissionFactorEntity e
+        WHERE (LOWER(e.nameEN) LIKE LOWER(CONCAT('%', :name, '%')) OR LOWER(e.nameVN) LIKE LOWER(CONCAT('%', :name, '%')) OR LOWER(e.nameZH) LIKE LOWER(CONCAT('%', :name, '%')))
+        ORDER BY e.active desc\s
+       \s"""
     )
     Page<UUID> findByName(String name, Pageable pageable);
 

@@ -180,7 +180,7 @@ export class EmissionFactorComponent
       templateRef: this.energyConversionTemplate
     });
     this.cols.push({
-      field: 'actions',
+      field: 'active',
       header: '',
       templateRef: this.actionsTemplate
     });
@@ -194,11 +194,39 @@ export class EmissionFactorComponent
     this.searchEvent.emit();
   }
 
-  // Edit an existing emission source
-  onEdit(rowData: EmissionFactorDTO): void {
-    this.selected = [rowData];
-  }
   onDelete(rowData: EmissionFactorDTO): void {
     this.selected = [rowData];
+    this.deleteFactor(rowData);
+  }
+
+  private deleteFactor(factor: EmissionFactorDTO): void {
+    this.emissionFactorService
+      .deleteEmissionFactor(factor.id.toString())
+      .subscribe({
+        next: () => {
+          this.messageService.add({
+            severity: 'success',
+            summary: this.translate.instant(
+              'admin.packageCredit.message.success.summary'
+            ),
+            detail: this.translate.instant(
+              'admin.packageCredit.message.success.detail'
+            )
+          });
+          this.selected = []; // Clear local selection
+          this.searchEvent.emit(); // Refresh table
+        },
+        error: () => {
+          this.messageService.add({
+            severity: 'error',
+            summary: this.translate.instant(
+              'admin.packageCredit.message.error.summary'
+            ),
+            detail: this.translate.instant(
+              'admin.packageCredit.message.error.detail'
+            )
+          });
+        }
+      });
   }
 }

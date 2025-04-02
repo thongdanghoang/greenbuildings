@@ -541,6 +541,18 @@
     "regenerateToken": "regenerate the token",
     "regenerateTokenTitle": "Regenerate Power BI access token",
     "submitThisForm": "Submitting this form will generate a new token. Be aware that any scripts or applications using this token will need to be updated.",
-    "tokenWillExpire": "The token will expire on the selected date"
+    "tokenWillExpire": "The token will expire on the selected date",
+    "dashboard": "Power BI Dashboards",
+    "noPowerBi": "No Power BI Dashboards created",
+    "needPowerBi": "Need a Power BI dashboard for scripts or testing? Add a embedded dashboard for quick view the Green Buildings data.",
+    "addNewDashBoard": "Add new dashboard",
+    "selectDashboard": "Select a Dashboard",
+    "embeddedIfFrame": "Embedded iframe",
+    "invalidIfFrame": "Invalid iframe code. Please check the format.",
+    "pastedIfFrame": "Paste the iframe code from Power BI here.",
+    "makeSure": "Make sure to include the entire iframe code.",
+    "example": "Example:",
+    "close": "Close",
+    "submit": "Submit"
   }
 }

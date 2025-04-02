@@ -1,6 +1,7 @@
 package greenbuildings.enterprise.services.impl;
 
 import greenbuildings.commons.api.dto.SearchCriteriaDTO;
+import greenbuildings.commons.api.exceptions.BusinessException;
 import greenbuildings.enterprise.dtos.EmissionFactorCriteriaDTO;
 import greenbuildings.enterprise.entities.EmissionFactorEntity;
 import greenbuildings.enterprise.repositories.EmissionFactorRepository;
@@ -13,10 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -50,6 +48,12 @@ public class EmissionFactorServiceImpl implements EmissionFactorService {
                 .flatMap(List::stream) // Flatten the list of lists
                 .collect(Collectors.toMap(EmissionFactorEntity::getId, Function.identity()));
         return emissionFactorIDs.map(results::get);
+    }
+
+    public void delete(UUID id) {
+        var emissionFactor = emissionFactorRepository.findById(id).orElse(null);
+        Objects.requireNonNull(emissionFactor).setActive(!emissionFactor.isActive());
+        emissionFactorRepository.save(emissionFactor);
     }
 
 }

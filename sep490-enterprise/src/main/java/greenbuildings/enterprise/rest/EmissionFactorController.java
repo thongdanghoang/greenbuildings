@@ -41,4 +41,10 @@ public class EmissionFactorController {
                         searchResults,
                         emissionFactorMapper::toDTO));
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteEmissionFactor(@PathVariable UUID id) {
+                emissionFactorService.delete(id);
+                return ResponseEntity.noContent().build();
+    }
 }

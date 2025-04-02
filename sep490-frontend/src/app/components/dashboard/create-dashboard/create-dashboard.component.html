@@ -8,19 +8,19 @@
         style="resize: none"
         class="h-full"
     ></textarea>
-    <label for="over_label">Embedded iframe</label>
+    <label for="over_label">{{ "powerBi.embeddedIfFrame" | translate }}</label>
 </p-floatlabel>
 
 @if (powerBiEmbedded && !isValid()) {
     <div class="text-red-600 min-h-6">
-        Invalid iframe code. Please check the format.
+        {{ "powerBi.invalidIfFrame" | translate }}
     </div>
 }
 
 <small>
-    <p>Paste the iframe code from Power BI here.</p>
-    <p>Make sure to include the entire iframe code.</p>
-    <p>Example:</p>
+    <p>{{ "powerBi.pastedIfFrame" | translate }}</p>
+    <p>{{ "powerBi.makeSure" | translate }}</p>
+    <p>{{ "powerBi.example" | translate }}</p>
     <pre>
         &lt;iframe
             width="800"
@@ -33,12 +33,14 @@
 </small>
 
 <div class="flex justify-end gap-4">
-    <p-button size="small" (onClick)="close()" outlined>Close</p-button>
+    <p-button size="small" (onClick)="close()" outlined>{{
+        "powerBi.close" | translate
+    }}</p-button>
     <p-button
         size="small"
         [raised]="true"
         (onClick)="submit()"
         [disabled]="!isValid()"
-        >Submit</p-button
+        >{{ "powerBi.submit" | translate }}</p-button
     >
 </div>

@@ -21,4 +21,10 @@ export class EmissionFactorService {
       criteria
     );
   }
+
+  public deleteEmissionFactor(factorId: string): Observable<void> {
+    return this.httpClient.delete<void>(
+      `${AppRoutingConstants.ENTERPRISE_API_URL}/emission-factor/${factorId}`
+    );
+  }
 }

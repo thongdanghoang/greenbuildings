@@ -540,6 +540,18 @@
     "regenerateToken": "重新生成令牌",
     "regenerateTokenTitle": "重新生成 Power BI 访问令牌",
     "submitThisForm": "提交此表单将生成一个新令牌。请注意，使用此令牌的任何脚本或应用程序都需要更新。",
-    "tokenWillExpire": "令牌将在选定日期到期"
+    "tokenWillExpire": "令牌将在选定日期到期",
+    "dashboard": "Power BI 仪表板",
+    "noPowerBi": "未创建 Power BI 仪表板",
+    "needPowerBi": "需要用于脚本或测试的 Power BI 仪表板吗？添加嵌入式仪表板，以便快速查看绿色建筑数据。",
+    "addNewDashBoard": "添加新仪表板",
+    "selectDashboard": "选择仪表板",
+    "embeddedIfFrame": "嵌入式 iframe",
+    "invalidIfFrame": "无效的 iframe 代码。请检查格式。",
+    "pastedIfFrame": "在此处粘贴 Power BI 的 iframe 代码。",
+    "makeSure": "确保包含完整的 iframe 代码。",
+    "example": "例子：",
+    "close": "关闭",
+    "submit": "提交"
   }
 }

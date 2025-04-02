@@ -541,6 +541,18 @@
     "regenerateToken": "tạo lại mã thông báo",
     "regenerateTokenTitle": "Tạo lại mã thông báo truy cập Power BI",
     "submitThisForm": "Gửi biểu mẫu này sẽ tạo ra một mã thông báo mới. Xin lưu ý rằng bất kỳ tập lệnh hoặc ứng dụng nào sử dụng mã thông báo này đều cần phải được cập nhật.",
-    "tokenWillExpire": "Mã thông báo sẽ hết hạn vào ngày đã chọn"
+    "tokenWillExpire": "Mã thông báo sẽ hết hạn vào ngày đã chọn",
+    "dashboard": "Trên bảng điều khiển Power BI",
+    "noPowerBi": "Không có bảng điều khiển Power BI nào được tạo",
+    "needPowerBi": "Cần bảng điều khiển Power BI cho các tập lệnh hoặc thử nghiệm? Thêm bảng điều khiển nhúng để xem nhanh dữ liệu công trình xanh.",
+    "addNewDashBoard": "Thêm bảng điều khiển mới",
+    "selectDashboard": "Chọn Bảng điều khiển",
+    "embeddedIfFrame": "Iframe Nhúng",
+    "invalidIfFrame": "Mã iframe không hợp lệ. Vui lòng kiểm tra định dạng.",
+    "pastedIfFrame": "Dán mã iframe từ Power BI vào đây.",
+    "makeSure": "Đảm bảo bao gồm toàn bộ mã iframe.",
+    "example": "Ví dụ:",
+    "close": "Đóng",
+    "submit": "Nộp"
   }
 }

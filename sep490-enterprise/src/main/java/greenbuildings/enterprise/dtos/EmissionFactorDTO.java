@@ -23,5 +23,6 @@ public record EmissionFactorDTO(
         LocalDateTime validFrom,
         LocalDateTime validTo,
         boolean isDirectEmission,
-        EnergyConversionDTO energyConversionDTO
+        EnergyConversionDTO energyConversionDTO,
+        boolean active
 ) {}
