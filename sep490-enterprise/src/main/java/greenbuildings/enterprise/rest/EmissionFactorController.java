@@ -24,7 +24,7 @@ public class EmissionFactorController {
     
     @GetMapping
     public ResponseEntity<List<EmissionFactorDTO>> findAll() {
-        return ResponseEntity.ok(emissionFactorService.findAll().stream().map(emissionFactorMapper::toDTO).toList());
+        return ResponseEntity.ok(emissionFactorService.findAllAvailable().stream().map(emissionFactorMapper::toDTO).toList());
     }
 
     @GetMapping("/find-by-source/{sourceId}")

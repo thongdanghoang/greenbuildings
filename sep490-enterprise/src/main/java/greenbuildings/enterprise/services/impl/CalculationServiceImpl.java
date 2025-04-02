@@ -42,8 +42,39 @@ public class CalculationServiceImpl implements CalculationService {
     }
     
     private void calculateDirectly(EmissionFactorEntity factor, List<EmissionActivityRecordEntity> content) {
+        for (EmissionActivityRecordEntity entity : content) {
+            entity.setGhg(calculateDirectly(factor, entity));
+        }
+    }
     
-    
+    private BigDecimal calculateDirectly(EmissionFactorEntity factor, EmissionActivityRecordEntity recordEntity) {
+        EmissionUnit inputFactor = factor.getEmissionUnitDenominator();
+        EmissionUnit outputFactor = factor.getEmissionUnitNumerator();
+        
+        if (inputFactor == null || outputFactor == null) {
+            return BigDecimal.ZERO;
+        }
+        if (!recordEntity.getUnit().isSameCategory(inputFactor)) {
+            log.error("Mismatch unit of conversion and factor");
+            return BigDecimal.ZERO;
+        }
+        
+        Pair<EmissionUnit, BigDecimal> rawMeasurement = Pair.of(recordEntity.getUnit(), recordEntity.getValue());
+        Pair<EmissionUnit, BigDecimal> factorReadyValue = Pair.of(inputFactor, CalculationUtils.convertUnit(
+                rawMeasurement.getLeft(), inputFactor, rawMeasurement.getRight()));
+        
+        Pair<EmissionUnit, BigDecimal> emissionResult = Pair.of(
+                outputFactor,  // typically KILOGRAM for CO2e
+                CalculationUtils.calculateCO2e(
+                        factor.getCo2().multiply(factorReadyValue.getRight()),   // CO2 contribution
+                        factor.getCh4().multiply(factorReadyValue.getRight()),   // CH4 contribution
+                        factor.getN2o().multiply(factorReadyValue.getRight())));   // N2O contribution
+        
+        Pair<EmissionUnit, BigDecimal> kilogramResult = Pair.of(
+                EmissionUnit.KILOGRAM,
+                CalculationUtils.convertUnit(emissionResult.getLeft(), EmissionUnit.KILOGRAM, emissionResult.getRight()));
+        
+        return kilogramResult.getRight();
     }
     
     private void calculateIndirectly(EmissionFactorEntity factor, List<EmissionActivityRecordEntity> content) {
@@ -61,7 +92,7 @@ public class CalculationServiceImpl implements CalculationService {
         EmissionUnit outputConversion = energyConversion.getConversionUnitNumerator(); // TERAJOULE - null
         
         if (!inputFactor.isSameCategory(outputConversion)) {
-            log.warn("Mismatch unit of conversion and factor");
+            log.error("Mismatch unit of conversion and factor");
             return BigDecimal.ZERO;
         }
         
