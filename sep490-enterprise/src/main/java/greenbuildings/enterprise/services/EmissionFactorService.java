@@ -11,8 +11,8 @@ import java.util.UUID;
 import java.util.Set;
 
 public interface EmissionFactorService {
-    Set<EmissionFactorEntity> findAll();
-
+    Set<EmissionFactorEntity> findAllAvailable();
+    
     List<EmissionFactorEntity> findBySource(UUID sourceId);
 
     Page<EmissionFactorEntity> search(SearchCriteriaDTO<EmissionFactorCriteriaDTO> searchCriteria, Pageable pageable);

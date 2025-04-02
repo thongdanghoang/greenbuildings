@@ -18,7 +18,7 @@ public interface EmissionFactorRepository extends JpaRepository<EmissionFactorEn
     // ex: conversion.fuel
     // One query only: inner join with not-null fields and left join nullable fields
     @EntityGraph(attributePaths = {"source", "energyConversion", "energyConversion.fuel"})
-    List<EmissionFactorEntity> findAllByActiveIsTrue();
+    List<EmissionFactorEntity> findAllByActiveIsTrueAndEmissionUnitDenominatorNotNullAndEmissionUnitNumeratorNotNull();
 
     @Query("""
         SELECT e.id

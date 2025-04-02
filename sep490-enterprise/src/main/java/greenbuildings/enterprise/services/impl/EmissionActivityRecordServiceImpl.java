@@ -45,7 +45,9 @@ public class EmissionActivityRecordServiceImpl implements EmissionActivityRecord
                         CommonMapper.toPageable(searchCriteria.page(), searchCriteria.sort()));
         
         List<EmissionActivityRecordEntity> modifiedContent = calculationService.calculate(searchCriteria.criteria().emissionActivityId(), page.getContent());
-        modifiedContent.forEach(entity -> entity.setGhg(entity.getGhg().setScale(2, RoundingMode.HALF_UP)));
+        modifiedContent.stream()
+                       .filter(x -> x.getGhg() != null)
+                       .forEach(entity -> entity.setGhg(entity.getGhg().setScale(2, RoundingMode.HALF_UP)));
         return new PageImpl<>(modifiedContent, page.getPageable(), page.getTotalElements());
     }
     
