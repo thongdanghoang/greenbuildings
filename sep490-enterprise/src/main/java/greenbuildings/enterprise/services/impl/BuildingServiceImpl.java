@@ -5,17 +5,17 @@ import greenbuildings.commons.api.exceptions.BusinessException;
 import greenbuildings.enterprise.entities.BuildingEntity;
 import greenbuildings.enterprise.repositories.BuildingRepository;
 import greenbuildings.enterprise.services.BuildingService;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 import java.util.UUID;
 
 @Service
-@Transactional(rollbackOn = Throwable.class)
+@Transactional(rollbackFor = Throwable.class)
 @RequiredArgsConstructor
 public class BuildingServiceImpl implements BuildingService {
     
@@ -23,16 +23,16 @@ public class BuildingServiceImpl implements BuildingService {
     
     @Override
     public BuildingEntity createBuilding(BuildingEntity building) {
-      UUID enterpriseId = SecurityUtils.getCurrentUserEnterpriseId().orElseThrow();
-      if(building.getId() != null) {
-          var oldBuilding = buildingRepository.findById(building.getId()).orElseThrow();
-          if(oldBuilding.getName().equals(building.getName())) {
-              return buildingRepository.save(building);
-          }
-      }
-      if(buildingRepository.existsByNameBuildingInEnterprise(building.getName(),enterpriseId)) {
-          throw new BusinessException("name", "business.buildings.name.exist");
-      }
+        UUID enterpriseId = SecurityUtils.getCurrentUserEnterpriseId().orElseThrow();
+        if (building.getId() != null) {
+            var oldBuilding = buildingRepository.findById(building.getId()).orElseThrow();
+            if (oldBuilding.getName().equals(building.getName())) {
+                return buildingRepository.save(building);
+            }
+        }
+        if (buildingRepository.existsByNameBuildingInEnterprise(building.getName(), enterpriseId)) {
+            throw new BusinessException("name", "business.buildings.name.exist");
+        }
         return buildingRepository.save(building);
     }
     
@@ -43,19 +43,20 @@ public class BuildingServiceImpl implements BuildingService {
     
     @Override
     public Page<BuildingEntity> getEnterpriseBuildings(UUID enterpriseId, Pageable page) {
-        return buildingRepository.findByEnterpriseIdAndDeleted(enterpriseId,false, page);
+        return buildingRepository.findByEnterpriseIdAndDeleted(enterpriseId, false, page);
     }
-     @Override
+    
+    @Override
     public void deleteBuilding(UUID id) {
         UUID enterpriseId = SecurityUtils.getCurrentUserEnterpriseId().orElseThrow();
-         var optionalBuilding = buildingRepository.findByIdAndEnterpriseId(id, enterpriseId);
-         if(optionalBuilding.isPresent()) {
-             var building = optionalBuilding.get();
-             if(!building.isDeleted()) {
-                 building.setDeleted(true);
-                 buildingRepository.save(building);
-             }
-         }
+        var optionalBuilding = buildingRepository.findByIdAndEnterpriseId(id, enterpriseId);
+        if (optionalBuilding.isPresent()) {
+            var building = optionalBuilding.get();
+            if (!building.isDeleted()) {
+                building.setDeleted(true);
+                buildingRepository.save(building);
+            }
+        }
     }
-
+    
 }

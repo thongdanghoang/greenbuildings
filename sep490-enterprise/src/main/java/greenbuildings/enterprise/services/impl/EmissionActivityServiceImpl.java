@@ -7,11 +7,11 @@ import greenbuildings.enterprise.dtos.EmissionActivityCriteria;
 import greenbuildings.enterprise.entities.EmissionActivityEntity;
 import greenbuildings.enterprise.repositories.EmissionActivityRepository;
 import greenbuildings.enterprise.services.EmissionActivityService;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
 import java.util.Optional;
@@ -19,7 +19,7 @@ import java.util.Set;
 import java.util.UUID;
 
 @Service
-@Transactional(rollbackOn = Throwable.class)
+@Transactional(rollbackFor = Throwable.class)
 @Slf4j
 @RequiredArgsConstructor
 public class EmissionActivityServiceImpl implements EmissionActivityService {

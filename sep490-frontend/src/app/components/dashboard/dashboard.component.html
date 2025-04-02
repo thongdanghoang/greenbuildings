@@ -1,1 +1,50 @@
-<p>dashboard works!</p>
+<ng-container *ngIf="dashboards.length > 0; else noDashboards">
+    <div class="flex justify-between items-center py-2 border-b">
+        <p class="text-xl">Power BI Dashboards</p>
+        <div class="flex gap-4">
+            <ng-container *ngTemplateOutlet="addNewDashboard"></ng-container>
+            <p-select
+                [options]="selectableDashboards"
+                [(ngModel)]="selectedDashboard"
+                optionLabel="label"
+                placeholder="Select a Dashboard"
+                class="w-full md:w-56"
+                size="small"
+                (onChange)="onChange($event)"
+            />
+        </div>
+    </div>
+</ng-container>
+
+<ng-template #addNewDashboard>
+    <p-button
+        label="Add new dashboard"
+        outlined
+        size="small"
+        (onClick)="openCreateDashboardModal()"
+    />
+</ng-template>
+
+<ng-template #noDashboards>
+    <div class="flex justify-between items-center py-2 border-b">
+        <p class="text-xl">Power BI Dashboards</p>
+    </div>
+    <div class="h-96 flex flex-col items-center justify-center gap-4">
+        <i class="pi pi-chart-bar text-2xl"></i>
+        <h3 class="text-xl font-semibold">No Power BI Dashboards created</h3>
+        <p class="text-base">
+            Need a Power BI dashboard for scripts or testing? Add a embedded
+            dashboard for quick view the Green Buildings data.
+        </p>
+        <ng-container *ngTemplateOutlet="addNewDashboard"></ng-container>
+    </div>
+</ng-template>
+
+@if (selectedDashboard) {
+    <iframe
+        [title]="selectedDashboard.value.title"
+        width="1140"
+        height="541.25"
+        [src]="safeUrl"
+    ></iframe>
+}

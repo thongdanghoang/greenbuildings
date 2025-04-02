@@ -48,6 +48,7 @@ import {StepperModule} from 'primeng/stepper';
 import {TableModule} from 'primeng/table';
 import {TabMenuModule} from 'primeng/tabmenu';
 import {TagModule} from 'primeng/tag';
+import {TextareaModule} from 'primeng/textarea';
 import {ToastModule} from 'primeng/toast';
 import {ToggleButtonModule} from 'primeng/togglebutton';
 import {ToggleSwitchModule} from 'primeng/toggleswitch';
@@ -96,6 +97,7 @@ const primeNgModules = [
   SelectButtonModule,
   TableModule,
   TabMenuModule,
+  TextareaModule,
   ToastModule,
   PaginatorModule,
   PasswordModule,

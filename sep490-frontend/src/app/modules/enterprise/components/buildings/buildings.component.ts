@@ -248,9 +248,7 @@ export class BuildingsComponent
           );
           marker.bindPopup(markerPopup);
         });
-        if (this.buildings.length === 1) {
-          this.zoomTo(this.buildings[0].latitude, this.buildings[0].longitude);
-        } else if (this.buildings.length > 0) {
+        if (this.buildings.length > 0) {
           const latLngs = buildings.results.map(building =>
             L.latLng(building.latitude, building.longitude)
           );

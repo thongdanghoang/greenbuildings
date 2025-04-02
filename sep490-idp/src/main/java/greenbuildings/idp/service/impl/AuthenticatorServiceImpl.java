@@ -20,19 +20,19 @@ import com.webauthn4j.data.client.Origin;
 import com.webauthn4j.data.client.challenge.DefaultChallenge;
 import com.webauthn4j.server.ServerProperty;
 import com.webauthn4j.verifier.exception.VerificationException;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
-import jakarta.transaction.Transactional;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
-import org.springframework.web.util.UriComponentsBuilder;
 import greenbuildings.idp.dto.passkeys.CredentialsRegistration;
 import greenbuildings.idp.dto.passkeys.CredentialsVerification;
 import greenbuildings.idp.entity.UserAuthenticator;
 import greenbuildings.idp.entity.UserEntity;
 import greenbuildings.idp.repository.UserAuthenticatorRepository;
 import greenbuildings.idp.service.AuthenticatorService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.Base64;
 import java.util.List;
@@ -40,7 +40,7 @@ import java.util.List;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-@Transactional(rollbackOn = Throwable.class)
+@Transactional(rollbackFor = Throwable.class)
 public class AuthenticatorServiceImpl implements AuthenticatorService {
     
     private final UserAuthenticatorRepository repository;
@@ -67,19 +67,19 @@ public class AuthenticatorServiceImpl implements AuthenticatorService {
     
     @Override
     public UserEntity authenticate(CredentialsVerification verification) {
-            UserAuthenticator userAuthenticator = repository.findByCredentialId(verification.id()).orElseThrow();
-            AttestationObject attestation = attestationConverter.convert(userAuthenticator.getAttestationObject());
-            CredentialRecordImpl authenticator = new CredentialRecordImpl(attestation, null, null, null);
-            
-            AuthenticationRequest authenticationRequest = getAuthenticationRequest(verification);
-            AuthenticationParameters authenticationParameters =
-                    new AuthenticationParameters(buildServerPropertyFromSessionChallenge(), authenticator, null, true, true);
-            
-            AuthenticationData authenticationData = webAuthnManager.verify(authenticationRequest, authenticationParameters);
-            UserEntity user = userAuthenticator.getUser();
-            
-            checkSignCount(userAuthenticator, authenticationData.getAuthenticatorData().getSignCount());
-            return user;
+        UserAuthenticator userAuthenticator = repository.findByCredentialId(verification.id()).orElseThrow();
+        AttestationObject attestation = attestationConverter.convert(userAuthenticator.getAttestationObject());
+        CredentialRecordImpl authenticator = new CredentialRecordImpl(attestation, null, null, null);
+        
+        AuthenticationRequest authenticationRequest = getAuthenticationRequest(verification);
+        AuthenticationParameters authenticationParameters =
+                new AuthenticationParameters(buildServerPropertyFromSessionChallenge(), authenticator, null, true, true);
+        
+        AuthenticationData authenticationData = webAuthnManager.verify(authenticationRequest, authenticationParameters);
+        UserEntity user = userAuthenticator.getUser();
+        
+        checkSignCount(userAuthenticator, authenticationData.getAuthenticatorData().getSignCount());
+        return user;
     }
     
     public boolean deleteCredential(UserEntity user, String credentialId) {
