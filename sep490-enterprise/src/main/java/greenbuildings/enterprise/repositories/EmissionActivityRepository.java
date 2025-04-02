@@ -26,6 +26,4 @@ public interface EmissionActivityRepository extends JpaRepository<EmissionActivi
 
     @EntityGraph(value = EmissionActivityEntity.DETAILS_GRAPH)
     Optional<EmissionActivityEntity> findDetailsById(UUID id);
-    
-    UUID id(UUID id);
 }

@@ -60,5 +60,5 @@ public class EmissionActivityRecordEntity extends AbstractAuditableEntity {
     private int quantity;
     
     @Transient
-    private double ghg;
+    private BigDecimal ghg;
 }

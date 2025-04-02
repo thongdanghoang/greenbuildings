@@ -3,6 +3,7 @@ package greenbuildings.enterprise.utils;
 
 import greenbuildings.enterprise.enums.EmissionUnit;
 import greenbuildings.enterprise.enums.GwpConfiguration;
+import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -39,6 +40,12 @@ public class CalculationUtils {
         return defaultGwpConfig.getCO2() * co2
                + defaultGwpConfig.getCH4() * ch4
                + defaultGwpConfig.getN2O() * n2o;
+    }
+    
+    public static BigDecimal calculateCO2e(@NotNull BigDecimal co2, @NotNull BigDecimal ch4, @NotNull BigDecimal n2o) {
+        return (co2.multiply(BigDecimal.valueOf(defaultGwpConfig.getCO2())))
+                .add(ch4.multiply(BigDecimal.valueOf(defaultGwpConfig.getCH4())))
+                .add(n2o.multiply(BigDecimal.valueOf(defaultGwpConfig.getN2O())));
     }
     
     public static BigDecimal convertUnit(EmissionUnit from, EmissionUnit to, BigDecimal value) {
