@@ -153,7 +153,7 @@
           "validFromInclusive": "有效日期",
           "validToInclusive": "有效日期",
           "address": "地址",
-          "currentMaxNumberOfDevices": "当前最大设备数量"
+          "currentMaxNumberOfDevices": "当前最大活动数"
         }
       },
       "message": {
@@ -382,12 +382,12 @@
       },
       "body": {
         "name": "姓名",
-        "numberDevices": "当前设备数量",
+        "numberDevices": "目前活动数量",
         "numberMonth": "月份数",
-        "numberMaxDevice": "最大设备数量",
-        "numberMaxDeviceUpgrade": "额外设备数量（升级）",
+        "numberMaxDevice": "最大活动数量",
+        "numberMaxDeviceUpgrade": "额外活动数量（升级）",
         "totalCredit": "全部的",
-        "confirm": "确认订阅 {{numberOfMonths}} 个月 和 {{numberOfDevices}} 设备"
+        "confirm": "确认订阅 {{numberOfMonths}} 个月 和 {{numberOfDevices}} 活动"
       },
       "footer": {
         "button": {
@@ -503,6 +503,43 @@
       "create": "生成访问令牌",
       "regenerate": "重新生成访问令牌",
       "cancel": "取消"
-    }
+    },
+    "noAccessToken": "未创建 Power BI 访问令牌",
+    "description": "需要用于脚本或测试的 API 令牌？生成个人访问令牌以快速访问 GreenBuildings Power BI。",
+    "buttonGenerateToken": "生成新令牌",
+    "small": "令牌将在选定日期到期",
+    "newAccessToken": "新的 Power BI 访问令牌",
+    "editAccessToken": "编辑 Power BI 访问令牌",
+    "tokenName": "代币名称",
+    "whatToken": "这个代币有什么用处？",
+    "expiration": "到期",
+    "tokenGenerated": "您生成的令牌可用于访问 GreenBuildings Power BI。",
+    "delete": "删除",
+    "lastUsed": "最后使用于",
+    "expirationOn": "到期日期",
+    "dialog": {
+      "config": "确认",
+      "message": "您确定要继续吗？",
+      "acceptLabel": "接受",
+      "reject": "拒绝"
+    },
+    "messageService": {
+      "success": {
+        "summary": "已删除",
+        "detail": "令牌删除成功"
+      },
+      "error": {
+        "summary": "错误",
+        "detail": "删除令牌失败"
+      }
+    },
+    "msgForgotToken": "如果您丢失或忘记了此令牌，您可以重新生成它，但请注意，使用此令牌的任何脚本或应用程序都需要更新。",
+    "buttonCreateToken": "重新生成 token",
+    "thisTokenExpireOn": "此令牌已过期",
+    "toSetNewExpireDate": "。要设置新的到期日期，您必须",
+    "regenerateToken": "重新生成令牌",
+    "regenerateTokenTitle": "重新生成 Power BI 访问令牌",
+    "submitThisForm": "提交此表单将生成一个新令牌。请注意，使用此令牌的任何脚本或应用程序都需要更新。",
+    "tokenWillExpire": "令牌将在选定日期到期"
   }
 }

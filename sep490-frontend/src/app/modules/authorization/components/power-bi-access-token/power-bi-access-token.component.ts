@@ -9,6 +9,7 @@ import {SubscriptionAwareComponent} from '../../../core/subscription-aware.compo
 import {ModalProvider} from '../../../shared/services/modal-provider';
 import {PowerBiAuthority} from '../../models/power-bi-authority.dto';
 import {PowerBiAccessTokenService} from '../../services/power-bi-access-token.service';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-power-bi-access-token',
@@ -33,7 +34,8 @@ export class PowerBiAccessTokenComponent
     private readonly powerBiService: PowerBiAccessTokenService,
     private readonly modalProvider: ModalProvider,
     private readonly messageService: MessageService,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly translate: TranslateService
   ) {
     super();
   }
@@ -115,15 +117,15 @@ export class PowerBiAccessTokenComponent
   showDeleteConfirmDialog(id: UUID): void {
     this.modalProvider
       .showConfirm({
-        message: `Are you sure that you want to proceed?`,
-        header: 'Confirmation',
+        message: this.translate.instant('powerBi.dialog.message'),
+        header: this.translate.instant('powerBi.dialog.config'),
         icon: 'pi pi-exclamation-triangle',
         acceptIcon: 'none',
         acceptButtonStyleClass: 'p-button-danger',
-        acceptLabel: 'Accept',
+        acceptLabel: this.translate.instant('powerBi.dialog.acceptLabel'),
         rejectIcon: 'none',
         rejectButtonStyleClass: 'p-button-text',
-        rejectLabel: 'Reject'
+        rejectLabel: this.translate.instant('powerBi.dialog.reject')
       })
       .pipe(
         filter(confirmed => confirmed),
@@ -134,8 +136,12 @@ export class PowerBiAccessTokenComponent
         next: (): void => {
           this.messageService.add({
             severity: 'success',
-            summary: 'Deleted',
-            detail: 'Token deleted successfully'
+            summary: this.translate.instant(
+              'powerBi.messageService.success.summary'
+            ),
+            detail: this.translate.instant(
+              'powerBi.messageService.success.detail'
+            )
           });
           // Refresh the token list
           this.ngOnInit();
@@ -143,8 +149,12 @@ export class PowerBiAccessTokenComponent
         error: (): void => {
           this.messageService.add({
             severity: 'error',
-            summary: 'Error',
-            detail: 'Failed to delete token'
+            summary: this.translate.instant(
+              'powerBi.messageService.error.summary'
+            ),
+            detail: this.translate.instant(
+              'powerBi.messageService.error.detail'
+            )
           });
         }
       });

@@ -9,7 +9,6 @@
     [criteria]="searchCriteria"
     [triggerSearch]="searchEvent"
     [captionTemplateRef]="captionTemplateRef"
-    [checkbox]="true"
     (selectionChange)="onSelectionChange($event)"
 >
 </table-template>
@@ -45,13 +44,6 @@
             [text]="true"
             severity="info"
             (onClick)="onEdit(rowData)"
-        />
-        <p-button
-            icon="pi pi-trash"
-            [rounded]="true"
-            [text]="true"
-            severity="danger"
-            (onClick)="onDelete(rowData)"
         />
     </div>
 </ng-template>

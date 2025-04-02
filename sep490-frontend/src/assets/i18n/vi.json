@@ -153,7 +153,7 @@
           "validFromInclusive": "Hiệu lực từ",
           "validToInclusive": "Hiệu lực đến",
           "address": "Địa chỉ",
-          "currentMaxNumberOfDevices": "Số lượng thiết bị tối đa hiện tại"
+          "currentMaxNumberOfDevices": "Số lượng hoạt động tối đa hiện tại"
         }
       },
       "message": {
@@ -303,7 +303,7 @@
       "settings": {
         "label": "Cài đặt",
         "items": {
-          "powerBiAccessToken": "Power BI Access Token"
+          "powerBiAccessToken": "Mã thông báo truy cập Power BI"
         }
       }
     },
@@ -383,12 +383,12 @@
       },
       "body": {
         "name": "Tên",
-        "numberDevices": "Số lượng thiết bị hiện tại",
+        "numberDevices": "Số lượng hoạt động hiện tại",
         "numberMonth": "Số tháng",
-        "numberMaxDevice": "Số lượng thiết bị tối đa",
-        "numberMaxDeviceUpgrade": "Số lượng thiết bị thêm (Nâng cấp)",
+        "numberMaxDevice": "Số lượng hoạt động tối đa",
+        "numberMaxDeviceUpgrade": "Số lượng hoạt động thêm (Nâng cấp)",
         "totalCredit": "Tổng cộng",
-        "confirm": "Xác nhận đăng ký {{numberOfMonths}} tháng và {{numberOfDevices}} thiết bị"
+        "confirm": "Xác nhận đăng ký {{numberOfMonths}} tháng và {{numberOfDevices}} hoạt động"
       },
       "footer": {
         "button": {
@@ -504,6 +504,43 @@
       "create": "Tạo token",
       "regenerate": "Tạo lại token",
       "cancel": "Hủy"
-    }
+    },
+    "noAccessToken": "Không có mã thông báo truy cập Power BI nào được tạo",
+    "description": "Bạn cần mã thông báo API cho tập lệnh hoặc thử nghiệm? Tạo mã thông báo truy cập cá nhân để truy cập nhanh vào GreenBuildings Power BI.",
+    "buttonGenerateToken": "Tạo mã thông báo mới",
+    "small": "Mã thông báo sẽ hết hạn vào ngày đã chọn",
+    "newAccessToken": "Mã thông báo truy cập Power BI mới",
+    "editAccessToken": "Chỉnh sửa mã thông báo truy cập Power BI",
+    "tokenName": "Tên mã thông báo",
+    "whatToken": "Mã thông báo này dùng để làm gì?",
+    "expiration": "Hết hạn",
+    "tokenGenerated": "Mã thông báo bạn đã tạo có thể được sử dụng để truy cập GreenBuildings Power BI.",
+    "delete": "Xóa",
+    "lastUsed": "Lần cuối cùng sử dụng trong",
+    "expirationOn": "Hết hạn vào",
+    "dialog": {
+      "config": "Xác nhận",
+      "message": "Bạn có chắc chắn muốn tiếp tục không?",
+      "acceptLabel": "Chấp nhận",
+      "reject": "Từ chối"
+    },
+    "messageService": {
+      "success": {
+        "summary": "Đã xóa",
+        "detail": "Đã xóa mã thông báo thành công"
+      },
+      "error": {
+        "summary": "Lỗi",
+        "detail": "Không xóa được mã thông báo"
+      }
+    },
+    "msgForgotToken": "Nếu bạn làm mất hoặc quên mã thông báo này, bạn có thể tạo lại mã thông báo, nhưng lưu ý rằng bất kỳ tập lệnh hoặc ứng dụng nào sử dụng mã thông báo này đều cần phải được cập nhật.",
+    "buttonCreateToken": "Tạo lại mã thông báo",
+    "thisTokenExpireOn": "Mã thông báo này đã hết hạn vào",
+    "toSetNewExpireDate": ". Để thiết lập ngày hết hạn mới, bạn phải",
+    "regenerateToken": "tạo lại mã thông báo",
+    "regenerateTokenTitle": "Tạo lại mã thông báo truy cập Power BI",
+    "submitThisForm": "Gửi biểu mẫu này sẽ tạo ra một mã thông báo mới. Xin lưu ý rằng bất kỳ tập lệnh hoặc ứng dụng nào sử dụng mã thông báo này đều cần phải được cập nhật.",
+    "tokenWillExpire": "Mã thông báo sẽ hết hạn vào ngày đã chọn"
   }
 }
