@@ -52,4 +52,12 @@ export class EmissionActivityService {
       `${AppRoutingConstants.ENTERPRISE_API_URL}/${this.EMISSION_ACTIVITY_PATH}/${activityId}`
     );
   }
+
+  public getAllActivitiesByBuildingId(
+    buildingId: UUID
+  ): Observable<EmissionActivity[]> {
+    return this.httpClient.get<EmissionActivity[]>(
+      `${AppRoutingConstants.ENTERPRISE_API_URL}/${this.EMISSION_ACTIVITY_PATH}/building/${buildingId}`
+    );
+  }
 }

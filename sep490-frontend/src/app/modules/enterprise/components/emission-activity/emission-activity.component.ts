@@ -22,6 +22,7 @@ import {BuildingService} from '../../../../services/building.service';
 import {SubscriptionAwareComponent} from '../../../core/subscription-aware.component';
 import {ModalProvider} from '../../../shared/services/modal-provider';
 import {NewActivityDialogComponent} from '../../dialog/new-activity-dialog/new-activity-dialog.component';
+import {ReportDialogComponent} from '../../dialog/report-dialog/report-dialog.component';
 import {BuildingDetails, EmissionActivity} from '../../models/enterprise.dto';
 import {ApplicationService} from '../../../core/services/application.service';
 import {
@@ -181,6 +182,25 @@ export class EmissionActivityComponent
       showHeader: false
     };
     this.ref = this.dialogService.open(NewActivityDialogComponent, config);
+    this.ref.onClose.subscribe(rs => {
+      if (rs) {
+        this.searchEvent.emit();
+      }
+    });
+  }
+
+  generateReport(): void {
+    const config: DynamicDialogConfig<UUID> = {
+      data: this.buildingDetail.id,
+      closeOnEscape: true,
+      closable: true,
+      dismissableMask: true,
+      showHeader: true,
+      header: this.translate.instant(
+        'enterprise.emission.activity.generateReport'
+      )
+    };
+    this.ref = this.dialogService.open(ReportDialogComponent, config);
     this.ref.onClose.subscribe(rs => {
       if (rs) {
         this.searchEvent.emit();

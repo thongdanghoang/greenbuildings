@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
@@ -67,5 +68,10 @@ public class EmissionActivityServiceImpl implements EmissionActivityService {
     @Override
     public EmissionActivityEntity getEmissionActivityDetails(UUID id) {
         return emissionActivityRepository.findDetailsById(id).orElseThrow(() -> new BusinessException("id", "http.error.status.404", Collections.emptyList()));
+    }
+
+    @Override
+    public List<EmissionActivityEntity> getAllActivitiesByBuildingId(UUID id) {
+        return emissionActivityRepository.findByBuildingId(id);
     }
 }

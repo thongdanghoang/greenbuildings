@@ -57,7 +57,10 @@
         "idBuildingIsNull": "Scope is enterprise, employee should have only one building permission with building id is null"
       },
       "role": {
-        "enterpriseOnlyAddEmployee": "企业仅添加/创建员工"
+        "enterpriseOnlyAddEmployee": "Enterprise only add/create employee"
+      },
+      "activities": {
+        "notFound": "Activities not found"
       }
     }
   },
@@ -169,6 +172,8 @@
     },
     "emission": {
       "activity": {
+        "generateReport": "Generate Report",
+        "selectActivities": "Select Activities",
         "currentNoActivities": "Current number of activities:",
         "maxNoActivities": "Max number of activities:",
         "subscriptionDetail": "Subscription Detail",

@@ -58,6 +58,9 @@
       },
       "role": {
         "enterpriseOnlyAddEmployee": "Doanh nghiệp chỉ thêm/tạo nhân viên"
+      },
+      "activities": {
+        "notFound": "Không tìm thấy hoạt động"
       }
     }
   },
@@ -169,6 +172,8 @@
     },
     "emission": {
       "activity": {
+        "generateReport": "Tạo báo cáo",
+        "selectActivities": "Chọn hoạt động",
         "currentNoActivities": "Số hoạt động hiện tại:",
         "maxNoActivities": "Số hoạt động tối đa:",
         "subscriptionDetail": "Chi tiết đăng ký",

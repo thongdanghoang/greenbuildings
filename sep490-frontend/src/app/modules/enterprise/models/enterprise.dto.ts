@@ -35,6 +35,13 @@ export interface EmissionActivity extends BaseDTO {
   description: string;
 }
 
+export interface DownloadReport {
+  buildingID: UUID;
+  startDate: Date;
+  endDate: Date;
+  selectedActivities: UUID[];
+}
+
 export interface EmissionActivityDetails extends BaseDTO {
   records: EmissionActivityRecord[];
   building: Building;

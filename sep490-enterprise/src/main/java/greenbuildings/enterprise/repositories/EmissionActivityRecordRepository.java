@@ -5,8 +5,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -22,4 +24,13 @@ public interface EmissionActivityRecordRepository extends JpaRepository<Emission
     }
     
     List<EmissionActivityRecordEntity> findAllByIdIn(Set<UUID> ids);
+
+    @Query("""
+            SELECT e
+            FROM EmissionActivityRecordEntity e
+            WHERE e.emissionActivityEntity.id = :emissionActivityId
+            AND ((e.startDate BETWEEN :startDate AND :endDate)
+                OR (e.endDate BETWEEN :startDate AND :endDate))
+    """)
+    List<EmissionActivityRecordEntity> findAllByEmissionActivityEntityIdAndDateBetween(UUID emissionActivityId, LocalDate startDate, LocalDate endDate);
 }

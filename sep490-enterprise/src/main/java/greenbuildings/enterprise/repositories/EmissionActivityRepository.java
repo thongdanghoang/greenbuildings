@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 import java.util.Optional;
@@ -14,7 +15,7 @@ import java.util.Optional;
 @Repository
 public interface EmissionActivityRepository extends JpaRepository<EmissionActivityEntity, UUID> {
     
-    Set<EmissionActivityEntity> findByBuildingId(UUID id);
+    List<EmissionActivityEntity> findByBuildingId(UUID id);
 
     Page<EmissionActivityEntity> findAllByBuildingIdAndNameContainingIgnoreCase(UUID buildingId, String activityName,Pageable pageable);
     
@@ -26,4 +27,6 @@ public interface EmissionActivityRepository extends JpaRepository<EmissionActivi
 
     @EntityGraph(value = EmissionActivityEntity.DETAILS_GRAPH)
     Optional<EmissionActivityEntity> findDetailsById(UUID id);
+    
+    List<EmissionActivityEntity> findAllByIdIn(List<UUID> ids);
 }

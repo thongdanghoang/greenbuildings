@@ -1,0 +1,97 @@
+<p-stepper [value]="1" class="block max-w-sm sm:max-w-md md:min-w-[500px]">
+    <p-step-panels class="block h-full">
+        <p-step-panel [value]="1">
+            <ng-template #content let-activateCallback="activateCallback">
+                <p>
+                    {{
+                        "enterprise.emission.activity.selectActivities"
+                            | translate
+                    }}
+                </p>
+                <form [formGroup]="formGroup">
+                    <div class="grid grid-cols-2 gap-4 my-4">
+                        <div
+                            *ngFor="let activity of activities"
+                            class="flex items-center"
+                        >
+                            <p-checkbox
+                                [formControlName]="'selectedActivities'"
+                                [value]="activity.id"
+                                [inputId]="'activity-' + activity.id"
+                            />
+                            <label
+                                [for]="'activity-' + activity.id"
+                                class="ml-2"
+                            >
+                                {{ activity.name | translate }}
+                            </label>
+                        </div>
+                    </div>
+                    <div class="flex justify-end">
+                        <p-button
+                            label="{{ 'common.next' | translate }}"
+                            icon="pi pi-arrow-right"
+                            iconPos="right"
+                            (onClick)="activateCallback(2)"
+                        ></p-button>
+                    </div>
+                </form>
+            </ng-template>
+        </p-step-panel>
+
+        <p-step-panel [value]="2">
+            <ng-template #content let-activateCallback="activateCallback">
+                <form [formGroup]="formGroup">
+                    <p-iftalabel class="my-2">
+                        <p-date-picker
+                            formControlName="startDate"
+                            class="w-full"
+                            [style]="{ width: '100%' }"
+                            [inline]="true"
+                            [placeholder]="
+                                'enterprise.emission.activity.record.table.startDate'
+                                    | translate
+                            "
+                        ></p-date-picker>
+                        <label>{{
+                            "enterprise.emission.activity.record.table.startDate"
+                                | translate
+                        }}</label>
+                    </p-iftalabel>
+
+                    <p-iftalabel class="my-2">
+                        <p-date-picker
+                            [inline]="true"
+                            formControlName="endDate"
+                            class="w-full"
+                            [style]="{ width: '100%' }"
+                            [placeholder]="
+                                'enterprise.emission.activity.record.table.endDate'
+                                    | translate
+                            "
+                        ></p-date-picker>
+                        <label>{{
+                            "enterprise.emission.activity.record.table.endDate"
+                                | translate
+                        }}</label>
+                    </p-iftalabel>
+                    <div class="flex justify-between">
+                        <p-button
+                            label="{{ 'common.back' | translate }}"
+                            severity="secondary"
+                            icon="pi pi-arrow-left"
+                            (onClick)="activateCallback(1)"
+                        ></p-button>
+                        <p-button
+                            label="{{ 'common.save' | translate }}"
+                            icon="pi pi-check"
+                            severity="primary"
+                            [disabled]="formGroup.invalid"
+                            (onClick)="submit()"
+                        ></p-button>
+                    </div>
+                </form>
+            </ng-template>
+        </p-step-panel>
+    </p-step-panels>
+</p-stepper>

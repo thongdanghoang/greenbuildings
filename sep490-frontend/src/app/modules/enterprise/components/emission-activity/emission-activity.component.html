@@ -58,10 +58,14 @@
             <ng-template pTemplate="footer">
                 <div class="flex gap-4 mt-1">
                     <p-button
-                        label="Generate Report"
+                        label="{{
+                            'enterprise.emission.activity.generateReport'
+                                | translate
+                        }}"
                         class="flex-1"
                         severity="success"
                         styleClass="w-full h-12"
+                        (onClick)="generateReport()"
                     ></p-button>
 
                     <p-button

@@ -14,6 +14,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -52,5 +53,11 @@ public class EmissionActivityController {
     public ResponseEntity<Void> deleteActivities(@RequestBody Set<UUID> ids) {
         emissionActivityService.deleteActivities(ids);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/building/{id}")
+    public ResponseEntity<List<EmissionActivityDTO>> getAllActivitiesByBuildingId(@PathVariable UUID id) {
+        List<EmissionActivityEntity> list = emissionActivityService.getAllActivitiesByBuildingId(id);
+        return ResponseEntity.ok(list.stream().map(mapper::toDTO).toList());
     }
 }

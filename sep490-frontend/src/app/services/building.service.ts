@@ -23,6 +23,10 @@ export class BuildingService {
     return `${AppRoutingConstants.ENTERPRISE_API_URL}/${AppRoutingConstants.BUILDING_PATH}`;
   }
 
+  get generateReportUrl(): string {
+    return `${AppRoutingConstants.ENTERPRISE_API_URL}/${AppRoutingConstants.BUILDING_PATH}/generate-report`;
+  }
+
   getBuildingDetails(id: UUID): Observable<BuildingDetails> {
     return this.httpClient.get<BuildingDetails>(
       `${AppRoutingConstants.ENTERPRISE_API_URL}/${AppRoutingConstants.BUILDING_PATH}/${id}`

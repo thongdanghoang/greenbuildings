@@ -7,6 +7,7 @@ import greenbuildings.commons.api.dto.SearchResultDTO;
 import greenbuildings.commons.api.security.UserRole;
 import greenbuildings.enterprise.dtos.BuildingDTO;
 import greenbuildings.enterprise.dtos.dashboard.SelectableBuildingDTO;
+import greenbuildings.enterprise.dtos.DownloadReportDTO;
 import greenbuildings.enterprise.mappers.BuildingMapper;
 import greenbuildings.enterprise.services.BuildingService;
 import greenbuildings.enterprise.services.EnterpriseService;
@@ -72,6 +73,12 @@ public class BuildingController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteBuilding(@PathVariable UUID id) {
          buildingService.deleteBuilding(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/generate-report")
+    public ResponseEntity<Void> generateReport(@RequestBody DownloadReportDTO downloadReport) {
+        buildingService.generateReport(downloadReport);
         return ResponseEntity.noContent().build();
     }
     
