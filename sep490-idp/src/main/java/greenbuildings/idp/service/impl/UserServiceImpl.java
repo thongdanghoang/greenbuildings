@@ -4,13 +4,10 @@ import commons.springfw.impl.mappers.CommonMapper;
 import commons.springfw.impl.utils.SecurityUtils;
 import greenbuildings.commons.api.SagaManager;
 import greenbuildings.commons.api.dto.SearchCriteriaDTO;
-import greenbuildings.commons.api.events.PendingEnterpriseRegisterEvent;
 import greenbuildings.commons.api.exceptions.BusinessErrorParam;
 import greenbuildings.commons.api.exceptions.BusinessErrorResponse;
 import greenbuildings.commons.api.exceptions.BusinessException;
-import greenbuildings.commons.api.exceptions.TechnicalException;
 import greenbuildings.commons.api.security.UserRole;
-import greenbuildings.commons.api.security.UserScope;
 import greenbuildings.commons.api.utils.CommonUtils;
 import greenbuildings.idp.dto.SignupDTO;
 import greenbuildings.idp.dto.SignupResult;
@@ -43,10 +40,6 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -71,41 +64,12 @@ public class UserServiceImpl extends SagaManager implements UserService {
     @Override
     public SignupResult signup(SignupDTO signupDTO, Model model) {
         SignupResult result = validateSignupDTO(signupDTO);
-        var future = new CompletableFuture<>();
-        var correlationId = UUID.randomUUID().toString();
-        getPendingSagaResponses().put(correlationId, future);
         
         if (!result.isSuccess()) {
             return result;
         }
         var user = createEnterpriseOwner(signupDTO);
-        
-        // PENDING
-        kafkaAdapter.publishEnterpriseOwnerRegisterEvent(correlationId,
-                                                         PendingEnterpriseRegisterEvent
-                                                                 .builder()
-                                                                 .email(signupDTO.getEmail())
-                                                                 .name(signupDTO.getEnterpriseName())
-                                                                 .hotline(signupDTO.getEnterpriseHotline())
-                                                                 .build());
-        try { // Wait synchronously for response
-            var enterpriseId = UUID.fromString(future.get(TRANSACTION_TIMEOUT, TimeUnit.SECONDS).toString());// Timeout in case response is lost
-            user.getEnterprise().setEnterprise(enterpriseId);
-            userRepo.save(user); // COMPLETE
-        } catch (TimeoutException e) {
-            throw new TechnicalException("Request timeout", e);
-        } catch (ExecutionException e) {
-            if (e.getCause() instanceof BusinessException businessException) {
-                throw businessException;
-            }
-            throw new TechnicalException("Error while waiting for response", e);
-        } catch (InterruptedException e) {
-            /* Clean up whatever needs to be handled before interrupting  */
-            log.warn("Interrupted!", e);
-            Thread.currentThread().interrupt();
-        } finally {
-            getPendingSagaResponses().remove(correlationId);
-        }
+        userRepo.save(user);
         
         result.setSuccess(true);
         result.setSuccessMessage("signup.notification");
@@ -150,8 +114,7 @@ public class UserServiceImpl extends SagaManager implements UserService {
         return UserEntity.register(
                 signupDTO.getEmail(),
                 false,
-                UserRole.ENTERPRISE_OWNER,
-                UserScope.ENTERPRISE,
+                UserRole.BASIC_USER,
                 "",
                 "",
                 "",
@@ -172,7 +135,7 @@ public class UserServiceImpl extends SagaManager implements UserService {
                 .collect(Collectors.toMap(UserEntity::getId, Function.identity()));
         return userIDs.map(results::get);
     }
-
+    
     @Override
     public Page<UserEntity> getUserByBuilding(UUID buldingId, Pageable pageable) {
         //UUID enterpriseId = SecurityUtils.getCurrentUserEnterpriseId().orElseThrow();

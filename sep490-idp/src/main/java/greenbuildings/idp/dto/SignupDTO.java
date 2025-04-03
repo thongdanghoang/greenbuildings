@@ -21,13 +21,4 @@ public class SignupDTO extends ToBeValidated {
 
     @Pattern(regexp = PASSWORD_PATTERN, message = "{validation.confirmPassword.invalid}")
     private String confirmPassword;
-    
-    @Size(min = 1, max = 255, message = "{validation.enterpriseName.invalid}")
-    private String enterpriseName;
-    
-    @Pattern(regexp = VIETNAME_TAX_CODE, message = "{validation.enterpriseTaxCode.invalid}")
-    private String enterpriseTaxNumber;
-    
-    @Pattern(regexp = VIETNAM_ENTERPRISE_HOTLINE_PATTERN, message = "{validation.enterpriseHotline.invalid}")
-    private String enterpriseHotline;
 }
