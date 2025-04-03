@@ -296,6 +296,12 @@
     "termService": "服务条款"
   },
   "sidebar": {
+    "basicUser": {
+      "welcome": "欢迎来到 Green Building",
+      "info": "账户信息",
+      "enterprise": "注册您的公司",
+      "invitation": "您的邀请"
+    },
     "owner": {
       "dashboard": "仪表板",
       "coefficientCenter": "系数中心",

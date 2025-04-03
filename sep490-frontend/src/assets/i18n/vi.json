@@ -297,6 +297,12 @@
     "termService": "Điều khoản dịch vụ"
   },
   "sidebar": {
+    "basicUser": {
+      "welcome": "Chào mừng đến với Green Building",
+      "info": "Thông tin tài khoản",
+      "enterprise": "Đăng ký doanh nghiệp của bạn",
+      "invitation": "Lời mời của bạn"
+    },
     "owner": {
       "dashboard": "Bảng điều khiển",
       "coefficientCenter": "Hệ số trung tâm",

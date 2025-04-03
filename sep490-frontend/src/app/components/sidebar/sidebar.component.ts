@@ -47,6 +47,13 @@ export class SidebarComponent
           )
         ) {
           this.items = this.buildAdminMenu();
+        } else if (
+          this.applicationService.includeRole(
+            userData.authorities,
+            UserRole.BASIC_USER
+          )
+        ) {
+          this.items = this.buildBasicUserMenu();
         }
       }
     );
@@ -109,6 +116,31 @@ export class SidebarComponent
             label: 'sidebar.owner.settings.items.powerBiAccessToken',
             icon: 'pi pi-cog',
             route: `/${this.POWER_BI_ACCESS_TOKEN_PATH}`
+          }
+        ]
+      }
+    ];
+  }
+
+  private buildBasicUserMenu(): MenuItem[] {
+    return [
+      {
+        label: 'sidebar.basicUser.welcome',
+        items: [
+          {
+            label: 'sidebar.basicUser.info',
+            icon: 'pi pi-user',
+            route: `/${AppRoutingConstants.ENTERPRISE_PATH}/${AppRoutingConstants.ACCOUNT_INFO_PATH}`
+          },
+          {
+            label: 'sidebar.basicUser.enterprise',
+            icon: 'pi pi-building',
+            route: `/${AppRoutingConstants.ENTERPRISE_PATH}/${AppRoutingConstants.CREATE_ENTERPRISE_PATH}`
+          },
+          {
+            label: 'sidebar.basicUser.invitation',
+            icon: 'pi pi-envelope',
+            route: `/${AppRoutingConstants.ENTERPRISE_PATH}/${AppRoutingConstants.INVITATION_PATH}`
           }
         ]
       }

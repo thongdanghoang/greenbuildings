@@ -297,6 +297,12 @@
     "termService": "Term of Service"
   },
   "sidebar": {
+    "basicUser": {
+      "welcome": "Welcome to Green Building",
+      "info": "Account Information",
+      "enterprise": "Register Your Enterprise",
+      "invitation": "Your Invitation"
+    },
     "owner": {
       "dashboard": "Dashboard",
       "coefficientCenter": "Coefficient center",
