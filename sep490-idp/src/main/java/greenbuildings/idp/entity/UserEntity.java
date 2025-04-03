@@ -54,7 +54,7 @@ public class UserEntity extends AbstractAuditableEntity {
     public static final String BELONG_ENTERPRISE_FILTER = "belongEnterpriseFilter";
     public static final String BELONG_ENTERPRISE_PARAM = "enterpriseId";
     
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, optional = true)
     private UserEnterpriseEntity enterprise;
     
     @OneToMany(mappedBy = "user",
@@ -116,6 +116,7 @@ public class UserEntity extends AbstractAuditableEntity {
         user.setPhone(phone);
         user.setPhoneVerified(phoneVerified);
         user.setPassword(password);
+        user.setEnterprise(UserEnterpriseEntity.of(user, UserScope.ENTERPRISE));
         return user;
     }
     

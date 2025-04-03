@@ -3,7 +3,9 @@ package greenbuildings.idp.rest;
 import commons.springfw.impl.securities.UserContextData;
 import greenbuildings.commons.api.enums.UserLocale;
 import greenbuildings.commons.api.security.UserRole;
+import greenbuildings.idp.dto.EnterpriseUserDetailsDTO;
 import greenbuildings.idp.dto.UserConfigs;
+import greenbuildings.idp.mapper.EnterpriseUserMapper;
 import greenbuildings.idp.service.UserService;
 import jakarta.annotation.security.RolesAllowed;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +30,7 @@ import java.util.Arrays;
 public class UserResource {
     
     private final UserService userService;
+    private final EnterpriseUserMapper userMapper;
     
     @GetMapping("/locale")
     public ResponseEntity<UserConfigs> getLanguage(@AuthenticationPrincipal UserContextData userContextData) {
@@ -55,6 +58,13 @@ public class UserResource {
         
         userService.update(userEntity);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+    
+    @GetMapping
+    public ResponseEntity<EnterpriseUserDetailsDTO> getEnterpriseUserDetail(@AuthenticationPrincipal UserContextData userContextData) {
+        var userDetailsEntity = userService.getUserDetail(userContextData.getId());
+        var userDetails = userMapper.userEntityToBasicEnterpriseUserDetailDTO(userDetailsEntity);
+        return ResponseEntity.ok(userDetails);
     }
     
 }

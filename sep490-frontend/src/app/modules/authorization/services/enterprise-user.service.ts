@@ -10,7 +10,9 @@ import {
 import {EnterpriseUser, EnterpriseUserDetails} from '../models/enterprise-user';
 import {UserCriteria} from '../components/users/users.component';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class EnterpriseUserService {
   constructor(private readonly httpClient: HttpClient) {}
 
