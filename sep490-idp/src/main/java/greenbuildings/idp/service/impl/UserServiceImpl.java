@@ -68,7 +68,7 @@ public class UserServiceImpl extends SagaManager implements UserService {
         if (!result.isSuccess()) {
             return result;
         }
-        var user = createEnterpriseOwner(signupDTO);
+        var user = createBasicUser(signupDTO);
         userRepo.save(user);
         
         result.setSuccess(true);
@@ -110,7 +110,7 @@ public class UserServiceImpl extends SagaManager implements UserService {
     }
     
     
-    private UserEntity createEnterpriseOwner(SignupDTO signupDTO) {
+    private UserEntity createBasicUser(SignupDTO signupDTO) {
         return UserEntity.register(
                 signupDTO.getEmail(),
                 false,
