@@ -18,6 +18,11 @@ export class AppRoutingConstants {
   public static readonly REGENERATE = 'regenerate';
   public static readonly POWER_BI_ACCESS_TOKEN = `${AppRoutingConstants.POWER_BI}/tokens`;
 
+  // Basic User Flow
+  public static readonly ACCOUNT_INFO_PATH = 'account-info';
+  public static readonly INVITATION_PATH = 'invitation';
+  public static readonly CREATE_ENTERPRISE_PATH = 'create-enterprise';
+
   // Enterprise Module
   public static readonly ENTERPRISE_PATH = 'enterprise';
   public static readonly BUILDING_PATH = 'buildings';

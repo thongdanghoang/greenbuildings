@@ -22,6 +22,9 @@ import {EmissionActivityComponent} from './components/emission-activity/emission
 import {EmissionActivityService} from './services/emission-activity.service';
 import {NewActivityDialogComponent} from './dialog/new-activity-dialog/new-activity-dialog.component';
 import {ReportDialogComponent} from './dialog/report-dialog/report-dialog.component';
+import {AccountInformationComponent} from './components/account-information/account-information.component';
+import {CreateEnterpriseComponent} from './components/create-enterprise/create-enterprise.component';
+import {EnterpriseInvitationComponent} from './components/enterprise-invitation/enterprise-invitation.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +39,10 @@ import {ReportDialogComponent} from './dialog/report-dialog/report-dialog.compon
     EmissionActivityComponent,
     EmissionActivityDetailComponent,
     NewActivityRecordDialogComponent,
-    ReportDialogComponent
+    ReportDialogComponent,
+    AccountInformationComponent,
+    CreateEnterpriseComponent,
+    EnterpriseInvitationComponent
   ],
   imports: [SharedModule, EnterpriseRoutingModule],
   providers: [
