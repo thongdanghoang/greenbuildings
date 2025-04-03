@@ -43,6 +43,10 @@ public interface EnterpriseUserMapper {
     @Mapping(target = "scope", source = "enterprise.scope")
     EnterpriseUserDetailsDTO userEntityToEnterpriseUserDetailDTO(UserEntity user);
     
+    @Mapping(target = "scope", source = "enterprise.scope")
+    @Mapping(target = "buildingPermissions", ignore = true)
+    EnterpriseUserDetailsDTO userEntityToBasicEnterpriseUserDetailDTO(UserEntity user);
+    
     @Mapping(target = "emailVerified", ignore = true)
     @Mapping(target = "password", ignore = true)
     @Mapping(target = "phone", ignore = true)

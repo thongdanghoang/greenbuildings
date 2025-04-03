@@ -197,6 +197,11 @@ public class UserServiceImpl extends SagaManager implements UserService {
         return userRepo.findByIdWithBuildingPermissions(id).orElseThrow();
     }
     
+    @Override
+    public UserEntity getUserDetail(UUID id) {
+        return userRepo.findById(id).orElseThrow();
+    }
+    
     @Transactional(readOnly = true)
     @Override
     public Optional<UserEntity> findById(UUID id) {
