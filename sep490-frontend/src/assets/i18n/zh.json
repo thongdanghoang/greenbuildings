@@ -58,6 +58,9 @@
       },
       "role": {
         "enterpriseOnlyAddEmployee": "Doanh nghiệp chỉ thêm/tạo nhân viên"
+      },
+      "activities": {
+        "notFound": "未找到活动"
       }
     }
   },
@@ -169,6 +172,8 @@
     },
     "emission": {
       "activity": {
+        "generateReport": "生成报告",
+        "selectActivities": "选择活动",
         "currentNoActivities": "当前活动数量：",
         "maxNoActivities": "最大活动数量：",
         "subscriptionDetail": "订阅详情",

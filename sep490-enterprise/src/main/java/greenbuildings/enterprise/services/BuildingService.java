@@ -1,5 +1,6 @@
 package greenbuildings.enterprise.services;
 
+import greenbuildings.enterprise.dtos.DownloadReportDTO;
 import greenbuildings.enterprise.entities.BuildingEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,4 +20,6 @@ public interface BuildingService {
     void deleteBuilding(UUID id);
     
     List<BuildingEntity> findBuildingsByEnterpriseId(UUID enterpriseId);
+    
+    void generateReport(DownloadReportDTO downloadReport);
 }

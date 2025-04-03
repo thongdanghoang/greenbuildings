@@ -2,8 +2,13 @@ package greenbuildings.enterprise.services.impl;
 
 import commons.springfw.impl.utils.SecurityUtils;
 import greenbuildings.commons.api.exceptions.BusinessException;
+import greenbuildings.enterprise.dtos.DownloadReportDTO;
 import greenbuildings.enterprise.entities.BuildingEntity;
+import greenbuildings.enterprise.entities.EmissionActivityEntity;
+import greenbuildings.enterprise.entities.EmissionActivityRecordEntity;
 import greenbuildings.enterprise.repositories.BuildingRepository;
+import greenbuildings.enterprise.repositories.EmissionActivityRecordRepository;
+import greenbuildings.enterprise.repositories.EmissionActivityRepository;
 import greenbuildings.enterprise.services.BuildingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -11,7 +16,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -21,6 +28,8 @@ import java.util.UUID;
 public class BuildingServiceImpl implements BuildingService {
     
     private final BuildingRepository buildingRepository;
+    private final EmissionActivityRecordRepository recordRepo;
+    private final EmissionActivityRepository activityRepo;
     
     @Override
     public BuildingEntity createBuilding(BuildingEntity building) {
@@ -57,6 +66,24 @@ public class BuildingServiceImpl implements BuildingService {
                 building.setDeleted(true);
                 buildingRepository.save(building);
             }
+        }
+    }
+    
+    @Override
+    public void generateReport(DownloadReportDTO downloadReport) {
+        BuildingEntity building = buildingRepository.findById(downloadReport.buildingID()).orElseThrow();
+        List<EmissionActivityEntity> activities = activityRepo.findAllByIdIn(downloadReport.selectedActivities());
+        
+        if (activities.size() != downloadReport.selectedActivities().size()) {
+            throw new BusinessException("activities", "validation.business.activities.notFound");
+        }
+        
+        Map<EmissionActivityEntity, List<EmissionActivityRecordEntity>> records = new HashMap<>();
+        
+        for (EmissionActivityEntity activity : activities) {
+            List<EmissionActivityRecordEntity> recordsByActivity = recordRepo
+                    .findAllByEmissionActivityEntityIdAndDateBetween(activity.getId(), downloadReport.startDate(), downloadReport.endDate());
+            records.put(activity, recordsByActivity);
         }
     }
     

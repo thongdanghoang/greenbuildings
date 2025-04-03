@@ -5,6 +5,7 @@ import greenbuildings.enterprise.dtos.EmissionActivityCriteria;
 import greenbuildings.enterprise.entities.EmissionActivityEntity;
 import org.springframework.data.domain.Page;
 
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -16,4 +17,6 @@ public interface EmissionActivityService {
     void deleteActivities(Set<UUID> ids);
     
     EmissionActivityEntity getEmissionActivityDetails(UUID id);
+
+    List<EmissionActivityEntity> getAllActivitiesByBuildingId(UUID id);
 }

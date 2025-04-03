@@ -21,6 +21,7 @@ import {BuildingPopupMarkerComponent} from './components/building-popup-marker/b
 import {EmissionActivityComponent} from './components/emission-activity/emission-activity.component';
 import {EmissionActivityService} from './services/emission-activity.service';
 import {NewActivityDialogComponent} from './dialog/new-activity-dialog/new-activity-dialog.component';
+import {ReportDialogComponent} from './dialog/report-dialog/report-dialog.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import {NewActivityDialogComponent} from './dialog/new-activity-dialog/new-activ
     NewActivityDialogComponent,
     EmissionActivityComponent,
     EmissionActivityDetailComponent,
-    NewActivityRecordDialogComponent
+    NewActivityRecordDialogComponent,
+    ReportDialogComponent
   ],
   imports: [SharedModule, EnterpriseRoutingModule],
   providers: [
