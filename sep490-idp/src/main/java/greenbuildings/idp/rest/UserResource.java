@@ -23,6 +23,7 @@ import java.util.Arrays;
 @RequiredArgsConstructor
 @RolesAllowed({UserRole.RoleNameConstant.ENTERPRISE_OWNER,
                UserRole.RoleNameConstant.ENTERPRISE_EMPLOYEE,
+               UserRole.RoleNameConstant.BASIC_USER,
                UserRole.RoleNameConstant.SYSTEM_ADMIN})
 public class UserResource {
     

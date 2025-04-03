@@ -102,7 +102,6 @@ public class UserEntity extends AbstractAuditableEntity {
             String email,
             boolean emailVerified,
             UserRole role,
-            UserScope scope,
             String firstName,
             String lastName,
             String phone,
@@ -117,7 +116,6 @@ public class UserEntity extends AbstractAuditableEntity {
         user.setPhone(phone);
         user.setPhoneVerified(phoneVerified);
         user.setPassword(password);
-        user.setEnterprise(UserEnterpriseEntity.of(user, scope));
         return user;
     }
     

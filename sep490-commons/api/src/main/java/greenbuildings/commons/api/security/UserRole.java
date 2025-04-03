@@ -9,6 +9,7 @@ import greenbuildings.commons.api.BaseEnum;
 @Getter
 @RequiredArgsConstructor(access = AccessLevel.PACKAGE)
 public enum UserRole implements BaseEnum {
+    BASIC_USER(RoleNameConstant.BASIC_USER),
     ENTERPRISE_OWNER(RoleNameConstant.ENTERPRISE_OWNER),
     ENTERPRISE_EMPLOYEE(RoleNameConstant.ENTERPRISE_EMPLOYEE),
     SYSTEM_ADMIN(RoleNameConstant.SYSTEM_ADMIN);
@@ -17,6 +18,7 @@ public enum UserRole implements BaseEnum {
 
     
     public static final class RoleNameConstant {
+        public static final String BASIC_USER = "BASIC_USER";
         public static final String ENTERPRISE_OWNER = "ENTERPRISE_OWNER";
         public static final String ENTERPRISE_EMPLOYEE = "ENTERPRISE_EMPLOYEE";
         public static final String SYSTEM_ADMIN = "SYSTEM_ADMIN";
