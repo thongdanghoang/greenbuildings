@@ -67,11 +67,6 @@ export class HeaderComponent
   }
 
   protected buildMenuItems(): void {
-    this.menuItems.push({
-      label: 'common.logout',
-      icon: 'pi pi-power-off',
-      command: (): void => this.logout()
-    });
     this.userService.getUserInfo().subscribe(user => {
       if (user.role !== UserRole[UserRole.BASIC_USER]) {
         this.menuItems.push({
@@ -80,6 +75,11 @@ export class HeaderComponent
           command: (): void => this.userProfile()
         });
       }
+      this.menuItems.push({
+        label: 'common.logout',
+        icon: 'pi pi-power-off',
+        command: (): void => this.logout()
+      });
     });
   }
 
