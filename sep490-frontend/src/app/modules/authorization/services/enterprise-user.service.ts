@@ -12,6 +12,7 @@ import {UserCriteria} from '../components/users/users.component';
 
 export interface NewEnterpriseDTO {
   name: string;
+  enterpriseEmail: string;
   taxCode: string;
   hotline: string;
 }
