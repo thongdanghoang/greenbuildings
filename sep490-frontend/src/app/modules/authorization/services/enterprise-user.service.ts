@@ -10,28 +10,40 @@ import {
 import {EnterpriseUser, EnterpriseUserDetails} from '../models/enterprise-user';
 import {UserCriteria} from '../components/users/users.component';
 
+export interface NewEnterpriseDTO {
+  name: string;
+  taxCode: string;
+  hotline: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class EnterpriseUserService {
+  static readonly ENTERPRISE_USER_API_URL = 'enterprise-user';
+
   constructor(private readonly httpClient: HttpClient) {}
+
+  get createNewEnterpriseURL(): string {
+    return `${AppRoutingConstants.IDP_API_URL}/${EnterpriseUserService.ENTERPRISE_USER_API_URL}/new-enterprise`;
+  }
 
   public getUsers(
     criteria: SearchCriteriaDto<UserCriteria>
   ): Observable<SearchResultDto<EnterpriseUser>> {
     return this.httpClient.post<SearchResultDto<EnterpriseUser>>(
-      `${AppRoutingConstants.IDP_API_URL}/enterprise-user/search`,
+      `${AppRoutingConstants.IDP_API_URL}/${EnterpriseUserService.ENTERPRISE_USER_API_URL}/search`,
       criteria
     );
   }
 
   public get createOrUpdateUserURL(): string {
-    return `${AppRoutingConstants.IDP_API_URL}/enterprise-user`;
+    return `${AppRoutingConstants.IDP_API_URL}/${EnterpriseUserService.ENTERPRISE_USER_API_URL}`;
   }
 
   public deleteUsers(userIds: UUID[]): Observable<void> {
     return this.httpClient.delete<void>(
-      `${AppRoutingConstants.IDP_API_URL}/enterprise-user`,
+      `${AppRoutingConstants.IDP_API_URL}/${EnterpriseUserService.ENTERPRISE_USER_API_URL}`,
       {
         body: userIds
       }
@@ -40,13 +52,13 @@ export class EnterpriseUserService {
 
   public getUserById(userId: string): Observable<EnterpriseUserDetails> {
     return this.httpClient.get<EnterpriseUserDetails>(
-      `${AppRoutingConstants.IDP_API_URL}/enterprise-user/${userId}`
+      `${AppRoutingConstants.IDP_API_URL}/${EnterpriseUserService.ENTERPRISE_USER_API_URL}/${userId}`
     );
   }
 
   public getUserOwner(): Observable<EnterpriseUserDetails> {
     return this.httpClient.get<EnterpriseUserDetails>(
-      `${AppRoutingConstants.IDP_API_URL}/enterprise-user/enterprise-owner`
+      `${AppRoutingConstants.IDP_API_URL}/${EnterpriseUserService.ENTERPRISE_USER_API_URL}/enterprise-owner`
     );
   }
 }

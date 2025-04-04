@@ -1,1 +1,121 @@
-<p>create-enterprise works!</p>
+<div class="sm:px-5">
+    <h1 class="font-bold text-lg">
+        {{ "enterprise.create.title" | translate }}
+    </h1>
+    <p class="text-sm text-gray-500">
+        {{ "enterprise.create.description" | translate }}
+    </p>
+</div>
+
+<form [formGroup]="formGroup" class="sm:mt-5 sm:px-5 py-5">
+    <!-- Name -->
+    <div
+        class="grid grid-cols-12 sm:gap-4 gap-2 items-center my-3"
+        errorMessages
+    >
+        <label for="name" class="font-normal sm:col-span-3 col-span-12">{{
+            "enterprise.create.name" | translate
+        }}</label>
+        <div class="sm:col-span-6 col-span-12">
+            <input
+                formControlName="name"
+                class="w-full"
+                type="text"
+                id="name"
+                pInputText
+                [placeholder]="
+                    'enterprise.create.placeholders.enterName' | translate
+                "
+            />
+            <form-field-error></form-field-error>
+        </div>
+    </div>
+
+    <!-- Email -->
+    <div
+        class="grid grid-cols-12 sm:gap-4 gap-2 items-center my-3"
+        errorMessages
+    >
+        <label for="email" class="font-normal sm:col-span-3 col-span-12">{{
+            "enterprise.create.email" | translate
+        }}</label>
+        <div class="sm:col-span-6 col-span-12">
+            <input
+                formControlName="enterpriseEmail"
+                class="w-full"
+                type="text"
+                id="email"
+                pInputText
+                [placeholder]="
+                    'enterprise.create.placeholders.enterEmail' | translate
+                "
+            />
+            <form-field-error></form-field-error>
+        </div>
+    </div>
+
+    <!-- Tax Code -->
+    <div
+        class="grid grid-cols-12 sm:gap-4 gap-2 items-center my-3"
+        errorMessages
+    >
+        <label for="taxCode" class="font-normal sm:col-span-3 col-span-12">{{
+            "enterprise.create.taxCode" | translate
+        }}</label>
+        <div class="sm:col-span-6 col-span-12">
+            <input
+                formControlName="taxCode"
+                class="w-full"
+                type="text"
+                id="taxCode"
+                pInputText
+                [placeholder]="
+                    'enterprise.create.placeholders.enterTaxCode' | translate
+                "
+            />
+            <form-field-error></form-field-error>
+        </div>
+    </div>
+
+    <!-- Hotline -->
+    <div
+        class="grid grid-cols-12 sm:gap-4 gap-2 items-center my-3"
+        errorMessages
+    >
+        <label for="hotline" class="font-normal sm:col-span-3 col-span-12">{{
+            "enterprise.create.hotline" | translate
+        }}</label>
+        <div class="sm:col-span-6 col-span-12">
+            <input
+                formControlName="hotline"
+                class="w-full"
+                type="text"
+                id="hotline"
+                pInputText
+                [placeholder]="
+                    'enterprise.create.placeholders.enterHotline' | translate
+                "
+            />
+            <form-field-error></form-field-error>
+        </div>
+    </div>
+    <!-- Buttons -->
+    <div class="flex justify-end sm:justify-start gap-4 *:min-w-24">
+        <!-- Create Button -->
+        <p-button
+            [label]="'common.create' | translate"
+            styleClass="w-full"
+            severity="primary"
+            [disabled]="disableSubmitButton"
+            (onClick)="submit()"
+        ></p-button>
+
+        <!-- Revert Button -->
+        <p-button
+            [label]="'common.revert' | translate"
+            styleClass="w-full"
+            severity="secondary"
+            (onClick)="reset()"
+        ></p-button>
+    </div>
+</form>

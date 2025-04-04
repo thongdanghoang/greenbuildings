@@ -1,7 +1,9 @@
 package greenbuildings.idp.service;
 
+import commons.springfw.impl.securities.UserContextData;
 import greenbuildings.commons.api.dto.SearchCriteriaDTO;
 import greenbuildings.commons.api.exceptions.BusinessErrorResponse;
+import greenbuildings.idp.dto.NewEnterpriseDTO;
 import greenbuildings.idp.dto.SignupDTO;
 import greenbuildings.idp.dto.SignupResult;
 import greenbuildings.idp.dto.UserCriteriaDTO;
@@ -38,4 +40,6 @@ public interface UserService {
     void update(UserEntity user);
 
     Page<UserEntity> getUserByBuilding(UUID buldingId, Pageable pageable);
+    
+    void createNewEnterprise(UserContextData userContextData, NewEnterpriseDTO enterpriseDTO);
 }

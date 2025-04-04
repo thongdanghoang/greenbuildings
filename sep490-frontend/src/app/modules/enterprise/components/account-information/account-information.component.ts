@@ -1,6 +1,11 @@
 import {HttpClient} from '@angular/common/http';
 import {Component} from '@angular/core';
-import {AbstractControl, FormBuilder} from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormControl,
+  Validators
+} from '@angular/forms';
 import {TranslateService} from '@ngx-translate/core';
 import {MessageService} from 'primeng/api';
 import {takeUntil} from 'rxjs';
@@ -13,6 +18,13 @@ import {AbstractFormComponent} from '../../../shared/components/form/abstract-fo
   styleUrl: './account-information.component.css'
 })
 export class AccountInformationComponent extends AbstractFormComponent<void> {
+  protected readonly formStructure = {
+    email: new FormControl('', [Validators.required, Validators.email]),
+    firstName: new FormControl('', [Validators.required]),
+    lastName: new FormControl('', [Validators.required]),
+    phone: new FormControl('', [Validators.required])
+  };
+
   constructor(
     httpClient: HttpClient,
     formBuilder: FormBuilder,
@@ -34,7 +46,7 @@ export class AccountInformationComponent extends AbstractFormComponent<void> {
   }
 
   protected initializeFormControls(): {[p: string]: AbstractControl} {
-    return {};
+    return this.formStructure;
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

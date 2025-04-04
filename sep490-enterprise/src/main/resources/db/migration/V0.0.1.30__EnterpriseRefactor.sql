@@ -1,0 +1,1 @@
+ALTER TABLE enterprises ADD COLUMN tax_code VARCHAR(255);

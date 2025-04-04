@@ -1,13 +1,16 @@
 package greenbuildings.idp.rest;
 
 import commons.springfw.impl.mappers.CommonMapper;
+import commons.springfw.impl.securities.UserContextData;
 import commons.springfw.impl.utils.SecurityUtils;
+import greenbuildings.idp.dto.NewEnterpriseDTO;
 import greenbuildings.idp.dto.UserByBuildingDTO;
 import jakarta.annotation.security.RolesAllowed;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -105,6 +108,14 @@ public class EnterpriseUserRestController {
     @DeleteMapping
     public ResponseEntity<Void> deleteUsers(@RequestBody Set<UUID> userIds) {
         userService.deleteUsers(userIds);
+        return ResponseEntity.noContent().build();
+    }
+    
+
+    @PostMapping("/new-enterprise")
+    @RolesAllowed({UserRole.RoleNameConstant.BASIC_USER})
+    public ResponseEntity<Void> createNewEnterprise(@AuthenticationPrincipal UserContextData userContextData, @RequestBody NewEnterpriseDTO enterpriseDTO) {
+        userService.createNewEnterprise(userContextData, enterpriseDTO);
         return ResponseEntity.noContent().build();
     }
     

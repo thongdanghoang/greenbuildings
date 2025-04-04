@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {Observable, filter, map, switchMap, take, takeUntil} from 'rxjs';
+import {UserRole} from '../../modules/authorization/enums/role-names';
 import {ApplicationService} from '../../modules/core/services/application.service';
 import {ThemeService} from '../../modules/core/services/theme.service';
 import {SubscriptionAwareComponent} from '../../modules/core/subscription-aware.component';
@@ -25,7 +26,7 @@ export class HeaderComponent
   extends SubscriptionAwareComponent
   implements OnInit
 {
-  menuItems: MenuItem[] | undefined;
+  menuItems: MenuItem[] = [];
   protected readonly authenticated: Observable<boolean>;
   protected languages: Language[] | undefined;
   protected selectedLanguage: Language | undefined;
@@ -47,18 +48,7 @@ export class HeaderComponent
       {display: 'English', mobile: 'EN', key: UserLocale.EN},
       {display: '中文(简体)', mobile: 'ZH', key: UserLocale.ZH}
     ];
-    this.menuItems = [
-      {
-        label: 'common.profile',
-        icon: 'pi pi-user',
-        command: (): void => this.userProfile()
-      },
-      {
-        label: 'common.logout',
-        icon: 'pi pi-power-off',
-        command: (): void => this.logout()
-      }
-    ];
+    this.buildMenuItems();
     this.selectedLanguage = {
       display: 'Tiếng Việt',
       mobile: 'VI',
@@ -74,6 +64,23 @@ export class HeaderComponent
           language => language.key.split('-')[0] === lang
         );
       });
+  }
+
+  protected buildMenuItems(): void {
+    this.menuItems.push({
+      label: 'common.logout',
+      icon: 'pi pi-power-off',
+      command: (): void => this.logout()
+    });
+    this.userService.getUserInfo().subscribe(user => {
+      if (user.role !== UserRole[UserRole.BASIC_USER]) {
+        this.menuItems.push({
+          label: 'common.profile',
+          icon: 'pi pi-user',
+          command: (): void => this.userProfile()
+        });
+      }
+    });
   }
 
   protected changeLanguage(language: Language): void {

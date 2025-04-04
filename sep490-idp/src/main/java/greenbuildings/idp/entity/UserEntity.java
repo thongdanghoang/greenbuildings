@@ -119,5 +119,10 @@ public class UserEntity extends AbstractAuditableEntity {
         user.setEnterprise(UserEnterpriseEntity.of(user, UserScope.ENTERPRISE));
         return user;
     }
+
+    public void addBuildingPermission(BuildingPermissionEntity buildingPermission) {
+        buildingPermissions.add(buildingPermission);
+        buildingPermission.setUser(this);
+    }
     
 }
