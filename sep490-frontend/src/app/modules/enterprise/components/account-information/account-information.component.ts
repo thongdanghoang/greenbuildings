@@ -9,6 +9,7 @@ import {
 import {TranslateService} from '@ngx-translate/core';
 import {MessageService} from 'primeng/api';
 import {takeUntil} from 'rxjs';
+import {AppRoutingConstants} from '../../../../app-routing.constant';
 import {UserService} from '../../../../services/user.service';
 import {AbstractFormComponent} from '../../../shared/components/form/abstract-form-component';
 
@@ -24,6 +25,8 @@ export class AccountInformationComponent extends AbstractFormComponent<void> {
     lastName: new FormControl('', [Validators.required]),
     phone: new FormControl('', [Validators.required])
   };
+
+  protected readonly AppRoutingConstants = AppRoutingConstants;
 
   constructor(
     httpClient: HttpClient,
