@@ -93,6 +93,29 @@
       }
     }
   },
+  "home": {
+    "welcome": "Welcome to Green Building",
+    "welcomeEnterprise": "Welcome to Enterprise Dashboard",
+    "enterpriseDescription": "Manage buildings, monitor emissions, and track sustainable development goals in one place.",
+    "email": "Email",
+    "emailVerified": "Email verified",
+    "createEnterprise": "Create Enterprise",
+    "viewProfile": "View Profile",
+    "viewDashboard": "View Dashboard"
+  },
+  "account": {
+    "title": "Account Information",
+    "email": "Email",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "phone": "Phone",
+    "placeholders": {
+      "enterEmail": "Enter email",
+      "enterFirstName": "Enter first name",
+      "enterLastName": "Enter last name",
+      "enterPhone": "Enter phone"
+    }
+  },
   "enterprise": {
     "title": "Enterprise",
     "Users": {
