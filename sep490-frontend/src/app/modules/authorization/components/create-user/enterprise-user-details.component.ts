@@ -248,7 +248,7 @@ export class EnterpriseUserDetailsComponent extends AbstractFormComponent<Enterp
     );
   }
 
-  onBack() {
+  onBack(): void {
     void this.router.navigate([
       '/',
       AppRoutingConstants.AUTH_PATH,
