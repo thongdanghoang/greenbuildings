@@ -248,6 +248,14 @@ export class EnterpriseUserDetailsComponent extends AbstractFormComponent<Enterp
     );
   }
 
+  onBack() {
+    void this.router.navigate([
+      '/',
+      AppRoutingConstants.AUTH_PATH,
+      AppRoutingConstants.USERS_PATH
+    ]);
+  }
+
   removeBuildingPermission(index: number): void {
     this.buildingPermissions.removeAt(index);
   }
