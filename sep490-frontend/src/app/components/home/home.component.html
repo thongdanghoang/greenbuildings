@@ -1,1 +1,75 @@
-<p>home works!</p>
+<div
+    class="flex flex-col items-center justify-center min-h-[calc(100vh-4rem)] bg-gray-50"
+>
+    <div class="w-full max-w-4xl p-8 bg-white rounded-lg shadow-lg">
+        @if (userRoles.includes(UserRole.BASIC_USER) && userData && userInfo) {
+            <div class="text-center">
+                <div class="mb-8">
+                    <h1 class="text-3xl font-bold text-primary mb-4">
+                        {{ "home.welcome" | translate }}
+                    </h1>
+                    <h2 class="text-2xl text-gray-700">
+                        {{ userInfo!.firstName }} {{ userInfo!.lastName }}
+                    </h2>
+                </div>
+
+                <div class="bg-gray-50 p-6 rounded-lg mb-8">
+                    <div class="flex items-center justify-center gap-2 mb-4">
+                        <i class="pi pi-envelope text-xl"></i>
+                        <span class="text-lg">{{ userInfo!.email }}</span>
+                    </div>
+                    @if (userInfo!.emailVerified) {
+                        <div
+                            class="flex items-center justify-center gap-2 text-green-600"
+                        >
+                            <i class="pi pi-check-circle"></i>
+                            <span>{{ "home.emailVerified" | translate }}</span>
+                        </div>
+                    }
+                </div>
+
+                <div
+                    class="flex flex-col sm:flex-row items-center justify-center gap-4"
+                >
+                    <p-button
+                        [label]="'home.viewProfile' | translate"
+                        icon="pi pi-user"
+                        [routerLink]="[
+                            '/',
+                            AppRoutingConstants.ENTERPRISE_PATH,
+                            AppRoutingConstants.ACCOUNT_INFO_PATH,
+                        ]"
+                        styleClass="p-button-secondary"
+                    ></p-button>
+                    <p-button
+                        [label]="'home.createEnterprise' | translate"
+                        icon="pi pi-building"
+                        [routerLink]="[
+                            '/',
+                            AppRoutingConstants.ENTERPRISE_PATH,
+                            AppRoutingConstants.CREATE_ENTERPRISE_PATH,
+                        ]"
+                        styleClass="p-button-primary"
+                    ></p-button>
+                </div>
+            </div>
+        } @else {
+            <div class="text-center">
+                <h1 class="text-3xl font-bold text-primary mb-4">
+                    {{ "home.welcomeEnterprise" | translate }}
+                </h1>
+                <p class="text-lg text-gray-600 mb-8">
+                    {{ "home.enterpriseDescription" | translate }}
+                </p>
+                <div class="flex justify-center">
+                    <p-button
+                        [label]="'home.viewDashboard' | translate"
+                        icon="pi pi-chart-line"
+                        [routerLink]="['/', AppRoutingConstants.DASHBOARD_PATH]"
+                        styleClass="p-button-primary"
+                    ></p-button>
+                </div>
+            </div>
+        }
+    </div>
+</div>

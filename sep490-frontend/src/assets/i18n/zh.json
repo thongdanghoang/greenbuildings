@@ -93,6 +93,16 @@
       }
     }
   },
+  "home": {
+    "welcome": "欢迎来到 Green Building",
+    "welcomeEnterprise": "欢迎来到企业仪表板",
+    "enterpriseDescription": "管理建筑物、监控排放并在一个地方跟踪可持续发展的目标。",
+    "email": "电子邮件",
+    "emailVerified": "电子邮件已验证",
+    "createEnterprise": "创建企业",
+    "viewProfile": "查看个人资料",
+    "viewDashboard": "查看仪表板"
+  },
   "account": {
     "title": "账户信息",
     "email": "电子邮件",

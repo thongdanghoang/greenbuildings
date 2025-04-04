@@ -93,6 +93,16 @@
       }
     }
   },
+  "home": {
+    "welcome": "Chào mừng đến với Green Building",
+    "welcomeEnterprise": "Chào mừng đến với Bảng điều khiển Doanh nghiệp",
+    "enterpriseDescription": "Quản lý tòa nhà, giám sát khí thải và theo dõi mục tiêu phát triển bền vững tại một nơi.",
+    "email": "Email",
+    "emailVerified": "Email đã xác thực",
+    "createEnterprise": "Tạo Doanh nghiệp",
+    "viewProfile": "Xem Hồ sơ",
+    "viewDashboard": "Xem Bảng điều khiển"
+  },
   "account": {
     "title": "Thông tin tài khoản",
     "email": "Email",

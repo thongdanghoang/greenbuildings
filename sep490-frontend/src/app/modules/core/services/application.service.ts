@@ -107,6 +107,18 @@ export class ApplicationService
     return authorities.includes(`${jwtRolePrefix}${UserRole[role]}`);
   }
 
+  getUserRoles(): Observable<UserRole[]> {
+    return this.userDataSubject.asObservable().pipe(
+      filter((user): user is UserData => user !== null),
+      map((userData): UserRole[] =>
+        userData.authorities.map((role: string) => {
+          const roleName = role.replace('ROLE_', '');
+          return UserRole[roleName as keyof typeof UserRole];
+        })
+      )
+    );
+  }
+
   login(): void {
     this.oidcSecurityService.authorize();
   }
