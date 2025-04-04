@@ -53,6 +53,16 @@ export abstract class AbstractFormComponent<T>
     this.formControls = this.initializeFormControls();
     this.formGroup = this.formBuilder.group(this.formControls);
     this.initializeData();
+    this.handleLangChange();
+  }
+
+  handleLangChange(): void {
+    this.translate.onLangChange.pipe(takeUntil(this.destroy$)).subscribe(() => {
+      // Update validation state for all controls
+      Object.values(this.formGroup.controls).forEach(control => {
+        control.updateValueAndValidity();
+      });
+    });
   }
 
   reset(): void {

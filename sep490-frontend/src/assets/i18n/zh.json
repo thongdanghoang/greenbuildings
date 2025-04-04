@@ -61,6 +61,9 @@
       },
       "activities": {
         "notFound": "未找到活动"
+      },
+      "createEnterprise": {
+        "alreadyExists": "用户已链接到其他企业"
       }
     }
   },
@@ -90,8 +93,35 @@
       }
     }
   },
+  "account": {
+    "title": "账户信息",
+    "email": "电子邮件",
+    "firstName": "名字",
+    "lastName": "姓氏",
+    "phone": "电话",
+    "placeholders": {
+      "enterEmail": "输入电子邮件",
+      "enterFirstName": "输入名字",
+      "enterLastName": "输入姓氏",
+      "enterPhone": "输入电话"
+    }
+  },
   "enterprise": {
     "title": "企业",
+    "create": {
+      "title": "创建企业",
+      "description": "创建新企业以管理您的业务",
+      "name": "名称",
+      "email": "电子邮件",
+      "taxCode": "税号",
+      "hotline": "热线",
+      "placeholders": {
+        "enterName": "输入名称",
+        "enterEmail": "输入电子邮件",
+        "enterTaxCode": "输入税号",
+        "enterHotline": "输入热线"
+      }
+    },
     "Users": {
       "id": "ID",
       "createdDate": "创建日期",

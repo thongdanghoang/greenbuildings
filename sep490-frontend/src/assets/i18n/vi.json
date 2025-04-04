@@ -61,6 +61,9 @@
       },
       "activities": {
         "notFound": "Không tìm thấy hoạt động"
+      },
+      "createEnterprise": {
+        "alreadyExists": "Người dùng đã liên kết với doanh nghiệp khác"
       }
     }
   },
@@ -90,8 +93,35 @@
       }
     }
   },
+  "account": {
+    "title": "Thông tin tài khoản",
+    "email": "Email",
+    "firstName": "Tên",
+    "lastName": "Họ",
+    "phone": "Điện thoại",
+    "placeholders": {
+      "enterEmail": "Nhập email",
+      "enterFirstName": "Nhập tên",
+      "enterLastName": "Nhập họ",
+      "enterPhone": "Nhập điện thoại"
+    }
+  },
   "enterprise": {
     "title": "Doanh nghiệp",
+    "create": {
+      "title": "Tạo doanh nghiệp",
+      "description": "Tạo doanh nghiệp mới để quản lý doanh nghiệp của bạn",
+      "name": "Tên doanh nghiệp",
+      "email": "Email doanh nghiệp",
+      "taxCode": "Mã số thuế doanh nghiệp",
+      "hotline": "Hotline doanh nghiệp",
+      "placeholders": {
+        "enterName": "Nhập tên doanh nghiệp",
+        "enterEmail": "Nhập email doanh nghiệp",
+        "enterTaxCode": "Nhập mã số thuế doanh nghiệp",
+        "enterHotline": "Nhập hotline doanh nghiệp"
+      }
+    },
     "Users": {
       "id": "ID",
       "createdDate": "Ngày tạo",
