@@ -130,7 +130,9 @@
         "enterEmail": "Nhập email doanh nghiệp",
         "enterTaxCode": "Nhập mã số thuế doanh nghiệp",
         "enterHotline": "Nhập hotline doanh nghiệp"
-      }
+      },
+      "success": "Doanh nghiệp đã được tạo thành công",
+      "redirect": "Bạn sẽ được chuyển hướng đến bảng điều khiển doanh nghiệp trong"
     },
     "Users": {
       "id": "ID",

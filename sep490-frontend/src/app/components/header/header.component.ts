@@ -1,5 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
+import {Popover} from 'primeng/popover';
 import {Observable, filter, map, switchMap, take, takeUntil} from 'rxjs';
 import {UserRole} from '../../modules/authorization/enums/role-names';
 import {ApplicationService} from '../../modules/core/services/application.service';
@@ -27,6 +28,7 @@ export class HeaderComponent
   implements OnInit
 {
   menuItems: MenuItem[] = [];
+  @ViewChild('op') op!: Popover;
   protected readonly authenticated: Observable<boolean>;
   protected languages: Language[] | undefined;
   protected selectedLanguage: Language | undefined;
@@ -67,20 +69,23 @@ export class HeaderComponent
   }
 
   protected buildMenuItems(): void {
-    this.userService.getUserInfo().subscribe(user => {
-      if (user.role !== UserRole[UserRole.BASIC_USER]) {
+    this.applicationService
+      .getUserRoles()
+      .pipe(take(1))
+      .subscribe(role => {
+        if (!role.includes(UserRole.BASIC_USER)) {
+          this.menuItems.push({
+            label: 'common.profile',
+            icon: 'pi pi-user',
+            command: (): void => this.userProfile()
+          });
+        }
         this.menuItems.push({
-          label: 'common.profile',
-          icon: 'pi pi-user',
-          command: (): void => this.userProfile()
+          label: 'common.logout',
+          icon: 'pi pi-power-off',
+          command: (): void => this.logout()
         });
-      }
-      this.menuItems.push({
-        label: 'common.logout',
-        icon: 'pi pi-power-off',
-        command: (): void => this.logout()
       });
-    });
   }
 
   protected changeLanguage(language: Language): void {
@@ -111,6 +116,7 @@ export class HeaderComponent
     void this.router.navigate([
       `/${AppRoutingConstants.AUTH_PATH}/${AppRoutingConstants.USER_PROFILE}`
     ]);
+    this.op.hide();
   }
 
   protected get isDarkMode(): Observable<boolean> {

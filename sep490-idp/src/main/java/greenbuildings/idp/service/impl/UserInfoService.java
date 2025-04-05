@@ -9,10 +9,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.oauth2.core.oidc.OidcUserInfo;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
@@ -42,8 +46,11 @@ public class UserInfoService {
     
     public Map<String, Object> getCustomClaimsForJwtAuthenticationToken(String email) {
         Map<String, Object> claims = new HashMap<>();
-        // TODO: [TRAB] check if user already login, why not get user entity from security context instead of use repository ?
         var user = userRepository.findByEmail(email).orElseThrow();
+        
+        Set<String> authorities = Stream.of(user.getRole()).map(r -> "ROLE_".concat(r.getCode())).collect(
+                Collectors.collectingAndThen(Collectors.toSet(), Collections::unmodifiableSet));
+        
         var buildingPermissions = buildingPermissionRepository
                 .findAllByUserId(user.getId())
                 .stream()
@@ -59,6 +66,7 @@ public class UserInfoService {
         claims.put("permissions", buildingPermissions);
         claims.put("sub", user.getId().toString());
         claims.put("email", user.getEmail());
+        claims.put("authorities", authorities);
         return claims;
     }
 }

@@ -17,7 +17,6 @@ import org.springframework.http.MediaType;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.crypto.encrypt.KeyStoreKeyFactory;
 import org.springframework.security.oauth2.core.oidc.endpoint.OidcParameterNames;
 import org.springframework.security.oauth2.server.authorization.OAuth2TokenType;
@@ -32,8 +31,6 @@ import org.springframework.security.web.util.matcher.MediaTypeRequestMatcher;
 
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
-import java.util.Collections;
-import java.util.stream.Collectors;
 
 @Configuration
 @RequiredArgsConstructor
@@ -107,16 +104,9 @@ public class AuthorizationServerConfig {
                 var oidcUserInfo = userInfoService.loadUser(context.getPrincipal().getName());
                 context.getClaims().claims(claimsConsumer -> claimsConsumer.putAll(oidcUserInfo.getClaims()));
             } else if (OAuth2TokenType.ACCESS_TOKEN.equals(context.getTokenType())) {
-                var authorities = AuthorityUtils
-                        .authorityListToSet(context.getPrincipal().getAuthorities())
-                        .stream()
-                        .collect(Collectors.collectingAndThen(Collectors.toSet(), Collections::unmodifiableSet));
                 var customClaims = userInfoService
                         .getCustomClaimsForJwtAuthenticationToken(context.getPrincipal().getName());
-                context.getClaims().claims(claimsConsumer -> {
-                    claimsConsumer.putAll(customClaims);
-                    claimsConsumer.put("authorities", authorities);
-                });
+                context.getClaims().claims(claimsConsumer -> claimsConsumer.putAll(customClaims));
             }
         };
     }
