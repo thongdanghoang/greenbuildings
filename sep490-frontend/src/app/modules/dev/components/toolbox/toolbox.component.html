@@ -4,8 +4,12 @@
   <div footer>footer</div>
 </card-template>
 
+<div>
+  <p-toast key="center" position="top-center"/>
+</div>
+
 <div class="flex justify-center flex-wrap gap-4 mb-6">
-  <p-button label="Primary" [raised]="true"/>
+  <p-button label="Primary" [raised]="true" (onClick)="testToast()"/>
   <p-button label="Secondary" [raised]="true" severity="secondary"/>
   <p-button label="Success" [raised]="true" severity="success"/>
   <p-button label="Info" [raised]="true" severity="info"/>

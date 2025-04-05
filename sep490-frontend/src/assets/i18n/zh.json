@@ -130,7 +130,9 @@
         "enterEmail": "输入电子邮件",
         "enterTaxCode": "输入税号",
         "enterHotline": "输入热线"
-      }
+      },
+      "success": "企业创建成功",
+      "redirect": "您将被重定向到企业仪表板"
     },
     "Users": {
       "id": "ID",

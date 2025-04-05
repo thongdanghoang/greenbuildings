@@ -1,4 +1,5 @@
 import {Component, TemplateRef, ViewChild} from '@angular/core';
+import {TranslateService} from '@ngx-translate/core';
 import {MessageService} from 'primeng/api';
 import {Observable} from 'rxjs';
 import {ApplicationService} from '../../../core/services/application.service';
@@ -31,9 +32,27 @@ export class ToolboxComponent
   constructor(
     private readonly modalProvider: ModalProvider,
     private readonly messageService: MessageService,
-    protected readonly applicationService: ApplicationService
+    protected readonly applicationService: ApplicationService,
+    protected readonly translate: TranslateService
   ) {
     super();
   }
 
+  testToast() : void {
+    const countdown = 5;
+    const message = this.translate.instant('enterprise.create.success');
+    const redirectMessage = this.translate.instant(
+      'enterprise.create.redirect'
+    );
+    this.messageService.add({
+      severity: 'success',
+      summary: message,
+      detail: `${redirectMessage} ${countdown}s...`,
+      sticky: true,
+      closable: false,
+      key: 'center',
+      styleClass:
+        'p-6 min-w-[400px] max-w-[600px] bg-white dark:bg-gray-800 shadow-lg rounded-lg'
+    });
+  }
 }
