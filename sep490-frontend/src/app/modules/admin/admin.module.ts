@@ -17,6 +17,7 @@ import {EmissionSourceDialogComponent} from './dialog/emission-source-dialog/emi
 import {FuelDialogComponent} from './dialog/fuel-dialog/fuel-dialog.component';
 import {EmissionFactorComponent} from './components/emission-factor/emission-factor.component';
 import {EmissionFactorService} from './services/emission_factor.service';
+import {EmissionFactorDialogComponent} from './dialog/emission-factor-dialog/emission-factor-dialog.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import {EmissionFactorService} from './services/emission_factor.service';
     FuelConversionComponent,
     EmissionSourceDialogComponent,
     FuelDialogComponent,
-    EmissionFactorComponent
+    EmissionFactorComponent,
+    EmissionFactorDialogComponent
   ],
   imports: [SharedModule, AdminRoutingModule],
   providers: [

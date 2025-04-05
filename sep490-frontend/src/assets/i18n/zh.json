@@ -1,5 +1,6 @@
 {
   "common": {
+    "active": "积极的",
     "rechargeNow": "立即充值",
     "profile": "轮廓",
     "noRow": "未找到任何记录",
@@ -25,7 +26,8 @@
       "title": "错误",
       "technicalServerError": "发生意外服务器错误。请联系您的管理员，提供此关键 correlationId = {{correlationId}} 以获取更多信息。",
       "fileSizeError": "文件大小必须小于 5MB 且必须是 PDF 或图像文件。"
-    }
+    },
+    "name": "姓名"
   },
   "validation": {
     "authorizeDenied": "您无权执行此操作",
@@ -65,6 +67,10 @@
       "createEnterprise": {
         "alreadyExists": "用户已链接到其他企业"
       }
+    },
+    "emissionFactor": {
+      "date": "有效起始日期必须早于或等于有效截止日期",
+      "disable": "排放因子已禁用"
     }
   },
   "notFound": {

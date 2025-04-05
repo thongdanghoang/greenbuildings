@@ -29,7 +29,6 @@ public interface EmissionFactorRepository extends JpaRepository<EmissionFactorEn
     )
     Page<UUID> findByName(String name, Pageable pageable);
 
-    @EntityGraph(attributePaths = {"source", "energyConversion", "energyConversion.fuel"})
     List<EmissionFactorEntity> findAllById(UUID id);
     
 }

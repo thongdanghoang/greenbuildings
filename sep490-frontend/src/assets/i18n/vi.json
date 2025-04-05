@@ -1,5 +1,6 @@
 {
   "common": {
+    "active": "Kích hoạt",
     "rechargeNow": "Nạp ngay",
     "profile": "Hồ sơ",
     "noRow": "Không tìm thấy bản ghi nào.",
@@ -25,7 +26,8 @@
       "title": "Lỗi",
       "technicalServerError": "Đã xảy ra lỗi máy chủ không mong muốn. Vui lòng liên hệ với System Admin có correlationId = {{correlationId}} để biết thêm thông tin.",
       "fileSizeError": "Kích thước file phải nhỏ hơn 5MB và phải là file PDF hoặc hình ảnh."
-    }
+    },
+    "name": "Tên"
   },
   "validation": {
     "authorizeDenied": "Bạn không thể thực hiện chức năng này",
@@ -65,6 +67,10 @@
       "createEnterprise": {
         "alreadyExists": "Người dùng đã liên kết với doanh nghiệp khác"
       }
+    },
+    "emissionFactor": {
+      "date": "Ngày có hiệu lực phải trước hoặc bằng ngày có hiệu lực đến ngày",
+      "disable": "Hệ số phát thải bị vô hiệu hóa"
     }
   },
   "notFound": {

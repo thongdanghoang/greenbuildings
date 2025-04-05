@@ -23,6 +23,13 @@ import {
   FuelDTO
 } from '../../../shared/models/shared-models';
 import {EmissionFactorService} from '../../services/emission_factor.service';
+import {UUID} from '../../../../../types/uuid';
+import {
+  DialogService,
+  DynamicDialogConfig,
+  DynamicDialogRef
+} from 'primeng/dynamicdialog';
+import {EmissionFactorDialogComponent} from '../../dialog/emission-factor-dialog/emission-factor-dialog.component';
 export interface EmissionFactorCriteria {
   criteria: string;
 }
@@ -35,6 +42,10 @@ export class EmissionFactorComponent
   extends SubscriptionAwareComponent
   implements OnInit
 {
+  @ViewChild('endDateTemplate', {static: true})
+  endDateTemplate!: TemplateRef<any>;
+  @ViewChild('startDateTemplate', {static: true})
+  startDateTemplate!: TemplateRef<any>;
   @ViewChild('nameTemplate', {static: true})
   nameTemplate!: TemplateRef<any>;
   @ViewChild('emissionSourceTemplate', {static: true})
@@ -45,6 +56,7 @@ export class EmissionFactorComponent
   actionsTemplate!: TemplateRef<any>;
   @ViewChild('isDirectEmissionTemplate', {static: true})
   isDirectEmissionTemplate!: TemplateRef<any>; // New template reference
+  ref: DynamicDialogRef | undefined;
   protected fetchEmissionFactor!: (
     criteria: SearchCriteriaDto<EmissionFactorCriteria>
   ) => Observable<SearchResultDto<EmissionFactorDTO>>;
@@ -57,7 +69,8 @@ export class EmissionFactorComponent
     private readonly emissionFactorService: EmissionFactorService,
     private readonly messageService: MessageService,
     private readonly modalProvider: ModalProvider,
-    public readonly translate: TranslateService
+    public readonly translate: TranslateService,
+    private readonly dialogService: DialogService
   ) {
     super();
   }
@@ -163,11 +176,13 @@ export class EmissionFactorComponent
     });
     this.cols.push({
       field: 'validFrom',
-      header: 'enterprise.buildings.details.labels.validFromInclusive'
+      header: 'enterprise.buildings.details.labels.validFromInclusive',
+      templateRef: this.startDateTemplate
     });
     this.cols.push({
       field: 'validTo',
-      header: 'enterprise.buildings.details.labels.validToInclusive'
+      header: 'enterprise.buildings.details.labels.validToInclusive',
+      templateRef: this.endDateTemplate
     });
     this.cols.push({
       field: 'isDirectEmission',
@@ -181,7 +196,7 @@ export class EmissionFactorComponent
     });
     this.cols.push({
       field: 'active',
-      header: '',
+      header: 'common.active',
       templateRef: this.actionsTemplate
     });
   }
@@ -192,6 +207,36 @@ export class EmissionFactorComponent
 
   search(): void {
     this.searchEvent.emit();
+  }
+
+  openNewActivityDialog(emissionId?: UUID): void {
+    // Made emissionId optional with ?
+    const config: DynamicDialogConfig<UUID | undefined> = {
+      // Allow undefined in config.data
+      data: emissionId, // Will be undefined for add, UUID for edit
+      closeOnEscape: true,
+      dismissableMask: true,
+      showHeader: false
+    };
+
+    // Clean up previous dialog if it exists
+    if (this.ref) {
+      this.ref.close();
+    }
+
+    // Open the dialog with EmissionSourceDialogComponent
+    this.ref = this.dialogService.open(EmissionFactorDialogComponent, config);
+    this.ref.onClose.subscribe((result: boolean | undefined) => {
+      if (result) {
+        this.searchEvent.emit(); // Refresh the list if dialog closed with a result
+      }
+    });
+  }
+
+  onEdit(rowData: EmissionFactorDTO): void {
+    this.selected = [rowData];
+    const emissionId = this.selected[0].id; // Fixed typo: emisstionId -> emissionId
+    this.openNewActivityDialog(emissionId);
   }
 
   onDelete(rowData: EmissionFactorDTO): void {

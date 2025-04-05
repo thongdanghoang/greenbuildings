@@ -1,5 +1,6 @@
 {
   "common": {
+    "active": "Active",
     "rechargeNow": "Recharge now",
     "profile": "Profile",
     "noRow": "Nothing has been found.",
@@ -25,7 +26,8 @@
       "title": "Error",
       "technicalServerError": "Unexpected server error occurred. Please contact your administrator with this key correlationId = {{correlationId}} for more information.",
       "fileSizeError": "File size must be less than 5MB and must be a PDF or image file."
-    }
+    },
+    "name": "Name"
   },
   "validation": {
     "authorizeDenied": "You are not allowed to perform this action",
@@ -65,6 +67,10 @@
       "createEnterprise": {
         "alreadyExists": "User has already linked to an enterprise"
       }
+    },
+    "emissionFactor": {
+      "date": "Valid from date must be before or equal to valid to date",
+      "disable": "Emission Factor disabled"
     }
   },
   "notFound": {
