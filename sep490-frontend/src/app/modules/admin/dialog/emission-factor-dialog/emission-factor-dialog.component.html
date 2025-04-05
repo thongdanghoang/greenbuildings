@@ -2,7 +2,7 @@
     <!-- Dialog Header -->
     <div class="p-dialog-header p-0 border-b">
         <span class="text-xl font-semibold">
-            {{ "sidebar.admin.fuel" | translate }}
+            {{ "enterprise.emission.activity.record.table.factor" | translate }}
         </span>
         <button
             pButton
@@ -13,16 +13,16 @@
         ></button>
     </div>
 
-    <!-- Stepper with Two Steps -->
+    <!-- Stepper with Three Steps -->
     <p-stepper [value]="1" class="block">
         <p-step-panels class="block h-full">
-            <!-- Step 1: Fuel Names (Vietnamese, English, Chinese) -->
+            <!-- Step 1: Names and Description -->
             <p-step-panel [value]="1">
                 <ng-template #content let-activateCallback="activateCallback">
                     <div
                         class="p-0 min-h-[400px] p-dialog-content flex flex-col overflow-hidden"
                     >
-                        <div [formGroup]="fuelFormGroup">
+                        <div [formGroup]="formGroup">
                             <p-iftalabel class="my-2">
                                 <input
                                     pInputText
@@ -56,6 +56,18 @@
                                     >{{ "common.name" | translate }} (ZH)</label
                                 >
                             </p-iftalabel>
+                            <p-iftalabel class="my-2">
+                                <input
+                                    pInputText
+                                    formControlName="description"
+                                    class="w-full"
+                                    autocomplete="off"
+                                />
+                                <label>{{
+                                    "admin.emissionFactor.description"
+                                        | translate
+                                }}</label>
+                            </p-iftalabel>
                         </div>
                         <div class="flex justify-end mt-2">
                             <p-button
@@ -69,7 +81,7 @@
                 </ng-template>
             </p-step-panel>
 
-            <!-- Step 2: Conversion Details -->
+            <!-- Step 2: Emission Values (CO2, CH4, N2O) -->
             <p-step-panel [value]="2">
                 <ng-template #content let-activateCallback="activateCallback">
                     <div
@@ -79,45 +91,82 @@
                             <p-iftalabel class="my-2">
                                 <input
                                     pInputText
-                                    formControlName="conversionValue"
+                                    formControlName="co2"
                                     class="w-full"
                                     autocomplete="off"
                                     type="number"
                                 />
+                                <label>{{ "CO2" | translate }}</label>
+                            </p-iftalabel>
+                            <p-iftalabel class="my-2">
+                                <input
+                                    pInputText
+                                    formControlName="ch4"
+                                    class="w-full"
+                                    autocomplete="off"
+                                    type="number"
+                                />
+                                <label>{{ "CH4" | translate }}</label>
+                            </p-iftalabel>
+                            <p-iftalabel class="my-2">
+                                <input
+                                    pInputText
+                                    formControlName="n2o"
+                                    class="w-full"
+                                    autocomplete="off"
+                                    type="number"
+                                />
+                                <label>{{ "N2O" | translate }}</label>
+                            </p-iftalabel>
+                        </div>
+                        <div class="flex justify-between mt-2">
+                            <p-button
+                                label="{{ 'common.back' | translate }}"
+                                severity="secondary"
+                                icon="pi pi-arrow-left"
+                                (onClick)="activateCallback(1)"
+                            ></p-button>
+                            <p-button
+                                label="{{ 'common.next' | translate }}"
+                                icon="pi pi-arrow-right"
+                                iconPos="right"
+                                (onClick)="activateCallback(3)"
+                            ></p-button>
+                        </div>
+                    </div>
+                </ng-template>
+            </p-step-panel>
+
+            <!-- Step 3: Validity Dates -->
+            <p-step-panel [value]="3">
+                <ng-template #content let-activateCallback="activateCallback">
+                    <div
+                        class="p-0 min-h-[400px] p-dialog-content flex flex-col overflow-hidden"
+                    >
+                        <div [formGroup]="formGroup">
+                            <p-iftalabel class="my-2">
+                                <p-calendar
+                                    formControlName="validFrom"
+                                    [showIcon]="true"
+                                    inputId="validFrom"
+                                    dateFormat="dd/mm/yy"
+                                    [style]="{ width: '100%' }"
+                                ></p-calendar>
                                 <label>{{
-                                    "admin.energyConversion.conversionValue"
+                                    "enterprise.emission.activity.record.table.startDate"
                                         | translate
                                 }}</label>
                             </p-iftalabel>
                             <p-iftalabel class="my-2">
-                                <p-dropdown
-                                    [options]="emissionUnits"
-                                    formControlName="conversionUnitNumerator"
-                                    optionLabel="label"
-                                    optionValue="value"
+                                <p-calendar
+                                    formControlName="validTo"
+                                    [showIcon]="true"
+                                    inputId="validTo"
+                                    dateFormat="dd/mm/yy"
                                     [style]="{ width: '100%' }"
-                                    placeholder="{{
-                                        'Select Numerator Unit' | translate
-                                    }}"
-                                ></p-dropdown>
+                                ></p-calendar>
                                 <label>{{
-                                    "admin.energyConversion.conversionUnitNumerator"
-                                        | translate
-                                }}</label>
-                            </p-iftalabel>
-                            <p-iftalabel class="my-2">
-                                <p-dropdown
-                                    [options]="emissionUnits"
-                                    formControlName="conversionUnitDenominator"
-                                    optionLabel="label"
-                                    optionValue="value"
-                                    [style]="{ width: '100%' }"
-                                    placeholder="{{
-                                        'Select Denominator Unit' | translate
-                                    }}"
-                                ></p-dropdown>
-                                <label>{{
-                                    "admin.energyConversion.conversionUnitDenominator"
+                                    "enterprise.emission.activity.record.table.endDate"
                                         | translate
                                 }}</label>
                             </p-iftalabel>
@@ -127,7 +176,7 @@
                                 label="{{ 'common.back' | translate }}"
                                 severity="secondary"
                                 icon="pi pi-arrow-left"
-                                (onClick)="activateCallback(1)"
+                                (onClick)="activateCallback(2)"
                             ></p-button>
                             <p-button
                                 label="{{ 'common.save' | translate }}"

@@ -38,6 +38,11 @@ public class EmissionFactorServiceImpl implements EmissionFactorService {
     }
 
     @Override
+    public Optional<EmissionFactorEntity> findById(UUID id) {
+        return emissionFactorRepository.findById(id);
+    }
+
+    @Override
     public Page<EmissionFactorEntity> search(SearchCriteriaDTO<EmissionFactorCriteriaDTO> searchCriteria, Pageable pageable) {
         var emissionFactorIDs = emissionFactorRepository.findByName(
                 searchCriteria.criteria().criteria(),
@@ -52,8 +57,25 @@ public class EmissionFactorServiceImpl implements EmissionFactorService {
 
     public void delete(UUID id) {
         var emissionFactor = emissionFactorRepository.findById(id).orElse(null);
+        if(!Objects.requireNonNull(emissionFactor).isActive()) {
+            if(Objects.requireNonNull(emissionFactor).getEmissionUnitNumerator() == null || Objects.requireNonNull(emissionFactor).getEmissionUnitDenominator() == null || Objects.requireNonNull(emissionFactor).getSource() == null) {
+                throw new BusinessException("emissionFactor","emissionFactor.disabled");
+            }
+            if(!Objects.requireNonNull(emissionFactor).isDirectEmission() || Objects.requireNonNull(emissionFactor).getEnergyConversion().getFuel() == null){
+                throw new BusinessException("emissionFactor","emissionFactor.disabled");
+            }
+        }
         Objects.requireNonNull(emissionFactor).setActive(!emissionFactor.isActive());
         emissionFactorRepository.save(emissionFactor);
     }
+
+    @Override
+    public void createOrUpdate(EmissionFactorEntity factor) {
+        if ( factor.getValidFrom().isAfter(factor.getValidTo())) {
+            throw new BusinessException("emissionFactor","emissionFactor.date");
+        }
+        emissionFactorRepository.save(factor);
+    }
+
 
 }

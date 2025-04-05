@@ -27,4 +27,16 @@ export class EmissionFactorService {
       `${AppRoutingConstants.ENTERPRISE_API_URL}/emission-factor/${factorId}`
     );
   }
+
+  public get createOrUpdateURL(): string {
+    return `${AppRoutingConstants.ENTERPRISE_API_URL}/emission-factor`;
+  }
+
+  public getEmissionFactorById(
+    emssionFactorId: string
+  ): Observable<EmissionFactorDTO> {
+    return this.httpClient.get<EmissionFactorDTO>(
+      `${AppRoutingConstants.ENTERPRISE_API_URL}/emission-factor/${emssionFactorId}`
+    );
+  }
 }

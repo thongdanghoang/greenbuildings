@@ -38,11 +38,13 @@
 </ng-template>
 <ng-template #actionsTemplate let-rowData>
     <div class="flex items-center gap-2">
-        <span class="text-xs text-gray-600">{{
-            rowData.active
-                ? ("admin.packageCredit.active" | translate)
-                : ("admin.packageCredit.inactive" | translate)
-        }}</span>
+        <p-button
+            icon="pi pi-pencil"
+            [rounded]="true"
+            [text]="true"
+            severity="info"
+            (onClick)="onEdit(rowData)"
+        />
         <p-inputSwitch
             [ngModel]="rowData.active"
             (onChange)="onDelete(rowData)"
@@ -66,4 +68,10 @@
 </ng-template>
 <ng-template #nameTemplate let-data>
     {{ getLocalizedEmissionFactorName(data) }}
+</ng-template>
+<ng-template #startDateTemplate let-data>
+    <p>{{ data.validFrom | date: "dd.MM.yyyy" }}</p>
+</ng-template>
+<ng-template #endDateTemplate let-data>
+    <p>{{ data.validTo | date: "dd.MM.yyyy" }}</p>
 </ng-template>
