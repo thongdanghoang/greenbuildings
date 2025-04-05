@@ -3,61 +3,22 @@
         {{ "enterprise.buildings.overview.title" | translate }}
     </div>
     <p-button
-        *ngIf="!addBuildingLocation"
         severity="primary"
         [label]="'enterprise.buildings.overview.btn.add' | translate"
         icon="pi pi-building"
-        (onClick)="turnOnSelectBuildingLocation()"
+        (onClick)="addBuilding()"
     />
 </div>
 
-<p-selectbutton
-    (onChange)="onViewModeChanged()"
-    [disabled]="addBuildingLocation"
-    [options]="justifyOptions"
-    [(ngModel)]="viewMode"
-    optionValue="value"
->
-    <ng-template #item let-item>
-        <i [class]="item.icon"></i>
-    </ng-template>
-</p-selectbutton>
-
-<div [hidden]="listView" style="height: 600px">
-    <div class="h-full" id="map"></div>
-</div>
-
-@if (mapView) {
-    <div class="flex justify-end gap-4">
-        <p-button
-            class="*:min-w-20"
-            *ngIf="addBuildingLocation"
-            severity="primary"
-            [label]="'common.cancel' | translate"
-            outlined
-            (onClick)="cancelAddBuilding()"
-        />
-        <p-button
-            class="*:min-w-24"
-            *ngIf="addBuildingLocation"
-            severity="primary"
-            [label]="'common.next' | translate"
-            (onClick)="addBuilding()"
-        />
-    </div>
+@if (buildings.length === 0) {
+    <p class="px-3 py-4">
+        {{ "enterprise.buildings.overview.noRow" | translate }}
+    </p>
 }
-
-@if (listView) {
-    @if (buildings.length === 0) {
-        <p class="px-3 py-4">
-            {{ "enterprise.buildings.overview.noRow" | translate }}
-        </p>
-    }
-    @for (building of buildings; track building.id) {
-        <ng-container
-            *ngTemplateOutlet="cardTemplate; context: { $implicit: building }"
-        ></ng-container>
-    }
+@for (building of buildings; track building.id) {
+    <ng-container
+        *ngTemplateOutlet="cardTemplate; context: { $implicit: building }"
+    ></ng-container>
 }
 
 <ng-template #cardTemplate let-building>
@@ -72,11 +33,6 @@
                     icon="pi pi-info"
                     text
                     severity="info"
-                />
-                <p-button
-                    icon="pi pi-map"
-                    text
-                    (onClick)="zoomTo(building.latitude, building.longitude)"
                 />
                 <p-button
                     icon="pi pi-trash"

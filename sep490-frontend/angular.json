@@ -42,7 +42,6 @@
           "builder": "@angular-devkit/build-angular:application",
           "options": {
             "allowedCommonJsDependencies": [
-              "leaflet"
             ],
             "outputPath": "dist/frontend",
             "index": "src/index.html",
@@ -56,15 +55,9 @@
               {
                 "glob": "**/*",
                 "input": "public"
-              },
-              {
-                "glob": "**/*",
-                "input": "node_modules/leaflet/dist/images/",
-                "output": "./assets"
               }
             ],
             "styles": [
-              "node_modules/leaflet/dist/leaflet.css",
               "src/styles/styles.css"
             ],
             "stylePreprocessorOptions": {

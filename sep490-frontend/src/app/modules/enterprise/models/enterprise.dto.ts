@@ -10,16 +10,12 @@ export interface Building extends BaseDTO {
   name: string;
   address?: string;
   activated?: boolean;
-  latitude: number;
-  longitude: number;
   subscriptionDTO?: Subscription;
 }
 
 export interface BuildingDetails extends BaseDTO {
   name: string;
   numberOfDevices: number;
-  latitude: number;
-  longitude: number;
   address: string;
   subscriptionDTO?: Subscription;
   emissionActivities: EmissionActivity[];

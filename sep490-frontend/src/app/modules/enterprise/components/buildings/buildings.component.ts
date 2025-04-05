@@ -1,17 +1,19 @@
-import {Component, ComponentRef, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import * as L from 'leaflet';
+import {TranslateService} from '@ngx-translate/core';
+import {MessageService} from 'primeng/api';
 import {
   DialogService,
   DynamicDialogConfig,
   DynamicDialogRef
 } from 'primeng/dynamicdialog';
 
-import {forkJoin, takeUntil} from 'rxjs';
+import {forkJoin, takeUntil, tap} from 'rxjs';
 import {UUID} from '../../../../../types/uuid';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
 import {BuildingService} from '../../../../services/building.service';
 import {SubscriptionAwareComponent} from '../../../core/subscription-aware.component';
+import {ModalProvider} from '../../../shared/services/modal-provider';
 import {
   BuildingSubscriptionDialogComponent,
   SubscriptionDialogOptions
@@ -21,37 +23,7 @@ import {
   BuildingDetails,
   TransactionType
 } from '../../models/enterprise.dto';
-import {PopupService} from '../../services/popup.service';
 import {WalletService} from '../../services/wallet.service';
-import {BuildingPopupMarkerComponent} from '../building-popup-marker/building-popup-marker.component';
-import {MessageService} from 'primeng/api';
-import {ModalProvider} from '../../../shared/services/modal-provider';
-import {TranslateService} from '@ngx-translate/core';
-
-const iconRetinaUrl = 'assets/marker-icon-2x.png';
-const iconUrl = 'assets/marker-icon.png';
-const shadowUrl = 'assets/marker-shadow.png';
-const iconDefault = L.icon({
-  iconRetinaUrl,
-  iconUrl,
-  shadowUrl,
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
-  popupAnchor: [1, -34],
-  tooltipAnchor: [16, -28],
-  shadowSize: [41, 41]
-});
-L.Marker.prototype.options.icon = iconDefault;
-
-export enum ViewMode {
-  LIST = 'list',
-  MAP = 'map'
-}
-
-export interface MapLocation {
-  latitude: number;
-  longitude: number;
-}
 
 @Component({
   selector: 'app-building',
@@ -65,24 +37,13 @@ export class BuildingsComponent
   balance: number = 0;
   selectedBuildingDetails: BuildingDetails | null = null;
   ref: DynamicDialogRef | undefined;
-  addBuildingLocation: boolean = false;
-  buildingLocation: MapLocation | null = null;
-  viewMode: ViewMode = ViewMode.LIST;
   buildings: Building[] = [];
 
-  justifyOptions: any[] = [
-    {icon: 'pi pi-map', value: ViewMode.MAP},
-    {icon: 'pi pi-list', value: ViewMode.LIST}
-  ];
-
   protected readonly AppRoutingConstants = AppRoutingConstants;
-
-  private map!: L.Map;
 
   constructor(
     private readonly router: Router,
     private readonly buildingService: BuildingService,
-    private readonly popupService: PopupService,
     public dialogService: DialogService,
     private readonly walletService: WalletService,
     private readonly messageService: MessageService,
@@ -93,26 +54,7 @@ export class BuildingsComponent
   }
 
   ngOnInit(): void {
-    this.initMap();
     this.fetchBuilding();
-    this.map.on('click', e => {
-      const marker = L.marker([e.latlng.lat, e.latlng.lng]);
-      if (this.addBuildingLocation && this.buildingLocation === null) {
-        marker.addTo(this.map);
-        this.buildingLocation = {
-          latitude: e.latlng.lat,
-          longitude: e.latlng.lng
-        };
-      }
-    });
-  }
-
-  get mapView(): boolean {
-    return this.viewMode === ViewMode.MAP;
-  }
-
-  get listView(): boolean {
-    return this.viewMode === ViewMode.LIST;
   }
 
   hasSubscription(building: Building): boolean {
@@ -161,25 +103,13 @@ export class BuildingsComponent
     this.fetchBuilding();
   }
 
-  turnOnSelectBuildingLocation(): void {
-    this.viewMode = ViewMode.MAP;
-    this.addBuildingLocation = true;
-  }
-
   addBuilding(): void {
-    if (this.buildingLocation) {
-      void this.router.navigate(
-        [
-          '/',
-          AppRoutingConstants.ENTERPRISE_PATH,
-          AppRoutingConstants.BUILDING_PATH,
-          'create'
-        ],
-        {
-          queryParams: this.buildingLocation
-        }
-      );
-    }
+    void this.router.navigate([
+      '/',
+      AppRoutingConstants.ENTERPRISE_PATH,
+      AppRoutingConstants.BUILDING_PATH,
+      'new'
+    ]);
   }
 
   confirmDelete(buildingId: UUID): void {
@@ -203,20 +133,6 @@ export class BuildingsComponent
       });
   }
 
-  cancelAddBuilding(): void {
-    this.addBuildingLocation = false;
-    this.map.eachLayer(layer => {
-      if (
-        layer instanceof L.Marker &&
-        layer.getLatLng().lat === this.buildingLocation?.latitude &&
-        layer.getLatLng().lng === this.buildingLocation?.longitude
-      ) {
-        this.map.removeLayer(layer);
-      }
-    });
-    this.buildingLocation = null;
-  }
-
   viewBuildingDetails(id: UUID): void {
     void this.router.navigate([
       '/',
@@ -234,59 +150,11 @@ export class BuildingsComponent
           pageSize: 100
         }
       })
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(buildings => {
-        this.buildings = buildings.results;
-        buildings.results.forEach(building => {
-          const marker = L.marker([building.latitude, building.longitude]);
-          marker.addTo(this.map);
-          const markerPopup: HTMLDivElement = this.popupService.compilePopup(
-            BuildingPopupMarkerComponent,
-            (c: ComponentRef<BuildingPopupMarkerComponent>): void => {
-              c.instance.building = building;
-            }
-          );
-          marker.bindPopup(markerPopup);
-        });
-        if (this.buildings.length > 0) {
-          const latLngs = buildings.results.map(building =>
-            L.latLng(building.latitude, building.longitude)
-          );
-          const bounds = L.latLngBounds(latLngs);
-          this.map.fitBounds(bounds);
-        }
-      });
-  }
-
-  zoomTo(latitude: number, longitude: number): void {
-    if (this.map) {
-      this.viewMode = ViewMode.MAP;
-      this.map.setView([latitude, longitude], 16);
-    }
-  }
-
-  private initMap(): void {
-    if (document.getElementById('map')) {
-      this.map = L.map('map', {
-        center: [10.841394, 106.810052],
-        zoom: 16
-      });
-    } else {
-      throw new Error(
-        'Map element not found, should set id="map" to the map element'
-      );
-    }
-
-    const tiles = L.tileLayer(
-      'https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',
-      {
-        maxZoom: 18,
-        minZoom: 2,
-        subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
-      }
-    );
-
-    tiles.addTo(this.map);
+      .pipe(
+        takeUntil(this.destroy$),
+        tap(searchResult => (this.buildings = searchResult.results))
+      )
+      .subscribe();
   }
 
   private deleteBuilding(buildingId: UUID): void {
