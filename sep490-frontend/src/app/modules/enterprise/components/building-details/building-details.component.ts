@@ -15,16 +15,14 @@ import {validate} from 'uuid';
 import {UUID} from '../../../../../types/uuid';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
 import {BuildingService} from '../../../../services/building.service';
-import {GeocodingService} from '../../../../services/geocoding.service';
-import {AbstractFormComponent} from '../../../shared/components/form/abstract-form-component';
-import {BuildingDetails, UserByBuilding} from '../../models/enterprise.dto';
-import {MapLocation} from '../buildings/buildings.component';
-import {TableTemplateColumn} from '../../../shared/components/table-template/table-template.component';
 import {ApplicationService} from '../../../core/services/application.service';
+import {AbstractFormComponent} from '../../../shared/components/form/abstract-form-component';
+import {TableTemplateColumn} from '../../../shared/components/table-template/table-template.component';
 import {
   SearchCriteriaDto,
   SearchResultDto
 } from '../../../shared/models/base-models';
+import {BuildingDetails, UserByBuilding} from '../../models/enterprise.dto';
 
 @Component({
   selector: 'app-building-detail',
@@ -48,16 +46,6 @@ export class BuildingDetailsComponent extends AbstractFormComponent<BuildingDeta
       nonNullable: true,
       validators: [Validators.min(1), Validators.required]
     }),
-    latitude: new FormControl<number | null>(null, [
-      Validators.required,
-      Validators.min(-90),
-      Validators.max(90)
-    ]),
-    longitude: new FormControl<number | null>(null, [
-      Validators.required,
-      Validators.min(-180),
-      Validators.max(180)
-    ]),
     address: new FormControl<string | null>(null, Validators.required),
     subscriptionDTO: this.formBuilder.group({
       startDate: [{value: null, disabled: true}],
@@ -73,7 +61,6 @@ export class BuildingDetailsComponent extends AbstractFormComponent<BuildingDeta
     translate: TranslateService,
     private readonly activatedRoute: ActivatedRoute,
     private readonly buildingService: BuildingService,
-    private readonly geocodingService: GeocodingService,
     private readonly location: Location,
     private readonly router: Router,
     protected readonly applicationService: ApplicationService
@@ -134,7 +121,6 @@ export class BuildingDetailsComponent extends AbstractFormComponent<BuildingDeta
 
   protected initializeData(): void {
     this.fetchBuildingDetails();
-    this.handleLocationChange();
     this.fetchData = (
       criteria: SearchCriteriaDto<void>
     ): Observable<SearchResultDto<UserByBuilding>> => {
@@ -177,40 +163,6 @@ export class BuildingDetailsComponent extends AbstractFormComponent<BuildingDeta
       )
       .subscribe(building => {
         this.formGroup.patchValue(building);
-      });
-  }
-
-  private handleLocationChange(): void {
-    this.activatedRoute.queryParams
-      .pipe(
-        takeUntil(this.destroy$),
-        filter((params): params is MapLocation => !!params),
-        switchMap(location => {
-          if (!!location.latitude && !!location.longitude) {
-            this.buildingDetailsStructure.latitude.setValue(location.latitude);
-            this.buildingDetailsStructure.longitude.setValue(
-              location.longitude
-            );
-            return this.geocodingService.reverse(
-              location.latitude,
-              location.longitude
-            );
-          } else if (!this.isEdit) {
-            // only check when creating a new building
-            this.notificationService.add({
-              severity: 'error',
-              summary: 'Error',
-              detail: 'Invalid location'
-            });
-            return [];
-          }
-          return [];
-        })
-      )
-      .subscribe(address => {
-        if (address) {
-          this.buildingDetailsStructure.address.setValue(address.displayName);
-        }
       });
   }
 }

@@ -61,12 +61,12 @@ public class BuildingEntity extends AbstractAuditableEntity {
     @DecimalMin("-90.0")
     @DecimalMax("90.0")
     @Column(name = "latitude")
-    private double latitude;
+    private double latitude = 0;
     
     @DecimalMin("-180.0")
     @DecimalMax("180.0")
     @Column(name = "longitude")
-    private double longitude;
+    private double longitude = 0;
 
     @Column(name = "deleted")
     private boolean deleted;
