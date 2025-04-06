@@ -10,20 +10,30 @@ import {TranslateService} from '@ngx-translate/core';
 import {MessageService} from 'primeng/api';
 import {takeUntil} from 'rxjs';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
+import {ApplicationConstant} from '../../../../application.constant';
 import {UserService} from '../../../../services/user.service';
+import {EnterpriseUserDetails} from '../../../authorization/models/enterprise-user';
 import {AbstractFormComponent} from '../../../shared/components/form/abstract-form-component';
-
+import {EnterpriseUserService} from '../../../authorization/services/enterprise-user.service';
 @Component({
   selector: 'app-account-information',
   templateUrl: './account-information.component.html',
   styleUrl: './account-information.component.css'
 })
-export class AccountInformationComponent extends AbstractFormComponent<void> {
+export class AccountInformationComponent extends AbstractFormComponent<EnterpriseUserDetails> {
+  initUser: EnterpriseUserDetails = {} as EnterpriseUserDetails;
   protected readonly formStructure = {
+    id: new FormControl('', [Validators.required]),
+    version: new FormControl(0, [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
     firstName: new FormControl('', [Validators.required]),
     lastName: new FormControl('', [Validators.required]),
-    phone: new FormControl('', [Validators.required])
+    phone: new FormControl('', [
+      Validators.required,
+      Validators.pattern(ApplicationConstant.PHONE_PATTERN)
+    ]),
+    role: new FormControl('', [Validators.required]),
+    scope: new FormControl('', [Validators.required])
   };
 
   protected readonly AppRoutingConstants = AppRoutingConstants;
@@ -33,29 +43,40 @@ export class AccountInformationComponent extends AbstractFormComponent<void> {
     formBuilder: FormBuilder,
     notificationService: MessageService,
     translate: TranslateService,
-    private readonly userService: UserService
+    private readonly userService: UserService,
+    private readonly enterpriseUserService: EnterpriseUserService
   ) {
     super(httpClient, formBuilder, notificationService, translate);
+  }
+
+  revert(): void {
+    this.formGroup.patchValue(this.initUser);
   }
 
   protected initializeData(): void {
     this.userService
       .getUserInfo()
       .pipe(takeUntil(this.destroy$))
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      .subscribe(user => {
-        // temp
+      .subscribe((user: EnterpriseUserDetails) => {
+        this.initUser = user;
+        this.formGroup.patchValue(user);
       });
   }
 
+  protected override submitFormMethod(): string {
+    return 'PUT';
+  }
+
   protected initializeFormControls(): {[p: string]: AbstractControl} {
+    this.formStructure.email.disable();
     return this.formStructure;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  protected onSubmitFormDataSuccess(result: any): void {}
+  protected onSubmitFormDataSuccess(result: any): void {
+    this.formGroup.patchValue(result);
+  }
 
   protected submitFormDataUrl(): string {
-    return '';
+    return this.enterpriseUserService.updateBasicUser;
   }
 }

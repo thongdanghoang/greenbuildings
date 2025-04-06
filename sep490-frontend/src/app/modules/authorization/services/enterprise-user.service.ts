@@ -42,6 +42,10 @@ export class EnterpriseUserService {
     return `${AppRoutingConstants.IDP_API_URL}/${EnterpriseUserService.ENTERPRISE_USER_API_URL}`;
   }
 
+  public get updateBasicUser(): string {
+    return `${AppRoutingConstants.IDP_API_URL}/${EnterpriseUserService.ENTERPRISE_USER_API_URL}/self-update`;
+  }
+
   public deleteUsers(userIds: UUID[]): Observable<void> {
     return this.httpClient.delete<void>(
       `${AppRoutingConstants.IDP_API_URL}/${EnterpriseUserService.ENTERPRISE_USER_API_URL}`,

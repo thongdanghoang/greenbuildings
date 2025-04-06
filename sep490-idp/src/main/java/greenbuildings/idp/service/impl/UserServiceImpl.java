@@ -196,6 +196,11 @@ public class UserServiceImpl extends SagaManager implements UserService {
     }
     
     @Override
+    public UserEntity updateBasicUser(UserEntity user) {
+        return userRepo.save(user);
+    }
+    
+    @Override
     public void deleteUsers(Set<UUID> userIds) {
         if (CollectionUtils.isEmpty(userIds)) {
             throw new BusinessException("userIds", "user.delete.no.ids", Collections.emptyList());

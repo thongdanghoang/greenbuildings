@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -92,6 +93,15 @@ public class EnterpriseUserRestController {
         var user = userService.getEnterpriseUserDetail(enterpriseUserDTO.id());
         userMapper.updateEnterpriseUser(user, enterpriseUserDTO);
         return saveUserAndReturnResponse(user, HttpStatus.OK);
+    }
+    
+    @PutMapping("/self-update")
+    @RolesAllowed({UserRole.RoleNameConstant.BASIC_USER})
+    public ResponseEntity<EnterpriseUserDetailsDTO> updateEnterpriseUser(@RequestBody EnterpriseUserDetailsDTO enterpriseUserDTO) {
+        var user = userService.getEnterpriseUserDetail(enterpriseUserDTO.id());
+        userMapper.updateSelfUser(user, enterpriseUserDTO);
+        user = userService.updateBasicUser(user);
+        return ResponseEntity.ok(userMapper.userEntityToBasicEnterpriseUserDetailDTO(user));
     }
     
     private ResponseEntity<Void> saveUserAndReturnResponse(UserEntity user, HttpStatus status) {
