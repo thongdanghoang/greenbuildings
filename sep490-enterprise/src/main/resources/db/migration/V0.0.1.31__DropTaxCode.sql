@@ -1,0 +1,1 @@
+ALTER TABLE enterprises DROP COLUMN tax_code;

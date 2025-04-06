@@ -63,29 +63,6 @@
         </div>
     </div>
 
-    <!-- Tax Code -->
-    <div
-        class="grid grid-cols-12 sm:gap-4 gap-2 items-center my-3"
-        errorMessages
-    >
-        <label for="taxCode" class="font-normal sm:col-span-3 col-span-12">{{
-            "enterprise.create.taxCode" | translate
-        }}</label>
-        <div class="sm:col-span-6 col-span-12">
-            <input
-                formControlName="taxCode"
-                class="w-full"
-                type="text"
-                id="taxCode"
-                pInputText
-                [placeholder]="
-                    'enterprise.create.placeholders.enterTaxCode' | translate
-                "
-            />
-            <form-field-error></form-field-error>
-        </div>
-    </div>
-
     <!-- Hotline -->
     <div
         class="grid grid-cols-12 sm:gap-4 gap-2 items-center my-3"

@@ -29,7 +29,6 @@ export class CreateEnterpriseComponent extends AbstractFormComponent<NewEnterpri
       Validators.required,
       Validators.email
     ]),
-    taxCode: new FormControl('', [Validators.required]),
     hotline: new FormControl('', [Validators.required])
   };
 

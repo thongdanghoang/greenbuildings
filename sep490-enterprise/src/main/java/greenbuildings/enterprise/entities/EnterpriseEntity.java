@@ -39,8 +39,4 @@ public class EnterpriseEntity extends AbstractAuditableEntity {
     @Column(name = "hotline", nullable = false)
     private String hotline;
     
-    @Column(name = "tax_code")
-    @Pattern(regexp = CommonConstant.VIETNAME_TAX_CODE)
-    private String taxCode;
-    
 }
