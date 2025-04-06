@@ -12,6 +12,7 @@ export interface EnterpriseUserDetails extends BaseDTO {
   lastName: string;
   role: keyof typeof UserRole;
   scope: keyof typeof UserScope;
+  phone: string;
   buildingPermissions: BuildingPermission[];
 }
 

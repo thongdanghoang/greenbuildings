@@ -42,4 +42,6 @@ public interface UserService {
     Page<UserEntity> getUserByBuilding(UUID buldingId, Pageable pageable);
     
     void createNewEnterprise(UserContextData userContextData, NewEnterpriseDTO enterpriseDTO);
+    
+    UserEntity updateBasicUser(UserEntity user);
 }
