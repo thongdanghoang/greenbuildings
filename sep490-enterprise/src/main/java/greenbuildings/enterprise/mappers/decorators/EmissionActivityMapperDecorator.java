@@ -46,11 +46,11 @@ public abstract class EmissionActivityMapperDecorator implements EmissionActivit
         try {
             UUID typeId = UUID.fromString(dto.type());
             ActivityTypeEntity activityTypeEntity = activityTypeRepo.findById(typeId).orElseThrow();
-            activityTypeEntity.setBuilding(entity.getBuilding());
+            activityTypeEntity.setEnterprise(entity.getBuilding().getEnterprise());
             entity.setType(activityTypeEntity);
         } catch (IllegalArgumentException ex) {
             ActivityTypeEntity type = new ActivityTypeEntity();
-            type.setBuilding(entity.getBuilding());
+            type.setEnterprise(entity.getBuilding().getEnterprise());
             type.setName(dto.type());
             entity.setType(type);
         }

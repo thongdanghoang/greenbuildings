@@ -13,6 +13,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import greenbuildings.commons.api.utils.CommonConstant;
+import jakarta.persistence.OneToMany;
+import java.util.HashSet;
+import java.util.Set;
+import jakarta.persistence.FetchType;
 
 @Entity
 @Table(name = "enterprises")
@@ -24,6 +28,9 @@ public class EnterpriseEntity extends AbstractAuditableEntity {
     @NotNull
     @OneToOne(mappedBy = "enterprise", cascade = CascadeType.ALL, optional = false)
     private WalletEntity wallet;
+    
+    @OneToMany(mappedBy = "enterprise", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<ActivityTypeEntity> activityTypes = new HashSet<>();
     
     @NotBlank
     @Column(name = "name", nullable = false)

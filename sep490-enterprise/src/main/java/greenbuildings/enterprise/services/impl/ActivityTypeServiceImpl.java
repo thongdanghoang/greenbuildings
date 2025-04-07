@@ -26,8 +26,8 @@ public class ActivityTypeServiceImpl implements ActivityTypeService {
     }
     
     @Override
-    public List<ActivityTypeEntity> findByBuildingId(UUID buildingId) {
-        return repository.findByBuildingId(buildingId);
+    public List<ActivityTypeEntity> findByEnterpriseId(UUID entepriseId) {
+        return repository.findByEnterpriseId(entepriseId);
     }
     
     @Override

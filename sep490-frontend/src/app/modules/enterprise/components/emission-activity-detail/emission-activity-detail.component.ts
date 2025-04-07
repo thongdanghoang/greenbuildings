@@ -360,8 +360,14 @@ export class EmissionActivityDetailComponent
   }
 
   private loadActivityTypes(): void {
-    this.activityTypeService.getAll().subscribe(types => {
-      this.activityTypes = types;
-    });
+    this.applicationService.UserData.pipe(takeUntil(this.destroy$)).subscribe(
+      u => {
+        this.activityTypeService
+          .getByEnterpriseId(u.enterpriseId)
+          .subscribe(types => {
+            this.activityTypes = types;
+          });
+      }
+    );
   }
 }

@@ -9,7 +9,7 @@ import java.util.UUID;
 public interface ActivityTypeService {
     List<ActivityTypeEntity> findAll();
     
-    List<ActivityTypeEntity> findByBuildingId(UUID buildingId);
+    List<ActivityTypeEntity> findByEnterpriseId(UUID buildingId);
     
     ActivityTypeEntity create(ActivityTypeDTO dto);
 }

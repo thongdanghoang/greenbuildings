@@ -3,7 +3,9 @@ import {Component} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {MessageService} from 'primeng/api';
 import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
+import {takeUntil} from 'rxjs';
 import {UUID} from '../../../../../types/uuid';
+import {ApplicationService} from '../../../core/services/application.service';
 import {AbstractFormComponent} from '../../../shared/components/form/abstract-form-component';
 import {
   AbstractControl,
@@ -53,7 +55,8 @@ export class NewActivityDialogComponent extends AbstractFormComponent<CreateNewA
     private readonly activityService: EmissionActivityService,
     private readonly ref: DynamicDialogRef,
     public config: DynamicDialogConfig<UUID>,
-    private readonly activityTypeService: ActivityTypeService
+    private readonly activityTypeService: ActivityTypeService,
+    private readonly applicationService: ApplicationService
   ) {
     super(httpClient, formBuilder, notificationService, translate);
   }
@@ -122,8 +125,14 @@ export class NewActivityDialogComponent extends AbstractFormComponent<CreateNewA
   }
 
   private loadActivityTypes(): void {
-    this.activityTypeService.getAll().subscribe(types => {
-      this.activityTypes = types;
-    });
+    this.applicationService.UserData.pipe(takeUntil(this.destroy$)).subscribe(
+      u => {
+        this.activityTypeService
+          .getByEnterpriseId(u.enterpriseId)
+          .subscribe(types => {
+            this.activityTypes = types;
+          });
+      }
+    );
   }
 }
