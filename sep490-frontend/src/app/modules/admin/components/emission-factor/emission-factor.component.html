@@ -56,13 +56,15 @@
 </ng-template>
 
 <ng-template #energyConversionTemplate let-data>
-    {{ getLocalizedFuelName(data.energyConversionDTO.fuel) }}
+    <span *ngIf="data.energyConversionDTO">
+        {{ getLocalizedFuelName(data.energyConversionDTO.fuel) }}
+    </span>
 </ng-template>
 
 <ng-template #isDirectEmissionTemplate let-data>
     <p-checkbox
         [binary]="true"
-        [ngModel]="data.isDirectEmission"
+        [ngModel]="data.directEmission"
         [disabled]="true"
     ></p-checkbox>
 </ng-template>

@@ -171,21 +171,7 @@ export class EmissionFactorComponent
       templateRef: this.emissionSourceTemplate
     });
     this.cols.push({
-      field: 'description',
-      header: 'admin.emissionFactor.description'
-    });
-    this.cols.push({
-      field: 'validFrom',
-      header: 'enterprise.buildings.details.labels.validFromInclusive',
-      templateRef: this.startDateTemplate
-    });
-    this.cols.push({
-      field: 'validTo',
-      header: 'enterprise.buildings.details.labels.validToInclusive',
-      templateRef: this.endDateTemplate
-    });
-    this.cols.push({
-      field: 'isDirectEmission',
+      field: 'directEmission',
       header: 'admin.emissionFactor.isDirectEmission',
       templateRef: this.isDirectEmissionTemplate
     });
@@ -259,7 +245,6 @@ export class EmissionFactorComponent
             )
           });
           this.selected = []; // Clear local selection
-          this.searchEvent.emit(); // Refresh table
         },
         error: () => {
           this.messageService.add({
@@ -271,6 +256,7 @@ export class EmissionFactorComponent
               'admin.packageCredit.message.error.detail'
             )
           });
+          this.searchEvent.emit(); // Refresh table
         }
       });
   }
