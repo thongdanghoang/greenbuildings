@@ -19,6 +19,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.SoftDelete;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -37,6 +38,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
+@SoftDelete
 public class BuildingEntity extends AbstractAuditableEntity {
     
     public static final String WITH_ACTIVITIES_ENTITY_GRAPH = "building-activites-entity-graph";
@@ -67,11 +69,11 @@ public class BuildingEntity extends AbstractAuditableEntity {
     @DecimalMax("180.0")
     @Column(name = "longitude")
     private double longitude;
-
-    @Column(name = "deleted")
-    private boolean deleted;
     
     @OneToMany(mappedBy = "building", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
     private Set<EmissionActivityEntity> emissionActivities = new HashSet<>();
+    
+    @OneToMany(mappedBy = "building", orphanRemoval = true)
+    private Set<SubscriptionEntity> subscriptions = new HashSet<>();
     
 }

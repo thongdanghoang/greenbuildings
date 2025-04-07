@@ -26,8 +26,8 @@ import java.util.List;
 public class SubscriptionEntity extends AbstractAuditableEntity {
     
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "building_id", nullable = false)
+    @ManyToOne()
+    @JoinColumn(name = "building_id")
     private BuildingEntity building;
     
     @Column(name = "start_date")

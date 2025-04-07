@@ -1,5 +1,8 @@
-<div class="flex justify-between items-center" style="min-height: 42px">
-    <div class="font-medium text-2xl">
+<div
+    class="flex items-center justify-between border-b pb-1"
+    style="min-height: 42px"
+>
+    <div class="text-lg font-bold text-primary">
         {{ "enterprise.buildings.overview.title" | translate }}
     </div>
     <p-button
@@ -8,6 +11,7 @@
         [label]="'enterprise.buildings.overview.btn.add' | translate"
         icon="pi pi-building"
         (onClick)="navigateToCreateBuilding()"
+        size="small"
     />
 </div>
 
@@ -17,32 +21,33 @@
     [options]="justifyOptions"
     [(ngModel)]="viewMode"
     optionValue="value"
+    size="small"
 >
     <ng-template #item let-item>
         <i [class]="item.icon"></i>
     </ng-template>
 </p-selectbutton>
 
-<div [hidden]="listView" style="height: 600px">
-    <div class="h-full" id="map"></div>
-</div>
+<div [hidden]="listView" class="h-full" id="map"></div>
 
 @if (mapView) {
     <div class="flex justify-end gap-4">
         <p-button
-            class="*:min-w-20"
+            class="mb-4 *:min-w-20"
             *ngIf="addBuildingLocation"
             severity="primary"
             [label]="'common.cancel' | translate"
             outlined
             (onClick)="cancelAddBuilding()"
+            size="small"
         />
         <p-button
-            class="*:min-w-24"
+            class="mb-4 *:min-w-24"
             *ngIf="addBuildingLocation"
             severity="primary"
             [label]="'common.next' | translate"
             (onClick)="addBuilding()"
+            size="small"
         />
     </div>
 }
@@ -61,22 +66,22 @@
 }
 
 <ng-template #cardTemplate let-building>
-    <div class="rounded box-shadow border-t-2 border-t-primary *:w-full">
+    <div class="box-shadow rounded border-t-2 border-t-primary *:w-full">
         <div
-            class="p-4 rounded-t bg-primary-50 dark:bg-primary-950 flex justify-between"
+            class="flex justify-between rounded-t bg-primary-50 p-4 dark:bg-primary-950"
         >
             <div class="text-xl font-bold">{{ building.name }}</div>
-            <div class="">
+            <div>
+                <p-button
+                    icon="pi pi-map"
+                    text
+                    (onClick)="zoomTo(building.latitude, building.longitude)"
+                />
                 <p-button
                     (onClick)="viewBuildingDetails(building.id)"
                     icon="pi pi-info"
                     text
                     severity="info"
-                />
-                <p-button
-                    icon="pi pi-map"
-                    text
-                    (onClick)="zoomTo(building.latitude, building.longitude)"
                 />
                 <p-button
                     icon="pi pi-trash"
@@ -86,7 +91,7 @@
                 />
             </div>
         </div>
-        <div class="p-4 border-b dark:bg-zinc-900">
+        <div class="border-b p-4 dark:bg-zinc-900">
             <div class="grid grid-cols-5">
                 <div class="flex flex-col gap-1 lg:w-max">
                     <div class="text-sm">
@@ -144,7 +149,7 @@
                 </div>
             </div>
         </div>
-        <div class="p-2 flex justify-end dark:bg-zinc-900">
+        <div class="flex justify-end p-2 dark:bg-zinc-900">
             <p-button
                 class="*:min-w-24"
                 severity="primary"
@@ -157,6 +162,7 @@
                           | translate)
                 "
                 outlined
+                size="small"
             />
             <p-button
                 *ngIf="hasSubscription(building)"
@@ -167,6 +173,7 @@
                 }}"
                 [routerLink]="getEmissionActivityPath(building)"
                 outlined
+                size="small"
             />
         </div>
     </div>

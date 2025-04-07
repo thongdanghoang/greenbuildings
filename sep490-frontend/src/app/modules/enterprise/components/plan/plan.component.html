@@ -1,10 +1,10 @@
-<div class="flex items-center justify-center lg:justify-start">
-    <p class="text-primary font-bold px-4 mb-4">
+<div class="mb-4 flex items-center justify-start border-b pb-1">
+    <p class="text-lg font-bold text-primary">
         {{ "purchaseCredit.title" | translate }}
     </p>
 </div>
 <div
-    class="flex flex-col lg:flex-row justify-center lg:justify-start items-center gap-2.5 lg:pl-20 pl-0"
+    class="flex flex-col items-center justify-center gap-2.5 pl-0 lg:flex-row lg:justify-start"
 >
     <p>{{ "purchaseCredit.introduceMethod" | translate }}</p>
     <div class="flex flex-row gap-1.5">
@@ -46,16 +46,16 @@
     </div>
 </div>
 <div
-    class="bg-primary-50 dark:bg-primary-950 block items-center justify-center my-8 py-24 mx-4 rounded-md border-gray-50 dark:border-gray-950 border"
+    class="my-8 block items-center justify-center rounded-md border border-gray-50 bg-primary-50 py-24 dark:border-gray-950 dark:bg-primary-950"
 >
     <div
-        class="flex flex-col lg:flex-row items-center justify-stretch text-black dark:text-white"
+        class="flex flex-col items-center justify-stretch text-black lg:flex-row dark:text-white"
     >
         <p class="ml-0 lg:ml-20">
             {{ "purchaseCredit.currentBalance" | translate }}
         </p>
         <div
-            class="flex flex-col lg:flex-row lg:items-end items-center mr-0 lg:mr-10 gap-2.5"
+            class="mr-0 flex flex-col items-center gap-2.5 lg:mr-10 lg:flex-row lg:items-end"
         >
             <p class="text-5xl font-medium">{{ balance }}</p>
             <span>{{ "payment.history.credit.title" | translate }}</span>
@@ -64,22 +64,22 @@
 </div>
 
 <div
-    class="bg-primary-50 dark:bg-primary-950 block items-center justify-center my-4 mx-4 rounded-md border-gray-50 dark:border-gray-950 border"
+    class="my-4 block items-center justify-center rounded-md border border-gray-50 bg-primary-50 dark:border-gray-950 dark:bg-primary-950"
 >
     <div class="flex flex-col gap-16">
         <div
-            class="bg-white dark:bg-zinc-900 rounded-md border-gray-50 dark:border-zinc-900 border px-4 py-2 mt-8 mx-6 flex justify-center items-center lg:justify-start"
+            class="mx-6 mt-8 flex items-center justify-center rounded-md border border-gray-50 bg-white px-4 py-2 lg:justify-start dark:border-zinc-900 dark:bg-zinc-900"
         >
             <p>{{ "purchaseCredit.selectCreditPackage" | translate }}</p>
         </div>
         <div
-            class="flex lg:flex-row flex-col gap-16 items-center justify-center mx-6"
+            class="mx-6 flex flex-col items-center justify-center gap-16 lg:flex-row"
         >
             @for (pkg of creditPackages; track pkg.id) {
                 <card-template
-                    class="text-center rounded-lg border border-gray-50 bg-white max-w-40 w-full cursor-pointer transition-all duration-300 dark:border-gray-950 dark:bg-zinc-900"
+                    class="w-full max-w-40 cursor-pointer rounded-lg border border-gray-50 bg-white text-center transition-all duration-300 dark:border-gray-950 dark:bg-zinc-900"
                     [ngClass]="{
-                        'border-primary border-2 shadow-lg shadow-primary/20':
+                        'border-2 border-primary shadow-lg shadow-primary/20':
                             selectedPackage?.id === pkg.id,
                         'border-gray-50 hover:border-primary/50 hover:shadow-md':
                             selectedPackage?.id !== pkg.id,
@@ -91,11 +91,11 @@
                         <img
                             src="assets/images/creditIcon.svg"
                             alt="Coin Icon"
-                            class="w-16 mx-auto"
+                            class="mx-auto w-16"
                         />
                     </div>
                     <!-- Body: Credit Value -->
-                    <div body class="text-lg font-semibold border-b">
+                    <div body class="border-b text-lg font-semibold">
                         {{ pkg.numberOfCredits }}
                         {{ "payment.history.credit.title" | translate }}
                     </div>
@@ -103,14 +103,14 @@
                     <!-- Footer: Price -->
                     <div
                         footer
-                        class="text-gray-600 dark:text-gray-400 text-base font-medium text-center"
+                        class="text-center text-base font-medium text-gray-600 dark:text-gray-400"
                     >
                         {{ pkg.price | number: "1.0-0" }} VND
                     </div>
                 </card-template>
             }
         </div>
-        <div class="flex items-center justify-center mb-8">
+        <div class="mb-8 flex items-center justify-center">
             <p-button
                 severity="primary"
                 [label]="'payment.history.button.buyCredit' | translate"
@@ -122,7 +122,7 @@
 </div>
 
 <div
-    class="block items-center justify-center my-8 mx-4 rounded-md border-gray-50 dark:border-gray-950 border"
+    class="my-8 block items-center justify-center rounded-md border border-gray-50 dark:border-gray-950"
 >
     <p-accordion [value]="0">
         @for (tab of tabs; track tab.title) {

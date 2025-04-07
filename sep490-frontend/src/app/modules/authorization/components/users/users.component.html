@@ -1,7 +1,9 @@
-<h1 class="font-bold text-lg text-primary">
-    {{ "enterprise.Users.title" | translate }}
-</h1>
-<p class="font-light mb-4">{{ "enterprise.Users.description" | translate }}</p>
+<div class="mb-4 flex items-center justify-between border-b pb-1">
+    <h1 class="text-lg font-bold text-primary">
+        {{ "enterprise.Users.title" | translate }}
+    </h1>
+</div>
+<p class="mb-4">{{ "enterprise.Users.description" | translate }}</p>
 <table-template
     *ngIf="!applicationService.isMobile()"
     [fetch]="fetchUsers"
@@ -49,18 +51,18 @@
                 outlined
                 [disabled]="!selected || !selected.length"
                 (onClick)="confirmDelete()"
+                size="small"
             />
-            <a
-                class="p-button font-bold"
+            <p-button
                 [routerLink]="[
                     '/',
                     AppRoutingConstants.AUTH_PATH,
                     AppRoutingConstants.USER_DETAILS,
                 ]"
-            >
-                <i class="pi pi-user-plus"></i>
-                {{ "enterprise.Users.add" | translate }}
-            </a>
+                [label]="'enterprise.Users.add' | translate"
+                size="small"
+                ><i class="pi pi-user-plus"></i
+            ></p-button>
         </div>
     </div>
 </ng-template>

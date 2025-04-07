@@ -57,13 +57,6 @@ export class SidebarComponent
         }
       }
     );
-    // this.settings = [
-    //   {label: 'Settings', icon: 'pi pi-cog', route: '/settings'}
-    // ];
-  }
-
-  homepage(): void {
-    return void this.router.navigate(['/']);
   }
 
   // eslint-disable-next-line max-lines-per-function
@@ -77,11 +70,11 @@ export class SidebarComponent
             icon: 'pi pi-chart-line',
             route: `/${AppRoutingConstants.DASHBOARD_PATH}`
           },
-          {
-            label: 'sidebar.owner.coefficientCenter',
-            icon: 'pi pi-percentage',
-            route: `/${AppRoutingConstants.EMISSIONS_PATH}`
-          },
+          // {
+          //   label: 'sidebar.owner.coefficientCenter',
+          //   icon: 'pi pi-percentage',
+          //   route: `/${AppRoutingConstants.EMISSIONS_PATH}`
+          // },
           {
             label: 'sidebar.owner.building',
             icon: 'pi pi-building',
@@ -119,7 +112,7 @@ export class SidebarComponent
         items: [
           {
             label: 'sidebar.owner.settings.items.powerBiAccessToken',
-            icon: 'pi pi-cog',
+            icon: 'pi pi-key',
             route: `/${this.POWER_BI_ACCESS_TOKEN_PATH}`
           }
         ]

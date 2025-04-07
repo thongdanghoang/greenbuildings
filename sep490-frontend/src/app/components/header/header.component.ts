@@ -68,6 +68,10 @@ export class HeaderComponent
       });
   }
 
+  homepage(): void {
+    return void this.router.navigate(['/']);
+  }
+
   protected buildMenuItems(): void {
     this.applicationService
       .getUserRoles()

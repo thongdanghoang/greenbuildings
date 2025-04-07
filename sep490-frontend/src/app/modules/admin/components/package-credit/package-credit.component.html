@@ -9,10 +9,12 @@
 </table-template>
 <ng-template #captionTemplateRef>
     <div class="flex items-center justify-between">
-        <span class="text-primary font-bold">{{
+        <span class="font-bold text-primary">{{
             "admin.packageCredit.title" | translate
         }}</span>
-        <a
+        <button
+            pButton
+            size="small"
             class="p-button font-bold"
             [routerLink]="[
                 '/',
@@ -22,7 +24,7 @@
         >
             <i class="pi pi-credit-card"></i>
             {{ "admin.packageCredit.addPackageCredit" | translate }}
-        </a>
+        </button>
     </div>
 </ng-template>
 
@@ -75,17 +77,17 @@
         <div class="grid gap-3">
             <div
                 *ngFor="let version of selectedPackageVersions"
-                class="p-3 border border-gray-300 rounded-lg shadow-sm flex items-center justify-between"
+                class="flex items-center justify-between rounded-lg border border-gray-300 p-3 shadow-sm"
             >
                 <div class="flex items-center gap-3">
-                    <i class="pi pi-bitcoin text-yellow-500 text-lg"></i>
-                    <span class="font-semibold text-lg">{{
+                    <i class="pi pi-bitcoin text-lg text-yellow-500"></i>
+                    <span class="text-lg font-semibold">{{
                         version.numberOfCredits
                     }}</span>
                 </div>
                 <div class="flex items-center gap-3">
-                    <i class="pi pi-dollar text-green-500 text-lg"></i>
-                    <span class="font-semibold text-lg"
+                    <i class="pi pi-dollar text-lg text-green-500"></i>
+                    <span class="text-lg font-semibold"
                         >{{ version.price | number: "1.0-0" }} VND</span
                     >
                 </div>
@@ -107,9 +109,9 @@
 
     <ng-template #noDataTemplate>
         <div
-            class="flex flex-col items-center justify-center text-gray-500 text-lg py-4"
+            class="flex flex-col items-center justify-center py-4 text-lg text-gray-500"
         >
-            <i class="pi pi-info-circle text-2xl mb-2"></i>
+            <i class="pi pi-info-circle mb-2 text-2xl"></i>
             <p>{{ "admin.packageCredit.noVersions" | translate }}</p>
         </div>
     </ng-template>

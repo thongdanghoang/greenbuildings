@@ -1,5 +1,5 @@
-<div class="p-4 max-w-sm sm:max-w-md md:min-w-[500px]">
-    <div class="flex justify-between items-center mb-4">
+<div class="max-w-sm p-4 sm:max-w-md md:min-w-[500px]">
+    <div class="mb-4 flex items-center justify-between">
         <h2 class="text-xl font-semibold">
             {{ "enterprise.emission.activity.record.new" | translate }}
         </h2>
@@ -11,7 +11,7 @@
         ></button>
     </div>
     <div class="grid grid-cols-1 gap-4">
-        <p-iftalabel class="my-2 col-span-1">
+        <p-iftalabel class="col-span-1 my-2">
             <input
                 pInputText
                 [value]="getFactorName()"
@@ -22,7 +22,7 @@
                 "enterprise.emission.activity.record.table.factor" | translate
             }}</label>
         </p-iftalabel>
-        <p-iftalabel class="my-2 col-span-1">
+        <p-iftalabel class="col-span-1 my-2">
             <input
                 pInputText
                 class="w-full"
@@ -39,7 +39,7 @@
     <form
         [formGroup]="formGroup"
         (ngSubmit)="submit()"
-        class="grid grid-cols-1 md:grid-cols-1 gap-4"
+        class="grid grid-cols-1 gap-4 md:grid-cols-1"
     >
         <p-iftalabel class="my-2">
             <p-inputnumber formControlName="quantity" class="w-full" [min]="0">
@@ -83,7 +83,7 @@
         ></p-fileUpload>
         <p
             *ngIf="data?.editRecord?.file && selectedFile === null"
-            class="text-center text-primary hover:underline cursor-pointer"
+            class="cursor-pointer text-center text-primary hover:underline"
         >
             <a (click)="onDownloadFile()">
                 {{ data?.editRecord?.file?.fileName }}

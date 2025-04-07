@@ -1,120 +1,126 @@
-<!--<ng-container *ngIf="applicationService.isMobile()">-->
-<!--    <p-button-->
-<!--        icon="pi pi-bars"-->
-<!--        [rounded]="true"-->
-<!--        [text]="true"-->
-<!--        severity="secondary"-->
-<!--        class="block sm:hidden"-->
-<!--        (onClick)="visible = true"-->
-<!--    />-->
+<div class="bg-white dark:bg-black">
+    <div
+        class="container mx-auto flex h-14 items-center justify-between gap-8 px-4 sm:px-6"
+    >
+        <div class="flex items-center gap-4">
+            <div class="flex gap-2 hover:cursor-pointer" (click)="homepage()">
+                <ng-container *ngTemplateOutlet="logo"></ng-container>
+            </div>
+        </div>
+        <div class="flex items-center gap-6 max-lg:hidden">
+            <ng-container
+                *ngTemplateOutlet="desktopQuickActions"
+            ></ng-container>
+        </div>
+        <div class="flex items-center gap-2.5 lg:hidden">
+            <ng-container *ngTemplateOutlet="mobileQuickActions"></ng-container>
+        </div>
+    </div>
+</div>
+<div
+    class="border-t border-gray-950/5 bg-white px-4 lg:hidden dark:border-white/10 dark:bg-black"
+>
+    <div class="container mx-auto flex h-14 items-center sm:px-6">
+        Nav + Breadcrumb
+    </div>
+</div>
 
-<!--    <p-drawer [(visible)]="visible" header="Drawer">-->
-<!--        <p>-->
-<!--            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do-->
-<!--            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim-->
-<!--            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut-->
-<!--            aliquip ex ea commodo consequat.-->
-<!--        </p>-->
-<!--    </p-drawer></ng-container-->
-<!--&gt;-->
-
-@if (isLandingPage) {
+<ng-template #logo>
     <img
-        ngSrc="assets/images/logo.svg"
+        ngSrc="assets/images/logo-vectors.svg"
         alt="Logo"
-        width="100"
-        height="35"
+        width="27"
+        height="32"
         priority
     />
-    <div class="max-w-screen w-full"></div>
-}
+    <img
+        ngSrc="assets/images/logo-text.svg"
+        alt="Logo"
+        width="73"
+        height="32"
+        priority
+    />
+</ng-template>
 
-<div class="flex gap-3 items-center">
+<ng-template #mobileQuickActions>mobileQuickActions</ng-template>
+
+<ng-template #desktopQuickActions>
+    @if (authenticated | async) {}
+
     @if (authenticated | async) {
-        <p-button
-            icon="pi pi-inbox"
-            [rounded]="true"
-            [text]="true"
-            severity="secondary"
-        />
+        <ng-container *ngTemplateOutlet="avatar" />
+    } @else {
+        <ng-container *ngTemplateOutlet="btnLogin" />
     }
 
+    <ng-container *ngTemplateOutlet="toggleDarkLight" />
+    <ng-container *ngTemplateOutlet="selectLanguage" />
+</ng-template>
+
+<ng-template #avatar
+    ><img
+        (click)="op.toggle($event)"
+        class="cursor-pointer rounded-full"
+        ngSrc="assets/images/avatar3D.jpg"
+        alt="Avatar"
+        width="24"
+        height="24"
+        priority
+/></ng-template>
+
+<ng-template #btnLogin>
+    <p-button
+        iconPos="right"
+        [label]="
+            applicationService.isMobile() ? null : ('common.login' | translate)
+        "
+        variant="text"
+        (onClick)="login()"
+        size="small"
+    />
+</ng-template>
+<p-popover #op>
+    <p-menu
+        [model]="menuItems"
+        class="flex *:border-none"
+        styleClass="w-full md:w-60"
+    >
+        <ng-template #item let-item>
+            <a
+                pRipple
+                [routerLink]="item.route"
+                class="p-menu-item-link flex items-center"
+            >
+                <span [class]="item.icon"></span>
+                <span class="ml-2 block w-full">{{
+                    item.label | translate
+                }}</span>
+                <p-badge
+                    *ngIf="item.badge"
+                    class="ml-auto"
+                    [value]="item.badge"
+                />
+            </a>
+        </ng-template>
+    </p-menu>
+</p-popover>
+
+<ng-template #toggleDarkLight>
     <p-button
         icon="pi {{ (isDarkMode | async) ? 'pi pi-moon' : 'pi pi-sun' }}"
         [rounded]="true"
         [text]="true"
         (onClick)="toggleLightDark()"
     />
+</ng-template>
 
-    @if (authenticated | async) {
-        <img
-            (click)="op.toggle($event)"
-            class="rounded-full cursor-pointer"
-            ngSrc="assets/images/avatar3D.jpg"
-            alt="Avatar"
-            width="32"
-            height="32"
-            priority
-        />
-        <p-popover #op>
-            <p-menu
-                [model]="menuItems"
-                class="flex *:border-none"
-                styleClass="w-full md:w-60"
-            >
-                <ng-template #item let-item>
-                    <a
-                        pRipple
-                        [routerLink]="item.route"
-                        class="flex items-center p-menu-item-link"
-                    >
-                        <span [class]="item.icon"></span>
-                        <span class="ml-2 w-full block">{{
-                            item.label | translate
-                        }}</span>
-                        <p-badge
-                            *ngIf="item.badge"
-                            class="ml-auto"
-                            [value]="item.badge"
-                        />
-                    </a>
-                </ng-template>
-            </p-menu>
-        </p-popover>
-    } @else {
-        <p-button
-            icon="pi pi-sign-in"
-            class="lg:*:w-40"
-            iconPos="right"
-            [label]="
-                applicationService.isMobile()
-                    ? null
-                    : ('common.login' | translate)
-            "
-            severity="primary"
-            outlined
-            (onClick)="login()"
-        />
-    }
-
-    @if (applicationService.isMobile()) {
-        <p-select
-            [options]="languages"
-            [(ngModel)]="selectedLanguage"
-            optionLabel="mobile"
-            placeholder="Select language"
-            class="min-w-20"
-            (onChange)="changeLanguage($event.value)"
-            size="small"
-        />
-    } @else {
-        <p-select
-            [options]="languages"
-            [(ngModel)]="selectedLanguage"
-            optionLabel="display"
-            placeholder="Select language"
-            class="min-w-36"
-            (onChange)="changeLanguage($event.value)"
-        />
-    }
-</div>
+<ng-template #selectLanguage
+    ><p-select
+        class="min-w-[128px] dark:bg-black"
+        [options]="languages"
+        [(ngModel)]="selectedLanguage"
+        (onChange)="changeLanguage($event.value)"
+        optionLabel="display"
+        size="small"
+    />
+</ng-template>

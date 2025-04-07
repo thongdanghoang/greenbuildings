@@ -1,5 +1,5 @@
-<div class="w-[300px] sm:w-[400px] md:w-[500px] mt-4">
-    <div class="p-dialog-header p-0 border-b">
+<div class="mt-4 w-[300px] sm:w-[400px] md:w-[500px]">
+    <div class="p-dialog-header border-b p-0">
         <span class="text-xl font-semibold">{{
             "enterprise.emission.activity.dialog.title" | translate
         }}</span>
@@ -19,7 +19,7 @@
                 <ng-template #content let-activateCallback="activateCallback">
                     <form
                         [formGroup]="formGroup"
-                        class="p-0 min-h-[400px] p-dialog-content flex flex-col overflow-hidden"
+                        class="p-dialog-content flex min-h-[400px] flex-col overflow-hidden p-0"
                     >
                         <!-- Emission Source -->
                         <p-iftalabel class="my-2">
@@ -35,14 +35,14 @@
                                     pTemplate="selectedItem"
                                     let-source
                                 >
-                                    <div class="flex align-items-center gap-2">
+                                    <div class="align-items-center flex gap-2">
                                         <div>
                                             {{ getLocalizedName(source) }}
                                         </div>
                                     </div>
                                 </ng-template>
                                 <ng-template let-source pTemplate="item">
-                                    <div class="flex align-items-center gap-2">
+                                    <div class="align-items-center flex gap-2">
                                         <div style="white-space: normal">
                                             {{ getLocalizedName(source) }}
                                         </div>
@@ -68,14 +68,14 @@
                                     pTemplate="selectedItem"
                                     let-factor
                                 >
-                                    <div class="flex align-items-center gap-2">
+                                    <div class="align-items-center flex gap-2">
                                         <div>
                                             {{ getLocalizedName(factor) }}
                                         </div>
                                     </div>
                                 </ng-template>
                                 <ng-template let-factor pTemplate="item">
-                                    <div class="flex align-items-center gap-2">
+                                    <div class="align-items-center flex gap-2">
                                         <div style="white-space: normal">
                                             {{ getLocalizedName(factor) }}
                                         </div>
@@ -108,7 +108,7 @@
                 <ng-template #content let-activateCallback="activateCallback">
                     <form
                         [formGroup]="formGroup"
-                        class="p-0 min-h-[400px] p-dialog-content"
+                        class="p-dialog-content min-h-[400px] p-0"
                     >
                         <!-- Name -->
                         <p-iftalabel class="my-2">
@@ -136,12 +136,12 @@
                                 class="w-full"
                             >
                                 <ng-template pTemplate="selectedItem" let-type>
-                                    <div class="flex align-items-center gap-2">
+                                    <div class="align-items-center flex gap-2">
                                         <div>{{ type.name }}</div>
                                     </div>
                                 </ng-template>
                                 <ng-template let-type pTemplate="item">
-                                    <div class="flex align-items-center gap-2">
+                                    <div class="align-items-center flex gap-2">
                                         <div>{{ type.name }}</div>
                                     </div>
                                 </ng-template>

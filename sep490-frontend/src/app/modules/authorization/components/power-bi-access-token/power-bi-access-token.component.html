@@ -1,6 +1,6 @@
 <ng-container *ngIf="accessTokens.length > 0; else noTokens">
-    <div class="flex justify-between items-center py-2 border-b">
-        <p class="text-xl">
+    <div class="flex items-center justify-between border-b pb-1">
+        <p class="text-lg font-bold text-primary">
             {{ "sidebar.owner.settings.items.powerBiAccessToken" | translate }}
         </p>
         <ng-container *ngTemplateOutlet="generateNewToken"></ng-container>
@@ -11,8 +11,14 @@
     </p>
 
     @if (newestCreatedTokenId && newestCreatedTokenKey) {
-        <div class="border rounded-lg">
-            <div class="bg-green-100 rounded-t p-3 text-black">
+        <p-message
+            severity="info"
+            icon="pi pi-bell"
+            text="Make sure to copy your access token now. You won’t be able to see it again!"
+            class="h-full"
+        />
+        <div class="rounded-lg border">
+            <div class="rounded-t bg-green-100 p-3 text-black">
                 <i class="pi pi-check text-green-700"></i>
                 {{ newestCreatedTokenKey }}
                 <i
@@ -34,7 +40,7 @@
             accessTokens.length > 0 &&
             accessTokens[0].id !== newestCreatedTokenId
         "
-        class="border rounded-lg"
+        class="rounded-lg border"
     >
         @for (token of accessTokens; track token.id) {
             @if (token.id !== newestCreatedTokenId) {
@@ -61,12 +67,12 @@
 </ng-template>
 
 <ng-template #noTokens>
-    <div class="flex justify-between items-center py-2 border-b">
+    <div class="flex items-center justify-between border-b py-2">
         <p class="text-xl">
             {{ "sidebar.owner.settings.items.powerBiAccessToken" | translate }}
         </p>
     </div>
-    <div class="h-96 flex flex-col items-center justify-center gap-4">
+    <div class="flex h-96 flex-col items-center justify-center gap-4">
         <i class="pi pi-key text-2xl"></i>
         <h3 class="text-xl font-semibold">
             {{ "powerBi.noAccessToken" | translate }}
@@ -92,7 +98,7 @@
                     {{ token.scope }}
                 </span>
             </div>
-            <div class="flex items-center min-w-fit gap-3">
+            <div class="flex min-w-fit items-center gap-3">
                 <div class="min-w-fit text-xs">
                     {{ "powerBi.lastUsed" | translate }}
                     {{

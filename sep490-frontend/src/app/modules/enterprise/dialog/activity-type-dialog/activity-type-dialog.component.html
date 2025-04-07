@@ -1,7 +1,7 @@
 <!-- activity-type-dialog.component.html -->
-<div class="w-[300px] sm:w-[400px] md:w-[500px] mt-4">
+<div class="mt-4 w-[300px] sm:w-[400px] md:w-[500px]">
     <!-- Dialog Header -->
-    <div class="p-dialog-header p-0 border-b">
+    <div class="p-dialog-header border-b p-0">
         <span class="text-xl font-semibold">
             {{ "enterprise.type.name" | translate }}
         </span>
@@ -16,7 +16,7 @@
 
     <!-- Form Content -->
     <div
-        class="p-0 min-h-[150px] p-dialog-content flex flex-col overflow-hidden"
+        class="p-dialog-content flex min-h-[150px] flex-col overflow-hidden p-0"
     >
         <form [formGroup]="formGroup">
             <p-iftalabel class="my-2">
@@ -29,7 +29,7 @@
                 <label>{{ "common.name" | translate }}</label>
             </p-iftalabel>
         </form>
-        <div class="flex justify-end mt-2">
+        <div class="mt-2 flex justify-end">
             <p-button
                 label="{{ 'common.save' | translate }}"
                 icon="pi pi-check"

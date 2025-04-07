@@ -14,7 +14,7 @@
     "download": "Tải xuống",
     "search": "Tìm kiếm",
     "create": "Tạo",
-    "login": "ĐĂNG NHẬP",
+    "login": "Đăng nhập",
     "logout": "Đăng xuất",
     "update": "Cập nhật",
     "save": "Lưu",
@@ -353,7 +353,7 @@
     "basicUser": {
       "welcome": "Chào mừng đến với Green Building",
       "info": "Thông tin tài khoản",
-      "enterprise": "Đăng ký doanh nghiệp của bạn",
+      "enterprise": "Mở doanh nghiệp",
       "invitation": "Lời mời của bạn"
     },
     "owner": {
@@ -361,14 +361,14 @@
       "coefficientCenter": "Hệ số trung tâm",
       "building": "Tòa nhà",
       "manage": "Quản lý",
-      "users": "Người sử dụng",
+      "users": "Người dùng",
       "activityType": "Loại hoạt động",
-      "subscription": "Nạp",
+      "subscription": "Mua gói",
       "payment": "Thanh toán",
       "settings": {
         "label": "Cài đặt",
         "items": {
-          "powerBiAccessToken": "Mã thông báo truy cập Power BI"
+          "powerBiAccessToken": "Power BI Access token"
         }
       }
     },
@@ -570,16 +570,16 @@
       "regenerate": "Tạo lại token",
       "cancel": "Hủy"
     },
-    "noAccessToken": "Không có mã thông báo truy cập Power BI nào được tạo",
-    "description": "Bạn cần mã thông báo API cho tập lệnh hoặc thử nghiệm? Tạo mã thông báo truy cập cá nhân để truy cập nhanh vào GreenBuildings Power BI.",
-    "buttonGenerateToken": "Tạo mã thông báo mới",
-    "small": "Mã thông báo sẽ hết hạn vào ngày đã chọn",
-    "newAccessToken": "Mã thông báo truy cập Power BI mới",
-    "editAccessToken": "Chỉnh sửa mã thông báo truy cập Power BI",
-    "tokenName": "Tên mã thông báo",
-    "whatToken": "Mã thông báo này dùng để làm gì?",
+    "noAccessToken": "Không có Power BI Access token nào được tạo",
+    "description": "Bạn cần truy xuất dự liệu từ GreenBuildings vào Power Bi để tạo dashboard? Tạo access token để truy cập nhanh vào GreenBuildings từ Power BI.",
+    "buttonGenerateToken": "Tạo mới access token",
+    "small": "Access token sẽ hết hạn vào ngày đã chọn",
+    "newAccessToken": "Power BI Access token mới",
+    "editAccessToken": "Chỉnh sửa Power BI Access token",
+    "tokenName": "Tên token",
+    "whatToken": "Access token này dùng để làm gì?",
     "expiration": "Hết hạn",
-    "tokenGenerated": "Mã thông báo bạn đã tạo có thể được sử dụng để truy cập GreenBuildings Power BI.",
+    "tokenGenerated": "Access token bạn đã tạo có thể được sử dụng để truy xuất dữ liệu phát thải GreenBuildings từ Power BI.",
     "delete": "Xóa",
     "lastUsed": "Lần cuối cùng sử dụng trong",
     "expirationOn": "Hết hạn vào",
@@ -592,30 +592,30 @@
     "messageService": {
       "success": {
         "summary": "Đã xóa",
-        "detail": "Đã xóa mã thông báo thành công"
+        "detail": "Đã xóa token thành công"
       },
       "error": {
         "summary": "Lỗi",
-        "detail": "Không xóa được mã thông báo"
+        "detail": "Không xóa được token"
       }
     },
-    "msgForgotToken": "Nếu bạn làm mất hoặc quên mã thông báo này, bạn có thể tạo lại mã thông báo, nhưng lưu ý rằng bất kỳ tập lệnh hoặc ứng dụng nào sử dụng mã thông báo này đều cần phải được cập nhật.",
-    "buttonCreateToken": "Tạo lại mã thông báo",
-    "thisTokenExpireOn": "Mã thông báo này đã hết hạn vào",
+    "msgForgotToken": "Nếu bạn làm mất hoặc quên token này, bạn có thể tạo lại token, nhưng lưu ý rằng bất kỳ tập lệnh hoặc ứng dụng nào sử dụng token này đều cần phải được cập nhật.",
+    "buttonCreateToken": "Tạo lại token",
+    "thisTokenExpireOn": "token này đã hết hạn vào",
     "toSetNewExpireDate": ". Để thiết lập ngày hết hạn mới, bạn phải",
-    "regenerateToken": "tạo lại mã thông báo",
-    "regenerateTokenTitle": "Tạo lại mã thông báo truy cập Power BI",
-    "submitThisForm": "Gửi biểu mẫu này sẽ tạo ra một mã thông báo mới. Xin lưu ý rằng bất kỳ tập lệnh hoặc ứng dụng nào sử dụng mã thông báo này đều cần phải được cập nhật.",
-    "tokenWillExpire": "Mã thông báo sẽ hết hạn vào ngày đã chọn",
-    "dashboard": "Trên bảng điều khiển Power BI",
+    "regenerateToken": "tạo lại token",
+    "regenerateTokenTitle": "Tạo lại Power BI Access token",
+    "submitThisForm": "Gửi biểu mẫu này sẽ tạo ra một token mới. Xin lưu ý rằng bất kỳ tập lệnh hoặc ứng dụng nào sử dụng token này đều cần phải được cập nhật.",
+    "tokenWillExpire": "Access token sẽ hết hạn vào ngày đã chọn",
+    "dashboard": "Dashboard",
     "noPowerBi": "Không có bảng điều khiển Power BI nào được tạo",
     "needPowerBi": "Cần bảng điều khiển Power BI cho các tập lệnh hoặc thử nghiệm? Thêm bảng điều khiển nhúng để xem nhanh dữ liệu công trình xanh.",
-    "addNewDashBoard": "Thêm bảng điều khiển mới",
-    "selectDashboard": "Chọn Bảng điều khiển",
-    "embeddedIfFrame": "Iframe Nhúng",
-    "invalidIfFrame": "Mã iframe không hợp lệ. Vui lòng kiểm tra định dạng.",
-    "pastedIfFrame": "Dán mã iframe từ Power BI vào đây.",
-    "makeSure": "Đảm bảo bao gồm toàn bộ mã iframe.",
+    "addNewDashBoard": "Thêm mới dashboard",
+    "selectDashboard": "Chọn dashboard",
+    "embeddedIfFrame": "Embedded Iframe",
+    "invalidIfFrame": "Embedded Iframe không hợp lệ. Vui lòng kiểm tra định dạng.",
+    "pastedIfFrame": "Dán HTML Iframe từ Power BI vào đây.",
+    "makeSure": "Đảm bảo HTML Iframe hợp lệ.",
     "example": "Ví dụ:",
     "close": "Đóng",
     "submit": "Nộp"

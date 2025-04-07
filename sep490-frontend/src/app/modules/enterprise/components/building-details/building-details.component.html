@@ -1,5 +1,15 @@
-<div class="flex justify-between items-center mb-4">
-    <div class="font-medium text-2xl">
+<p-button
+    (onClick)="back()"
+    class="*:min-w-28"
+    label="{{ 'common.back' | translate }}"
+    severity="primary"
+    outlined="true"
+    icon="pi pi-arrow-left"
+    size="small"
+/>
+
+<div class="mb-4 flex items-center justify-between border-b pb-1">
+    <div class="text-lg font-bold text-primary">
         {{
             (isEdit
                 ? "enterprise.buildings.details.edit"
@@ -7,24 +17,16 @@
             ) | translate
         }}
     </div>
-    <p-button
-        (onClick)="back()"
-        class="*:min-w-28"
-        label="{{ 'common.back' | translate }}"
-        severity="primary"
-        outlined="true"
-        icon="pi pi-arrow-left"
-    />
 </div>
 
 <!-- Hiển thị form khi showForm là true -->
 
 <form
     [formGroup]="formGroup"
-    class="grid grid-cols-2 border border-black rounded-lg p-4 gap-4"
+    class="grid grid-cols-2 gap-4 rounded-lg border border-black p-4"
 >
     <div class="flex flex-col gap-2" errorMessages>
-        <label class="font-medium text-lg" for="name">{{
+        <label class="text-lg font-medium" for="name">{{
             "enterprise.buildings.details.labels.name" | translate
         }}</label>
         <input pInputText formControlName="name" id="name" type="text" />
@@ -32,7 +34,7 @@
     </div>
     <ng-container *ngIf="hasSubscription">
         <div class="flex flex-col gap-2" errorMessages>
-            <label class="font-medium text-lg" for="startDate">{{
+            <label class="text-lg font-medium" for="startDate">{{
                 "enterprise.buildings.details.labels.validFromInclusive"
                     | translate
             }}</label>
@@ -50,7 +52,7 @@
         <span></span>
     </ng-container>
     <div class="flex flex-col gap-2" errorMessages>
-        <label class="font-medium text-lg" for="numberOfDevices">{{
+        <label class="text-lg font-medium" for="numberOfDevices">{{
             "enterprise.buildings.details.labels.numberOfDevices" | translate
         }}</label>
         <div class="flex items-center gap-2 text-xs font-semibold text-primary">
@@ -73,7 +75,7 @@
             <span></span>
             <span></span>
             <span></span>
-            <label class="font-medium text-lg" for="endDate">{{
+            <label class="text-lg font-medium" for="endDate">{{
                 "enterprise.buildings.details.labels.validToInclusive"
                     | translate
             }}</label>
@@ -91,7 +93,7 @@
         <span></span>
     </ng-container>
     <div class="flex flex-col gap-2" errorMessages>
-        <label class="font-medium text-lg">{{
+        <label class="text-lg font-medium">{{
             "enterprise.buildings.details.labels.address" | translate
         }}</label>
         <p-inputgroup>
@@ -122,7 +124,7 @@
     </div>
     <ng-container *ngIf="hasSubscription">
         <div class="flex flex-col gap-2" errorMessages>
-            <label class="font-medium text-lg" for="maxNumberOfDevices">{{
+            <label class="text-lg font-medium" for="maxNumberOfDevices">{{
                 "enterprise.buildings.details.labels.haveSubscriptionOfNumberOfDevices"
                     | translate
             }}</label>
@@ -137,7 +139,7 @@
         </div>
     </ng-container>
     <span></span>
-    <div class="flex gap-4 justify-end">
+    <div class="flex justify-end gap-4">
         <p-button
             (onClick)="reset()"
             class="*:min-w-24"
@@ -162,7 +164,7 @@
 <!-- Các phần khác giữ nguyên -->
 @if (isEdit) {
     <div class="flex items-center justify-center lg:justify-start">
-        <p class="text-primary font-bold px-4">
+        <p class="px-4 font-bold text-primary">
             {{ "enterprise.userInBuildings" | translate }}
         </p>
     </div>
