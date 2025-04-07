@@ -1,6 +1,8 @@
-<h1 class="font-bold text-lg text-primary">
-    {{ "enterprise.emission.activity.dialog.EmissionFactor" | translate }}
-</h1>
+<div class="mb-4 flex items-center justify-start border-b pb-1">
+    <h1 class="text-lg font-bold text-primary">
+        {{ "enterprise.emission.activity.dialog.EmissionFactor" | translate }}
+    </h1>
+</div>
 <table-template
     *ngIf="!applicationService.isMobile()"
     [fetch]="fetchEmissionFactor"

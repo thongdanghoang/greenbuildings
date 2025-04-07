@@ -1,6 +1,8 @@
-<h1 class="font-bold text-lg text-primary">
-    {{ "enterprise.type.name" | translate }}
-</h1>
+<div class="mb-4 flex items-center justify-between border-b pb-1">
+    <h1 class="text-lg font-bold text-primary">
+        {{ "enterprise.type.name" | translate }}
+    </h1>
+</div>
 <table-template
     *ngIf="!applicationService.isMobile()"
     [fetch]="fetchUsers"
@@ -48,6 +50,7 @@
                 outlined
                 [disabled]="!selected || !selected.length"
                 (onClick)="confirmDelete()"
+                size="small"
             />
             <p-button
                 severity="primary"
@@ -55,6 +58,7 @@
                 icon="pi pi-user-plus"
                 outlined
                 (onClick)="addEmissionSource()"
+                size="small"
             />
         </div>
     </div>
@@ -67,6 +71,7 @@
             [text]="true"
             severity="info"
             (onClick)="onEdit(rowData)"
+            size="small"
         />
         <p-button
             icon="pi pi-trash"
@@ -74,6 +79,7 @@
             [text]="true"
             severity="danger"
             (onClick)="onDelete(rowData)"
+            size="small"
         />
     </div>
 </ng-template>

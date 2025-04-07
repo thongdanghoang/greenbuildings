@@ -8,21 +8,21 @@
             [routerLink]="['/']"
         ></p-button>
     </div>
-    <h1 class="font-bold text-lg">
+    <h1 class="text-lg font-bold">
         {{ "account.title" | translate }}
     </h1>
 </div>
 
-<form [formGroup]="formGroup" class="sm:mt-5 sm:px-5 py-5">
+<form [formGroup]="formGroup" class="py-5 sm:mt-5 sm:px-5">
     <!-- Email -->
     <div
-        class="grid grid-cols-12 sm:gap-4 gap-2 items-center my-3"
+        class="my-3 grid grid-cols-12 items-center gap-2 sm:gap-4"
         errorMessages
     >
-        <label for="email" class="font-normal sm:col-span-3 col-span-12">{{
+        <label for="email" class="col-span-12 font-normal sm:col-span-3">{{
             "account.email" | translate
         }}</label>
-        <div class="sm:col-span-6 col-span-12">
+        <div class="col-span-12 sm:col-span-6">
             <input
                 formControlName="email"
                 class="w-full"
@@ -37,13 +37,13 @@
 
     <!-- First Name -->
     <div
-        class="grid grid-cols-12 sm:gap-4 gap-2 items-center my-3"
+        class="my-3 grid grid-cols-12 items-center gap-2 sm:gap-4"
         errorMessages
     >
-        <label for="firstName" class="font-normal sm:col-span-3 col-span-12">{{
+        <label for="firstName" class="col-span-12 font-normal sm:col-span-3">{{
             "account.firstName" | translate
         }}</label>
-        <div class="sm:col-span-6 col-span-12">
+        <div class="col-span-12 sm:col-span-6">
             <input
                 formControlName="firstName"
                 class="w-full"
@@ -60,13 +60,13 @@
 
     <!-- Last Name -->
     <div
-        class="grid grid-cols-12 sm:gap-4 gap-2 items-center my-3"
+        class="my-3 grid grid-cols-12 items-center gap-2 sm:gap-4"
         errorMessages
     >
-        <label for="lastName" class="font-normal sm:col-span-3 col-span-12">{{
+        <label for="lastName" class="col-span-12 font-normal sm:col-span-3">{{
             "account.lastName" | translate
         }}</label>
-        <div class="sm:col-span-6 col-span-12">
+        <div class="col-span-12 sm:col-span-6">
             <input
                 formControlName="lastName"
                 class="w-full"
@@ -81,13 +81,13 @@
 
     <!-- Phone -->
     <div
-        class="grid grid-cols-12 sm:gap-4 gap-2 items-center my-3"
+        class="my-3 grid grid-cols-12 items-center gap-2 sm:gap-4"
         errorMessages
     >
-        <label for="phone" class="font-normal sm:col-span-3 col-span-12">{{
+        <label for="phone" class="col-span-12 font-normal sm:col-span-3">{{
             "account.phone" | translate
         }}</label>
-        <div class="sm:col-span-6 col-span-12">
+        <div class="col-span-12 sm:col-span-6">
             <input
                 formControlName="phone"
                 class="w-full"
@@ -101,7 +101,7 @@
     </div>
 
     <!-- Buttons -->
-    <div class="flex justify-end sm:justify-start gap-4 *:min-w-24">
+    <div class="flex justify-end gap-4 *:min-w-24 sm:justify-start">
         <!-- Save Button -->
         <p-button
             [label]="'common.save' | translate"

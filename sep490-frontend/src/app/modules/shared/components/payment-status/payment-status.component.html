@@ -1,6 +1,6 @@
 <!-- payment-status.component.html -->
 <div
-    class="flex items-center justify-center h-screen"
+    class="flex h-screen items-center justify-center"
     [ngClass]="{
         'text-green-500': status === 'success',
         'text-red-500': status === 'failed',
@@ -16,7 +16,7 @@
             }"
             [class.text-5xl]="true"
         ></i>
-        <h1 class="text-2xl font-bold mt-4">
+        <h1 class="mt-4 text-2xl font-bold">
             {{
                 status === "success"
                     ? ("payment.status.success.title" | translate)

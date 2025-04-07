@@ -15,7 +15,7 @@ import java.util.UUID;
 
 public interface BuildingRepository extends AbstractBaseRepository<BuildingEntity> {
 
-    Page<BuildingEntity> findByEnterpriseIdAndDeleted(UUID enterpriseId, boolean deleted, Pageable pageable);
+    Page<BuildingEntity> findByEnterpriseId(UUID enterpriseId, Pageable pageable);
     
     List<BuildingEntity> findAllByEnterpriseId(UUID enterpriseId);
     
@@ -25,7 +25,7 @@ public interface BuildingRepository extends AbstractBaseRepository<BuildingEntit
     @Query(value = "SELECT b FROM BuildingEntity b where b.id=:id")
     Optional<BuildingEntity> findByIdWithGraph(@NotNull UUID id);
 
-    @Query("SELECT CASE WHEN COUNT(b) > 0 THEN true ELSE false END FROM BuildingEntity b WHERE b.name = :name AND b.enterprise.id = :enterpriseId AND b.deleted = false")
+    @Query("SELECT CASE WHEN COUNT(b) > 0 THEN true ELSE false END FROM BuildingEntity b WHERE b.name = :name AND b.enterprise.id = :enterpriseId")
     boolean existsByNameBuildingInEnterprise(@NotBlank String name, UUID enterpriseId);
 
 }

@@ -76,7 +76,7 @@ export class PlanComponent
       }),
       header: this.translate.instant('common.confirmHeader'),
       icon: 'pi pi-info-circle',
-      acceptButtonStyleClass: 'p-button-danger p-button-text min-w-20',
+      acceptButtonStyleClass: 'p-button-primary p-button-text min-w-20',
       rejectButtonStyleClass: 'p-button-contrast p-button-text min-w-20',
       acceptIcon: 'none',
       acceptLabel: this.translate.instant('common.accept'),

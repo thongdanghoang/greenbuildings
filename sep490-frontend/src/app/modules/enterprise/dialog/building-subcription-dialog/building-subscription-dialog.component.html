@@ -2,10 +2,10 @@
     <div class="inline-flex items-center justify-center gap-2">
         <p-avatar
             icon="pi pi-building"
-            class="flex items-center justify-center mr-2"
+            class="mr-2 flex items-center justify-center"
             size="large"
         />
-        <span class="font-bold whitespace-nowrap">{{
+        <span class="whitespace-nowrap font-bold">{{
             data.type === TransactionType.NEW_PURCHASE
                 ? ("dialog.subscription.header.title" | translate)
                 : ("dialog.subscription.header.titleUpdate" | translate)
@@ -14,27 +14,27 @@
 </div>
 <div class="p-dialog-content">
     <div
-        class="flex flex-col lg:flex-row justify-between px-4 border-primary border mb-4"
+        class="mb-4 flex flex-col justify-between border border-primary px-4 lg:flex-row"
     >
-        <div class="flex flex-col gap-5 p-5 items-center lg:items-start">
-            <span class="text-surface-500 dark:text-surface-400 block"
+        <div class="flex flex-col items-center gap-5 p-5 lg:items-start">
+            <span class="block text-surface-500 dark:text-surface-400"
                 >{{ "dialog.subscription.body.name" | translate }}:
                 {{ data.selectedBuildingDetails.name }}</span
             >
             <span *ngIf="data.type === TransactionType.UPGRADE">
-                <span class="text-surface-500 dark:text-surface-400 block"
+                <span class="block text-surface-500 dark:text-surface-400"
                     >{{
                         "enterprise.buildings.details.labels.validFromInclusive"
                             | translate
                     }}: {{ data.building.subscriptionDTO?.startDate }}</span
                 >
-                <span class="text-surface-500 dark:text-surface-400 block"
+                <span class="block text-surface-500 dark:text-surface-400"
                     >{{
                         "enterprise.buildings.details.labels.validToInclusive"
                             | translate
                     }}: {{ data.building.subscriptionDTO?.endDate }}</span
                 >
-                <span class="text-surface-500 dark:text-surface-400 block">
+                <span class="block text-surface-500 dark:text-surface-400">
                     {{
                         "enterprise.buildings.details.labels.currentMaxNumberOfDevices"
                             | translate
@@ -43,8 +43,8 @@
                 </span>
             </span>
         </div>
-        <div class="gap-2 p-5 h-full">
-            <span class="text-primary block mb-8 lg:0 lg:pr-12"
+        <div class="h-full gap-2 p-5">
+            <span class="lg:0 mb-8 block text-primary lg:pr-12"
                 >{{ "purchaseCredit.currentBalance" | translate }}:
                 {{ data.balance | number }}</span
             >
@@ -53,11 +53,11 @@
 
     <form
         [formGroup]="formGroup"
-        class="grid lg:grid-cols-2 px-4 pt-4 gap-4 justify-between mt-2"
+        class="mt-2 grid justify-between gap-4 px-4 pt-4 lg:grid-cols-2"
     >
         <div class="mb-4 block" errorMessages>
-            <div class="flex items-center gap-2 justify-evenly mb-4">
-                <label class="font-semibold w-40">{{
+            <div class="mb-4 flex items-center justify-evenly gap-2">
+                <label class="w-40 font-semibold">{{
                     "dialog.subscription.body.numberMonth" | translate
                 }}</label>
                 <p-inputnumber
@@ -81,13 +81,13 @@
                     </ng-template>
                 </p-inputnumber>
             </div>
-            <div class="items-center justify-center flex">
+            <div class="flex items-center justify-center">
                 <form-field-error></form-field-error>
             </div>
         </div>
         <div class="mb-2 block" errorMessages>
-            <div class="flex items-center gap-2 justify-evenly mb-4">
-                <label class="font-semibold w-44">{{
+            <div class="mb-4 flex items-center justify-evenly gap-2">
+                <label class="w-44 font-semibold">{{
                     data.type === TransactionType.NEW_PURCHASE
                         ? ("dialog.subscription.body.numberMaxDevice"
                           | translate)
@@ -116,16 +116,16 @@
                     </ng-template>
                 </p-inputnumber>
             </div>
-            <div class="items-center justify-center flex">
+            <div class="flex items-center justify-center">
                 <form-field-error></form-field-error>
             </div>
         </div>
     </form>
-    <div class="flex flex-col p-4 gap-8">
+    <div class="flex flex-col gap-8 p-4">
         <div
-            class="flex flex-col-reverse lg:flex-row justify-between items-center gap-2"
+            class="flex flex-col-reverse items-center justify-between gap-2 lg:flex-row"
         >
-            <span class="text-surface-500 dark:text-surface-400 block"
+            <span class="block text-surface-500 dark:text-surface-400"
                 >{{ "dialog.subscription.body.totalCredit" | translate }}:
                 {{ totalToPay }}</span
             >
@@ -136,7 +136,7 @@
             (this.formStructure.months.value > 0 ||
                 this.formStructure.numberOfDevices.value > 0)
         ) {
-            <div class="flex flex-row gap-1 items-center">
+            <div class="flex flex-row items-center gap-1">
                 <p-checkbox
                     inputId="confirm_ckb"
                     [(ngModel)]="checked"

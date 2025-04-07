@@ -1,23 +1,23 @@
 <div class="px-5">
     @if (isEdit) {
-        <h1 class="font-bold text-lg">
+        <h1 class="text-lg font-bold">
             {{ "enterprise.buildings.details.edit" | translate }}
         </h1>
     } @else {
-        <h1 class="font-bold text-lg">
+        <h1 class="text-lg font-bold">
             {{ "enterprise.buildings.details.create" | translate }}
         </h1>
     }
 </div>
-<form [formGroup]="formGroup" class="sm:mt-5 p-5">
+<form [formGroup]="formGroup" class="p-5 sm:mt-5">
     <!-- number of credit -->
-    <div class="grid grid-cols-12 gap-4 items-center my-3" errorMessages>
+    <div class="my-3 grid grid-cols-12 items-center gap-4" errorMessages>
         <label
             for="numberOfCredits"
-            class="font-normal md:col-span-3 col-span-12"
+            class="col-span-12 font-normal md:col-span-3"
             >{{ "admin.packageCredit.table.numberCredit" | translate }}</label
         >
-        <div class="md:col-span-6 col-span-12">
+        <div class="col-span-12 md:col-span-6">
             <input
                 formControlName="numberOfCredits"
                 class="w-full"
@@ -33,11 +33,11 @@
     </div>
 
     <!-- price -->
-    <div class="grid grid-cols-12 gap-4 items-center my-3" errorMessages>
-        <label for="price" class="font-normal md:col-span-3 col-span-12">{{
+    <div class="my-3 grid grid-cols-12 items-center gap-4" errorMessages>
+        <label for="price" class="col-span-12 font-normal md:col-span-3">{{
             "admin.packageCredit.table.price" | translate
         }}</label>
-        <div class="md:col-span-6 col-span-12">
+        <div class="col-span-12 md:col-span-6">
             <input
                 formControlName="price"
                 class="w-full"
@@ -53,7 +53,7 @@
     </div>
 
     <!-- Buttons -->
-    <div class="flex justify-end md:justify-start gap-4 *:min-w-24">
+    <div class="flex justify-end gap-4 *:min-w-24 md:justify-start">
         <!-- Create Button -->
         <p-button
             [label]="(isEdit ? 'common.save' : 'common.create') | translate"
