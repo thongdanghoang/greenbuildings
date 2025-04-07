@@ -11,6 +11,7 @@ import {EnterpriseInvitationComponent} from './components/enterprise-invitation/
 import {PaymentComponent} from './components/payment/payment.component';
 import {PlanComponent} from './components/plan/plan.component';
 import {EnterpriseComponent} from './enterprise.component';
+import {ActivityTypeComponent} from './components/activity-type/activity-type.component';
 
 const routes: Routes = [
   {
@@ -49,6 +50,10 @@ const routes: Routes = [
       {
         path: `${AppRoutingConstants.CREATE_ENTERPRISE_PATH}`,
         component: CreateEnterpriseComponent
+      },
+      {
+        path: `${AppRoutingConstants.ACTIVITY_TYPE}`,
+        component: ActivityTypeComponent
       }
     ]
   }

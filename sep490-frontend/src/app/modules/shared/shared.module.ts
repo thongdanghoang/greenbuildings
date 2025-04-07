@@ -68,6 +68,9 @@ import {ModalProvider} from './services/modal-provider';
 import {UnitService} from './services/unit.service';
 import {PopoverModule} from 'primeng/popover';
 import {TooltipModule} from 'primeng/tooltip';
+import {InputGroupModule} from 'primeng/inputgroup';
+import {InputGroupAddonModule} from 'primeng/inputgroupaddon';
+import {AutoCompleteModule} from 'primeng/autocomplete';
 const primeNgModules = [
   AccordionModule,
   AutoFocusModule,
@@ -119,7 +122,10 @@ const primeNgModules = [
   DropdownModule,
   FileUpload,
   PopoverModule,
-  TooltipModule
+  TooltipModule,
+  InputGroupModule,
+  InputGroupAddonModule,
+  AutoCompleteModule
 ];
 
 const commons = [

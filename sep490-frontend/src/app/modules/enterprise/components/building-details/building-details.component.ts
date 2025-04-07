@@ -101,7 +101,22 @@ export class BuildingDetailsComponent extends AbstractFormComponent<BuildingDeta
   }
 
   back(): void {
-    this.location.back();
+    if (this.showMap) {
+      this.showMap = false;
+      if (this.map) {
+        this.map.remove();
+        this.map = null as any;
+        this.marker = null;
+        this.markers = [];
+      }
+    }
+    setTimeout(() => {
+      void this.router.navigate([
+        '/',
+        AppRoutingConstants.ENTERPRISE_PATH,
+        AppRoutingConstants.BUILDING_PATH
+      ]);
+    }, 0); // Delay navigation để đảm bảo logic chạy xong
   }
 
   get isEdit(): boolean {

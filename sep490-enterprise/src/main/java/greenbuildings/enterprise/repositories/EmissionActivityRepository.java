@@ -1,5 +1,6 @@
 package greenbuildings.enterprise.repositories;
 
+import greenbuildings.enterprise.entities.ActivityTypeEntity;
 import greenbuildings.enterprise.entities.EmissionActivityEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -29,4 +30,6 @@ public interface EmissionActivityRepository extends JpaRepository<EmissionActivi
     Optional<EmissionActivityEntity> findDetailsById(UUID id);
     
     List<EmissionActivityEntity> findAllByIdIn(List<UUID> ids);
+
+    List<EmissionActivityEntity> findAllByTypeIdIn(Set<UUID> typeIds);
 }

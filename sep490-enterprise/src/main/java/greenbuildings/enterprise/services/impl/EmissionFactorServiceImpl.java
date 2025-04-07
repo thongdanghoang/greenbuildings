@@ -63,11 +63,11 @@ public class EmissionFactorServiceImpl implements EmissionFactorService {
             if (emissionFactor.getEmissionUnitNumerator() == null
                 || emissionFactor.getEmissionUnitDenominator() == null
                 || emissionFactor.getSource() == null) {
-                throw new BusinessException("emissionFactor", "emissionFactor.disabled");
+                throw new BusinessException("emissionFactor.disabled");
             }
             if (emissionFactor.isDirectEmission()
                 && emissionFactor.getEnergyConversion() != null) {
-                throw new BusinessException("emissionFactor", "emissionFactor.disabled");
+                throw new BusinessException("emissionFactor.disabled");
             }
             emissionFactor.setActive(true);
         }
@@ -77,7 +77,7 @@ public class EmissionFactorServiceImpl implements EmissionFactorService {
     @Override
     public void createOrUpdate(EmissionFactorEntity factor) {
         if (factor.getValidFrom().isAfter(factor.getValidTo())) {
-            throw new BusinessException("emissionFactor", "emissionFactor.date");
+            throw new BusinessException("emissionFactor.date");
         }
         emissionFactorRepository.save(factor);
     }
