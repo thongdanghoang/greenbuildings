@@ -142,3 +142,6 @@
         (onClick)="openActivityDetailsDialog(activity)"
     />
 </ng-template>
+<ng-template #typeTemplate let-activity>
+    <span *ngIf="activity.type">{{ activity?.type.name }}</span>
+</ng-template>

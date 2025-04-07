@@ -16,19 +16,20 @@ import {
   EmissionSourceDTO
 } from '../../../shared/models/shared-models';
 import {EmissionFactorService} from '../../../shared/services/emission-factor.service';
-import {EmissionSourceService} from '../../../shared/services/emission-source.service';
-import {EmissionActivity} from '../../models/enterprise.dto';
+import {ActivityType, CreateNewActivityDTO} from '../../models/enterprise.dto';
 import {EmissionActivityService} from '../../services/emission-activity.service';
+import {ActivityTypeService} from '../../services/activity-type.service';
 
 @Component({
   selector: 'app-new-activity-dialog',
   templateUrl: './new-activity-dialog.component.html',
   styleUrl: './new-activity-dialog.component.css'
 })
-export class NewActivityDialogComponent extends AbstractFormComponent<EmissionActivity> {
+export class NewActivityDialogComponent extends AbstractFormComponent<CreateNewActivityDTO> {
   emissionFactors: EmissionFactorDTO[] = [];
   emissionSources: EmissionSourceDTO[] = [];
   availableEmissionFactors: EmissionFactorDTO[] = [];
+  activityTypes: ActivityType[] = [];
 
   protected readonly formStructure = {
     id: new FormControl(null),
@@ -37,7 +38,7 @@ export class NewActivityDialogComponent extends AbstractFormComponent<EmissionAc
     emissionFactorID: new FormControl('', Validators.required),
     emissionSourceID: new FormControl('', Validators.required), // for UI handle only
     name: new FormControl('', Validators.required),
-    type: new FormControl(''),
+    type: new FormControl(),
     category: new FormControl(''),
     description: new FormControl(''),
     records: new FormControl([])
@@ -48,11 +49,11 @@ export class NewActivityDialogComponent extends AbstractFormComponent<EmissionAc
     formBuilder: FormBuilder,
     notificationService: MessageService,
     translate: TranslateService,
-    private readonly sourceService: EmissionSourceService,
     private readonly factorService: EmissionFactorService,
     private readonly activityService: EmissionActivityService,
     private readonly ref: DynamicDialogRef,
-    public config: DynamicDialogConfig<UUID>
+    public config: DynamicDialogConfig<UUID>,
+    private readonly activityTypeService: ActivityTypeService
   ) {
     super(httpClient, formBuilder, notificationService, translate);
   }
@@ -117,5 +118,12 @@ export class NewActivityDialogComponent extends AbstractFormComponent<EmissionAc
 
   private initializeFormData(): void {
     this.formStructure.buildingID.setValue(this.config.data!.toString());
+    this.loadActivityTypes();
+  }
+
+  private loadActivityTypes(): void {
+    this.activityTypeService.getAll().subscribe(types => {
+      this.activityTypes = types;
+    });
   }
 }

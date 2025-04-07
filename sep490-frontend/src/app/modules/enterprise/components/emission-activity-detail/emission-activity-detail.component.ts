@@ -32,9 +32,11 @@ import {
   NewActivityRecordDialogConfig
 } from '../../dialog/new-activity-record-dialog/new-activity-record-dialog.component';
 import {
+  ActivityType,
   EmissionActivityDetails,
   EmissionActivityRecord
 } from '../../models/enterprise.dto';
+import {ActivityTypeService} from '../../services/activity-type.service';
 import {
   EmissionActivityRecordCriteria,
   EmissionActivityRecordService
@@ -56,7 +58,7 @@ export class EmissionActivityDetailComponent
     name: new FormControl('', [Validators.required]),
     buildingID: new FormControl('', [Validators.required]),
     emissionFactorID: new FormControl('', [Validators.required]),
-    type: new FormControl(''),
+    type: new FormControl(),
     category: new FormControl(''),
     description: new FormControl(''),
     records: new FormControl([])
@@ -64,6 +66,7 @@ export class EmissionActivityDetailComponent
 
   activity!: EmissionActivityDetails;
   selected: EmissionActivityRecord[] = [];
+  activityTypes: ActivityType[] = [];
   searchCriteria: EmissionActivityRecordCriteria = {
     emissionActivityId: '' as UUID
   };
@@ -115,9 +118,18 @@ export class EmissionActivityDetailComponent
     private readonly router: Router,
     private readonly emissionActivityService: EmissionActivityService,
     private readonly emissionActivityRecordService: EmissionActivityRecordService,
-    private readonly dialogService: DialogService
+    private readonly dialogService: DialogService,
+    private readonly activityTypeService: ActivityTypeService
   ) {
     super(httpClient, formBuilder, notificationService, translate);
+  }
+
+  override ngOnInit(): void {
+    this.fetchRecords = this.emissionActivityRecordService.search.bind(
+      this.emissionActivityRecordService
+    );
+    this.validateAndFetchDetail();
+    super.ngOnInit();
   }
 
   updateFormStructureData(): void {
@@ -130,17 +142,11 @@ export class EmissionActivityDetailComponent
       this.activity.emissionFactor.id.toString()
     );
     this.formStructure.name.setValue(this.activity.name);
-    this.formStructure.type.setValue(this.activity.type);
+    if (this.activity.type) {
+      this.formStructure.type.setValue(this.activity?.type.id);
+    }
     this.formStructure.category.setValue(this.activity.category);
     this.formStructure.description.setValue(this.activity.description);
-  }
-
-  override ngOnInit(): void {
-    this.fetchRecords = this.emissionActivityRecordService.search.bind(
-      this.emissionActivityRecordService
-    );
-    this.validateAndFetchDetail();
-    super.ngOnInit();
   }
 
   handleAfterSuccessValidation(activity: EmissionActivityDetails): void {
@@ -148,6 +154,7 @@ export class EmissionActivityDetailComponent
     this.searchCriteria.emissionActivityId = activity.id;
     this.searchEvent.emit();
     this.buildCols();
+    this.loadActivityTypes();
     this.updateFormStructureData();
   }
 
@@ -292,7 +299,6 @@ export class EmissionActivityDetailComponent
       }
     });
   }
-
   validateAndFetchDetail(): void {
     this.route.paramMap
       .pipe(
@@ -349,6 +355,13 @@ export class EmissionActivityDetailComponent
     result: EmissionActivityDetails
   ): void {
     this.activity = result;
+    this.loadActivityTypes();
     this.updateFormStructureData();
+  }
+
+  private loadActivityTypes(): void {
+    this.activityTypeService.getAll().subscribe(types => {
+      this.activityTypes = types;
+    });
   }
 }

@@ -26,7 +26,7 @@ public record EmissionActivityDetailsDTO(
         String name,
         
         @Size(max = 255)
-        String type,
+        ActivityTypeDTO type,
         
         @Size(max = 255)
         String category,

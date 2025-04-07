@@ -43,15 +43,30 @@
                             }}</label>
                         </p-iftalabel>
 
-                        <p-iftalabel class="my-2 col-span-2 md:col-span-1">
-                            <input
-                                pInputText
+                        <!-- Type -->
+                        <p-iftalabel class="my-2">
+                            <p-select
+                                [options]="activityTypes"
+                                optionLabel="name"
+                                optionValue="id"
+                                [editable]="true"
+                                [showClear]="true"
                                 formControlName="type"
                                 class="w-full"
-                                autocomplete="off"
-                            />
+                            >
+                                <ng-template pTemplate="selectedItem" let-type>
+                                    <div class="flex align-items-center gap-2">
+                                        <div>{{ type.name }}</div>
+                                    </div>
+                                </ng-template>
+                                <ng-template let-type pTemplate="item">
+                                    <div class="flex align-items-center gap-2">
+                                        <div>{{ type.name }}</div>
+                                    </div>
+                                </ng-template>
+                            </p-select>
                             <label>{{
-                                "enterprise.emission.activity.table.type"
+                                "enterprise.emission.activity.dialog.Type"
                                     | translate
                             }}</label>
                         </p-iftalabel>

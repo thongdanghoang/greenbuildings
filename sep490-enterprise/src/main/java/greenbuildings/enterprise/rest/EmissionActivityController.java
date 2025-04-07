@@ -3,6 +3,7 @@ package greenbuildings.enterprise.rest;
 import commons.springfw.impl.mappers.CommonMapper;
 import greenbuildings.commons.api.dto.SearchCriteriaDTO;
 import greenbuildings.commons.api.dto.SearchResultDTO;
+import greenbuildings.enterprise.dtos.CreateEmissionActivityDTO;
 import greenbuildings.enterprise.dtos.EmissionActivityCriteria;
 import greenbuildings.enterprise.dtos.EmissionActivityDTO;
 import greenbuildings.enterprise.dtos.EmissionActivityDetailsDTO;
@@ -39,7 +40,7 @@ public class EmissionActivityController {
     }
 
     @PostMapping
-    public ResponseEntity<EmissionActivityDetailsDTO> addOrUpdateEmissionActivity(@RequestBody EmissionActivityDTO dto) {
+    public ResponseEntity<EmissionActivityDetailsDTO> addOrUpdateEmissionActivity(@RequestBody CreateEmissionActivityDTO dto) {
         EmissionActivityEntity entity;
         if (dto.id() != null) {
             entity = this.mapper.updateActivity(dto);

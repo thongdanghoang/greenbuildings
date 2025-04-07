@@ -6,14 +6,14 @@ import jakarta.validation.constraints.NotNull;
 import java.util.Set;
 import java.util.UUID;
 
-public record EmissionActivityDTO (
+public record CreateEmissionActivityDTO(
         UUID id,
         int version,
         @NotNull UUID buildingID,
         Set<EmissionActivityRecordDTO> records,
         @NotNull UUID emissionFactorID,
         @NotEmpty String name,
-        ActivityTypeDTO type,
+        String type,
         String category,
         String description
 ) {
