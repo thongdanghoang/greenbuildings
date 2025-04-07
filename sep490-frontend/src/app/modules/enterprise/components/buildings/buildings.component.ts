@@ -166,6 +166,15 @@ export class BuildingsComponent
     this.addBuildingLocation = true;
   }
 
+  navigateToCreateBuilding(): void {
+    void this.router.navigate([
+      '/',
+      AppRoutingConstants.ENTERPRISE_PATH,
+      AppRoutingConstants.BUILDING_PATH,
+      'create'
+    ]);
+  }
+
   addBuilding(): void {
     if (this.buildingLocation) {
       void this.router.navigate(

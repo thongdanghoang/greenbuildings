@@ -10,7 +10,16 @@ import {
 import {ActivatedRoute, Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
 import {MessageService} from 'primeng/api';
-import {Observable, filter, map, switchMap, takeUntil, tap} from 'rxjs';
+import {
+  Observable,
+  debounceTime,
+  distinctUntilChanged,
+  filter,
+  map,
+  switchMap,
+  takeUntil,
+  tap
+} from 'rxjs';
 import {validate} from 'uuid';
 import {UUID} from '../../../../../types/uuid';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
@@ -18,13 +27,13 @@ import {BuildingService} from '../../../../services/building.service';
 import {GeocodingService} from '../../../../services/geocoding.service';
 import {AbstractFormComponent} from '../../../shared/components/form/abstract-form-component';
 import {BuildingDetails, UserByBuilding} from '../../models/enterprise.dto';
-import {MapLocation} from '../buildings/buildings.component';
 import {TableTemplateColumn} from '../../../shared/components/table-template/table-template.component';
 import {ApplicationService} from '../../../core/services/application.service';
 import {
   SearchCriteriaDto,
   SearchResultDto
 } from '../../../shared/models/base-models';
+import L from 'leaflet';
 
 @Component({
   selector: 'app-building-detail',
@@ -32,6 +41,9 @@ import {
   styleUrl: './building-details.component.css'
 })
 export class BuildingDetailsComponent extends AbstractFormComponent<BuildingDetails> {
+  addressSuggestions: any[] = [];
+  showSuggestions: boolean = false;
+  showMap: boolean = false;
   @ViewChild('permissionTemplate', {static: true})
   permissionTemplate!: TemplateRef<any>;
   cols: TableTemplateColumn[] = [];
@@ -48,16 +60,8 @@ export class BuildingDetailsComponent extends AbstractFormComponent<BuildingDeta
       nonNullable: true,
       validators: [Validators.min(1), Validators.required]
     }),
-    latitude: new FormControl<number | null>(null, [
-      Validators.required,
-      Validators.min(-90),
-      Validators.max(90)
-    ]),
-    longitude: new FormControl<number | null>(null, [
-      Validators.required,
-      Validators.min(-180),
-      Validators.max(180)
-    ]),
+    latitude: new FormControl<number | null>(null),
+    longitude: new FormControl<number | null>(null),
     address: new FormControl<string | null>(null, Validators.required),
     subscriptionDTO: this.formBuilder.group({
       startDate: [{value: null, disabled: true}],
@@ -65,6 +69,9 @@ export class BuildingDetailsComponent extends AbstractFormComponent<BuildingDeta
       maxNumberOfDevices: [{value: null, disabled: true}]
     })
   };
+  private map!: L.Map;
+  private marker!: L.Marker | null;
+  private markers: L.Marker[] = [];
 
   constructor(
     httpClient: HttpClient,
@@ -129,12 +136,74 @@ export class BuildingDetailsComponent extends AbstractFormComponent<BuildingDeta
     if (this.isEdit) {
       return this.initializeData();
     }
+    this.formGroup.reset({
+      numberOfDevices: 0 // Giữ giá trị mặc định
+    });
     super.reset();
   }
 
+  showMapView(): void {
+    if (this.showMap) {
+      // If map is currently shown, hide it
+      this.showMap = false;
+      if (this.map) {
+        this.map.remove(); // Remove the map instance to clean up
+        this.map = null as any; // Reset the map reference
+        this.marker = null; // Reset the marker reference
+        this.markers = []; // Clear the markers array
+      }
+    } else {
+      // If map is not shown, display it
+      this.showMap = true;
+      setTimeout(() => {
+        this.initMap();
+        this.fetchBuildings(); // Fetch and display all buildings
+      }, 0); // Delay to ensure DOM is updated
+    }
+  }
+  onSubmit(): void {
+    if (this.showMap) {
+      // If map is currently shown, hide it
+      this.showMap = false;
+      if (this.map) {
+        this.map.remove(); // Remove the map instance to clean up
+        this.map = null as any; // Reset the map reference
+        this.marker = null; // Reset the marker reference
+        this.markers = []; // Clear the markers array
+      }
+    }
+    this.submit();
+  }
+  // Xử lý autocomplete với p-autoComplete
+  searchAddress(event: any): void {
+    const query = event.query;
+    if (query && query.length >= 2) {
+      this.geocodingService
+        .getPlaceAutocomplete(query, '21.013715429594125,105.79829597455202')
+        .pipe(debounceTime(300), distinctUntilChanged())
+        .subscribe(response => {
+          this.addressSuggestions = response.predictions || [];
+        });
+    } else {
+      this.addressSuggestions = [];
+    }
+  }
+
+  onSelectAddress(event: any): void {
+    const suggestion = event.value;
+    this.formGroup.patchValue({address: suggestion.description});
+    // Gọi API chi tiết để lấy tọa độ
+    this.geocodingService
+      .getPlaceDetail(suggestion.place_id)
+      .subscribe(detail => {
+        this.formGroup.patchValue({
+          latitude: detail.result.geometry.location.lat,
+          longitude: detail.result.geometry.location.lng
+        });
+      });
+  }
   protected initializeData(): void {
     this.fetchBuildingDetails();
-    this.handleLocationChange();
     this.fetchData = (
       criteria: SearchCriteriaDto<void>
     ): Observable<SearchResultDto<UserByBuilding>> => {
@@ -180,37 +249,106 @@ export class BuildingDetailsComponent extends AbstractFormComponent<BuildingDeta
       });
   }
 
-  private handleLocationChange(): void {
-    this.activatedRoute.queryParams
-      .pipe(
-        takeUntil(this.destroy$),
-        filter((params): params is MapLocation => !!params),
-        switchMap(location => {
-          if (!!location.latitude && !!location.longitude) {
-            this.buildingDetailsStructure.latitude.setValue(location.latitude);
-            this.buildingDetailsStructure.longitude.setValue(
-              location.longitude
-            );
-            return this.geocodingService.reverse(
-              location.latitude,
-              location.longitude
-            );
-          } else if (!this.isEdit) {
-            // only check when creating a new building
-            this.notificationService.add({
-              severity: 'error',
-              summary: 'Error',
-              detail: 'Invalid location'
-            });
-            return [];
+  private initMap(): void {
+    if (document.getElementById('map')) {
+      this.map = L.map('map', {
+        center: [10.841394, 106.810052], // Vị trí mặc định
+        zoom: 16
+      });
+
+      const tiles = L.tileLayer(
+        'https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',
+        {
+          maxZoom: 18,
+          minZoom: 2,
+          subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+        }
+      );
+      tiles.addTo(this.map);
+
+      // Thêm sự kiện click để chọn vị trí
+      this.map.on('click', e => {
+        if (this.marker) {
+          this.map.removeLayer(this.marker);
+        }
+        this.marker = L.marker([e.latlng.lat, e.latlng.lng]).addTo(this.map);
+        this.formGroup.patchValue({
+          latitude: e.latlng.lat,
+          longitude: e.latlng.lng
+        });
+        this.updateAddressFromCoordinates(e.latlng.lat, e.latlng.lng);
+      });
+    } else {
+      throw new Error(
+        'Map element not found, should set id="map" to the map element'
+      );
+    }
+  }
+
+  // eslint-disable-next-line max-lines-per-function
+  private fetchBuildings(): void {
+    this.buildingService
+      .searchBuildings({
+        page: {
+          pageNumber: 0,
+          pageSize: 100
+        }
+      })
+      .pipe(takeUntil(this.destroy$))
+      // eslint-disable-next-line max-lines-per-function
+      .subscribe(buildings => {
+        // Xóa tất cả marker cũ trước khi thêm mới
+        this.markers.forEach(marker => this.map.removeLayer(marker));
+        this.markers = [];
+
+        // Thêm marker cho từng building (trừ building hiện tại nếu đang edit)
+        buildings.results.forEach(building => {
+          if (this.isEdit && building.id === this.buildingId) {
+            return; // Bỏ qua building hiện tại khi edit
           }
-          return [];
-        })
-      )
-      .subscribe(address => {
-        if (address) {
-          this.buildingDetailsStructure.address.setValue(address.displayName);
+          const marker = L.marker([building.latitude, building.longitude]);
+          marker.addTo(this.map);
+          this.markers.push(marker); // Lưu marker vào danh sách
+          marker.bindPopup(`<b>${building.name}</b><br>${building.address}`);
+        });
+
+        // Điều chỉnh bản đồ để hiển thị tất cả marker
+        if (buildings.results.length > 0) {
+          const latLngs = buildings.results
+            .filter(building => !this.isEdit || building.id !== this.buildingId)
+            .map(building => L.latLng(building.latitude, building.longitude));
+          if (latLngs.length > 0) {
+            const bounds = L.latLngBounds(latLngs);
+            this.map.fitBounds(bounds, {padding: [50, 50]});
+          }
+        }
+
+        // Nếu đang edit, hiển thị marker của building hiện tại
+        if (
+          this.isEdit &&
+          this.formGroup.get('latitude')?.value &&
+          this.formGroup.get('longitude')?.value
+        ) {
+          this.marker = L.marker([
+            this.formGroup.get('latitude')?.value,
+            this.formGroup.get('longitude')?.value
+          ]).addTo(this.map);
+          this.map.setView(
+            [
+              this.formGroup.get('latitude')?.value,
+              this.formGroup.get('longitude')?.value
+            ],
+            16
+          );
         }
       });
+  }
+
+  private updateAddressFromCoordinates(lat: number, lng: number): void {
+    this.geocodingService.reverse(lat, lng).subscribe(address => {
+      if (address) {
+        this.buildingDetailsStructure.address.setValue(address.displayName);
+      }
+    });
   }
 }

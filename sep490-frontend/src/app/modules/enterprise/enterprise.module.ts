@@ -25,6 +25,9 @@ import {ReportDialogComponent} from './dialog/report-dialog/report-dialog.compon
 import {AccountInformationComponent} from './components/account-information/account-information.component';
 import {CreateEnterpriseComponent} from './components/create-enterprise/create-enterprise.component';
 import {EnterpriseInvitationComponent} from './components/enterprise-invitation/enterprise-invitation.component';
+import {InputGroup} from 'primeng/inputgroup';
+import {InputGroupAddon} from 'primeng/inputgroupaddon';
+import {AutoComplete} from 'primeng/autocomplete';
 
 @NgModule({
   declarations: [
@@ -44,7 +47,13 @@ import {EnterpriseInvitationComponent} from './components/enterprise-invitation/
     CreateEnterpriseComponent,
     EnterpriseInvitationComponent
   ],
-  imports: [SharedModule, EnterpriseRoutingModule],
+  imports: [
+    SharedModule,
+    EnterpriseRoutingModule,
+    InputGroup,
+    InputGroupAddon,
+    AutoComplete
+  ],
   providers: [
     MarkerService,
     PopupService,
