@@ -35,7 +35,7 @@ export class EmissionFactorDialogComponent extends AbstractFormComponent<Emissio
     description: new FormControl(null),
     validFrom: new FormControl(null, Validators.required),
     validTo: new FormControl(null, Validators.required),
-    isDirectEmission: new FormControl(false),
+    directEmission: new FormControl(false),
     energyConversionDTO: new FormControl(null),
     active: new FormControl(false)
   };

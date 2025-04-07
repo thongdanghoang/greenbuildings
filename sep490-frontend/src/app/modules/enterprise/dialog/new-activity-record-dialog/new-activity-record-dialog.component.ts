@@ -222,7 +222,7 @@ export class NewActivityRecordDialogComponent extends AbstractFormComponent<Emis
   initUnits(): void {
     let supportedUnits: EmissionUnit[] = [];
 
-    if (this.data!.factor.isDirectEmission) {
+    if (this.data!.factor.directEmission) {
       supportedUnits = this.unitService.getSameUnitType(
         this.data!.factor.emissionUnitDenominator
       );

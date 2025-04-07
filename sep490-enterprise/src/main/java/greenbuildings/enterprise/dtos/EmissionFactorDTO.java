@@ -5,7 +5,6 @@ import greenbuildings.enterprise.enums.EmissionUnit;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 public record EmissionFactorDTO(
@@ -23,7 +22,7 @@ public record EmissionFactorDTO(
         String description,
         LocalDate validFrom,
         LocalDate validTo,
-        boolean isDirectEmission,
+        boolean directEmission,
         EnergyConversionDTO energyConversionDTO,
         boolean active
 ) {}

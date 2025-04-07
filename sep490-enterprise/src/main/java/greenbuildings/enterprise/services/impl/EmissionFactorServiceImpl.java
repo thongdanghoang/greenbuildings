@@ -31,17 +31,17 @@ public class EmissionFactorServiceImpl implements EmissionFactorService {
     public Set<EmissionFactorEntity> findAllAvailable() {
         return new HashSet<>(emissionFactorRepository.findAllByActiveIsTrueAndEmissionUnitDenominatorNotNullAndEmissionUnitNumeratorNotNull());
     }
-
+    
     @Override
     public List<EmissionFactorEntity> findBySource(UUID sourceId) {
         return emissionFactorRepository.findBySourceId(sourceId);
     }
-
+    
     @Override
     public Optional<EmissionFactorEntity> findById(UUID id) {
         return emissionFactorRepository.findById(id);
     }
-
+    
     @Override
     public Page<EmissionFactorEntity> search(SearchCriteriaDTO<EmissionFactorCriteriaDTO> searchCriteria, Pageable pageable) {
         var emissionFactorIDs = emissionFactorRepository.findByName(
@@ -49,33 +49,38 @@ public class EmissionFactorServiceImpl implements EmissionFactorService {
                 pageable);
         // Fetch each entity individually using findAllById(UUID id)
         var results = emissionFactorIDs.stream()
-                .map(emissionFactorRepository::findAllById) // Fetch for each ID
-                .flatMap(List::stream) // Flatten the list of lists
-                .collect(Collectors.toMap(EmissionFactorEntity::getId, Function.identity()));
+                                       .map(emissionFactorRepository::findAllById) // Fetch for each ID
+                                       .flatMap(List::stream) // Flatten the list of lists
+                                       .collect(Collectors.toMap(EmissionFactorEntity::getId, Function.identity()));
         return emissionFactorIDs.map(results::get);
     }
-
+    
     public void delete(UUID id) {
-        var emissionFactor = emissionFactorRepository.findById(id).orElse(null);
-        if(!Objects.requireNonNull(emissionFactor).isActive()) {
-            if(Objects.requireNonNull(emissionFactor).getEmissionUnitNumerator() == null || Objects.requireNonNull(emissionFactor).getEmissionUnitDenominator() == null || Objects.requireNonNull(emissionFactor).getSource() == null) {
-                throw new BusinessException("emissionFactor","emissionFactor.disabled");
+        var emissionFactor = emissionFactorRepository.findById(id).orElseThrow();
+        if (emissionFactor.isActive()) {
+            emissionFactor.setActive(false);
+        } else {
+            if (emissionFactor.getEmissionUnitNumerator() == null
+                || emissionFactor.getEmissionUnitDenominator() == null
+                || emissionFactor.getSource() == null) {
+                throw new BusinessException("emissionFactor", "emissionFactor.disabled");
             }
-            if(!Objects.requireNonNull(emissionFactor).isDirectEmission() || Objects.requireNonNull(emissionFactor).getEnergyConversion().getFuel() == null){
-                throw new BusinessException("emissionFactor","emissionFactor.disabled");
+            if (emissionFactor.isDirectEmission()
+                && emissionFactor.getEnergyConversion() != null) {
+                throw new BusinessException("emissionFactor", "emissionFactor.disabled");
             }
+            emissionFactor.setActive(true);
         }
-        Objects.requireNonNull(emissionFactor).setActive(!emissionFactor.isActive());
         emissionFactorRepository.save(emissionFactor);
     }
-
+    
     @Override
     public void createOrUpdate(EmissionFactorEntity factor) {
-        if ( factor.getValidFrom().isAfter(factor.getValidTo())) {
-            throw new BusinessException("emissionFactor","emissionFactor.date");
+        if (factor.getValidFrom().isAfter(factor.getValidTo())) {
+            throw new BusinessException("emissionFactor", "emissionFactor.date");
         }
         emissionFactorRepository.save(factor);
     }
-
-
+    
+    
 }
