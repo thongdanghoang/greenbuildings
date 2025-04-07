@@ -21,6 +21,6 @@ public class ActivityTypeEntity extends AbstractAuditableEntity {
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "building_id")
-    private BuildingEntity building;
+    @JoinColumn(name = "enterprise_id")
+    private EnterpriseEntity enterprise;
 } 

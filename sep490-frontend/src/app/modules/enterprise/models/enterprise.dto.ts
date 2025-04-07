@@ -46,7 +46,7 @@ export interface CreateNewActivityDTO extends BaseDTO {
 
 export interface ActivityType extends BaseDTO {
   name: string;
-  buildingID: UUID;
+  enterpriseId: UUID;
 }
 
 export interface DownloadReport {

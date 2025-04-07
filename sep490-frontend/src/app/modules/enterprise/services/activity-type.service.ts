@@ -17,9 +17,9 @@ export class ActivityTypeService {
     return this.http.get<ActivityType[]>(this.baseUrl);
   }
 
-  getByBuildingId(buildingId: UUID): Observable<ActivityType[]> {
+  getByEnterpriseId(enterpriseId: UUID): Observable<ActivityType[]> {
     return this.http.get<ActivityType[]>(
-      `${this.baseUrl}?buildingId=${buildingId}`
+      `${this.baseUrl}?enterpriseId=${enterpriseId}`
     );
   }
 
