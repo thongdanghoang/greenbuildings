@@ -47,6 +47,8 @@ export class EmissionActivityComponent
   ref: DynamicDialogRef | undefined;
   @ViewChild('actionsTemplate', {static: true})
   actionsTemplate!: TemplateRef<any>;
+  @ViewChild('typeTemplate', {static: true})
+  typeTemplate!: TemplateRef<any>;
   protected fetchActivity!: (
     criteria: SearchCriteriaDto<ActivitySearchCriteria>
   ) => Observable<SearchResultDto<EmissionActivity>>;
@@ -133,7 +135,8 @@ export class EmissionActivityComponent
     this.cols.push({
       header: 'enterprise.emission.activity.table.type',
       field: 'type',
-      sortable: true
+      sortable: true,
+      templateRef: this.typeTemplate
     });
     this.cols.push({
       header: 'enterprise.emission.activity.table.category',

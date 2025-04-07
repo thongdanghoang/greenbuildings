@@ -1,5 +1,6 @@
 package greenbuildings.enterprise.mappers;
 
+import greenbuildings.enterprise.dtos.CreateEmissionActivityDTO;
 import greenbuildings.enterprise.dtos.EmissionActivityDTO;
 import greenbuildings.enterprise.dtos.EmissionActivityDetailsDTO;
 import greenbuildings.enterprise.entities.EmissionActivityEntity;
@@ -20,7 +21,8 @@ public interface EmissionActivityMapper {
     
     @Mapping(target = "building", ignore = true)
     @Mapping(target = "emissionFactorEntity", ignore = true)
-    EmissionActivityEntity createNewActivity(EmissionActivityDTO dto);
+    @Mapping(target = "type", ignore = true)
+    EmissionActivityEntity createNewActivity(CreateEmissionActivityDTO dto);
 
     @Mapping(target = "building", source = "building")
     @Mapping(target = "building.emissionActivities", ignore = true)
@@ -29,10 +31,12 @@ public interface EmissionActivityMapper {
     @Mapping(target = "emissionFactor.emissionSourceDTO", source = "emissionFactorEntity.source")
     @Mapping(target = "emissionFactor.energyConversionDTO", source = "emissionFactorEntity.energyConversion")
     @Mapping(target = "records", ignore = true)
+    @Mapping(target = "type", source = "type")
     EmissionActivityDetailsDTO toDetailsDTO(EmissionActivityEntity entity);
 
     @Mapping(target = "emissionFactorEntity", ignore = true)
     @Mapping(target = "building", ignore = true)
     @Mapping(target = "records", ignore = true)
-    EmissionActivityEntity updateActivity(EmissionActivityDTO dto);
+    @Mapping(target = "type", ignore = true)
+    EmissionActivityEntity updateActivity(CreateEmissionActivityDTO dto);
 }

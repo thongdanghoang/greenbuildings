@@ -4,7 +4,9 @@ import commons.springfw.impl.mappers.CommonMapper;
 import greenbuildings.commons.api.dto.SearchCriteriaDTO;
 import greenbuildings.commons.api.exceptions.BusinessException;
 import greenbuildings.enterprise.dtos.EmissionActivityCriteria;
+import greenbuildings.enterprise.entities.ActivityTypeEntity;
 import greenbuildings.enterprise.entities.EmissionActivityEntity;
+import greenbuildings.enterprise.repositories.ActivityTypeRepository;
 import greenbuildings.enterprise.repositories.EmissionActivityRepository;
 import greenbuildings.enterprise.services.EmissionActivityService;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +28,7 @@ import java.util.UUID;
 public class EmissionActivityServiceImpl implements EmissionActivityService {
 
     private final EmissionActivityRepository emissionActivityRepository;
+    private final ActivityTypeRepository typeRepository;
 
 
     @Override
@@ -39,6 +42,7 @@ public class EmissionActivityServiceImpl implements EmissionActivityService {
     
     @Override
     public EmissionActivityEntity addOrUpdate(EmissionActivityEntity entity) {
+        mapActivityType(entity);
         if (entity.getId() == null) {
             entity = emissionActivityRepository.save(entity);
             return emissionActivityRepository.findDetailsById(entity.getId()).orElseThrow();
@@ -48,6 +52,18 @@ public class EmissionActivityServiceImpl implements EmissionActivityService {
         emissionActivityRepository.save(existing);
 
         return emissionActivityRepository.findDetailsById(entity.getId()).orElseThrow();
+    }
+    
+    private void mapActivityType(EmissionActivityEntity entity) {
+        if (entity.getType() == null) {
+            return;
+        }
+        if (entity.getType().getId() == null) {
+            ActivityTypeEntity type = typeRepository.save(entity.getType());
+            entity.setType(type);
+        } else {
+            entity.setType(typeRepository.findById(entity.getType().getId()).orElseThrow());
+        }
     }
     
     private void updateActivity(EmissionActivityEntity entity, EmissionActivityEntity existing) {

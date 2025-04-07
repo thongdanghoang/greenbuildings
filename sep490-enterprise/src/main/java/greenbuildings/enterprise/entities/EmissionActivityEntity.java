@@ -28,6 +28,7 @@ import java.util.Set;
     name = EmissionActivityEntity.DETAILS_GRAPH,
     attributeNodes = {
         @NamedAttributeNode("building"),
+        @NamedAttributeNode("type"),
         @NamedAttributeNode(value = "emissionFactorEntity", subgraph = "emissionFactor")
     },
     subgraphs = {
@@ -70,9 +71,9 @@ public class EmissionActivityEntity extends AbstractAuditableEntity {
     @Column(name = "name")
     private String name;
     
-    @Size(max = 255)
-    @Column(name = "type")
-    private String type;
+    @ManyToOne
+    @JoinColumn(name = "type_id")
+    private ActivityTypeEntity type;
     
     @Size(max = 255)
     @Column(name = "category")

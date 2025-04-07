@@ -74,4 +74,7 @@ public class BuildingEntity extends AbstractAuditableEntity {
     @OneToMany(mappedBy = "building", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
     private Set<EmissionActivityEntity> emissionActivities = new HashSet<>();
     
+    @OneToMany(mappedBy = "building", orphanRemoval = true, fetch = FetchType.LAZY)
+    private Set<ActivityTypeEntity> activityTypes = new HashSet<>();
+    
 }

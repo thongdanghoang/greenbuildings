@@ -30,9 +30,23 @@ export interface EmissionActivity extends BaseDTO {
   buildingID: UUID;
   emissionFactorID: UUID;
   name: string;
+  type: ActivityType;
+  category: string;
+  description: string;
+}
+
+export interface CreateNewActivityDTO extends BaseDTO {
+  buildingID: UUID;
+  emissionFactorID: UUID;
+  name: string;
   type: string;
   category: string;
   description: string;
+}
+
+export interface ActivityType extends BaseDTO {
+  name: string;
+  buildingID: UUID;
 }
 
 export interface DownloadReport {
@@ -47,7 +61,7 @@ export interface EmissionActivityDetails extends BaseDTO {
   building: Building;
   emissionFactor: EmissionFactorDTO;
   name: string;
-  type: string;
+  type: ActivityType;
   category: string;
   description: string;
   quantity: number;
