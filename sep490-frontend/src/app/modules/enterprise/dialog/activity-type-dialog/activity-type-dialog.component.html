@@ -1,0 +1,42 @@
+<!-- activity-type-dialog.component.html -->
+<div class="w-[300px] sm:w-[400px] md:w-[500px] mt-4">
+    <!-- Dialog Header -->
+    <div class="p-dialog-header p-0 border-b">
+        <span class="text-xl font-semibold">
+            {{ "enterprise.type.name" | translate }}
+        </span>
+        <button
+            pButton
+            type="button"
+            icon="pi pi-times"
+            class="p-button-rounded p-button-text"
+            (click)="closeDialog()"
+        ></button>
+    </div>
+
+    <!-- Form Content -->
+    <div
+        class="p-0 min-h-[150px] p-dialog-content flex flex-col overflow-hidden"
+    >
+        <form [formGroup]="formGroup">
+            <p-iftalabel class="my-2">
+                <input
+                    pInputText
+                    formControlName="name"
+                    class="w-full"
+                    autocomplete="off"
+                />
+                <label>{{ "common.name" | translate }}</label>
+            </p-iftalabel>
+        </form>
+        <div class="flex justify-end mt-2">
+            <p-button
+                label="{{ 'common.save' | translate }}"
+                icon="pi pi-check"
+                severity="primary"
+                [disabled]="formGroup.invalid"
+                (onClick)="submit()"
+            ></p-button>
+        </div>
+    </div>
+</div>

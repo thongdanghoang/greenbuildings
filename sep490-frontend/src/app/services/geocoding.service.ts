@@ -19,12 +19,25 @@ export interface AddressSuggestion {
 })
 export class GeocodingService {
   private readonly GEOCODING_API_URL: string = `${AppRoutingConstants.ENTERPRISE_API_URL}/${AppRoutingConstants.GEOCODING_PATH}`;
-
+  private readonly apiKey = 'MGjVW7pUXfGtN0ygOnivcBob2qNp0rwGWwzQdx7A'; // Thay bằng API key của bạn
+  private readonly baseUrl = 'https://rsapi.goong.io/Place/AutoComplete';
   constructor(private readonly httpClient: HttpClient) {}
 
   reverse(latitude: number, longitude: number): Observable<AddressSuggestion> {
     return this.httpClient.get<AddressSuggestion>(
       `${this.GEOCODING_API_URL}/reverse?latitude=${latitude}&longitude=${longitude}`
     );
+  }
+
+  getPlaceAutocomplete(input: string, location?: string): Observable<any> {
+    const url = `${this.baseUrl}?api_key=${this.apiKey}&input=${encodeURIComponent(input)}${
+      location ? `&location=${location}` : ''
+    }`;
+    return this.httpClient.get(url);
+  }
+
+  getPlaceDetail(placeId: string): Observable<any> {
+    const url = `https://rsapi.goong.io/Place/Detail?place_id=${placeId}&api_key=${this.apiKey}`;
+    return this.httpClient.get(url);
   }
 }

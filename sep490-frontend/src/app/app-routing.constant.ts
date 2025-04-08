@@ -31,7 +31,7 @@ export class AppRoutingConstants {
     'emission-activity-detail';
   public static readonly PLAN_PATH = 'plan';
   public static readonly PAYMENT_PATH = 'payment';
-
+  public static readonly ACTIVITY_TYPE = 'activity-type';
   // Emissions Module
   public static readonly EMISSIONS_PATH = 'emissions';
 

@@ -277,7 +277,18 @@
       }
     },
     "permissionInBuilding": "Permission In Buildings",
-    "userInBuildings": "User in buildings"
+    "userInBuildings": "User in buildings",
+    "type": {
+      "name": "Activity Type",
+      "add": "Add Activity Type",
+      "deleteWithCount": "Delete ({{count}}) activity type",
+      "message": {
+        "success": {
+          "summary": "Success",
+          "detail": "Activity Type Deleted"
+        }
+      }
+    }
   },
   "enum": {
     "role": {
@@ -357,6 +368,7 @@
       "building": "Building",
       "manage": "Manage",
       "users": "Users",
+      "activityType": "Activity Type",
       "subscription": "Subscription",
       "payment": "Payment",
       "settings": {

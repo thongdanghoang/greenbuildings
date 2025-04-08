@@ -22,5 +22,10 @@ public interface ActivityTypeMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "name", source = "name")
     @Mapping(target = "enterprise.id", source = "enterpriseId")
-    void updateEntity(ActivityTypeDTO dto, @MappingTarget ActivityTypeEntity entity);
+    ActivityTypeEntity updateEntity(ActivityTypeDTO dto, @MappingTarget ActivityTypeEntity entity);
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "name", source = "name")
+    @Mapping(target = "enterprise.id", source = "enterpriseId")
+    ActivityTypeEntity createEntity(ActivityTypeDTO dto);
 } 

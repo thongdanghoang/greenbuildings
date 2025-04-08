@@ -276,7 +276,12 @@
       }
     },
     "permissionInBuilding": "建筑许可",
-    "userInBuildings": "建筑物内用户"
+    "userInBuildings": "建筑物内用户",
+    "type": {
+      "name": "活动类型",
+      "add": "添加活动类型",
+      "deleteWithCount": "删除 ({{count}} 个活动类型"
+    }
   },
   "enum": {
     "role": {
@@ -357,6 +362,7 @@
       "manage": "管理",
       "users": "用户",
       "subscription": "订阅",
+      "activityType": "活动类型",
       "payment": "支付",
       "settings": {
         "label": "设置",

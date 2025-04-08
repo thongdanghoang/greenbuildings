@@ -277,7 +277,12 @@
       }
     },
     "permissionInBuilding": "Quyền trong tòa nhà",
-    "userInBuildings": "Người dùng trong tòa nhà"
+    "userInBuildings": "Người dùng trong tòa nhà",
+    "type": {
+      "name": "Loại hoạt động",
+      "add": "Thêm Loại Hoạt Động",
+      "deleteWithCount": "Xóa ({{count}}) loại hoạt động"
+    }
   },
   "enum": {
     "role": {
@@ -357,6 +362,7 @@
       "building": "Tòa nhà",
       "manage": "Quản lý",
       "users": "Người sử dụng",
+      "activityType": "Loại hoạt động",
       "subscription": "Nạp",
       "payment": "Thanh toán",
       "settings": {

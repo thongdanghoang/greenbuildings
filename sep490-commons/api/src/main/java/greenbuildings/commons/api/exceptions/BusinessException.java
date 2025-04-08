@@ -53,7 +53,7 @@ public class BusinessException extends RuntimeException {
         this(null, i18nKey, args);
     }
     
-    protected BusinessException(String i18nKey) {
+    public BusinessException(String i18nKey) {
         this(null, i18nKey, List.of());
     }
     

@@ -1,4 +1,12 @@
-<span>
+<div class="flex justify-between items-center mb-4">
+    <div class="font-medium text-2xl">
+        {{
+            (isEdit
+                ? "enterprise.buildings.details.edit"
+                : "enterprise.buildings.details.create"
+            ) | translate
+        }}
+    </div>
     <p-button
         (onClick)="back()"
         class="*:min-w-28"
@@ -7,16 +15,9 @@
         outlined="true"
         icon="pi pi-arrow-left"
     />
-</span>
-
-<div class="font-medium text-2xl">
-    {{
-        (isEdit
-            ? "enterprise.buildings.details.edit"
-            : "enterprise.buildings.details.create"
-        ) | translate
-    }}
 </div>
+
+<!-- Hiển thị form khi showForm là true -->
 
 <form
     [formGroup]="formGroup"
@@ -90,10 +91,33 @@
         <span></span>
     </ng-container>
     <div class="flex flex-col gap-2" errorMessages>
-        <label class="font-medium text-lg" for="address">{{
+        <label class="font-medium text-lg">{{
             "enterprise.buildings.details.labels.address" | translate
         }}</label>
-        <input pInputText formControlName="address" id="address" />
+        <p-inputgroup>
+            <p-autoComplete
+                class="w-full"
+                [style]="{ width: '100%' }"
+                [inputStyle]="{ width: '100%' }"
+                formControlName="address"
+                [suggestions]="addressSuggestions"
+                (completeMethod)="searchAddress($event)"
+                (onSelect)="onSelectAddress($event)"
+                optionLabel="description"
+                [minLength]="2"
+                [dropdown]="false"
+                [forceSelection]="false"
+                placeholder="Enter address"
+            />
+            <p-inputgroup-addon>
+                <p-button
+                    (onClick)="showMapView()"
+                    icon="pi pi-map"
+                    severity="secondary"
+                    class="h-full"
+                />
+            </p-inputgroup-addon>
+        </p-inputgroup>
         <form-field-error></form-field-error>
     </div>
     <ng-container *ngIf="hasSubscription">
@@ -121,19 +145,21 @@
             [outlined]="true"
         />
         <p-button
-            (onClick)="submit()"
+            (onClick)="onSubmit()"
             class="*:min-w-16"
             label="{{ (isEdit ? 'common.save' : 'common.create') | translate }}"
         />
     </div>
 </form>
 
-<ng-template>
-    <p-floatlabel variant="on">
-        <input pInputText formControlName="name" id="on_label" />
-        <label for="on_label">On Label</label>
-    </p-floatlabel>
-</ng-template>
+<!-- Hiển thị bản đồ khi showMap là true -->
+@if (showMap) {
+    <div style="height: 400px; width: 100%; margin-bottom: 20px">
+        <div id="map" style="height: 100%; width: 100%"></div>
+    </div>
+}
+
+<!-- Các phần khác giữ nguyên -->
 @if (isEdit) {
     <div class="flex items-center justify-center lg:justify-start">
         <p class="text-primary font-bold px-4">
