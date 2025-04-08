@@ -214,6 +214,9 @@
                     />
                 </div>
             </ng-template>
+            <ng-template #ghgTemplate let-rowData>
+                {{ rowData.ghg | number: "1.0-0" }}
+            </ng-template>
         </p-card>
     </div>
 </div>

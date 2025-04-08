@@ -1,10 +1,13 @@
 package greenbuildings.enterprise.services.impl;
 
+import greenbuildings.enterprise.entities.ChemicalDensityEntity;
 import greenbuildings.enterprise.entities.EmissionActivityEntity;
 import greenbuildings.enterprise.entities.EmissionActivityRecordEntity;
 import greenbuildings.enterprise.entities.EmissionFactorEntity;
 import greenbuildings.enterprise.entities.EnergyConversionEntity;
 import greenbuildings.enterprise.enums.EmissionUnit;
+import greenbuildings.enterprise.enums.UnitCategory;
+import greenbuildings.enterprise.repositories.ChemicalDensityRepository;
 import greenbuildings.enterprise.repositories.EmissionActivityRepository;
 import greenbuildings.enterprise.services.CalculationService;
 import greenbuildings.enterprise.utils.CalculationUtils;
@@ -24,6 +27,7 @@ import java.util.UUID;
 public class CalculationServiceImpl implements CalculationService {
     
     private final EmissionActivityRepository activityRepo;
+    private final ChemicalDensityRepository chemicalDensityRepo;
     
     @Override
     public List<EmissionActivityRecordEntity> calculate(UUID activityId, List<EmissionActivityRecordEntity> content) {
@@ -63,18 +67,47 @@ public class CalculationServiceImpl implements CalculationService {
         Pair<EmissionUnit, BigDecimal> factorReadyValue = Pair.of(inputFactor, CalculationUtils.convertUnit(
                 rawMeasurement.getLeft(), inputFactor, rawMeasurement.getRight()));
         
-        Pair<EmissionUnit, BigDecimal> emissionResult = Pair.of(
-                outputFactor,  // typically KILOGRAM for CO2e
-                CalculationUtils.calculateCO2e(
-                        factor.getCo2().multiply(factorReadyValue.getRight()),   // CO2 contribution
-                        factor.getCh4().multiply(factorReadyValue.getRight()),   // CH4 contribution
-                        factor.getN2o().multiply(factorReadyValue.getRight())));   // N2O contribution
-        
-        Pair<EmissionUnit, BigDecimal> kilogramResult = Pair.of(
-                EmissionUnit.KILOGRAM,
-                CalculationUtils.convertUnit(emissionResult.getLeft(), EmissionUnit.KILOGRAM, emissionResult.getRight()));
-        
-        return kilogramResult.getRight();
+        if (outputFactor.getCategory().equals(UnitCategory.MASS)) {
+            Pair<EmissionUnit, BigDecimal> emissionResult = Pair.of(
+                    outputFactor,  // typically KILOGRAM for CO2e
+                    CalculationUtils.calculateCO2e(
+                            factor.getCo2().multiply(factorReadyValue.getRight()),   // CO2 contribution
+                            factor.getCh4().multiply(factorReadyValue.getRight()),   // CH4 contribution
+                            factor.getN2o().multiply(factorReadyValue.getRight())));   // N2O contribution
+            
+            Pair<EmissionUnit, BigDecimal> kilogramResult = Pair.of(
+                    EmissionUnit.KILOGRAM,
+                    CalculationUtils.convertUnit(emissionResult.getLeft(), EmissionUnit.KILOGRAM, emissionResult.getRight()));
+            
+            return kilogramResult.getRight();
+        } else if (outputFactor.getCategory().equals(UnitCategory.VOLUME)) {
+            List<ChemicalDensityEntity> densities = chemicalDensityRepo.findAll();
+            // input unit -> volume -> volume cubic -> kg -> utils -> final
+            ChemicalDensityEntity co2 = densities.stream().filter(x -> x.getChemicalFormula().equals("CO2")).findFirst().orElseThrow();
+            ChemicalDensityEntity ch4 = densities.stream().filter(x -> x.getChemicalFormula().equals("CH4")).findFirst().orElseThrow();
+            ChemicalDensityEntity n2o = densities.stream().filter(x -> x.getChemicalFormula().equals("N2O")).findFirst().orElseThrow();
+            
+            Pair<EmissionUnit, BigDecimal>  co2Volume = Pair.of(outputFactor, factorReadyValue.getRight().multiply(factor.getCo2()));
+            Pair<EmissionUnit, BigDecimal>  ch4Volume = Pair.of(outputFactor, factorReadyValue.getRight().multiply(factor.getCh4()));
+            Pair<EmissionUnit, BigDecimal>  n2oVolume = Pair.of(outputFactor, factorReadyValue.getRight().multiply(factor.getN2o()));
+            
+            co2Volume = Pair.of(co2.getUnitDenominator(), CalculationUtils.convertUnit(co2Volume.getLeft(), co2.getUnitDenominator(), co2Volume.getRight()));
+            ch4Volume = Pair.of(ch4.getUnitDenominator(), CalculationUtils.convertUnit(ch4Volume.getLeft(), ch4.getUnitDenominator(), ch4Volume.getRight()));
+            n2oVolume = Pair.of(n2o.getUnitDenominator(), CalculationUtils.convertUnit(n2oVolume.getLeft(), n2o.getUnitDenominator(), n2oVolume.getRight()));
+            
+            Pair<EmissionUnit, BigDecimal> co2Mass = Pair.of(co2.getUnitNumerator(), co2Volume.getRight().multiply(BigDecimal.valueOf(co2.getValue())));
+            Pair<EmissionUnit, BigDecimal> n2oMass = Pair.of(n2o.getUnitNumerator(), n2oVolume.getRight().multiply(BigDecimal.valueOf(n2o.getValue())));
+            Pair<EmissionUnit, BigDecimal> ch4Mass = Pair.of(ch4.getUnitNumerator(), ch4Volume.getRight().multiply(BigDecimal.valueOf(ch4.getValue())));
+            
+            co2Mass = Pair.of(EmissionUnit.KILOGRAM, CalculationUtils.convertUnit(co2Mass.getLeft(), EmissionUnit.KILOGRAM, co2Mass.getRight()));
+            n2oMass = Pair.of(EmissionUnit.KILOGRAM, CalculationUtils.convertUnit(n2oMass.getLeft(), EmissionUnit.KILOGRAM, n2oMass.getRight()));
+            ch4Mass = Pair.of(EmissionUnit.KILOGRAM, CalculationUtils.convertUnit(ch4Mass.getLeft(), EmissionUnit.KILOGRAM, ch4Mass.getRight()));
+            
+            Pair<EmissionUnit, BigDecimal> finalResult = Pair.of(EmissionUnit.KILOGRAM, CalculationUtils.calculateCO2e(co2Mass.getRight(),ch4Mass.getRight(), n2oMass.getRight()));
+            return finalResult.getRight();
+        }
+        log.error("Mismatch unit of factor unit");
+        return BigDecimal.ZERO;
     }
     
     private void calculateIndirectly(EmissionFactorEntity factor, List<EmissionActivityRecordEntity> content) {
