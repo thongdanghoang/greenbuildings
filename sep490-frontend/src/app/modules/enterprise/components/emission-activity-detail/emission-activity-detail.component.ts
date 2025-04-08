@@ -74,6 +74,8 @@ export class EmissionActivityDetailComponent
   fileTemplate!: TemplateRef<any>;
   @ViewChild('actionsTemplate', {static: true})
   actionsTemplate!: TemplateRef<any>;
+  @ViewChild('ghgTemplate', {static: true})
+  ghgTemplate!: TemplateRef<any>;
   searchEvent = new EventEmitter<void>();
   clearSelectedEvent = new EventEmitter<void>();
   fetchRecords!: (
@@ -180,7 +182,8 @@ export class EmissionActivityDetailComponent
         field: 'ghg',
         header: 'enterprise.emission.activity.record.table.ghg',
         sortable: true,
-        sortField: 'quantity'
+        sortField: 'quantity',
+        templateRef: this.ghgTemplate
       },
       {
         field: 'startDate',
