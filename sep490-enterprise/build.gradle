@@ -39,6 +39,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.kafka:spring-kafka'
 	implementation 'vn.payos:payos-java:1.0.3'
+	implementation 'org.apache.poi:poi-ooxml:5.4.1'
 
 	// Testing
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'

@@ -21,5 +21,5 @@ public interface BuildingService {
     
     List<BuildingEntity> findBuildingsByEnterpriseId(UUID enterpriseId);
     
-    void generateReport(DownloadReportDTO downloadReport);
+    byte[] generateReport(DownloadReportDTO downloadReport);
 }

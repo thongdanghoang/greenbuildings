@@ -13,7 +13,10 @@ import greenbuildings.enterprise.services.BuildingService;
 import greenbuildings.enterprise.services.EnterpriseService;
 import jakarta.annotation.security.RolesAllowed;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -69,17 +72,28 @@ public class BuildingController {
         var createdBuilding = buildingService.createBuilding(building);
         return ResponseEntity.status(HttpStatus.CREATED).body(buildingMapper.toDto(createdBuilding));
     }
-
+    
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteBuilding(@PathVariable UUID id) {
-         buildingService.deleteBuilding(id);
+        buildingService.deleteBuilding(id);
         return ResponseEntity.noContent().build();
     }
-
+    
     @PostMapping("/generate-report")
-    public ResponseEntity<Void> generateReport(@RequestBody DownloadReportDTO downloadReport) {
-        buildingService.generateReport(downloadReport);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<ByteArrayResource> generateReport(@RequestBody DownloadReportDTO downloadReport) {
+        byte[] result = buildingService.generateReport(downloadReport);
+        
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=report.xlsx");
+        headers.add(HttpHeaders.CACHE_CONTROL, "no-cache, no-store, must-revalidate");
+        headers.add(HttpHeaders.PRAGMA, "no-cache");
+        headers.add(HttpHeaders.EXPIRES, "0");
+        
+        return ResponseEntity.ok()
+                             .headers(headers)
+                             .contentLength(result.length)
+                             .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                             .body(new ByteArrayResource(result));
     }
     
 }
