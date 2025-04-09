@@ -264,6 +264,7 @@
             "unit": "Đơn vị",
             "startDate": "Ngày bắt đầu",
             "endDate": "Ngày kết thúc",
+            "dateRange": "Khoảng thời gian",
             "factor": "Hệ số phát thải",
             "source": "Nguồn phát thải",
             "quantity": "Số hoạt động",
@@ -281,6 +282,7 @@
     "type": {
       "name": "Loại hoạt động",
       "add": "Thêm Loại Hoạt Động",
+      "description": "Loại hoạt động là loại hoạt động mà doanh nghiệp có thể chọn để tạo bản ghi hoạt động.",
       "deleteWithCount": "Xóa ({{count}}) loại hoạt động"
     }
   },

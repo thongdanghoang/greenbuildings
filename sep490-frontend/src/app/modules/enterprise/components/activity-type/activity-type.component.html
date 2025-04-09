@@ -2,6 +2,9 @@
     <h1 class="text-lg font-bold text-primary">
         {{ "enterprise.type.name" | translate }}
     </h1>
+    <p>
+        {{ "enterprise.type.description" | translate }}
+    </p>
 </div>
 <table-template
     *ngIf="!applicationService.isMobile()"
@@ -50,7 +53,6 @@
                 outlined
                 [disabled]="!selected || !selected.length"
                 (onClick)="confirmDelete()"
-                size="small"
             />
             <p-button
                 severity="primary"
@@ -58,7 +60,6 @@
                 icon="pi pi-user-plus"
                 outlined
                 (onClick)="addEmissionSource()"
-                size="small"
             />
         </div>
     </div>
@@ -71,7 +72,6 @@
             [text]="true"
             severity="info"
             (onClick)="onEdit(rowData)"
-            size="small"
         />
         <p-button
             icon="pi pi-trash"
@@ -79,7 +79,6 @@
             [text]="true"
             severity="danger"
             (onClick)="onDelete(rowData)"
-            size="small"
         />
     </div>
 </ng-template>

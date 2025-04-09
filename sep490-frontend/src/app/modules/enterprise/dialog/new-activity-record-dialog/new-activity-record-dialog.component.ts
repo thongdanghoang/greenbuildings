@@ -56,8 +56,9 @@ export class NewActivityRecordDialogComponent extends AbstractFormComponent<Emis
       version: new FormControl(0),
       value: new FormControl(0, [Validators.required, Validators.min(0)]),
       unit: new FormControl('', [Validators.required]),
-      startDate: new FormControl(new Date(), [Validators.required]),
-      endDate: new FormControl(new Date(), [Validators.required]),
+      startDate: new FormControl(new Date()),
+      rangeDates: new FormControl([], [Validators.required]),
+      endDate: new FormControl(new Date()),
       quantity: new FormControl(0, [Validators.required, Validators.min(0)])
     };
   }
@@ -69,6 +70,27 @@ export class NewActivityRecordDialogComponent extends AbstractFormComponent<Emis
 
   /* eslint-disable dot-notation */
   override prepareDataBeforeSubmit(): void {
+    if (
+      this.formGroup.controls['rangeDates'].value.length !== 2 &&
+      this.formGroup.controls['rangeDates'].value.length !== 1
+    ) {
+      this.formGroup.controls['rangeDates'].setErrors({
+        invalid: true
+      });
+      return;
+    }
+    this.formGroup.controls['startDate'].setValue(
+      this.formGroup.controls['rangeDates'].value[0]
+    );
+    if (this.formGroup.controls['rangeDates'].value[1]) {
+      this.formGroup.controls['endDate'].setValue(
+        this.formGroup.controls['rangeDates'].value[1]
+      );
+    } else {
+      this.formGroup.controls['endDate'].setValue(
+        this.formGroup.controls['rangeDates'].value[0]
+      );
+    }
     if (
       this.formGroup.controls['startDate'].value >
       this.formGroup.controls['endDate'].value
@@ -150,6 +172,10 @@ export class NewActivityRecordDialogComponent extends AbstractFormComponent<Emis
       this.formGroup.controls['endDate'].setValue(
         new Date(this.data.editRecord.endDate)
       );
+      this.formGroup.controls['rangeDates'].setValue([
+        new Date(this.data.editRecord.startDate),
+        new Date(this.data.editRecord.endDate)
+      ]);
       this.formGroup.controls['value'].setValue(this.data.editRecord.value);
       this.formGroup.controls['unit'].setValue(this.data.editRecord.unit);
       this.formGroup.controls['quantity'].setValue(
@@ -159,7 +185,6 @@ export class NewActivityRecordDialogComponent extends AbstractFormComponent<Emis
       this.formGroup.controls['version'].setValue(this.data.editRecord.version);
     }
   }
-  /* eslint-enable dot-notation */
 
   onDownloadFile(): void {
     this.emissionActivityRecordService
@@ -176,6 +201,7 @@ export class NewActivityRecordDialogComponent extends AbstractFormComponent<Emis
   removeFile(): void {
     //
   }
+  /* eslint-enable dot-notation */
 
   onCancel(): void {
     this.dialogRef.close();
