@@ -380,7 +380,8 @@
       "creditRatio": "Tỷ lệ tín dụng",
       "emissionSource": "Nguồn phát thải",
       "fuel": "Nhiên liệu",
-      "emissionFactor": "Hệ số phát thải"
+      "emissionFactor": "Hệ số phát thải",
+      "chemicalDensity": "Mật độ hóa học"
     }
   },
   "admin": {
@@ -440,6 +441,13 @@
       "conversionValue": "Giá trị chuyển đổi",
       "conversionUnitNumerator": "Tử số đơn vị chuyển đổi",
       "conversionUnitDenominator": "Mẫu số đơn vị chuyển đổi"
+    },
+    "chemicalDensity": {
+      "formal": "Công thức hóa học",
+      "value": "Giá trị",
+      "unitNumerator": "Tử số đơn vị",
+      "unitDenominator": "Mẫu số đơn vị",
+      "add": "Thêm công thức hóa học"
     }
   },
   "dialog": {

@@ -1,0 +1,78 @@
+<!-- chemical-density-dialog.component.html -->
+<div class="mt-4 w-[300px] sm:w-[400px] md:w-[500px]">
+    <!-- Dialog Header -->
+    <div class="p-dialog-header border-b p-0">
+        <span class="text-xl font-semibold">
+            {{ "sidebar.admin.chemicalDensity" | translate }}
+        </span>
+        <button
+            pButton
+            type="button"
+            icon="pi pi-times"
+            class="p-button-rounded p-button-text"
+            (click)="closeDialog()"
+        ></button>
+    </div>
+
+    <!-- Form Content -->
+    <div
+        class="p-dialog-content flex min-h-[400px] flex-col overflow-hidden p-0"
+    >
+        <form [formGroup]="formGroup" class="p-4">
+            <p-iftalabel class="my-2">
+                <input
+                    pInputText
+                    formControlName="chemicalFormula"
+                    class="w-full"
+                    autocomplete="off"
+                />
+                <label>{{ "admin.chemicalDensity.formal" | translate }}</label>
+            </p-iftalabel>
+
+            <p-iftalabel class="my-2">
+                <input
+                    pInputText
+                    type="number"
+                    formControlName="value"
+                    class="w-full"
+                    autocomplete="off"
+                />
+                <label>{{ "admin.chemicalDensity.value" | translate }}</label>
+            </p-iftalabel>
+
+            <p-iftalabel class="my-2">
+                <p-dropdown
+                    [options]="emissionUnits"
+                    formControlName="unitNumerator"
+                    class="w-full"
+                    [showClear]="true"
+                ></p-dropdown>
+                <label>{{
+                    "admin.chemicalDensity.unitNumerator" | translate
+                }}</label>
+            </p-iftalabel>
+
+            <p-iftalabel class="my-2">
+                <p-dropdown
+                    [options]="emissionUnits"
+                    formControlName="unitDenominator"
+                    class="w-full"
+                    [showClear]="true"
+                ></p-dropdown>
+                <label>{{
+                    "admin.chemicalDensity.unitDenominator" | translate
+                }}</label>
+            </p-iftalabel>
+        </form>
+
+        <div class="mt-2 flex justify-end p-4">
+            <p-button
+                label="{{ 'common.save' | translate }}"
+                icon="pi pi-check"
+                severity="primary"
+                [disabled]="formGroup.invalid"
+                (onClick)="submit()"
+            ></p-button>
+        </div>
+    </div>
+</div>

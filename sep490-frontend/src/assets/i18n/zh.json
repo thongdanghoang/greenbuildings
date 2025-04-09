@@ -379,7 +379,8 @@
       "creditRatio": "信贷比率",
       "emissionSource": "排放源",
       "fuel": "燃料",
-      "emissionFactor": "排放因子"
+      "emissionFactor": "排放因子",
+      "chemicalDensity": "化學密度"
     }
   },
   "admin": {
@@ -439,6 +440,13 @@
       "conversionValue": "转换值",
       "conversionUnitNumerator": "转换单位分子",
       "conversionUnitDenominator": "转换单位分母"
+    },
+    "chemicalDensity": {
+      "formal": "化學式",
+      "value": "值",
+      "unitNumerator": "單位分子",
+      "unitDenominator": "單位分母",
+      "add": "添加化學式"
     }
   },
   "dialog": {

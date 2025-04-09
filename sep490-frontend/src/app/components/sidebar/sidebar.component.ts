@@ -145,6 +145,7 @@ export class SidebarComponent
     ];
   }
 
+  // eslint-disable-next-line max-lines-per-function
   private buildAdminMenu(): MenuItem[] {
     return [
       {
@@ -174,6 +175,11 @@ export class SidebarComponent
             label: 'sidebar.admin.emissionFactor',
             icon: 'pi pi-sliders-h',
             route: `/${AppRoutingConstants.ADMIN_PATH}/${AppRoutingConstants.EMISSION_FACTOR}`
+          },
+          {
+            label: 'sidebar.admin.chemicalDensity',
+            icon: 'pi pi-sparkles',
+            route: `/${AppRoutingConstants.ADMIN_PATH}/${AppRoutingConstants.CHEMICAL_DENSITY}`
           }
         ]
       }

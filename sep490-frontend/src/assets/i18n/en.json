@@ -386,7 +386,8 @@
      "creditRatio": "Credit Ratio",
      "emissionSource": "Emission Source",
      "fuel": "Fuel",
-     "emissionFactor": "Emission Factor"
+     "emissionFactor": "Emission Factor",
+     "chemicalDensity": "Chemical Density"
    }
   },
   "admin": {
@@ -446,6 +447,13 @@
       "conversionValue": "Conversion Value",
       "conversionUnitNumerator": "Conversion Unit Numerator",
       "conversionUnitDenominator": "Conversion Unit Denominator"
+    },
+    "chemicalDensity": {
+      "formal": "Chemical Formula",
+      "value": "Value",
+      "unitNumerator": "Unit Numerator",
+      "unitDenominator": "Unit Denominator",
+      "add": "Add Chemical Formula"
     }
   },
   "dialog": {

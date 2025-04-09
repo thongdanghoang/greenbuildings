@@ -18,6 +18,9 @@ import {FuelDialogComponent} from './dialog/fuel-dialog/fuel-dialog.component';
 import {EmissionFactorComponent} from './components/emission-factor/emission-factor.component';
 import {EmissionFactorService} from './services/emission_factor.service';
 import {EmissionFactorDialogComponent} from './dialog/emission-factor-dialog/emission-factor-dialog.component';
+import {ChemicalDensityComponent} from './components/chemical-density/chemical-density.component';
+import {ChemicalDensityService} from './services/chemical-density.service';
+import {ChemicalDensityDialogComponent} from './dialog/chemical-density-dialog/chemical-density-dialog.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +34,9 @@ import {EmissionFactorDialogComponent} from './dialog/emission-factor-dialog/emi
     EmissionSourceDialogComponent,
     FuelDialogComponent,
     EmissionFactorComponent,
-    EmissionFactorDialogComponent
+    EmissionFactorDialogComponent,
+    ChemicalDensityComponent,
+    ChemicalDensityDialogComponent
   ],
   imports: [SharedModule, AdminRoutingModule],
   providers: [
@@ -39,7 +44,8 @@ import {EmissionFactorDialogComponent} from './dialog/emission-factor-dialog/emi
     CreditConvertRatioService,
     EmissionSourceService,
     FuelConversionService,
-    EmissionFactorService
+    EmissionFactorService,
+    ChemicalDensityService
   ]
 })
 export class AdminModule {}
