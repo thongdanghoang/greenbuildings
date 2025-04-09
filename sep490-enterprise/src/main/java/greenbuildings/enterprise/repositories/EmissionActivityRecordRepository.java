@@ -17,6 +17,8 @@ import java.util.UUID;
 public interface EmissionActivityRecordRepository extends JpaRepository<EmissionActivityRecordEntity, UUID>, JpaSpecificationExecutor<EmissionActivityRecordEntity> {
     Page<EmissionActivityRecordEntity> findAllByEmissionActivityEntityId(UUID emissionActivityId, Pageable pageable);
     
+    List<EmissionActivityRecordEntity> findAllByEmissionActivityEntityId(UUID emissionActivityId);
+    
     Integer countAllByIdIn(Set<UUID> ids);
     
     default boolean existsAllById(Set<UUID> ids) {
