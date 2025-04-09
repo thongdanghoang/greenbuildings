@@ -16,16 +16,39 @@
             >
                 <div class="text-center p-6">
                     <h5
-                        class="text-white uppercase tracking-widest font-bold mb-4"
+                        class="text-white uppercase tracking-widest lg:font-bold md:font-bold font-medium mb-8"
+                        style="
+                            text-shadow:
+                                1px 1px 0 #666,
+                                -1px -1px 0 #666,
+                                1px -1px 0 #666,
+                                -1px 1px 0 #666;
+                        "
                     >
                         {{ item.title }}
                     </h5>
                     <h1
-                        class="text-white text-5xl md:text-7xl font-bold mb-4 capitalize"
+                        class="text-white text-xl md:text-3xl lg:text-3xl font-bold mb-6 capitalize"
+                        style="
+                            text-shadow:
+                                1px 1px 0 #666,
+                                -1px -1px 0 #666,
+                                1px -1px 0 #666,
+                                -1px 1px 0 #666;
+                        "
                     >
                         {{ item.subtitle | translate }}
                     </h1>
-                    <p class="text-white text-lg mb-5">
+                    <p
+                        class="text-white lg:text-lg md:text-lg text-sm mt-6"
+                        style="
+                            text-shadow:
+                                1px 1px 0 #666,
+                                -1px -1px 0 #666,
+                                1px -1px 0 #666,
+                                -1px 1px 0 #666;
+                        "
+                    >
                         {{ item.description | translate }}
                     </p>
                 </div>
@@ -205,22 +228,27 @@
 </div>
 <!-- Team Section End -->
 <!-- Testimonial Section Start -->
-<div class="bg-primary py-16">
-    <div class="container mx-auto px-6 lg:px-36">
-        <!-- Section Title -->
-        <div class="text-center mb-10 animate-fadeInUp">
-            <h4 class="text-lg font-semibold uppercase tracking-wide">
-                {{ "landingPage.testimonial.title" | translate }}
-            </h4>
-            <h1 class="text-4xl md:text-5xl font-bold mt-2">
-                {{ "landingPage.testimonial.subtitle" | translate }}
-            </h1>
-            <p class="mt-5">
-                {{ "landingPage.testimonial.description" | translate }}
-            </p>
+<!-- Testimonial Section Start -->
+<div class="py-16">
+    <div class="container mx-auto px-6 lg:px-20">
+        <!-- Thẻ con với màu nền và chiều rộng giới hạn -->
+        <div class="max-w-full bg-primary rounded-lg py-8">
+            <!-- Section Title -->
+            <div class="text-center mb-10 animate-fadeInUp py-4 px-8">
+                <h4 class="text-lg font-semibold uppercase tracking-wide">
+                    {{ "landingPage.testimonial.title" | translate }}
+                </h4>
+                <h1 class="text-4xl md:text-5xl font-bold mt-2">
+                    {{ "landingPage.testimonial.subtitle" | translate }}
+                </h1>
+                <p class="mt-5">
+                    {{ "landingPage.testimonial.description" | translate }}
+                </p>
+            </div>
         </div>
     </div>
 </div>
+<!-- Testimonial Section End -->
 <!-- Testimonial Section End -->
 <!-- Blog Section Start -->
 <div class="py-16">
