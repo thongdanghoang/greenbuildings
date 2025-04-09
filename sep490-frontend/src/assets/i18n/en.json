@@ -264,6 +264,7 @@
             "unit": "Unit",
             "startDate": "Start Date",
             "endDate": "End Date",
+            "dateRange": "Date Range",
             "factor": "Emission Factor",
             "source": "Emission Source",
             "quantity": "Number of activities",
@@ -280,6 +281,7 @@
     "userInBuildings": "User in buildings",
     "type": {
       "name": "Activity Type",
+      "description": "Activity Type is the type of activity that the enterprise can choose from to create an activity record.",
       "add": "Add Activity Type",
       "deleteWithCount": "Delete ({{count}}) activity type",
       "message": {

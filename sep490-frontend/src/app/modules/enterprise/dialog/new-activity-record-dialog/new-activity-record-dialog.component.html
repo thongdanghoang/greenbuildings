@@ -91,34 +91,16 @@
         </p>
         <p-iftalabel class="my-2">
             <p-date-picker
-                formControlName="startDate"
                 class="w-full"
+                formControlName="rangeDates"
+                selectionMode="range"
+                [readonlyInput]="true"
                 [style]="{ width: '100%' }"
                 [inline]="true"
-                [placeholder]="
-                    'enterprise.emission.activity.record.table.startDate'
-                        | translate
-                "
             ></p-date-picker>
             <label>{{
-                "enterprise.emission.activity.record.table.startDate"
+                "enterprise.emission.activity.record.table.dateRange"
                     | translate
-            }}</label>
-        </p-iftalabel>
-
-        <p-iftalabel class="my-2">
-            <p-date-picker
-                [inline]="true"
-                formControlName="endDate"
-                class="w-full"
-                [style]="{ width: '100%' }"
-                [placeholder]="
-                    'enterprise.emission.activity.record.table.endDate'
-                        | translate
-                "
-            ></p-date-picker>
-            <label>{{
-                "enterprise.emission.activity.record.table.endDate" | translate
             }}</label>
         </p-iftalabel>
 

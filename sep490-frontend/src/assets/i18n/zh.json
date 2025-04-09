@@ -263,6 +263,7 @@
             "unit": "单位",
             "startDate": "开始日期",
             "endDate": "结束日期",
+            "dateRange": "日期范围",
             "factor": "排放系数",
             "source": "排放源",
             "quantity": "活动数量",
@@ -280,6 +281,7 @@
     "type": {
       "name": "活动类型",
       "add": "添加活动类型",
+      "description": "活动类型是企业可以选择创建活动记录的活动类型。",
       "deleteWithCount": "删除 ({{count}} 个活动类型"
     }
   },
