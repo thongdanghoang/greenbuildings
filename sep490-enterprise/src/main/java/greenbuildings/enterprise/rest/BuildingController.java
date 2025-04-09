@@ -1,5 +1,6 @@
 package greenbuildings.enterprise.rest;
 
+import commons.springfw.impl.controller.AbstractRestController;
 import commons.springfw.impl.mappers.CommonMapper;
 import commons.springfw.impl.securities.UserContextData;
 import greenbuildings.commons.api.dto.SearchCriteriaDTO;
@@ -20,6 +21,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.AbstractController;
 
 import java.util.List;
 import java.util.Objects;
@@ -32,7 +34,7 @@ import java.util.UUID;
         UserRole.RoleNameConstant.ENTERPRISE_OWNER,
         UserRole.RoleNameConstant.ENTERPRISE_EMPLOYEE
 })
-public class BuildingController {
+public class BuildingController extends AbstractRestController {
     
     private final BuildingMapper buildingMapper;
     private final BuildingService buildingService;
@@ -82,18 +84,7 @@ public class BuildingController {
     @PostMapping("/generate-report")
     public ResponseEntity<ByteArrayResource> generateReport(@RequestBody DownloadReportDTO downloadReport) {
         byte[] result = buildingService.generateReport(downloadReport);
-        
-        HttpHeaders headers = new HttpHeaders();
-        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=report.xlsx");
-        headers.add(HttpHeaders.CACHE_CONTROL, "no-cache, no-store, must-revalidate");
-        headers.add(HttpHeaders.PRAGMA, "no-cache");
-        headers.add(HttpHeaders.EXPIRES, "0");
-        
-        return ResponseEntity.ok()
-                             .headers(headers)
-                             .contentLength(result.length)
-                             .contentType(MediaType.APPLICATION_OCTET_STREAM)
-                             .body(new ByteArrayResource(result));
+        return generateFileDownloadResponse(new ByteArrayResource(result));
     }
     
 }
