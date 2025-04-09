@@ -7,13 +7,17 @@ import greenbuildings.enterprise.dtos.DownloadReportDTO;
 import greenbuildings.enterprise.entities.BuildingEntity;
 import greenbuildings.enterprise.entities.EmissionActivityEntity;
 import greenbuildings.enterprise.entities.EmissionActivityRecordEntity;
+import greenbuildings.enterprise.enums.EmissionUnit;
 import greenbuildings.enterprise.repositories.BuildingRepository;
 import greenbuildings.enterprise.repositories.EmissionActivityRecordRepository;
 import greenbuildings.enterprise.repositories.EmissionActivityRepository;
 import greenbuildings.enterprise.services.BuildingService;
+import greenbuildings.enterprise.services.CalculationService;
+import greenbuildings.enterprise.utils.CalculationUtils;
 import lombok.RequiredArgsConstructor;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.data.domain.Page;
@@ -25,6 +29,8 @@ import org.springframework.util.ResourceUtils;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,6 +45,7 @@ public class BuildingServiceImpl implements BuildingService {
     private final BuildingRepository buildingRepository;
     private final EmissionActivityRecordRepository recordRepo;
     private final EmissionActivityRepository activityRepo;
+    private final CalculationService calculationService;
     
     @Override
     public BuildingEntity createBuilding(BuildingEntity building) {
@@ -90,6 +97,7 @@ public class BuildingServiceImpl implements BuildingService {
             records.put(activity, recordsByActivity);
         }
         try {
+            // TODO: store file in cache
             File file = ResourceUtils.getFile("classpath:files/Template_Report.xlsx");
             XSSFWorkbook workbook = new XSSFWorkbook(file);
             XSSFSheet sheet = workbook.getSheetAt(0);
@@ -98,20 +106,34 @@ public class BuildingServiceImpl implements BuildingService {
             for (Map.Entry<EmissionActivityEntity, List<EmissionActivityRecordEntity>> entry : records.entrySet()) {
                 EmissionActivityEntity activity = entry.getKey();
                 List<EmissionActivityRecordEntity> activityRecords = entry.getValue();
-                
+                calculationService.calculate(activity.getId(), activityRecords);
+                int startRow = rowIdx;
+                int endRow = rowIdx + activityRecords.size() - 1;
                 for (EmissionActivityRecordEntity recordEntity : activityRecords) {
                     Row row = sheet.createRow(rowIdx++);
                     int colIdx = 0;
                     
                     row.createCell(colIdx++).setCellValue(activity.getName());
-                    row.createCell(colIdx++).setCellValue(activity.getEmissionFactorEntity().getNameVN());
                     row.createCell(colIdx++).setCellValue(activity.getEmissionFactorEntity().getSource().getNameVN());
-                    row.createCell(colIdx++).setCellValue("Nang luong");
-                    row.createCell(colIdx++).setCellValue(recordEntity.getStartDate().toString());
-                    row.createCell(colIdx++).setCellValue(0);
-                    row.createCell(colIdx++).setCellValue(0);
+                    row.createCell(colIdx++).setCellValue(activity.getEmissionFactorEntity().getNameVN());
+                    if (activity.getEmissionFactorEntity().getEnergyConversion() != null) {
+                        row.createCell(colIdx++).setCellValue(activity.getEmissionFactorEntity().getEnergyConversion().getFuel().getNameVN());
+                    } else {
+                        row.createCell(colIdx++).setCellValue("-");
+                    }
+                    row.createCell(colIdx++).setCellValue(recordEntity.getStartDate().toString() + "-" + recordEntity.getEndDate().toString());
+                    row.createCell(colIdx++).setCellValue(recordEntity.getValue().toString());
+                    row.createCell(colIdx++).setCellValue(recordEntity.getQuantity());
                     row.createCell(colIdx++).setCellValue(recordEntity.getUnit().name());
-                    row.createCell(colIdx++).setCellValue(0);
+                    BigDecimal ghg = recordEntity.getGhg().setScale(2, RoundingMode.HALF_UP);
+                    ghg = CalculationUtils.convertUnit(EmissionUnit.KILOGRAM, EmissionUnit.GIGAGRAM, ghg);
+                    row.createCell(colIdx++).setCellValue(ghg.toString());
+                }
+                if (endRow > startRow) {
+                    sheet.addMergedRegion(new CellRangeAddress(startRow, endRow, 0, 0));
+                    sheet.addMergedRegion(new CellRangeAddress(startRow, endRow, 1, 1));
+                    sheet.addMergedRegion(new CellRangeAddress(startRow, endRow, 2, 2));
+                    sheet.addMergedRegion(new CellRangeAddress(startRow, endRow, 3, 3));
                 }
             }
             
