@@ -52,12 +52,6 @@ public class EmissionActivityRecordServiceImpl implements EmissionActivityRecord
     }
     
     @Override
-    public EmissionActivityRecordEntity addOrUpdate(EmissionActivityRecordEntity entity) {
-        return recordRepository.save(entity);
-    }
-    
-    
-    @Override
     public void createWithFile(EmissionActivityRecordEntity record, MultipartFile file) {
         boolean isSaving = record.getId() == null;
         
@@ -68,10 +62,13 @@ public class EmissionActivityRecordServiceImpl implements EmissionActivityRecord
         }
     }
     
-    private void newRecord(EmissionActivityRecordEntity record, MultipartFile file) {
-        record = recordRepository.save(record);
+    private void newRecord(EmissionActivityRecordEntity entity, MultipartFile file) {
+        if (recordRepository.existsByEmissionActivityEntityIdAndDateOverlap(entity.getEmissionActivityEntity().getId(), entity.getStartDate(), entity.getEndDate())) {
+            throw new BusinessException("rangeDates", "business.record.dateOverlap");
+        }
+        entity = recordRepository.save(entity);
         if (file != null) {
-            String minioPath = minioService.uploadFile(file, record.getId().toString());
+            String minioPath = minioService.uploadFile(file, entity.getId().toString());
             
             RecordFileEntity fileEntity = new RecordFileEntity();
             fileEntity.setFileName(file.getOriginalFilename());
@@ -79,19 +76,22 @@ public class EmissionActivityRecordServiceImpl implements EmissionActivityRecord
             fileEntity.setFileSize(file.getSize());
             fileEntity.setMinioPath(minioPath);
             fileEntity.setUploadDate(LocalDateTime.now());
-            fileEntity.setRecord(record);
-            record.setFile(fileEntity);
+            fileEntity.setRecord(entity);
+            entity.setFile(fileEntity);
             
-            recordRepository.save(record);
+            recordRepository.save(entity);
         }
     }
     
-    private void updateRecord(EmissionActivityRecordEntity record, MultipartFile file) {
-        EmissionActivityRecordEntity existing = recordRepository.findById(record.getId()).orElseThrow();
+    private void updateRecord(EmissionActivityRecordEntity entity, MultipartFile file) {
+        if (recordRepository.otherExistsByEmissionActivityEntityIdAndDateOverlap(entity.getId(), entity.getEmissionActivityEntity().getId(), entity.getStartDate(), entity.getEndDate())) {
+            throw new BusinessException("rangeDates", "business.record.dateOverlap");
+        }
+        EmissionActivityRecordEntity existing = recordRepository.findById(entity.getId()).orElseThrow();
         
         if (file == null) {
-            record.setFile(existing.getFile());
-            recordRepository.save(record);
+            entity.setFile(existing.getFile());
+            recordRepository.save(entity);
         } else {
             try {
                 if (existing.getFile() != null) {
@@ -99,7 +99,7 @@ public class EmissionActivityRecordServiceImpl implements EmissionActivityRecord
                     fileRepository.delete(existing.getFile());
                 }
                 
-                String minioPath = minioService.uploadFile(file, record.getId().toString());
+                String minioPath = minioService.uploadFile(file, entity.getId().toString());
                 
                 RecordFileEntity fileEntity = new RecordFileEntity();
                 fileEntity.setFileName(file.getOriginalFilename());
@@ -107,10 +107,10 @@ public class EmissionActivityRecordServiceImpl implements EmissionActivityRecord
                 fileEntity.setFileSize(file.getSize());
                 fileEntity.setMinioPath(minioPath);
                 fileEntity.setUploadDate(LocalDateTime.now());
-                fileEntity.setRecord(record);
-                record.setFile(fileEntity);
+                fileEntity.setRecord(entity);
+                entity.setFile(fileEntity);
                 
-                recordRepository.save(record);
+                recordRepository.save(entity);
             } catch (Exception e) {
                 throw new TechnicalException(e);
             }

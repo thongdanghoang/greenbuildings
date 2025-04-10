@@ -14,8 +14,6 @@ import java.util.UUID;
 public interface EmissionActivityRecordService {
     Page<EmissionActivityRecordEntity> search(SearchCriteriaDTO<EmissionActivityRecordCriteria> searchCriteria);
 
-    EmissionActivityRecordEntity addOrUpdate(EmissionActivityRecordEntity entity);
-    
     void deleteRecords(Set<UUID> ids);
     
     // File operations

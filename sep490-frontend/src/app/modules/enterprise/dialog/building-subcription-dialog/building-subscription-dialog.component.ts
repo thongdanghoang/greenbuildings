@@ -1,26 +1,14 @@
-import {Component} from '@angular/core';
-import moment from 'moment';
-import {AbstractFormComponent} from '../../../shared/components/form/abstract-form-component';
-import {multipleOfValidator} from '../../../shared/validators/MultipleOfValidator';
-import {
-  Building,
-  BuildingDetails,
-  CreditConvertRatio,
-  CreditConvertType,
-  TransactionType
-} from '../../models/enterprise.dto';
-import {
-  AbstractControl,
-  FormBuilder,
-  FormControl,
-  Validators
-} from '@angular/forms';
 import {HttpClient} from '@angular/common/http';
-import {MessageService} from 'primeng/api';
+import {Component} from '@angular/core';
+import {AbstractControl, FormBuilder, FormControl, Validators} from '@angular/forms';
 import {TranslateService} from '@ngx-translate/core';
+import moment from 'moment';
+import {MessageService} from 'primeng/api';
 import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
-import {SubscriptionService} from '../../services/subscription.service';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
+import {AbstractFormComponent} from '../../../shared/components/form/abstract-form-component';
+import {Building, BuildingDetails, CreditConvertRatio, CreditConvertType, TransactionType} from '../../models/enterprise.dto';
+import {SubscriptionService} from '../../services/subscription.service';
 
 export interface SubscriptionDialogOptions {
   selectedBuildingDetails: BuildingDetails;
@@ -142,9 +130,8 @@ export class BuildingSubscriptionDialogComponent extends AbstractFormComponent<v
   setValidators(): void {
     if (this.data.type === TransactionType.NEW_PURCHASE) {
       this.formStructure.numberOfDevices.setValidators([
-        Validators.min(50),
-        Validators.required,
-        multipleOfValidator(50)
+        Validators.min(1),
+        Validators.required
       ]);
       this.formStructure.months.setValidators([
         Validators.min(1),
@@ -152,10 +139,7 @@ export class BuildingSubscriptionDialogComponent extends AbstractFormComponent<v
         Validators.required
       ]);
     } else {
-      this.formStructure.numberOfDevices.setValidators([
-        Validators.min(0),
-        multipleOfValidator(50)
-      ]);
+      this.formStructure.numberOfDevices.setValidators([Validators.min(1)]);
       this.formStructure.months.setValidators([
         Validators.min(0),
         Validators.max(100)

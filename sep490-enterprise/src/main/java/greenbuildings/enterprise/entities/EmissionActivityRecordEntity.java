@@ -55,10 +55,6 @@ public class EmissionActivityRecordEntity extends AbstractAuditableEntity {
     @JoinColumn(name = "file_id", referencedColumnName = "id")
     private RecordFileEntity file;
     
-    @Min(0)
-    @Column(name = "quantity")
-    private int quantity;
-    
     @Transient
     private BigDecimal ghg;
 }

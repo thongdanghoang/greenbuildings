@@ -14,7 +14,8 @@ import java.util.Set;
 import java.util.UUID;
 
 @Repository
-public interface EmissionActivityRecordRepository extends JpaRepository<EmissionActivityRecordEntity, UUID>, JpaSpecificationExecutor<EmissionActivityRecordEntity> {
+public interface EmissionActivityRecordRepository
+        extends JpaRepository<EmissionActivityRecordEntity, UUID>, JpaSpecificationExecutor<EmissionActivityRecordEntity> {
     Page<EmissionActivityRecordEntity> findAllByEmissionActivityEntityId(UUID emissionActivityId, Pageable pageable);
     
     List<EmissionActivityRecordEntity> findAllByEmissionActivityEntityId(UUID emissionActivityId);
@@ -26,13 +27,28 @@ public interface EmissionActivityRecordRepository extends JpaRepository<Emission
     }
     
     List<EmissionActivityRecordEntity> findAllByIdIn(Set<UUID> ids);
-
+    
     @Query("""
-            SELECT e
-            FROM EmissionActivityRecordEntity e
-            WHERE e.emissionActivityEntity.id = :emissionActivityId
-            AND ((e.startDate BETWEEN :startDate AND :endDate)
-                OR (e.endDate BETWEEN :startDate AND :endDate))
-    """)
-    List<EmissionActivityRecordEntity> findAllByEmissionActivityEntityIdAndDateBetween(UUID emissionActivityId, LocalDate startDate, LocalDate endDate);
+                SELECT CASE WHEN COUNT(e) > 0 THEN true ELSE false END
+                FROM EmissionActivityRecordEntity e
+                WHERE e.emissionActivityEntity.id = :emissionActivityId
+                AND (
+                    (e.startDate < :endDate AND e.endDate > :startDate)
+                )
+            """)
+    boolean existsByEmissionActivityEntityIdAndDateOverlap(UUID emissionActivityId, LocalDate startDate, LocalDate endDate);
+    
+    
+    @Query("""
+                SELECT CASE WHEN COUNT(e) > 0 THEN true ELSE false END
+                FROM EmissionActivityRecordEntity e
+                WHERE e.id <> :recordId
+                AND e.emissionActivityEntity.id = :emissionActivityId
+                AND (
+                    (e.startDate < :endDate AND e.endDate > :startDate)
+                )
+            """)
+    boolean otherExistsByEmissionActivityEntityIdAndDateOverlap(UUID recordId, UUID emissionActivityId, LocalDate startDate, LocalDate endDate);
+    
+    
 }
