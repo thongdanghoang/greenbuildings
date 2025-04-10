@@ -1,7 +1,10 @@
 import {UUID} from '../../../../types/uuid';
 import {BuildingPermissionRole} from '../../authorization/enums/building-permission-role';
 import {BaseDTO} from '../../shared/models/base-models';
-import {EmissionFactorDTO, EmissionUnit} from '../../shared/models/shared-models';
+import {
+  EmissionFactorDTO,
+  EmissionUnit
+} from '../../shared/models/shared-models';
 
 export interface Building extends BaseDTO {
   name: string;

@@ -1,12 +1,20 @@
 import {HttpClient} from '@angular/common/http';
 import {Component} from '@angular/core';
-import {AbstractControl, FormBuilder, FormControl, Validators} from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormControl,
+  Validators
+} from '@angular/forms';
 import {TranslateService} from '@ngx-translate/core';
 import {MessageService} from 'primeng/api';
 import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
 import {takeUntil} from 'rxjs';
 import {AbstractFormComponent} from '../../../shared/components/form/abstract-form-component';
-import {EmissionFactorDTO, EmissionUnit} from '../../../shared/models/shared-models';
+import {
+  EmissionFactorDTO,
+  EmissionUnit
+} from '../../../shared/models/shared-models';
 import {UnitService} from '../../../shared/services/unit.service';
 import {EmissionActivityRecord} from '../../models/enterprise.dto';
 import {EmissionActivityRecordService} from '../../services/emission-activity-record.service';

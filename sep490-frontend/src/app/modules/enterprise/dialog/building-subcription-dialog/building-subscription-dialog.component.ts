@@ -1,13 +1,24 @@
 import {HttpClient} from '@angular/common/http';
 import {Component} from '@angular/core';
-import {AbstractControl, FormBuilder, FormControl, Validators} from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormControl,
+  Validators
+} from '@angular/forms';
 import {TranslateService} from '@ngx-translate/core';
 import moment from 'moment';
 import {MessageService} from 'primeng/api';
 import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
 import {AbstractFormComponent} from '../../../shared/components/form/abstract-form-component';
-import {Building, BuildingDetails, CreditConvertRatio, CreditConvertType, TransactionType} from '../../models/enterprise.dto';
+import {
+  Building,
+  BuildingDetails,
+  CreditConvertRatio,
+  CreditConvertType,
+  TransactionType
+} from '../../models/enterprise.dto';
 import {SubscriptionService} from '../../services/subscription.service';
 
 export interface SubscriptionDialogOptions {
