@@ -2,10 +2,10 @@
     <h1 class="text-lg font-bold text-primary">
         {{ "enterprise.type.name" | translate }}
     </h1>
-    <p>
-        {{ "enterprise.type.description" | translate }}
-    </p>
 </div>
+<p>
+    {{ "enterprise.type.description" | translate }}
+</p>
 <table-template
     *ngIf="!applicationService.isMobile()"
     [fetch]="fetchUsers"
