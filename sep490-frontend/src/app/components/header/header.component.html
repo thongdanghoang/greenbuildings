@@ -46,15 +46,13 @@
 
 <ng-template #desktopQuickActions>
     @if (authenticated | async) {}
-
+    <ng-container *ngTemplateOutlet="toggleDarkLight" />
+    <ng-container *ngTemplateOutlet="selectLanguage" />
     @if (authenticated | async) {
         <ng-container *ngTemplateOutlet="avatar" />
     } @else {
         <ng-container *ngTemplateOutlet="btnLogin" />
     }
-
-    <ng-container *ngTemplateOutlet="toggleDarkLight" />
-    <ng-container *ngTemplateOutlet="selectLanguage" />
 </ng-template>
 
 <ng-template #avatar
