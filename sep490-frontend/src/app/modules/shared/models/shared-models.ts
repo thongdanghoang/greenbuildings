@@ -81,3 +81,10 @@ export interface EmissionFactorDTO extends BaseDTO {
   energyConversionDTO?: EnergyConversionDTO;
   active: boolean;
 }
+
+export interface ChemicalDensityDTO extends BaseDTO {
+  chemicalFormula: string;
+  value: number;
+  unitNumerator: EmissionUnit;
+  unitDenominator: EmissionUnit;
+}
