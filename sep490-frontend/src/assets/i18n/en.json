@@ -66,6 +66,9 @@
       },
       "createEnterprise": {
         "alreadyExists": "User has already linked to an enterprise"
+      },
+      "record": {
+        "dateOverlap": "Record date must not overlap with other records"
       }
     },
     "emissionFactor": {

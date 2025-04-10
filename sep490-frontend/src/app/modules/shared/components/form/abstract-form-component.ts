@@ -1,11 +1,6 @@
 import {HttpClient} from '@angular/common/http';
 import {Directive, OnInit} from '@angular/core';
-import {
-  AbstractControl,
-  FormArray,
-  FormBuilder,
-  FormGroup
-} from '@angular/forms';
+import {AbstractControl, FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {TranslateService} from '@ngx-translate/core';
 import {MessageService} from 'primeng/api';
 import {of, take, takeUntil} from 'rxjs';
@@ -207,7 +202,7 @@ export abstract class AbstractFormComponent<T>
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected showSaveSuccessNotification(result: any): void {
     this.notificationService.add({
-      severity: this.translate.instant('success'),
+      severity: 'success',
       summary: this.translate.instant('common.success'),
       detail: this.translate.instant('common.saveSuccess')
     });
@@ -236,8 +231,8 @@ export abstract class AbstractFormComponent<T>
         }
       } else {
         this.notificationService.add({
-          severity: this.translate.instant('error'),
-          summary: this.translate.instant('common.error'),
+          severity: 'error',
+          summary: this.translate.instant('common.error.title'),
           detail: this.translate.instant(`validation.${result.i18nKey}`)
         });
       }

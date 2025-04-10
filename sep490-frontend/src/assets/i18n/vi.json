@@ -66,6 +66,9 @@
       },
       "createEnterprise": {
         "alreadyExists": "Người dùng đã liên kết với doanh nghiệp khác"
+      },
+      "record": {
+        "dateOverlap": "Ngày bản ghi phát thải không được trùng lặp với ngày bản ghi phát thải khác"
       }
     },
     "emissionFactor": {

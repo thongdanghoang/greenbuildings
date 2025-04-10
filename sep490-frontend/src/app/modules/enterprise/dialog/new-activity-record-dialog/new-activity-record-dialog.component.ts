@@ -1,20 +1,12 @@
 import {HttpClient} from '@angular/common/http';
 import {Component} from '@angular/core';
-import {
-  AbstractControl,
-  FormBuilder,
-  FormControl,
-  Validators
-} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormControl, Validators} from '@angular/forms';
 import {TranslateService} from '@ngx-translate/core';
 import {MessageService} from 'primeng/api';
 import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
 import {takeUntil} from 'rxjs';
 import {AbstractFormComponent} from '../../../shared/components/form/abstract-form-component';
-import {
-  EmissionFactorDTO,
-  EmissionUnit
-} from '../../../shared/models/shared-models';
+import {EmissionFactorDTO, EmissionUnit} from '../../../shared/models/shared-models';
 import {UnitService} from '../../../shared/services/unit.service';
 import {EmissionActivityRecord} from '../../models/enterprise.dto';
 import {EmissionActivityRecordService} from '../../services/emission-activity-record.service';
@@ -57,9 +49,11 @@ export class NewActivityRecordDialogComponent extends AbstractFormComponent<Emis
       value: new FormControl(0, [Validators.required, Validators.min(0)]),
       unit: new FormControl('', [Validators.required]),
       startDate: new FormControl(new Date()),
-      rangeDates: new FormControl([], [Validators.required]),
-      endDate: new FormControl(new Date()),
-      quantity: new FormControl(0, [Validators.required, Validators.min(0)])
+      rangeDates: new FormControl(
+        [],
+        [Validators.required, Validators.min(2), Validators.max(2)]
+      ),
+      endDate: new FormControl(new Date())
     };
   }
 
@@ -69,6 +63,7 @@ export class NewActivityRecordDialogComponent extends AbstractFormComponent<Emis
   }
 
   /* eslint-disable dot-notation */
+  // eslint-disable-next-line max-lines-per-function
   override prepareDataBeforeSubmit(): void {
     if (
       this.formGroup.controls['rangeDates'].value.length !== 2 &&
@@ -100,6 +95,21 @@ export class NewActivityRecordDialogComponent extends AbstractFormComponent<Emis
         this.formGroup.controls['endDate'].value
       );
       this.formGroup.controls['endDate'].setValue(temp);
+    }
+
+    if (
+      this.formGroup.controls['startDate'].value > Date.now() ||
+      this.formGroup.controls['endDate'].value > Date.now()
+    ) {
+      this.notificationService.add({
+        severity: 'error',
+        sticky: true,
+        detail: this.translate.instant(
+          'enterprise.emission.activity.record.dateWarning'
+        ),
+        summary: this.translate.instant('common.error.title')
+      });
+      this.formGroup.controls['rangeDates'].setValue([]);
     }
   }
   /* eslint-enable dot-notation */
@@ -150,18 +160,17 @@ export class NewActivityRecordDialogComponent extends AbstractFormComponent<Emis
       summary: this.translate.instant('common.success'),
       detail: this.translate.instant('common.saveSuccess')
     });
-    if (
-      this.formGroup.controls['startDate'].value > Date.now() ||
-      this.formGroup.controls['endDate'].value > Date.now()
-    ) {
+    this.dialogRef.close(true);
+  }
+
+  override onSubmitFormRequestError(error: any): void {
+    if (error.error.field === 'rangeDates') {
       this.notificationService.add({
-        severity: 'warn',
-        summary: this.translate.instant(
-          'enterprise.emission.activity.record.dateWarning'
-        )
+        severity: 'error',
+        summary: this.translate.instant('common.error.title'),
+        detail: this.translate.instant(`validation.${error.error.i18nKey}`)
       });
     }
-    this.dialogRef.close(true);
   }
 
   handleUpdate(): void {
@@ -178,9 +187,6 @@ export class NewActivityRecordDialogComponent extends AbstractFormComponent<Emis
       ]);
       this.formGroup.controls['value'].setValue(this.data.editRecord.value);
       this.formGroup.controls['unit'].setValue(this.data.editRecord.unit);
-      this.formGroup.controls['quantity'].setValue(
-        this.data.editRecord.quantity
-      );
       this.formGroup.controls['id'].setValue(this.data.editRecord.id);
       this.formGroup.controls['version'].setValue(this.data.editRecord.version);
     }

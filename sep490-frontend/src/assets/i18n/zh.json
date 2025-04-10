@@ -66,6 +66,9 @@
       },
       "createEnterprise": {
         "alreadyExists": "用户已链接到其他企业"
+      },
+      "record": {
+        "dateOverlap": "排放记录日期不得与另一排放记录日期重叠"
       }
     },
     "emissionFactor": {

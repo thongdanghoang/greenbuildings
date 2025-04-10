@@ -15,7 +15,6 @@ import greenbuildings.enterprise.services.BuildingService;
 import greenbuildings.enterprise.services.CalculationService;
 import greenbuildings.enterprise.utils.CalculationUtils;
 import lombok.RequiredArgsConstructor;
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -24,10 +23,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.ResourceUtils;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
@@ -84,6 +81,7 @@ public class BuildingServiceImpl implements BuildingService {
     
     @Override
     public byte[] generateReport(DownloadReportDTO downloadReport) {
+        // TODO: excel template will display building info
         BuildingEntity building = buildingRepository.findById(downloadReport.buildingID()).orElseThrow();
         List<EmissionActivityEntity> activities = activityRepo.findAllByIdIn(downloadReport.selectedActivities());
         
@@ -124,11 +122,12 @@ public class BuildingServiceImpl implements BuildingService {
                     } else {
                         row.createCell(colIdx++).setCellValue("-");
                     }
-                    row.createCell(colIdx++).setCellValue(recordEntity.getStartDate().toString() + "-" + recordEntity.getEndDate().toString());
+                    row.createCell(colIdx++).setCellValue(recordEntity.getStartDate().toString());
+                    row.createCell(colIdx++).setCellValue(recordEntity.getEndDate().toString());
                     row.createCell(colIdx++).setCellValue(recordEntity.getValue().toString());
-                    row.createCell(colIdx++).setCellValue(recordEntity.getQuantity());
                     row.createCell(colIdx++).setCellValue(recordEntity.getUnit().name());
                     BigDecimal ghg = recordEntity.getGhg().setScale(2, RoundingMode.HALF_UP);
+                    row.createCell(colIdx++).setCellValue(ghg.toString());
                     ghg = CalculationUtils.convertUnit(EmissionUnit.KILOGRAM, EmissionUnit.GIGAGRAM, ghg);
                     row.createCell(colIdx++).setCellValue(ghg.toString());
                 }

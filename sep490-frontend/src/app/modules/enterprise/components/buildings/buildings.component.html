@@ -103,7 +103,9 @@
                                   | translate)
                         }}
                     </div>
-                    <div>{{ building.numberOfDevices }}</div>
+                    <div *ngIf="building.subscriptionDTO">
+                        {{ building.subscriptionDTO.maxNumberOfDevices }}
+                    </div>
                 </div>
                 <div></div>
                 @if (building.subscriptionDTO !== null) {

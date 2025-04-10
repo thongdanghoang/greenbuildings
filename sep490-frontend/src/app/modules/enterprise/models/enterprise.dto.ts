@@ -1,10 +1,7 @@
 import {UUID} from '../../../../types/uuid';
 import {BuildingPermissionRole} from '../../authorization/enums/building-permission-role';
 import {BaseDTO} from '../../shared/models/base-models';
-import {
-  EmissionFactorDTO,
-  EmissionUnit
-} from '../../shared/models/shared-models';
+import {EmissionFactorDTO, EmissionUnit} from '../../shared/models/shared-models';
 
 export interface Building extends BaseDTO {
   name: string;
@@ -70,7 +67,6 @@ export interface EmissionActivityDetails extends BaseDTO {
 export interface EmissionActivityRecord extends BaseDTO {
   value: number;
   unit: keyof typeof EmissionUnit;
-  quantity: number;
   startDate: Date;
   endDate: Date;
   file: EmissionActivityRecordFile;

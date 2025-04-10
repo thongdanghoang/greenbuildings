@@ -14,7 +14,6 @@ public record EmissionActivityRecordDTO(
         LocalDate startDate,
         LocalDate endDate,
         RecordFileDTO file,
-        int quantity,
         BigDecimal ghg
 ) {
 }
