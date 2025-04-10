@@ -29,6 +29,7 @@ import org.springframework.util.ResourceUtils;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.HashMap;
@@ -98,8 +99,10 @@ public class BuildingServiceImpl implements BuildingService {
         }
         try {
             // TODO: store file in cache
-            File file = ResourceUtils.getFile("classpath:files/Template_Report.xlsx");
-            XSSFWorkbook workbook = new XSSFWorkbook(file);
+            InputStream inputStream = Thread.currentThread()
+                                            .getContextClassLoader()
+                                            .getResourceAsStream("files/Template_Report.xlsx");
+            XSSFWorkbook workbook = new XSSFWorkbook(inputStream);
             XSSFSheet sheet = workbook.getSheetAt(0);
             int rowIdx = 2;
             
@@ -142,7 +145,7 @@ public class BuildingServiceImpl implements BuildingService {
                 
                 return byteArrayOutputStream.toByteArray();
             }
-        } catch (IOException | InvalidFormatException ex) {
+        } catch (IOException ex) {
             throw new TechnicalException(ex);
         }
     }
