@@ -1,6 +1,5 @@
 package greenbuildings.enterprise.adapters.payos.payos;
 
-import greenbuildings.enterprise.entities.CreditPackageEntity;
 import greenbuildings.enterprise.entities.CreditPackageVersionEntity;
 import greenbuildings.enterprise.entities.EnterpriseEntity;
 import greenbuildings.enterprise.entities.PaymentEntity;
@@ -90,7 +89,7 @@ public class PayOSAdapterImpl implements PayOSAdapter {
         return ItemData.builder()
                        .name(CREDIT_ITEM)
                        .quantity(creditPackageVersionEntity.getNumberOfCredits())
-                       .price(0) // total price will be set at PaymentData
+                       .price((int) creditPackageVersionEntity.getPrice()) // total price will be set at PaymentData
                        .build();
     }
     
