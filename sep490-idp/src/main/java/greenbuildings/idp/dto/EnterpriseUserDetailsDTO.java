@@ -19,7 +19,7 @@ public record EnterpriseUserDetailsDTO(
         int version,
         LocalDateTime createdDate,
         @NotBlank @Pattern(regexp = CommonConstant.EMAIL_PATTERN) String email,
-        @NotBlank @Pattern(regexp = CommonConstant.VIETNAM_PHONE_PATTERN) String phone,
+        @Pattern(regexp = CommonConstant.VIETNAM_PHONE_PATTERN) String phone,
         boolean emailVerified,
         @NotBlank String firstName,
         @NotBlank String lastName,
