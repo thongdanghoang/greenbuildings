@@ -30,8 +30,8 @@ import java.time.LocalDate;
 public class EmissionActivityRecordEntity extends AbstractAuditableEntity {
     
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "emission_activity_id")
-    private EmissionActivityEntity emissionActivityEntity;
+    @JoinColumn(name = "group_item_id")
+    private GroupItemEntity groupItem;
     
     @NotNull
     @Min(0)

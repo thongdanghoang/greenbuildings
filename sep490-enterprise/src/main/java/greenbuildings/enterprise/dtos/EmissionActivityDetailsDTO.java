@@ -14,7 +14,7 @@ public record EmissionActivityDetailsDTO(
         int version,
         
         @NotNull
-        BuildingDTO building,
+        BuildingGroupDTO buildingGroupDTO,
         
         @NotNull
         EmissionFactorDTO emissionFactor,

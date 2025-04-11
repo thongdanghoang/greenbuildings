@@ -27,7 +27,7 @@ import java.util.Set;
 @NamedEntityGraph(
     name = EmissionActivityEntity.DETAILS_GRAPH,
     attributeNodes = {
-        @NamedAttributeNode("building"),
+        @NamedAttributeNode("buildingGroup"),
         @NamedAttributeNode("type"),
         @NamedAttributeNode(value = "emissionFactorEntity", subgraph = "emissionFactor")
     },
@@ -56,15 +56,12 @@ public class EmissionActivityEntity extends AbstractAuditableEntity {
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "building_id")
-    private BuildingEntity building;
+    @JoinColumn(name = "building_group_id")
+    private BuildingGroupEntity buildingGroup;
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "emission_factor_id")
     private EmissionFactorEntity emissionFactorEntity;
-    
-    @OneToMany(mappedBy = "emissionActivityEntity", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, fetch = FetchType.LAZY)
-    private Set<EmissionActivityRecordEntity> records = new HashSet<>();
     
     @NotBlank
     @Size(max = 255)
@@ -82,10 +79,4 @@ public class EmissionActivityEntity extends AbstractAuditableEntity {
     @Size(max = 1000)
     @Column(name = "description")
     private String description;
-
-    public void addRecord(EmissionActivityRecordEntity iRecord) {
-        records.add(iRecord);
-        iRecord.setEmissionActivityEntity(this);
-    }
-    
 }
