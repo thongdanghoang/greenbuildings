@@ -70,10 +70,10 @@ public class BuildingEntity extends AbstractAuditableEntity {
     @Column(name = "longitude")
     private double longitude;
     
-    @OneToMany(mappedBy = "building", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
-    private Set<EmissionActivityEntity> emissionActivities = new HashSet<>();
-    
     @OneToMany(mappedBy = "building", orphanRemoval = true)
     private Set<SubscriptionEntity> subscriptions = new HashSet<>();
+    
+    @OneToMany(mappedBy = "building", orphanRemoval = true)
+    private Set<BuildingGroupEntity> buildingGroups = new HashSet<>();
     
 }

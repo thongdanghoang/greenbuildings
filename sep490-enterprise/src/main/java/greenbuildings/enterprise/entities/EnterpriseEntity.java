@@ -32,6 +32,9 @@ public class EnterpriseEntity extends AbstractAuditableEntity {
     @OneToMany(mappedBy = "enterprise", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<ActivityTypeEntity> activityTypes = new HashSet<>();
     
+    @OneToMany(mappedBy = "enterprise")
+    private Set<BuildingEntity> buildings = new HashSet<>();
+    
     @NotBlank
     @Column(name = "name", nullable = false)
     private String name;
