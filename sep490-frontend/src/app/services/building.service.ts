@@ -1,6 +1,6 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
+import {Observable, map} from 'rxjs';
 import {UUID} from '../../types/uuid';
 import {AppRoutingConstants} from '../app-routing.constant';
 import {
@@ -42,10 +42,22 @@ export class BuildingService {
   searchBuildings(
     searchCriteria: SearchCriteriaDto<void>
   ): Observable<SearchResultDto<Building>> {
-    return this.httpClient.post<SearchResultDto<Building>>(
-      `${AppRoutingConstants.ENTERPRISE_API_URL}/${AppRoutingConstants.BUILDING_PATH}/search`,
-      searchCriteria
-    );
+    return this.httpClient
+      .post<
+        SearchResultDto<Building>
+      >(`${AppRoutingConstants.ENTERPRISE_API_URL}/${AppRoutingConstants.BUILDING_PATH}/search`, searchCriteria)
+      .pipe(
+        map(response => {
+          return {
+            ...response,
+            results: response.results.sort((a, b) => {
+              const aHasSubscription = a.subscriptionDTO ? 1 : 0;
+              const bHasSubscription = b.subscriptionDTO ? 1 : 0;
+              return aHasSubscription - bHasSubscription;
+            })
+          };
+        })
+      );
   }
 
   searchUserByBuilding(

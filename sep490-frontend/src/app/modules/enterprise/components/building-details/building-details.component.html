@@ -145,11 +145,13 @@
             class="*:min-w-24"
             label="{{ 'common.revert' | translate }}"
             [outlined]="true"
+            size="small"
         />
         <p-button
             (onClick)="onSubmit()"
             class="*:min-w-16"
             label="{{ (isEdit ? 'common.save' : 'common.create') | translate }}"
+            size="small"
         />
     </div>
 </form>

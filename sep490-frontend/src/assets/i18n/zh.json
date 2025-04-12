@@ -125,6 +125,11 @@
       "enterPhone": "输入电话"
     }
   },
+  "header": {
+    "nav" : {
+      "Account": "账户"
+    }
+  },
   "enterprise": {
     "title": "企业",
     "create": {
@@ -202,7 +207,7 @@
         "labels": {
           "name": "建筑名称",
           "numberOfDevices": "预计活动数量",
-          "haveSubscriptionOfNumberOfDevices": "订阅中的最大活动数量",
+          "haveSubscriptionOfNumberOfDevices": "订阅中的最大数量",
           "maxNumberOfDevices": "估计建筑物内的活动库存量",
           "validFromInclusive": "有效日期",
           "validToInclusive": "有效日期",

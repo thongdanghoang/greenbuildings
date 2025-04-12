@@ -125,6 +125,11 @@
       "enterPhone": "Enter phone"
     }
   },
+  "header": {
+    "nav" : {
+      "Account": "Account"
+    }
+  },
   "enterprise": {
     "title": "Enterprise",
     "create": {
@@ -202,7 +207,7 @@
         "labels": {
           "name": "Building name",
           "numberOfDevices": "Expected number of activities",
-          "haveSubscriptionOfNumberOfDevices": "Max number of activities in subscription",
+          "haveSubscriptionOfNumberOfDevices": "Max number of activities",
           "maxNumberOfDevices": "Estimate the amount of activities inventory in the building",
           "validFromInclusive": "Valid from",
           "validToInclusive": "Valid to",

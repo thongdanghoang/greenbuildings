@@ -125,6 +125,11 @@
       "enterPhone": "Nhập điện thoại"
     }
   },
+  "header": {
+    "nav" : {
+      "Account": "Tài khoản"
+    }
+  },
   "enterprise": {
     "title": "Doanh nghiệp",
     "create": {
@@ -202,7 +207,7 @@
         "labels": {
           "name": "Tên tòa nhà",
           "numberOfDevices": "Số lượng hoạt động dự kiến",
-          "haveSubscriptionOfNumberOfDevices": "Số lượng hoạt động tối đa trong đăng ký",
+          "haveSubscriptionOfNumberOfDevices": "Số lượng hoạt động tối đa",
           "maxNumberOfDevices": "Ước tính số lượng hoạt động kiểm kê trong tòa nhà",
           "validFromInclusive": "Hiệu lực từ",
           "validToInclusive": "Hiệu lực đến",

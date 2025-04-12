@@ -1,16 +1,16 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
+import {Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
-import {Popover} from 'primeng/popover';
+import {MenuItem} from 'primeng/api';
+import {Drawer} from 'primeng/drawer';
 import {Observable, filter, map, switchMap, take, takeUntil} from 'rxjs';
+import {AppRoutingConstants} from '../../app-routing.constant';
 import {UserRole} from '../../modules/authorization/enums/role-names';
 import {ApplicationService} from '../../modules/core/services/application.service';
 import {ThemeService} from '../../modules/core/services/theme.service';
 import {SubscriptionAwareComponent} from '../../modules/core/subscription-aware.component';
 import {UserLocale} from '../../modules/shared/enums/user-language.enum';
 import {UserService} from '../../services/user.service';
-import {Router} from '@angular/router';
-import {MenuItem} from 'primeng/api';
-import {AppRoutingConstants} from '../../app-routing.constant';
 
 interface Language {
   display: string;
@@ -28,7 +28,8 @@ export class HeaderComponent
   implements OnInit
 {
   menuItems: MenuItem[] = [];
-  @ViewChild('op') op!: Popover;
+  userMenuMobileItems: MenuItem[] | undefined;
+  @ViewChild('drawerRef') drawerRef!: Drawer;
   protected readonly authenticated: Observable<boolean>;
   protected languages: Language[] | undefined;
   protected selectedLanguage: Language | undefined;
@@ -44,6 +45,7 @@ export class HeaderComponent
     super();
     this.authenticated = this.applicationService.isAuthenticated();
   }
+
   ngOnInit(): void {
     this.languages = [
       {display: 'Tiếng Việt', mobile: 'VI', key: UserLocale.VI},
@@ -51,6 +53,7 @@ export class HeaderComponent
       {display: '中文(简体)', mobile: 'ZH', key: UserLocale.ZH}
     ];
     this.buildMenuItems();
+    this.buildUserMenuMobileItems();
     this.selectedLanguage = {
       display: 'Tiếng Việt',
       mobile: 'VI',
@@ -72,6 +75,14 @@ export class HeaderComponent
     return void this.router.navigate(['/']);
   }
 
+  closeCallback(e: Event): void {
+    this.drawerRef.close(e);
+  }
+
+  get isMobile(): boolean {
+    return this.applicationService.isMobile();
+  }
+
   protected buildMenuItems(): void {
     this.applicationService
       .getUserRoles()
@@ -90,6 +101,21 @@ export class HeaderComponent
           command: (): void => this.logout()
         });
       });
+  }
+
+  protected buildUserMenuMobileItems(): void {
+    this.userMenuMobileItems = [
+      {
+        label: 'header.nav.Account',
+        items: [
+          {
+            label: 'common.profile',
+            icon: 'pi pi-user',
+            command: (): void => this.userProfile()
+          }
+        ]
+      }
+    ];
   }
 
   protected changeLanguage(language: Language): void {
@@ -120,7 +146,6 @@ export class HeaderComponent
     void this.router.navigate([
       `/${AppRoutingConstants.AUTH_PATH}/${AppRoutingConstants.USER_PROFILE}`
     ]);
-    this.op.hide();
   }
 
   protected get isDarkMode(): Observable<boolean> {
