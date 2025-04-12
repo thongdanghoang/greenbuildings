@@ -1,5 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
+import {Drawer} from 'primeng/drawer';
 import {Popover} from 'primeng/popover';
 import {Observable, filter, map, switchMap, take, takeUntil} from 'rxjs';
 import {UserRole} from '../../modules/authorization/enums/role-names';
@@ -28,7 +29,8 @@ export class HeaderComponent
   implements OnInit
 {
   menuItems: MenuItem[] = [];
-  @ViewChild('op') op!: Popover;
+  userMenuMobileItems: MenuItem[] | undefined;
+  @ViewChild('drawerRef') drawerRef!: Drawer;
   protected readonly authenticated: Observable<boolean>;
   protected languages: Language[] | undefined;
   protected selectedLanguage: Language | undefined;
@@ -51,6 +53,7 @@ export class HeaderComponent
       {display: '中文(简体)', mobile: 'ZH', key: UserLocale.ZH}
     ];
     this.buildMenuItems();
+    this.buildUserMenuMobileItems();
     this.selectedLanguage = {
       display: 'Tiếng Việt',
       mobile: 'VI',
@@ -72,6 +75,14 @@ export class HeaderComponent
     return void this.router.navigate(['/']);
   }
 
+  closeCallback(e: Event): void {
+    this.drawerRef.close(e);
+  }
+
+  get isMobile(): boolean {
+    return this.applicationService.isMobile();
+  }
+
   protected buildMenuItems(): void {
     this.applicationService
       .getUserRoles()
@@ -90,6 +101,21 @@ export class HeaderComponent
           command: (): void => this.logout()
         });
       });
+  }
+
+  protected buildUserMenuMobileItems(): void {
+    this.userMenuMobileItems = [
+      {
+        label: 'header.nav.Account',
+        items: [
+          {
+            label: 'common.profile',
+            icon: 'pi pi-user',
+            command: (): void => this.userProfile()
+          }
+        ]
+      }
+    ];
   }
 
   protected changeLanguage(language: Language): void {
@@ -120,7 +146,6 @@ export class HeaderComponent
     void this.router.navigate([
       `/${AppRoutingConstants.AUTH_PATH}/${AppRoutingConstants.USER_PROFILE}`
     ]);
-    this.op.hide();
   }
 
   protected get isDarkMode(): Observable<boolean> {

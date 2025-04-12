@@ -8,6 +8,7 @@ import greenbuildings.enterprise.repositories.EmissionFactorRepository;
 import greenbuildings.enterprise.services.EmissionFactorService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -27,7 +28,7 @@ public class EmissionFactorServiceImpl implements EmissionFactorService {
     private final EmissionFactorRepository emissionFactorRepository;
     
     @Override
-    @Cacheable("emissionFactors")
+    @Cacheable(value = "emissionFactors")
     public Set<EmissionFactorEntity> findAllAvailable() {
         return new HashSet<>(emissionFactorRepository.findAllByActiveIsTrueAndEmissionUnitDenominatorNotNullAndEmissionUnitNumeratorNotNull());
     }
@@ -55,6 +56,7 @@ public class EmissionFactorServiceImpl implements EmissionFactorService {
         return emissionFactorIDs.map(results::get);
     }
     
+    @CacheEvict(value = "emissionFactors", allEntries = true)
     public void delete(UUID id) {
         var emissionFactor = emissionFactorRepository.findById(id).orElseThrow();
         if (emissionFactor.isActive()) {

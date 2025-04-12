@@ -6,6 +6,7 @@
             (click)="goBack()"
             severity="primary"
             outlined="true"
+            size="small"
         ></p-button>
     </div>
     <div class="mb-2 mt-2 md:w-1/2">
@@ -65,8 +66,9 @@
                         class="flex-1"
                         severity="primary"
                         outlined
-                        styleClass="w-full h-12"
+                        styleClass="w-full"
                         (onClick)="generateReport()"
+                        size="small"
                     ></p-button>
 
                     <p-button
@@ -76,7 +78,8 @@
                         class="flex-1"
                         (onClick)="openNewActivityDialog()"
                         severity="primary"
-                        styleClass="w-full h-12"
+                        styleClass="w-full"
+                        size="small"
                     ></p-button>
                 </div>
             </ng-template>
@@ -130,6 +133,7 @@
                 outlined
                 [disabled]="!selected || !selected.length"
                 (onClick)="confirmDelete()"
+                size="small"
             />
         </div>
     </div>

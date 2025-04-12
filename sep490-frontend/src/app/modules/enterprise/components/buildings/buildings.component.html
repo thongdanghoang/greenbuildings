@@ -66,22 +66,37 @@
 }
 
 <ng-template #cardTemplate let-building>
-    <div class="box-shadow rounded border-t-2 border-t-primary *:w-full">
+    <div
+        class="box-shadow rounded border-t-2 *:w-full"
+        [class]="
+            building.subscriptionDTO
+                ? 'border-t-primary'
+                : 'border-t-yellow-500'
+        "
+    >
         <div
-            class="flex justify-between rounded-t bg-primary-50 p-4 dark:bg-primary-950"
+            class="flex flex-col justify-between gap-4 rounded-t p-2 lg:flex-row lg:gap-0 lg:p-4"
+            [class]="
+                building.subscriptionDTO
+                    ? 'bg-primary-50 dark:bg-primary-950'
+                    : 'bg-yellow-50 dark:bg-yellow-950'
+            "
         >
-            <div class="text-xl font-bold">{{ building.name }}</div>
-            <div>
-                <p-button
-                    icon="pi pi-map"
-                    text
-                    (onClick)="zoomTo(building.latitude, building.longitude)"
-                />
+            <div class="flex items-baseline gap-2">
+                <i class="pi pi-building"></i>
+                <div class="text-xl font-bold">{{ building.name }}</div>
+            </div>
+            <div class="flex justify-end">
                 <p-button
                     (onClick)="viewBuildingDetails(building.id)"
                     icon="pi pi-info"
                     text
                     severity="info"
+                />
+                <p-button
+                    icon="pi pi-map"
+                    text
+                    (onClick)="zoomTo(building.latitude, building.longitude)"
                 />
                 <p-button
                     icon="pi pi-trash"
@@ -91,31 +106,30 @@
                 />
             </div>
         </div>
-        <div class="border-b p-4 dark:bg-zinc-900">
-            <div class="grid grid-cols-5">
-                <div class="flex flex-col gap-1 lg:w-max">
-                    <div class="text-sm">
+        <div class="border-b p-2 lg:p-4 dark:bg-black">
+            <div class="flex flex-col gap-4 lg:flex-row lg:gap-8">
+                <div
+                    class="flex flex-col gap-1"
+                    *ngIf="building.subscriptionDTO"
+                >
+                    <small class="w-max">
                         {{
-                            building.subscriptionDTO
-                                ? ("enterprise.buildings.details.labels.haveSubscriptionOfNumberOfDevices"
-                                  | translate)
-                                : ("enterprise.buildings.details.labels.numberOfDevices"
-                                  | translate)
+                            "enterprise.buildings.details.labels.haveSubscriptionOfNumberOfDevices"
+                                | translate
                         }}
-                    </div>
-                    <div *ngIf="building.subscriptionDTO">
+                    </small>
+                    <div>
                         {{ building.subscriptionDTO.maxNumberOfDevices }}
                     </div>
                 </div>
-                <div></div>
                 @if (building.subscriptionDTO !== null) {
                     <div class="flex flex-col gap-1">
-                        <div class="text-sm">
+                        <small>
                             {{
                                 "enterprise.buildings.details.labels.validFromInclusive"
                                     | translate
                             }}
-                        </div>
+                        </small>
                         <div>
                             {{
                                 building.subscriptionDTO?.startDate
@@ -124,12 +138,12 @@
                         </div>
                     </div>
                     <div class="flex flex-col gap-1">
-                        <div class="text-sm">
+                        <small>
                             {{
                                 "enterprise.buildings.details.labels.validToInclusive"
                                     | translate
                             }}
-                        </div>
+                        </small>
                         <div>
                             {{
                                 building.subscriptionDTO?.endDate
@@ -139,19 +153,19 @@
                     </div>
                 }
                 <div class="flex flex-col gap-1">
-                    <div class="text-sm">
+                    <small>
                         {{
                             "enterprise.buildings.details.labels.address"
                                 | translate
                         }}
-                    </div>
+                    </small>
                     <div>
                         {{ building.address }}
                     </div>
                 </div>
             </div>
         </div>
-        <div class="flex justify-end p-2 dark:bg-zinc-900">
+        <div class="flex justify-end p-2 dark:bg-black">
             <p-button
                 class="*:min-w-24"
                 severity="primary"
@@ -163,7 +177,7 @@
                         : ('enterprise.buildings.overview.btn.update'
                           | translate)
                 "
-                outlined
+                [outlined]="building.subscriptionDTO !== null"
                 size="small"
             />
             <p-button
