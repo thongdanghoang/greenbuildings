@@ -1,17 +1,16 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
+import {Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
+import {MenuItem} from 'primeng/api';
 import {Drawer} from 'primeng/drawer';
-import {Popover} from 'primeng/popover';
 import {Observable, filter, map, switchMap, take, takeUntil} from 'rxjs';
+import {AppRoutingConstants} from '../../app-routing.constant';
 import {UserRole} from '../../modules/authorization/enums/role-names';
 import {ApplicationService} from '../../modules/core/services/application.service';
 import {ThemeService} from '../../modules/core/services/theme.service';
 import {SubscriptionAwareComponent} from '../../modules/core/subscription-aware.component';
 import {UserLocale} from '../../modules/shared/enums/user-language.enum';
 import {UserService} from '../../services/user.service';
-import {Router} from '@angular/router';
-import {MenuItem} from 'primeng/api';
-import {AppRoutingConstants} from '../../app-routing.constant';
 
 interface Language {
   display: string;
@@ -46,6 +45,7 @@ export class HeaderComponent
     super();
     this.authenticated = this.applicationService.isAuthenticated();
   }
+
   ngOnInit(): void {
     this.languages = [
       {display: 'Tiếng Việt', mobile: 'VI', key: UserLocale.VI},
