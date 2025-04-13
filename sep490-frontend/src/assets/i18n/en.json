@@ -645,5 +645,8 @@
     "example": "Example:",
     "close": "Close",
     "submit": "Submit"
+  },
+  "currency": {
+    "symbol": "$"
   }
 }

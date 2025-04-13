@@ -1,12 +1,22 @@
+import {DecimalPipe} from '@angular/common';
 import {Component, OnInit} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {Confirmation} from 'primeng/api';
 import {Nullable} from 'primeng/ts-helpers';
-import {takeUntil} from 'rxjs';
+import {
+  Observable,
+  filter,
+  forkJoin,
+  map,
+  of,
+  switchMap,
+  takeUntil
+} from 'rxjs';
 import {SubscriptionAwareComponent} from '../../../core/subscription-aware.component';
 import {ModalProvider} from '../../../shared/services/modal-provider';
 import {CreditPackage} from '../../models/enterprise.dto';
 import {CreditPackageService} from '../../services/credit-package.service';
+import {CurrencyConverterService} from '../../services/currency-converter.service';
 import {PaymentService} from '../../services/payment.service';
 import {WalletService} from '../../services/wallet.service';
 
@@ -32,7 +42,9 @@ export class PlanComponent
     private readonly creditPackageService: CreditPackageService,
     private readonly paymentService: PaymentService,
     private readonly modalProvider: ModalProvider,
-    private readonly translate: TranslateService
+    private readonly translate: TranslateService,
+    private readonly currencyConverterService: CurrencyConverterService,
+    private readonly decimalPipe: DecimalPipe
   ) {
     super();
   }
@@ -40,6 +52,33 @@ export class PlanComponent
   ngOnInit(): void {
     this.getBalance();
     this.getCreditPackages();
+    this.translate.onLangChange
+      .pipe(
+        takeUntil(this.destroy$),
+        filter(() => this.creditPackages.length > 0),
+        switchMap(lang =>
+          forkJoin(
+            this.creditPackages.map(bundle =>
+              this.currencyConverter(lang.lang, bundle).pipe(
+                map(convertedPrice => {
+                  bundle.convertedPriceCurrency = convertedPrice;
+                  return bundle;
+                })
+              )
+            )
+          )
+        )
+      )
+      .subscribe();
+  }
+
+  formatedCurrency(currency: number): string | null {
+    const converted = this.decimalPipe.transform(currency, '1.0-0');
+    const symbol = this.translate.instant('currency.symbol');
+    if (this.translate.currentLang === 'vi') {
+      return `${converted} ${symbol}`;
+    }
+    return `${symbol} ${converted}`;
   }
 
   selectPackage(pkg: CreditPackage): void {
@@ -103,10 +142,40 @@ export class PlanComponent
   }
 
   getCreditPackages(): void {
-    this.registerSubscription(
-      this.creditPackageService.getAllCreditPackages().subscribe(rs => {
+    this.creditPackageService
+      .getAllCreditPackages()
+      .pipe(
+        takeUntil(this.destroy$),
+        filter(bundles => bundles.length > 0),
+        switchMap(bundles =>
+          forkJoin(
+            bundles.map(bundle =>
+              this.currencyConverter(this.translate.currentLang, bundle).pipe(
+                map(convertedPrice => ({
+                  ...bundle,
+                  convertedPriceCurrency: convertedPrice
+                }))
+              )
+            )
+          )
+        )
+      )
+      .subscribe(rs => {
         this.creditPackages = rs;
-      })
+      });
+  }
+
+  private currencyConverter(
+    lang: string,
+    credit: CreditPackage
+  ): Observable<number> {
+    if (lang === 'vi') {
+      return of(credit.price);
+    }
+    const toCurrency = lang === 'en' ? 'USD' : 'CNY';
+    return this.currencyConverterService.convertToVndCurrency(
+      credit.price,
+      toCurrency
     );
   }
 }

@@ -638,5 +638,8 @@
     "example": "例子：",
     "close": "关闭",
     "submit": "提交"
+  },
+  "currency": {
+    "symbol": "¥"
   }
 }
