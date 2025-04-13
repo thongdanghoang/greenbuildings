@@ -1,20 +1,20 @@
+import {HttpClient} from '@angular/common/http';
 import {Component} from '@angular/core';
-import {AbstractFormComponent} from '../../../shared/components/form/abstract-form-component';
-import {CreditPackage} from '../../../enterprise/models/enterprise.dto';
 import {
   AbstractControl,
   FormBuilder,
   FormControl,
   Validators
 } from '@angular/forms';
-import {HttpClient} from '@angular/common/http';
-import {MessageService} from 'primeng/api';
-import {TranslateService} from '@ngx-translate/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {PackageCreditService} from '../../services/package-credit.service';
+import {TranslateService} from '@ngx-translate/core';
 import {filter, map, switchMap, takeUntil, tap} from 'rxjs';
 
 import {AppRoutingConstants} from '../../../../app-routing.constant';
+import {CreditPackage} from '../../../enterprise/models/enterprise.dto';
+import {AbstractFormComponent} from '../../../shared/components/form/abstract-form-component';
+import {ToastProvider} from '../../../shared/services/toast-provider';
+import {PackageCreditService} from '../../services/package-credit.service';
 
 @Component({
   selector: 'app-create-update-package-credit',
@@ -34,7 +34,7 @@ export class CreateUpdatePackageCreditComponent extends AbstractFormComponent<Cr
   constructor(
     httpClient: HttpClient,
     formBuilder: FormBuilder,
-    notificationService: MessageService,
+    notificationService: ToastProvider,
     translate: TranslateService,
     protected creditPackageService: PackageCreditService,
     private readonly router: Router,

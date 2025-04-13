@@ -6,15 +6,16 @@ import {
   FormControl,
   Validators
 } from '@angular/forms';
-import {MessageService} from 'primeng/api';
-import {take} from 'rxjs';
-import {AbstractFormComponent} from '../../../shared/components/form/abstract-form-component';
 import {TranslateService} from '@ngx-translate/core';
 import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
-import {DownloadReport, EmissionActivity} from '../../models/enterprise.dto';
+import {take} from 'rxjs';
 import {UUID} from '../../../../../types/uuid';
-import {EmissionActivityService} from '../../services/emission-activity.service';
 import {BuildingService} from '../../../../services/building.service';
+import {AbstractFormComponent} from '../../../shared/components/form/abstract-form-component';
+import {ToastProvider} from '../../../shared/services/toast-provider';
+import {DownloadReport, EmissionActivity} from '../../models/enterprise.dto';
+import {EmissionActivityService} from '../../services/emission-activity.service';
+
 @Component({
   selector: 'app-report-dialog',
   templateUrl: './report-dialog.component.html',
@@ -34,7 +35,7 @@ export class ReportDialogComponent extends AbstractFormComponent<DownloadReport>
   constructor(
     httpClient: HttpClient,
     formBuilder: FormBuilder,
-    notificationService: MessageService,
+    notificationService: ToastProvider,
     translate: TranslateService,
     private readonly emissionActivityService: EmissionActivityService,
     private readonly buildingService: BuildingService,
@@ -59,7 +60,7 @@ export class ReportDialogComponent extends AbstractFormComponent<DownloadReport>
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars,@typescript-eslint/explicit-function-return-type,max-lines-per-function
-  protected override submitForm(data: DownloadReport | null = null) {
+  protected override submitForm(_data: DownloadReport | null = null) {
     return this.httpClient
       .post<any>(this.submitFormDataUrl(), this.getSubmitFormData(), {
         headers: new HttpHeaders({
@@ -85,10 +86,9 @@ export class ReportDialogComponent extends AbstractFormComponent<DownloadReport>
             const contentDisposition = result.headers.get(
               'content-disposition'
             );
-            const fileName =
+            downloadLink.download = // fileName
               contentDisposition?.split('filename=')[1]?.trim() ||
               'report.xlsx';
-            downloadLink.download = fileName;
             downloadLink.click();
             this.showSaveSuccessNotification(result);
             this.onSubmitFormDataSuccess(result);
@@ -134,12 +134,12 @@ export class ReportDialogComponent extends AbstractFormComponent<DownloadReport>
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  protected override onSubmitFormDataSuccess(result: any): void {
+  protected override onSubmitFormDataSuccess(_result: any): void {
     this.ref.close();
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  protected override onSubmitFormRequestError(error: any): void {
+  protected override onSubmitFormRequestError(_error: any): void {
     this.ref.close();
   }
 

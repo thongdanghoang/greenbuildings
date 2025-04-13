@@ -11,14 +11,16 @@ import {
 } from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
-import {MessageService} from 'primeng/api';
 import {MultiSelectChangeEvent} from 'primeng/multiselect';
 import {SelectChangeEvent} from 'primeng/select';
 import {filter, map, switchMap, takeUntil, tap} from 'rxjs';
 import {UUID} from '../../../../../types/uuid';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
+import {BuildingService} from '../../../../services/building.service';
+import {Building} from '../../../enterprise/models/enterprise.dto';
 import {AbstractFormComponent} from '../../../shared/components/form/abstract-form-component';
 import {SelectableItem} from '../../../shared/models/base-models';
+import {ToastProvider} from '../../../shared/services/toast-provider';
 import {BuildingPermissionRole} from '../../enums/building-permission-role';
 import {UserRole} from '../../enums/role-names';
 import {UserScope} from '../../enums/user-scope';
@@ -27,8 +29,6 @@ import {
   EnterpriseUserDetails
 } from '../../models/enterprise-user';
 import {EnterpriseUserService} from '../../services/enterprise-user.service';
-import {BuildingService} from '../../../../services/building.service';
-import {Building} from '../../../enterprise/models/enterprise.dto';
 
 @Component({
   selector: 'app-create-user',
@@ -133,7 +133,7 @@ export class EnterpriseUserDetailsComponent extends AbstractFormComponent<Enterp
   constructor(
     httpClient: HttpClient,
     formBuilder: FormBuilder,
-    notificationService: MessageService,
+    notificationService: ToastProvider,
     translate: TranslateService,
     private readonly buildingService: BuildingService,
     protected userService: EnterpriseUserService,

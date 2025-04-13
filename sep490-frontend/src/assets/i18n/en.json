@@ -25,7 +25,9 @@
     "error": {
       "title": "Error",
       "technicalServerError": "Unexpected server error occurred. Please contact your administrator with this key correlationId = {{correlationId}} for more information.",
-      "fileSizeError": "File size must be less than 5MB and must be a PDF or image file."
+      "fileSizeError": "File size must be less than 5MB and must be a PDF or image file.",
+      "unexpectedError": "Unexpected Server Error",
+      "businessError": "Error"
     },
     "name": "Name"
   },

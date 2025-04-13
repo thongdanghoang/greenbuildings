@@ -1,20 +1,20 @@
+import {HttpClient} from '@angular/common/http';
 import {Component} from '@angular/core';
-import {AbstractFormComponent} from '../../../shared/components/form/abstract-form-component';
-import {ActivityType} from '../../models/enterprise.dto';
 import {
   AbstractControl,
   FormBuilder,
   FormControl,
   Validators
 } from '@angular/forms';
-import {HttpClient} from '@angular/common/http';
-import {MessageService} from 'primeng/api';
 import {TranslateService} from '@ngx-translate/core';
-import {ActivityTypeService} from '../../services/activity-type.service';
 import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
-import {UUID} from '../../../../../types/uuid';
 import {takeUntil} from 'rxjs';
+import {UUID} from '../../../../../types/uuid';
 import {ApplicationService} from '../../../core/services/application.service';
+import {AbstractFormComponent} from '../../../shared/components/form/abstract-form-component';
+import {ToastProvider} from '../../../shared/services/toast-provider';
+import {ActivityType} from '../../models/enterprise.dto';
+import {ActivityTypeService} from '../../services/activity-type.service';
 
 @Component({
   selector: 'app-activity-type-dialog',
@@ -32,7 +32,7 @@ export class ActivityTypeDialogComponent extends AbstractFormComponent<ActivityT
   constructor(
     httpClient: HttpClient,
     formBuilder: FormBuilder,
-    notificationService: MessageService,
+    notificationService: ToastProvider,
     translate: TranslateService,
     private readonly activityTypeService: ActivityTypeService,
     private readonly ref: DynamicDialogRef,
@@ -72,6 +72,7 @@ export class ActivityTypeDialogComponent extends AbstractFormComponent<ActivityT
   protected submitFormDataUrl(): string {
     return this.activityTypeService.createNewURL;
   }
+
   private loadActivityTypes(): void {
     this.applicationService.UserData.pipe(takeUntil(this.destroy$)).subscribe(
       u => {

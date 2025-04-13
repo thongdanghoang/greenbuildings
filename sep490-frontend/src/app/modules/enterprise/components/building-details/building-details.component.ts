@@ -9,7 +9,7 @@ import {
 } from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
-import {MessageService} from 'primeng/api';
+import L from 'leaflet';
 import {
   Observable,
   debounceTime,
@@ -25,15 +25,15 @@ import {UUID} from '../../../../../types/uuid';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
 import {BuildingService} from '../../../../services/building.service';
 import {GeocodingService} from '../../../../services/geocoding.service';
-import {AbstractFormComponent} from '../../../shared/components/form/abstract-form-component';
-import {BuildingDetails, UserByBuilding} from '../../models/enterprise.dto';
-import {TableTemplateColumn} from '../../../shared/components/table-template/table-template.component';
 import {ApplicationService} from '../../../core/services/application.service';
+import {AbstractFormComponent} from '../../../shared/components/form/abstract-form-component';
+import {TableTemplateColumn} from '../../../shared/components/table-template/table-template.component';
 import {
   SearchCriteriaDto,
   SearchResultDto
 } from '../../../shared/models/base-models';
-import L from 'leaflet';
+import {ToastProvider} from '../../../shared/services/toast-provider';
+import {BuildingDetails, UserByBuilding} from '../../models/enterprise.dto';
 
 @Component({
   selector: 'app-building-detail',
@@ -76,7 +76,7 @@ export class BuildingDetailsComponent extends AbstractFormComponent<BuildingDeta
   constructor(
     httpClient: HttpClient,
     formBuilder: FormBuilder,
-    notificationService: MessageService,
+    notificationService: ToastProvider,
     translate: TranslateService,
     private readonly activatedRoute: ActivatedRoute,
     private readonly buildingService: BuildingService,
@@ -176,6 +176,7 @@ export class BuildingDetailsComponent extends AbstractFormComponent<BuildingDeta
       }, 0); // Delay to ensure DOM is updated
     }
   }
+
   onSubmit(): void {
     if (this.showMap) {
       // If map is currently shown, hide it
@@ -189,6 +190,7 @@ export class BuildingDetailsComponent extends AbstractFormComponent<BuildingDeta
     }
     this.submit();
   }
+
   // Xử lý autocomplete với p-autoComplete
   searchAddress(event: any): void {
     const query = event.query;
@@ -217,6 +219,7 @@ export class BuildingDetailsComponent extends AbstractFormComponent<BuildingDeta
         });
       });
   }
+
   protected initializeData(): void {
     this.fetchBuildingDetails();
     this.fetchData = (

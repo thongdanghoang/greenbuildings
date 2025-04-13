@@ -1,21 +1,21 @@
+import {HttpClient} from '@angular/common/http';
 import {Component} from '@angular/core';
-import {AbstractFormComponent} from '../../../shared/components/form/abstract-form-component';
-import {
-  ChemicalDensityDTO,
-  EmissionUnit
-} from '../../../shared/models/shared-models';
 import {
   AbstractControl,
   FormBuilder,
   FormControl,
   Validators
 } from '@angular/forms';
-import {UUID} from '../../../../../types/uuid';
-import {HttpClient} from '@angular/common/http';
-import {MessageService} from 'primeng/api';
 import {TranslateService} from '@ngx-translate/core';
-import {ChemicalDensityService} from '../../services/chemical-density.service';
 import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
+import {UUID} from '../../../../../types/uuid';
+import {AbstractFormComponent} from '../../../shared/components/form/abstract-form-component';
+import {
+  ChemicalDensityDTO,
+  EmissionUnit
+} from '../../../shared/models/shared-models';
+import {ToastProvider} from '../../../shared/services/toast-provider';
+import {ChemicalDensityService} from '../../services/chemical-density.service';
 
 @Component({
   selector: 'app-chemical-density-dialog',
@@ -48,7 +48,7 @@ export class ChemicalDensityDialogComponent extends AbstractFormComponent<Chemic
   constructor(
     httpClient: HttpClient,
     formBuilder: FormBuilder,
-    notificationService: MessageService,
+    notificationService: ToastProvider,
     translate: TranslateService,
     private readonly chemicalDensityService: ChemicalDensityService,
     private readonly ref: DynamicDialogRef,

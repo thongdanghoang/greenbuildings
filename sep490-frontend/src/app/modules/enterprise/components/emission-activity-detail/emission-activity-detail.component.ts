@@ -14,7 +14,6 @@ import {
 } from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
-import {MessageService} from 'primeng/api';
 import {DialogService, DynamicDialogConfig} from 'primeng/dynamicdialog';
 import {Observable, Observer, filter, map, switchMap, takeUntil} from 'rxjs';
 import {validate} from 'uuid';
@@ -27,6 +26,7 @@ import {
   SearchCriteriaDto,
   SearchResultDto
 } from '../../../shared/models/base-models';
+import {ToastProvider} from '../../../shared/services/toast-provider';
 import {
   NewActivityRecordDialogComponent,
   NewActivityRecordDialogConfig
@@ -87,11 +87,8 @@ export class EmissionActivityDetailComponent
   private readonly fetchActivityObserver: Observer<EmissionActivityDetails> = {
     next: (activity: EmissionActivityDetails) => {
       if (!activity) {
-        this.notificationService.add({
-          severity: 'error',
-          summary: this.translate.instant('http.error.status.403.title'),
-          life: 3000,
-          sticky: true
+        this.notificationService.businessError({
+          summary: this.translate.instant('http.error.status.403.title')
         });
         void this.router.navigate([
           AppRoutingConstants.ENTERPRISE_PATH,
@@ -113,7 +110,7 @@ export class EmissionActivityDetailComponent
   constructor(
     protected override readonly httpClient: HttpClient,
     protected override readonly formBuilder: FormBuilder,
-    protected override readonly notificationService: MessageService,
+    protected override readonly notificationService: ToastProvider,
     protected override readonly translate: TranslateService,
     protected readonly applicationService: ApplicationService,
     private readonly route: ActivatedRoute,
@@ -213,8 +210,7 @@ export class EmissionActivityDetailComponent
 
     this.emissionActivityRecordService.deleteRecords(ids).subscribe({
       next: () => {
-        this.notificationService.add({
-          severity: 'success',
+        this.notificationService.success({
           summary: this.translate.instant('common.success')
         });
         this.selected = []; // Clear local selection
@@ -246,8 +242,7 @@ export class EmissionActivityDetailComponent
       .deleteRecordFile(record.id, record.file.id)
       .subscribe({
         next: () => {
-          this.notificationService.add({
-            severity: 'success',
+          this.notificationService.success({
             summary: this.translate.instant('common.success')
           });
           this.searchEvent.emit();
@@ -297,6 +292,7 @@ export class EmissionActivityDetailComponent
       }
     });
   }
+
   validateAndFetchDetail(): void {
     this.route.paramMap
       .pipe(

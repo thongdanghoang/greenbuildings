@@ -5,26 +5,24 @@ import {
   TemplateRef,
   ViewChild
 } from '@angular/core';
-import {SubscriptionAwareComponent} from '../../../core/subscription-aware.component';
-import {ApplicationService} from '../../../core/services/application.service';
-import {MessageService} from 'primeng/api';
-import {ModalProvider} from '../../../shared/services/modal-provider';
-import {TranslateService} from '@ngx-translate/core';
-import {TableTemplateColumn} from '../../../shared/components/table-template/table-template.component';
-import {EmissionSource} from '../../../enterprise/models/enterprise.dto';
-import {
-  SearchCriteriaDto,
-  SearchResultDto
-} from '../../../shared/models/base-models';
-import {Observable} from 'rxjs';
-import {EmissionSourceService} from '../../services/emission-source.service';
 import {
   DialogService,
   DynamicDialogConfig,
   DynamicDialogRef
 } from 'primeng/dynamicdialog';
+import {Observable} from 'rxjs';
 import {UUID} from '../../../../../types/uuid';
+import {ApplicationService} from '../../../core/services/application.service';
+import {SubscriptionAwareComponent} from '../../../core/subscription-aware.component';
+import {EmissionSource} from '../../../enterprise/models/enterprise.dto';
+import {TableTemplateColumn} from '../../../shared/components/table-template/table-template.component';
+import {
+  SearchCriteriaDto,
+  SearchResultDto
+} from '../../../shared/models/base-models';
 import {EmissionSourceDialogComponent} from '../../dialog/emission-source-dialog/emission-source-dialog.component';
+import {EmissionSourceService} from '../../services/emission-source.service';
+
 export interface EmissionSourceCriteria {
   criteria: string;
 }
@@ -50,9 +48,6 @@ export class EmissionSourceComponent
   constructor(
     protected readonly applicationService: ApplicationService,
     private readonly emissionSourceService: EmissionSourceService,
-    private readonly messageService: MessageService,
-    private readonly modalProvider: ModalProvider,
-    private readonly translate: TranslateService,
     private readonly dialogService: DialogService
   ) {
     super();

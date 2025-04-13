@@ -1,12 +1,9 @@
-import {Component, OnInit, inject} from '@angular/core';
-import {SubscriptionAwareComponent} from '../../../core/subscription-aware.component';
-import {ModalProvider} from '../../../shared/services/modal-provider';
-import {TranslateService} from '@ngx-translate/core';
-import {CreditConvertRatioService} from '../../services/credit-convert-ratio.service';
-import {CreditConvertRatio} from '../../../enterprise/models/enterprise.dto';
-import {MessageService} from 'primeng/api';
+import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
+import {SubscriptionAwareComponent} from '../../../core/subscription-aware.component';
+import {CreditConvertRatio} from '../../../enterprise/models/enterprise.dto';
+import {CreditConvertRatioService} from '../../services/credit-convert-ratio.service';
 
 @Component({
   selector: 'app-credit-covert-ratio',
@@ -18,12 +15,9 @@ export class CreditConvertRatioComponent
   implements OnInit
 {
   creditConvertRatios: CreditConvertRatio[] = [];
-  private readonly router = inject(Router);
   constructor(
     private readonly creditConvertRatioService: CreditConvertRatioService,
-    private readonly modalProvider: ModalProvider,
-    private readonly translate: TranslateService,
-    private readonly messageService: MessageService
+    private readonly router: Router
   ) {
     super();
   }

@@ -8,10 +8,10 @@ import {
 } from '@angular/forms';
 import {TranslateService} from '@ngx-translate/core';
 import moment from 'moment';
-import {MessageService} from 'primeng/api';
 import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
 import {AbstractFormComponent} from '../../../shared/components/form/abstract-form-component';
+import {ToastProvider} from '../../../shared/services/toast-provider';
 import {
   Building,
   BuildingDetails,
@@ -56,7 +56,7 @@ export class BuildingSubscriptionDialogComponent extends AbstractFormComponent<v
   constructor(
     httpClient: HttpClient,
     formBuilder: FormBuilder,
-    notificationService: MessageService,
+    notificationService: ToastProvider,
     translate: TranslateService,
     protected subscribeService: SubscriptionService,
     protected ref: DynamicDialogRef,

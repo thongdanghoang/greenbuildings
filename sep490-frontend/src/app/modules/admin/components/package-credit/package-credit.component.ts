@@ -6,27 +6,26 @@ import {
   ViewChild,
   inject
 } from '@angular/core';
+import {Router} from '@angular/router';
+import {TranslateService} from '@ngx-translate/core';
+import {Observable} from 'rxjs';
+import {UUID} from '../../../../../types/uuid';
+import {AppRoutingConstants} from '../../../../app-routing.constant';
 import {ApplicationService} from '../../../core/services/application.service';
-import {PackageCreditService} from '../../services/package-credit.service';
+import {SubscriptionAwareComponent} from '../../../core/subscription-aware.component';
+
+import {
+  CreditPackageAdmin,
+  CreditPackageVersion
+} from '../../../enterprise/models/enterprise.dto';
 import {TableTemplateColumn} from '../../../shared/components/table-template/table-template.component';
 import {
   SearchCriteriaDto,
   SearchResultDto,
   SortDto
 } from '../../../shared/models/base-models';
-import {Observable} from 'rxjs';
-
-import {
-  CreditPackageAdmin,
-  CreditPackageVersion
-} from '../../../enterprise/models/enterprise.dto';
-import {AppRoutingConstants} from '../../../../app-routing.constant';
-import {Router} from '@angular/router';
-import {SubscriptionAwareComponent} from '../../../core/subscription-aware.component';
-import {UUID} from '../../../../../types/uuid';
-import {MessageService} from 'primeng/api';
-import {ModalProvider} from '../../../shared/services/modal-provider';
-import {TranslateService} from '@ngx-translate/core';
+import {ToastProvider} from '../../../shared/services/toast-provider';
+import {PackageCreditService} from '../../services/package-credit.service';
 
 @Component({
   selector: 'app-package-credit',
@@ -59,8 +58,7 @@ export class PackageCreditComponent
   constructor(
     protected readonly applicationService: ApplicationService,
     private readonly packageCreditService: PackageCreditService,
-    private readonly messageService: MessageService,
-    private readonly modalProvider: ModalProvider,
+    private readonly messageService: ToastProvider,
     private readonly translate: TranslateService
   ) {
     super();
@@ -133,9 +131,8 @@ export class PackageCreditComponent
     const pkgIds: UUID[] = this.selected.map(pkg => pkg.id);
 
     this.packageCreditService.deletePackages(pkgIds).subscribe({
-      next: () => {
-        this.messageService.add({
-          severity: 'success',
+      next: (): void => {
+        this.messageService.success({
           summary: this.translate.instant(
             'admin.packageCredit.message.success.summary'
           ),
@@ -146,9 +143,8 @@ export class PackageCreditComponent
         this.selected = []; // Clear local selection
         this.triggerSearch.emit(); // Refresh table
       },
-      error: () => {
-        this.messageService.add({
-          severity: 'error',
+      error: (): void => {
+        this.messageService.businessError({
           summary: this.translate.instant(
             'admin.packageCredit.message.error.summary'
           ),

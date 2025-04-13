@@ -65,6 +65,7 @@ import {EmissionSourceService} from './services/emission-source.service';
 import {EnergyConversionService} from './services/energy-conversion.service';
 import {FuelService} from './services/fuel.service';
 import {ModalProvider} from './services/modal-provider';
+import {ToastProvider} from './services/toast-provider';
 import {UnitService} from './services/unit.service';
 import {PopoverModule} from 'primeng/popover';
 import {TooltipModule} from 'primeng/tooltip';
@@ -165,6 +166,7 @@ const commons = [
   providers: [
     DatePipe,
     ModalProvider,
+    ToastProvider,
     DialogService,
     DynamicDialog,
     EmissionFactorService,

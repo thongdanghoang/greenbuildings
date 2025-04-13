@@ -7,10 +7,10 @@ import {
   FormGroup
 } from '@angular/forms';
 import {TranslateService} from '@ngx-translate/core';
-import {MessageService} from 'primeng/api';
 import {of, take, takeUntil} from 'rxjs';
 import {SubscriptionAwareComponent} from '../../../core/subscription-aware.component';
 import {BusinessErrorParam} from '../../models/base-models';
+import {ToastProvider} from '../../services/toast-provider';
 
 @Directive()
 export abstract class AbstractFormComponent<T>
@@ -43,7 +43,7 @@ export abstract class AbstractFormComponent<T>
   protected constructor(
     protected httpClient: HttpClient,
     protected formBuilder: FormBuilder,
-    protected notificationService: MessageService,
+    protected notificationService: ToastProvider,
     protected translate: TranslateService
   ) {
     super();
@@ -176,7 +176,7 @@ export abstract class AbstractFormComponent<T>
    * Hook when having errors
    */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  protected onSubmitFormRequestError(error: any): void {
+  protected onSubmitFormRequestError(_error: any): void {
     // Override by subclass
   }
 
@@ -205,9 +205,8 @@ export abstract class AbstractFormComponent<T>
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  protected showSaveSuccessNotification(result: any): void {
-    this.notificationService.add({
-      severity: 'success',
+  protected showSaveSuccessNotification(_result: any): void {
+    this.notificationService.success({
       summary: this.translate.instant('common.success'),
       detail: this.translate.instant('common.saveSuccess')
     });
@@ -235,8 +234,7 @@ export abstract class AbstractFormComponent<T>
           formControl.markAsDirty();
         }
       } else {
-        this.notificationService.add({
-          severity: 'error',
+        this.notificationService.businessError({
           summary: this.translate.instant('common.error.title'),
           detail: this.translate.instant(`validation.${result.i18nKey}`)
         });

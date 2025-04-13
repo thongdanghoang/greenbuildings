@@ -1,5 +1,5 @@
+import {HttpClient} from '@angular/common/http';
 import {Component} from '@angular/core';
-import {AbstractFormComponent} from '../../../shared/components/form/abstract-form-component';
 import {
   AbstractControl,
   FormBuilder,
@@ -7,16 +7,16 @@ import {
   FormGroup,
   Validators
 } from '@angular/forms';
-import {HttpClient} from '@angular/common/http';
-import {MessageService} from 'primeng/api';
 import {TranslateService} from '@ngx-translate/core';
 import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
 import {UUID} from '../../../../../types/uuid';
-import {FuelConversionService} from '../../services/fuel-conversion.service';
+import {AbstractFormComponent} from '../../../shared/components/form/abstract-form-component';
 import {
   EmissionUnit,
   EnergyConversionDTO
 } from '../../../shared/models/shared-models';
+import {ToastProvider} from '../../../shared/services/toast-provider';
+import {FuelConversionService} from '../../services/fuel-conversion.service';
 
 @Component({
   selector: 'app-fuel-dialog',
@@ -30,10 +30,11 @@ export class FuelDialogComponent extends AbstractFormComponent<EnergyConversionD
     label: this.translate.instant(`unit.${key}`),
     value: EmissionUnit[key as keyof typeof EmissionUnit]
   }));
+
   constructor(
     httpClient: HttpClient,
     formBuilder: FormBuilder,
-    notificationService: MessageService,
+    notificationService: ToastProvider,
     translate: TranslateService,
     private readonly fuelService: FuelConversionService,
     private readonly ref: DynamicDialogRef,

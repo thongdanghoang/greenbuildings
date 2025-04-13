@@ -8,7 +8,6 @@ import {
 import {ActivatedRoute, Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
 import moment from 'moment';
-import {MessageService} from 'primeng/api';
 import {
   DialogService,
   DynamicDialogConfig,
@@ -19,21 +18,22 @@ import {validate} from 'uuid';
 import {UUID} from '../../../../../types/uuid';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
 import {BuildingService} from '../../../../services/building.service';
-import {SubscriptionAwareComponent} from '../../../core/subscription-aware.component';
-import {ModalProvider} from '../../../shared/services/modal-provider';
-import {NewActivityDialogComponent} from '../../dialog/new-activity-dialog/new-activity-dialog.component';
-import {ReportDialogComponent} from '../../dialog/report-dialog/report-dialog.component';
-import {BuildingDetails, EmissionActivity} from '../../models/enterprise.dto';
 import {ApplicationService} from '../../../core/services/application.service';
-import {
-  ActivitySearchCriteria,
-  EmissionActivityService
-} from '../../services/emission-activity.service';
+import {SubscriptionAwareComponent} from '../../../core/subscription-aware.component';
+import {TableTemplateColumn} from '../../../shared/components/table-template/table-template.component';
 import {
   SearchCriteriaDto,
   SearchResultDto
 } from '../../../shared/models/base-models';
-import {TableTemplateColumn} from '../../../shared/components/table-template/table-template.component';
+import {ModalProvider} from '../../../shared/services/modal-provider';
+import {ToastProvider} from '../../../shared/services/toast-provider';
+import {NewActivityDialogComponent} from '../../dialog/new-activity-dialog/new-activity-dialog.component';
+import {ReportDialogComponent} from '../../dialog/report-dialog/report-dialog.component';
+import {BuildingDetails, EmissionActivity} from '../../models/enterprise.dto';
+import {
+  ActivitySearchCriteria,
+  EmissionActivityService
+} from '../../services/emission-activity.service';
 
 @Component({
   selector: 'app-emission-activity',
@@ -63,11 +63,8 @@ export class EmissionActivityComponent
   private readonly fetchBuildingObserver: Observer<BuildingDetails> = {
     next: building => {
       if (!building.subscriptionDTO) {
-        this.msgService.add({
-          severity: 'error',
-          summary: this.translate.instant('http.error.status.403.title'),
-          life: 3000,
-          sticky: true
+        this.msgService.businessError({
+          summary: this.translate.instant('http.error.status.403.title')
         });
         void this.router.navigate([
           AppRoutingConstants.ENTERPRISE_PATH,
@@ -88,7 +85,7 @@ export class EmissionActivityComponent
 
   constructor(
     private readonly activatedRoute: ActivatedRoute,
-    private readonly msgService: MessageService,
+    private readonly msgService: ToastProvider,
     private readonly router: Router,
     private readonly translate: TranslateService,
     private readonly buildingService: BuildingService,
@@ -245,8 +242,7 @@ export class EmissionActivityComponent
 
     this.activityService.deleteActivities(ids).subscribe({
       next: () => {
-        this.msgService.add({
-          severity: 'success',
+        this.msgService.success({
           summary: this.translate.instant('common.success')
         });
         this.selected = []; // Clear local selection

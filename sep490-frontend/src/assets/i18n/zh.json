@@ -25,7 +25,9 @@
     "error": {
       "title": "错误",
       "technicalServerError": "发生意外服务器错误。请联系您的管理员，提供此关键 correlationId = {{correlationId}} 以获取更多信息。",
-      "fileSizeError": "文件大小必须小于 5MB 且必须是 PDF 或图像文件。"
+      "fileSizeError": "文件大小必须小于 5MB 且必须是 PDF 或图像文件。",
+      "unexpectedError": "发生意外错误",
+      "businessError": "发生业务错误"
     },
     "name": "姓名"
   },

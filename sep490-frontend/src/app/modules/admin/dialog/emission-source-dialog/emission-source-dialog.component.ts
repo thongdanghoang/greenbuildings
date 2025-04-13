@@ -1,17 +1,17 @@
+import {HttpClient} from '@angular/common/http';
 import {Component} from '@angular/core';
-import {AbstractFormComponent} from '../../../shared/components/form/abstract-form-component';
-import {EmissionSource} from '../../../enterprise/models/enterprise.dto';
 import {
   AbstractControl,
   FormBuilder,
   FormControl,
   Validators
 } from '@angular/forms';
-import {HttpClient} from '@angular/common/http';
-import {MessageService} from 'primeng/api';
 import {TranslateService} from '@ngx-translate/core';
 import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
 import {UUID} from '../../../../../types/uuid';
+import {EmissionSource} from '../../../enterprise/models/enterprise.dto';
+import {AbstractFormComponent} from '../../../shared/components/form/abstract-form-component';
+import {ToastProvider} from '../../../shared/services/toast-provider';
 import {EmissionSourceService} from '../../services/emission-source.service';
 
 @Component({
@@ -31,7 +31,7 @@ export class EmissionSourceDialogComponent extends AbstractFormComponent<Emissio
   constructor(
     httpClient: HttpClient,
     formBuilder: FormBuilder,
-    notificationService: MessageService,
+    notificationService: ToastProvider,
     translate: TranslateService,
     private readonly sourceService: EmissionSourceService,
     private readonly ref: DynamicDialogRef,

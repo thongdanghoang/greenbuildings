@@ -3,31 +3,30 @@ import {
   EventEmitter,
   OnInit,
   TemplateRef,
-  ViewChild,
-  inject
+  ViewChild
 } from '@angular/core';
-import {SubscriptionAwareComponent} from '../../../core/subscription-aware.component';
-import {
-  SearchCriteriaDto,
-  SearchResultDto
-} from '../../../shared/models/base-models';
-import {Observable, takeUntil} from 'rxjs';
-import {TableTemplateColumn} from '../../../shared/components/table-template/table-template.component';
-import {Router} from '@angular/router';
-import {ApplicationService} from '../../../core/services/application.service';
-import {MessageService} from 'primeng/api';
-import {ModalProvider} from '../../../shared/services/modal-provider';
 import {TranslateService} from '@ngx-translate/core';
-import {UUID} from '../../../../../types/uuid';
-import {AppRoutingConstants} from '../../../../app-routing.constant';
-import {ActivityTypeService} from '../../services/activity-type.service';
-import {ActivityType} from '../../models/enterprise.dto';
 import {
   DialogService,
   DynamicDialogConfig,
   DynamicDialogRef
 } from 'primeng/dynamicdialog';
+import {Observable, takeUntil} from 'rxjs';
+import {UUID} from '../../../../../types/uuid';
+import {AppRoutingConstants} from '../../../../app-routing.constant';
+import {ApplicationService} from '../../../core/services/application.service';
+import {SubscriptionAwareComponent} from '../../../core/subscription-aware.component';
+import {TableTemplateColumn} from '../../../shared/components/table-template/table-template.component';
+import {
+  SearchCriteriaDto,
+  SearchResultDto
+} from '../../../shared/models/base-models';
+import {ModalProvider} from '../../../shared/services/modal-provider';
+import {ToastProvider} from '../../../shared/services/toast-provider';
 import {ActivityTypeDialogComponent} from '../../dialog/activity-type-dialog/activity-type-dialog.component';
+import {ActivityType} from '../../models/enterprise.dto';
+import {ActivityTypeService} from '../../services/activity-type.service';
+
 export interface ActivityTypeCriteria {
   criteria: string;
 }
@@ -55,12 +54,11 @@ export class ActivityTypeComponent
     new EventEmitter();
   protected selected: ActivityType[] = [];
   protected searchCriteria: ActivityTypeCriteria = {criteria: ''};
-  private readonly router = inject(Router);
 
   constructor(
     protected readonly applicationService: ApplicationService,
     private readonly userService: ActivityTypeService,
-    private readonly messageService: MessageService,
+    private readonly messageService: ToastProvider,
     private readonly modalProvider: ModalProvider,
     private readonly translate: TranslateService,
     private readonly dialogService: DialogService
@@ -163,8 +161,7 @@ export class ActivityTypeComponent
 
     this.userService.deleteActivityType(userIds).subscribe({
       next: () => {
-        this.messageService.add({
-          severity: 'success',
+        this.messageService.success({
           summary: this.translate.instant(
             'enterprise.type.message.success.summary'
           ),
@@ -177,8 +174,7 @@ export class ActivityTypeComponent
         this.clearSelectedEvent.emit();
       },
       error: () => {
-        this.messageService.add({
-          severity: 'error',
+        this.messageService.businessError({
           summary: this.translate.instant(
             'enterprise.Users.message.error.summary'
           ),

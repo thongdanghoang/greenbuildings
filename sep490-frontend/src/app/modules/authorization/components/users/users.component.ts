@@ -8,7 +8,6 @@ import {
 } from '@angular/core';
 import {Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
-import {MessageService} from 'primeng/api';
 import {Observable, takeUntil} from 'rxjs';
 import {UUID} from '../../../../../types/uuid';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
@@ -20,6 +19,7 @@ import {
   SearchResultDto
 } from '../../../shared/models/base-models';
 import {ModalProvider} from '../../../shared/services/modal-provider';
+import {ToastProvider} from '../../../shared/services/toast-provider';
 import {EnterpriseUser} from '../../models/enterprise-user';
 import {EnterpriseUserService} from '../../services/enterprise-user.service';
 
@@ -55,7 +55,7 @@ export class UsersComponent
   constructor(
     protected readonly applicationService: ApplicationService,
     private readonly userService: EnterpriseUserService,
-    private readonly messageService: MessageService,
+    private readonly messageService: ToastProvider,
     private readonly modalProvider: ModalProvider,
     private readonly translate: TranslateService
   ) {
@@ -139,8 +139,7 @@ export class UsersComponent
 
     this.userService.deleteUsers(userIds).subscribe({
       next: () => {
-        this.messageService.add({
-          severity: 'success',
+        this.messageService.success({
           summary: this.translate.instant(
             'enterprise.Users.message.success.summary'
           ),
@@ -153,8 +152,7 @@ export class UsersComponent
         this.clearSelectedEvent.emit();
       },
       error: () => {
-        this.messageService.add({
-          severity: 'error',
+        this.messageService.businessError({
           summary: this.translate.instant(
             'enterprise.Users.message.error.summary'
           ),

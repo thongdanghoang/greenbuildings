@@ -7,7 +7,6 @@ import {
   Validators
 } from '@angular/forms';
 import {TranslateService} from '@ngx-translate/core';
-import {MessageService} from 'primeng/api';
 import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
 import {takeUntil} from 'rxjs';
 import {AbstractFormComponent} from '../../../shared/components/form/abstract-form-component';
@@ -15,6 +14,7 @@ import {
   EmissionFactorDTO,
   EmissionUnit
 } from '../../../shared/models/shared-models';
+import {ToastProvider} from '../../../shared/services/toast-provider';
 import {UnitService} from '../../../shared/services/unit.service';
 import {EmissionActivityRecord} from '../../models/enterprise.dto';
 import {EmissionActivityRecordService} from '../../services/emission-activity-record.service';
@@ -38,7 +38,7 @@ export class NewActivityRecordDialogComponent extends AbstractFormComponent<Emis
   constructor(
     protected override readonly httpClient: HttpClient,
     protected override readonly formBuilder: FormBuilder,
-    protected override readonly notificationService: MessageService,
+    protected override readonly notificationService: ToastProvider,
     protected override readonly translate: TranslateService,
     private readonly unitService: UnitService,
     private readonly dialogRef: DynamicDialogRef,
@@ -71,6 +71,7 @@ export class NewActivityRecordDialogComponent extends AbstractFormComponent<Emis
   }
 
   /* eslint-disable dot-notation */
+
   // eslint-disable-next-line max-lines-per-function
   override prepareDataBeforeSubmit(): void {
     if (
@@ -109,9 +110,7 @@ export class NewActivityRecordDialogComponent extends AbstractFormComponent<Emis
       this.formGroup.controls['startDate'].value > Date.now() ||
       this.formGroup.controls['endDate'].value > Date.now()
     ) {
-      this.notificationService.add({
-        severity: 'error',
-        sticky: true,
+      this.notificationService.businessError({
         detail: this.translate.instant(
           'enterprise.emission.activity.record.dateWarning'
         ),
@@ -120,6 +119,7 @@ export class NewActivityRecordDialogComponent extends AbstractFormComponent<Emis
       this.formGroup.controls['rangeDates'].setValue([]);
     }
   }
+
   /* eslint-enable dot-notation */
 
   override submitForm(): void {
@@ -161,10 +161,10 @@ export class NewActivityRecordDialogComponent extends AbstractFormComponent<Emis
   }
 
   /* eslint-disable dot-notation */
+
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   override onSubmitFormDataSuccess(result: any): void {
-    this.notificationService.add({
-      severity: 'success',
+    this.notificationService.success({
       summary: this.translate.instant('common.success'),
       detail: this.translate.instant('common.saveSuccess')
     });
@@ -173,8 +173,7 @@ export class NewActivityRecordDialogComponent extends AbstractFormComponent<Emis
 
   override onSubmitFormRequestError(error: any): void {
     if (error.error.field === 'rangeDates') {
-      this.notificationService.add({
-        severity: 'error',
+      this.notificationService.businessError({
         summary: this.translate.instant('common.error.title'),
         detail: this.translate.instant(`validation.${error.error.i18nKey}`)
       });
@@ -215,6 +214,7 @@ export class NewActivityRecordDialogComponent extends AbstractFormComponent<Emis
   removeFile(): void {
     //
   }
+
   /* eslint-enable dot-notation */
 
   onCancel(): void {
@@ -227,8 +227,7 @@ export class NewActivityRecordDialogComponent extends AbstractFormComponent<Emis
       file.size > 5 * 1024 * 1024 ||
       (file.type !== 'application/pdf' && !file.type.startsWith('image/'))
     ) {
-      this.notificationService.add({
-        severity: 'error',
+      this.notificationService.businessError({
         summary: this.translate.instant('common.error.title'),
         detail: this.translate.instant('common.error.fileSizeError')
       });

@@ -10,7 +10,6 @@ import {
 } from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
-import {MessageService} from 'primeng/api';
 import {filter, map, switchMap, takeUntil, tap} from 'rxjs';
 import {validate} from 'uuid';
 import {UUID} from '../../../../../types/uuid';
@@ -18,6 +17,7 @@ import {AppRoutingConstants} from '../../../../app-routing.constant';
 import {ApplicationConstant} from '../../../../application.constant';
 import {AbstractFormComponent} from '../../../shared/components/form/abstract-form-component';
 import {SelectableItem} from '../../../shared/models/base-models';
+import {ToastProvider} from '../../../shared/services/toast-provider';
 import {
   PowerBiAuthority,
   PowerBiScope
@@ -71,7 +71,7 @@ export class PowerBiAccessTokenDetailComponent extends AbstractFormComponent<Pow
   constructor(
     httpClient: HttpClient,
     formBuilder: FormBuilder,
-    notificationService: MessageService,
+    notificationService: ToastProvider,
     translate: TranslateService,
     private readonly activatedRoute: ActivatedRoute,
     private readonly router: Router,
