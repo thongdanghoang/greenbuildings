@@ -1,26 +1,26 @@
 import {HttpClient} from '@angular/common/http';
 import {Component} from '@angular/core';
-import {TranslateService} from '@ngx-translate/core';
-import {MessageService} from 'primeng/api';
-import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
-import {takeUntil} from 'rxjs';
-import {UUID} from '../../../../../types/uuid';
-import {ApplicationService} from '../../../core/services/application.service';
-import {AbstractFormComponent} from '../../../shared/components/form/abstract-form-component';
 import {
   AbstractControl,
   FormBuilder,
   FormControl,
   Validators
 } from '@angular/forms';
+import {TranslateService} from '@ngx-translate/core';
+import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
+import {takeUntil} from 'rxjs';
+import {UUID} from '../../../../../types/uuid';
+import {ApplicationService} from '../../../core/services/application.service';
+import {AbstractFormComponent} from '../../../shared/components/form/abstract-form-component';
 import {
   EmissionFactorDTO,
   EmissionSourceDTO
 } from '../../../shared/models/shared-models';
 import {EmissionFactorService} from '../../../shared/services/emission-factor.service';
+import {ToastProvider} from '../../../shared/services/toast-provider';
 import {ActivityType, CreateNewActivityDTO} from '../../models/enterprise.dto';
-import {EmissionActivityService} from '../../services/emission-activity.service';
 import {ActivityTypeService} from '../../services/activity-type.service';
+import {EmissionActivityService} from '../../services/emission-activity.service';
 
 @Component({
   selector: 'app-new-activity-dialog',
@@ -49,7 +49,7 @@ export class NewActivityDialogComponent extends AbstractFormComponent<CreateNewA
   constructor(
     httpClient: HttpClient,
     formBuilder: FormBuilder,
-    notificationService: MessageService,
+    notificationService: ToastProvider,
     translate: TranslateService,
     private readonly factorService: EmissionFactorService,
     private readonly activityService: EmissionActivityService,
@@ -103,7 +103,7 @@ export class NewActivityDialogComponent extends AbstractFormComponent<CreateNewA
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  protected override onSubmitFormDataSuccess(result: any): void {
+  protected override onSubmitFormDataSuccess(_result: any): void {
     this.ref.close(true);
   }
 

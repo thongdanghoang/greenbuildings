@@ -1,13 +1,13 @@
-import {Component, TemplateRef, ViewChild} from '@angular/core';
-import {TranslateService} from '@ngx-translate/core';
-import {MessageService} from 'primeng/api';
-import {Observable} from 'rxjs';
-import {ApplicationService} from '../../../core/services/application.service';
-import {SubscriptionAwareComponent} from '../../../core/subscription-aware.component';
-import {TableTemplateColumn} from '../../../shared/components/table-template/table-template.component';
-import {SearchCriteriaDto, SearchResultDto} from '../../../shared/models/base-models';
-import {ModalProvider} from '../../../shared/services/modal-provider';
-import {Product} from '../../dev.service';
+import { Component, TemplateRef, ViewChild } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+import { ApplicationService } from '../../../core/services/application.service';
+import { SubscriptionAwareComponent } from '../../../core/subscription-aware.component';
+import { TableTemplateColumn } from '../../../shared/components/table-template/table-template.component';
+import { SearchCriteriaDto, SearchResultDto } from '../../../shared/models/base-models';
+import { ModalProvider } from '../../../shared/services/modal-provider';
+import { ToastProvider } from '../../../shared/services/toast-provider';
+import { Product } from '../../dev.service';
 
 export interface ProductCriteria {
   criteria: string;
@@ -21,7 +21,7 @@ export interface ProductCriteria {
 })
 export class ToolboxComponent
   extends SubscriptionAwareComponent {
-  @ViewChild('actionsTemplate', {static: true})
+  @ViewChild('actionsTemplate', { static: true })
   actionsTemplate!: TemplateRef<any>;
   cols: TableTemplateColumn[] = [];
   productCriteria!: ProductCriteria;
@@ -31,24 +31,22 @@ export class ToolboxComponent
 
   constructor(
     private readonly modalProvider: ModalProvider,
-    private readonly messageService: MessageService,
+    private readonly messageService: ToastProvider,
     protected readonly applicationService: ApplicationService,
     protected readonly translate: TranslateService
   ) {
     super();
   }
 
-  testToast() : void {
+  testToast(): void {
     const countdown = 5;
     const message = this.translate.instant('enterprise.create.success');
     const redirectMessage = this.translate.instant(
       'enterprise.create.redirect'
     );
-    this.messageService.add({
-      severity: 'success',
+    this.messageService.success({
       summary: message,
       detail: `${redirectMessage} ${countdown}s...`,
-      sticky: true,
       closable: false,
       key: 'center',
       styleClass:

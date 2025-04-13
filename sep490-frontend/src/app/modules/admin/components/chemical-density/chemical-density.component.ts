@@ -3,31 +3,30 @@ import {
   EventEmitter,
   OnInit,
   TemplateRef,
-  ViewChild,
-  inject
+  ViewChild
 } from '@angular/core';
-import {SubscriptionAwareComponent} from '../../../core/subscription-aware.component';
+import {TranslateService} from '@ngx-translate/core';
 import {
   DialogService,
   DynamicDialogConfig,
   DynamicDialogRef
 } from 'primeng/dynamicdialog';
+import {Observable, takeUntil} from 'rxjs';
+import {UUID} from '../../../../../types/uuid';
+import {AppRoutingConstants} from '../../../../app-routing.constant';
+import {ApplicationService} from '../../../core/services/application.service';
+import {SubscriptionAwareComponent} from '../../../core/subscription-aware.component';
+import {TableTemplateColumn} from '../../../shared/components/table-template/table-template.component';
 import {
   SearchCriteriaDto,
   SearchResultDto
 } from '../../../shared/models/base-models';
-import {Observable, takeUntil} from 'rxjs';
-import {TableTemplateColumn} from '../../../shared/components/table-template/table-template.component';
-import {Router} from '@angular/router';
-import {ApplicationService} from '../../../core/services/application.service';
-import {AppRoutingConstants} from '../../../../app-routing.constant';
-import {MessageService} from 'primeng/api';
-import {ModalProvider} from '../../../shared/services/modal-provider';
-import {TranslateService} from '@ngx-translate/core';
-import {UUID} from '../../../../../types/uuid';
 import {ChemicalDensityDTO} from '../../../shared/models/shared-models';
-import {ChemicalDensityService} from '../../services/chemical-density.service';
+import {ModalProvider} from '../../../shared/services/modal-provider';
+import {ToastProvider} from '../../../shared/services/toast-provider';
 import {ChemicalDensityDialogComponent} from '../../dialog/chemical-density-dialog/chemical-density-dialog.component';
+import {ChemicalDensityService} from '../../services/chemical-density.service';
+
 export interface ChemicalDensityCriteria {
   criteria: string;
 }
@@ -53,12 +52,11 @@ export class ChemicalDensityComponent
     new EventEmitter();
   protected selected: ChemicalDensityDTO[] = [];
   protected searchCriteria: ChemicalDensityCriteria = {criteria: ''};
-  private readonly router = inject(Router);
 
   constructor(
     protected readonly applicationService: ApplicationService,
     private readonly userService: ChemicalDensityService,
-    private readonly messageService: MessageService,
+    private readonly messageService: ToastProvider,
     private readonly modalProvider: ModalProvider,
     private readonly translate: TranslateService,
     private readonly dialogService: DialogService
@@ -174,8 +172,7 @@ export class ChemicalDensityComponent
 
     this.userService.deleteChemicalDensity(userIds).subscribe({
       next: () => {
-        this.messageService.add({
-          severity: 'success',
+        this.messageService.success({
           summary: this.translate.instant(
             'enterprise.type.message.success.summary'
           ),
@@ -188,8 +185,7 @@ export class ChemicalDensityComponent
         this.clearSelectedEvent.emit();
       },
       error: () => {
-        this.messageService.add({
-          severity: 'error',
+        this.messageService.success({
           summary: this.translate.instant(
             'enterprise.Users.message.error.summary'
           ),

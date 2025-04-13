@@ -1,10 +1,5 @@
+import {HttpClient} from '@angular/common/http';
 import {Component} from '@angular/core';
-import {AbstractFormComponent} from '../../../shared/components/form/abstract-form-component';
-import {
-  BuildingPermission,
-  EnterpriseUserDetails
-} from '../../models/enterprise-user';
-import {Building} from '../../../enterprise/models/enterprise.dto';
 import {
   AbstractControl,
   FormArray,
@@ -14,21 +9,26 @@ import {
   ValidatorFn,
   Validators
 } from '@angular/forms';
-import {UUID} from '../../../../../types/uuid';
-import {UserRole} from '../../enums/role-names';
-import {BuildingPermissionRole} from '../../enums/building-permission-role';
-import {SelectableItem} from '../../../shared/models/base-models';
-import {UserScope} from '../../enums/user-scope';
-import {HttpClient} from '@angular/common/http';
-import {MessageService} from 'primeng/api';
+import {Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
-import {BuildingService} from '../../../../services/building.service';
-import {EnterpriseUserService} from '../../services/enterprise-user.service';
-import {ActivatedRoute, Router} from '@angular/router';
-import {takeUntil} from 'rxjs';
 import {MultiSelectChangeEvent} from 'primeng/multiselect';
 import {SelectChangeEvent} from 'primeng/select';
+import {takeUntil} from 'rxjs';
+import {UUID} from '../../../../../types/uuid';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
+import {BuildingService} from '../../../../services/building.service';
+import {Building} from '../../../enterprise/models/enterprise.dto';
+import {AbstractFormComponent} from '../../../shared/components/form/abstract-form-component';
+import {SelectableItem} from '../../../shared/models/base-models';
+import {ToastProvider} from '../../../shared/services/toast-provider';
+import {BuildingPermissionRole} from '../../enums/building-permission-role';
+import {UserRole} from '../../enums/role-names';
+import {UserScope} from '../../enums/user-scope';
+import {
+  BuildingPermission,
+  EnterpriseUserDetails
+} from '../../models/enterprise-user';
+import {EnterpriseUserService} from '../../services/enterprise-user.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -127,12 +127,11 @@ export class UserProfileComponent extends AbstractFormComponent<EnterpriseUserDe
   constructor(
     httpClient: HttpClient,
     formBuilder: FormBuilder,
-    notificationService: MessageService,
+    notificationService: ToastProvider,
     translate: TranslateService,
     private readonly buildingService: BuildingService,
     protected userService: EnterpriseUserService,
-    private readonly router: Router,
-    private readonly activatedRoute: ActivatedRoute
+    private readonly router: Router
   ) {
     super(httpClient, formBuilder, notificationService, translate);
   }
@@ -326,18 +325,6 @@ export class UserProfileComponent extends AbstractFormComponent<EnterpriseUserDe
         this.buildingPermissions.controls[0].value.role
       );
     }
-  }
-
-  private enterprisePermissionValidator(): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null => {
-      if (!this.enterpriseUserStructure) {
-        return null;
-      }
-      if (this.scopeEnterprise) {
-        return control.value ? null : {required: true};
-      }
-      return null;
-    };
   }
 
   private selectedBuildingIdsValidator(): ValidatorFn {

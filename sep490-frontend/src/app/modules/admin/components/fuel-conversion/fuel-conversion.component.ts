@@ -5,29 +5,28 @@ import {
   TemplateRef,
   ViewChild
 } from '@angular/core';
-import {SubscriptionAwareComponent} from '../../../core/subscription-aware.component';
-import {
-  SearchCriteriaDto,
-  SearchResultDto
-} from '../../../shared/models/base-models';
-import {Observable} from 'rxjs';
-import {TableTemplateColumn} from '../../../shared/components/table-template/table-template.component';
-import {ApplicationService} from '../../../core/services/application.service';
-import {MessageService} from 'primeng/api';
-import {ModalProvider} from '../../../shared/services/modal-provider';
 import {TranslateService} from '@ngx-translate/core';
-import {FuelConversionService} from '../../services/fuel-conversion.service';
 import {
   DialogService,
   DynamicDialogConfig,
   DynamicDialogRef
 } from 'primeng/dynamicdialog';
+import {Observable} from 'rxjs';
 import {UUID} from '../../../../../types/uuid';
-import {FuelDialogComponent} from '../../dialog/fuel-dialog/fuel-dialog.component';
+import {ApplicationService} from '../../../core/services/application.service';
+import {SubscriptionAwareComponent} from '../../../core/subscription-aware.component';
+import {TableTemplateColumn} from '../../../shared/components/table-template/table-template.component';
+import {
+  SearchCriteriaDto,
+  SearchResultDto
+} from '../../../shared/models/base-models';
 import {
   EnergyConversionDTO,
   FuelDTO
 } from '../../../shared/models/shared-models';
+import {FuelDialogComponent} from '../../dialog/fuel-dialog/fuel-dialog.component';
+import {FuelConversionService} from '../../services/fuel-conversion.service';
+
 export interface FuelConversionCriteria {
   criteria: string;
 }
@@ -55,8 +54,6 @@ export class FuelConversionComponent
   constructor(
     protected readonly applicationService: ApplicationService,
     private readonly fuelConversionService: FuelConversionService,
-    private readonly messageService: MessageService,
-    private readonly modalProvider: ModalProvider,
     private readonly translate: TranslateService,
     private readonly dialogService: DialogService
   ) {

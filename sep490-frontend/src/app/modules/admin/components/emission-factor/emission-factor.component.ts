@@ -5,31 +5,30 @@ import {
   TemplateRef,
   ViewChild
 } from '@angular/core';
-import {SubscriptionAwareComponent} from '../../../core/subscription-aware.component';
-import {
-  SearchCriteriaDto,
-  SearchResultDto
-} from '../../../shared/models/base-models';
-import {Observable} from 'rxjs';
-import {TableTemplateColumn} from '../../../shared/components/table-template/table-template.component';
-import {ApplicationService} from '../../../core/services/application.service';
-
-import {MessageService} from 'primeng/api';
-import {ModalProvider} from '../../../shared/services/modal-provider';
 import {TranslateService} from '@ngx-translate/core';
-import {
-  EmissionFactorDTO,
-  EmissionSourceDTO,
-  FuelDTO
-} from '../../../shared/models/shared-models';
-import {EmissionFactorService} from '../../services/emission_factor.service';
-import {UUID} from '../../../../../types/uuid';
 import {
   DialogService,
   DynamicDialogConfig,
   DynamicDialogRef
 } from 'primeng/dynamicdialog';
+import {Observable} from 'rxjs';
+import {UUID} from '../../../../../types/uuid';
+import {ApplicationService} from '../../../core/services/application.service';
+import {SubscriptionAwareComponent} from '../../../core/subscription-aware.component';
+import {TableTemplateColumn} from '../../../shared/components/table-template/table-template.component';
+import {
+  SearchCriteriaDto,
+  SearchResultDto
+} from '../../../shared/models/base-models';
+import {
+  EmissionFactorDTO,
+  EmissionSourceDTO,
+  FuelDTO
+} from '../../../shared/models/shared-models';
+import {ToastProvider} from '../../../shared/services/toast-provider';
 import {EmissionFactorDialogComponent} from '../../dialog/emission-factor-dialog/emission-factor-dialog.component';
+import {EmissionFactorService} from '../../services/emission_factor.service';
+
 export interface EmissionFactorCriteria {
   criteria: string;
 }
@@ -67,8 +66,7 @@ export class EmissionFactorComponent
   constructor(
     protected readonly applicationService: ApplicationService,
     private readonly emissionFactorService: EmissionFactorService,
-    private readonly messageService: MessageService,
-    private readonly modalProvider: ModalProvider,
+    private readonly messageService: ToastProvider,
     public readonly translate: TranslateService,
     private readonly dialogService: DialogService
   ) {
@@ -235,8 +233,7 @@ export class EmissionFactorComponent
       .deleteEmissionFactor(factor.id.toString())
       .subscribe({
         next: () => {
-          this.messageService.add({
-            severity: 'success',
+          this.messageService.success({
             summary: this.translate.instant(
               'admin.packageCredit.message.success.summary'
             ),
@@ -247,8 +244,7 @@ export class EmissionFactorComponent
           this.selected = []; // Clear local selection
         },
         error: () => {
-          this.messageService.add({
-            severity: 'error',
+          this.messageService.businessError({
             summary: this.translate.instant(
               'admin.packageCredit.message.error.summary'
             ),

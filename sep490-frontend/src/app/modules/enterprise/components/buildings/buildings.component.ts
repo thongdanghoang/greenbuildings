@@ -1,5 +1,6 @@
 import {Component, ComponentRef, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
+import {TranslateService} from '@ngx-translate/core';
 import * as L from 'leaflet';
 import {
   DialogService,
@@ -12,6 +13,8 @@ import {UUID} from '../../../../../types/uuid';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
 import {BuildingService} from '../../../../services/building.service';
 import {SubscriptionAwareComponent} from '../../../core/subscription-aware.component';
+import {ModalProvider} from '../../../shared/services/modal-provider';
+import {ToastProvider} from '../../../shared/services/toast-provider';
 import {
   BuildingSubscriptionDialogComponent,
   SubscriptionDialogOptions
@@ -24,9 +27,6 @@ import {
 import {PopupService} from '../../services/popup.service';
 import {WalletService} from '../../services/wallet.service';
 import {BuildingPopupMarkerComponent} from '../building-popup-marker/building-popup-marker.component';
-import {MessageService} from 'primeng/api';
-import {ModalProvider} from '../../../shared/services/modal-provider';
-import {TranslateService} from '@ngx-translate/core';
 
 const iconRetinaUrl = 'assets/marker-icon-2x.png';
 const iconUrl = 'assets/marker-icon.png';
@@ -85,7 +85,7 @@ export class BuildingsComponent
     private readonly popupService: PopupService,
     public dialogService: DialogService,
     private readonly walletService: WalletService,
-    private readonly messageService: MessageService,
+    private readonly messageService: ToastProvider,
     private readonly modalProvider: ModalProvider,
     private readonly translate: TranslateService
   ) {
@@ -301,8 +301,7 @@ export class BuildingsComponent
   private deleteBuilding(buildingId: UUID): void {
     this.buildingService.deleteBuildingById(buildingId).subscribe({
       next: () => {
-        this.messageService.add({
-          severity: 'success',
+        this.messageService.success({
           summary: this.translate.instant(
             'enterprise.buildings.message.success.summary'
           ),
@@ -313,8 +312,7 @@ export class BuildingsComponent
         this.fetchBuilding(); // Refresh the buildings list
       },
       error: () => {
-        this.messageService.add({
-          severity: 'error',
+        this.messageService.businessError({
           summary: this.translate.instant(
             'enterprise.buildings.message.error.summary'
           ),

@@ -1,6 +1,5 @@
 import {Component} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {MessageService} from 'primeng/api';
 import {filter, map, switchMap, takeUntil} from 'rxjs';
 import {validate} from 'uuid';
 import {UUID} from '../../../../../types/uuid';
@@ -8,6 +7,7 @@ import {AppRoutingConstants} from '../../../../app-routing.constant';
 import {ApplicationConstant} from '../../../../application.constant';
 import {SubscriptionAwareComponent} from '../../../core/subscription-aware.component';
 import {SelectableItem} from '../../../shared/models/base-models';
+import {ToastProvider} from '../../../shared/services/toast-provider';
 import {PowerBiAccessTokenService} from '../../services/power-bi-access-token.service';
 import {PowerBiAccessTokenExpirationOptions} from '../power-bi-access-token-expiration-options';
 
@@ -26,7 +26,7 @@ export class PowerBiRegenerateAccessTokenComponent extends SubscriptionAwareComp
     private readonly activatedRoute: ActivatedRoute,
     private readonly router: Router,
     private readonly powerBiAccessTokenService: PowerBiAccessTokenService,
-    private readonly notification: MessageService
+    private readonly notification: ToastProvider
   ) {
     super();
   }
@@ -60,16 +60,14 @@ export class PowerBiRegenerateAccessTokenComponent extends SubscriptionAwareComp
               JSON.stringify(result)
             );
             this.navigateToPowerBiAccessTokens();
-            this.notification.add({
-              severity: 'success',
+            this.notification.success({
               summary: 'Regenerated',
               detail: 'Regenerate Power BI access token successfully'
             });
           }
         },
         error: error =>
-          this.notification.add({
-            severity: 'error',
+          this.notification.businessError({
             summary: 'Failed',
             detail: error.message
           })

@@ -1,13 +1,13 @@
 import {HttpClient} from '@angular/common/http';
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
-import {MessageService} from 'primeng/api';
 import {DialogService, DynamicDialogRef} from 'primeng/dynamicdialog';
 import {SelectChangeEvent} from 'primeng/select';
 import {Observable, filter, switchMap, take, takeUntil, tap} from 'rxjs';
 import {AppRoutingConstants} from '../../app-routing.constant';
 import {SubscriptionAwareComponent} from '../../modules/core/subscription-aware.component';
 import {BaseDTO, SelectableItem} from '../../modules/shared/models/base-models';
+import {ToastProvider} from '../../modules/shared/services/toast-provider';
 import {CreateDashboardComponent} from './create-dashboard/create-dashboard.component';
 import {TranslateService} from '@ngx-translate/core';
 
@@ -40,7 +40,7 @@ export class DashboardComponent
     private readonly sanitizer: DomSanitizer,
     private readonly httpClient: HttpClient,
     private readonly dialogService: DialogService,
-    private readonly messageService: MessageService,
+    private readonly messageService: ToastProvider,
     public readonly translate: TranslateService
   ) {
     super();
@@ -103,19 +103,16 @@ export class DashboardComponent
       )
       .subscribe({
         next: (dashboard: EnterpriseDashboardDTO): void => {
-          this.messageService.add({
-            severity: 'success',
+          this.messageService.success({
             summary: 'Dashboard Created',
             detail: `Created new dashboard ${dashboard.id} successfully`
           });
           this.ngOnInit();
         },
         error: err => {
-          this.messageService.add({
-            severity: 'error',
+          this.messageService.businessError({
             summary: 'Dashboard Creation Failed',
-            detail: err.error.i18nKey,
-            sticky: true
+            detail: err.error.i18nKey
           });
         }
       });

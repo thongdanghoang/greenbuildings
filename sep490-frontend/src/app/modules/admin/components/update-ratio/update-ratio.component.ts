@@ -1,20 +1,20 @@
+import {HttpClient} from '@angular/common/http';
 import {Component} from '@angular/core';
-import {MessageService} from 'primeng/api';
-import {TranslateService} from '@ngx-translate/core';
-import {CreditConvertRatioService} from '../../services/credit-convert-ratio.service';
-import {ActivatedRoute, Router} from '@angular/router';
-import {filter, map, switchMap, takeUntil} from 'rxjs';
-import {CreditConvertRatio} from '../../../enterprise/models/enterprise.dto';
-import {UUID} from '../../../../../types/uuid';
-import {AbstractFormComponent} from '../../../shared/components/form/abstract-form-component';
 import {
   AbstractControl,
   FormBuilder,
   FormControl,
   Validators
 } from '@angular/forms';
-import {HttpClient} from '@angular/common/http';
+import {ActivatedRoute, Router} from '@angular/router';
+import {TranslateService} from '@ngx-translate/core';
+import {filter, map, switchMap, takeUntil} from 'rxjs';
+import {UUID} from '../../../../../types/uuid';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
+import {CreditConvertRatio} from '../../../enterprise/models/enterprise.dto';
+import {AbstractFormComponent} from '../../../shared/components/form/abstract-form-component';
+import {ToastProvider} from '../../../shared/services/toast-provider';
+import {CreditConvertRatioService} from '../../services/credit-convert-ratio.service';
 
 @Component({
   selector: 'app-update-ratio',
@@ -29,10 +29,11 @@ export class UpdateRatioComponent extends AbstractFormComponent<CreditConvertRat
     ratio: new FormControl(null, [Validators.required, Validators.min(0)]),
     convertType: new FormControl('')
   };
+
   constructor(
     httpClient: HttpClient,
     formBuilder: FormBuilder,
-    notificationService: MessageService,
+    notificationService: ToastProvider,
     translate: TranslateService,
     private readonly creditConvertRatioService: CreditConvertRatioService,
     private readonly router: Router,

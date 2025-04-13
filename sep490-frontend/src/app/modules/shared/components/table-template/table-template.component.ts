@@ -8,12 +8,13 @@ import {
   ViewChild
 } from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
-import {MessageService, SortEvent} from 'primeng/api';
+import {SortEvent} from 'primeng/api';
 import {PaginatorState} from 'primeng/paginator';
 import {Table} from 'primeng/table';
 import {takeUntil} from 'rxjs';
 import {ApplicationConstant} from '../../../../application.constant';
 import {SearchResultDto, SortDto} from '../../models/base-models';
+import {ToastProvider} from '../../services/toast-provider';
 import {AbstractSearchComponent} from '../abstract-search';
 
 export interface TableTemplateColumn {
@@ -52,7 +53,7 @@ export class TableTemplateComponent<
 
   protected readonly ApplicationConstant = ApplicationConstant;
 
-  constructor(translate: TranslateService, messageService: MessageService) {
+  constructor(translate: TranslateService, messageService: ToastProvider) {
     super(translate, messageService);
     this.paginatorTemplateString = this.translate.instant(
       'table.paginatorString'
@@ -124,9 +125,9 @@ export class TableTemplateComponent<
   }
 
   onPageChange(value: PaginatorState): void {
-    if (value.first !== undefined && value.rows !== undefined) {
+    if (value.page !== undefined && value.rows !== undefined) {
       this.searchCriteria.page = {
-        pageNumber: value.page!,
+        pageNumber: value.page,
         pageSize: value.rows
       };
       this.search();

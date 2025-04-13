@@ -1,10 +1,10 @@
 import {Directive, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
-import {MessageService} from 'primeng/api';
 import {Observable, of, takeUntil} from 'rxjs';
 import {SubscriptionAwareComponent} from '../../core/subscription-aware.component';
 import {SearchCriteriaDto, SearchResultDto} from '../models/base-models';
 import {TranslateParamsPipe} from '../pipes/translate-params.pipe';
+import {ToastProvider} from '../services/toast-provider';
 
 @Directive()
 export abstract class AbstractSearchComponent<
@@ -29,7 +29,7 @@ export abstract class AbstractSearchComponent<
 
   protected constructor(
     protected readonly translate: TranslateService,
-    protected readonly messageService: MessageService
+    protected readonly messageService: ToastProvider
   ) {
     super();
     this.pipe = new TranslateParamsPipe(this.translate);
@@ -49,8 +49,7 @@ export abstract class AbstractSearchComponent<
         .pipe(takeUntil(this.destroy$))
         .subscribe(err => {
           if (err && err.length > 0) {
-            this.messageService.add({
-              severity: 'error',
+            this.messageService.businessError({
               summary: 'Error',
               detail: err.map(e => this.pipe.transform(e)).join('\n')
             });
@@ -79,14 +78,12 @@ export abstract class AbstractSearchComponent<
               `http.error.status.${error?.status}.title`
             );
             const message = this.pipe.transform(error.error.i18nKey);
-            this.messageService.add({
-              severity: 'error',
+            this.messageService.businessError({
               summary: title,
               detail: message
             });
           } else {
-            this.messageService.add({
-              severity: 'error',
+            this.messageService.businessError({
               summary: 'Error',
               detail: JSON.stringify(error)
             });

@@ -6,14 +6,14 @@ import {
 } from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
-import {MessageService} from 'primeng/api';
 import {Observable, catchError, throwError} from 'rxjs';
 import {BusinessErrorParam} from '../../shared/models/base-models';
+import {ToastProvider} from '../../shared/services/toast-provider';
 
 @Injectable()
 export class HttpErrorHandlerInterceptor implements HttpInterceptor {
   constructor(
-    private readonly messageService: MessageService,
+    private readonly messageService: ToastProvider,
     private readonly translateService: TranslateService
   ) {}
 
@@ -39,25 +39,21 @@ export class HttpErrorHandlerInterceptor implements HttpInterceptor {
       'common.error.technicalServerError',
       {correlationId: error.error.correlationId}
     );
-    this.messageService.add({
-      severity: 'error',
-      summary: 'Error',
-      detail: message,
-      sticky: true
+    this.messageService.technicalError({
+      summary: this.translateService.instant('common.error.unexpectedError'),
+      detail: message
     });
     error.error.errorNotified = true;
   }
 
   private handleBusinessErrorException(error: any): void {
     if (!error.error.field) {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Error',
+      this.messageService.businessError({
+        summary: this.translateService.instant('common.error.businessError'),
         detail: this.translateService.instant(
           `validation.${error.error.i18nKey}`,
           this.convertErrorParams(error.error.args)
-        ),
-        sticky: true
+        )
       });
     }
     error.error.errorNotified = true;

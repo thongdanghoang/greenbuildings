@@ -1,15 +1,15 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {MessageService} from 'primeng/api';
+import {TranslateService} from '@ngx-translate/core';
 import {filter, map, switchMap, takeUntil, tap} from 'rxjs';
 import {UUID} from '../../../../../types/uuid';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
 import {ApplicationConstant} from '../../../../application.constant';
 import {SubscriptionAwareComponent} from '../../../core/subscription-aware.component';
 import {ModalProvider} from '../../../shared/services/modal-provider';
+import {ToastProvider} from '../../../shared/services/toast-provider';
 import {PowerBiAuthority} from '../../models/power-bi-access-token.dto';
 import {PowerBiAccessTokenService} from '../../services/power-bi-access-token.service';
-import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-power-bi-access-token',
@@ -27,7 +27,7 @@ export class PowerBiAccessTokenComponent
   constructor(
     private readonly powerBiService: PowerBiAccessTokenService,
     private readonly modalProvider: ModalProvider,
-    private readonly messageService: MessageService,
+    private readonly messageService: ToastProvider,
     private readonly router: Router,
     private readonly translate: TranslateService
   ) {
@@ -96,15 +96,13 @@ export class PowerBiAccessTokenComponent
     navigator.clipboard
       .writeText(text)
       .then(() => {
-        this.messageService.add({
-          severity: 'success',
+        this.messageService.success({
           summary: 'Copied',
           detail: 'Token copied to clipboard'
         });
       })
       .catch(() => {
-        this.messageService.add({
-          severity: 'error',
+        this.messageService.businessError({
           summary: 'Error',
           detail: 'Failed to copy token'
         });
@@ -132,8 +130,7 @@ export class PowerBiAccessTokenComponent
       )
       .subscribe({
         next: (): void => {
-          this.messageService.add({
-            severity: 'success',
+          this.messageService.success({
             summary: this.translate.instant(
               'powerBi.messageService.success.summary'
             ),
@@ -145,8 +142,7 @@ export class PowerBiAccessTokenComponent
           this.clearNewestPowerBiAccessToken();
         },
         error: (): void => {
-          this.messageService.add({
-            severity: 'error',
+          this.messageService.success({
             summary: this.translate.instant(
               'powerBi.messageService.error.summary'
             ),
