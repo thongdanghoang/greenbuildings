@@ -96,6 +96,7 @@ export interface FuelConversion extends BaseDTO {
 export interface CreditPackage extends BaseDTO {
   numberOfCredits: number;
   price: number;
+  convertedPriceCurrency: number;
 }
 
 export interface CreditPackageAdmin extends BaseDTO {

@@ -1,10 +1,17 @@
-import {CommonModule, DatePipe, NgOptimizedImage} from '@angular/common';
+import {
+  CommonModule,
+  CurrencyPipe,
+  DatePipe,
+  DecimalPipe,
+  NgOptimizedImage
+} from '@angular/common';
 import {HttpClientModule} from '@angular/common/http';
 import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
 import {TranslateModule} from '@ngx-translate/core';
 import {AccordionModule} from 'primeng/accordion';
+import {AutoCompleteModule} from 'primeng/autocomplete';
 import {AutoFocusModule} from 'primeng/autofocus';
 import {AvatarModule} from 'primeng/avatar';
 import {BadgeModule} from 'primeng/badge';
@@ -28,6 +35,8 @@ import {FluidModule} from 'primeng/fluid';
 import {IconFieldModule} from 'primeng/iconfield';
 import {IftaLabel} from 'primeng/iftalabel';
 import {ImageModule} from 'primeng/image';
+import {InputGroupModule} from 'primeng/inputgroup';
+import {InputGroupAddonModule} from 'primeng/inputgroupaddon';
 import {InputIconModule} from 'primeng/inputicon';
 import {InputNumberModule} from 'primeng/inputnumber';
 import {InputSwitchModule} from 'primeng/inputswitch';
@@ -39,6 +48,7 @@ import {MessagesModule} from 'primeng/messages';
 import {MultiSelectModule} from 'primeng/multiselect';
 import {PaginatorModule} from 'primeng/paginator';
 import {PasswordModule} from 'primeng/password';
+import {PopoverModule} from 'primeng/popover';
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
 import {RippleModule} from 'primeng/ripple';
 import {SelectModule} from 'primeng/select';
@@ -52,6 +62,7 @@ import {TextareaModule} from 'primeng/textarea';
 import {ToastModule} from 'primeng/toast';
 import {ToggleButtonModule} from 'primeng/togglebutton';
 import {ToggleSwitchModule} from 'primeng/toggleswitch';
+import {TooltipModule} from 'primeng/tooltip';
 import {CardTemplateComponent} from './components/card/card-template/card-template.component';
 import {ConfirmDialogComponent} from './components/dialog/confirm-dialog/confirm-dialog.component';
 import {FormFieldErrorComponent} from './components/form/form-field-error/form-field-error.component';
@@ -67,11 +78,7 @@ import {FuelService} from './services/fuel.service';
 import {ModalProvider} from './services/modal-provider';
 import {ToastProvider} from './services/toast-provider';
 import {UnitService} from './services/unit.service';
-import {PopoverModule} from 'primeng/popover';
-import {TooltipModule} from 'primeng/tooltip';
-import {InputGroupModule} from 'primeng/inputgroup';
-import {InputGroupAddonModule} from 'primeng/inputgroupaddon';
-import {AutoCompleteModule} from 'primeng/autocomplete';
+
 const primeNgModules = [
   AccordionModule,
   AutoFocusModule,
@@ -165,6 +172,8 @@ const commons = [
   ],
   providers: [
     DatePipe,
+    DecimalPipe,
+    CurrencyPipe,
     ModalProvider,
     ToastProvider,
     DialogService,

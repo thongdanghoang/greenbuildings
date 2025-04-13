@@ -639,5 +639,8 @@
     "example": "Ví dụ:",
     "close": "Đóng",
     "submit": "Nộp"
+  },
+  "currency": {
+    "symbol": "₫"
   }
 }

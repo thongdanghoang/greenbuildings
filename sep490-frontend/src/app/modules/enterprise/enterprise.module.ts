@@ -10,6 +10,7 @@ import {NewActivityRecordDialogComponent} from './dialog/new-activity-record-dia
 import {EnterpriseRoutingModule} from './enterprise-routing.module';
 import {EnterpriseComponent} from './enterprise.component';
 import {CreditPackageService} from './services/credit-package.service';
+import {CurrencyConverterService} from './services/currency-converter.service';
 import {EmissionActivityRecordService} from './services/emission-activity-record.service';
 import {MarkerService} from './services/marker.service';
 import {PaymentService} from './services/payment.service';
@@ -58,7 +59,8 @@ import {ActivityTypeDialogComponent} from './dialog/activity-type-dialog/activit
     CreditPackageService,
     SubscriptionService,
     EmissionActivityService,
-    EmissionActivityRecordService
+    EmissionActivityRecordService,
+    CurrencyConverterService
   ]
 })
 export class EnterpriseModule {}
