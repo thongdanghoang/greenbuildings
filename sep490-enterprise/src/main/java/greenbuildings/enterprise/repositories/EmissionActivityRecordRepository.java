@@ -36,7 +36,7 @@ public interface EmissionActivityRecordRepository
                     (e.startDate < :endDate AND e.endDate > :startDate)
                 )
             """)
-    boolean existsByEmissionActivityEntityIdAndDateOverlap(UUID groupItemId, LocalDate startDate, LocalDate endDate);
+    boolean existsByGroupItemIdAndDateOverlap(UUID groupItemId, LocalDate startDate, LocalDate endDate);
     
     
     @Query("""
@@ -48,7 +48,7 @@ public interface EmissionActivityRecordRepository
                     (e.startDate < :endDate AND e.endDate > :startDate)
                 )
             """)
-    boolean otherExistsByEmissionActivityEntityIdAndDateOverlap(UUID recordId, UUID groupItemId, LocalDate startDate, LocalDate endDate);
+    boolean otherExistsByGroupItemIdAndDateOverlap(UUID recordId, UUID groupItemId, LocalDate startDate, LocalDate endDate);
     
     
 }

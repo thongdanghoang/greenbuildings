@@ -199,7 +199,8 @@
           "add": "Add building",
           "activate": "Activate",
           "activity": "Emission Activity",
-          "update": "Update Subscription"
+          "update": "Update Subscription",
+          "manage": "Manage Building"
         },
         "noRow": "No buildings found."
       },

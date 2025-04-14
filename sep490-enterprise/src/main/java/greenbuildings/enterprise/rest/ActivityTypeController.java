@@ -5,10 +5,7 @@ import greenbuildings.commons.api.dto.SearchCriteriaDTO;
 import greenbuildings.commons.api.dto.SearchResultDTO;
 import greenbuildings.enterprise.dtos.ActivityTypeCriteriaDTO;
 import greenbuildings.enterprise.dtos.ActivityTypeDTO;
-import greenbuildings.enterprise.dtos.EmissionSourceCriteriaDTO;
-import greenbuildings.enterprise.dtos.EmissionSourceDTO;
 import greenbuildings.enterprise.entities.ActivityTypeEntity;
-import greenbuildings.enterprise.entities.EmissionSourceEntity;
 import greenbuildings.enterprise.mappers.ActivityTypeMapper;
 import greenbuildings.enterprise.services.ActivityTypeService;
 import lombok.RequiredArgsConstructor;
@@ -31,9 +28,9 @@ public class ActivityTypeController {
         return ResponseEntity.ok(service.findAll().stream().map(mapper::toDTO).toList());
     }
     
-    @GetMapping(params = "enterpriseId")
-    public ResponseEntity<List<ActivityTypeDTO>> findByBuildingId(@RequestParam UUID enterpriseId) {
-        return ResponseEntity.ok(service.findByEnterpriseId(enterpriseId).stream().map(mapper::toDTO).toList());
+    @GetMapping(params = "tenantId")
+    public ResponseEntity<List<ActivityTypeDTO>> findByBuildingId(@RequestParam UUID tenantId) {
+        return ResponseEntity.ok(service.findByTenantId(tenantId).stream().map(mapper::toDTO).toList());
     }
     
     @PostMapping

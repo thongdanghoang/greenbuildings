@@ -1,0 +1,151 @@
+<div *ngIf="buildingDetails">
+    <div>
+        <p-button
+            icon="pi pi-arrow-left"
+            label="{{ 'common.back' | translate }}"
+            (click)="goBack()"
+            severity="primary"
+            outlined="true"
+            size="small"
+        ></p-button>
+    </div>
+    <div class="mb-2 mt-2 md:w-1/2">
+        <p-card header="{{ buildingDetails.name }}">
+            <ng-template pTemplate="subtitle">
+                <i class="pi pi-map-marker"></i>
+                {{ buildingDetails.address }}
+            </ng-template>
+            <p-fieldset
+                legend="{{
+                    'enterprise.emission.activity.subscriptionDetail'
+                        | translate
+                }}"
+                collapsed="true"
+                [toggleable]="true"
+            >
+                <p>
+                    <i class="pi pi-star"></i>
+                    {{
+                        "enterprise.emission.activity.maxNoActivities"
+                            | translate
+                    }}
+                    {{ buildingDetails.subscriptionDTO?.maxNumberOfDevices }}
+                </p>
+                <p>
+                    <i class="pi pi-calendar"></i>
+                    {{
+                        "enterprise.emission.activity.subscriptionDuration"
+                            | translate
+                    }}
+
+                    {{
+                        buildingDetails.subscriptionDTO?.startDate
+                            | date: "dd/MM/yyyy"
+                    }}
+                    -
+                    {{
+                        buildingDetails.subscriptionDTO?.endDate
+                            | date: "dd/MM/yyyy"
+                    }}
+                </p>
+                <p>
+                    <i class="pi pi-hourglass"></i>
+                    {{
+                        "enterprise.emission.activity.remainingDays" | translate
+                    }}
+                    {{ getRemainingDays() }}
+                </p>
+            </p-fieldset>
+            <ng-template pTemplate="footer">
+                <div class="mt-1 flex gap-4">
+                    <p-button
+                        label="{{
+                            'enterprise.emission.activity.generateReport'
+                                | translate
+                        }}"
+                        class="flex-1"
+                        severity="primary"
+                        outlined
+                        styleClass="w-full"
+                        (onClick)="generateReport()"
+                        size="small"
+                    ></p-button>
+
+                    <p-button
+                        label="{{
+                            'enterprise.emission.activity.new' | translate
+                        }}"
+                        class="flex-1"
+                        (onClick)="openNewActivityDialog()"
+                        severity="primary"
+                        styleClass="w-full"
+                        size="small"
+                    ></p-button>
+                </div>
+            </ng-template>
+        </p-card>
+    </div>
+</div>
+
+<table-template
+    *ngIf="!applicationService.isMobile()"
+    [fetch]="fetchGroups"
+    [columns]="cols"
+    [searchOnInit]="false"
+    [captionTemplateRef]="captionTemplateRef"
+    [criteria]="searchCriteria"
+    [triggerSearch]="searchEvent"
+    [triggerClearSelected]="clearSelectedEvent"
+    (selectionChange)="onSelectionChange($event)"
+    [checkbox]="true"
+>
+</table-template>
+<ng-template #captionTemplateRef>
+    <div class="flex items-center justify-between">
+        <div class="flex gap-2.5">
+            <p-iconfield>
+                <p-inputicon styleClass="pi pi-search" />
+                <input
+                    type="text"
+                    pInputText
+                    [(ngModel)]="searchCriteria.name"
+                    placeholder="{{ 'common.search' | translate }}"
+                />
+            </p-iconfield>
+            <p-button
+                severity="primary"
+                [label]="'enterprise.Users.search' | translate"
+                icon="pi pi-search"
+                outlined
+                (onClick)="searchEvent.emit()"
+            />
+        </div>
+        <div class="flex gap-2.5">
+            <p-button
+                severity="danger"
+                [label]="
+                    selected.length
+                        ? ('enterprise.emission.activity.deleteWithCount'
+                          | translate: { count: selected.length })
+                        : ('enterprise.Users.delete' | translate)
+                "
+                icon="pi pi-trash"
+                outlined
+                [disabled]="!selected || !selected.length"
+                (onClick)="confirmDelete()"
+                size="small"
+            />
+        </div>
+    </div>
+</ng-template>
+<ng-template #actionsTemplate let-activity>
+    <p-button
+        icon="pi pi-file-edit"
+        [rounded]="true"
+        [text]="true"
+        severity="contrast"
+    />
+</ng-template>
+<ng-template #typeTemplate let-activity>
+    <span *ngIf="activity.type">{{ activity?.type.name }}</span>
+</ng-template>

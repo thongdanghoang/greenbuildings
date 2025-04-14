@@ -120,8 +120,8 @@ export class BuildingsComponent
     return building?.subscriptionDTO !== null;
   }
 
-  getEmissionActivityPath(building: Building): string {
-    return `/${AppRoutingConstants.ENTERPRISE_PATH}/${AppRoutingConstants.EMISSION_ACTIVITY_PATH}/${building?.id}`;
+  getManageBuildingPath(building: Building): string {
+    return `/${AppRoutingConstants.ENTERPRISE_PATH}/${AppRoutingConstants.BUILDING_MANAGEMENT_PATH}/${building?.id}`;
   }
 
   openDialog(building: Building): void {

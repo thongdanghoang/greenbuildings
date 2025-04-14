@@ -3,6 +3,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {AppRoutingConstants} from '../../app-routing.constant';
 import {AccountInformationComponent} from './components/account-information/account-information.component';
 import {BuildingDetailsComponent} from './components/building-details/building-details.component';
+import {BuildingManagementComponent} from './components/building-management/building-management.component';
 import {BuildingsComponent} from './components/buildings/buildings.component';
 import {CreateEnterpriseComponent} from './components/create-enterprise/create-enterprise.component';
 import {EmissionActivityComponent} from './components/emission-activity/emission-activity.component';
@@ -25,6 +26,10 @@ const routes: Routes = [
       {
         path: `${AppRoutingConstants.BUILDING_PATH}/:id`,
         component: BuildingDetailsComponent
+      },
+      {
+        path: `${AppRoutingConstants.BUILDING_MANAGEMENT_PATH}/:id`,
+        component: BuildingManagementComponent
       },
       {
         path: AppRoutingConstants.PLAN_PATH,

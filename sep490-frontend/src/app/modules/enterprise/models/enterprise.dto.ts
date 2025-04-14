@@ -21,7 +21,23 @@ export interface BuildingDetails extends BaseDTO {
   longitude: number;
   address: string;
   subscriptionDTO?: Subscription;
+  buildingGroups: BuildingGroup[];
+}
+
+export interface Tenant extends BaseDTO {
+  name: string;
+}
+
+export interface BuildingGroup extends BaseDTO {
+  name: string;
+  building: Building;
+  tenant: Tenant;
   emissionActivities: EmissionActivity[];
+}
+
+export interface GroupItem extends BaseDTO {
+  name: string;
+  buildingGroup: BuildingGroup;
 }
 
 export interface EmissionActivity extends BaseDTO {

@@ -199,7 +199,8 @@
           "add": "Thêm tòa nhà",
           "activate": "Kích hoạt",
           "activity": "Hoạt động phát thải",
-          "update": "Nâng cấp gói đăng ký"
+          "update": "Nâng cấp gói đăng ký",
+          "manage": "Quản lý tòa nhà"
         },
         "noRow": "Không tìm thấy tòa nhà nào."
       },
