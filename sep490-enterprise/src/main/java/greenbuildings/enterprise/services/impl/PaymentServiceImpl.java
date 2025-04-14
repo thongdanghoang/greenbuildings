@@ -6,10 +6,7 @@ import greenbuildings.commons.api.enums.PaymentStatus;
 import greenbuildings.commons.api.exceptions.TechnicalException;
 import greenbuildings.enterprise.adapters.payos.payos.PayOSAdapter;
 import greenbuildings.enterprise.dtos.PaymentCriteriaDTO;
-import greenbuildings.enterprise.entities.CreditPackageVersionEntity;
-import greenbuildings.enterprise.entities.EnterpriseEntity;
-import greenbuildings.enterprise.entities.PaymentEntity;
-import greenbuildings.enterprise.entities.WalletEntity;
+import greenbuildings.enterprise.entities.*;
 import greenbuildings.enterprise.repositories.CreditPackageVersionRepository;
 import greenbuildings.enterprise.repositories.EnterpriseRepository;
 import greenbuildings.enterprise.repositories.PaymentRepository;
@@ -23,6 +20,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -43,6 +41,10 @@ public class PaymentServiceImpl implements PaymentService {
     public Page<PaymentEntity> search(SearchCriteriaDTO<PaymentCriteriaDTO> searchCriteria, Pageable pageable) {
         UUID enterpriseId = SecurityUtils.getCurrentUserEnterpriseId().orElseThrow();
         return payRepo.findByEnterpriseId(enterpriseId, pageable);
+    }
+
+    public Optional<PaymentEntity> findById(UUID id) {
+        return payRepo.findById(id);
     }
     
     @Override

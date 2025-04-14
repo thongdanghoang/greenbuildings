@@ -641,5 +641,47 @@
   },
   "currency": {
     "symbol": "¥"
+  },
+  "paymentDetail": {
+    "header": "支付详情",
+    "labels": {
+      "createdDate": "创建日期",
+      "status": "状态",
+      "amount": "金额",
+      "credits": "信用",
+      "accountName": "账户名称",
+      "accountNumber": "账户号码",
+      "description": "描述",
+      "orderCode": "订单编号",
+      "paymentLinkId": "支付链接ID",
+      "payOSStatus": "PayOS状态",
+      "expiresAt": "到期时间",
+      "enterprise": "企业",
+      "creditPackage": "信用包",
+      "checkoutUrl": "结账网址",
+      "hotline": "热线",
+      "name": "姓名"
+    },
+    "buttons": {
+      "close": "关闭"
+    },
+    "fallback": {
+      "na": "N/A"
+    }
+  },
+  "useCreditHistory": {
+    "title": "信用扣除历史",
+    "table": {
+      "createdDate": "创建日期",
+      "amount": "金额",
+      "months": "月份数",
+      "numberOfDevices": "设备数量",
+      "transactionType": "交易类型",
+      "NEW_PURCHASE": "新购买",
+      "UPGRADE": "更新"
+    },
+    "search": "搜索",
+    "close": "关闭",
+    "mobileNotSupported": "此功能在移动设备上不受支持"
   }
 }

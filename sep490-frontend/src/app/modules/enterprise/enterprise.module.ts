@@ -28,6 +28,9 @@ import {CreateEnterpriseComponent} from './components/create-enterprise/create-e
 import {EnterpriseInvitationComponent} from './components/enterprise-invitation/enterprise-invitation.component';
 import {ActivityTypeComponent} from './components/activity-type/activity-type.component';
 import {ActivityTypeDialogComponent} from './dialog/activity-type-dialog/activity-type-dialog.component';
+import {PaymentDetailDialogComponent} from './dialog/payment-detail-dialog/payment-detail-dialog.component';
+import {CreditDeductionHistoryDialogComponent} from './dialog/credit-deduction-history-dialog/credit-deduction-history-dialog.component';
+import {TransactionService} from './services/transaction.service';
 
 @NgModule({
   declarations: [
@@ -47,7 +50,9 @@ import {ActivityTypeDialogComponent} from './dialog/activity-type-dialog/activit
     CreateEnterpriseComponent,
     EnterpriseInvitationComponent,
     ActivityTypeComponent,
-    ActivityTypeDialogComponent
+    ActivityTypeDialogComponent,
+    PaymentDetailDialogComponent,
+    CreditDeductionHistoryDialogComponent
   ],
   imports: [SharedModule, EnterpriseRoutingModule],
   providers: [
@@ -60,7 +65,8 @@ import {ActivityTypeDialogComponent} from './dialog/activity-type-dialog/activit
     SubscriptionService,
     EmissionActivityService,
     EmissionActivityRecordService,
-    CurrencyConverterService
+    CurrencyConverterService,
+    TransactionService
   ]
 })
 export class EnterpriseModule {}

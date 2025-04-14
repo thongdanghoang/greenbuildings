@@ -27,6 +27,7 @@ import {
 import {PopupService} from '../../services/popup.service';
 import {WalletService} from '../../services/wallet.service';
 import {BuildingPopupMarkerComponent} from '../building-popup-marker/building-popup-marker.component';
+import {CreditDeductionHistoryDialogComponent} from '../../dialog/credit-deduction-history-dialog/credit-deduction-history-dialog.component';
 
 const iconRetinaUrl = 'assets/marker-icon-2x.png';
 const iconUrl = 'assets/marker-icon.png';
@@ -296,6 +297,21 @@ export class BuildingsComponent
     );
 
     tiles.addTo(this.map);
+  }
+
+  // eslint-disable-next-line @typescript-eslint/member-ordering
+  protected viewHistoryUseCredit(buildingId: UUID): void {
+    const dialogConfig: DynamicDialogConfig<UUID> = {
+      closeOnEscape: true,
+      dismissableMask: true,
+      showHeader: false,
+      data: buildingId // Truyền buildingId vào data
+    };
+
+    this.ref = this.dialogService.open(
+      CreditDeductionHistoryDialogComponent,
+      dialogConfig
+    );
   }
 
   private deleteBuilding(buildingId: UUID): void {

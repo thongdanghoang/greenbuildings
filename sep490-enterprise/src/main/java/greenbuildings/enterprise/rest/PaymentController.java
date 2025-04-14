@@ -3,6 +3,7 @@ package greenbuildings.enterprise.rest;
 import commons.springfw.impl.mappers.CommonMapper;
 import greenbuildings.enterprise.dtos.PaymentCriteriaDTO;
 import greenbuildings.enterprise.dtos.PaymentDTO;
+import greenbuildings.enterprise.dtos.PaymentDetailDTO;
 import greenbuildings.enterprise.entities.PaymentEntity;
 import greenbuildings.enterprise.mappers.PaymentMapper;
 import greenbuildings.enterprise.services.PaymentService;
@@ -12,13 +13,7 @@ import greenbuildings.commons.api.security.UserRole;
 import jakarta.annotation.security.RolesAllowed;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
@@ -46,6 +41,14 @@ public class PaymentController {
     public ResponseEntity<PaymentDTO> createPayment(@RequestHeader("Origin") String origin, @PathVariable UUID id) {
         PaymentEntity payment = paymentService.createPayment(id, origin);
         return ResponseEntity.ok(paymentMapper.paymentEntityToPaymentDTO(payment));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<PaymentDetailDTO> findById(@PathVariable UUID id) {
+        PaymentDetailDTO paymentDetailDTO = paymentService.findById(id)
+                .map(paymentMapper::paymentEntityToPaymentDetailDTO)
+                .orElseThrow();
+        return ResponseEntity.ok(paymentDetailDTO);
     }
     
     @PutMapping("/{orderCode}")

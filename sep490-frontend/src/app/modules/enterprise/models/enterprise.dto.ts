@@ -146,3 +146,10 @@ export interface UserByBuilding {
   name: string;
   role: keyof typeof BuildingPermissionRole;
 }
+export interface TransactionDTO extends BaseDTO {
+  createdDate: Date;
+  amount: number;
+  months: number;
+  numberOfDevices: number;
+  transactionType: keyof typeof TransactionType;
+}

@@ -1,0 +1,39 @@
+<div class="mt-4 w-[900px] sm:w-[800] md:w-[1000px]">
+    <!-- Dialog Header -->
+    <div class="p-dialog-header border-b p-4">
+        <span class="text-xl font-semibold text-primary">
+            {{ "useCreditHistory.title" | translate }}
+        </span>
+        <button
+            pButton
+            type="button"
+            icon="pi pi-times"
+            class="p-button-rounded p-button-text"
+            (click)="ref.close()"
+        ></button>
+    </div>
+
+    <!-- Dialog Content -->
+    <div
+        class="p-dialog-content flex min-h-[400px] flex-col overflow-hidden p-0"
+    >
+        <!-- Table -->
+        <table-template
+            *ngIf="!applicationService.isMobile()"
+            [fetch]="fetchTransaction"
+            [columns]="cols"
+            [sort]="undefined"
+            [criteria]="searchCriteria"
+            [triggerSearch]="searchEvent"
+            [triggerClearSelected]="clearSelectedEvent"
+            (selectionChange)="onSelectionChange($event)"
+        ></table-template>
+    </div>
+    <ng-template #typeTemplate let-rowData>
+        <p>
+            {{
+                "useCreditHistory.table." + rowData.transactionType | translate
+            }}
+        </p>
+    </ng-template>
+</div>

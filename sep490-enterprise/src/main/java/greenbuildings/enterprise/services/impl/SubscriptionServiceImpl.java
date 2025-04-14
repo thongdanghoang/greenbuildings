@@ -134,6 +134,8 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         transaction.setEnterprise(buildingEntity.getEnterprise());
         transaction.setTransactionType(request.type());
         transaction.setAmount(amount);
+        transaction.setMonths(request.months());
+        transaction.setNumberOfDevices(request.numberOfDevices());
         return transaction;
     }
     
