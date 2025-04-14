@@ -63,7 +63,7 @@ public class EmissionActivityRecordServiceImpl implements EmissionActivityRecord
     }
     
     private void newRecord(EmissionActivityRecordEntity entity, MultipartFile file) {
-        if (recordRepository.existsByEmissionActivityEntityIdAndDateOverlap(entity.getGroupItem().getId(), entity.getStartDate(), entity.getEndDate())) {
+        if (recordRepository.existsByGroupItemIdAndDateOverlap(entity.getGroupItem().getId(), entity.getStartDate(), entity.getEndDate())) {
             throw new BusinessException("rangeDates", "business.record.dateOverlap");
         }
         entity = recordRepository.save(entity);
@@ -84,7 +84,7 @@ public class EmissionActivityRecordServiceImpl implements EmissionActivityRecord
     }
     
     private void updateRecord(EmissionActivityRecordEntity entity, MultipartFile file) {
-        if (recordRepository.otherExistsByEmissionActivityEntityIdAndDateOverlap(entity.getId(), entity.getGroupItem().getId(), entity.getStartDate(), entity.getEndDate())) {
+        if (recordRepository.otherExistsByGroupItemIdAndDateOverlap(entity.getId(), entity.getGroupItem().getId(), entity.getStartDate(), entity.getEndDate())) {
             throw new BusinessException("rangeDates", "business.record.dateOverlap");
         }
         EmissionActivityRecordEntity existing = recordRepository.findById(entity.getId()).orElseThrow();
