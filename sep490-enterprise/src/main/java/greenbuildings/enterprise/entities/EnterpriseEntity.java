@@ -1,9 +1,11 @@
 package greenbuildings.enterprise.entities;
 
 import commons.springfw.impl.entities.AbstractAuditableEntity;
+import greenbuildings.commons.api.utils.CommonConstant;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
@@ -12,11 +14,9 @@ import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import greenbuildings.commons.api.utils.CommonConstant;
-import jakarta.persistence.OneToMany;
+
 import java.util.HashSet;
 import java.util.Set;
-import jakarta.persistence.FetchType;
 
 @Entity
 @Table(name = "enterprises")
@@ -29,8 +29,8 @@ public class EnterpriseEntity extends AbstractAuditableEntity {
     @OneToOne(mappedBy = "enterprise", cascade = CascadeType.ALL, optional = false)
     private WalletEntity wallet;
     
-    @OneToMany(mappedBy = "enterprise", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<ActivityTypeEntity> activityTypes = new HashSet<>();
+    @OneToMany(mappedBy = "enterprise")
+    private Set<BuildingEntity> buildings = new HashSet<>();
     
     @NotBlank
     @Column(name = "name", nullable = false)

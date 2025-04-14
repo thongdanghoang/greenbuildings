@@ -11,21 +11,21 @@ public interface ActivityTypeMapper {
     
     @Mapping(target = "id", source = "id")
     @Mapping(target = "name", source = "name")
-    @Mapping(target = "enterpriseId", source = "enterprise.id")
+    @Mapping(target = "tenantID", source = "tenant.id")
     ActivityTypeDTO toDTO(ActivityTypeEntity entity);
     
     @Mapping(target = "id", source = "id")
     @Mapping(target = "name", source = "name")
-    @Mapping(target = "enterprise.id", source = "enterpriseId")
+    @Mapping(target = "tenant.id", source = "tenantID")
     ActivityTypeEntity toEntity(ActivityTypeDTO dto);
     
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "name", source = "name")
-    @Mapping(target = "enterprise.id", source = "enterpriseId")
+    @Mapping(target = "tenant.id", source = "tenantID")
     ActivityTypeEntity updateEntity(ActivityTypeDTO dto, @MappingTarget ActivityTypeEntity entity);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "name", source = "name")
-    @Mapping(target = "enterprise.id", source = "enterpriseId")
+    @Mapping(target = "tenant.id", source = "tenantID")
     ActivityTypeEntity createEntity(ActivityTypeDTO dto);
 } 

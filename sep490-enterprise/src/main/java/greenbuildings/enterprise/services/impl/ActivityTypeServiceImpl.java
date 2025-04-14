@@ -2,14 +2,11 @@ package greenbuildings.enterprise.services.impl;
 
 import commons.springfw.impl.utils.SecurityUtils;
 import greenbuildings.commons.api.dto.SearchCriteriaDTO;
-import greenbuildings.commons.api.exceptions.BusinessErrorParam;
 import greenbuildings.commons.api.exceptions.BusinessException;
-import greenbuildings.commons.api.security.UserRole;
 import greenbuildings.enterprise.dtos.ActivityTypeCriteriaDTO;
 import greenbuildings.enterprise.dtos.ActivityTypeDTO;
 import greenbuildings.enterprise.entities.ActivityTypeEntity;
 import greenbuildings.enterprise.entities.EmissionActivityEntity;
-import greenbuildings.enterprise.entities.EmissionSourceEntity;
 import greenbuildings.enterprise.mappers.ActivityTypeMapper;
 import greenbuildings.enterprise.repositories.ActivityTypeRepository;
 import greenbuildings.enterprise.repositories.EmissionActivityRepository;
@@ -21,7 +18,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+import java.util.UUID;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -41,7 +42,7 @@ public class ActivityTypeServiceImpl implements ActivityTypeService {
     
     @Override
     public List<ActivityTypeEntity> findByEnterpriseId(UUID entepriseId) {
-        return repository.findByEnterpriseId(entepriseId);
+        return repository.findByTenantId(entepriseId);
     }
     
     @Override
