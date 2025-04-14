@@ -92,7 +92,7 @@ public class BuildingServiceImpl implements BuildingService {
         Map<EmissionActivityEntity, List<EmissionActivityRecordEntity>> records = new HashMap<>();
         
         for (EmissionActivityEntity activity : activities) {
-            List<EmissionActivityRecordEntity> recordsByActivity = recordRepo.findAllByEmissionActivityEntityId(activity.getId());
+            List<EmissionActivityRecordEntity> recordsByActivity = recordRepo.findAllByGroupItemId(activity.getId());
             records.put(activity, recordsByActivity);
         }
         try {

@@ -45,11 +45,8 @@ public class ActivityTypeServiceImpl implements ActivityTypeService {
     }
     
     @Override
-    public List<ActivityTypeEntity> findByEnterpriseId(UUID enterpriseId) {
-        if (!enterpriseRepository.existsById(enterpriseId)) {
-            throw new NoSuchElementException("Enterprise with ID " + enterpriseId + " not found");
-        }
-        return repository.findByEnterpriseId(enterpriseId);
+    public List<ActivityTypeEntity> findByEnterpriseId(UUID entepriseId) {
+        return repository.findByTenantId(entepriseId);
     }
     
     @Override

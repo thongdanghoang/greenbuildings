@@ -9,7 +9,7 @@ import java.util.UUID;
 public record EmissionActivityDTO (
         UUID id,
         int version,
-        @NotNull UUID buildingID,
+        @NotNull UUID buildingGroupID,
         Set<EmissionActivityRecordDTO> records,
         @NotNull UUID emissionFactorID,
         @NotEmpty String name,

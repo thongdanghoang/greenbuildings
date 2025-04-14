@@ -40,7 +40,7 @@ public class EmissionActivityRecordServiceImpl implements EmissionActivityRecord
     @Override
     public Page<EmissionActivityRecordEntity> search(SearchCriteriaDTO<EmissionActivityRecordCriteria> searchCriteria) {
         Page<EmissionActivityRecordEntity> page = recordRepository
-                .findAllByEmissionActivityEntityId(
+                .findAllByGroupItemId(
                         searchCriteria.criteria().emissionActivityId(),
                         CommonMapper.toPageable(searchCriteria.page(), searchCriteria.sort()));
         
@@ -63,7 +63,7 @@ public class EmissionActivityRecordServiceImpl implements EmissionActivityRecord
     }
     
     private void newRecord(EmissionActivityRecordEntity entity, MultipartFile file) {
-        if (recordRepository.existsByEmissionActivityEntityIdAndDateOverlap(entity.getEmissionActivityEntity().getId(), entity.getStartDate(), entity.getEndDate())) {
+        if (recordRepository.existsByEmissionActivityEntityIdAndDateOverlap(entity.getGroupItem().getId(), entity.getStartDate(), entity.getEndDate())) {
             throw new BusinessException("rangeDates", "business.record.dateOverlap");
         }
         entity = recordRepository.save(entity);
@@ -84,7 +84,7 @@ public class EmissionActivityRecordServiceImpl implements EmissionActivityRecord
     }
     
     private void updateRecord(EmissionActivityRecordEntity entity, MultipartFile file) {
-        if (recordRepository.otherExistsByEmissionActivityEntityIdAndDateOverlap(entity.getId(), entity.getEmissionActivityEntity().getId(), entity.getStartDate(), entity.getEndDate())) {
+        if (recordRepository.otherExistsByEmissionActivityEntityIdAndDateOverlap(entity.getId(), entity.getGroupItem().getId(), entity.getStartDate(), entity.getEndDate())) {
             throw new BusinessException("rangeDates", "business.record.dateOverlap");
         }
         EmissionActivityRecordEntity existing = recordRepository.findById(entity.getId()).orElseThrow();

@@ -1,7 +1,6 @@
 package greenbuildings.enterprise.entities;
 
 import commons.springfw.impl.entities.AbstractAuditableEntity;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -28,10 +27,10 @@ import java.util.Set;
 @NamedEntityGraph(
         name = BuildingEntity.WITH_ACTIVITIES_ENTITY_GRAPH,
         attributeNodes = {
-                @NamedAttributeNode(value = "emissionActivities", subgraph = BuildingEntity.WITH_ACTIVITIES_RECORDS_SUB_GRAPH)
+                @NamedAttributeNode(value = "buildingGroups", subgraph = BuildingEntity.WITH_ACTIVITIES_RECORDS_SUB_GRAPH)
         },
         subgraphs = {
-                @NamedSubgraph(name = BuildingEntity.WITH_ACTIVITIES_RECORDS_SUB_GRAPH, attributeNodes = @NamedAttributeNode("records"))
+                @NamedSubgraph(name = BuildingEntity.WITH_ACTIVITIES_RECORDS_SUB_GRAPH, attributeNodes = @NamedAttributeNode("groupItems"))
         }
 )
 @Table(name = "buildings")
@@ -67,10 +66,10 @@ public class BuildingEntity extends AbstractAuditableEntity {
     @Column(name = "longitude")
     private double longitude;
     
-    @OneToMany(mappedBy = "building", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
-    private Set<EmissionActivityEntity> emissionActivities = new HashSet<>();
-    
     @OneToMany(mappedBy = "building", orphanRemoval = true)
     private Set<SubscriptionEntity> subscriptions = new HashSet<>();
+    
+    @OneToMany(mappedBy = "building", orphanRemoval = true)
+    private Set<BuildingGroupEntity> buildingGroups = new HashSet<>();
     
 }
