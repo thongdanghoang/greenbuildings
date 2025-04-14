@@ -14,17 +14,17 @@ import org.mapstruct.MappingConstants;
 @DecoratedWith(EmissionActivityMapperDecorator.class)
 public interface EmissionActivityMapper {
     
-    @Mapping(target = "buildingID", ignore = true)
+    @Mapping(target = "buildingGroupID", ignore = true)
     @Mapping(target = "emissionFactorID", ignore = true)
     @Mapping(target = "records", ignore = true)
     EmissionActivityDTO toDTO(EmissionActivityEntity emissionActivityEntity);
     
-    @Mapping(target = "building", ignore = true)
+    @Mapping(target = "buildingGroup", ignore = true)
     @Mapping(target = "emissionFactorEntity", ignore = true)
     @Mapping(target = "type", ignore = true)
     EmissionActivityEntity createNewActivity(CreateEmissionActivityDTO dto);
 
-    @Mapping(target = "building", source = "building")
+    @Mapping(target = "buildingGroupDTO", source = "buildingGroup")
     @Mapping(target = "building.emissionActivities", ignore = true)
     @Mapping(target = "emissionFactor", source = "emissionFactorEntity")
     @Mapping(target = "emissionFactor.directEmission", source = "emissionFactorEntity.directEmission")
@@ -35,8 +35,7 @@ public interface EmissionActivityMapper {
     EmissionActivityDetailsDTO toDetailsDTO(EmissionActivityEntity entity);
 
     @Mapping(target = "emissionFactorEntity", ignore = true)
-    @Mapping(target = "building", ignore = true)
-    @Mapping(target = "records", ignore = true)
+    @Mapping(target = "buildingGroup", ignore = true)
     @Mapping(target = "type", ignore = true)
     EmissionActivityEntity updateActivity(CreateEmissionActivityDTO dto);
 }

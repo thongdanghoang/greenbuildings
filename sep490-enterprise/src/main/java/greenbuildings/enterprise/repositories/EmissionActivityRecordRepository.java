@@ -16,9 +16,9 @@ import java.util.UUID;
 @Repository
 public interface EmissionActivityRecordRepository
         extends JpaRepository<EmissionActivityRecordEntity, UUID>, JpaSpecificationExecutor<EmissionActivityRecordEntity> {
-    Page<EmissionActivityRecordEntity> findAllByEmissionActivityEntityId(UUID emissionActivityId, Pageable pageable);
+    Page<EmissionActivityRecordEntity> findAllByGroupItemId(UUID groupItemId, Pageable pageable);
     
-    List<EmissionActivityRecordEntity> findAllByEmissionActivityEntityId(UUID emissionActivityId);
+    List<EmissionActivityRecordEntity> findAllByGroupItemId(UUID groupItemId);
     
     Integer countAllByIdIn(Set<UUID> ids);
     
@@ -31,24 +31,24 @@ public interface EmissionActivityRecordRepository
     @Query("""
                 SELECT CASE WHEN COUNT(e) > 0 THEN true ELSE false END
                 FROM EmissionActivityRecordEntity e
-                WHERE e.emissionActivityEntity.id = :emissionActivityId
+                WHERE e.groupItem.id = :groupItemId
                 AND (
                     (e.startDate < :endDate AND e.endDate > :startDate)
                 )
             """)
-    boolean existsByEmissionActivityEntityIdAndDateOverlap(UUID emissionActivityId, LocalDate startDate, LocalDate endDate);
+    boolean existsByEmissionActivityEntityIdAndDateOverlap(UUID groupItemId, LocalDate startDate, LocalDate endDate);
     
     
     @Query("""
                 SELECT CASE WHEN COUNT(e) > 0 THEN true ELSE false END
                 FROM EmissionActivityRecordEntity e
                 WHERE e.id <> :recordId
-                AND e.emissionActivityEntity.id = :emissionActivityId
+                AND e.groupItem.id = :groupItemId
                 AND (
                     (e.startDate < :endDate AND e.endDate > :startDate)
                 )
             """)
-    boolean otherExistsByEmissionActivityEntityIdAndDateOverlap(UUID recordId, UUID emissionActivityId, LocalDate startDate, LocalDate endDate);
+    boolean otherExistsByEmissionActivityEntityIdAndDateOverlap(UUID recordId, UUID groupItemId, LocalDate startDate, LocalDate endDate);
     
     
 }

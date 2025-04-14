@@ -34,7 +34,7 @@ public class CalculationServiceImpl implements CalculationService {
         EmissionActivityEntity activity = activityRepo.findById(activityId).orElseThrow();
         EmissionFactorEntity factor = activity.getEmissionFactorEntity();
         
-        if (factor == null || !factor.isActive() || activity.getRecords().isEmpty()) {
+        if (factor == null || !factor.isActive() || content.isEmpty()) {
             return content;
         }
         if (factor.isDirectEmission()) {

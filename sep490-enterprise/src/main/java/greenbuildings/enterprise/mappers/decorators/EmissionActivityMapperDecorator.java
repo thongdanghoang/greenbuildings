@@ -5,6 +5,7 @@ import greenbuildings.enterprise.entities.ActivityTypeEntity;
 import greenbuildings.enterprise.entities.EmissionActivityEntity;
 import greenbuildings.enterprise.mappers.EmissionActivityMapper;
 import greenbuildings.enterprise.repositories.ActivityTypeRepository;
+import greenbuildings.enterprise.repositories.BuildingGroupRepository;
 import greenbuildings.enterprise.repositories.BuildingRepository;
 import greenbuildings.enterprise.repositories.EmissionFactorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,11 +30,14 @@ public abstract class EmissionActivityMapperDecorator implements EmissionActivit
     @Autowired
     private ActivityTypeRepository activityTypeRepo;
     
+    @Autowired
+    private BuildingGroupRepository buildingGroupRepository;
+    
     
     @Override
     public EmissionActivityEntity createNewActivity(CreateEmissionActivityDTO dto) {
         EmissionActivityEntity entity = delegate.createNewActivity(dto);
-        entity.setBuilding(buildingRepo.findById(dto.buildingID()).orElseThrow());
+        entity.setBuildingGroup(buildingGroupRepository.findById(dto.buildingGroupID()).orElseThrow());
         entity.setEmissionFactorEntity(factorRepo.findById(dto.emissionFactorID()).orElseThrow());
         mapEmissionType(dto, entity);
         return entity;
@@ -46,11 +50,11 @@ public abstract class EmissionActivityMapperDecorator implements EmissionActivit
         try {
             UUID typeId = UUID.fromString(dto.type());
             ActivityTypeEntity activityTypeEntity = activityTypeRepo.findById(typeId).orElseThrow();
-            activityTypeEntity.setEnterprise(entity.getBuilding().getEnterprise());
+            activityTypeEntity.setTenant(entity.getBuildingGroup().getTenant());
             entity.setType(activityTypeEntity);
         } catch (IllegalArgumentException ex) {
             ActivityTypeEntity type = new ActivityTypeEntity();
-            type.setEnterprise(entity.getBuilding().getEnterprise());
+            type.setTenant(entity.getBuildingGroup().getTenant());
             type.setName(dto.type());
             entity.setType(type);
         }
