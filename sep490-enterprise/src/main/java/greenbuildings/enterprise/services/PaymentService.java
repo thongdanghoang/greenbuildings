@@ -6,6 +6,7 @@ import greenbuildings.commons.api.dto.SearchCriteriaDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.Optional;
 import java.util.UUID;
 
 
@@ -16,4 +17,6 @@ public interface PaymentService {
     PaymentEntity createPayment(UUID id, String requestOrigin);
     
     void updatePaymentInfo(Long orderCode);
+
+    Optional<PaymentEntity>  findById(UUID id);
 }

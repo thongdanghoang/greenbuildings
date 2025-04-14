@@ -20,6 +20,13 @@ import {PaymentStatus} from '../../enums/payment-status';
 import {PaymentDTO} from '../../models/payment';
 import {PaymentService} from '../../services/payment.service';
 import {WalletService} from '../../services/wallet.service';
+import {
+  DialogService,
+  DynamicDialogConfig,
+  DynamicDialogRef
+} from 'primeng/dynamicdialog';
+import {UUID} from '../../../../../types/uuid';
+import {PaymentDetailDialogComponent} from '../../dialog/payment-detail-dialog/payment-detail-dialog.component';
 
 export interface PaymentCriteria {
   criteria: string;
@@ -41,7 +48,7 @@ export class PaymentComponent
   amountTemplate!: TemplateRef<any>;
   @ViewChild('actionsTemplate', {static: true})
   actionsTemplate!: TemplateRef<any>;
-
+  ref: DynamicDialogRef | undefined;
   cols: TableTemplateColumn[] = [];
   paymentCriteria!: PaymentCriteria;
   sort!: SortDto;
@@ -51,7 +58,7 @@ export class PaymentComponent
   protected fetchData!: (
     criteria: SearchCriteriaDto<PaymentCriteria>
   ) => Observable<SearchResultDto<PaymentDTO>>;
-
+  protected selected: PaymentDTO[] = [];
   private readonly payOsOrderCodeField = 'orderCode';
 
   constructor(
@@ -59,7 +66,8 @@ export class PaymentComponent
     private readonly paymentService: PaymentService,
     private readonly walletService: WalletService,
     private readonly router: Router,
-    private readonly route: ActivatedRoute
+    private readonly route: ActivatedRoute,
+    private readonly dialogService: DialogService
   ) {
     super();
   }
@@ -85,6 +93,10 @@ export class PaymentComponent
       this.getBalance();
       this.triggerSearch.emit();
     });
+  }
+
+  onSelectionChange(selectedUsers: PaymentDTO[]): void {
+    this.selected = selectedUsers;
   }
 
   buildCols(): void {
@@ -126,12 +138,44 @@ export class PaymentComponent
     }
   }
 
+  openNewActivityDialog(paymentId?: UUID): void {
+    // Made emissionId optional with ?
+    this.selected = []; // Clear local selection
+    this.triggerSearch.emit();
+    const config: DynamicDialogConfig<UUID | undefined> = {
+      // Allow undefined in config.data
+      data: paymentId, // Will be undefined for add, UUID for edit
+      closeOnEscape: true,
+      dismissableMask: true,
+      showHeader: false
+    };
+
+    // Clean up previous dialog if it exists
+    if (this.ref) {
+      this.ref.close();
+    }
+
+    // Open the dialog with EmissionSourceDialogComponent
+    this.ref = this.dialogService.open(PaymentDetailDialogComponent, config);
+    this.ref.onClose.subscribe((result: boolean | undefined) => {
+      if (result) {
+        this.triggerSearch.emit(); // Refresh the list if dialog closed with a result
+      }
+    });
+  }
+
   getBalance(): void {
     this.registerSubscription(
       this.walletService.getWalletBalance().subscribe(result => {
         this.balance = result;
       })
     );
+  }
+
+  onViewDetail(rowData: PaymentDTO): void {
+    this.selected = [rowData];
+    const emissionId = this.selected[0].id;
+    this.openNewActivityDialog(emissionId);
   }
 
   navigateToSubscription(): void {

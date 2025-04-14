@@ -7,7 +7,7 @@ import {
 } from '../../shared/models/base-models';
 import {Observable} from 'rxjs';
 import {AppRoutingConstants} from '../../../app-routing.constant';
-import {PaymentDTO} from '../models/payment';
+import {PaymentDTO, PaymentDetailDTO} from '../models/payment';
 import {PaymentCriteria} from '../components/payment/payment.component';
 
 @Injectable()
@@ -21,6 +21,14 @@ export class PaymentService {
     return this.httpClient.post<SearchResultDto<PaymentDTO>>(
       `${AppRoutingConstants.ENTERPRISE_API_URL}/${this.PAYMENT_ENDPOINT}/search`,
       criteria
+    );
+  }
+
+  public getPaymentDetail(
+    paymentDetailId: string
+  ): Observable<PaymentDetailDTO> {
+    return this.httpClient.get<PaymentDetailDTO>(
+      `${AppRoutingConstants.ENTERPRISE_API_URL}/${this.PAYMENT_ENDPOINT}/${paymentDetailId}`
     );
   }
 

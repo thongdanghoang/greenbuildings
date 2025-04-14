@@ -1,0 +1,286 @@
+<div class="mt-4 w-[400px] sm:w-[500px] md:w-[600px]">
+    <!-- Dialog Header -->
+    <div class="p-dialog-header border-b p-0">
+        <span class="text-xl font-semibold text-primary">{{
+            "paymentDetail.header" | translate
+        }}</span>
+        <button
+            pButton
+            type="button"
+            icon="pi pi-times"
+            class="p-button-rounded p-button-text"
+            (click)="closeDialog()"
+        ></button>
+    </div>
+
+    <!-- Dialog Content -->
+    <div
+        class="p-dialog-content flex min-h-[200px] flex-col overflow-hidden p-0"
+    >
+        <!-- Loading State -->
+        <ng-container *ngIf="loading">
+            <div
+                class="justify-content-center align-items-center flex"
+                style="height: 300px"
+            >
+                <p-progressSpinner></p-progressSpinner>
+            </div>
+        </ng-container>
+
+        <!-- Payment Details -->
+        <ng-container *ngIf="!loading && paymentDetail">
+            <div class="p-4">
+                <div class="grid">
+                    <!-- Created Date -->
+                    <div class="col-6 mb-3">
+                        <label class="text-sm font-semibold">{{
+                            "paymentDetail.labels.createdDate" | translate
+                        }}</label>
+                        <p class="text-base">
+                            {{
+                                paymentDetail.createdDate ||
+                                    ("paymentDetail.fallback.na" | translate)
+                            }}
+                        </p>
+                    </div>
+
+                    <!-- Status -->
+                    <div class="col-6 mb-3">
+                        <label class="text-sm font-semibold">{{
+                            "paymentDetail.labels.status" | translate
+                        }}</label>
+                        <p class="text-base">
+                            <span
+                                [ngClass]="getStatusClass(paymentDetail.status)"
+                            >
+                                {{
+                                    "enum.status.payment." +
+                                        paymentDetail.status | translate
+                                }}
+                            </span>
+                        </p>
+                    </div>
+
+                    <!-- Amount -->
+                    <div class="col-6 mb-3">
+                        <label class="text-sm font-semibold">{{
+                            "paymentDetail.labels.amount" | translate
+                        }}</label>
+                        <p class="text-base">
+                            {{ formatAmount(paymentDetail.amount) }}
+                            {{ paymentDetail.currency }}
+                        </p>
+                    </div>
+
+                    <!-- Number of Credits -->
+                    <div class="col-6 mb-3">
+                        <label class="text-sm font-semibold">{{
+                            "paymentDetail.labels.credits" | translate
+                        }}</label>
+                        <p class="text-base">
+                            {{
+                                paymentDetail.numberOfCredits ||
+                                    ("paymentDetail.fallback.na" | translate)
+                            }}
+                        </p>
+                    </div>
+
+                    <!-- Account Name -->
+                    <div class="col-6 mb-3">
+                        <label class="text-sm font-semibold">{{
+                            "paymentDetail.labels.accountName" | translate
+                        }}</label>
+                        <p class="text-base">
+                            {{
+                                paymentDetail.accountName ||
+                                    ("paymentDetail.fallback.na" | translate)
+                            }}
+                        </p>
+                    </div>
+
+                    <!-- Account Number -->
+                    <div class="col-6 mb-3">
+                        <label class="text-sm font-semibold">{{
+                            "paymentDetail.labels.accountNumber" | translate
+                        }}</label>
+                        <p class="text-base">
+                            {{
+                                paymentDetail.accountNumber ||
+                                    ("paymentDetail.fallback.na" | translate)
+                            }}
+                        </p>
+                    </div>
+
+                    <!-- Description -->
+                    <div class="col-12 mb-3">
+                        <label class="text-sm font-semibold">{{
+                            "paymentDetail.labels.description" | translate
+                        }}</label>
+                        <p class="text-base">
+                            {{
+                                paymentDetail.description ||
+                                    ("paymentDetail.fallback.na" | translate)
+                            }}
+                        </p>
+                    </div>
+
+                    <!-- Order Code -->
+                    <div class="col-6 mb-3">
+                        <label class="text-sm font-semibold">{{
+                            "paymentDetail.labels.orderCode" | translate
+                        }}</label>
+                        <p class="text-base">
+                            {{
+                                paymentDetail.orderCode ||
+                                    ("paymentDetail.fallback.na" | translate)
+                            }}
+                        </p>
+                    </div>
+
+                    <!-- Payment Link ID -->
+                    <div class="col-6 mb-3">
+                        <label class="text-sm font-semibold">{{
+                            "paymentDetail.labels.paymentLinkId" | translate
+                        }}</label>
+                        <p class="text-base">
+                            {{
+                                paymentDetail.paymentLinkId ||
+                                    ("paymentDetail.fallback.na" | translate)
+                            }}
+                        </p>
+                    </div>
+
+                    <!-- PayOS Status -->
+                    <div class="col-6 mb-3">
+                        <label class="text-sm font-semibold">{{
+                            "paymentDetail.labels.payOSStatus" | translate
+                        }}</label>
+                        <p class="text-base">
+                            {{
+                                paymentDetail.payOSStatus ||
+                                    ("paymentDetail.fallback.na" | translate)
+                            }}
+                        </p>
+                    </div>
+
+                    <!-- Expired At -->
+                    <div class="col-6 mb-3">
+                        <label class="text-sm font-semibold">{{
+                            "paymentDetail.labels.expiresAt" | translate
+                        }}</label>
+                        <p class="text-base">
+                            {{
+                                paymentDetail.expiredAt ||
+                                    ("paymentDetail.fallback.na" | translate)
+                            }}
+                        </p>
+                    </div>
+
+                    <!-- Enterprise Info -->
+                    <div class="col-12 mb-3">
+                        <label class="text-sm font-semibold">{{
+                            "paymentDetail.labels.enterprise" | translate
+                        }}</label>
+                        <p class="text-base">
+                            <ng-container
+                                *ngIf="
+                                    paymentDetail.enterpriseDTO;
+                                    else noEnterprise
+                                "
+                            >
+                                {{ "paymentDetail.labels.name" | translate }}:
+                                {{
+                                    paymentDetail.enterpriseDTO.name ||
+                                        ("paymentDetail.fallback.na"
+                                            | translate)
+                                }}
+                                <br />
+                                Email:
+                                {{
+                                    paymentDetail.enterpriseDTO.email ||
+                                        ("paymentDetail.fallback.na"
+                                            | translate)
+                                }}
+                                <br />
+                                {{
+                                    "paymentDetail.labels.hotline" | translate
+                                }}:
+                                {{
+                                    paymentDetail.enterpriseDTO.hotline ||
+                                        ("paymentDetail.fallback.na"
+                                            | translate)
+                                }}
+                            </ng-container>
+                            <ng-template #noEnterprise>
+                                {{ "paymentDetail.fallback.na" | translate }}
+                            </ng-template>
+                        </p>
+                    </div>
+
+                    <!-- Credit Package Version -->
+                    <div class="col-12 mb-3">
+                        <label class="text-sm font-semibold">{{
+                            "paymentDetail.labels.creditPackage" | translate
+                        }}</label>
+                        <p class="text-base">
+                            <ng-container
+                                *ngIf="
+                                    paymentDetail.creditPackageVersionDTO;
+                                    else noCreditPackage
+                                "
+                            >
+                                {{
+                                    "paymentDetail.labels.credits" | translate
+                                }}:
+                                {{
+                                    paymentDetail.creditPackageVersionDTO
+                                        .numberOfCredits ||
+                                        ("paymentDetail.fallback.na"
+                                            | translate)
+                                }}
+                                <br />
+                                {{ "paymentDetail.labels.amount" | translate }}:
+                                {{
+                                    paymentDetail.creditPackageVersionDTO.price
+                                        | currency
+                                            : "VND" ||
+                                                  ("paymentDetail.fallback.na"
+                                                      | translate)
+                                }}
+                            </ng-container>
+                            <ng-template #noCreditPackage>
+                                {{ "paymentDetail.fallback.na" | translate }}
+                            </ng-template>
+                        </p>
+                    </div>
+
+                    <!-- Checkout URL -->
+                    <div class="col-12 mb-3" *ngIf="paymentDetail.checkoutUrl">
+                        <label class="text-sm font-semibold">{{
+                            "paymentDetail.labels.checkoutUrl" | translate
+                        }}</label>
+                        <p class="text-base">
+                            <a
+                                [href]="paymentDetail.checkoutUrl"
+                                target="_blank"
+                                class="text-blue-600 hover:underline"
+                            >
+                                {{ paymentDetail.checkoutUrl }}
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+
+        <!-- Action Buttons -->
+        <div class="flex justify-end p-4">
+            <p-button
+                [label]="'paymentDetail.buttons.close' | translate"
+                icon="pi pi-times"
+                severity="secondary"
+                (onClick)="closeDialog()"
+            ></p-button>
+        </div>
+    </div>
+</div>

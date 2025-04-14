@@ -642,5 +642,47 @@
   },
   "currency": {
     "symbol": "₫"
+  },
+  "paymentDetail": {
+    "header": "Chi tiết thanh toán",
+    "labels": {
+      "createdDate": "Ngày tạo",
+      "status": "Trạng thái",
+      "amount": "Số tiền",
+      "credits": "Tín dụng",
+      "accountName": "Tên tài khoản người nhận",
+      "accountNumber": "Số tài khoản của người nhận tài khoản",
+      "description": "Mô tả",
+      "orderCode": "Mã đơn hàng",
+      "paymentLinkId": "ID liên kết thanh toán",
+      "payOSStatus": "Trạng thái PayOS",
+      "expiresAt": "Hết hạn vào",
+      "enterprise": "Doanh nghiệp",
+      "creditPackage": "Gói tín dụng",
+      "checkoutUrl": "URL thanh toán",
+      "hotline": "Đường dây nóng",
+      "name": "Tên"
+    },
+    "buttons": {
+      "close": "Đóng"
+    },
+    "fallback": {
+      "na": "N/A"
+    }
+  },
+  "useCreditHistory": {
+    "title": "Lịch Sử Khấu Trừ Tín Dụng",
+    "table": {
+      "createdDate": "Ngày Tạo",
+      "amount": "Số tín dụng",
+      "months": "Số Tháng",
+      "numberOfDevices": "Số Lượng Thiết Bị",
+      "transactionType": "Loại Giao Dịch",
+      "NEW_PURCHASE": "mua lần đầu",
+      "UPGRADE": "năng cấp về sau"
+    },
+    "search": "Tìm Kiếm",
+    "close": "Đóng",
+    "mobileNotSupported": "Tính năng này không được hỗ trợ trên thiết bị di động"
   }
 }

@@ -648,5 +648,47 @@
   },
   "currency": {
     "symbol": "$"
+  },
+  "paymentDetail": {
+    "header": "Payment Details",
+    "labels": {
+      "createdDate": "Created Date",
+      "status": "Status",
+      "amount": "Amount",
+      "credits": "Credits",
+      "accountName": "Recipient account name",
+      "accountNumber": "Account number of the account recipient",
+      "description": "Description",
+      "orderCode": "Order Code",
+      "paymentLinkId": "Payment Link ID",
+      "payOSStatus": "PayOS Status",
+      "expiresAt": "Expires At",
+      "enterprise": "Enterprise",
+      "creditPackage": "Credit Package",
+      "checkoutUrl": "Checkout URL",
+      "hotline": "Hotline",
+      "name": "Name"
+    },
+    "buttons": {
+      "close": "Close"
+    },
+    "fallback": {
+      "na": "N/A"
+    }
+  },
+  "useCreditHistory": {
+    "title": "Credit Deduction History",
+    "table": {
+      "createdDate": "Created Date",
+      "amount": "Credit",
+      "months": "Months",
+      "numberOfDevices": "Number of Devices",
+      "transactionType": "Transaction Type",
+      "NEW_PURCHASE": "new purchase",
+      "UPGRADE": "update"
+    },
+    "search": "Search",
+    "close": "Close",
+    "mobileNotSupported": "This feature is not supported on mobile devices"
   }
 }
