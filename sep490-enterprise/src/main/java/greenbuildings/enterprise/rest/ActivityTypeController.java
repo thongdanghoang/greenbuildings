@@ -39,9 +39,9 @@ public class ActivityTypeController {
         return ResponseEntity.ok(service.findAll().stream().map(mapper::toDTO).toList());
     }
     
-    @GetMapping(params = "enterpriseId")
-    public ResponseEntity<List<ActivityTypeDTO>> findByEnterpriseId(@RequestParam UUID enterpriseId) {
-        return ResponseEntity.ok(service.findByEnterpriseId(enterpriseId).stream().map(mapper::toDTO).toList());
+    @GetMapping(params = "tenantId")
+    public ResponseEntity<List<ActivityTypeDTO>> findByBuildingId(@RequestParam UUID tenantId) {
+        return ResponseEntity.ok(service.findByTenantId(tenantId).stream().map(mapper::toDTO).toList());
     }
     
     @PostMapping

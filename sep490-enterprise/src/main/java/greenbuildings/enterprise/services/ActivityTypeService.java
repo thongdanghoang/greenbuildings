@@ -15,7 +15,7 @@ import java.util.UUID;
 public interface ActivityTypeService {
     List<ActivityTypeEntity> findAll();
     
-    List<ActivityTypeEntity> findByEnterpriseId(UUID buildingId);
+    List<ActivityTypeEntity> findByTenantId(UUID buildingId);
     
     ActivityTypeEntity create(ActivityTypeDTO dto);
 

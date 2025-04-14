@@ -5,12 +5,16 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "tenant")
+@Getter
+@Setter
 public class TenantEntity extends AbstractAuditableEntity {
 
     @Column(name = "name")
