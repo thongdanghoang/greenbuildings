@@ -28,6 +28,17 @@
                 />
                 <label>{{ "common.name" | translate }}</label>
             </p-iftalabel>
+            <p-iftalabel class="my-2">
+                <input
+                    pInputText
+                    formControlName="description"
+                    class="w-full"
+                    autocomplete="off"
+                />
+                <label>{{
+                    "admin.emissionFactor.description" | translate
+                }}</label>
+            </p-iftalabel>
         </form>
         <div class="mt-2 flex justify-end">
             <p-button

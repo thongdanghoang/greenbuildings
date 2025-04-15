@@ -26,6 +26,7 @@ export class ActivityTypeDialogComponent extends AbstractFormComponent<ActivityT
     id: new FormControl(''),
     version: new FormControl(0),
     name: new FormControl('', Validators.required),
+    description: new FormControl('', Validators.required),
     enterpriseId: new FormControl('')
   };
 
