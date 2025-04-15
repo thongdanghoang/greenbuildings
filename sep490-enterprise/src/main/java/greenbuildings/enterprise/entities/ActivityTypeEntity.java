@@ -20,6 +20,10 @@ public class ActivityTypeEntity extends AbstractAuditableEntity {
     @Column(name = "name", nullable = false)
     private String name;
 
+    @Size(max = 255)
+    @Column(name = "description")
+    private String description;
+
     @ManyToOne
     @JoinColumn(name = "enterprise_id")
     private EnterpriseEntity enterprise;

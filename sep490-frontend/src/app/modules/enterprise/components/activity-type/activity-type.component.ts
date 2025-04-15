@@ -78,6 +78,11 @@ export class ActivityTypeComponent
       sortable: true
     });
     this.cols.push({
+      field: 'description',
+      header: 'admin.emissionFactor.description',
+      sortable: true
+    });
+    this.cols.push({
       field: 'actions',
       header: '',
       templateRef: this.actionsTemplate
