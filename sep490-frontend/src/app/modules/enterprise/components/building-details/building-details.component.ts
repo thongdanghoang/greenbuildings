@@ -56,10 +56,6 @@ export class BuildingDetailsComponent extends AbstractFormComponent<BuildingDeta
     id: new FormControl(''),
     version: new FormControl(null),
     name: new FormControl(null, Validators.required),
-    numberOfDevices: new FormControl(0, {
-      nonNullable: true,
-      validators: [Validators.min(1), Validators.required]
-    }),
     latitude: new FormControl<number | null>(null),
     longitude: new FormControl<number | null>(null),
     address: new FormControl<string | null>(null, Validators.required),

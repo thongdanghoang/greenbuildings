@@ -17,7 +17,6 @@ public record BuildingDTO(
         int version,
         @NotBlank String name,
         @NotBlank String address,
-        @Min(0) long numberOfDevices,
         @DecimalMin("-90.0") @DecimalMax("90.0") double latitude,
         @DecimalMin("-180.0") @DecimalMax("180.0") double longitude,
         @With SubscriptionDTO subscriptionDTO,

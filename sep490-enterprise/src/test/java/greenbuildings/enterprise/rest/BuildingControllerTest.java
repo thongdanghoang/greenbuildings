@@ -37,7 +37,6 @@ class BuildingControllerTest extends TestcontainersConfigs {
     void createBuilding_withValidToken_returns201() {
         var building = BuildingDTO.builder()
                                   .name("Building 1")
-                                  .numberOfDevices(10)
                                   .address("FPT University - HCMC Campus, Lô E2a-7, Đường D1, Long Thanh My Ward, Thủ Đức, Ho Chi Minh City, 00848, Vietnam")
                                   .build();
         RestAssured.given()
