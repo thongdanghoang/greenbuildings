@@ -7,12 +7,14 @@ import greenbuildings.commons.api.dto.SearchResultDTO;
 import greenbuildings.commons.api.security.UserRole;
 import greenbuildings.enterprise.dtos.BuildingGroupCriteria;
 import greenbuildings.enterprise.dtos.BuildingGroupDTO;
+import greenbuildings.enterprise.dtos.CreateBuildingGroupDTO;
 import greenbuildings.enterprise.entities.BuildingGroupEntity;
 import greenbuildings.enterprise.mappers.BuildingGroupMapper;
 import greenbuildings.enterprise.services.BuildingGroupService;
 import jakarta.annotation.security.RolesAllowed;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,8 +34,9 @@ public class BuildingGroupController extends AbstractRestController {
     private final BuildingGroupMapper buildingGroupMapper;
     
     @PostMapping
-    public ResponseEntity<BuildingGroupDTO> create(@RequestBody BuildingGroupDTO dto) {
-        return ResponseEntity.ok(buildingGroupMapper.toDTO(buildingGroupService.create(dto)));
+    public ResponseEntity<BuildingGroupDTO> createOrUpdate(@RequestBody CreateBuildingGroupDTO dto) {
+        BuildingGroupEntity buildingGroupEntity = buildingGroupMapper.toEntity(dto);
+        return ResponseEntity.ok(buildingGroupMapper.toDTO(buildingGroupService.create(buildingGroupEntity)));
     }
     
     @GetMapping("/{id}")
@@ -80,5 +83,17 @@ public class BuildingGroupController extends AbstractRestController {
     public ResponseEntity<Void> delete(@PathVariable UUID id) {
         buildingGroupService.delete(id);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/building/{buildingId}/available")
+    public ResponseEntity<List<BuildingGroupDTO>> getAvailableBuildingGroups(@PathVariable UUID buildingId) {
+        try {
+            List<BuildingGroupEntity> availableGroups = buildingGroupService.getAvailableBuildingGroups(buildingId);
+            return ResponseEntity.ok(availableGroups.stream()
+                    .map(buildingGroupMapper::toDTO)
+                    .toList());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 } 

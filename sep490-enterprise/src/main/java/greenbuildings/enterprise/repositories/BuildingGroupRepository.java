@@ -12,10 +12,14 @@ import java.util.UUID;
 
 @Repository
 public interface BuildingGroupRepository extends JpaRepository<BuildingGroupEntity, UUID> {
+    
+    boolean existsByNameIgnoreCaseAndBuildingId(String name, UUID buildingId);
+    
     List<BuildingGroupEntity> findByBuildingId(UUID buildingId);
     
     List<BuildingGroupEntity> findByTenantId(UUID tenantId);
     
+    List<BuildingGroupEntity> findByBuildingIdAndTenantIsNull(UUID buildingId);
     
     Page<BuildingGroupEntity> findAllByBuildingIdAndNameContainingIgnoreCase(@NotNull UUID uuid, String s, Pageable pageable);
 }

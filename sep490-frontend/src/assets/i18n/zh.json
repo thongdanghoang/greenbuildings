@@ -52,7 +52,10 @@
         "invalid": "建筑物选择无效",
         "permissionWarning": "请选择一栋建筑物来为该用户分配角色",
         "notEnoughCredit": "企业没有足够的积分",
-        "ratioNotMatch": "比率不匹配，请重试"
+        "ratioNotMatch": "比率不匹配，请重试",
+        "group":{
+          "nameExists": "群组名称已存在"
+        }
       },
       "buildingPermissions": {
         "notEmpty": "施工权限不能为空",
@@ -193,6 +196,12 @@
       }
     },
     "buildings": {
+      "tenant": {
+        "new": "新租户"
+      },
+      "group": {
+        "new": "新组"
+      },
       "overview": {
         "title": "建筑物",
         "btn": {
@@ -294,6 +303,30 @@
       "add": "添加活动类型",
       "description": "活动类型是企业可以选择创建活动记录的活动类型。",
       "deleteWithCount": "删除 ({{count}} 个活动类型"
+    },
+    "tenant": {
+      "create": {
+        "title": "创建新租户",
+        "description": "为此建筑创建新租户",
+        "name": "租户名称",
+        "placeholders": {
+          "name": "输入租户名称"
+        }
+      }
+    },
+    "building-group": {
+      "create": {
+        "title": "创建新建筑群",
+        "subtitle": "为此建筑创建新建筑群",
+        "description": "描述",
+        "name": "群组名称",
+        "tenant": "租户",
+        "placeholders": {
+          "name": "输入群组名称",
+          "tenant": "选择租户",
+          "description": "输入描述"
+        }
+      }
     }
   },
   "enum": {

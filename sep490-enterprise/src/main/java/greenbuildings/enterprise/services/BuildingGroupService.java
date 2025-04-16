@@ -29,4 +29,8 @@ public interface BuildingGroupService {
     List<BuildingGroupEntity> findByTenantId(UUID tenantId);
     
     Page<BuildingGroupEntity> search(SearchCriteriaDTO<BuildingGroupCriteria> searchCriteria);
+    
+    List<BuildingGroupEntity> getAvailableBuildingGroups(UUID buildingId);
+    
+    BuildingGroupEntity create(BuildingGroupEntity buildingGroupEntity);
 }

@@ -52,7 +52,10 @@
         "invalid": "The buildings selection is invalid",
         "permissionWarning": "Please select a building to assign a role to this user",
         "notEnoughCredit": "Enterprise do not have enough credits",
-        "ratioNotMatch": "The ratio is not match, please try again"
+        "ratioNotMatch": "The ratio is not match, please try again",
+        "group":{
+          "nameExists": "Group name already exists"
+        }
       },
       "buildingPermissions": {
         "notEmpty": "Building permissions cannot be empty",
@@ -80,7 +83,7 @@
   },
   "notFound": {
     "title": "Page Not Found",
-    "description": "Sorry, we couldn’t find the page you’re looking for.",
+    "description": "Sorry, we couldn't find the page you're looking for.",
     "backHome": "Back to Home"
   },
   "http": {
@@ -193,6 +196,12 @@
       }
     },
     "buildings": {
+      "tenant": {
+        "new": "New Tenant"
+      },
+      "group": {
+        "new": "New Group"
+      },
       "overview": {
         "title": "Buildings",
         "btn": {
@@ -299,6 +308,30 @@
         "success": {
           "summary": "Success",
           "detail": "Activity Type Deleted"
+        }
+      }
+    },
+    "tenant": {
+      "create": {
+        "title": "Create New Tenant",
+        "description": "Create a new tenant for this building",
+        "name": "Tenant Name",
+        "placeholders": {
+          "name": "Enter tenant name"
+        }
+      }
+    },
+    "building-group": {
+      "create": {
+        "title": "Create New Building Group",
+        "subtitle": "Create a new building group for this building",
+        "description": "Description",
+        "name": "Group Name",
+        "tenant": "Tenant",
+        "placeholders": {
+          "name": "Enter group name",
+          "tenant": "Select tenant",
+          "description": "Enter description"
         }
       }
     }
@@ -609,7 +642,7 @@
     "newAccessToken": "New Power BI access token",
     "editAccessToken": "Edit Power BI access token",
     "tokenName": "Token name",
-    "whatToken": "What’s this token for?",
+    "whatToken": "What's this token for?",
     "expiration": "Expiration",
     "tokenGenerated": "Tokens you have generated that can be used to access the GreenBuildings Power BI.",
     "delete": "Delete",
@@ -631,7 +664,7 @@
         "detail": "Failed to delete token"
       }
     },
-    "msgForgotToken": "If you’ve lost or forgotten this token, you can regenerate it, but be aware that any scripts or applications using this token will need to be updated.",
+    "msgForgotToken": "If you've lost or forgotten this token, you can regenerate it, but be aware that any scripts or applications using this token will need to be updated.",
     "buttonCreateToken": "Regenerate token",
     "thisTokenExpireOn": "This token expired on",
     "toSetNewExpireDate": ". To set a new expiration date, you must",

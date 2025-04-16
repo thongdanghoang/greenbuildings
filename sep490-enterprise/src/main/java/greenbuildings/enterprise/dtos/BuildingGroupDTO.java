@@ -12,6 +12,7 @@ public record BuildingGroupDTO(
         UUID id,
         int version,
         @NotBlank String name,
+        String description,
         BuildingDTO building,
         TenantDTO tenant,
         Set<EmissionActivityDTO> emissionActivities

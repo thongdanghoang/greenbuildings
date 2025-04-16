@@ -32,6 +32,8 @@ import {EnterpriseInvitationComponent} from './components/enterprise-invitation/
 import {ActivityTypeComponent} from './components/activity-type/activity-type.component';
 import {ActivityTypeDialogComponent} from './dialog/activity-type-dialog/activity-type-dialog.component';
 import {BuildingManagementComponent} from './components/building-management/building-management.component';
+import {NewTenantComponent} from './components/new-tenant/new-tenant.component';
+import {NewBuildingGroupComponent} from './components/new-building-group/new-building-group.component';
 import {PaymentDetailDialogComponent} from './dialog/payment-detail-dialog/payment-detail-dialog.component';
 import {CreditDeductionHistoryDialogComponent} from './dialog/credit-deduction-history-dialog/credit-deduction-history-dialog.component';
 import {TransactionService} from './services/transaction.service';
@@ -55,8 +57,10 @@ import {CreditPackageGuideDialogComponent} from './dialog/credit-package-guide-d
     CreateEnterpriseComponent,
     EnterpriseInvitationComponent,
     ActivityTypeComponent,
-    BuildingManagementComponent,
     ActivityTypeDialogComponent,
+    BuildingManagementComponent,
+    NewTenantComponent,
+    NewBuildingGroupComponent,
     PaymentDetailDialogComponent,
     CreditDeductionHistoryDialogComponent,
     CreditPackageGuideDialogComponent
