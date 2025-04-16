@@ -52,7 +52,10 @@
         "invalid": "Lựa chọn tòa nhà không hợp lệ",
         "permissionWarning": "Vui lòng chọn một tòa nhà để chỉ định vai trò cho người dùng này",
         "notEnoughCredit": "Doanh nghiệp không có đủ tín dụng",
-        "ratioNotMatch": "Tỷ lệ không khớp, vui lòng thử lại"
+        "ratioNotMatch": "Tỷ lệ không khớp, vui lòng thử lại",
+        "group":{
+          "nameExists": "Tên nhóm đã tồn tại"
+        }
       },
       "buildingPermissions": {
         "notEmpty": "Quyền xây dựng không được để trống",
@@ -193,6 +196,12 @@
       }
     },
     "buildings": {
+      "tenant": {
+        "new": "Thêm khách hàng"
+      },
+      "group": {
+        "new": "Thêm nhóm"
+      },
       "overview": {
         "title": "Tòa nhà",
         "btn": {
@@ -295,6 +304,30 @@
       "add": "Thêm Loại Hoạt Động",
       "description": "Loại hoạt động là loại hoạt động mà doanh nghiệp có thể chọn để tạo bản ghi hoạt động.",
       "deleteWithCount": "Xóa ({{count}}) loại hoạt động"
+    },
+    "tenant": {
+      "create": {
+        "title": "Tạo Người Thuê Mới",
+        "description": "Tạo người thuê mới cho tòa nhà này",
+        "name": "Tên Người Thuê",
+        "placeholders": {
+          "name": "Nhập tên người thuê"
+        }
+      }
+    },
+    "building-group": {
+      "create": {
+        "title": "Tạo Nhóm Tòa Nhà Mới",
+        "subtitle": "Tạo nhóm tòa nhà mới cho tòa nhà này",
+        "name": "Tên Nhóm",
+        "description": "Mô tả",
+        "tenant": "Người thuê",
+        "placeholders": {
+          "name": "Nhập tên nhóm",
+          "tenant": "Chọn người thuê",
+          "description": "Nhập mô tả"
+        }
+      }
     }
   },
   "enum": {

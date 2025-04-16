@@ -30,6 +30,7 @@ export interface Tenant extends BaseDTO {
 
 export interface BuildingGroup extends BaseDTO {
   name: string;
+  description: string;
   building: Building;
   tenant: Tenant;
   emissionActivities: EmissionActivity[];

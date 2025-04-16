@@ -60,23 +60,22 @@
                 <div class="mt-1 flex gap-4">
                     <p-button
                         label="{{
-                            'enterprise.emission.activity.generateReport'
-                                | translate
+                            'enterprise.buildings.tenant.new' | translate
                         }}"
                         class="flex-1"
                         severity="primary"
                         outlined
                         styleClass="w-full"
-                        (onClick)="generateReport()"
+                        (onClick)="onNewTenant()"
                         size="small"
                     ></p-button>
 
                     <p-button
                         label="{{
-                            'enterprise.emission.activity.new' | translate
+                            'enterprise.buildings.group.new' | translate
                         }}"
                         class="flex-1"
-                        (onClick)="openNewActivityDialog()"
+                        (onClick)="onNewGroup()"
                         severity="primary"
                         styleClass="w-full"
                         size="small"

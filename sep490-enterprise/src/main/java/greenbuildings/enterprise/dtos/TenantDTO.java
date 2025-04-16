@@ -11,6 +11,7 @@ public record TenantDTO(
         UUID id,
         int version,
         Set<BuildingGroupDTO> buildingGroups,
+        Set<ActivityTypeDTO> activityTypes,
         String name
 ) implements BaseDTO {
 } 
