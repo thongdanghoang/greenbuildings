@@ -9,6 +9,8 @@ import {CreateEnterpriseComponent} from './components/create-enterprise/create-e
 import {EmissionActivityComponent} from './components/emission-activity/emission-activity.component';
 import {EmissionActivityDetailComponent} from './components/emission-activity-detail/emission-activity-detail.component';
 import {EnterpriseInvitationComponent} from './components/enterprise-invitation/enterprise-invitation.component';
+import {NewBuildingGroupComponent} from './components/new-building-group/new-building-group.component';
+import {NewTenantComponent} from './components/new-tenant/new-tenant.component';
 import {PaymentComponent} from './components/payment/payment.component';
 import {PlanComponent} from './components/plan/plan.component';
 import {EnterpriseComponent} from './enterprise.component';
@@ -30,6 +32,14 @@ const routes: Routes = [
       {
         path: `${AppRoutingConstants.BUILDING_MANAGEMENT_PATH}/:id`,
         component: BuildingManagementComponent
+      },
+      {
+        path: `${AppRoutingConstants.NEW_TENANT_PATH}/:id`,
+        component: NewTenantComponent
+      },
+      {
+        path: `${AppRoutingConstants.NEW_GROUP_PATH}/:id`,
+        component: NewBuildingGroupComponent
       },
       {
         path: AppRoutingConstants.PLAN_PATH,

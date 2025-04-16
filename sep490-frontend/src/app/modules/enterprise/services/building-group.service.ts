@@ -14,6 +14,12 @@ export interface BuildingGroupCriteria {
   name?: string;
 }
 
+export interface CreateBuildingGroupDTO {
+  name: string;
+  description: string;
+  buildingId: UUID;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -21,6 +27,10 @@ export class BuildingGroupService {
   private readonly baseUrl = `${AppRoutingConstants.ENTERPRISE_API_URL}/building-groups`;
 
   constructor(private readonly http: HttpClient) {}
+
+  get newBuildingGroupUrl(): string {
+    return `${this.baseUrl}`;
+  }
 
   getAll(): Observable<BuildingGroup[]> {
     return this.http.get<BuildingGroup[]>(this.baseUrl);
@@ -74,5 +84,11 @@ export class BuildingGroupService {
     return this.http.delete<void>(`${this.baseUrl}`, {
       body: ids
     });
+  }
+
+  getAvailableBuildingGroups(buildingId: UUID): Observable<BuildingGroup[]> {
+    return this.http.get<BuildingGroup[]>(
+      `${this.baseUrl}/building/${buildingId}/available`
+    );
   }
 }

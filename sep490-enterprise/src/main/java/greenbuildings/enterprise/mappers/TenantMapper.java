@@ -8,7 +8,12 @@ import org.mapstruct.*;
 public interface TenantMapper {
     TenantEntity toEntity(TenantDTO dto);
     
+    @Mapping(target = "buildingGroups", ignore = true)
     TenantDTO toDTO(TenantEntity entity);
+    
+    @Mapping(target = "buildingGroups", ignore = true)
+    @Mapping(target = "activityTypes", ignore = true)
+    TenantDTO toBasicDTO(TenantEntity entity);
     
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     TenantEntity partialUpdate(TenantDTO dto, @MappingTarget TenantEntity entity);

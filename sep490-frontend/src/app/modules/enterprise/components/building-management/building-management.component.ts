@@ -21,6 +21,7 @@ import {
   BuildingGroupCriteria,
   BuildingGroupService
 } from '../../services/building-group.service';
+import {TenantService} from '../../services/tenant.service';
 
 @Component({
   selector: 'app-building-management',
@@ -51,6 +52,7 @@ export class BuildingManagementComponent
     private readonly activatedRoute: ActivatedRoute,
     private readonly buildingService: BuildingService,
     private readonly msgService: ToastProvider,
+    private readonly tenantService: TenantService,
     private readonly buildingGroupService: BuildingGroupService
   ) {
     super();
@@ -66,8 +68,13 @@ export class BuildingManagementComponent
 
   buildCols(): void {
     this.cols.push({
-      header: 'enterprise.emission.activity.table.name',
+      header: 'enterprise.building-group.create.name',
       field: 'name',
+      sortable: true
+    });
+    this.cols.push({
+      header: 'enterprise.building-group.create.description',
+      field: 'description',
       sortable: true
     });
   }
@@ -116,6 +123,22 @@ export class BuildingManagementComponent
           this.deleteGroups();
         }
       });
+  }
+
+  onNewTenant(): void {
+    void this.router.navigate([
+      AppRoutingConstants.ENTERPRISE_PATH,
+      AppRoutingConstants.NEW_TENANT_PATH,
+      this.buildingDetails.id
+    ]);
+  }
+
+  onNewGroup(): void {
+    void this.router.navigate([
+      AppRoutingConstants.ENTERPRISE_PATH,
+      AppRoutingConstants.NEW_GROUP_PATH,
+      this.buildingDetails.id
+    ]);
   }
 
   private deleteGroups(): void {

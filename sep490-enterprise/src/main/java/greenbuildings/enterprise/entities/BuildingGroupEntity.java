@@ -24,6 +24,9 @@ public class BuildingGroupEntity extends AbstractAuditableEntity {
     @Column(name = "building_group_name")
     private String name;
     
+    @Column(name = "description")
+    private String description;
+    
     @ManyToOne
     @JoinColumn(name = "building_id", nullable = false)
     private BuildingEntity building;
