@@ -56,10 +56,7 @@ public class BuildingEntity extends AbstractAuditableEntity {
     @NotBlank
     @Column(name = "address", nullable = false)
     private String address;
-    
-    @Column(name = "number_of_devices", nullable = false)
-    private long numberOfDevices;
-    
+
     @DecimalMin("-90.0")
     @DecimalMax("90.0")
     @Column(name = "latitude")
