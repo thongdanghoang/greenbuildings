@@ -65,7 +65,7 @@
             <div class="overflow-y-auto" (click)="closeCallback($event)">
                 <app-sidebar></app-sidebar>
             </div>
-            <div (click)="closeCallback($event)">
+            <div *ngIf="authenticated | async" (click)="closeCallback($event)">
                 <ng-container *ngTemplateOutlet="userProfileMobile" />
             </div>
             <div class="mt-auto">
