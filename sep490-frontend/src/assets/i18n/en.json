@@ -560,10 +560,21 @@
         "detail": "Share your sustainability story with your audience through personalized dashboard links."
       }
     },
-    "testimonial": {
+    "testimonials": {
+      "mainTitle": "Trusted by Leading Property Managers",
       "title": "Testimonial",
       "subtitle": "Trusted by Leading Companies",
-      "description": "GreenBuilding is proud to be the carbon management platform of choice for numerous forward-thinking companies across various industries. Our clients rely on GreenBuilding to streamline their sustainability initiatives and demonstrate their commitment to a greener future. Some of our valued customers include: \"companies that are already using the platform\""
+      "description": "GreenBuilding is proud to be the carbon management platform of choice for numerous forward-thinking companies across various industries. Our clients rely on GreenBuilding to streamline their sustainability initiatives and demonstrate their commitment to a greener future. Some of our valued customers include: \"companies that are already using the platform\"",
+      "item1": {
+        "title": "Skyline Properties",
+        "description": "Skyline Properties is a real estate company focused on sustainability. They use GreenBuilding to monitor and reduce their carbon footprint.",
+        "author": "Property Director, Skyline Properties"
+      },
+      "item2": {
+        "title": "Tech Innovations Inc.",
+        "description": "Tech Innovations Inc. is a technology company focused on sustainability. They use GreenBuilding to monitor and reduce their carbon footprint.",
+        "author": "Sustainability Manager, Tech Innovations Inc."
+      }
     },
     "reason": {
       "subtitle": "Carbon Clarity",
@@ -588,10 +599,50 @@
         "description": "Foster a culture of sustainability within your orzanization."
       }
     },
+    "features": {
+      "title": "Features",
+      "mainTitle": "Comprehensive Emissions Tracking",
+      "description": "Our platform provides powerful tools for both building owners and tenants to monitor, analyze, and reduce carbon emissions.",
+      "buildingManagement": {
+        "title": "Building Management",
+        "description": "Centralized dashboard for property managers to monitor entire building performance and set sustainability goals."
+      },
+      "realTimeAnalytics": {
+        "title": "Real-time Analytics",
+        "description": "Track emissions data in real-time with detailed analytics and customizable reporting for regulatory compliance."
+      },
+      "tenantPortal": {
+        "title": "Tenant Portal",
+        "description": "Dedicated interfaces for tenants to monitor their space's usage and contribute to building-wide sustainability efforts."
+      }
+    },
     "footer": {
       "support": "Get Support",
       "detailSupport": "Our dedicated customer support team is here to help you make the most of the GreenBuilding platform. Whether you need assistance with account setup, carbon calculation, or dashboard customization, we're just a click away. Contact us for any inquiries or guidance you may need.",
-      "contact": "Contact us"
+      "contact": "Contact us",
+      "brand": "Green Building",
+      "slogan": "Empowering sustainable buildings through emissions tracking and reduction.",
+      "navigation": {
+        "product": "Product",
+        "company": "Company",
+        "legal": "Legal"
+      },
+      "productLinks": {
+        "features": "Features",
+        "pricing": "Pricing",
+        "caseStudies": "Case Studies"
+      },
+      "companyLinks": {
+        "aboutUs": "About Us",
+        "blog": "Blog",
+        "careers": "Careers",
+        "contact": "Contact"
+      },
+      "legalLinks": {
+        "privacyPolicy": "Privacy Policy",
+        "termsOfService": "Terms of Service",
+        "cookiePolicy": "Cookie Policy"
+      }
     }
   },
   "unit": {

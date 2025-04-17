@@ -554,10 +554,21 @@
         "detail": "Chia sẻ câu chuyện phát triển bền vững của bạn với khán giả thông qua các liên kết bảng điều khiển được cá nhân hóa."
       }
     },
-    "testimonial": {
+    "testimonials": {
+      "mainTitle": "Được các nhà quản lý tài sản hàng đầu tin tưởng",
       "title": "Lời chứng thực",
       "subtitle": "Được các công ty hàng đầu tin tưởng",
-      "description": "GreenBuilding tự hào là nền tảng quản lý carbon được các công ty có tư duy tiến bộ lựa chọn trong nhiều ngành công nghiệp khác nhau. Khách hàng của chúng tôi tin tưởng GreenBuilding sẽ hợp lý hóa các sáng kiến \u200B\u200Bphát triển bền vững của họ và chứng minh cam kết của họ đối với một tương lai xanh hơn. Một số khách hàng có giá trị của chúng tôi bao gồm: \"các công ty đã sử dụng nền tảng này\""
+      "description": "GreenBuilding tự hào là nền tảng quản lý carbon được các công ty có tư duy tiến bộ lựa chọn trong nhiều ngành công nghiệp khác nhau. Khách hàng của chúng tôi tin tưởng GreenBuilding sẽ hợp lý hóa các sáng kiến \u200B\u200Bphát triển bền vững của họ và chứng minh cam kết của họ đối với một tương lai xanh hơn. Một số khách hàng có giá trị của chúng tôi bao gồm: \"các công ty đã sử dụng nền tảng này\"",
+      "item1": {
+        "title": "Skyline Properties",
+        "description": "Skyline Properties là công ty bất động sản chuyên về phát triển bền vững, họ sử dụng GreenBuilding để theo dõi và giảm thiểu carbon footprint của họ.",
+        "author": "Giám đốc tài sản, Skyline Properties"
+      },
+      "item2": {
+        "title": "Tech Innovations Inc.",
+        "description": "Tech Innovations Inc. là công ty công nghệ chuyên về phát triển bền vững, họ sử dụng GreenBuilding để theo dõi và giảm thiểu carbon footprint của họ.",
+        "author": "Quản lý bền vững, Tech Innovations Inc."
+      }
     },
     "reason": {
       "subtitle": "Độ trong của Carbon",
@@ -582,10 +593,50 @@
         "description": "Nuôi dưỡng văn hóa bền vững trong tổ chức của bạn."
       }
     },
+    "features": {
+      "title": "Tính năng",
+      "mainTitle": "Theo dõi Phát thải Toàn diện",
+      "description": "Nền tảng của chúng tôi cung cấp các công cụ mạnh mẽ cho cả chủ sở hữu tòa nhà và người thuê để giám sát, phân tích và giảm lượng khí thải carbon.",
+      "buildingManagement": {
+        "title": "Quản lý Tòa nhà",
+        "description": "Bảng điều khiển tập trung cho người quản lý tài sản để giám sát hiệu suất toàn bộ tòa nhà và đặt mục tiêu phát triển bền vững."
+      },
+      "realTimeAnalytics": {
+        "title": "Phân tích Thời gian thực",
+        "description": "Theo dõi dữ liệu phát thải theo thời gian thực với phân tích chi tiết và báo cáo tùy chỉnh để tuân thủ quy định."
+      },
+      "tenantPortal": {
+        "title": "Cổng thông tin Người thuê",
+        "description": "Giao diện chuyên dụng cho người thuê để giám sát việc sử dụng không gian của họ và đóng góp vào các nỗ lực phát triển bền vững của toàn tòa nhà."
+      }
+    },
     "footer": {
       "support": "Nhận hỗ trợ",
       "detailSupport": "Nhóm hỗ trợ khách hàng tận tâm của chúng tôi luôn sẵn sàng giúp bạn tận dụng tối đa nền tảng GreenBuilding. Cho dù bạn cần hỗ trợ thiết lập tài khoản, tính toán lượng carbon hay tùy chỉnh bảng điều khiển, chúng tôi chỉ cách bạn một cú nhấp chuột. Hãy liên hệ với chúng tôi để được giải đáp mọi thắc mắc hoặc hướng dẫn bạn cần.",
-      "contact": "Liên hệ với chúng tôi"
+      "contact": "Liên hệ với chúng tôi",
+      "brand": "Green Building",
+      "slogan": "Trao quyền cho các tòa nhà bền vững thông qua theo dõi và giảm phát thải.",
+      "navigation": {
+        "product": "Sản phẩm",
+        "company": "Công ty",
+        "legal": "Pháp lý"
+      },
+      "productLinks": {
+        "features": "Tính năng",
+        "pricing": "Giá cả",
+        "caseStudies": "Nghiên cứu điển hình"
+      },
+      "companyLinks": {
+        "aboutUs": "Về chúng tôi",
+        "blog": "Blog",
+        "careers": "Tuyển dụng",
+        "contact": "Liên hệ"
+      },
+      "legalLinks": {
+        "privacyPolicy": "Chính sách bảo mật",
+        "termsOfService": "Điều khoản dịch vụ",
+        "cookiePolicy": "Chính sách cookie"
+      }
     }
   },
   "unit": {
