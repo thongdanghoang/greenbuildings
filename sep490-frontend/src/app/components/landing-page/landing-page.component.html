@@ -227,7 +227,97 @@
     </div>
 </div>
 <!-- Team Section End -->
-<!-- Testimonial Section Start -->
+<!-- Features Section -->
+<section id="features" class="w-full py-16">
+    <div class="container px-4 md:px-6">
+        <div
+            class="flex flex-col items-center justify-center space-y-4 text-center"
+        >
+            <div class="space-y-2">
+                <div
+                    class="inline-block rounded-lg bg-green-100 px-3 py-1 text-sm text-green-800"
+                >
+                    {{ "landingPage.features.title" | translate }}
+                </div>
+                <h2 class="text-3xl font-bold tracking-tighter md:text-4xl">
+                    {{ "landingPage.features.mainTitle" | translate }}
+                </h2>
+                <p
+                    class="max-w-[900px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed"
+                >
+                    {{ "landingPage.features.description" | translate }}
+                </p>
+            </div>
+        </div>
+        <div
+            class="mx-auto grid max-w-5xl items-center gap-6 py-12 lg:grid-cols-3 lg:gap-12"
+        >
+            <div class="flex flex-col justify-center space-y-4">
+                <div
+                    class="flex h-12 w-12 items-center justify-center rounded-lg bg-green-100 text-green-700"
+                >
+                    <i class="fa-solid fa-building text-xl"></i>
+                </div>
+                <div class="space-y-2">
+                    <h3 class="text-xl font-bold">
+                        {{
+                            "landingPage.features.buildingManagement.title"
+                                | translate
+                        }}
+                    </h3>
+                    <p class="text-gray-500">
+                        {{
+                            "landingPage.features.buildingManagement.description"
+                                | translate
+                        }}
+                    </p>
+                </div>
+            </div>
+            <div class="flex flex-col justify-center space-y-4">
+                <div
+                    class="flex h-12 w-12 items-center justify-center rounded-lg bg-green-100 text-green-700"
+                >
+                    <i class="fa-solid fa-chart-bar text-xl"></i>
+                </div>
+                <div class="space-y-2">
+                    <h3 class="text-xl font-bold">
+                        {{
+                            "landingPage.features.realTimeAnalytics.title"
+                                | translate
+                        }}
+                    </h3>
+                    <p class="text-gray-500">
+                        {{
+                            "landingPage.features.realTimeAnalytics.description"
+                                | translate
+                        }}
+                    </p>
+                </div>
+            </div>
+            <div class="flex flex-col justify-center space-y-4">
+                <div
+                    class="flex h-12 w-12 items-center justify-center rounded-lg bg-green-100 text-green-700"
+                >
+                    <i class="fa-solid fa-users text-xl"></i>
+                </div>
+                <div class="space-y-2">
+                    <h3 class="text-xl font-bold">
+                        {{
+                            "landingPage.features.tenantPortal.title"
+                                | translate
+                        }}
+                    </h3>
+                    <p class="text-gray-500">
+                        {{
+                            "landingPage.features.tenantPortal.description"
+                                | translate
+                        }}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 <!-- Testimonial Section Start -->
 <div class="py-16">
     <div class="container mx-auto px-6 lg:px-20">
@@ -236,19 +326,18 @@
             <!-- Section Title -->
             <div class="animate-fadeInUp mb-10 px-8 py-4 text-center">
                 <h4 class="text-lg font-semibold uppercase tracking-wide">
-                    {{ "landingPage.testimonial.title" | translate }}
+                    {{ "landingPage.testimonials.title" | translate }}
                 </h4>
                 <h1 class="mt-2 text-4xl font-bold md:text-5xl">
-                    {{ "landingPage.testimonial.subtitle" | translate }}
+                    {{ "landingPage.testimonials.subtitle" | translate }}
                 </h1>
                 <p class="mt-5">
-                    {{ "landingPage.testimonial.description" | translate }}
+                    {{ "landingPage.testimonials.description" | translate }}
                 </p>
             </div>
         </div>
     </div>
 </div>
-<!-- Testimonial Section End -->
 <!-- Testimonial Section End -->
 <!-- Blog Section Start -->
 <div class="py-16">
@@ -372,57 +461,237 @@
     </div>
 </div>
 <!-- Blog Section End -->
-<!-- Footer Section Start -->
-<div class="bg-gray-900 py-16 text-white">
-    <div class="container mx-auto px-6 lg:px-20">
-        <div class="flex flex-col items-center gap-10">
-            <!-- Logo & Social -->
-            <div class="space-y-4">
-                <h4 class="text-2xl font-bold">
-                    {{ "landingPage.footer.support" | translate }}
-                </h4>
-                <p class="text-gray-400">
-                    {{ "landingPage.footer.detailSupport" | translate }}
-                </p>
-                <div class="flex flex-row-reverse justify-between">
-                    <div class="flex items-center space-x-3">
-                        <i class="pi pi-share-alt text-2xl"></i>
-                        <a href="#" class="text-white hover:text-primary"
-                            ><i class="pi pi-facebook text-xl"></i
-                        ></a>
-                        <a href="#" class="text-white hover:text-primary"
-                            ><i class="pi pi-twitter text-xl"></i
-                        ></a>
-                        <a href="#" class="text-white hover:text-primary"
-                            ><i class="pi pi-instagram text-xl"></i
-                        ></a>
-                        <a href="#" class="text-white hover:text-primary"
-                            ><i class="pi pi-linkedin text-xl"></i
-                        ></a>
-                    </div>
-                    <img
-                        ngSrc="assets/images/logo.svg"
-                        alt="Logo"
-                        width="100"
-                        height="35"
-                        priority
-                    />
+<!-- Testimonials Section -->
+<section id="testimonials" class="w-full py-12 md:py-24 lg:py-32">
+    <div class="container px-4 md:px-6">
+        <div
+            class="flex flex-col items-center justify-center space-y-4 text-center"
+        >
+            <div class="space-y-2">
+                <div
+                    class="inline-block rounded-lg bg-green-100 px-3 py-1 text-sm text-green-800"
+                >
+                    {{ "landingPage.testimonials.title" | translate }}
                 </div>
-            </div>
-
-            <!-- Contact Info -->
-            <div class="flex flex-row items-center justify-center gap-10">
-                <p class="text-gray-400">
-                    <i class="pi pi-envelope mr-2"></i>info.com
-                </p>
-                <p class="text-gray-400">
-                    <i class="pi pi-phone mr-2"></i>+012 345 67890
-                </p>
-                <p class="text-gray-400">
-                    <i class="pi pi-print mr-2"></i>+012 345 67890
+                <h2 class="text-3xl font-bold tracking-tighter md:text-4xl">
+                    {{ "landingPage.testimonials.mainTitle" | translate }}
+                </h2>
+                <p
+                    class="max-w-[900px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed"
+                >
+                    {{ "landingPage.testimonials.description" | translate }}
                 </p>
             </div>
         </div>
+        <div
+            class="mx-auto grid max-w-5xl gap-6 py-12 lg:grid-cols-2 lg:gap-12"
+        >
+            <div
+                class="bg-card flex flex-col justify-between rounded-lg border p-6 shadow-sm"
+            >
+                <div class="space-y-4">
+                    <p class="text-gray-500">
+                        {{
+                            "landingPage.testimonials.item1.description"
+                                | translate
+                        }}
+                    </p>
+                </div>
+                <div class="flex items-center gap-4 pt-4">
+                    <div class="rounded-full bg-gray-100 p-1">
+                        <div class="h-10 w-10 rounded-full bg-gray-200"></div>
+                    </div>
+                    <div>
+                        <p class="text-sm font-medium">Sarah Johnson</p>
+                        <p class="text-sm text-gray-500">
+                            {{
+                                "landingPage.testimonials.item1.author"
+                                    | translate
+                            }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div
+                class="bg-card flex flex-col justify-between rounded-lg border p-6 shadow-sm"
+            >
+                <div class="space-y-4">
+                    <p class="text-gray-500">
+                        {{
+                            "landingPage.testimonials.item2.description"
+                                | translate
+                        }}
+                    </p>
+                </div>
+                <div class="flex items-center gap-4 pt-4">
+                    <div class="rounded-full bg-gray-100 p-1">
+                        <div class="h-10 w-10 rounded-full bg-gray-200"></div>
+                    </div>
+                    <div>
+                        <p class="text-sm font-medium">Michael Chen</p>
+                        <p class="text-sm text-gray-500">
+                            {{
+                                "landingPage.testimonials.item2.author"
+                                    | translate
+                            }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
+</section>
+<!-- Footer Section Start -->
+<!-- Footer -->
+<section class="w-full border-t bg-green-50 py-6 md:py-12">
+    <div
+        class="container flex flex-col gap-6 px-4 md:flex-row md:items-center md:px-6"
+    >
+        <div class="flex flex-col gap-2">
+            <div class="flex items-center gap-2">
+                <i class="fa-solid fa-leaf text-xl text-green-600"></i>
+                <span class="text-xl font-bold">{{
+                    "landingPage.footer.brand" | translate
+                }}</span>
+            </div>
+            <p class="text-sm text-gray-500">
+                {{ "landingPage.footer.slogan" | translate }}
+            </p>
+        </div>
+        <div class="flex-1"></div>
+        <nav class="grid grid-cols-2 gap-8 sm:grid-cols-3">
+            <div class="space-y-3">
+                <h4 class="text-sm font-medium">
+                    {{ "landingPage.footer.navigation.product" | translate }}
+                </h4>
+                <ul class="space-y-2">
+                    <li>
+                        <a
+                            href="#features"
+                            class="text-sm text-gray-500 hover:text-green-600"
+                        >
+                            {{
+                                "landingPage.footer.productLinks.features"
+                                    | translate
+                            }}
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            href="#pricing"
+                            class="text-sm text-gray-500 hover:text-green-600"
+                        >
+                            {{
+                                "landingPage.footer.productLinks.pricing"
+                                    | translate
+                            }}
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            href="#"
+                            class="text-sm text-gray-500 hover:text-green-600"
+                        >
+                            {{
+                                "landingPage.footer.productLinks.caseStudies"
+                                    | translate
+                            }}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="space-y-3">
+                <h4 class="text-sm font-medium">
+                    {{ "landingPage.footer.navigation.company" | translate }}
+                </h4>
+                <ul class="space-y-2">
+                    <li>
+                        <a
+                            href="#"
+                            class="text-sm text-gray-500 hover:text-green-600"
+                        >
+                            {{
+                                "landingPage.footer.companyLinks.aboutUs"
+                                    | translate
+                            }}
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            href="#"
+                            class="text-sm text-gray-500 hover:text-green-600"
+                        >
+                            {{
+                                "landingPage.footer.companyLinks.blog"
+                                    | translate
+                            }}
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            href="#"
+                            class="text-sm text-gray-500 hover:text-green-600"
+                        >
+                            {{
+                                "landingPage.footer.companyLinks.careers"
+                                    | translate
+                            }}
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            href="#contact"
+                            class="text-sm text-gray-500 hover:text-green-600"
+                        >
+                            {{
+                                "landingPage.footer.companyLinks.contact"
+                                    | translate
+                            }}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="space-y-3">
+                <h4 class="text-sm font-medium">
+                    {{ "landingPage.footer.navigation.legal" | translate }}
+                </h4>
+                <ul class="space-y-2">
+                    <li>
+                        <a
+                            href="#"
+                            class="text-sm text-gray-500 hover:text-green-600"
+                        >
+                            {{
+                                "landingPage.footer.legalLinks.privacyPolicy"
+                                    | translate
+                            }}
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            href="#"
+                            class="text-sm text-gray-500 hover:text-green-600"
+                        >
+                            {{
+                                "landingPage.footer.legalLinks.termsOfService"
+                                    | translate
+                            }}
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            href="#"
+                            class="text-sm text-gray-500 hover:text-green-600"
+                        >
+                            {{
+                                "landingPage.footer.legalLinks.cookiePolicy"
+                                    | translate
+                            }}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</section>
 <!-- Footer Section End -->
