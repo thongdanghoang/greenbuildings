@@ -37,6 +37,7 @@ import {NewBuildingGroupComponent} from './components/new-building-group/new-bui
 import {PaymentDetailDialogComponent} from './dialog/payment-detail-dialog/payment-detail-dialog.component';
 import {CreditDeductionHistoryDialogComponent} from './dialog/credit-deduction-history-dialog/credit-deduction-history-dialog.component';
 import {TransactionService} from './services/transaction.service';
+import {BuildingGroupDetailComponent} from './components/building-group-detail/building-group-detail.component';
 import {CreditPackageGuideDialogComponent} from './dialog/credit-package-guide-dialog/credit-package-guide-dialog.component';
 
 @NgModule({
@@ -62,6 +63,7 @@ import {CreditPackageGuideDialogComponent} from './dialog/credit-package-guide-d
     NewTenantComponent,
     NewBuildingGroupComponent,
     PaymentDetailDialogComponent,
+    BuildingGroupDetailComponent,
     CreditDeductionHistoryDialogComponent,
     CreditPackageGuideDialogComponent
   ],
