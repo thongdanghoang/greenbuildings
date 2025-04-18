@@ -37,6 +37,7 @@ import {NewBuildingGroupComponent} from './components/new-building-group/new-bui
 import {PaymentDetailDialogComponent} from './dialog/payment-detail-dialog/payment-detail-dialog.component';
 import {CreditDeductionHistoryDialogComponent} from './dialog/credit-deduction-history-dialog/credit-deduction-history-dialog.component';
 import {TransactionService} from './services/transaction.service';
+import {BuildingGroupDetailComponent} from './components/building-group-detail/building-group-detail.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import {TransactionService} from './services/transaction.service';
     NewTenantComponent,
     NewBuildingGroupComponent,
     PaymentDetailDialogComponent,
-    CreditDeductionHistoryDialogComponent
+    CreditDeductionHistoryDialogComponent,
+    BuildingGroupDetailComponent
   ],
   imports: [SharedModule, EnterpriseRoutingModule],
   providers: [

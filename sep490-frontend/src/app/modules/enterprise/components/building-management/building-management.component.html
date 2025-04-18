@@ -9,80 +9,91 @@
             size="small"
         ></p-button>
     </div>
-    <div class="mb-2 mt-2 md:w-1/2">
-        <p-card header="{{ buildingDetails.name }}">
-            <ng-template pTemplate="subtitle">
-                <i class="pi pi-map-marker"></i>
-                {{ buildingDetails.address }}
-            </ng-template>
-            <p-fieldset
-                legend="{{
-                    'enterprise.emission.activity.subscriptionDetail'
-                        | translate
-                }}"
-                collapsed="true"
-                [toggleable]="true"
-            >
-                <p>
-                    <i class="pi pi-star"></i>
-                    {{
-                        "enterprise.emission.activity.maxNoActivities"
+    <div class="my-2 flex">
+        <div class="mx-2 mb-2 mt-2 md:w-1/2">
+            <p-card header="{{ buildingDetails.name }}">
+                <ng-template pTemplate="subtitle">
+                    <i class="pi pi-map-marker"></i>
+                    {{ buildingDetails.address }}
+                </ng-template>
+                <p-fieldset
+                    legend="{{
+                        'enterprise.emission.activity.subscriptionDetail'
                             | translate
-                    }}
-                    {{ buildingDetails.subscriptionDTO?.maxNumberOfDevices }}
-                </p>
-                <p>
-                    <i class="pi pi-calendar"></i>
-                    {{
-                        "enterprise.emission.activity.subscriptionDuration"
-                            | translate
-                    }}
+                    }}"
+                    collapsed="false"
+                >
+                    <p>
+                        <i class="pi pi-star"></i>
+                        {{
+                            "enterprise.emission.activity.maxNoActivities"
+                                | translate
+                        }}
+                        {{
+                            buildingDetails.subscriptionDTO?.maxNumberOfDevices
+                        }}
+                    </p>
+                    <p>
+                        <i class="pi pi-calendar"></i>
+                        {{
+                            "enterprise.emission.activity.subscriptionDuration"
+                                | translate
+                        }}
 
-                    {{
-                        buildingDetails.subscriptionDTO?.startDate
-                            | date: "dd/MM/yyyy"
-                    }}
-                    -
-                    {{
-                        buildingDetails.subscriptionDTO?.endDate
-                            | date: "dd/MM/yyyy"
-                    }}
-                </p>
-                <p>
-                    <i class="pi pi-hourglass"></i>
-                    {{
-                        "enterprise.emission.activity.remainingDays" | translate
-                    }}
-                    {{ getRemainingDays() }}
-                </p>
-            </p-fieldset>
-            <ng-template pTemplate="footer">
-                <div class="mt-1 flex gap-4">
-                    <p-button
-                        label="{{
-                            'enterprise.buildings.tenant.new' | translate
-                        }}"
-                        class="flex-1"
-                        severity="primary"
-                        outlined
-                        styleClass="w-full"
-                        (onClick)="onNewTenant()"
-                        size="small"
-                    ></p-button>
+                        {{
+                            buildingDetails.subscriptionDTO?.startDate
+                                | date: "dd/MM/yyyy"
+                        }}
+                        -
+                        {{
+                            buildingDetails.subscriptionDTO?.endDate
+                                | date: "dd/MM/yyyy"
+                        }}
+                    </p>
+                    <p>
+                        <i class="pi pi-hourglass"></i>
+                        {{
+                            "enterprise.emission.activity.remainingDays"
+                                | translate
+                        }}
+                        {{ getRemainingDays() }}
+                    </p>
+                </p-fieldset>
+                <ng-template pTemplate="footer">
+                    <div class="mt-1 flex gap-4">
+                        <p-button
+                            label="{{
+                                'enterprise.buildings.tenant.new' | translate
+                            }}"
+                            class="flex-1"
+                            severity="primary"
+                            outlined
+                            styleClass="w-full"
+                            (onClick)="onNewTenant()"
+                            size="small"
+                        ></p-button>
 
-                    <p-button
-                        label="{{
-                            'enterprise.buildings.group.new' | translate
-                        }}"
-                        class="flex-1"
-                        (onClick)="onNewGroup()"
-                        severity="primary"
-                        styleClass="w-full"
-                        size="small"
-                    ></p-button>
-                </div>
-            </ng-template>
-        </p-card>
+                        <p-button
+                            label="{{
+                                'enterprise.buildings.group.new' | translate
+                            }}"
+                            class="flex-1"
+                            (onClick)="onNewGroup()"
+                            severity="primary"
+                            styleClass="w-full"
+                            size="small"
+                        ></p-button>
+                    </div>
+                </ng-template>
+            </p-card>
+        </div>
+        <div class="mx-2 mb-2 mt-2 md:w-1/2">
+            <p-card header="{{ buildingDetails.name }}">
+                Number of building groups: 150
+                <br />
+                Number of corporative tenant: 100
+            </p-card>
+        </div>
     </div>
 </div>
 
@@ -137,9 +148,10 @@
         </div>
     </div>
 </ng-template>
-<ng-template #actionsTemplate let-activity>
+<ng-template #actionsTemplate let-group>
     <p-button
         icon="pi pi-file-edit"
+        (onClick)="navigateToBuildingGroupDetail(group)"
         [rounded]="true"
         [text]="true"
         severity="contrast"

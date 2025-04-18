@@ -15,6 +15,7 @@ import {PaymentComponent} from './components/payment/payment.component';
 import {PlanComponent} from './components/plan/plan.component';
 import {EnterpriseComponent} from './enterprise.component';
 import {ActivityTypeComponent} from './components/activity-type/activity-type.component';
+import {BuildingGroupDetailComponent} from './components/building-group-detail/building-group-detail.component';
 
 const routes: Routes = [
   {
@@ -32,6 +33,10 @@ const routes: Routes = [
       {
         path: `${AppRoutingConstants.BUILDING_MANAGEMENT_PATH}/:id`,
         component: BuildingManagementComponent
+      },
+      {
+        path: `${AppRoutingConstants.BUILDING_GROUP_PATH}/:id`,
+        component: BuildingGroupDetailComponent
       },
       {
         path: `${AppRoutingConstants.NEW_TENANT_PATH}/:id`,

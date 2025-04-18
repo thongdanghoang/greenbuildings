@@ -1,4 +1,10 @@
-import {Component, EventEmitter, OnInit} from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  OnInit,
+  TemplateRef,
+  ViewChild
+} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
 import moment from 'moment/moment';
@@ -32,6 +38,8 @@ export class BuildingManagementComponent
   extends SubscriptionAwareComponent
   implements OnInit
 {
+  @ViewChild('actionsTemplate', {static: true})
+  actionsTemplate!: TemplateRef<any>;
   buildingDetails!: BuildingDetails;
   protected fetchGroups!: (
     criteria: SearchCriteriaDto<BuildingGroupCriteria>
@@ -77,12 +85,25 @@ export class BuildingManagementComponent
       field: 'description',
       sortable: true
     });
+    this.cols.push({
+      field: 'actions',
+      header: '',
+      templateRef: this.actionsTemplate
+    });
   }
 
   goBack(): void {
     void this.router.navigate([
       AppRoutingConstants.ENTERPRISE_PATH,
       AppRoutingConstants.BUILDING_PATH
+    ]);
+  }
+
+  navigateToBuildingGroupDetail(group: BuildingGroup): void {
+    void this.router.navigate([
+      AppRoutingConstants.ENTERPRISE_PATH,
+      AppRoutingConstants.BUILDING_GROUP_PATH,
+      group.id
     ]);
   }
 

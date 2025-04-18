@@ -42,7 +42,7 @@ public class BuildingGroupController extends AbstractRestController {
     @GetMapping("/{id}")
     public ResponseEntity<BuildingGroupDTO> findById(@PathVariable UUID id) {
         return buildingGroupService.findById(id)
-                .map(buildingGroupMapper::toDTO)
+                .map(buildingGroupMapper::toDetailDTO)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
