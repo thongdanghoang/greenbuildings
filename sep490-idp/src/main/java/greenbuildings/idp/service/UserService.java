@@ -31,7 +31,7 @@ public interface UserService {
     
     UserEntity getEnterpriseUserDetail(UUID id);
     
-    UserEntity getUserDetail(UUID id);
+    UserEntity getUserDetail(String email);
     
     Optional<UserEntity> findById(UUID id);
     

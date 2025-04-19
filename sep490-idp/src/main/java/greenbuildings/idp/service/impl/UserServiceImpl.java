@@ -17,7 +17,6 @@ import greenbuildings.idp.dto.NewEnterpriseDTO;
 import greenbuildings.idp.dto.SignupDTO;
 import greenbuildings.idp.dto.SignupResult;
 import greenbuildings.idp.dto.UserCriteriaDTO;
-import greenbuildings.idp.entity.BuildingPermissionEntity;
 import greenbuildings.idp.entity.UserEntity;
 import greenbuildings.idp.producers.IdPEventProducer;
 import greenbuildings.idp.repository.UserRepository;
@@ -26,8 +25,8 @@ import greenbuildings.idp.service.UserService;
 import greenbuildings.idp.utils.IEmailUtil;
 import greenbuildings.idp.utils.IMessageUtil;
 import greenbuildings.idp.utils.SEPMailMessage;
-import greenbuildings.idp.validators.Validator;
 import greenbuildings.idp.validators.UserValidator;
+import greenbuildings.idp.validators.Validator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -255,8 +254,8 @@ public class UserServiceImpl extends SagaManager implements UserService {
     }
     
     @Override
-    public UserEntity getUserDetail(UUID id) {
-        return userRepo.findById(id).orElseThrow();
+    public UserEntity getUserDetail(String email) {
+        return userRepo.findByEmail(email).orElseThrow();
     }
     
     @Transactional(readOnly = true)
