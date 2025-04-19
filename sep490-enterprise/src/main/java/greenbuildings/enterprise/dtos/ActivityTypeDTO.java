@@ -6,7 +6,7 @@ public record ActivityTypeDTO(
         UUID id,
         int version,
         String name,
-        String description,
-        UUID enterpriseId) {
+        UUID tenantID,
+        String description) {
 }
 

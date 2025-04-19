@@ -26,11 +26,15 @@ export class AppRoutingConstants {
   // Enterprise Module
   public static readonly ENTERPRISE_PATH = 'enterprise';
   public static readonly BUILDING_PATH = 'buildings';
+  public static readonly BUILDING_GROUP_PATH = 'building-group';
+  public static readonly BUILDING_MANAGEMENT_PATH = 'manage-building';
   public static readonly EMISSION_ACTIVITY_PATH = 'emission-activity';
   public static readonly EMISSION_ACTIVITY_DETAIL_PATH =
     'emission-activity-detail';
   public static readonly PLAN_PATH = 'plan';
   public static readonly PAYMENT_PATH = 'payment';
+  public static readonly NEW_TENANT_PATH = 'new-tenant';
+  public static readonly NEW_GROUP_PATH = 'new-group';
   public static readonly ACTIVITY_TYPE = 'activity-type';
   // Emissions Module
   public static readonly EMISSIONS_PATH = 'emissions';

@@ -13,15 +13,15 @@ import java.util.UUID;
 
 @Repository
 public interface ActivityTypeRepository extends JpaRepository<ActivityTypeEntity, UUID> {
-    List<ActivityTypeEntity> findByEnterpriseId(UUID enterpriseId);
+    List<ActivityTypeEntity> findByTenantId(UUID tenantId);
 
     @Query("""
             SELECT e.id
             FROM ActivityTypeEntity e
-            WHERE (LOWER(e.name) LIKE LOWER(CONCAT('%', :name, '%')) AND e.enterprise.id = :enterpriseId )
+            WHERE (LOWER(e.name) LIKE LOWER(CONCAT('%', :name, '%')) AND e.tenant.id = :tenantId )
             """
     )
-    Page<UUID> findByName(String name, Pageable pageable, UUID enterpriseId);
+    Page<UUID> findByName(String name, Pageable pageable, UUID tenantId);
 
  List<ActivityTypeEntity> findAllById(@NotNull Iterable<UUID> ids);
 } 

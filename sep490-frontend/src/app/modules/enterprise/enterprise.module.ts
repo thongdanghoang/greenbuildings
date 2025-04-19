@@ -9,14 +9,17 @@ import {BuildingSubscriptionDialogComponent} from './dialog/building-subcription
 import {NewActivityRecordDialogComponent} from './dialog/new-activity-record-dialog/new-activity-record-dialog.component';
 import {EnterpriseRoutingModule} from './enterprise-routing.module';
 import {EnterpriseComponent} from './enterprise.component';
+import {BuildingGroupService} from './services/building-group.service';
 import {CreditPackageService} from './services/credit-package.service';
 import {CurrencyConverterService} from './services/currency-converter.service';
 import {EmissionActivityRecordService} from './services/emission-activity-record.service';
+import {GroupItemService} from './services/group-item.service';
 import {MarkerService} from './services/marker.service';
 import {PaymentService} from './services/payment.service';
 import {PopupService} from './services/popup.service';
 import {RegionService} from './services/region.service';
 import {SubscriptionService} from './services/subscription.service';
+import {TenantService} from './services/tenant.service';
 import {WalletService} from './services/wallet.service';
 import {BuildingPopupMarkerComponent} from './components/building-popup-marker/building-popup-marker.component';
 import {EmissionActivityComponent} from './components/emission-activity/emission-activity.component';
@@ -28,9 +31,13 @@ import {CreateEnterpriseComponent} from './components/create-enterprise/create-e
 import {EnterpriseInvitationComponent} from './components/enterprise-invitation/enterprise-invitation.component';
 import {ActivityTypeComponent} from './components/activity-type/activity-type.component';
 import {ActivityTypeDialogComponent} from './dialog/activity-type-dialog/activity-type-dialog.component';
+import {BuildingManagementComponent} from './components/building-management/building-management.component';
+import {NewTenantComponent} from './components/new-tenant/new-tenant.component';
+import {NewBuildingGroupComponent} from './components/new-building-group/new-building-group.component';
 import {PaymentDetailDialogComponent} from './dialog/payment-detail-dialog/payment-detail-dialog.component';
 import {CreditDeductionHistoryDialogComponent} from './dialog/credit-deduction-history-dialog/credit-deduction-history-dialog.component';
 import {TransactionService} from './services/transaction.service';
+import {BuildingGroupDetailComponent} from './components/building-group-detail/building-group-detail.component';
 
 @NgModule({
   declarations: [
@@ -51,8 +58,12 @@ import {TransactionService} from './services/transaction.service';
     EnterpriseInvitationComponent,
     ActivityTypeComponent,
     ActivityTypeDialogComponent,
+    BuildingManagementComponent,
+    NewTenantComponent,
+    NewBuildingGroupComponent,
     PaymentDetailDialogComponent,
-    CreditDeductionHistoryDialogComponent
+    CreditDeductionHistoryDialogComponent,
+    BuildingGroupDetailComponent
   ],
   imports: [SharedModule, EnterpriseRoutingModule],
   providers: [
@@ -63,6 +74,9 @@ import {TransactionService} from './services/transaction.service';
     WalletService,
     CreditPackageService,
     SubscriptionService,
+    BuildingGroupService,
+    TenantService,
+    GroupItemService,
     EmissionActivityService,
     EmissionActivityRecordService,
     CurrencyConverterService,
