@@ -24,8 +24,10 @@ public interface EmissionActivityMapper {
     @Mapping(target = "type", ignore = true)
     EmissionActivityEntity createNewActivity(CreateEmissionActivityDTO dto);
 
-    @Mapping(target = "buildingGroupDTO", source = "buildingGroup")
-    @Mapping(target = "building.emissionActivities", ignore = true)
+    @Mapping(target = "buildingGroup", source = "buildingGroup")
+    @Mapping(target = "buildingGroup.emissionActivities", ignore = true)
+    @Mapping(target = "buildingGroup.building", ignore = true)
+    @Mapping(target = "buildingGroup.tenant", ignore = true)
     @Mapping(target = "emissionFactor", source = "emissionFactorEntity")
     @Mapping(target = "emissionFactor.directEmission", source = "emissionFactorEntity.directEmission")
     @Mapping(target = "emissionFactor.emissionSourceDTO", source = "emissionFactorEntity.source")

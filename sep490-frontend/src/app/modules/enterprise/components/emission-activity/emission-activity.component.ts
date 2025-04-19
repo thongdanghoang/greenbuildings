@@ -102,12 +102,12 @@ export class EmissionActivityComponent
     this.fetchActivity = this.activityService.fetchActivityOfBuilding.bind(
       this.activityService
     );
-    this.searchCriteria = {buildingId: '' as UUID};
+    this.searchCriteria = {buildingGroupId: '' as UUID};
   }
 
   handleAfterSuccessValidation(building: BuildingDetails): void {
     this.buildingDetail = building;
-    this.searchCriteria.buildingId = this.buildingDetail.id;
+    this.searchCriteria.buildingGroupId = this.buildingDetail.id;
     this.buildCols();
     this.searchEvent.emit();
   }

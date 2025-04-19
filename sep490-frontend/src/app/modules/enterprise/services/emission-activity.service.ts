@@ -13,7 +13,7 @@ import {
 } from '../../shared/models/base-models';
 
 export interface ActivitySearchCriteria {
-  buildingId: UUID;
+  buildingGroupId: UUID;
   name?: string;
 }
 
