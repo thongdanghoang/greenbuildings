@@ -56,7 +56,7 @@ export class EmissionActivityDetailComponent
     id: new FormControl('', Validators.required),
     version: new FormControl(0, Validators.required),
     name: new FormControl('', [Validators.required]),
-    buildingID: new FormControl('', [Validators.required]),
+    buildingGroupId: new FormControl('', [Validators.required]),
     emissionFactorID: new FormControl('', [Validators.required]),
     type: new FormControl(),
     category: new FormControl(''),
@@ -134,8 +134,8 @@ export class EmissionActivityDetailComponent
   updateFormStructureData(): void {
     this.formStructure.id.setValue(this.activity.id.toString());
     this.formStructure.version.setValue(this.activity.version);
-    this.formStructure.buildingID.setValue(
-      this.activity.building.id.toString()
+    this.formStructure.buildingGroupId.setValue(
+      this.activity.buildingGroup.id.toString()
     );
     this.formStructure.emissionFactorID.setValue(
       this.activity.emissionFactor.id.toString()
@@ -223,8 +223,8 @@ export class EmissionActivityDetailComponent
   onBack(): void {
     void this.router.navigate([
       AppRoutingConstants.ENTERPRISE_PATH,
-      AppRoutingConstants.EMISSION_ACTIVITY_PATH,
-      this.activity.building.id
+      AppRoutingConstants.BUILDING_GROUP_PATH,
+      this.activity.buildingGroup.id
     ]);
   }
 

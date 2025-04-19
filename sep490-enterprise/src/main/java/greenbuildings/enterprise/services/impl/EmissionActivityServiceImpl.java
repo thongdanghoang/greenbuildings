@@ -35,7 +35,7 @@ public class EmissionActivityServiceImpl implements EmissionActivityService {
     public Page<EmissionActivityEntity> search(SearchCriteriaDTO<EmissionActivityCriteria> searchCriteria) {
         return emissionActivityRepository
                 .findAllByBuildingGroupIdAndNameContainingIgnoreCase(
-                        searchCriteria.criteria().buildingId(),
+                        searchCriteria.criteria().buildingGroupId(),
                         Optional.ofNullable(searchCriteria.criteria().name()).orElse(""),
                         CommonMapper.toPageable(searchCriteria.page(), searchCriteria.sort()));
     }

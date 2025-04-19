@@ -36,7 +36,7 @@ export class NewActivityDialogComponent extends AbstractFormComponent<CreateNewA
   protected readonly formStructure = {
     id: new FormControl(null),
     version: new FormControl(0),
-    buildingID: new FormControl('', Validators.required),
+    buildingGroupID: new FormControl('', Validators.required),
     emissionFactorID: new FormControl('', Validators.required),
     emissionSourceID: new FormControl('', Validators.required), // for UI handle only
     name: new FormControl('', Validators.required),
@@ -120,7 +120,7 @@ export class NewActivityDialogComponent extends AbstractFormComponent<CreateNewA
   }
 
   private initializeFormData(): void {
-    this.formStructure.buildingID.setValue(this.config.data!.toString());
+    this.formStructure.buildingGroupID.setValue(this.config.data!.toString());
     this.loadActivityTypes();
   }
 
