@@ -54,7 +54,7 @@ public class UserEntity extends AbstractAuditableEntity {
     public static final String BELONG_ENTERPRISE_FILTER = "belongEnterpriseFilter";
     public static final String BELONG_ENTERPRISE_PARAM = "enterpriseId";
     
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, optional = true)
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private UserEnterpriseEntity enterprise;
     
     @OneToMany(mappedBy = "user",

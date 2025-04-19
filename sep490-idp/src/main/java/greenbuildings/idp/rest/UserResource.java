@@ -52,7 +52,7 @@ public class UserResource {
             return ResponseEntity.badRequest().build();
         }
         
-        var userEntity = userService.findByEmail(userContextData.getUsername()).orElseThrow();
+        var userEntity = userService.findById(userContextData.getId()).orElseThrow();
         
         userEntity.setLocale(locale);
         
@@ -62,7 +62,7 @@ public class UserResource {
     
     @GetMapping
     public ResponseEntity<EnterpriseUserDetailsDTO> getEnterpriseUserDetail(@AuthenticationPrincipal UserContextData userContextData) {
-        var userDetailsEntity = userService.getUserDetail(userContextData.getId());
+        var userDetailsEntity = userService.getUserDetail(userContextData.getUsername());
         var userDetails = userMapper.userEntityToBasicEnterpriseUserDetailDTO(userDetailsEntity);
         return ResponseEntity.ok(userDetails);
     }
