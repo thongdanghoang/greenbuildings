@@ -16,6 +16,7 @@ import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -66,7 +67,6 @@ public class PowerBiAuthenticationServiceImpl implements PowerBiAuthenticationSe
     }
     
     @Override
-    @Transactional(readOnly = true)
     @KafkaListener(topics = KafkaEventTopicConstant.POWER_BI_AUTHENTICATION_REQUEST_EVENT)
     public void authenticate(Message<String> apiKeyMsg) {
         var correlationId = Objects.requireNonNull(apiKeyMsg.getHeaders().get(KafkaHeaders.CORRELATION_ID, String.class));
@@ -77,6 +77,11 @@ public class PowerBiAuthenticationServiceImpl implements PowerBiAuthenticationSe
     
     private PowerBiAccessTokenAuthResult checkIfUserHasPermission(String apiKey) {
         return repository.findByApiKey(apiKey)
+                         .filter(biAuthority -> biAuthority.getExpirationTime().isAfter(LocalDateTime.now()))
+                         .map(biAuthority -> {
+                             biAuthority.setLastUsed(LocalDateTime.now());
+                             return repository.save(biAuthority);
+                         })
                          .map(biAuthority -> PowerBiAccessTokenAuthResult
                                  .builder()
                                  .enterpriseId(biAuthority.getEnterpriseId())

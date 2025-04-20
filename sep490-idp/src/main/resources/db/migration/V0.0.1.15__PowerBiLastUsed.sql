@@ -1,0 +1,1 @@
+ALTER TABLE power_bi_authorities ADD COLUMN last_used TIMESTAMP;

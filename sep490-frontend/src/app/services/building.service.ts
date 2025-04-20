@@ -53,7 +53,7 @@ export class BuildingService {
             results: response.results.sort((a, b) => {
               const aHasSubscription = a.subscriptionDTO ? 1 : 0;
               const bHasSubscription = b.subscriptionDTO ? 1 : 0;
-              return aHasSubscription - bHasSubscription;
+              return bHasSubscription - aHasSubscription;
             })
           };
         })

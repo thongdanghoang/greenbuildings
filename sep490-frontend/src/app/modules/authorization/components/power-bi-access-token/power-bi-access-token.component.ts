@@ -1,10 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
-import {filter, map, switchMap, takeUntil, tap} from 'rxjs';
+import {filter, switchMap, takeUntil, tap} from 'rxjs';
 import {UUID} from '../../../../../types/uuid';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
 import {ApplicationConstant} from '../../../../application.constant';
+import {ApplicationService} from '../../../core/services/application.service';
 import {SubscriptionAwareComponent} from '../../../core/subscription-aware.component';
 import {ModalProvider} from '../../../shared/services/modal-provider';
 import {ToastProvider} from '../../../shared/services/toast-provider';
@@ -29,13 +30,18 @@ export class PowerBiAccessTokenComponent
     private readonly modalProvider: ModalProvider,
     private readonly messageService: ToastProvider,
     private readonly router: Router,
-    private readonly translate: TranslateService
+    private readonly translate: TranslateService,
+    private readonly applicationService: ApplicationService
   ) {
     super();
   }
 
   ngOnInit(): void {
     this.initializeData();
+  }
+
+  get isMobile(): boolean {
+    return this.applicationService.isMobile();
   }
 
   get newestPowerBiAccessToken(): string | null {
@@ -66,14 +72,6 @@ export class PowerBiAccessTokenComponent
       .pipe(
         takeUntil(this.destroy$),
         filter(tokens => !!tokens),
-        map(tokens =>
-          tokens.map(
-            (token: PowerBiAuthority): PowerBiAuthority => ({
-              ...token,
-              lastUsed: this.randomDate(new Date(2012, 0, 1), new Date())
-            })
-          )
-        ),
         tap(tokens => {
           this.accessTokens = tokens;
         })
@@ -157,11 +155,5 @@ export class PowerBiAccessTokenComponent
   private clearNewestPowerBiAccessToken(): void {
     this.newestCreatedTokenId = null;
     this.newestCreatedTokenKey = null;
-  }
-
-  private randomDate(start: Date, end: Date): Date {
-    return new Date(
-      start.getTime() + Math.random() * (end.getTime() - start.getTime())
-    );
   }
 }

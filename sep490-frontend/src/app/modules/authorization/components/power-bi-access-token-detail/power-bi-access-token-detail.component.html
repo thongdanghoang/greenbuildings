@@ -12,11 +12,15 @@
     <div
         class="rounded-lg border border-yellow-200 bg-yellow-50 dark:border-yellow-800 dark:bg-yellow-950"
     >
-        <div class="flex items-center gap-5 p-5" *ngIf="isEdit">
+        <div
+            class="flex flex-col items-center justify-between gap-5 p-5 lg:flex-row"
+            *ngIf="isEdit"
+        >
             <div class="">
                 {{ "powerBi.msgForgotToken" | translate }}
             </div>
             <p-button
+                class="self-end lg:min-w-[134px]"
                 [label]="'powerBi.buttonCreateToken' | translate"
                 severity="warn"
                 (onClick)="navigateToRegenerate()"
@@ -80,7 +84,7 @@
     </div>
 
     <label class="font-semibold">Scope</label>
-    <div class="flex gap-8 *:w-full *:max-w-96">
+    <div class="flex flex-col *:w-full *:max-w-96 lg:flex-row lg:gap-8">
         <div class="flex flex-col" errorMessages>
             <p-select
                 formControlName="scope"

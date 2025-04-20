@@ -128,7 +128,7 @@
     }
   },
   "header": {
-    "nav" : {
+    "nav": {
       "Account": "Account"
     }
   },
@@ -390,15 +390,15 @@
         }
       }
     },
-   "admin": {
-     "title": "Admin",
-     "packageCredit": "Credit Package",
-     "creditRatio": "Credit Ratio",
-     "emissionSource": "Emission Source",
-     "fuel": "Fuel",
-     "emissionFactor": "Emission Factor",
-     "chemicalDensity": "Chemical Density"
-   }
+    "admin": {
+      "title": "Admin",
+      "packageCredit": "Credit Package",
+      "creditRatio": "Credit Ratio",
+      "emissionSource": "Emission Source",
+      "fuel": "Fuel",
+      "emissionFactor": "Emission Factor",
+      "chemicalDensity": "Chemical Density"
+    }
   },
   "admin": {
     "packageCredit": {
@@ -596,6 +596,7 @@
       "regenerate": "Regenerate token",
       "cancel": "Cancel"
     },
+    "neverUsed": "Never used",
     "noAccessToken": "No Power BI access token created",
     "description": "Need an API token for scripts or testing? Generate a personal access token for quick access to the GreenBuildings Power BI.",
     "buttonGenerateToken": "Generate new token",
@@ -607,7 +608,7 @@
     "expiration": "Expiration",
     "tokenGenerated": "Tokens you have generated that can be used to access the GreenBuildings Power BI.",
     "delete": "Delete",
-    "lastUsed": "Last used in",
+    "lastUsed": "Last used in {{lastUsed}}",
     "expirationOn": "Expires on",
     "dialog": {
       "config": "Confirmation",

@@ -589,6 +589,7 @@
       "regenerate": "重新生成访问令牌",
       "cancel": "取消"
     },
+    "neverUsed": "从未使用",
     "noAccessToken": "未创建 Power BI 访问令牌",
     "description": "需要用于脚本或测试的 API 令牌？生成个人访问令牌以快速访问 GreenBuildings Power BI。",
     "buttonGenerateToken": "生成新令牌",
@@ -600,7 +601,7 @@
     "expiration": "到期",
     "tokenGenerated": "您生成的令牌可用于访问 GreenBuildings Power BI。",
     "delete": "删除",
-    "lastUsed": "最后使用于",
+    "lastUsed": "最后使用于 {{lastUsed}}",
     "expirationOn": "到期日期",
     "dialog": {
       "config": "确认",
@@ -619,7 +620,7 @@
       }
     },
     "msgForgotToken": "如果您丢失或忘记了此令牌，您可以重新生成它，但请注意，使用此令牌的任何脚本或应用程序都需要更新。",
-    "buttonCreateToken": "重新生成 token",
+    "buttonCreateToken": "重新生成令牌",
     "thisTokenExpireOn": "此令牌已过期",
     "toSetNewExpireDate": "。要设置新的到期日期，您必须",
     "regenerateToken": "重新生成令牌",

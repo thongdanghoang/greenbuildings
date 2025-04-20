@@ -58,12 +58,21 @@
 </ng-container>
 
 <ng-template #generateNewToken>
-    <p-button
-        [label]="'powerBi.buttonGenerateToken' | translate"
-        outlined
-        size="small"
-        (onClick)="navigateToDetail()"
-    />
+    @if (isMobile) {
+        <p-button
+            icon="pi pi-plus"
+            outlined
+            size="small"
+            (onClick)="navigateToDetail()"
+        />
+    } @else {
+        <p-button
+            [label]="'powerBi.buttonGenerateToken' | translate"
+            outlined
+            size="small"
+            (onClick)="navigateToDetail()"
+        />
+    }
 </ng-template>
 
 <ng-template #noTokens>
@@ -86,7 +95,9 @@
 
 <ng-template #tokenRowTemplate let-token>
     <div class="p-3">
-        <div class="flex items-baseline justify-between gap-4">
+        <div
+            class="flex flex-col items-baseline justify-between lg:flex-row lg:gap-4"
+        >
             <div>
                 <strong
                     class="text-primary hover:cursor-pointer"
@@ -98,13 +109,20 @@
                     {{ token.scope }}
                 </span>
             </div>
-            <div class="flex min-w-fit items-center gap-3">
+            <div
+                class="flex w-full items-center justify-between gap-3 lg:w-fit"
+            >
                 <div class="min-w-fit text-xs">
-                    {{ "powerBi.lastUsed" | translate }}
                     {{
                         token.lastUsed
-                            ? (token.lastUsed | date: "EEE, MMM dd yyyy")
-                            : "Never used"
+                            ? ("powerBi.lastUsed"
+                              | appTranslateParam
+                                  : {
+                                        lastUsed:
+                                            (token.lastUsed
+                                            | date: "EEE, MMM dd yyyy"),
+                                    })
+                            : ("powerBi.neverUsed" | translate)
                     }}
                 </div>
                 <p-button

@@ -590,6 +590,7 @@
       "regenerate": "Tạo lại token",
       "cancel": "Hủy"
     },
+    "neverUsed": "Chưa sử dụng",
     "noAccessToken": "Không có Power BI Access token nào được tạo",
     "description": "Bạn cần truy xuất dự liệu từ GreenBuildings vào Power Bi để tạo dashboard? Tạo access token để truy cập nhanh vào GreenBuildings từ Power BI.",
     "buttonGenerateToken": "Tạo mới access token",
@@ -601,7 +602,7 @@
     "expiration": "Hết hạn",
     "tokenGenerated": "Access token bạn đã tạo có thể được sử dụng để truy xuất dữ liệu phát thải GreenBuildings từ Power BI.",
     "delete": "Xóa",
-    "lastUsed": "Lần cuối cùng sử dụng trong",
+    "lastUsed": "Lần cuối cùng sử dụng {{lastUsed}}",
     "expirationOn": "Hết hạn vào",
     "dialog": {
       "config": "Xác nhận",
