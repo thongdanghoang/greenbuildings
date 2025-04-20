@@ -386,7 +386,7 @@
     },
     "admin": {
       "title": "Quản trị viên",
-      "packageCredit": "Gói tín dụng",
+      "packageCredit": "Quản lý gói",
       "creditRatio": "Tỷ lệ tín dụng",
       "emissionSource": "Nguồn phát thải",
       "fuel": "Nhiên liệu",
@@ -396,7 +396,7 @@
   },
   "admin": {
     "packageCredit": {
-      "title": "Gói tín dụng",
+      "title": "Quản lý gói",
       "active": "bật",
       "inactive": "tắt",
       "versionList": "Lịch sử phiên bản gói tín dụng",
@@ -404,13 +404,14 @@
       "outdated": "lỗi thời",
       "table": {
         "numberCredit": "Số lượng tín dụng",
-        "price": "Giá"
+        "price": "Giá",
+        "discount": "Giảm giá"
       },
       "input": {
         "enterNumberCredit": "Nhập số tín dụng",
         "enterPrice": "Nhập giá"
       },
-      "addPackageCredit": "Thêm gói tín dụng",
+      "addPackageCredit": "Thêm gói",
       "message": {
         "success": {
           "summary": "Thành công",

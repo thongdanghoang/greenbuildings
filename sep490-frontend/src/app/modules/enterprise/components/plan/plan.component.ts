@@ -73,12 +73,28 @@ export class PlanComponent
   }
 
   formatedCurrency(currency: number): string | null {
-    const converted = this.decimalPipe.transform(currency, '1.0-0');
+    const converted = this.decimalPipe.transform(
+      currency,
+      this.getDigitsInfo()
+    );
     const symbol = this.translate.instant('currency.symbol');
     if (this.translate.currentLang === 'vi') {
       return `${converted} ${symbol}`;
     }
     return `${symbol} ${converted}`;
+  }
+
+  getDigitsInfo(): string {
+    switch (this.translate.currentLang) {
+      case 'en':
+        return '1.2-2';
+      case 'vi':
+        return '1.0-0';
+      case 'zh':
+        return '1.2-2';
+      default:
+        throw new Error('Unsupported language');
+    }
   }
 
   selectPackage(pkg: CreditPackage): void {

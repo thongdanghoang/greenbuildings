@@ -11,7 +11,7 @@
 </div>
 <form [formGroup]="formGroup" class="p-5 sm:mt-5">
     <!-- number of credit -->
-    <div class="my-3 grid grid-cols-12 items-center gap-4" errorMessages>
+    <div class="my-3 grid grid-cols-12 items-baseline gap-4" errorMessages>
         <label
             for="numberOfCredits"
             class="col-span-12 font-normal md:col-span-3"
@@ -33,7 +33,7 @@
     </div>
 
     <!-- price -->
-    <div class="my-3 grid grid-cols-12 items-center gap-4" errorMessages>
+    <div class="my-3 grid grid-cols-12 items-baseline gap-4" errorMessages>
         <label for="price" class="col-span-12 font-normal md:col-span-3">{{
             "admin.packageCredit.table.price" | translate
         }}</label>
@@ -47,6 +47,23 @@
                 [placeholder]="
                     'admin.packageCredit.input.enterPrice' | translate
                 "
+            />
+            <form-field-error></form-field-error>
+        </div>
+    </div>
+
+    <!-- discount -->
+    <div class="my-3 grid grid-cols-12 items-baseline gap-4" errorMessages>
+        <label for="discount" class="col-span-12 font-normal md:col-span-3">{{
+            "admin.packageCredit.table.discount" | translate
+        }}</label>
+        <div class="col-span-12 md:col-span-6">
+            <input
+                formControlName="discount"
+                class="w-full"
+                type="number"
+                id="discount"
+                pInputText
             />
             <form-field-error></form-field-error>
         </div>

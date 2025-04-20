@@ -49,15 +49,17 @@
     class="my-8 block items-center justify-center rounded-md border border-gray-50 bg-primary-50 py-24 dark:border-gray-950 dark:bg-primary-950"
 >
     <div
-        class="flex flex-col items-center justify-stretch text-black lg:flex-row dark:text-white"
+        class="relative flex flex-col items-center justify-stretch gap-2.5 text-black lg:flex-row dark:text-white/80"
     >
-        <p class="ml-0 lg:ml-20">
+        <p class="ml-0 h-full font-bold lg:absolute lg:ml-20">
             {{ "purchaseCredit.currentBalance" | translate }}
         </p>
         <div
-            class="mr-0 flex flex-col items-center gap-2.5 lg:mr-10 lg:flex-row lg:items-end"
+            class="mr-0 flex w-full flex-col items-center justify-center gap-2.5 lg:mr-10 lg:flex-row lg:items-end"
         >
-            <p class="text-5xl font-medium">{{ balance }}</p>
+            <p class="text-5xl font-medium text-primary">
+                {{ balance | number: "1.0-0" }}
+            </p>
             <span>{{ "payment.history.credit.title" | translate }}</span>
         </div>
     </div>
@@ -76,38 +78,12 @@
             class="mx-6 flex flex-col items-center justify-center gap-16 lg:flex-row"
         >
             @for (pkg of creditPackages; track pkg.id) {
-                <card-template
-                    class="w-full max-w-40 cursor-pointer rounded-lg border border-gray-50 bg-white text-center transition-all duration-300 dark:border-gray-950 dark:bg-zinc-900"
-                    [ngClass]="{
-                        'border-2 border-primary shadow-lg shadow-primary/20':
-                            selectedPackage?.id === pkg.id,
-                        'border-gray-50 hover:border-primary/50 hover:shadow-md':
-                            selectedPackage?.id !== pkg.id,
-                    }"
-                    (click)="selectPackage(pkg)"
-                >
-                    <!-- Header: Image -->
-                    <div header>
-                        <img
-                            src="assets/images/creditIcon.svg"
-                            alt="Coin Icon"
-                            class="mx-auto w-16"
-                        />
-                    </div>
-                    <!-- Body: Credit Value -->
-                    <div body class="border-b text-lg font-semibold">
-                        {{ pkg.numberOfCredits }}
-                        {{ "payment.history.credit.title" | translate }}
-                    </div>
-
-                    <!-- Footer: Price -->
-                    <div
-                        footer
-                        class="text-center text-base font-medium text-gray-600 dark:text-gray-400"
-                    >
-                        {{ formatedCurrency(pkg.convertedPriceCurrency) }}
-                    </div>
-                </card-template>
+                <ng-container
+                    *ngTemplateOutlet="
+                        creditBundleTemplate;
+                        context: { $implicit: pkg }
+                    "
+                ></ng-container>
             }
         </div>
         <div class="mb-8 flex items-center justify-center">
@@ -137,3 +113,39 @@
         }
     </p-accordion>
 </div>
+
+<ng-template #creditBundleTemplate let-creditBundle>
+    <div
+        class="box-shadow relative w-full max-w-40 cursor-pointer rounded-lg border border-t-2 border-gray-50 bg-white text-center transition-all duration-300 *:w-full dark:border-gray-950 dark:bg-zinc-900"
+        [ngClass]="{
+            'border-2 border-primary shadow-lg shadow-primary/20 dark:border-primary':
+                selectedPackage?.id === creditBundle.id,
+            'border-gray-50 hover:border-primary/50 hover:shadow-md':
+                selectedPackage?.id !== creditBundle.id,
+        }"
+        (click)="selectPackage(creditBundle)"
+    >
+        <div
+            class="absolute -left-3 -top-3 flex h-12 !w-12 rotate-[332deg] transform-gpu items-center justify-center rounded-full bg-red-500 text-base font-bold text-white shadow-md"
+            *ngIf="creditBundle.discount"
+        >
+            -{{ creditBundle.discount }}%
+        </div>
+        <div class="rounded-t p-4">
+            <img
+                src="assets/images/creditIcon.svg"
+                alt="Coin Icon"
+                class="mx-auto w-16"
+            />
+        </div>
+        <div class="border-b p-4 text-lg font-semibold">
+            {{ creditBundle.numberOfCredits | number: "1.0-0" }}
+            {{ "payment.history.credit.title" | translate }}
+        </div>
+        <div
+            class="p-2 text-center text-base font-medium text-gray-600 dark:text-gray-400"
+        >
+            {{ formatedCurrency(creditBundle.convertedPriceCurrency) }}
+        </div>
+    </div>
+</ng-template>
