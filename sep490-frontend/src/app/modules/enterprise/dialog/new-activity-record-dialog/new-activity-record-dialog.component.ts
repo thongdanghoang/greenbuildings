@@ -32,6 +32,7 @@ export interface NewActivityRecordDialogConfig {
 export class NewActivityRecordDialogComponent extends AbstractFormComponent<EmissionActivityRecord> {
   unitOptions: {label: string; value: EmissionUnit}[] = [];
   selectedFile: File | null = null;
+  maxDate: Date = new Date();
 
   data?: NewActivityRecordDialogConfig;
 
@@ -125,20 +126,18 @@ export class NewActivityRecordDialogComponent extends AbstractFormComponent<Emis
   override submitForm(): void {
     if (this.formGroup.valid) {
       const formData = new FormData();
-
-      // Add record data
-      const recordData = this.formGroup.value;
+      const recordData = {
+        ...this.formGroup.value,
+        startDate: this.convertDateToUTC(this.formGroup.value.startDate),
+        endDate: this.convertDateToUTC(this.formGroup.value.endDate)
+      };
       formData.append(
         'record',
         new Blob([JSON.stringify(recordData)], {type: 'application/json'})
       );
-
-      // Add file if selected
       if (this.selectedFile) {
         formData.append('file', this.selectedFile);
       }
-
-      // Submit both record and file
       this.httpClient
         .post(this.submitFormDataUrl(), formData)
         .pipe(takeUntil(this.destroy$))
@@ -274,5 +273,12 @@ export class NewActivityRecordDialogComponent extends AbstractFormComponent<Emis
       label: this.translate.instant(`unit.${unit}`),
       value: unit
     }));
+  }
+
+  convertDateToUTC(date: Date): Date {
+    const year = date.getFullYear();
+    const month = date.getMonth();
+    const day = date.getDate();
+    return new Date(Date.UTC(year, month, day));
   }
 }
