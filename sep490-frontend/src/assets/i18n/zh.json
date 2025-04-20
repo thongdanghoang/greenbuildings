@@ -199,8 +199,12 @@
       "tenant": {
         "new": "新租户"
       },
+      "management": {
+        "title": "建筑管理"
+      },
       "group": {
-        "new": "新组"
+        "new": "新组",
+        "title": "建筑群"
       },
       "overview": {
         "title": "建筑物",
@@ -240,7 +244,9 @@
     },
     "emission": {
       "activity": {
+        "title": "排放活动详情",
         "generateReport": "生成报告",
+        "manageActivityType": "管理活动类型",
         "selectActivities": "选择活动",
         "currentNoActivities": "当前活动数量：",
         "maxNoActivities": "最大活动数量：",

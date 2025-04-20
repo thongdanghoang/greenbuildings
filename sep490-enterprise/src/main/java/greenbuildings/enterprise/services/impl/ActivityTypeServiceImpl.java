@@ -1,6 +1,5 @@
 package greenbuildings.enterprise.services.impl;
 
-import commons.springfw.impl.utils.SecurityUtils;
 import greenbuildings.commons.api.dto.SearchCriteriaDTO;
 import greenbuildings.commons.api.exceptions.BusinessException;
 import greenbuildings.enterprise.dtos.ActivityTypeCriteriaDTO;
@@ -60,10 +59,9 @@ public class ActivityTypeServiceImpl implements ActivityTypeService {
     
     @Override
     public Page<ActivityTypeEntity> search(SearchCriteriaDTO<ActivityTypeCriteriaDTO> searchCriteria, Pageable pageable) {
-        UUID enterpriseId = SecurityUtils.getCurrentUserEnterpriseId().orElseThrow();
         var emissionSourceIDs = repository.findByName(
                 searchCriteria.criteria().criteria(),
-                pageable, enterpriseId);
+                pageable, searchCriteria.criteria().buildingGroupId());
         var results = repository.findAllById(emissionSourceIDs.toSet())
                                 .stream()
                                 .collect(Collectors.toMap(ActivityTypeEntity::getId, Function.identity()));

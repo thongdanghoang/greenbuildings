@@ -199,8 +199,12 @@
       "tenant": {
         "new": "Thêm khách hàng"
       },
+      "management": {
+        "title": "Quản lý tòa nhà"
+      },
       "group": {
-        "new": "Thêm nhóm"
+        "new": "Thêm nhóm",
+        "title": "Nhóm Tòa Nhà"
       },
       "overview": {
         "title": "Tòa nhà",
@@ -240,7 +244,9 @@
     },
     "emission": {
       "activity": {
+        "title": "Chi tiết hoạt động phát thải",
         "generateReport": "Tạo báo cáo",
+        "manageActivityType": "Quản lý loại hoạt động",
         "selectActivities": "Chọn hoạt động",
         "currentNoActivities": "Số hoạt động hiện tại:",
         "maxNoActivities": "Số hoạt động tối đa:",

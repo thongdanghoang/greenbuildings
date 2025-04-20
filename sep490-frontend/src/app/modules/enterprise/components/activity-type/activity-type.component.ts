@@ -5,6 +5,7 @@ import {
   TemplateRef,
   ViewChild
 } from '@angular/core';
+import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
 import {
   DialogService,
@@ -24,10 +25,12 @@ import {
 import {ModalProvider} from '../../../shared/services/modal-provider';
 import {ToastProvider} from '../../../shared/services/toast-provider';
 import {ActivityTypeDialogComponent} from '../../dialog/activity-type-dialog/activity-type-dialog.component';
-import {ActivityType} from '../../models/enterprise.dto';
+import {ActivityType, BuildingGroup} from '../../models/enterprise.dto';
 import {ActivityTypeService} from '../../services/activity-type.service';
+import {BuildingGroupService} from '../../services/building-group.service';
 
 export interface ActivityTypeCriteria {
+  tenantId: UUID;
   criteria: string;
 }
 @Component({
@@ -39,6 +42,7 @@ export class ActivityTypeComponent
   extends SubscriptionAwareComponent
   implements OnInit
 {
+  buildingGroup!: BuildingGroup;
   @ViewChild('scopeTemplate', {static: true})
   scopeTemplate!: TemplateRef<any>;
   @ViewChild('actionsTemplate', {static: true})
@@ -53,10 +57,16 @@ export class ActivityTypeComponent
   protected readonly clearSelectedEvent: EventEmitter<void> =
     new EventEmitter();
   protected selected: ActivityType[] = [];
-  protected searchCriteria: ActivityTypeCriteria = {criteria: ''};
+  protected searchCriteria: ActivityTypeCriteria = {
+    criteria: '',
+    tenantId: '' as UUID
+  };
 
   constructor(
     protected readonly applicationService: ApplicationService,
+    private readonly activatedRoute: ActivatedRoute,
+    private readonly buildingGroupService: BuildingGroupService,
+    private readonly router: Router,
     private readonly userService: ActivityTypeService,
     private readonly messageService: ToastProvider,
     private readonly modalProvider: ModalProvider,
@@ -67,8 +77,34 @@ export class ActivityTypeComponent
   }
 
   ngOnInit(): void {
+    this.handleGroupId();
     this.buildCols();
     this.fetchUsers = this.userService.getActivityType.bind(this.userService);
+  }
+
+  handleGroupId(): void {
+    this.activatedRoute.paramMap
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((params: ParamMap) => {
+        const groupId = params.get('id');
+        this.buildingGroupService
+          .getById(groupId as UUID)
+          .subscribe((group: BuildingGroup) => {
+            this.buildingGroup = group;
+            this.searchCriteria.tenantId = group.tenant
+              ? group.tenant.id
+              : ('' as UUID);
+            this.searchEvent.emit();
+          });
+      });
+  }
+
+  goBack(): void {
+    void this.router.navigate([
+      AppRoutingConstants.ENTERPRISE_PATH,
+      AppRoutingConstants.BUILDING_GROUP_PATH,
+      this.buildingGroup.id
+    ]);
   }
 
   buildCols(): void {

@@ -200,7 +200,11 @@
         "new": "New Tenant"
       },
       "group": {
-        "new": "New Group"
+        "new": "New Group",
+        "title": "Building Group"
+      },
+      "management": {
+        "title": "Building Management"
       },
       "overview": {
         "title": "Buildings",
@@ -240,7 +244,9 @@
     },
     "emission": {
       "activity": {
+        "title": "Emission Activity Details",
         "generateReport": "Generate Report",
+        "manageActivityType": "Manage Activity Type",
         "selectActivities": "Select Activities",
         "currentNoActivities": "Current number of activities:",
         "maxNoActivities": "Max number of activities:",
