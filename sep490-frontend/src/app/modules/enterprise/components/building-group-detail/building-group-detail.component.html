@@ -9,84 +9,123 @@
             size="small"
         ></p-button>
     </div>
-    <div class="mb-2 mt-2 md:w-1/2">
-        <p-card header="{{ buildingGroup.building.name }}">
-            <ng-template pTemplate="subtitle">
-                <i class="pi pi-map-marker"></i>
-                {{ buildingGroup.building.address }}
-            </ng-template>
-            <p-fieldset
-                legend="{{
-                    'enterprise.emission.activity.subscriptionDetail'
-                        | translate
-                }}"
-                collapsed="true"
-                [toggleable]="true"
-            >
-                <p>
-                    <i class="pi pi-star"></i>
-                    {{
-                        "enterprise.emission.activity.maxNoActivities"
+    <div
+        class="flex items-center justify-between border-b pb-1"
+        style="min-height: 42px"
+    >
+        <div class="text-lg font-bold text-primary">
+            {{ "enterprise.buildings.group.title" | translate }}
+        </div>
+    </div>
+    <div class="my-2 flex">
+        <div class="mx-2 mb-2 mt-2 md:w-1/2">
+            <p-card header="{{ buildingGroup.building.name }}">
+                <ng-template pTemplate="subtitle">
+                    <i class="pi pi-map-marker"></i>
+                    {{ buildingGroup.building.address }}
+                </ng-template>
+                <p-fieldset
+                    legend="{{
+                        'enterprise.emission.activity.subscriptionDetail'
                             | translate
-                    }}
-                    {{
-                        buildingGroup.building.subscriptionDTO
-                            ?.maxNumberOfDevices
-                    }}
-                </p>
-                <p>
-                    <i class="pi pi-calendar"></i>
-                    {{
-                        "enterprise.emission.activity.subscriptionDuration"
-                            | translate
-                    }}
-
-                    {{
-                        buildingGroup.building.subscriptionDTO?.startDate
-                            | date: "dd/MM/yyyy"
-                    }}
-                    -
-                    {{
-                        buildingGroup.building.subscriptionDTO?.endDate
-                            | date: "dd/MM/yyyy"
-                    }}
-                </p>
-                <p>
-                    <i class="pi pi-hourglass"></i>
-                    {{
-                        "enterprise.emission.activity.remainingDays" | translate
-                    }}
-                    {{ getRemainingDays() }}
-                </p>
-            </p-fieldset>
-            <ng-template pTemplate="footer">
-                <div class="mt-1 flex gap-4">
-                    <p-button
-                        label="{{
-                            'enterprise.emission.activity.generateReport'
+                    }}"
+                    collapsed="false"
+                >
+                    <p>
+                        <i class="pi pi-star"></i>
+                        {{
+                            "enterprise.emission.activity.maxNoActivities"
                                 | translate
-                        }}"
-                        class="flex-1"
-                        severity="primary"
-                        outlined
-                        styleClass="w-full"
-                        (onClick)="generateReport()"
-                        size="small"
-                    ></p-button>
+                        }}
+                        {{
+                            buildingGroup.building.subscriptionDTO
+                                ?.maxNumberOfDevices
+                        }}
+                    </p>
+                    <p>
+                        <i class="pi pi-calendar"></i>
+                        {{
+                            "enterprise.emission.activity.subscriptionDuration"
+                                | translate
+                        }}
 
-                    <p-button
-                        label="{{
-                            'enterprise.emission.activity.new' | translate
-                        }}"
-                        class="flex-1"
-                        (onClick)="openNewActivityDialog()"
-                        severity="primary"
-                        styleClass="w-full"
-                        size="small"
-                    ></p-button>
+                        {{
+                            buildingGroup.building.subscriptionDTO?.startDate
+                                | date: "dd/MM/yyyy"
+                        }}
+                        -
+                        {{
+                            buildingGroup.building.subscriptionDTO?.endDate
+                                | date: "dd/MM/yyyy"
+                        }}
+                    </p>
+                    <p>
+                        <i class="pi pi-hourglass"></i>
+                        {{
+                            "enterprise.emission.activity.remainingDays"
+                                | translate
+                        }}
+                        {{ getRemainingDays() }}
+                    </p>
+                </p-fieldset>
+                <ng-template pTemplate="footer">
+                    <div class="mt-1 flex gap-4">
+                        <p-button
+                            label="{{
+                                'enterprise.emission.activity.generateReport'
+                                    | translate
+                            }}"
+                            class="flex-1"
+                            severity="primary"
+                            outlined
+                            styleClass="w-full"
+                            (onClick)="generateReport()"
+                            size="small"
+                        ></p-button>
+
+                        <p-button
+                            label="{{
+                                'enterprise.emission.activity.new' | translate
+                            }}"
+                            class="flex-1"
+                            (onClick)="openNewActivityDialog()"
+                            severity="primary"
+                            styleClass="w-full"
+                            size="small"
+                        ></p-button>
+                    </div>
+                </ng-template>
+            </p-card>
+        </div>
+        <div class="mx-2 mb-2 mt-2 md:w-1/2">
+            <p-card header="{{ buildingGroup.building.name }}">
+                <ng-template pTemplate="subtitle">
+                    <i class="pi pi-map-marker"></i>
+                    {{ buildingGroup.building.address }}
+                </ng-template>
+                <div class="flex-1">
+                    Number of building groups: 150
+                    <br />
+                    Number of corporative tenant: 100
                 </div>
-            </ng-template>
-        </p-card>
+                <ng-template pTemplate="footer">
+                    <div class="mt-1 flex gap-4">
+                        <p-button
+                            label="{{
+                                'enterprise.emission.activity.manageActivityType'
+                                    | translate
+                            }}"
+                            class="flex-1"
+                            severity="secondary"
+                            outlined
+                            styleClass="w-full"
+                            (onClick)="navigateToManageActivityType()"
+                            size="small"
+                        ></p-button>
+                    </div>
+                </ng-template>
+            </p-card>
+        </div>
     </div>
 </div>
 

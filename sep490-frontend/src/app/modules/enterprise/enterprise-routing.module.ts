@@ -72,7 +72,7 @@ const routes: Routes = [
         component: CreateEnterpriseComponent
       },
       {
-        path: `${AppRoutingConstants.ACTIVITY_TYPE}`,
+        path: `${AppRoutingConstants.ACTIVITY_TYPE}/:id`,
         component: ActivityTypeComponent
       }
     ]

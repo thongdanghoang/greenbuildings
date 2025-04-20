@@ -79,12 +79,12 @@ export class SidebarComponent
             label: 'sidebar.owner.building',
             icon: 'pi pi-building',
             route: `/${AppRoutingConstants.ENTERPRISE_PATH}/${AppRoutingConstants.BUILDING_PATH}`
-          },
-          {
-            label: 'sidebar.owner.activityType',
-            icon: 'pi pi-sitemap',
-            route: `/${AppRoutingConstants.ENTERPRISE_PATH}/${AppRoutingConstants.ACTIVITY_TYPE}`
           }
+          // {
+          //   label: 'sidebar.owner.activityType',
+          //   icon: 'pi pi-sitemap',
+          //   route: `/${AppRoutingConstants.ENTERPRISE_PATH}/${AppRoutingConstants.ACTIVITY_TYPE}`
+          // }
         ]
       },
       {

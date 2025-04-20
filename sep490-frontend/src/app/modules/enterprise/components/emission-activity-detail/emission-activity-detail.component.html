@@ -1,4 +1,4 @@
-<div class="p-4">
+<div>
     <div>
         <p-button
             icon="pi pi-arrow-left"
@@ -8,6 +8,14 @@
             (onClick)="onBack()"
             size="small"
         ></p-button>
+    </div>
+    <div
+        class="flex items-center justify-between border-b pb-1"
+        style="min-height: 42px"
+    >
+        <div class="text-lg font-bold text-primary">
+            {{ "enterprise.emission.activity.title" | translate }}
+        </div>
     </div>
     <p-card
         styleClass="mt-2"

@@ -228,4 +228,12 @@ export class BuildingGroupDetailComponent
       activity.id
     ]);
   }
+
+  navigateToManageActivityType(): void {
+    void this.router.navigate([
+      AppRoutingConstants.ENTERPRISE_PATH,
+      AppRoutingConstants.ACTIVITY_TYPE,
+      this.buildingGroup.id
+    ]);
+  }
 }
