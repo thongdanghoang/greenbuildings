@@ -63,7 +63,6 @@ import {ToastModule} from 'primeng/toast';
 import {ToggleButtonModule} from 'primeng/togglebutton';
 import {ToggleSwitchModule} from 'primeng/toggleswitch';
 import {TooltipModule} from 'primeng/tooltip';
-import {CardTemplateComponent} from './components/card/card-template/card-template.component';
 import {ConfirmDialogComponent} from './components/dialog/confirm-dialog/confirm-dialog.component';
 import {FormFieldErrorComponent} from './components/form/form-field-error/form-field-error.component';
 import {PaymentStatusComponent} from './components/payment-status/payment-status.component';
@@ -154,8 +153,7 @@ const commons = [
     ErrorMessagesDirective,
     FormFieldErrorDirective,
     FormFieldErrorComponent,
-    PaymentStatusComponent,
-    CardTemplateComponent
+    PaymentStatusComponent
   ],
   imports: [...commons, ...primeNgModules],
   exports: [
@@ -167,8 +165,7 @@ const commons = [
     ErrorMessagesDirective,
     FormFieldErrorDirective,
     FormFieldErrorComponent,
-    PaymentStatusComponent,
-    CardTemplateComponent
+    PaymentStatusComponent
   ],
   providers: [
     DatePipe,

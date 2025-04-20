@@ -29,7 +29,11 @@ export class CreateUpdatePackageCreditComponent extends AbstractFormComponent<Cr
       Validators.required,
       Validators.min(1)
     ]),
-    price: new FormControl(null, [Validators.required, Validators.min(1)])
+    price: new FormControl(null, [Validators.required, Validators.min(1)]),
+    discount: new FormControl(0, {
+      nonNullable: true,
+      validators: [Validators.required, Validators.min(0), Validators.max(100)]
+    })
   };
   constructor(
     httpClient: HttpClient,

@@ -1,7 +1,0 @@
-:host {
-  @apply rounded box-shadow border-t-2 *:w-full;
-}
-
-.box-shadow {
-  box-shadow: 5px 6px 8px 0 rgba(0, 0, 0, 0.15);
-}

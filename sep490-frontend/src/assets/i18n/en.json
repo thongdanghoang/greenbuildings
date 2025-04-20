@@ -410,7 +410,8 @@
       "outdated": "outdated",
       "table": {
         "numberCredit": "Number of Credits",
-        "price": "Price"
+        "price": "Price",
+        "discount": "Discount"
       },
       "input": {
         "enterNumberCredit": "Enter Credits",

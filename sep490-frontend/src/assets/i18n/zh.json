@@ -407,7 +407,8 @@
       },
       "input": {
         "enterNumberCredit": "输入积分",
-        "enterPrice": "输入价格"
+        "enterPrice": "输入价格",
+        "discount": "折扣"
       },
       "addPackageCredit": "添加套餐信用",
       "message": {

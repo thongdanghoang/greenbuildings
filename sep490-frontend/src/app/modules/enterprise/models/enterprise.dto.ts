@@ -97,6 +97,7 @@ export interface CreditPackage extends BaseDTO {
   numberOfCredits: number;
   price: number;
   convertedPriceCurrency: number;
+  discount: number;
 }
 
 export interface CreditPackageAdmin extends BaseDTO {
