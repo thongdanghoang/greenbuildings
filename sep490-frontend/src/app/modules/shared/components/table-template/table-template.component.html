@@ -2,7 +2,7 @@
     #tableTemplateComponent
     *ngIf="searchResult"
     [value]="searchResult.results"
-    [tableStyle]="{ 'min-width': '60rem' }"
+    [tableStyle]="isMobile ? {} : { 'min-width': '60rem' }"
     (sortFunction)="onSortChange($event)"
     [customSort]="true"
     [columns]="columns"
@@ -10,6 +10,7 @@
     [rowHover]="true"
     [(selection)]="selected"
     (selectionChange)="onSelectionChange($event)"
+    [stripedRows]="isMobile"
 >
     @if (captionTemplateRef) {
         <ng-template pTemplate="caption">
@@ -17,7 +18,7 @@
         </ng-template>
     }
     <ng-template pTemplate="header" let-columns>
-        <tr>
+        <tr *ngIf="!isMobile">
             @if (checkbox) {
                 <th style="width: 3rem" id="checkbox">
                     <p-tableHeaderCheckbox />
@@ -45,25 +46,56 @@
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-rowData let-columns="columns">
-        <tr>
-            @if (checkbox) {
-                <td style="width: 3rem">
-                    <p-tableCheckbox [value]="rowData" />
-                </td>
-            }
-            <td *ngFor="let col of columns">
-                @if (col.templateRef) {
-                    <ng-container
-                        *ngTemplateOutlet="
-                            col.templateRef;
-                            context: { $implicit: rowData }
-                        "
-                    ></ng-container>
-                } @else {
-                    {{ rowData[col.field] }}
+        @if (isMobile) {
+            <tr>
+                <table class="w-full">
+                    <tr
+                        *ngFor="let col of columns"
+                        class="grid grid-cols-2 *:truncate *:border *:p-2 *:text-left"
+                    >
+                        @if (col.header) {
+                            <th [id]="col.header">
+                                {{ col.header | translate }}
+                            </th>
+                        } @else {
+                            <th [id]="col.field"></th>
+                        }
+                        <td>
+                            @if (col.templateRef) {
+                                <ng-container
+                                    *ngTemplateOutlet="
+                                        col.templateRef;
+                                        context: { $implicit: rowData }
+                                    "
+                                ></ng-container>
+                            } @else {
+                                {{ rowData[col.field] }}
+                            }
+                        </td>
+                    </tr>
+                </table>
+            </tr>
+        } @else {
+            <tr>
+                @if (checkbox) {
+                    <td style="width: 3rem">
+                        <p-tableCheckbox [value]="rowData" />
+                    </td>
                 }
-            </td>
-        </tr>
+                <td *ngFor="let col of columns">
+                    @if (col.templateRef) {
+                        <ng-container
+                            *ngTemplateOutlet="
+                                col.templateRef;
+                                context: { $implicit: rowData }
+                            "
+                        ></ng-container>
+                    } @else {
+                        {{ rowData[col.field] }}
+                    }
+                </td>
+            </tr>
+        }
     </ng-template>
     <ng-template pTemplate="emptymessage">
         <td
@@ -80,8 +112,8 @@
     [first]="searchCriteria.page.pageNumber * searchCriteria.page.pageSize"
     [rows]="searchCriteria.page.pageSize"
     [totalRecords]="searchResult.totalElements"
-    [showCurrentPageReport]="true"
-    [showPageLinks]="true"
+    [showCurrentPageReport]="!isMobile"
+    [showPageLinks]="!isMobile"
     [showJumpToPageDropdown]="false"
     [rowsPerPageOptions]="ApplicationConstant.DEFAULT_PAGE_OPTIONS"
     currentPageReportTemplate="{{ paginatorTemplateString }}"

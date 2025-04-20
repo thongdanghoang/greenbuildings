@@ -19,7 +19,6 @@
     >
         <!-- Table -->
         <table-template
-            *ngIf="!applicationService.isMobile()"
             [fetch]="fetchTransaction"
             [columns]="cols"
             [sort]="undefined"

@@ -4,14 +4,12 @@
     </h1>
 </div>
 <table-template
-    *ngIf="!applicationService.isMobile()"
     [fetch]="fetchEmissionSource"
     [columns]="cols"
-    [sort]="undefined"
     [criteria]="searchCriteria"
     [triggerSearch]="searchEvent"
     [captionTemplateRef]="captionTemplateRef"
-    [checkbox]="true"
+    [checkbox]="false"
     (selectionChange)="onSelectionChange($event)"
 >
 </table-template>

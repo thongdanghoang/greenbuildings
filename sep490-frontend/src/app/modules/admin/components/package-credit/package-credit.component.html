@@ -1,5 +1,4 @@
 <table-template
-    *ngIf="!applicationService.isMobile()"
     [fetch]="fetchData"
     [columns]="cols"
     [captionTemplateRef]="captionTemplateRef"
@@ -45,11 +44,6 @@
 </ng-template>
 <ng-template #activeTemplate let-rowData>
     <div class="flex items-center gap-2">
-        <span class="text-xs text-gray-600">{{
-            rowData.active
-                ? ("admin.packageCredit.active" | translate)
-                : ("admin.packageCredit.inactive" | translate)
-        }}</span>
         <p-inputSwitch
             [ngModel]="rowData.active"
             (onChange)="onDelete(rowData)"
