@@ -49,6 +49,16 @@
         @if (isMobile) {
             <tr>
                 <table class="w-full">
+                    @if (checkbox) {
+                        <tr
+                            class="grid grid-cols-2 *:truncate *:border *:p-2 *:text-left"
+                        >
+                            <td>
+                                <p-tableCheckbox [value]="rowData" />
+                            </td>
+                            <th id="checkbox"></th>
+                        </tr>
+                    }
                     <tr
                         *ngFor="let col of columns"
                         class="grid grid-cols-2 *:truncate *:border *:p-2 *:text-left"
