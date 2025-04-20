@@ -13,7 +13,7 @@
         class="flex items-center justify-center min-h-screen py-8 px-4 bg-no-repeat bg-cover">
     <div class="flex flex-col justify-items-center items-center w-full max-w-5xl">
         <!-- Login Form Section -->
-        <div class="bg-white p-6 lg:bg-opacity-80 rounded-xl w-full lg:w-1/2">
+        <div class="bg-white p-6 rounded-xl w-full lg:w-1/2">
             <h2 class="text-center text-primary lg:text-5xl text-2xl font-black font-inter my-6 uppercase"
                 th:text="#{login.title}"></h2>
             <form id="form" method="post" role="form" th:action="@{/login}" th:object="${loginDTO}">
