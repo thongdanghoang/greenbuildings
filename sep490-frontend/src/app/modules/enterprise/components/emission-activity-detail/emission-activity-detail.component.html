@@ -146,7 +146,6 @@
             [header]="'enterprise.emission.activity.record.title' | translate"
         >
             <table-template
-                *ngIf="!applicationService.isMobile()"
                 [fetch]="fetchRecords"
                 [columns]="cols"
                 [searchOnInit]="false"

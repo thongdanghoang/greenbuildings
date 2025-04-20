@@ -7,7 +7,6 @@
     {{ "enterprise.type.description" | translate }}
 </p>
 <table-template
-    *ngIf="!applicationService.isMobile()"
     [fetch]="fetchUsers"
     [columns]="cols"
     [sort]="undefined"

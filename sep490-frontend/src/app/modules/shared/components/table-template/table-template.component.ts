@@ -13,6 +13,7 @@ import {PaginatorState} from 'primeng/paginator';
 import {Table} from 'primeng/table';
 import {takeUntil} from 'rxjs';
 import {ApplicationConstant} from '../../../../application.constant';
+import {ApplicationService} from '../../../core/services/application.service';
 import {SearchResultDto, SortDto} from '../../models/base-models';
 import {ToastProvider} from '../../services/toast-provider';
 import {AbstractSearchComponent} from '../abstract-search';
@@ -53,7 +54,11 @@ export class TableTemplateComponent<
 
   protected readonly ApplicationConstant = ApplicationConstant;
 
-  constructor(translate: TranslateService, messageService: ToastProvider) {
+  constructor(
+    translate: TranslateService,
+    messageService: ToastProvider,
+    private readonly applicationService: ApplicationService
+  ) {
     super(translate, messageService);
     this.paginatorTemplateString = this.translate.instant(
       'table.paginatorString'
@@ -95,6 +100,10 @@ export class TableTemplateComponent<
       criteria: this.criteria,
       sort: this.sort
     };
+  }
+
+  get isMobile(): boolean {
+    return this.applicationService.isMobile();
   }
 
   onSortChange(event: SortEvent): void {

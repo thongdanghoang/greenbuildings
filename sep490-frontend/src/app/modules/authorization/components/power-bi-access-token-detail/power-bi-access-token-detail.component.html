@@ -16,11 +16,11 @@
             class="flex flex-col items-center justify-between gap-5 p-5 lg:flex-row"
             *ngIf="isEdit"
         >
-            <div class="">
+            <div>
                 {{ "powerBi.msgForgotToken" | translate }}
             </div>
             <p-button
-                class="self-end lg:min-w-[134px]"
+                class="self-end lg:self-start lg:*:min-w-[134px]"
                 [label]="'powerBi.buttonCreateToken' | translate"
                 severity="warn"
                 (onClick)="navigateToRegenerate()"

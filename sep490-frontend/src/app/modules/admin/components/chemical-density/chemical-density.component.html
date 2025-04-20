@@ -4,7 +4,6 @@
     </h1>
 </div>
 <table-template
-    *ngIf="!applicationService.isMobile()"
     [fetch]="fetchUsers"
     [columns]="cols"
     [sort]="undefined"

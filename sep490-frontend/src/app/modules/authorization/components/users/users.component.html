@@ -5,7 +5,6 @@
 </div>
 <p class="mb-4">{{ "enterprise.Users.description" | translate }}</p>
 <table-template
-    *ngIf="!applicationService.isMobile()"
     [fetch]="fetchUsers"
     [columns]="cols"
     [sort]="undefined"
