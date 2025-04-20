@@ -70,6 +70,7 @@ public class PowerBiResource {
     public ResponseEntity<ApiKeyResponse> regenerateApiKey(@PathVariable UUID id, @RequestBody RegenerateTokenBody request) {
         var powerBiAuthority = service.findById(id).orElseThrow();
         powerBiAuthority.setExpirationTime(request.expirationTime);
+        powerBiAuthority.setLastUsed(null);
         var powerBiAuthorityPersisted = service.regenerateApiKey(powerBiAuthority);
         var response = ApiKeyResponse.builder()
                                      .apiKey(powerBiAuthorityPersisted.getApiKey())

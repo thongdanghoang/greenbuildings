@@ -65,6 +65,6 @@ public class PowerBiAuthority extends AbstractAuditableEntity {
     @Column(name = "building_id")
     private Set<UUID> buildings = new HashSet<>();
 
-//    @Column(name = "last-used")
-//    private LocalDateTime lastUsed;
+    @Column(name = "last_used")
+    private LocalDateTime lastUsed;
 }
