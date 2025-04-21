@@ -9,6 +9,14 @@ import {
   SearchResultDto
 } from '../../shared/models/base-models';
 
+export interface NewTenantDTO {
+  id: UUID;
+  version: number;
+  name: string;
+  description: string;
+  buildingGroupId: UUID;
+}
+
 @Injectable({
   providedIn: 'root'
 })
