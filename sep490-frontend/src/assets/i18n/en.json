@@ -687,7 +687,7 @@
       "createdDate": "Created Date",
       "amount": "Credit",
       "months": "Months",
-      "numberOfDevices": "Number of Devices",
+      "numberOfDevices": "Number of Activities",
       "transactionType": "Transaction Type",
       "NEW_PURCHASE": "new purchase",
       "UPGRADE": "update"
