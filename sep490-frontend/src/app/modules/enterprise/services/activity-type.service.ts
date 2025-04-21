@@ -8,7 +8,11 @@ import {
   SearchCriteriaDto,
   SearchResultDto
 } from '../../shared/models/base-models';
-import {ActivityTypeCriteria} from '../components/activity-type/activity-type.component';
+
+export interface ActivityTypeCriteria {
+  tenantId: UUID;
+  criteria?: string;
+}
 
 @Injectable({
   providedIn: 'root'

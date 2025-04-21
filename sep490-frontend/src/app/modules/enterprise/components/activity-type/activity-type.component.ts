@@ -26,13 +26,12 @@ import {ModalProvider} from '../../../shared/services/modal-provider';
 import {ToastProvider} from '../../../shared/services/toast-provider';
 import {ActivityTypeDialogComponent} from '../../dialog/activity-type-dialog/activity-type-dialog.component';
 import {ActivityType, BuildingGroup} from '../../models/enterprise.dto';
-import {ActivityTypeService} from '../../services/activity-type.service';
+import {
+  ActivityTypeCriteria,
+  ActivityTypeService
+} from '../../services/activity-type.service';
 import {BuildingGroupService} from '../../services/building-group.service';
 
-export interface ActivityTypeCriteria {
-  tenantId: UUID;
-  criteria: string;
-}
 @Component({
   selector: 'app-activity-type',
   templateUrl: './activity-type.component.html',
@@ -49,25 +48,22 @@ export class ActivityTypeComponent
   actionsTemplate!: TemplateRef<any>;
   ref: DynamicDialogRef | undefined;
   protected readonly AppRoutingConstants = AppRoutingConstants;
-  protected fetchUsers!: (
+  protected fetchActivityTypes!: (
     criteria: SearchCriteriaDto<ActivityTypeCriteria>
   ) => Observable<SearchResultDto<ActivityType>>;
+  protected searchCriteria!: ActivityTypeCriteria;
   protected cols: TableTemplateColumn[] = [];
   protected readonly searchEvent: EventEmitter<void> = new EventEmitter();
   protected readonly clearSelectedEvent: EventEmitter<void> =
     new EventEmitter();
   protected selected: ActivityType[] = [];
-  protected searchCriteria: ActivityTypeCriteria = {
-    criteria: '',
-    tenantId: '' as UUID
-  };
 
   constructor(
     protected readonly applicationService: ApplicationService,
     private readonly activatedRoute: ActivatedRoute,
     private readonly buildingGroupService: BuildingGroupService,
     private readonly router: Router,
-    private readonly userService: ActivityTypeService,
+    private readonly activityTypeService: ActivityTypeService,
     private readonly messageService: ToastProvider,
     private readonly modalProvider: ModalProvider,
     private readonly translate: TranslateService,
@@ -77,9 +73,12 @@ export class ActivityTypeComponent
   }
 
   ngOnInit(): void {
-    this.handleGroupId();
     this.buildCols();
-    this.fetchUsers = this.userService.getActivityType.bind(this.userService);
+    this.searchCriteria = {tenantId: '' as UUID};
+    this.fetchActivityTypes = this.activityTypeService.getActivityType.bind(
+      this.activityTypeService
+    );
+    this.handleGroupId();
   }
 
   handleGroupId(): void {
@@ -91,9 +90,7 @@ export class ActivityTypeComponent
           .getById(groupId as UUID)
           .subscribe((group: BuildingGroup) => {
             this.buildingGroup = group;
-            this.searchCriteria.tenantId = group.tenant
-              ? group.tenant.id
-              : ('' as UUID);
+            this.searchCriteria.tenantId = '' as UUID;
             this.searchEvent.emit();
           });
       });
@@ -172,10 +169,6 @@ export class ActivityTypeComponent
     this.selected = selectedUsers;
   }
 
-  search(): void {
-    this.searchEvent.emit();
-  }
-
   confirmDelete(): void {
     this.modalProvider
       .showConfirm({
@@ -200,7 +193,7 @@ export class ActivityTypeComponent
   private deleteUsers(): void {
     const userIds: UUID[] = this.selected.map(user => user.id);
 
-    this.userService.deleteActivityType(userIds).subscribe({
+    this.activityTypeService.deleteActivityType(userIds).subscribe({
       next: () => {
         this.messageService.success({
           summary: this.translate.instant(
