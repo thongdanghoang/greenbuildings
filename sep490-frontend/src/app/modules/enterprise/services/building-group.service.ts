@@ -20,6 +20,12 @@ export interface CreateBuildingGroupDTO {
   buildingId: UUID;
 }
 
+export interface InviteTenantToBuildingGroup {
+  buildingId: UUID;
+  email: string;
+  buildingGroupIds: UUID[];
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -30,6 +36,10 @@ export class BuildingGroupService {
 
   get newBuildingGroupUrl(): string {
     return `${this.baseUrl}`;
+  }
+
+  get inviteTenantUrl(): string {
+    return `${this.baseUrl}/invite`;
   }
 
   getAll(): Observable<BuildingGroup[]> {

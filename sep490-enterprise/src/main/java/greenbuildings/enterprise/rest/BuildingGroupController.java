@@ -8,6 +8,7 @@ import greenbuildings.commons.api.security.UserRole;
 import greenbuildings.enterprise.dtos.BuildingGroupCriteria;
 import greenbuildings.enterprise.dtos.BuildingGroupDTO;
 import greenbuildings.enterprise.dtos.CreateBuildingGroupDTO;
+import greenbuildings.enterprise.dtos.InviteTenantToBuildingGroup;
 import greenbuildings.enterprise.entities.BuildingGroupEntity;
 import greenbuildings.enterprise.mappers.BuildingGroupMapper;
 import greenbuildings.enterprise.services.BuildingGroupService;
@@ -95,5 +96,11 @@ public class BuildingGroupController extends AbstractRestController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
+    }
+    
+    @PostMapping("/invite")
+    public ResponseEntity<?> inviteTenant(@RequestBody InviteTenantToBuildingGroup dto) {
+        
+        return null;
     }
 } 

@@ -1,20 +1,26 @@
+import {HttpClient} from '@angular/common/http';
 import {Component, OnInit} from '@angular/core';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormControl,
+  Validators
+} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
-import {filter, map, takeUntil} from 'rxjs';
+import {filter, map, switchMap, takeUntil} from 'rxjs';
 import {validate} from 'uuid';
 import {UUID} from '../../../../../types/uuid';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
 import {BuildingService} from '../../../../services/building.service';
-import {SubscriptionAwareComponent} from '../../../core/subscription-aware.component';
+import {AbstractFormComponent} from '../../../shared/components/form/abstract-form-component';
 import {ToastProvider} from '../../../shared/services/toast-provider';
-import {
-  BuildingDetails,
-  BuildingGroup,
-  Tenant
-} from '../../models/enterprise.dto';
+import {BuildingDetails, BuildingGroup} from '../../models/enterprise.dto';
 import {TenantService} from '../../services/tenant.service';
-import {BuildingGroupService} from '../../services/building-group.service';
+import {
+  BuildingGroupService,
+  InviteTenantToBuildingGroup
+} from '../../services/building-group.service';
 
 @Component({
   selector: 'app-new-tenant',
@@ -22,29 +28,31 @@ import {BuildingGroupService} from '../../services/building-group.service';
   styleUrl: './new-tenant.component.css'
 })
 export class NewTenantComponent
-  extends SubscriptionAwareComponent
+  extends AbstractFormComponent<InviteTenantToBuildingGroup>
   implements OnInit
 {
   buildingDetails!: BuildingDetails;
-  tenant: Partial<Tenant> = {
-    name: ''
-  };
   availableGroups: BuildingGroup[] = [];
 
+  protected readonly formStructure = {
+    buildingId: new FormControl('', [Validators.required]),
+    tenantEmail: new FormControl('', [Validators.required, Validators.email]),
+    buildingGroupIds: new FormControl<UUID[] | null>([], Validators.required)
+  };
+
   constructor(
+    httpClient: HttpClient,
+    formBuilder: FormBuilder,
+    notificationService: ToastProvider,
+    translate: TranslateService,
     private readonly router: Router,
     private readonly activatedRoute: ActivatedRoute,
     private readonly buildingService: BuildingService,
     private readonly tenantService: TenantService,
     private readonly buildingGroupService: BuildingGroupService,
-    private readonly msgService: ToastProvider,
-    private readonly translate: TranslateService
+    private readonly msgService: ToastProvider
   ) {
-    super();
-  }
-
-  ngOnInit(): void {
-    this.fetchBuildingDetails();
+    super(httpClient, formBuilder, notificationService, translate);
   }
 
   fetchAvailableGroups(): void {
@@ -65,40 +73,39 @@ export class NewTenantComponent
         map(params => params.get('id')),
         filter((idParam): idParam is string => !!idParam),
         filter(id => validate(id)),
-        map(id => this.buildingService.getBuildingDetails(id as UUID))
+        switchMap(id => this.buildingService.getBuildingDetails(id as UUID))
       )
-      .subscribe(building => {
-        building.subscribe(details => {
-          this.buildingDetails = details;
-          this.fetchAvailableGroups();
-        });
+      .subscribe(details => {
+        this.formStructure.buildingId.setValue(details.id.toString());
+        this.buildingDetails = details;
+        this.fetchAvailableGroups();
       });
-  }
-
-  onSubmit(): void {
-    if (this.buildingDetails?.id) {
-      this.tenantService.create(this.tenant as Tenant).subscribe({
-        next: () => {
-          this.msgService.success({
-            summary: this.translate.instant('common.success')
-          });
-          void this.router.navigate([
-            AppRoutingConstants.ENTERPRISE_PATH,
-            AppRoutingConstants.BUILDING_PATH,
-            this.buildingDetails.id
-          ]);
-        },
-        error: error => {
-          console.error('Error creating tenant:', error);
-          this.msgService.warn({
-            summary: this.translate.instant('common.error')
-          });
-        }
-      });
-    }
   }
 
   onCancel(): void {
+    void this.router.navigate([
+      AppRoutingConstants.ENTERPRISE_PATH,
+      AppRoutingConstants.BUILDING_MANAGEMENT_PATH,
+      this.buildingDetails.id
+    ]);
+  }
+
+  protected override initializeFormControls(): {
+    [key: string]: AbstractControl;
+  } {
+    return this.formStructure;
+  }
+
+  protected override initializeData(): void {
+    this.fetchBuildingDetails();
+  }
+
+  protected override submitFormDataUrl(): string {
+    return this.buildingGroupService.inviteTenantUrl;
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  protected override onSubmitFormDataSuccess(result: any): void {
     void this.router.navigate([
       AppRoutingConstants.ENTERPRISE_PATH,
       AppRoutingConstants.BUILDING_MANAGEMENT_PATH,

@@ -197,7 +197,14 @@
     },
     "buildings": {
       "tenant": {
-        "new": "New Tenant"
+        "new": "Collaborate with tenant and your building group",
+        "email": "Tenant email",
+        "sendInvitation": "Send invitation",
+        "buildingGroup": "Available building groups",
+        "placeholder": {
+          "email": "Input your tenant email",
+          "buildingGroup": "Choose your building group to collab with tenant"
+        }
       },
       "group": {
         "new": "New Group",
