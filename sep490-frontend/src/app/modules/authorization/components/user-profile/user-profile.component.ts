@@ -29,6 +29,7 @@ import {
   EnterpriseUserDetails
 } from '../../models/enterprise-user';
 import {EnterpriseUserService} from '../../services/enterprise-user.service';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-user-profile',
@@ -131,7 +132,8 @@ export class UserProfileComponent extends AbstractFormComponent<EnterpriseUserDe
     translate: TranslateService,
     private readonly buildingService: BuildingService,
     protected userService: EnterpriseUserService,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly location: Location
   ) {
     super(httpClient, formBuilder, notificationService, translate);
   }
@@ -157,6 +159,10 @@ export class UserProfileComponent extends AbstractFormComponent<EnterpriseUserDe
       value: building.id,
       label: building.name
     }));
+  }
+
+  back(): void {
+    this.location.back();
   }
 
   onBuildingSelect(event: MultiSelectChangeEvent): void {

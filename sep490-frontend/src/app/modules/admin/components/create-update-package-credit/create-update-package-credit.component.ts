@@ -47,6 +47,14 @@ export class CreateUpdatePackageCreditComponent extends AbstractFormComponent<Cr
     super(httpClient, formBuilder, notificationService, translate);
   }
 
+  back(): void {
+    void this.router.navigate([
+      '/',
+      AppRoutingConstants.ADMIN_PATH,
+      AppRoutingConstants.PACKAGE_CREDIT_PATH
+    ]);
+  }
+
   get isEdit(): boolean {
     return !!this.packageCreditStructure.id.value;
   }

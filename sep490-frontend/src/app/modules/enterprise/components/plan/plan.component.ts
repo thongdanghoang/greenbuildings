@@ -19,6 +19,9 @@ import {CreditPackageService} from '../../services/credit-package.service';
 import {CurrencyConverterService} from '../../services/currency-converter.service';
 import {PaymentService} from '../../services/payment.service';
 import {WalletService} from '../../services/wallet.service';
+import {DialogService} from 'primeng/dynamicdialog';
+import {CreditPackageGuideDialogComponent} from '../../dialog/credit-package-guide-dialog/credit-package-guide-dialog.component';
+import {ApplicationService} from '../../../core/services/application.service';
 
 @Component({
   selector: 'app-subscriptions',
@@ -44,7 +47,9 @@ export class PlanComponent
     private readonly modalProvider: ModalProvider,
     private readonly translate: TranslateService,
     private readonly currencyConverterService: CurrencyConverterService,
-    private readonly decimalPipe: DecimalPipe
+    private readonly decimalPipe: DecimalPipe,
+    private readonly dialogService: DialogService,
+    private readonly applicationService: ApplicationService
   ) {
     super();
   }
@@ -70,6 +75,17 @@ export class PlanComponent
         )
       )
       .subscribe();
+  }
+
+  showCreditPackageDialog(): void {
+    this.dialogService.open(CreditPackageGuideDialogComponent, {
+      closeOnEscape: true,
+      dismissableMask: true,
+      showHeader: false,
+      data: {
+        creditPackages: this.creditPackages
+      }
+    });
   }
 
   formatedCurrency(currency: number): string | null {

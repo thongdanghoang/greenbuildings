@@ -365,7 +365,8 @@
     "currentBalance": "Current credits",
     "selectCreditPackage": "Select Credit package to purchase",
     "about": "About Credit",
-    "termService": "Term of Service"
+    "termService": "Term of Service",
+    "guide": "Guide"
   },
   "sidebar": {
     "basicUser": {
@@ -397,7 +398,9 @@
       "emissionSource": "Emission Source",
       "fuel": "Fuel",
       "emissionFactor": "Emission Factor",
-      "chemicalDensity": "Chemical Density"
+      "chemicalDensity": "Chemical Density",
+      "credit": "Credit Management",
+      "emission": "Emission Management"
     }
   },
   "admin": {
@@ -692,5 +695,39 @@
     "search": "Search",
     "close": "Close",
     "mobileNotSupported": "This feature is not supported on mobile devices"
+  },
+  "creditPackageGuide": {
+    "guideTitle": "Select Suitable Credit Package",
+    "confirmationMessage": "Would you like guidance to choose a credit package suitable for your business?",
+    "cancel": "Cancel",
+    "proceed": "Proceed",
+    "back": "Back",
+    "close": "Close",
+    "doNotShowAgain": "Do not show again",
+    "stepTwo": {
+      "enterprise": "Enterprise",
+      "numberMonth": "Number of Months",
+      "numberMaxDevice": "Maximum Number of Devices",
+      "totalCredit": "Total Credits",
+      "notEnoughCredit": "Insufficient credits to proceed",
+      "monthsError": "Please enter months between 1 and 100",
+      "devicesError": "Please enter at least 1 device",
+      "creditConversion": "Credit Conversion",
+      "timeMonth": "Time (month)",
+      "numberOfDevicesHeader": "Number of Devices",
+      "creditConversionTable": "Credit Conversion Table",
+      "conversionType": "Conversion Type",
+      "ratio": "Ratio",
+      "convertType": {
+        "MONTH": "Month",
+        "DEVICE": "Device"
+      },
+      "enterMonthsAndDevicesInstruction": "Please enter the number of months and the maximum number of devices so we can calculate the credits you need to purchase the credit package."
+    },
+    "stepThree": {
+      "title": "Recommended Credit Package",
+      "description": "Based on your input, we recommend the following credit package:",
+      "noSuitablePackage": "No suitable credit package found for your requirements."
+    }
   }
 }

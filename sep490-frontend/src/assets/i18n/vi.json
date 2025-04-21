@@ -359,7 +359,8 @@
     "currentBalance": "Số tín dụng hiện tại",
     "selectCreditPackage": "Chọn gói tín dụng để mua",
     "about": "Về tín dụng",
-    "termService": "Điều khoản dịch vụ"
+    "termService": "Điều khoản dịch vụ",
+    "guide": "Hướng dẫn"
   },
   "sidebar": {
     "basicUser": {
@@ -391,7 +392,9 @@
       "emissionSource": "Nguồn phát thải",
       "fuel": "Nhiên liệu",
       "emissionFactor": "Hệ số phát thải",
-      "chemicalDensity": "Mật độ hóa học"
+      "chemicalDensity": "Mật độ hóa học",
+      "credit": "Quản lý Tín dụng",
+      "emission": "Quản lý Khí thải"
     }
   },
   "admin": {
@@ -686,5 +689,39 @@
     "search": "Tìm Kiếm",
     "close": "Đóng",
     "mobileNotSupported": "Tính năng này không được hỗ trợ trên thiết bị di động"
+  },
+  "creditPackageGuide": {
+    "guideTitle": "Hướng dẫn chọn gói tín dụng",
+    "confirmationMessage": "Bạn có muốn được hướng dẫn để chọn gói tín dụng phù hợp với doanh nghiệp của mình không?",
+    "cancel": "Hủy",
+    "proceed": "Tiếp tục",
+    "back": "Quay lại",
+    "close": "Đóng",
+    "doNotShowAgain": "Không hiện lại nữa",
+    "stepTwo": {
+      "enterprise": "Doanh nghiệp",
+      "numberMonth": "Số tháng",
+      "numberMaxDevice": "Số thiết bị tối đa",
+      "totalCredit": "Tổng số tín dụng",
+      "notEnoughCredit": "Không đủ tín dụng để thực hiện",
+      "monthsError": "Vui lòng nhập số tháng từ 1 đến 100",
+      "devicesError": "Vui lòng nhập số thiết bị tối thiểu là 1",
+      "creditConversion": "Quy đổi (credit)",
+      "timeMonth": "Thời gian (tháng)",
+      "numberOfDevicesHeader": "Số lượng thiết bị",
+      "creditConversionTable": "Bảng quy đổi tín dụng",
+      "conversionType": "Loại chuyển đổi",
+      "ratio": "Tỷ lệ",
+      "convertType": {
+        "MONTH": "Tháng",
+        "DEVICE": "Thiết bị"
+      },
+      "enterMonthsAndDevicesInstruction": "Hãy nhập số tháng và số thiết bị tối đa để chúng tôi tính toán giúp bạn số tín dụng mà bạn cần để mua gói tín dụng."
+    },
+    "stepThree": {
+      "title": "Gói Tín Dụng Đề Xuất",
+      "description": "Dựa trên thông tin bạn cung cấp, chúng tôi đề xuất gói tín dụng sau:",
+      "noSuitablePackage": "Không tìm thấy gói tín dụng phù hợp với yêu cầu của bạn."
+    }
   }
 }

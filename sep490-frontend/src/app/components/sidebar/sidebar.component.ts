@@ -149,7 +149,7 @@ export class SidebarComponent
   private buildAdminMenu(): MenuItem[] {
     return [
       {
-        label: 'sidebar.admin.title',
+        label: 'sidebar.admin.credit',
         items: [
           {
             label: 'sidebar.admin.packageCredit',
@@ -160,7 +160,12 @@ export class SidebarComponent
             label: 'sidebar.admin.creditRatio',
             icon: 'pi pi-percentage',
             route: `/${AppRoutingConstants.ADMIN_PATH}/${AppRoutingConstants.CREDIT_CONVERT_RATIO}`
-          },
+          }
+        ]
+      },
+      {
+        label: 'sidebar.admin.emission',
+        items: [
           {
             label: 'sidebar.admin.emissionSource',
             icon: 'pi pi-asterisk',
