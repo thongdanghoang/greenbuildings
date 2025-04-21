@@ -6,6 +6,9 @@ import greenbuildings.commons.api.dto.SearchCriteriaDTO;
 import greenbuildings.commons.api.dto.SearchResultDTO;
 import greenbuildings.commons.api.security.UserRole;
 import greenbuildings.enterprise.dtos.GroupItemDTO;
+import greenbuildings.enterprise.dtos.NewGroupItemDTO;
+import greenbuildings.enterprise.dtos.SearchGroupItemDTO;
+import greenbuildings.enterprise.entities.GroupItemEntity;
 import greenbuildings.enterprise.mappers.GroupItemMapper;
 import greenbuildings.enterprise.services.GroupItemService;
 import jakarta.annotation.security.RolesAllowed;
@@ -29,8 +32,9 @@ public class GroupItemController extends AbstractRestController {
     private final GroupItemMapper groupItemMapper;
     
     @PostMapping
-    public ResponseEntity<GroupItemDTO> create(@RequestBody GroupItemDTO dto) {
-        return ResponseEntity.ok(groupItemMapper.toDTO(groupItemService.create(dto)));
+    public ResponseEntity<GroupItemDTO> create(@RequestBody NewGroupItemDTO dto) {
+        GroupItemEntity groupItem = groupItemMapper.toEntity(dto);
+        return ResponseEntity.ok(groupItemMapper.toDTO(groupItemService.create(groupItem)));
     }
     
     @GetMapping("/{id}")
@@ -56,7 +60,7 @@ public class GroupItemController extends AbstractRestController {
     }
     
     @PostMapping("/search")
-    public ResponseEntity<SearchResultDTO<GroupItemDTO>> search(@RequestBody SearchCriteriaDTO<Void> searchCriteria) {
+    public ResponseEntity<SearchResultDTO<GroupItemDTO>> search(@RequestBody SearchCriteriaDTO<SearchGroupItemDTO> searchCriteria) {
         var pageable = CommonMapper.toPageable(searchCriteria.page(), searchCriteria.sort());
         var searchResults = groupItemService.findAll(pageable);
         return ResponseEntity.ok(CommonMapper.toSearchResultDTO(searchResults, groupItemMapper::toDTO));

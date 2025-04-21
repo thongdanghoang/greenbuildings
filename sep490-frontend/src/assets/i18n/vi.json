@@ -204,7 +204,15 @@
       },
       "group": {
         "new": "Thêm nhóm",
-        "title": "Nhóm Tòa Nhà"
+        "title": "Nhóm Tòa Nhà",
+        "item": {
+          "new": "Thêm thiết bị mới",
+          "newDescription": "Thêm thiết bị mới cho nhóm tòa nhà của bạn",
+          "name": "Tên thiết bị",
+          "placeholder": {
+            "name": "Nhập tên thiết bị"
+          }
+        }
       },
       "overview": {
         "title": "Tòa nhà",

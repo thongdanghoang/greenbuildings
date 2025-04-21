@@ -12,6 +12,7 @@ public record GroupItemDTO(
         UUID id,
         int version,
         @NotBlank String itemName,
+        String description,
         Set<EmissionActivityRecordDTO> records
 ) implements BaseDTO {
 } 

@@ -39,6 +39,7 @@ import {CreditDeductionHistoryDialogComponent} from './dialog/credit-deduction-h
 import {TransactionService} from './services/transaction.service';
 import {BuildingGroupDetailComponent} from './components/building-group-detail/building-group-detail.component';
 import {CreditPackageGuideDialogComponent} from './dialog/credit-package-guide-dialog/credit-package-guide-dialog.component';
+import {NewGroupItemComponent} from './components/new-group-item/new-group-item.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import {CreditPackageGuideDialogComponent} from './dialog/credit-package-guide-d
     PaymentDetailDialogComponent,
     BuildingGroupDetailComponent,
     CreditDeductionHistoryDialogComponent,
-    CreditPackageGuideDialogComponent
+    CreditPackageGuideDialogComponent,
+    NewGroupItemComponent
   ],
   imports: [SharedModule, EnterpriseRoutingModule],
   providers: [

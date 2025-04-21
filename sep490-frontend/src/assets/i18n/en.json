@@ -201,7 +201,15 @@
       },
       "group": {
         "new": "New Group",
-        "title": "Building Group"
+        "title": "Building Group",
+        "item": {
+          "new": "New item",
+          "newDescription": "Add new item for your building group",
+          "name": "Item name",
+          "placeholder": {
+            "name": "Input your item name"
+          }
+        }
       },
       "management": {
         "title": "Building Management"

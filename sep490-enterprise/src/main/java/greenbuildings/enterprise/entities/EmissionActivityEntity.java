@@ -9,6 +9,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedAttributeNode;
 import jakarta.persistence.NamedEntityGraph;
 import jakarta.persistence.NamedSubgraph;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -75,4 +76,7 @@ public class EmissionActivityEntity extends AbstractAuditableEntity {
     @Size(max = 1000)
     @Column(name = "description")
     private String description;
+    
+    @OneToMany(mappedBy = "emissionActivity", fetch = FetchType.LAZY)
+    private java.util.Set<EmissionActivityRecordEntity> records = new java.util.HashSet<>();
 }

@@ -38,7 +38,9 @@ export interface BuildingGroup extends BaseDTO {
 
 export interface GroupItem extends BaseDTO {
   name: string;
+  description: string;
   buildingGroup: BuildingGroup;
+  emissionActivities: EmissionActivity[];
 }
 
 export interface EmissionActivity extends BaseDTO {

@@ -8,7 +8,7 @@ import {
 } from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
-import {filter, map, takeUntil} from 'rxjs';
+import {filter, map, switchMap, takeUntil} from 'rxjs';
 import {validate} from 'uuid';
 import {UUID} from '../../../../../types/uuid';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
@@ -62,13 +62,11 @@ export class NewBuildingGroupComponent
         map(params => params.get('id')),
         filter((idParam): idParam is string => !!idParam),
         filter(id => validate(id)),
-        map(id => this.buildingService.getBuildingDetails(id as UUID))
+        switchMap(id => this.buildingService.getBuildingDetails(id as UUID))
       )
-      .subscribe(building => {
-        building.subscribe(details => {
-          this.formStructure.buildingId.setValue(details.id.toString());
-          this.buildingDetails = details;
-        });
+      .subscribe(details => {
+        this.formStructure.buildingId.setValue(details.id.toString());
+        this.buildingDetails = details;
       });
   }
 

@@ -25,7 +25,6 @@ import {
 import {ModalProvider} from '../../../shared/services/modal-provider';
 import {ToastProvider} from '../../../shared/services/toast-provider';
 import {NewActivityDialogComponent} from '../../dialog/new-activity-dialog/new-activity-dialog.component';
-import {ReportDialogComponent} from '../../dialog/report-dialog/report-dialog.component';
 import {BuildingGroupService} from '../../services/building-group.service';
 import {BuildingGroup, EmissionActivity} from '../../models/enterprise.dto';
 import {takeUntil} from 'rxjs/operators';
@@ -149,23 +148,12 @@ export class BuildingGroupDetailComponent
     });
   }
 
-  generateReport(): void {
-    const config: DynamicDialogConfig<UUID> = {
-      data: this.buildingGroup.building.id,
-      closeOnEscape: true,
-      closable: true,
-      dismissableMask: true,
-      showHeader: true,
-      header: this.translate.instant(
-        'enterprise.emission.activity.generateReport'
-      )
-    };
-    this.ref = this.dialogService.open(ReportDialogComponent, config);
-    this.ref.onClose.subscribe(rs => {
-      if (rs) {
-        this.searchEvent.emit();
-      }
-    });
+  openNewGroupItem(): void {
+    void this.router.navigate([
+      AppRoutingConstants.ENTERPRISE_PATH,
+      AppRoutingConstants.NEW_GROUP_ITEM,
+      this.buildingGroup.id
+    ]);
   }
 
   fetchBuildingGroupDetails(): void {

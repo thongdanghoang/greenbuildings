@@ -204,7 +204,15 @@
       },
       "group": {
         "new": "新组",
-        "title": "建筑群"
+        "title": "建筑群",
+        "item": {
+          "new": "新项目",
+          "newDescription": "为您的建筑群组添加新项目",
+          "name": "项目名称",
+          "placeholder": {
+            "name": "输入您的项目名称"
+          }
+        }
       },
       "overview": {
         "title": "建筑物",
