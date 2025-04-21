@@ -152,6 +152,7 @@
                     pInputText
                     [(ngModel)]="searchCriteria.name"
                     placeholder="{{ 'common.search' | translate }}"
+                    (keydown.enter)="searchEvent.emit()"
                 />
             </p-iconfield>
             <p-button
