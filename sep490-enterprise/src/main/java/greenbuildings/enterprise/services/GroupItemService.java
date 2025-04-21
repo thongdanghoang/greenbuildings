@@ -10,7 +10,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface GroupItemService {
-    GroupItemEntity create(GroupItemDTO dto);
+    GroupItemEntity create(GroupItemEntity dto);
     
     Optional<GroupItemEntity> findById(UUID id);
     

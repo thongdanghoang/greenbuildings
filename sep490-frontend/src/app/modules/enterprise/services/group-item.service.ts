@@ -9,6 +9,14 @@ import {
   SearchResultDto
 } from '../../shared/models/base-models';
 
+export interface NewGroupItemDTO {
+  id: UUID;
+  version: number;
+  name: string;
+  description: string;
+  buildingGroupId: UUID;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -33,6 +41,10 @@ export class GroupItemService {
 
   create(groupItem: GroupItem): Observable<GroupItem> {
     return this.http.post<GroupItem>(this.baseUrl, groupItem);
+  }
+
+  get getCreateNewGroupItemUrl(): string {
+    return `${this.baseUrl}`;
   }
 
   update(id: UUID, groupItem: GroupItem): Observable<GroupItem> {

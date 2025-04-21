@@ -1,0 +1,74 @@
+<div class="sm:px-5">
+    <div class="mb-3">
+        <p-button
+            icon="pi pi-arrow-left"
+            [label]="'common.back' | translate"
+            severity="primary"
+            outlined="true"
+            (onClick)="goBack()"
+        ></p-button>
+    </div>
+    <h1 class="text-lg font-bold">
+        {{ "enterprise.buildings.group.item.new" | translate }}
+    </h1>
+    <p class="text-sm text-gray-500">
+        {{ "enterprise.buildings.group.item.newDescription" | translate }}
+    </p>
+</div>
+
+<form [formGroup]="formGroup" class="py-5 sm:mt-5 sm:px-5">
+    <div class="my-3 mb-8 grid grid-cols-12 items-center gap-2 sm:gap-4">
+        <label class="col-span-12 font-normal sm:col-span-3" for="name">{{
+            "enterprise.buildings.group.item.name" | translate
+        }}</label>
+        <div class="col-span-12 *:w-full sm:col-span-9" errorMessages>
+            <input
+                class="w-full"
+                pInputText
+                formControlName="name"
+                id="name"
+                type="text"
+                [placeholder]="
+                    'enterprise.buildings.group.item.placeholder.name'
+                        | translate
+                "
+            />
+            <form-field-error></form-field-error>
+        </div>
+
+        <label class="col-span-12 font-normal sm:col-span-3" for="description">
+            {{
+                "enterprise.building-group.create.description" | translate
+            }}</label
+        >
+        <div class="col-span-12 *:w-full sm:col-span-9" errorMessages>
+            <input
+                class="w-full"
+                pInputText
+                formControlName="description"
+                id="description"
+                type="text"
+                [placeholder]="
+                    'enterprise.building-group.create.placeholders.description'
+                        | translate
+                "
+            />
+            <form-field-error></form-field-error>
+        </div>
+    </div>
+
+    <div class="flex justify-end gap-4 *:min-w-24 sm:justify-start">
+        <p-button
+            [label]="'common.save' | translate"
+            severity="primary"
+            styleClass="w-full"
+            (onClick)="submit()"
+        ></p-button>
+        <p-button
+            [label]="'common.revert' | translate"
+            severity="secondary"
+            styleClass="w-full"
+            (onClick)="reset()"
+        ></p-button>
+    </div>
+</form>

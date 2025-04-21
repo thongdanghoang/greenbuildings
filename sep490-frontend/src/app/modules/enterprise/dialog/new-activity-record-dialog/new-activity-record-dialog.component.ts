@@ -33,6 +33,19 @@ export class NewActivityRecordDialogComponent extends AbstractFormComponent<Emis
   unitOptions: {label: string; value: EmissionUnit}[] = [];
   selectedFile: File | null = null;
   maxDate: Date = new Date();
+  formStructure = {
+    activityId: new FormControl('', [Validators.required]),
+    id: new FormControl(''),
+    version: new FormControl(0),
+    value: new FormControl(0, [Validators.required, Validators.min(0)]),
+    unit: new FormControl('', [Validators.required]),
+    startDate: new FormControl(new Date()),
+    rangeDates: new FormControl(
+      [],
+      [Validators.required, Validators.min(2), Validators.max(2)]
+    ),
+    endDate: new FormControl(new Date())
+  };
 
   data?: NewActivityRecordDialogConfig;
 
@@ -51,77 +64,44 @@ export class NewActivityRecordDialogComponent extends AbstractFormComponent<Emis
   }
 
   override initializeFormControls(): {[key: string]: AbstractControl} {
-    return {
-      activityId: new FormControl(this.data!.activityId, [Validators.required]),
-      id: new FormControl(''),
-      version: new FormControl(0),
-      value: new FormControl(0, [Validators.required, Validators.min(0)]),
-      unit: new FormControl('', [Validators.required]),
-      startDate: new FormControl(new Date()),
-      rangeDates: new FormControl(
-        [],
-        [Validators.required, Validators.min(2), Validators.max(2)]
-      ),
-      endDate: new FormControl(new Date())
-    };
+    return this.formStructure;
   }
 
   override initializeData(): void {
     this.initUnits();
     this.handleUpdate();
+    this.initFormData();
   }
 
-  /* eslint-disable dot-notation */
-
-  // eslint-disable-next-line max-lines-per-function
   override prepareDataBeforeSubmit(): void {
-    if (
-      this.formGroup.controls['rangeDates'].value.length !== 2 &&
-      this.formGroup.controls['rangeDates'].value.length !== 1
-    ) {
-      this.formGroup.controls['rangeDates'].setErrors({
+    const {rangeDates, startDate, endDate} = this.formGroup.controls;
+    if (rangeDates.value.length !== 2 && rangeDates.value.length !== 1) {
+      rangeDates.setErrors({
         invalid: true
       });
       return;
     }
-    this.formGroup.controls['startDate'].setValue(
-      this.formGroup.controls['rangeDates'].value[0]
-    );
-    if (this.formGroup.controls['rangeDates'].value[1]) {
-      this.formGroup.controls['endDate'].setValue(
-        this.formGroup.controls['rangeDates'].value[1]
-      );
+    startDate.setValue(rangeDates.value[0]);
+    if (rangeDates.value[1]) {
+      endDate.setValue(rangeDates.value[1]);
     } else {
-      this.formGroup.controls['endDate'].setValue(
-        this.formGroup.controls['rangeDates'].value[0]
-      );
+      endDate.setValue(rangeDates.value[0]);
     }
-    if (
-      this.formGroup.controls['startDate'].value >
-      this.formGroup.controls['endDate'].value
-    ) {
-      const temp = this.formGroup.controls['startDate'].value;
-      this.formGroup.controls['startDate'].setValue(
-        this.formGroup.controls['endDate'].value
-      );
-      this.formGroup.controls['endDate'].setValue(temp);
+    if (startDate.value > endDate.value) {
+      const temp = startDate.value;
+      startDate.setValue(endDate.value);
+      endDate.setValue(temp);
     }
-
-    if (
-      this.formGroup.controls['startDate'].value > Date.now() ||
-      this.formGroup.controls['endDate'].value > Date.now()
-    ) {
+    if (startDate.value > Date.now() || endDate.value > Date.now()) {
       this.notificationService.businessError({
         detail: this.translate.instant(
           'enterprise.emission.activity.record.dateWarning'
         ),
         summary: this.translate.instant('common.error.title')
       });
-      this.formGroup.controls['rangeDates'].setValue([]);
+      rangeDates.setValue([]);
     }
   }
-
-  /* eslint-enable dot-notation */
 
   override submitForm(): void {
     if (this.formGroup.valid) {
@@ -176,6 +156,12 @@ export class NewActivityRecordDialogComponent extends AbstractFormComponent<Emis
         summary: this.translate.instant('common.error.title'),
         detail: this.translate.instant(`validation.${error.error.i18nKey}`)
       });
+    }
+  }
+
+  initFormData(): void {
+    if (this.data && this.formStructure) {
+      this.formStructure.activityId.setValue(this.data.activityId);
     }
   }
 

@@ -9,16 +9,23 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "group_items")
+@Getter
+@Setter
 public class GroupItemEntity extends AbstractAuditableEntity {
     
     @Column(name = "item_name")
     private String itemName;
+    
+    @Column(name = "item_description")
+    private String description;
     
     @ManyToOne
     @JoinColumn(name = "building_group_id", nullable = false)

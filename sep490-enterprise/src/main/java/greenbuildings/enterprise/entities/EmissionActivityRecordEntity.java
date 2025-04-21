@@ -57,4 +57,8 @@ public class EmissionActivityRecordEntity extends AbstractAuditableEntity {
     
     @Transient
     private BigDecimal ghg;
+    
+    @ManyToOne
+    @JoinColumn(name = "emission_activity_id", nullable = false)
+    private EmissionActivityEntity emissionActivity;
 }

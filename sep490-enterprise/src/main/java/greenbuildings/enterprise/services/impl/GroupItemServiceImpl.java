@@ -17,15 +17,14 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(rollbackFor = Throwable.class)
 public class GroupItemServiceImpl implements GroupItemService {
     
     private final GroupItemRepository groupItemRepository;
     private final GroupItemMapper groupItemMapper;
     
     @Override
-    @Transactional
-    public GroupItemEntity create(GroupItemDTO dto) {
-        GroupItemEntity entity = groupItemMapper.toEntity(dto);
+    public GroupItemEntity create(GroupItemEntity entity) {
         return groupItemRepository.save(entity);
     }
     
@@ -48,17 +47,15 @@ public class GroupItemServiceImpl implements GroupItemService {
     }
     
     @Override
-    @Transactional
     public GroupItemEntity update(UUID id, GroupItemDTO dto) {
         GroupItemEntity existingEntity = groupItemRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("GroupItem not found with id: " + id));
+                                                            .orElseThrow(() -> new RuntimeException("GroupItem not found with id: " + id));
         
         groupItemMapper.partialUpdate(dto, existingEntity);
         return groupItemRepository.save(existingEntity);
     }
     
     @Override
-    @Transactional
     public void delete(UUID id) {
         groupItemRepository.deleteById(id);
     }
