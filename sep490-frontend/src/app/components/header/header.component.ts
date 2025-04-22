@@ -6,10 +6,7 @@ import {Drawer} from 'primeng/drawer';
 import {Observable, filter, map, switchMap, take, takeUntil} from 'rxjs';
 import {AppRoutingConstants} from '../../app-routing.constant';
 import {UserRole} from '../../modules/authorization/enums/role-names';
-import {
-  ApplicationService,
-  UserData
-} from '../../modules/core/services/application.service';
+import {ApplicationService} from '../../modules/core/services/application.service';
 import {ThemeService} from '../../modules/core/services/theme.service';
 import {SubscriptionAwareComponent} from '../../modules/core/subscription-aware.component';
 import {UserLocale} from '../../modules/shared/enums/user-language.enum';
@@ -56,7 +53,6 @@ export class HeaderComponent
       {display: '中文(简体)', mobile: 'ZH', key: UserLocale.ZH}
     ];
     this.buildMenuItems();
-    this.buildUserMenuMobileItems();
     this.selectedLanguage = {
       display: 'Tiếng Việt',
       mobile: 'VI',
@@ -87,54 +83,39 @@ export class HeaderComponent
   }
 
   protected buildMenuItems(): void {
-    this.applicationService.UserData.pipe(take(1)).subscribe(
-      (userData: UserData): void => {
-        this.menuItems = [];
-        if (
-          this.applicationService.includeRole(
-            userData.authorities,
-            UserRole.ENTERPRISE_OWNER
-          )
-        ) {
-          this.menuItems.push({
-            label: 'common.profile',
-            icon: 'pi pi-user',
-            command: (): void => this.userProfile()
-          });
-        }
+    this.applicationService
+      .getUserRoles()
+      .pipe(take(1))
+      .subscribe(roles => {
+        this.menuItems.push({
+          label: 'common.profile',
+          icon: 'pi pi-user',
+          command: (): void => this.userProfile(roles)
+        });
         this.menuItems.push({
           label: 'common.logout',
           icon: 'pi pi-power-off',
           command: (): void => this.logout()
         });
-      }
-    );
+
+        // Mobile
+        this.buildUserMenuMobileItems(roles);
+      });
   }
 
-  protected buildUserMenuMobileItems(): void {
-    this.applicationService.UserData.pipe(take(1)).subscribe(
-      (userData: UserData): void => {
-        this.userMenuMobileItems = [
+  protected buildUserMenuMobileItems(roles: UserRole[]): void {
+    this.userMenuMobileItems = [
+      {
+        label: 'header.nav.Account',
+        items: [
           {
-            label: 'header.nav.Account',
-            items: []
-          }
-        ];
-
-        if (
-          this.applicationService.includeRole(
-            userData.authorities,
-            UserRole.ENTERPRISE_OWNER
-          )
-        ) {
-          this.userMenuMobileItems[0].items!.push({
             label: 'common.profile',
             icon: 'pi pi-user',
-            command: (): void => this.userProfile()
-          });
-        }
+            command: (): void => this.userProfile(roles)
+          }
+        ]
       }
-    );
+    ];
   }
 
   protected changeLanguage(language: Language): void {
@@ -161,10 +142,19 @@ export class HeaderComponent
     this.applicationService.logout();
   }
 
-  protected userProfile(): void {
-    void this.router.navigate([
-      `/${AppRoutingConstants.AUTH_PATH}/${AppRoutingConstants.USER_PROFILE}`
-    ]);
+  protected userProfile(roles: UserRole[]): void {
+    if (
+      roles.includes(UserRole.BASIC_USER) ||
+      roles.includes(UserRole.TENANT)
+    ) {
+      void this.router.navigate([
+        `/${AppRoutingConstants.ENTERPRISE_PATH}/${AppRoutingConstants.ACCOUNT_INFO_PATH}`
+      ]);
+    } else {
+      void this.router.navigate([
+        `/${AppRoutingConstants.AUTH_PATH}/${AppRoutingConstants.USER_PROFILE}`
+      ]);
+    }
   }
 
   protected get isDarkMode(): Observable<boolean> {

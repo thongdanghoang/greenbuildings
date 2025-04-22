@@ -1,6 +1,6 @@
 export enum UserRole {
   BASIC_USER,
+  TENANT,
   ENTERPRISE_OWNER,
-  ENTERPRISE_EMPLOYEE,
   SYSTEM_ADMIN
 }

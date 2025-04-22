@@ -26,8 +26,7 @@ import java.util.UUID;
 @RequestMapping("/building-groups")
 @RequiredArgsConstructor
 @RolesAllowed({
-        UserRole.RoleNameConstant.ENTERPRISE_OWNER,
-        UserRole.RoleNameConstant.ENTERPRISE_EMPLOYEE
+        UserRole.RoleNameConstant.ENTERPRISE_OWNER
 })
 public class BuildingGroupController extends AbstractRestController {
     
@@ -100,7 +99,7 @@ public class BuildingGroupController extends AbstractRestController {
     
     @PostMapping("/invite")
     public ResponseEntity<?> inviteTenant(@RequestBody InviteTenantToBuildingGroup dto) {
-        
+        buildingGroupService.inviteTenant(dto);
         return null;
     }
 } 

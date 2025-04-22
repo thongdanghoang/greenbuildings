@@ -7,6 +7,7 @@ import {
   SearchCriteriaDto,
   SearchResultDto
 } from '../../shared/models/base-models';
+import {UserRole} from '../enums/role-names';
 import {EnterpriseUser, EnterpriseUserDetails} from '../models/enterprise-user';
 import {UserCriteria} from '../components/users/users.component';
 
@@ -14,6 +15,7 @@ export interface NewEnterpriseDTO {
   name: string;
   enterpriseEmail: string;
   hotline: string;
+  role: keyof typeof UserRole;
 }
 
 @Injectable({

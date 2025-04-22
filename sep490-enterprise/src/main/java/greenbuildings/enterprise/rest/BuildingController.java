@@ -34,8 +34,7 @@ import java.util.UUID;
 @RequestMapping("/buildings")
 @RequiredArgsConstructor
 @RolesAllowed({
-        UserRole.RoleNameConstant.ENTERPRISE_OWNER,
-        UserRole.RoleNameConstant.ENTERPRISE_EMPLOYEE
+        UserRole.RoleNameConstant.ENTERPRISE_OWNER
 })
 public class BuildingController extends AbstractRestController {
     

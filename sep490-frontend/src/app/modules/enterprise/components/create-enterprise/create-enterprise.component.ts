@@ -10,6 +10,7 @@ import {TranslateService} from '@ngx-translate/core';
 import {OidcSecurityService} from 'angular-auth-oidc-client';
 import {MessageService} from 'primeng/api';
 import {delay, take, tap} from 'rxjs';
+import {UserRole} from '../../../authorization/enums/role-names';
 import {
   EnterpriseUserService,
   NewEnterpriseDTO
@@ -24,13 +25,15 @@ import {ToastProvider} from '../../../shared/services/toast-provider';
   styleUrl: './create-enterprise.component.css'
 })
 export class CreateEnterpriseComponent extends AbstractFormComponent<NewEnterpriseDTO> {
+  protected readonly UserRole = UserRole;
   protected readonly formStructure = {
     name: new FormControl('', [Validators.required]),
     enterpriseEmail: new FormControl('', [
       Validators.required,
       Validators.email
     ]),
-    hotline: new FormControl('', [Validators.required])
+    hotline: new FormControl('', [Validators.required]),
+    role: new FormControl('', [Validators.required])
   };
 
   constructor(

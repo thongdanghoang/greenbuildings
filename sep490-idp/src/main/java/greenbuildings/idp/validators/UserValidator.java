@@ -19,12 +19,6 @@ public class UserValidator {
     private final UserRepository userRepository;
     
     public void validateEnterpriseOwnerManageEmployees(UserEntity employee) {
-        if(employee.getRole() == UserRole.ENTERPRISE_EMPLOYEE){
-            if (employee.getBuildingPermissions().isEmpty()) {
-                throw new BusinessException("buildingPermissions", "business.buildingPermissions.notEmpty");
-            }
-        }
-
         if (employee.getEnterprise().getScope() == UserScope.BUILDING) {
             if (employee.getBuildingPermissions().stream()
                         .map(BuildingPermissionEntity::getBuilding)
@@ -38,7 +32,7 @@ public class UserValidator {
                 throw new BusinessException("buildingPermissions", "business.buildingPermissions.shouldHaveUnique");
             }
         }
-        if (employee.getEnterprise().getScope() == UserScope.ENTERPRISE && employee.getRole() == UserRole.ENTERPRISE_EMPLOYEE) {
+        if (employee.getEnterprise().getScope() == UserScope.ENTERPRISE) {
             if (employee.getBuildingPermissions().size() != 1
                 || employee.getBuildingPermissions().stream()
                            .map(BuildingPermissionEntity::getBuilding)

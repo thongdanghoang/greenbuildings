@@ -20,18 +20,12 @@ import java.util.UUID;
 @RequestMapping("/tenants")
 @RequiredArgsConstructor
 @RolesAllowed({
-        UserRole.RoleNameConstant.ENTERPRISE_OWNER,
-        UserRole.RoleNameConstant.ENTERPRISE_EMPLOYEE
+        UserRole.RoleNameConstant.ENTERPRISE_OWNER
 })
 public class TenantController extends AbstractRestController {
     
     private final TenantService tenantService;
     private final TenantMapper tenantMapper;
-    
-    @PostMapping
-    public ResponseEntity<TenantDTO> create(@RequestBody TenantDTO dto) {
-        return ResponseEntity.ok(tenantMapper.toDTO(tenantService.create(dto)));
-    }
     
     @GetMapping("/{id}")
     public ResponseEntity<TenantDTO> findById(@PathVariable UUID id) {

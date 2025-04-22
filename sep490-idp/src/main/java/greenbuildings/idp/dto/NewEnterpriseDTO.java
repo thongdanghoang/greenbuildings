@@ -1,7 +1,9 @@
 package greenbuildings.idp.dto;
 
+import greenbuildings.commons.api.security.UserRole;
 import greenbuildings.idp.validators.ToBeValidated;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -29,4 +31,7 @@ public class NewEnterpriseDTO extends ToBeValidated {
 
     @Pattern(regexp = VIETNAM_ENTERPRISE_HOTLINE_PATTERN, message = "{validation.enterpriseHotline.invalid}")
     private String hotline;
+    
+    @NotNull
+    private UserRole role;
 }

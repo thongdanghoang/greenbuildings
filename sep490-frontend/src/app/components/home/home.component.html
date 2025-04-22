@@ -49,7 +49,7 @@
                     ></p-button>
                 </div>
             </div>
-        } @else {
+        } @else if (userRoles.includes(UserRole.ENTERPRISE_OWNER) && userData) {
             <div class="text-center">
                 <h1 class="mb-4 text-3xl font-bold text-primary">
                     {{ "home.welcomeEnterprise" | translate }}
@@ -62,6 +62,39 @@
                         [label]="'home.viewDashboard' | translate"
                         icon="pi pi-chart-line"
                         [routerLink]="['/', AppRoutingConstants.DASHBOARD_PATH]"
+                        styleClass="p-button-primary"
+                    ></p-button>
+                </div>
+            </div>
+        } @else if (userRoles.includes(UserRole.TENANT) && userData) {
+            <div class="text-center">
+                <h1 class="mb-4 text-3xl font-bold text-primary">
+                    {{ "home.welcomeTenant" | translate }}
+                </h1>
+                <p class="mb-8 text-lg">
+                    {{ "home.enterpriseDescription" | translate }}
+                </p>
+                <div
+                    class="flex flex-col items-center justify-center gap-4 sm:flex-row"
+                >
+                    <p-button
+                        [label]="'home.viewProfile' | translate"
+                        icon="pi pi-user"
+                        [routerLink]="[
+                            '/',
+                            AppRoutingConstants.ENTERPRISE_PATH,
+                            AppRoutingConstants.ACCOUNT_INFO_PATH,
+                        ]"
+                        styleClass="p-button-secondary"
+                    ></p-button>
+
+                    <p-button
+                        [label]="'home.viewInvitation' | translate"
+                        icon="pi pi-envelope"
+                        [routerLink]="[
+                            AppRoutingConstants.ENTERPRISE_PATH,
+                            AppRoutingConstants.INVITATION_PATH,
+                        ]"
                         styleClass="p-button-primary"
                     ></p-button>
                 </div>

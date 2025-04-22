@@ -45,6 +45,9 @@
       "email": {
         "exist": "Email address already exists"
       },
+      "groups": {
+        "notFound": "Building groups not found"
+      },
       "buildings": {
         "name": {
           "exist": "Name building already exists"
@@ -110,11 +113,13 @@
   "home": {
     "welcome": "Welcome to Green Building",
     "welcomeEnterprise": "Welcome to Enterprise Dashboard",
+    "welcomeTenant": "Welcome to Tenant Dashboard",
     "enterpriseDescription": "Manage buildings, monitor emissions, and track sustainable development goals in one place.",
     "email": "Email",
     "emailVerified": "Email verified",
     "createEnterprise": "Create Enterprise",
     "viewProfile": "View Profile",
+    "viewInvitation": "View Corporate Invitation",
     "viewDashboard": "View Dashboard"
   },
   "account": {
@@ -144,6 +149,12 @@
       "email": "Enterprise Email",
       "taxCode": "Enterprise Tax Code",
       "hotline": "Enterprise Hotline",
+      "role": {
+        "buildingOwnerLabel": "Building Owner",
+        "buildingOwnerDescription": "Manages one or more buildings and can invite tenants to join and manage groups.",
+        "tenantLabel": "Tenant",
+        "tenantDescription": "Becomes a tenant and can join a building by invitation. Has access to assigned groups."
+      },
       "placeholders": {
         "enterName": "Enter enterprise name",
         "enterEmail": "Enter enterprise email",

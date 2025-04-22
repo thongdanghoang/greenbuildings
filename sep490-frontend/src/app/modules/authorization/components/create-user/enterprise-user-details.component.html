@@ -129,164 +129,164 @@
     </div>
 
     <!-- Scope -->
-    @if (roleEmployee) {
-        <div class="my-3 grid grid-cols-12 items-center gap-2 sm:gap-4">
-            <label class="col-span-12 text-xl font-semibold sm:col-span-3">
-                {{ "enterprise.Users.scope" | translate }}
-            </label>
-            <div
-                class="col-span-12 sm:col-span-3"
-                [ngClass]="scopeBuildings ? 'sm:col-span-3' : 'sm:col-span-6'"
-                errorMessages
-            >
-                <p-select
-                    formControlName="scope"
-                    optionLabel="label"
-                    (onChange)="onScopeChange()"
-                    [options]="scopeOptions"
-                    [placeholder]="
-                        'enterprise.Users.placeholders.selectScope' | translate
-                    "
-                    optionValue="value"
-                    optionDisabled="disabled"
-                    class="w-full"
-                >
-                    <ng-template #selectedItem let-selectedOption>
-                        <div>
-                            {{ selectedOption.label | translate }}
-                        </div></ng-template
-                    >
-                    <ng-template #item let-item
-                        ><div>{{ item.label | translate }}</div></ng-template
-                    >
-                </p-select>
-                <form-field-error></form-field-error>
-            </div>
-            @if (scopeBuildings) {
-                <div class="col-span-12 *:w-full sm:col-span-3" errorMessages>
-                    <p-multiselect
-                        [options]="selectableBuildings"
-                        (onChange)="onBuildingSelect($event)"
-                        formControlName="selectedBuildingIds"
-                        optionLabel="label"
-                        optionValue="value"
-                        [placeholder]="
-                            'enterprise.Users.placeholders.selectBuildings'
-                                | translate
-                        "
-                        lazy="true"
-                    ></p-multiselect>
-                    <form-field-error></form-field-error>
-                </div>
-            }
-        </div>
-        <!-- Role -->
-        <div class="my-3 grid grid-cols-12 items-center gap-2 sm:gap-4">
-            @if (enterpriseUserStructure.scope.value !== "") {
-                <div class="col-span-12 h-full sm:col-span-3">
-                    <label class="text-xl font-semibold">{{
-                        "enterprise.Users.role" | translate
-                    }}</label>
-                </div>
-            }
-            @if (scopeBuildings) {
-                <div class="col-span-12 sm:col-span-6">
-                    @if (
-                        enterpriseUserStructure.buildingPermissions.controls
-                            .length === 0
-                    ) {
-                        <p-message
-                            icon="pi pi-exclamation-triangle"
-                            severity="warn"
-                            variant="outlined"
-                            >{{
-                                "validation.business.buildings.permissionWarning"
-                                    | translate
-                            }}</p-message
-                        >
-                    } @else {
-                        <ng-container formArrayName="buildingPermissions"
-                            ><div
-                                *ngFor="
-                                    let permission of enterpriseUserStructure
-                                        .buildingPermissions.controls;
-                                    let i = index
-                                "
-                            >
-                                <div
-                                    [formGroupName]="i"
-                                    class="flex items-start justify-between gap-4 *:w-full"
-                                >
-                                    <p class="mt-2.5 w-fit">
-                                        {{ getBuildingName(permission) }}
-                                    </p>
+    <!--    @if (roleEmployee) {-->
+    <!--        <div class="my-3 grid grid-cols-12 items-center gap-2 sm:gap-4">-->
+    <!--            <label class="col-span-12 text-xl font-semibold sm:col-span-3">-->
+    <!--                {{ "enterprise.Users.scope" | translate }}-->
+    <!--            </label>-->
+    <!--            <div-->
+    <!--                class="col-span-12 sm:col-span-3"-->
+    <!--                [ngClass]="scopeBuildings ? 'sm:col-span-3' : 'sm:col-span-6'"-->
+    <!--                errorMessages-->
+    <!--            >-->
+    <!--                <p-select-->
+    <!--                    formControlName="scope"-->
+    <!--                    optionLabel="label"-->
+    <!--                    (onChange)="onScopeChange()"-->
+    <!--                    [options]="scopeOptions"-->
+    <!--                    [placeholder]="-->
+    <!--                        'enterprise.Users.placeholders.selectScope' | translate-->
+    <!--                    "-->
+    <!--                    optionValue="value"-->
+    <!--                    optionDisabled="disabled"-->
+    <!--                    class="w-full"-->
+    <!--                >-->
+    <!--                    <ng-template #selectedItem let-selectedOption>-->
+    <!--                        <div>-->
+    <!--                            {{ selectedOption.label | translate }}-->
+    <!--                        </div></ng-template-->
+    <!--                    >-->
+    <!--                    <ng-template #item let-item-->
+    <!--                        ><div>{{ item.label | translate }}</div></ng-template-->
+    <!--                    >-->
+    <!--                </p-select>-->
+    <!--                <form-field-error></form-field-error>-->
+    <!--            </div>-->
+    <!--            @if (scopeBuildings) {-->
+    <!--                <div class="col-span-12 *:w-full sm:col-span-3" errorMessages>-->
+    <!--                    <p-multiselect-->
+    <!--                        [options]="selectableBuildings"-->
+    <!--                        (onChange)="onBuildingSelect($event)"-->
+    <!--                        formControlName="selectedBuildingIds"-->
+    <!--                        optionLabel="label"-->
+    <!--                        optionValue="value"-->
+    <!--                        [placeholder]="-->
+    <!--                            'enterprise.Users.placeholders.selectBuildings'-->
+    <!--                                | translate-->
+    <!--                        "-->
+    <!--                        lazy="true"-->
+    <!--                    ></p-multiselect>-->
+    <!--                    <form-field-error></form-field-error>-->
+    <!--                </div>-->
+    <!--            }-->
+    <!--        </div>-->
+    <!--        &lt;!&ndash; Role &ndash;&gt;-->
+    <!--        <div class="my-3 grid grid-cols-12 items-center gap-2 sm:gap-4">-->
+    <!--            @if (enterpriseUserStructure.scope.value !== "") {-->
+    <!--                <div class="col-span-12 h-full sm:col-span-3">-->
+    <!--                    <label class="text-xl font-semibold">{{-->
+    <!--                        "enterprise.Users.role" | translate-->
+    <!--                    }}</label>-->
+    <!--                </div>-->
+    <!--            }-->
+    <!--            @if (scopeBuildings) {-->
+    <!--                <div class="col-span-12 sm:col-span-6">-->
+    <!--                    @if (-->
+    <!--                        enterpriseUserStructure.buildingPermissions.controls-->
+    <!--                            .length === 0-->
+    <!--                    ) {-->
+    <!--                        <p-message-->
+    <!--                            icon="pi pi-exclamation-triangle"-->
+    <!--                            severity="warn"-->
+    <!--                            variant="outlined"-->
+    <!--                            >{{-->
+    <!--                                "validation.business.buildings.permissionWarning"-->
+    <!--                                    | translate-->
+    <!--                            }}</p-message-->
+    <!--                        >-->
+    <!--                    } @else {-->
+    <!--                        <ng-container formArrayName="buildingPermissions"-->
+    <!--                            ><div-->
+    <!--                                *ngFor="-->
+    <!--                                    let permission of enterpriseUserStructure-->
+    <!--                                        .buildingPermissions.controls;-->
+    <!--                                    let i = index-->
+    <!--                                "-->
+    <!--                            >-->
+    <!--                                <div-->
+    <!--                                    [formGroupName]="i"-->
+    <!--                                    class="flex items-start justify-between gap-4 *:w-full"-->
+    <!--                                >-->
+    <!--                                    <p class="mt-2.5 w-fit">-->
+    <!--                                        {{ getBuildingName(permission) }}-->
+    <!--                                    </p>-->
 
-                                    <div class="*:w-full" errorMessages>
-                                        <p-select
-                                            [options]="permissionRoleOptions"
-                                            formControlName="role"
-                                            optionLabel="label"
-                                            optionValue="value"
-                                            [placeholder]="
-                                                'enterprise.Users.placeholders.selectRole'
-                                                    | translate
-                                            "
-                                        >
-                                            <ng-template
-                                                #selectedItem
-                                                let-selectedOption
-                                            >
-                                                <div>
-                                                    {{
-                                                        selectedOption.label
-                                                            | translate
-                                                    }}
-                                                </div></ng-template
-                                            >
-                                            <ng-template #item let-item
-                                                ><div>
-                                                    {{ item.label | translate }}
-                                                </div></ng-template
-                                            >
-                                        </p-select>
-                                        <form-field-error></form-field-error>
-                                    </div>
-                                </div></div
-                        ></ng-container>
-                    }
-                </div>
-            }
-            @if (scopeEnterprise) {
-                <div class="col-span-12 sm:col-span-6" errorMessages>
-                    <p-select
-                        formControlName="enterprisePermission"
-                        id="enterprisePermission"
-                        optionValue="value"
-                        optionLabel="label"
-                        [options]="buildingPermissionScopeEnterprise"
-                        (onChange)="onEnterprisePermissionChange($event)"
-                        [placeholder]="
-                            'enterprise.Users.placeholders.selectRole'
-                                | translate
-                        "
-                        class="w-full"
-                    >
-                        <ng-template #selectedItem let-selectedOption>
-                            <div>
-                                {{ selectedOption.label | translate }}
-                            </div></ng-template
-                        >
-                        <ng-template #item let-item
-                            ><div>
-                                {{ item.label | translate }}
-                            </div></ng-template
-                        >
-                    </p-select>
-                    <form-field-error></form-field-error>
-                </div>
-            }
-        </div>
-    }
+    <!--                                    <div class="*:w-full" errorMessages>-->
+    <!--                                        <p-select-->
+    <!--                                            [options]="permissionRoleOptions"-->
+    <!--                                            formControlName="role"-->
+    <!--                                            optionLabel="label"-->
+    <!--                                            optionValue="value"-->
+    <!--                                            [placeholder]="-->
+    <!--                                                'enterprise.Users.placeholders.selectRole'-->
+    <!--                                                    | translate-->
+    <!--                                            "-->
+    <!--                                        >-->
+    <!--                                            <ng-template-->
+    <!--                                                #selectedItem-->
+    <!--                                                let-selectedOption-->
+    <!--                                            >-->
+    <!--                                                <div>-->
+    <!--                                                    {{-->
+    <!--                                                        selectedOption.label-->
+    <!--                                                            | translate-->
+    <!--                                                    }}-->
+    <!--                                                </div></ng-template-->
+    <!--                                            >-->
+    <!--                                            <ng-template #item let-item-->
+    <!--                                                ><div>-->
+    <!--                                                    {{ item.label | translate }}-->
+    <!--                                                </div></ng-template-->
+    <!--                                            >-->
+    <!--                                        </p-select>-->
+    <!--                                        <form-field-error></form-field-error>-->
+    <!--                                    </div>-->
+    <!--                                </div></div-->
+    <!--                        ></ng-container>-->
+    <!--                    }-->
+    <!--                </div>-->
+    <!--            }-->
+    <!--            @if (scopeEnterprise) {-->
+    <!--                <div class="col-span-12 sm:col-span-6" errorMessages>-->
+    <!--                    <p-select-->
+    <!--                        formControlName="enterprisePermission"-->
+    <!--                        id="enterprisePermission"-->
+    <!--                        optionValue="value"-->
+    <!--                        optionLabel="label"-->
+    <!--                        [options]="buildingPermissionScopeEnterprise"-->
+    <!--                        (onChange)="onEnterprisePermissionChange($event)"-->
+    <!--                        [placeholder]="-->
+    <!--                            'enterprise.Users.placeholders.selectRole'-->
+    <!--                                | translate-->
+    <!--                        "-->
+    <!--                        class="w-full"-->
+    <!--                    >-->
+    <!--                        <ng-template #selectedItem let-selectedOption>-->
+    <!--                            <div>-->
+    <!--                                {{ selectedOption.label | translate }}-->
+    <!--                            </div></ng-template-->
+    <!--                        >-->
+    <!--                        <ng-template #item let-item-->
+    <!--                            ><div>-->
+    <!--                                {{ item.label | translate }}-->
+    <!--                            </div></ng-template-->
+    <!--                        >-->
+    <!--                    </p-select>-->
+    <!--                    <form-field-error></form-field-error>-->
+    <!--                </div>-->
+    <!--            }-->
+    <!--        </div>-->
+    <!--    }-->
     <!-- Buttons -->
     <div class="flex justify-end gap-4 *:min-w-24 sm:justify-start">
         <!-- Create Button -->

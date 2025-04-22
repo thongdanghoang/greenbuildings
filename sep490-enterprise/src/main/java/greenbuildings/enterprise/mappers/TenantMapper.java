@@ -1,12 +1,13 @@
 package greenbuildings.enterprise.mappers;
 
+import greenbuildings.commons.api.events.PendingEnterpriseRegisterEvent;
 import greenbuildings.enterprise.dtos.TenantDTO;
 import greenbuildings.enterprise.entities.TenantEntity;
 import org.mapstruct.*;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)
 public interface TenantMapper {
-    TenantEntity toEntity(TenantDTO dto);
+    TenantEntity createTenant(TenantDTO dto);
     
     @Mapping(target = "buildingGroups", ignore = true)
     TenantDTO toDTO(TenantEntity entity);
@@ -14,6 +15,10 @@ public interface TenantMapper {
     @Mapping(target = "buildingGroups", ignore = true)
     @Mapping(target = "activityTypes", ignore = true)
     TenantDTO toBasicDTO(TenantEntity entity);
+    
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "version", ignore = true)
+    TenantEntity createTenant(PendingEnterpriseRegisterEvent enterpriseCreateEvent);
     
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     TenantEntity partialUpdate(TenantDTO dto, @MappingTarget TenantEntity entity);

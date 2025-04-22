@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import greenbuildings.commons.api.dto.SearchCriteriaDTO;
 import greenbuildings.commons.api.dto.SearchResultDTO;
@@ -51,7 +52,6 @@ public class EnterpriseUserRestController {
 
     @GetMapping("/enterprise-owner")
     @RolesAllowed({UserRole.RoleNameConstant.ENTERPRISE_OWNER,
-            UserRole.RoleNameConstant.ENTERPRISE_EMPLOYEE,
             UserRole.RoleNameConstant.SYSTEM_ADMIN})
     public ResponseEntity<EnterpriseUserDetailsDTO> getEnterpriseOwnerDetail() {
         String email = SecurityUtils.getCurrentUserEmail().orElseThrow();
@@ -129,4 +129,8 @@ public class EnterpriseUserRestController {
         return ResponseEntity.noContent().build();
     }
     
+    @GetMapping("/check-email")
+    public ResponseEntity<Boolean> checkEmailExist(@RequestParam String email) {
+        return ResponseEntity.ok(userService.findByEmail(email).isPresent());
+    }
 }

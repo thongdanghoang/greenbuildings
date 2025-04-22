@@ -10,7 +10,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface TenantService {
-    TenantEntity create(TenantDTO dto);
+    TenantEntity create(TenantEntity dto);
     
     Optional<TenantEntity> findById(UUID id);
     

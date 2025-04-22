@@ -33,30 +33,54 @@ export class SidebarComponent
   ngOnInit(): void {
     this.applicationService.UserData.pipe(takeUntil(this.destroy$)).subscribe(
       (userData: UserData): void => {
-        if (
-          this.applicationService.includeRole(
+        switch (true) {
+          case this.applicationService.includeRole(
             userData.authorities,
             UserRole.ENTERPRISE_OWNER
-          )
-        ) {
-          this.items = this.buildEnterpriseOwnerMenu();
-        } else if (
-          this.applicationService.includeRole(
+          ):
+            this.items = this.buildEnterpriseOwnerMenu();
+            break;
+          case this.applicationService.includeRole(
+            userData.authorities,
+            UserRole.TENANT
+          ):
+            this.items = this.buildTenantMenu();
+            break;
+          case this.applicationService.includeRole(
             userData.authorities,
             UserRole.SYSTEM_ADMIN
-          )
-        ) {
-          this.items = this.buildAdminMenu();
-        } else if (
-          this.applicationService.includeRole(
+          ):
+            this.items = this.buildAdminMenu();
+            break;
+          case this.applicationService.includeRole(
             userData.authorities,
             UserRole.BASIC_USER
-          )
-        ) {
-          this.items = this.buildBasicUserMenu();
+          ):
+            this.items = this.buildBasicUserMenu();
+            break;
         }
       }
     );
+  }
+
+  buildTenantMenu(): MenuItem[] {
+    return [
+      {
+        label: 'sidebar.basicUser.welcome',
+        items: [
+          {
+            label: 'sidebar.basicUser.info',
+            icon: 'pi pi-user',
+            route: `/${AppRoutingConstants.ENTERPRISE_PATH}/${AppRoutingConstants.ACCOUNT_INFO_PATH}`
+          },
+          {
+            label: 'sidebar.basicUser.invitation',
+            icon: 'pi pi-envelope',
+            route: `/${AppRoutingConstants.ENTERPRISE_PATH}/${AppRoutingConstants.INVITATION_PATH}`
+          }
+        ]
+      }
+    ];
   }
 
   // eslint-disable-next-line max-lines-per-function
@@ -134,11 +158,6 @@ export class SidebarComponent
             label: 'sidebar.basicUser.enterprise',
             icon: 'pi pi-building',
             route: `/${AppRoutingConstants.ENTERPRISE_PATH}/${AppRoutingConstants.CREATE_ENTERPRISE_PATH}`
-          },
-          {
-            label: 'sidebar.basicUser.invitation',
-            icon: 'pi pi-envelope',
-            route: `/${AppRoutingConstants.ENTERPRISE_PATH}/${AppRoutingConstants.INVITATION_PATH}`
           }
         ]
       }

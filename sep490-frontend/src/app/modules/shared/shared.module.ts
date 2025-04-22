@@ -47,6 +47,7 @@ import {MessageModule} from 'primeng/message';
 import {MessagesModule} from 'primeng/messages';
 import {MultiSelectModule} from 'primeng/multiselect';
 import {PaginatorModule} from 'primeng/paginator';
+import {PanelModule} from 'primeng/panel';
 import {PasswordModule} from 'primeng/password';
 import {PopoverModule} from 'primeng/popover';
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
@@ -77,6 +78,7 @@ import {FuelService} from './services/fuel.service';
 import {ModalProvider} from './services/modal-provider';
 import {ToastProvider} from './services/toast-provider';
 import {UnitService} from './services/unit.service';
+import {RadioButtonModule} from 'primeng/radiobutton';
 
 const primeNgModules = [
   AccordionModule,
@@ -132,7 +134,9 @@ const primeNgModules = [
   TooltipModule,
   InputGroupModule,
   InputGroupAddonModule,
-  AutoCompleteModule
+  AutoCompleteModule,
+  PanelModule,
+  RadioButtonModule
 ];
 
 const commons = [
