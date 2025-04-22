@@ -17,38 +17,33 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(rollbackFor = Throwable.class)
 public class TenantServiceImpl implements TenantService {
     
     private final TenantRepository tenantRepository;
     private final TenantMapper tenantMapper;
     
     @Override
-    @Transactional
-    public TenantEntity create(TenantDTO dto) {
-        TenantEntity entity = tenantMapper.toEntity(dto);
-        return tenantRepository.save(entity);
+    public TenantEntity create(TenantEntity tenant) {
+        return tenantRepository.save(tenant);
     }
     
     @Override
-    @Transactional(readOnly = true)
     public Optional<TenantEntity> findById(UUID id) {
         return tenantRepository.findById(id);
     }
     
     @Override
-    @Transactional(readOnly = true)
     public List<TenantEntity> findAll() {
         return tenantRepository.findAll();
     }
     
     @Override
-    @Transactional(readOnly = true)
     public Page<TenantEntity> findAll(Pageable pageable) {
         return tenantRepository.findAll(pageable);
     }
     
     @Override
-    @Transactional
     public TenantEntity update(UUID id, TenantDTO dto) {
         TenantEntity existingEntity = tenantRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Tenant not found with id: " + id));
@@ -58,7 +53,6 @@ public class TenantServiceImpl implements TenantService {
     }
     
     @Override
-    @Transactional
     public void delete(UUID id) {
         tenantRepository.deleteById(id);
     }

@@ -19,8 +19,7 @@ import java.util.UUID;
 @RequestMapping("/transaction")
 @RequiredArgsConstructor
 @RolesAllowed({
-        UserRole.RoleNameConstant.ENTERPRISE_OWNER,
-        UserRole.RoleNameConstant.ENTERPRISE_EMPLOYEE
+        UserRole.RoleNameConstant.ENTERPRISE_OWNER
 })
 public class TransactionController {
     private final TransactionService transactionService;

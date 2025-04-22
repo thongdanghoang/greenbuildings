@@ -24,7 +24,7 @@ import java.util.Arrays;
 @RequestMapping("/api/user")
 @RequiredArgsConstructor
 @RolesAllowed({UserRole.RoleNameConstant.ENTERPRISE_OWNER,
-               UserRole.RoleNameConstant.ENTERPRISE_EMPLOYEE,
+               UserRole.RoleNameConstant.TENANT,
                UserRole.RoleNameConstant.BASIC_USER,
                UserRole.RoleNameConstant.SYSTEM_ADMIN})
 public class UserResource {

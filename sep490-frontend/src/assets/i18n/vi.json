@@ -45,6 +45,9 @@
       "email": {
         "exist": "Địa chỉ email đã tồn tại"
       },
+      "groups": {
+        "notFound": "Không tìm thấy nhóm tòa nhà"
+      },
       "buildings": {
         "name": {
           "exist": "Tên tòa nhà đã tồn tại"
@@ -110,10 +113,12 @@
   "home": {
     "welcome": "Chào mừng đến với Green Building",
     "welcomeEnterprise": "Chào mừng đến với Bảng điều khiển Doanh nghiệp",
+    "welcomeTenant": "Chào mừng đến với Bảng điều khiển Người thuê",
     "enterpriseDescription": "Quản lý tòa nhà, giám sát khí thải và theo dõi mục tiêu phát triển bền vững tại một nơi.",
     "email": "Email",
     "emailVerified": "Email đã xác thực",
     "createEnterprise": "Tạo Doanh nghiệp",
+    "viewInvitation": "Xem Lời mời Doanh nghiệp",
     "viewProfile": "Xem Hồ sơ",
     "viewDashboard": "Xem Bảng điều khiển"
   },
@@ -144,6 +149,12 @@
       "email": "Email doanh nghiệp",
       "taxCode": "Mã số thuế doanh nghiệp",
       "hotline": "Hotline doanh nghiệp",
+      "role": {
+        "buildingOwnerLabel": "Chủ sở hữu tòa nhà",
+        "buildingOwnerDescription": "Quản lý một hoặc nhiều tòa nhà và có thể mời người thuê tham gia và quản lý các nhóm.",
+        "tenantLabel": "Người thuê",
+        "tenantDescription": "Trở thành người thuê và có thể tham gia tòa nhà theo lời mời. Có quyền truy cập vào các nhóm được chỉ định."
+      },
       "placeholders": {
         "enterName": "Nhập tên doanh nghiệp",
         "enterEmail": "Nhập email doanh nghiệp",

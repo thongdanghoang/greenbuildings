@@ -217,13 +217,6 @@ export class UserProfileComponent extends AbstractFormComponent<EnterpriseUserDe
     );
   }
 
-  get roleOwner(): boolean {
-    return (
-      this.enterpriseUserStructure.role.value ===
-      UserRole[UserRole.ENTERPRISE_EMPLOYEE]
-    );
-  }
-
   get buildingPermissions(): FormArray {
     return this.formGroup.get('buildingPermissions') as FormArray;
   }
@@ -322,11 +315,7 @@ export class UserProfileComponent extends AbstractFormComponent<EnterpriseUserDe
   }
 
   private initializeEnterprisePermission(): void {
-    if (
-      this.scopeEnterprise &&
-      this.roleOwner &&
-      this.buildingPermissions.controls.length > 0
-    ) {
+    if (this.scopeEnterprise && this.buildingPermissions.controls.length > 0) {
       this.enterpriseUserStructure.enterprisePermission.setValue(
         this.buildingPermissions.controls[0].value.role
       );

@@ -3,6 +3,7 @@ package greenbuildings.enterprise.services;
 import greenbuildings.commons.api.dto.SearchCriteriaDTO;
 import greenbuildings.enterprise.dtos.BuildingGroupCriteria;
 import greenbuildings.enterprise.dtos.BuildingGroupDTO;
+import greenbuildings.enterprise.dtos.InviteTenantToBuildingGroup;
 import greenbuildings.enterprise.entities.BuildingGroupEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -33,4 +34,6 @@ public interface BuildingGroupService {
     List<BuildingGroupEntity> getAvailableBuildingGroups(UUID buildingId);
     
     BuildingGroupEntity create(BuildingGroupEntity buildingGroupEntity);
+    
+    void inviteTenant(InviteTenantToBuildingGroup dto);
 }

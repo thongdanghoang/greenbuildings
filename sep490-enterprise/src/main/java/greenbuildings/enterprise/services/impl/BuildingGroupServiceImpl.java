@@ -5,10 +5,14 @@ import greenbuildings.commons.api.dto.SearchCriteriaDTO;
 import greenbuildings.commons.api.exceptions.BusinessException;
 import greenbuildings.enterprise.dtos.BuildingGroupCriteria;
 import greenbuildings.enterprise.dtos.BuildingGroupDTO;
+import greenbuildings.enterprise.dtos.InviteTenantToBuildingGroup;
 import greenbuildings.enterprise.entities.BuildingGroupEntity;
 import greenbuildings.enterprise.mappers.BuildingGroupMapper;
 import greenbuildings.enterprise.repositories.BuildingGroupRepository;
+import greenbuildings.enterprise.repositories.EnterpriseRepository;
+import greenbuildings.enterprise.repositories.TenantRepository;
 import greenbuildings.enterprise.services.BuildingGroupService;
+import greenbuildings.enterprise.services.IdpClientService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,6 +30,10 @@ public class BuildingGroupServiceImpl implements BuildingGroupService {
     
     private final BuildingGroupRepository buildingGroupRepository;
     private final BuildingGroupMapper buildingGroupMapper;
+    private final TenantServiceImpl tenantService;
+    private final IdpClientService idpClientService;
+    private final TenantRepository tenantRepository;
+    private final EnterpriseRepository enterpriseRepository;
     
     @Override
     public BuildingGroupEntity create(BuildingGroupDTO dto) {
@@ -93,5 +101,17 @@ public class BuildingGroupServiceImpl implements BuildingGroupService {
             throw new BusinessException("name", "business.buildings.group.nameExists");
         }
         return buildingGroupRepository.save(buildingGroupEntity);
+    }
+    
+    @Override
+    public void inviteTenant(InviteTenantToBuildingGroup dto) {
+        List<BuildingGroupEntity> groups = buildingGroupRepository.findAllById(dto.buildingGroupIds());
+        if (groups.size() != dto.buildingGroupIds().size()) {
+            throw new BusinessException("buildingGroupIds", "business,groups.notFound");
+        }
+        // TODO
+        if (enterpriseRepository.findByEmail(dto.email()).isPresent()) {
+            throw new BusinessException("tenantEmail", "business.groups.email");
+        }
     }
 } 

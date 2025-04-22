@@ -45,6 +45,9 @@
       "email": {
         "exist": "电子邮件地址已存在"
       },
+      "groups": {
+        "notFound": "未找到建筑群组"
+      },
       "buildings": {
         "name": {
           "exist": "名称建筑已存在"
@@ -110,10 +113,12 @@
   "home": {
     "welcome": "欢迎来到 Green Building",
     "welcomeEnterprise": "欢迎来到企业仪表板",
+    "welcomeTenant": "欢迎来到租户仪表板",
     "enterpriseDescription": "管理建筑物、监控排放并在一个地方跟踪可持续发展的目标。",
     "email": "电子邮件",
     "emailVerified": "电子邮件已验证",
     "createEnterprise": "创建企业",
+    "viewInvitation": "查看企业邀请",
     "viewProfile": "查看个人资料",
     "viewDashboard": "查看仪表板"
   },
@@ -144,6 +149,12 @@
       "email": "电子邮件",
       "taxCode": "税号",
       "hotline": "热线",
+      "role": {
+        "buildingOwnerLabel": "建筑所有者",
+        "buildingOwnerDescription": "管理一个或多个建筑物，可以邀请租户加入并管理群组。",
+        "tenantLabel": "租户",
+        "tenantDescription": "成为租户并可通过邀请加入建筑物。可访问分配的群组。"
+      },
       "placeholders": {
         "enterName": "输入名称",
         "enterEmail": "输入电子邮件",

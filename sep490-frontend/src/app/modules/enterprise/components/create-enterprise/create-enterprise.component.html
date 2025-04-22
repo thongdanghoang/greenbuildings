@@ -16,95 +16,240 @@
     </p>
 </div>
 
-<form [formGroup]="formGroup" class="py-5 sm:mt-5 sm:px-5">
-    <!-- Name -->
-    <div
-        class="my-3 grid grid-cols-12 items-center gap-2 sm:gap-4"
-        errorMessages
-    >
-        <label for="name" class="col-span-12 font-normal sm:col-span-3">{{
-            "enterprise.create.name" | translate
-        }}</label>
-        <div class="col-span-12 sm:col-span-6">
-            <input
-                formControlName="name"
-                class="w-full"
-                type="text"
-                id="name"
-                pInputText
-                [placeholder]="
-                    'enterprise.create.placeholders.enterName' | translate
-                "
-            />
-            <form-field-error></form-field-error>
-        </div>
-    </div>
+<div class="card flex justify-center">
+    <p-stepper [value]="1" class="w-full" [linear]="true">
+        <p-step-list>
+            <p-step [value]="1">Header I</p-step>
+            <p-step [value]="2">Header II</p-step>
+            <p-step [value]="3">Header II</p-step>
+        </p-step-list>
+        <p-step-panels>
+            <p-step-panel [value]="1">
+                <ng-template #content let-activateCallback="activateCallback">
+                    <div class="flex h-48 flex-col">
+                        <div
+                            class="rounded border-2 border-dashed border-surface-200 bg-surface-50 dark:border-surface-700 dark:bg-surface-950"
+                        >
+                            <p class="m-0">
+                                LLorem ipsum dolor sit amet, consectetur
+                                adipiscing elit, sed do eiusmod tempor
+                                incididunt ut labore et dolore magna aliqua. Ut
+                                enim ad minim veniam, quis nostrud exercitation
+                                ullamco laboris nisi ut aliquip ex ea commodo
+                                consequat. Duis aute irure dolor in
+                                reprehenderit in voluptate velit esse cillum
+                                dolore eu fugiat nulla pariatur. Excepteur sint
+                                occaecat cupidatat non proident, sunt in culpa
+                                qui officia deserunt mollit anim id est
+                                laborum..
+                            </p>
+                        </div>
+                        <div class="flex justify-end pt-6">
+                            <p-button
+                                [label]="'common.next' | translate"
+                                icon="pi pi-arrow-right"
+                                iconPos="right"
+                                (onClick)="activateCallback(2)"
+                            />
+                        </div>
+                    </div>
+                </ng-template>
+            </p-step-panel>
 
-    <!-- Email -->
-    <div
-        class="my-3 grid grid-cols-12 items-center gap-2 sm:gap-4"
-        errorMessages
-    >
-        <label for="email" class="col-span-12 font-normal sm:col-span-3">{{
-            "enterprise.create.email" | translate
-        }}</label>
-        <div class="col-span-12 sm:col-span-6">
-            <input
-                formControlName="enterpriseEmail"
-                class="w-full"
-                type="text"
-                id="email"
-                pInputText
-                [placeholder]="
-                    'enterprise.create.placeholders.enterEmail' | translate
-                "
-            />
-            <form-field-error></form-field-error>
-        </div>
-    </div>
+            <p-step-panel [value]="2">
+                <ng-template #content let-activateCallback="activateCallback">
+                    <div class="flex flex-col gap-6">
+                        <form
+                            [formGroup]="formGroup"
+                            class="rounded border-2 border-dashed border-gray-300 bg-gray-50 p-4 dark:border-gray-600 dark:bg-gray-800"
+                        >
+                            <div class="mb-4 flex items-start gap-3">
+                                <p-radiobutton
+                                    inputId="tenant"
+                                    formControlName="role"
+                                    size="large"
+                                    [value]="UserRole[UserRole.TENANT]"
+                                ></p-radiobutton>
+                                <div>
+                                    <label
+                                        for="tenant"
+                                        class="text-sm font-semibold"
+                                    >
+                                        {{
+                                            "enterprise.create.role.tenantLabel"
+                                                | translate
+                                        }}
+                                    </label>
+                                    <p class="mt-1 text-xs">
+                                        {{
+                                            "enterprise.create.role.tenantDescription"
+                                                | translate
+                                        }}
+                                    </p>
+                                </div>
+                            </div>
 
-    <!-- Hotline -->
-    <div
-        class="my-3 grid grid-cols-12 items-center gap-2 sm:gap-4"
-        errorMessages
-    >
-        <label for="hotline" class="col-span-12 font-normal sm:col-span-3">{{
-            "enterprise.create.hotline" | translate
-        }}</label>
-        <div class="col-span-12 sm:col-span-6">
-            <input
-                formControlName="hotline"
-                class="w-full"
-                type="text"
-                id="hotline"
-                pInputText
-                [placeholder]="
-                    'enterprise.create.placeholders.enterHotline' | translate
-                "
-            />
-            <form-field-error></form-field-error>
-        </div>
-    </div>
-    <!-- Buttons -->
-    <div class="flex justify-end gap-4 *:min-w-24 sm:justify-start">
-        <!-- Create Button -->
-        <p-button
-            [label]="'common.create' | translate"
-            styleClass="w-full"
-            severity="primary"
-            [disabled]="disableSubmitButton"
-            (onClick)="submit()"
-        ></p-button>
+                            <div class="flex items-start gap-3">
+                                <p-radiobutton
+                                    inputId="owner"
+                                    size="large"
+                                    formControlName="role"
+                                    [value]="
+                                        UserRole[UserRole.ENTERPRISE_OWNER]
+                                    "
+                                ></p-radiobutton>
+                                <div>
+                                    <label
+                                        for="owner"
+                                        class="text-sm font-semibold"
+                                    >
+                                        {{
+                                            "enterprise.create.role.buildingOwnerLabel"
+                                                | translate
+                                        }}
+                                    </label>
+                                    <p class="mt-1 text-xs">
+                                        {{
+                                            "enterprise.create.role.buildingOwnerDescription"
+                                                | translate
+                                        }}
+                                    </p>
+                                </div>
+                            </div>
+                        </form>
 
-        <!-- Revert Button -->
-        <p-button
-            [label]="'common.revert' | translate"
-            styleClass="w-full"
-            severity="secondary"
-            (onClick)="reset()"
-        ></p-button>
-    </div>
-</form>
+                        <div class="flex justify-between pt-6">
+                            <p-button
+                                [label]="'common.back' | translate"
+                                icon="pi pi-arrow-left"
+                                iconPos="right"
+                                (onClick)="activateCallback(1)"
+                            />
+                            <p-button
+                                [label]="'common.next' | translate"
+                                icon="pi pi-arrow-right"
+                                iconPos="right"
+                                [disabled]="!formStructure.role.value"
+                                (onClick)="activateCallback(3)"
+                            />
+                        </div>
+                    </div>
+                </ng-template>
+            </p-step-panel>
+
+            <p-step-panel [value]="3">
+                <ng-template #content let-activateCallback="activateCallback">
+                    <div>
+                        <form
+                            [formGroup]="formGroup"
+                            class="rounded border-2 border-dashed border-gray-300 bg-gray-50 p-4 dark:border-gray-600 dark:bg-gray-800"
+                        >
+                            <!-- Name -->
+                            <div
+                                class="my-3 grid grid-cols-12 items-center gap-2 sm:gap-4"
+                                errorMessages
+                            >
+                                <label
+                                    for="name"
+                                    class="col-span-12 font-normal sm:col-span-3"
+                                    >{{
+                                        "enterprise.create.name" | translate
+                                    }}</label
+                                >
+                                <div class="col-span-12 sm:col-span-9">
+                                    <input
+                                        formControlName="name"
+                                        class="w-full"
+                                        type="text"
+                                        id="name"
+                                        pInputText
+                                        [placeholder]="
+                                            'enterprise.create.placeholders.enterName'
+                                                | translate
+                                        "
+                                    />
+                                    <form-field-error></form-field-error>
+                                </div>
+                            </div>
+
+                            <!-- Email -->
+                            <div
+                                class="my-3 grid grid-cols-12 items-center gap-2 sm:gap-4"
+                                errorMessages
+                            >
+                                <label
+                                    for="email"
+                                    class="col-span-12 font-normal sm:col-span-3"
+                                    >{{
+                                        "enterprise.create.email" | translate
+                                    }}</label
+                                >
+                                <div class="col-span-12 sm:col-span-9">
+                                    <input
+                                        formControlName="enterpriseEmail"
+                                        class="w-full"
+                                        type="text"
+                                        id="email"
+                                        pInputText
+                                        [placeholder]="
+                                            'enterprise.create.placeholders.enterEmail'
+                                                | translate
+                                        "
+                                    />
+                                    <form-field-error></form-field-error>
+                                </div>
+                            </div>
+
+                            <!-- Hotline -->
+                            <div
+                                class="my-3 grid grid-cols-12 items-center gap-2 sm:gap-4"
+                                errorMessages
+                            >
+                                <label
+                                    for="hotline"
+                                    class="col-span-12 font-normal sm:col-span-3"
+                                    >{{
+                                        "enterprise.create.hotline" | translate
+                                    }}</label
+                                >
+                                <div class="col-span-12 sm:col-span-9">
+                                    <input
+                                        formControlName="hotline"
+                                        class="w-full"
+                                        type="text"
+                                        id="hotline"
+                                        pInputText
+                                        [placeholder]="
+                                            'enterprise.create.placeholders.enterHotline'
+                                                | translate
+                                        "
+                                    />
+                                    <form-field-error></form-field-error>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="flex justify-between pt-6">
+                        <p-button
+                            [label]="'common.back' | translate"
+                            severity="secondary"
+                            icon="pi pi-arrow-left"
+                            (onClick)="activateCallback(2)"
+                        />
+                        <p-button
+                            [label]="'common.create' | translate"
+                            styleClass="w-full"
+                            severity="primary"
+                            [disabled]="disableSubmitButton"
+                            (onClick)="submit()"
+                        ></p-button>
+                    </div>
+                </ng-template>
+            </p-step-panel>
+        </p-step-panels>
+    </p-stepper>
+</div>
+
 <div>
     <p-toast key="center" position="top-center" />
 </div>

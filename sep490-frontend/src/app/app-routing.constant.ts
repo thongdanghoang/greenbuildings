@@ -22,6 +22,7 @@ export class AppRoutingConstants {
   public static readonly ACCOUNT_INFO_PATH = 'account-info';
   public static readonly INVITATION_PATH = 'invitation';
   public static readonly CREATE_ENTERPRISE_PATH = 'create-enterprise';
+  public static readonly CREATE_TENANT = 'create-tenant';
 
   // Enterprise Module
   public static readonly ENTERPRISE_PATH = 'enterprise';

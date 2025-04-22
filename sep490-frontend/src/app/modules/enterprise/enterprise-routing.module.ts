@@ -6,6 +6,7 @@ import {BuildingDetailsComponent} from './components/building-details/building-d
 import {BuildingManagementComponent} from './components/building-management/building-management.component';
 import {BuildingsComponent} from './components/buildings/buildings.component';
 import {CreateEnterpriseComponent} from './components/create-enterprise/create-enterprise.component';
+import {CreateTenantComponent} from './components/create-tenant/create-tenant.component';
 import {EmissionActivityComponent} from './components/emission-activity/emission-activity.component';
 import {EmissionActivityDetailComponent} from './components/emission-activity-detail/emission-activity-detail.component';
 import {EnterpriseInvitationComponent} from './components/enterprise-invitation/enterprise-invitation.component';
@@ -71,6 +72,10 @@ const routes: Routes = [
       {
         path: `${AppRoutingConstants.CREATE_ENTERPRISE_PATH}`,
         component: CreateEnterpriseComponent
+      },
+      {
+        path: `${AppRoutingConstants.CREATE_TENANT}`,
+        component: CreateTenantComponent
       },
       {
         path: `${AppRoutingConstants.ACTIVITY_TYPE}/:id`,

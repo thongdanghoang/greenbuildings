@@ -158,6 +158,9 @@ public class UserServiceImpl extends SagaManager implements UserService {
         if (user.getRole() != UserRole.BASIC_USER || user.getEnterprise().getEnterprise() != null) {
             throw new BusinessException("user", "validation.business.createEnterprise.alreadyExists");
         }
+        if (enterpriseDTO.getRole() != UserRole.ENTERPRISE_OWNER && enterpriseDTO.getRole() != UserRole.TENANT) {
+            throw new TechnicalException("Invalid role for enterprise owner");
+        }
         var future = new CompletableFuture<>();
         var correlationId = UUID.randomUUID().toString();
         getPendingSagaResponses().put(correlationId, future);
@@ -168,13 +171,14 @@ public class UserServiceImpl extends SagaManager implements UserService {
                                                                  .builder()
                                                                  .email(enterpriseDTO.getEnterpriseEmail())
                                                                  .name(enterpriseDTO.getName())
+                                                                 .role(enterpriseDTO.getRole())
                                                                  .hotline(enterpriseDTO.getHotline())
                                                                  .build());
         try { // Wait synchronously for response
             var enterpriseId = UUID.fromString(future.get(TRANSACTION_TIMEOUT, TimeUnit.SECONDS).toString());// Timeout in case response is lost
             user.getEnterprise().setEnterprise(enterpriseId);
             user.getEnterprise().setUser(user);
-            user.setRole(UserRole.ENTERPRISE_OWNER);
+            user.setRole(enterpriseDTO.getRole());
             user.getEnterprise().setScope(UserScope.ENTERPRISE);
             userRepo.save(user); // COMPLETE
         } catch (TimeoutException e) {

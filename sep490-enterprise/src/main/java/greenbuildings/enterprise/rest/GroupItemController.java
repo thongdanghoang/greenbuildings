@@ -23,8 +23,7 @@ import java.util.UUID;
 @RequestMapping("/group-items")
 @RequiredArgsConstructor
 @RolesAllowed({
-        UserRole.RoleNameConstant.ENTERPRISE_OWNER,
-        UserRole.RoleNameConstant.ENTERPRISE_EMPLOYEE
+        UserRole.RoleNameConstant.ENTERPRISE_OWNER
 })
 public class GroupItemController extends AbstractRestController {
     

@@ -54,7 +54,7 @@ export class EnterpriseUserDetailsComponent extends AbstractFormComponent<Enterp
       nonNullable: true,
       validators: [Validators.required]
     }),
-    role: new FormControl(UserRole[UserRole.ENTERPRISE_EMPLOYEE], {
+    role: new FormControl(UserRole[UserRole.BASIC_USER], {
       nonNullable: true
     }),
     scope: new FormControl<string>('', {
@@ -218,13 +218,6 @@ export class EnterpriseUserDetailsComponent extends AbstractFormComponent<Enterp
     );
   }
 
-  get roleEmployee(): boolean {
-    return (
-      this.enterpriseUserStructure.role.value ===
-      UserRole[UserRole.ENTERPRISE_EMPLOYEE]
-    );
-  }
-
   get buildingPermissions(): FormArray {
     return this.formGroup.get('buildingPermissions') as FormArray;
   }
@@ -336,11 +329,7 @@ export class EnterpriseUserDetailsComponent extends AbstractFormComponent<Enterp
   }
 
   private initializeEnterprisePermission(): void {
-    if (
-      this.scopeEnterprise &&
-      this.roleEmployee &&
-      this.buildingPermissions.controls.length > 0
-    ) {
+    if (this.scopeEnterprise && this.buildingPermissions.controls.length > 0) {
       this.enterpriseUserStructure.enterprisePermission.setValue(
         this.buildingPermissions.controls[0].value.role
       );
