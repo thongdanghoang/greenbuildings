@@ -358,7 +358,8 @@
     "currentBalance": "当前余额",
     "selectCreditPackage": "选择要购买的信用包",
     "about": "关于信用",
-    "termService": "服务条款"
+    "termService": "服务条款",
+    "guide": "指南"
   },
   "sidebar": {
     "basicUser": {
@@ -390,7 +391,9 @@
       "emissionSource": "排放源",
       "fuel": "燃料",
       "emissionFactor": "排放因子",
-      "chemicalDensity": "化學密度"
+      "chemicalDensity": "化學密度",
+      "credit": "信用管理",
+      "emission": "排放管理"
     }
   },
   "admin": {
@@ -685,5 +688,39 @@
     "search": "搜索",
     "close": "关闭",
     "mobileNotSupported": "此功能在移动设备上不受支持"
+  },
+  "creditPackageGuide": {
+    "guideTitle": "选择合适的信用套餐",
+    "confirmationMessage": "您想获得指导以选择适合您企业的信用套餐吗？",
+    "cancel": "取消",
+    "proceed": "继续",
+    "back": "返回",
+    "close": "关闭",
+    "doNotShowAgain": "不再显示",
+    "stepTwo": {
+      "enterprise": "企业",
+      "numberMonth": "月数",
+      "numberMaxDevice": "最大设备数",
+      "totalCredit": "总信用",
+      "notEnoughCredit": "信用不足，无法继续",
+      "monthsError": "请输入 1 到 100 个月",
+      "devicesError": "请至少输入 1 个设备",
+      "creditConversion": "信用转换",
+      "timeMonth": "时间（月）",
+      "numberOfDevicesHeader": "设备数量",
+      "creditConversionTable": "信用转换表",
+      "conversionType": "转换类型",
+      "ratio": "比率",
+      "convertType": {
+        "MONTH": "月",
+        "DEVICE": "设备"
+      },
+      "enterMonthsAndDevicesInstruction": "请输入月份数和最大设备数，以便我们为您计算购买信用包所需的信用。"
+    },
+    "stepThree": {
+      "title": "推荐的信用包",
+      "description": "根据您输入的信息，我们推荐以下信用包：",
+      "noSuitablePackage": "未找到适合您需求的信用包。"
+    }
   }
 }

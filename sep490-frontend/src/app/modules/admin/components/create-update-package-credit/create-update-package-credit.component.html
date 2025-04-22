@@ -1,4 +1,13 @@
-<div class="px-5">
+<p-button
+    (onClick)="back()"
+    class="*:min-w-28"
+    label="{{ 'common.back' | translate }}"
+    severity="primary"
+    outlined="true"
+    icon="pi pi-arrow-left"
+    size="small"
+/>
+<div class="mt-4 px-5">
     @if (isEdit) {
         <h1 class="text-lg font-bold">
             {{ "enterprise.buildings.details.edit" | translate }}

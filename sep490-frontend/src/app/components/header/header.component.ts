@@ -6,7 +6,10 @@ import {Drawer} from 'primeng/drawer';
 import {Observable, filter, map, switchMap, take, takeUntil} from 'rxjs';
 import {AppRoutingConstants} from '../../app-routing.constant';
 import {UserRole} from '../../modules/authorization/enums/role-names';
-import {ApplicationService} from '../../modules/core/services/application.service';
+import {
+  ApplicationService,
+  UserData
+} from '../../modules/core/services/application.service';
 import {ThemeService} from '../../modules/core/services/theme.service';
 import {SubscriptionAwareComponent} from '../../modules/core/subscription-aware.component';
 import {UserLocale} from '../../modules/shared/enums/user-language.enum';
@@ -84,11 +87,15 @@ export class HeaderComponent
   }
 
   protected buildMenuItems(): void {
-    this.applicationService
-      .getUserRoles()
-      .pipe(take(1))
-      .subscribe(role => {
-        if (!role.includes(UserRole.BASIC_USER)) {
+    this.applicationService.UserData.pipe(take(1)).subscribe(
+      (userData: UserData): void => {
+        this.menuItems = [];
+        if (
+          this.applicationService.includeRole(
+            userData.authorities,
+            UserRole.ENTERPRISE_OWNER
+          )
+        ) {
           this.menuItems.push({
             label: 'common.profile',
             icon: 'pi pi-user',
@@ -100,22 +107,34 @@ export class HeaderComponent
           icon: 'pi pi-power-off',
           command: (): void => this.logout()
         });
-      });
+      }
+    );
   }
 
   protected buildUserMenuMobileItems(): void {
-    this.userMenuMobileItems = [
-      {
-        label: 'header.nav.Account',
-        items: [
+    this.applicationService.UserData.pipe(take(1)).subscribe(
+      (userData: UserData): void => {
+        this.userMenuMobileItems = [
           {
+            label: 'header.nav.Account',
+            items: []
+          }
+        ];
+
+        if (
+          this.applicationService.includeRole(
+            userData.authorities,
+            UserRole.ENTERPRISE_OWNER
+          )
+        ) {
+          this.userMenuMobileItems[0].items!.push({
             label: 'common.profile',
             icon: 'pi pi-user',
             command: (): void => this.userProfile()
-          }
-        ]
+          });
+        }
       }
-    ];
+    );
   }
 
   protected changeLanguage(language: Language): void {

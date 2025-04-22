@@ -1,0 +1,390 @@
+<div class="mt-4 w-[600px] sm:w-[700px] md:w-[800px]">
+    <!-- Header -->
+    <div class="p-dialog-header border-b p-0">
+        <span class="text-xl font-semibold">
+            {{ "creditPackageGuide.guideTitle" | translate }}
+        </span>
+        <button
+            pButton
+            type="button"
+            icon="pi pi-times"
+            class="p-button-rounded p-button-text"
+            (click)="closeDialog()"
+        ></button>
+    </div>
+
+    <!-- Stepper with Three Steps -->
+    <p-stepper [value]="1" class="block">
+        <p-step-panels class="block h-full">
+            <!-- Step 1: Confirmation -->
+            <p-step-panel [value]="1">
+                <ng-template #content let-activateCallback="activateCallback">
+                    <div
+                        class="p-dialog-content flex min-h-[150px] flex-col overflow-hidden p-0"
+                    >
+                        <div class="my-4 px-4">
+                            <p>
+                                {{
+                                    "creditPackageGuide.confirmationMessage"
+                                        | translate
+                                }}
+                            </p>
+                        </div>
+                        <div class="mt-4 flex items-center justify-end px-2">
+                            <div class="flex items-center">
+                                <p-button
+                                    label="{{
+                                        'creditPackageGuide.proceed' | translate
+                                    }}"
+                                    icon="pi pi-arrow-right"
+                                    iconPos="right"
+                                    class="ml-2"
+                                    (onClick)="activateCallback(2)"
+                                ></p-button>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+            </p-step-panel>
+
+            <!-- Step 2: Input Form -->
+            <p-step-panel [value]="2">
+                <ng-template #content let-activateCallback="activateCallback">
+                    <div
+                        class="p-dialog-content flex min-h-[500px] flex-col overflow-hidden p-0"
+                    >
+                        <div class="my-4 px-4">
+                            <!-- Balance and Info -->
+                            <div
+                                class="mb-4 flex flex-col justify-center gap-2 border border-primary px-4 lg:flex-row"
+                            >
+                                <div class="h-full gap-2 p-5">
+                                    <span
+                                        class="lg:0 mb-8 flex items-center justify-center text-primary"
+                                    >
+                                        {{
+                                            "purchaseCredit.currentBalance"
+                                                | translate
+                                        }}: {{ balance | number }}
+                                    </span>
+                                    <!-- Display Credit Conversion Ratios -->
+                                    <div class="mt-4">
+                                        <h4 class="font-semibold">
+                                            {{
+                                                "creditPackageGuide.stepTwo.conversionType"
+                                                    | translate
+                                            }}
+                                            -
+                                            {{
+                                                "creditPackageGuide.stepTwo.ratio"
+                                                    | translate
+                                            }}
+                                        </h4>
+                                        <ul class="list-disc pl-5">
+                                            <li
+                                                *ngFor="
+                                                    let ratio of creditConvertRatios
+                                                "
+                                                class="mt-2"
+                                            >
+                                                <span
+                                                    >{{
+                                                        "creditPackageGuide.stepTwo.convertType." +
+                                                            ratio.convertType
+                                                            | translate
+                                                    }}: {{ ratio.ratio }}</span
+                                                >
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <!-- New Instruction Text -->
+                                    <div class="mt-4">
+                                        <p
+                                            class="text-surface-500 dark:text-surface-400"
+                                        >
+                                            {{
+                                                "creditPackageGuide.stepTwo.enterMonthsAndDevicesInstruction"
+                                                    | translate
+                                            }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Form -->
+                            <form
+                                [formGroup]="formGroup"
+                                class="mt-2 grid justify-between gap-4 px-4 pt-4 lg:grid-cols-2"
+                            >
+                                <div class="mb-4 block">
+                                    <div
+                                        class="mb-4 flex items-center justify-evenly gap-2"
+                                    >
+                                        <label class="w-40 font-semibold">
+                                            {{
+                                                "creditPackageGuide.stepTwo.numberMonth"
+                                                    | translate
+                                            }}
+                                        </label>
+                                        <p-inputnumber
+                                            id="numberOfMonths"
+                                            type="number"
+                                            formControlName="months"
+                                            [showButtons]="true"
+                                            [step]="1"
+                                            buttonLayout="horizontal"
+                                            spinnerMode="horizontal"
+                                            inputId="horizontal"
+                                            [inputStyle]="{ width: '4rem' }"
+                                            [inputStyleClass]="'text-center'"
+                                            (onInput)="calculateTotalToPay()"
+                                        >
+                                            <ng-template #incrementbuttonicon>
+                                                <span class="pi pi-plus"></span>
+                                            </ng-template>
+                                            <ng-template #decrementbuttonicon>
+                                                <span
+                                                    class="pi pi-minus"
+                                                ></span>
+                                            </ng-template>
+                                        </p-inputnumber>
+                                    </div>
+                                    <div
+                                        class="flex items-center justify-center"
+                                    >
+                                        <span
+                                            class="text-sm text-red-500"
+                                            *ngIf="
+                                                formGroup.get('months')
+                                                    ?.invalid &&
+                                                formGroup.get('months')?.touched
+                                            "
+                                        >
+                                            {{
+                                                "creditPackageGuide.stepTwo.monthsError"
+                                                    | translate
+                                            }}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="mb-2 block">
+                                    <div
+                                        class="mb-4 flex items-center justify-evenly gap-2"
+                                    >
+                                        <label class="w-44 font-semibold">
+                                            {{
+                                                "creditPackageGuide.stepTwo.numberMaxDevice"
+                                                    | translate
+                                            }}
+                                        </label>
+                                        <p-inputnumber
+                                            id="numberOfDevices"
+                                            type="number"
+                                            formControlName="numberOfDevices"
+                                            [showButtons]="true"
+                                            [step]="50"
+                                            buttonLayout="horizontal"
+                                            spinnerMode="horizontal"
+                                            inputId="horizontal"
+                                            [inputStyle]="{ width: '4rem' }"
+                                            [inputStyleClass]="'text-center'"
+                                            [allowEmpty]="false"
+                                            (onInput)="calculateTotalToPay()"
+                                        >
+                                            <ng-template #incrementbuttonicon>
+                                                <span class="pi pi-plus"></span>
+                                            </ng-template>
+                                            <ng-template #decrementbuttonicon>
+                                                <span
+                                                    class="pi pi-minus"
+                                                ></span>
+                                            </ng-template>
+                                        </p-inputnumber>
+                                    </div>
+                                    <div
+                                        class="flex items-center justify-center"
+                                    >
+                                        <span
+                                            class="text-sm text-red-500"
+                                            *ngIf="
+                                                formGroup.get('numberOfDevices')
+                                                    ?.invalid &&
+                                                formGroup.get('numberOfDevices')
+                                                    ?.touched
+                                            "
+                                        >
+                                            {{
+                                                "creditPackageGuide.stepTwo.devicesError"
+                                                    | translate
+                                            }}
+                                        </span>
+                                    </div>
+                                </div>
+                            </form>
+
+                            <!-- Total and Confirmation -->
+                            <div class="flex flex-col gap-8 p-4">
+                                <div
+                                    class="flex flex-col-reverse items-center justify-between gap-2 lg:flex-row"
+                                >
+                                    <span
+                                        class="block text-surface-500 dark:text-surface-400"
+                                    >
+                                        {{
+                                            "creditPackageGuide.stepTwo.totalCredit"
+                                                | translate
+                                        }}:
+                                        {{ totalToPay | number }}
+                                    </span>
+                                </div>
+                                <div *ngIf="!sufficientBalance">
+                                    <div
+                                        class="flex flex-row items-center justify-between"
+                                    >
+                                        <p-message severity="warn">
+                                            {{
+                                                "creditPackageGuide.stepTwo.notEnoughCredit"
+                                                    | translate
+                                            }}
+                                        </p-message>
+                                        <a
+                                            [routerLink]="[
+                                                '/',
+                                                'enterprise',
+                                                'plan',
+                                            ]"
+                                            (click)="closeDialog()"
+                                            class="text-primary hover:underline"
+                                        >
+                                            {{
+                                                "common.rechargeNow" | translate
+                                            }}
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-2 flex justify-between px-4">
+                            <p-button
+                                label="{{
+                                    'creditPackageGuide.back' | translate
+                                }}"
+                                severity="secondary"
+                                icon="pi pi-arrow-left"
+                                (onClick)="activateCallback(1)"
+                            ></p-button>
+                            <p-button
+                                label="{{
+                                    'creditPackageGuide.proceed' | translate
+                                }}"
+                                icon="pi pi-arrow-right"
+                                severity="primary"
+                                [disabled]="
+                                    totalToPay <= 0 || !sufficientBalance
+                                "
+                                (onClick)="proceedToStep3(activateCallback)"
+                            ></p-button>
+                        </div>
+                    </div>
+                </ng-template>
+            </p-step-panel>
+
+            <!-- Step 3: Recommended Credit Package -->
+            <p-step-panel [value]="3">
+                <ng-template #content let-activateCallback="activateCallback">
+                    <div
+                        class="p-dialog-content flex min-h-[300px] flex-col overflow-hidden p-0"
+                    >
+                        <div class="my-4 px-4">
+                            <h3 class="text-lg font-semibold">
+                                {{
+                                    "creditPackageGuide.stepThree.title"
+                                        | translate
+                                }}
+                            </h3>
+                            <p
+                                class="mt-2 text-surface-500 dark:text-surface-400"
+                            >
+                                {{
+                                    "creditPackageGuide.stepThree.description"
+                                        | translate
+                                }}
+                            </p>
+                            <!-- Display Recommended Package using card-template -->
+                            <div class="mt-4 flex justify-center">
+                                <ng-container
+                                    *ngIf="recommendedPackage; else noPackage"
+                                >
+                                    <div
+                                        class="box-shadow relative w-full max-w-40 cursor-pointer rounded-lg border border-2 border-t-2 border-gray-50 border-primary bg-white text-center shadow-lg shadow-primary/20 transition-all duration-300 *:w-full dark:border-gray-950 dark:bg-zinc-900"
+                                    >
+                                        <div
+                                            class="absolute -left-3 -top-3 flex h-12 !w-12 rotate-[332deg] transform-gpu items-center justify-center rounded-full bg-red-500 text-base font-bold text-white shadow-md"
+                                            *ngIf="recommendedPackage.discount"
+                                        >
+                                            -{{ recommendedPackage.discount }}%
+                                        </div>
+                                        <div class="rounded-t p-4">
+                                            <img
+                                                src="assets/images/creditIcon.svg"
+                                                alt="Coin Icon"
+                                                class="mx-auto w-16"
+                                            />
+                                        </div>
+                                        <div
+                                            class="border-b p-4 text-lg font-semibold"
+                                        >
+                                            {{
+                                                recommendedPackage.numberOfCredits
+                                                    | number: "1.0-0"
+                                            }}
+                                            {{
+                                                "payment.history.credit.title"
+                                                    | translate
+                                            }}
+                                        </div>
+                                        <div
+                                            class="p-2 text-center text-base font-medium text-gray-600 dark:text-gray-400"
+                                        >
+                                            {{
+                                                formatedCurrency(
+                                                    recommendedPackage.convertedPriceCurrency
+                                                )
+                                            }}
+                                        </div>
+                                    </div>
+                                </ng-container>
+                                <ng-template #noPackage>
+                                    <p class="text-red-500">
+                                        {{
+                                            "creditPackageGuide.stepThree.noSuitablePackage"
+                                                | translate
+                                        }}
+                                    </p>
+                                </ng-template>
+                            </div>
+                        </div>
+                        <div class="mt-2 flex justify-between px-4">
+                            <p-button
+                                label="{{
+                                    'creditPackageGuide.back' | translate
+                                }}"
+                                severity="secondary"
+                                icon="pi pi-arrow-left"
+                                (onClick)="activateCallback(2)"
+                            ></p-button>
+                            <p-button
+                                label="{{
+                                    'creditPackageGuide.close' | translate
+                                }}"
+                                icon="pi pi-check"
+                                severity="primary"
+                                (onClick)="closeDialog()"
+                            ></p-button>
+                        </div>
+                    </div>
+                </ng-template>
+            </p-step-panel>
+        </p-step-panels>
+    </p-stepper>
+</div>

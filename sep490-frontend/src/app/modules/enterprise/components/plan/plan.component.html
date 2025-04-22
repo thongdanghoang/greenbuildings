@@ -86,12 +86,17 @@
                 ></ng-container>
             }
         </div>
-        <div class="mb-8 flex items-center justify-center">
+        <div class="mb-8 flex items-center justify-center gap-4">
             <p-button
                 severity="primary"
                 [label]="'payment.history.button.buyCredit' | translate"
                 [disabled]="!selectedPackage"
                 (onClick)="onBuyCredit()"
+            />
+            <p-button
+                severity="secondary"
+                [label]="'purchaseCredit.guide' | translate"
+                (onClick)="showCreditPackageDialog()"
             />
         </div>
     </div>

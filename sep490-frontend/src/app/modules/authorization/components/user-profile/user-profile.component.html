@@ -1,26 +1,25 @@
-<div class="sm:px-5">
+<p-button
+    (onClick)="back()"
+    class="*:min-w-28"
+    label="{{ 'common.back' | translate }}"
+    severity="primary"
+    outlined="true"
+    icon="pi pi-arrow-left"
+    size="small"
+/>
+<div class="mt-4 sm:px-5">
     @if (isEdit) {
-        <h1 class="text-lg font-bold">
+        <h1 class="text-lg font-bold text-primary">
             {{ "enterprise.Users.detail" | translate }}
         </h1>
     } @else {
-        <h1 class="text-lg font-bold">
+        <h1 class="text-lg font-bold text-primary">
             {{ "enterprise.Users.create" | translate }}
         </h1>
     }
 </div>
 <form [formGroup]="formGroup" class="py-5 sm:mt-5 sm:px-5">
     @if (isEdit) {
-        <!-- ID -->
-        <div class="my-3 mb-8 grid grid-cols-12 items-center gap-2 sm:gap-4">
-            <label for="email" class="col-span-12 font-normal sm:col-span-3">{{
-                "enterprise.Users.id" | translate
-            }}</label>
-            <div class="col-span-12 *:w-full sm:col-span-6">
-                <input type="text" pInputText formControlName="id" />
-            </div>
-        </div>
-
         <!--   createdDate   -->
         <div class="my-3 mb-8 grid grid-cols-12 items-center gap-2 sm:gap-4">
             <label for="email" class="col-span-12 font-normal sm:col-span-3">{{
@@ -57,20 +56,6 @@
             <form-field-error></form-field-error>
         </div>
     </div>
-
-    @if (isEdit) {
-        <!-- Email Verified -->
-        <div
-            class="my-3 mb-6 flex items-center justify-between gap-2 sm:grid sm:grid-cols-12 sm:gap-4"
-        >
-            <label for="email" class="font-normal sm:col-span-3">{{
-                "enterprise.Users.emailVerified" | translate
-            }}</label>
-            <div class="sm:col-span-6">
-                <p-checkbox formControlName="emailVerified" [binary]="true" />
-            </div>
-        </div>
-    }
 
     <!-- First Name -->
     <div

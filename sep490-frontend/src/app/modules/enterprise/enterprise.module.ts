@@ -31,6 +31,7 @@ import {ActivityTypeDialogComponent} from './dialog/activity-type-dialog/activit
 import {PaymentDetailDialogComponent} from './dialog/payment-detail-dialog/payment-detail-dialog.component';
 import {CreditDeductionHistoryDialogComponent} from './dialog/credit-deduction-history-dialog/credit-deduction-history-dialog.component';
 import {TransactionService} from './services/transaction.service';
+import {CreditPackageGuideDialogComponent} from './dialog/credit-package-guide-dialog/credit-package-guide-dialog.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import {TransactionService} from './services/transaction.service';
     ActivityTypeComponent,
     ActivityTypeDialogComponent,
     PaymentDetailDialogComponent,
-    CreditDeductionHistoryDialogComponent
+    CreditDeductionHistoryDialogComponent,
+    CreditPackageGuideDialogComponent
   ],
   imports: [SharedModule, EnterpriseRoutingModule],
   providers: [
