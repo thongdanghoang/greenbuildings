@@ -1,4 +1,4 @@
-package greenbuildings.enterprise.config;
+package greenbuildings.enterprise.configs;
 
 import io.minio.MinioClient;
 import org.springframework.beans.factory.annotation.Value;

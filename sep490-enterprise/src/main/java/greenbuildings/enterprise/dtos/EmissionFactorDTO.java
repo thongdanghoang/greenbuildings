@@ -2,11 +2,13 @@ package greenbuildings.enterprise.dtos;
 
 
 import greenbuildings.enterprise.enums.EmissionUnit;
+import lombok.Builder;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.UUID;
 
+@Builder(toBuilder = true)
 public record EmissionFactorDTO(
         UUID id,
         int version,

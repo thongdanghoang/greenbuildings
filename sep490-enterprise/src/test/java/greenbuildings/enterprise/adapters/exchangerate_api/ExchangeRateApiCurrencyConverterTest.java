@@ -1,7 +1,7 @@
 package greenbuildings.enterprise.adapters.exchangerate_api;
 
-import greenbuildings.enterprise.TestcontainersConfigs;
 import greenbuildings.commons.api.enums.Currency;
+import greenbuildings.enterprise.TestcontainersConfigs;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

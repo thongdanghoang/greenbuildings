@@ -3,11 +3,51 @@ package greenbuildings.enterprise.rest;
 import greenbuildings.commons.api.dto.SearchCriteriaDTO;
 import greenbuildings.enterprise.TestcontainersConfigs;
 import greenbuildings.enterprise.dtos.BuildingDTO;
+import greenbuildings.enterprise.entities.BuildingEntity;
+import greenbuildings.enterprise.repositories.BuildingRepository;
+import greenbuildings.enterprise.repositories.EnterpriseRepository;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.UUID;
 
 class BuildingControllerTest extends TestcontainersConfigs {
+    
+    @Autowired
+    private BuildingRepository buildingRepository;
+    
+    @Autowired
+    private EnterpriseRepository enterpriseRepository;
+    
+    @Test
+    void findById() {
+        var buildingEntity = new BuildingEntity();
+        buildingEntity.setName(randomString());
+        buildingEntity.setAddress(randomString());
+        buildingEntity.setAddress(randomString());
+        buildingEntity.setAddress(randomString());
+        buildingEntity.setEnterprise(enterpriseRepository.findById(UUID.fromString("664748fa-1312-4456-a88c-1ef187ec9510")).orElseThrow());
+        RestAssured.given()
+                   .auth().oauth2(getToken("enterprise.employee@greenbuildings.com", "enterprise.employee"))
+                   .contentType(ContentType.JSON)
+                   .when()
+                   .get("/buildings/" + buildingRepository.save(buildingEntity).getId())
+                   .then()
+                   .statusCode(200);
+    }
+    
+    @Test
+    void selectable() {
+        RestAssured.given()
+                   .auth().oauth2(getToken("enterprise.owner@greenbuildings.com", "enterprise.owner"))
+                   .contentType(ContentType.JSON)
+                   .when()
+                   .get("/buildings/selectable")
+                   .then()
+                   .statusCode(200);
+    }
     
     @Test
     void getEnterpriseBuildings_withValidToken_returns200() {
