@@ -8,7 +8,6 @@ import greenbuildings.enterprise.entities.CreditPackageEntity;
 import greenbuildings.enterprise.entities.CreditPackageVersionEntity;
 import greenbuildings.enterprise.repositories.CreditPackageRepository;
 import greenbuildings.enterprise.repositories.CreditPackageVersionRepository;
-import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +18,10 @@ import java.util.stream.Collectors;
 
 public class CreditPackageControllerTest extends TestcontainersConfigs {
     
-    private static final String PATH = "/credit-package";
+    @Override
+    protected String getBaseUrl() {
+        return "/credit-package";
+    }
     
     @Autowired
     private CreditPackageVersionRepository creditPackageVersionRepository;
@@ -29,38 +31,35 @@ public class CreditPackageControllerTest extends TestcontainersConfigs {
     
     @Test
     void findAll_returns200() {
-        RestAssured.given()
-                   .auth().oauth2(getToken("enterprise.owner@greenbuildings.com", "enterprise.owner"))
-                   .contentType(ContentType.JSON)
-                   .when()
-                   .get(PATH)
-                   .then()
-                   .log().all()
-                   .statusCode(200);
+        asEnterpriseOwner()
+                .contentType(ContentType.JSON)
+                .when()
+                .get(getBaseUrl())
+                .then()
+                .log().all()
+                .statusCode(200);
     }
     
     @Test
     void findById_returns404() {
-        RestAssured.given()
-                   .auth().oauth2(getToken("enterprise.owner@greenbuildings.com", "enterprise.owner"))
-                   .contentType(ContentType.JSON)
-                   .when()
-                   .get(PATH + "/" + UUID.randomUUID())
-                   .then()
-                   .log().all()
-                   .statusCode(404);
+        asEnterpriseOwner()
+                .contentType(ContentType.JSON)
+                .when()
+                .get(getBaseUrl() + "/" + UUID.randomUUID())
+                .then()
+                .log().all()
+                .statusCode(404);
     }
     
     @Test
     void findById_returns200() {
-        RestAssured.given()
-                   .auth().oauth2(getToken("enterprise.owner@greenbuildings.com", "enterprise.owner"))
-                   .contentType(ContentType.JSON)
-                   .when()
-                   .get(PATH + "/" + creditPackageVersionRepository.findAll().stream().findAny().orElseThrow().getId())
-                   .then()
-                   .log().all()
-                   .statusCode(200);
+        asEnterpriseOwner()
+                .contentType(ContentType.JSON)
+                .when()
+                .get(getBaseUrl() + "/" + creditPackageVersionRepository.findAll().stream().findAny().orElseThrow().getId())
+                .then()
+                .log().all()
+                .statusCode(200);
     }
     
     @Test
@@ -71,15 +70,14 @@ public class CreditPackageControllerTest extends TestcontainersConfigs {
                 .price(Integer.parseInt(RandomStringUtils.randomNumeric(6)))
                 .discount(Integer.parseInt(RandomStringUtils.randomNumeric(1)))
                 .build();
-        RestAssured.given()
-                   .auth().oauth2(getToken("system.admin@greenbuildings.com", "system.admin"))
-                   .contentType(ContentType.JSON)
-                   .when()
-                   .body(payload)
-                   .post(PATH)
-                   .then()
-                   .log().all()
-                   .statusCode(201);
+        asSystemAdmin()
+                .contentType(ContentType.JSON)
+                .when()
+                .body(payload)
+                .post(getBaseUrl())
+                .then()
+                .log().all()
+                .statusCode(201);
     }
     
     @Test
@@ -101,40 +99,37 @@ public class CreditPackageControllerTest extends TestcontainersConfigs {
                 .price(Integer.parseInt(RandomStringUtils.randomNumeric(6)))
                 .discount(Integer.parseInt(RandomStringUtils.randomNumeric(1)))
                 .build();
-        RestAssured.given()
-                   .auth().oauth2(getToken("system.admin@greenbuildings.com", "system.admin"))
-                   .contentType(ContentType.JSON)
-                   .when()
-                   .body(payload)
-                   .post(PATH)
-                   .then()
-                   .log().all()
-                   .statusCode(200);
+        asSystemAdmin()
+                .contentType(ContentType.JSON)
+                .when()
+                .body(payload)
+                .post(getBaseUrl())
+                .then()
+                .log().all()
+                .statusCode(200);
     }
     
     @Test
     void search() {
-        RestAssured.given()
-                   .auth().oauth2(getToken("system.admin@greenbuildings.com", "system.admin"))
-                   .contentType(ContentType.JSON)
-                   .when()
-                   .body(SearchCriteriaDTO.of(PageDTO.of(10, 0), null, null))
-                   .post(PATH + "/search")
-                   .then()
-                   .log().all()
-                   .statusCode(200);
+        asSystemAdmin()
+                .contentType(ContentType.JSON)
+                .when()
+                .body(SearchCriteriaDTO.of(PageDTO.of(10, 0), null, null))
+                .post(getBaseUrl() + "/search")
+                .then()
+                .log().all()
+                .statusCode(200);
     }
     
     @Test
     void deleteCreditPackages() {
-        RestAssured.given()
-                   .auth().oauth2(getToken("system.admin@greenbuildings.com", "system.admin"))
-                   .contentType(ContentType.JSON)
-                   .when()
-                   .body(creditPackageVersionRepository.findAllByActiveIsTrue().stream().map(CreditPackageVersionEntity::getId).collect(Collectors.toSet()))
-                   .delete(PATH)
-                   .then()
-                   .log().all()
-                   .statusCode(204);
+        asSystemAdmin()
+                .contentType(ContentType.JSON)
+                .when()
+                .body(creditPackageVersionRepository.findAllByActiveIsTrue().stream().map(CreditPackageVersionEntity::getId).collect(Collectors.toSet()))
+                .delete(getBaseUrl())
+                .then()
+                .log().all()
+                .statusCode(204);
     }
 }

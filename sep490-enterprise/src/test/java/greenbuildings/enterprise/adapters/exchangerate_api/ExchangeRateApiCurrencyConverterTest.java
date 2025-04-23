@@ -21,6 +21,11 @@ class ExchangeRateApiCurrencyConverterTest extends TestcontainersConfigs {
     @InjectMocks
     private ExchangeRateApiCurrencyConverter currencyConverter;
     
+    @Override
+    protected String getBaseUrl() {
+        return "";
+    }
+    
     @BeforeEach
     void setUp() {
         ExchangeRateApiResponse mockResponse = new ExchangeRateApiResponse(

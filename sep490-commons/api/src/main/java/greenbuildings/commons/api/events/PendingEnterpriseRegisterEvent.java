@@ -12,7 +12,6 @@ public record PendingEnterpriseRegisterEvent(
         @NotBlank String name,
         @NotBlank @Pattern(regexp = CommonConstant.EMAIL_PATTERN) String email,
         @NotBlank @Pattern(regexp = CommonConstant.VIETNAM_ENTERPRISE_HOTLINE_PATTERN) String hotline,
-        @NotNull UserRole role
-        ) {
+        @NotNull UserRole role) {
     public static final String TOPIC = "enterprise-create-event";
 }

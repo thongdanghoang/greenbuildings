@@ -15,9 +15,15 @@ import greenbuildings.enterprise.services.BuildingGroupService;
 import jakarta.annotation.security.RolesAllowed;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.UUID;
@@ -42,30 +48,30 @@ public class BuildingGroupController extends AbstractRestController {
     @GetMapping("/{id}")
     public ResponseEntity<BuildingGroupDTO> findById(@PathVariable UUID id) {
         return buildingGroupService.findById(id)
-                .map(buildingGroupMapper::toDetailDTO)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+                                   .map(buildingGroupMapper::toDetailDTO)
+                                   .map(ResponseEntity::ok)
+                                   .orElse(ResponseEntity.notFound().build());
     }
     
     @GetMapping
     public ResponseEntity<List<BuildingGroupDTO>> findAll() {
         return ResponseEntity.ok(buildingGroupService.findAll().stream()
-                .map(buildingGroupMapper::toDTO)
-                .toList());
+                                                     .map(buildingGroupMapper::toDTO)
+                                                     .toList());
     }
     
     @GetMapping("/building/{buildingId}")
     public ResponseEntity<List<BuildingGroupDTO>> findByBuildingId(@PathVariable UUID buildingId) {
         return ResponseEntity.ok(buildingGroupService.findByBuildingId(buildingId).stream()
-                .map(buildingGroupMapper::toDTO)
-                .toList());
+                                                     .map(buildingGroupMapper::toDTO)
+                                                     .toList());
     }
     
     @GetMapping("/tenant/{tenantId}")
     public ResponseEntity<List<BuildingGroupDTO>> findByTenantId(@PathVariable UUID tenantId) {
         return ResponseEntity.ok(buildingGroupService.findByTenantId(tenantId).stream()
-                .map(buildingGroupMapper::toDTO)
-                .toList());
+                                                     .map(buildingGroupMapper::toDTO)
+                                                     .toList());
     }
     
     @PostMapping("/search")
@@ -84,17 +90,13 @@ public class BuildingGroupController extends AbstractRestController {
         buildingGroupService.delete(id);
         return ResponseEntity.ok().build();
     }
-
+    
     @GetMapping("/building/{buildingId}/available")
     public ResponseEntity<List<BuildingGroupDTO>> getAvailableBuildingGroups(@PathVariable UUID buildingId) {
-        try {
-            List<BuildingGroupEntity> availableGroups = buildingGroupService.getAvailableBuildingGroups(buildingId);
-            return ResponseEntity.ok(availableGroups.stream()
-                    .map(buildingGroupMapper::toDTO)
-                    .toList());
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+        var availableGroups = buildingGroupService.getAvailableBuildingGroups(buildingId);
+        return ResponseEntity.ok(availableGroups.stream()
+                                                .map(buildingGroupMapper::toDTO)
+                                                .toList());
     }
     
     @PostMapping("/invite")
