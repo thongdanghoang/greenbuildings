@@ -14,8 +14,10 @@ import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.containers.KafkaContainer;
+import org.testcontainers.shaded.org.apache.commons.lang3.RandomStringUtils;
 import org.testcontainers.utility.DockerImageName;
 
+import java.security.SecureRandom;
 import java.util.Map;
 import java.util.function.Supplier;
 
@@ -108,5 +110,18 @@ public abstract class TestcontainersConfigs {
             @JsonProperty("session_state") String sessionState,
             @JsonProperty("scope") String scope
     ) {
+    }
+    
+    protected String randomEmail() {
+        return randomString() + "@greenbuildings.com";
+    }
+    
+    protected String randomNumber() {
+        return "0" + RandomStringUtils.randomNumeric(9);
+    }
+    
+    protected String randomString() {
+        var chars = "abcdefghjklmnpqrstuvwxyz".toCharArray();
+        return RandomStringUtils.random(8, 0, chars.length, false, false, chars, new SecureRandom());
     }
 }

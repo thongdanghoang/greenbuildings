@@ -4,9 +4,11 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import greenbuildings.commons.api.BaseDTO;
 import greenbuildings.commons.api.utils.CommonConstant;
+import lombok.Builder;
 
 import java.util.UUID;
 
+@Builder
 public record EnterpriseDTO(
         UUID id,
         int version,

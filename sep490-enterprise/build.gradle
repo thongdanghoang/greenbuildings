@@ -1,78 +1,124 @@
 plugins {
-	id 'java'
-	id 'org.springframework.boot' version '3.4.2'
-	id 'io.spring.dependency-management' version '1.1.7'
+    id 'java'
+    id 'org.springframework.boot' version '3.4.2'
+    id 'io.spring.dependency-management' version '1.1.7'
+    id 'jacoco'
+}
+
+jacoco {
+    toolVersion = "0.8.13"
 }
 
 group = 'sep490'
 version = '0.0.1-SNAPSHOT'
 
 java {
-	toolchain {
-		languageVersion = JavaLanguageVersion.of(21)
-	}
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
 }
 
 configurations {
-	compileOnly {
-		extendsFrom annotationProcessor
-	}
-	all {
-		exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
-		exclude group: 'commons-logging', module: 'commons-logging'
-	}
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+    all {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+        exclude group: 'commons-logging', module: 'commons-logging'
+    }
 }
 
 repositories {
-	mavenCentral()
-	maven {
-		url 'https://splunk.jfrog.io/splunk/ext-releases-local'
-	}
+    mavenCentral()
+    maven {
+        url 'https://splunk.jfrog.io/splunk/ext-releases-local'
+    }
 }
 
 dependencies {
-	implementation 'sep490:commons-api:0.0.1-SNAPSHOT'
-	implementation 'sep490:commons-springfw-impl:0.0.1-SNAPSHOT'
+    implementation 'sep490:commons-api:0.0.1-SNAPSHOT'
+    implementation 'sep490:commons-springfw-impl:0.0.1-SNAPSHOT'
 
-	implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
-	implementation 'org.springframework.boot:spring-boot-starter-security'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.springframework.kafka:spring-kafka'
-	implementation 'vn.payos:payos-java:1.0.3'
-	implementation 'org.apache.poi:poi-ooxml:5.4.1'
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.kafka:spring-kafka'
+    implementation 'vn.payos:payos-java:1.0.3'
+    implementation 'org.apache.poi:poi-ooxml:5.4.1'
 
-	// Testing
-	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-	testImplementation 'org.testcontainers:junit-jupiter'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testImplementation 'org.springframework.security:spring-security-test'
-	testImplementation 'org.testcontainers:postgresql'
-	testImplementation 'org.testcontainers:kafka'
-	testImplementation 'io.rest-assured:rest-assured'
+    // Testing
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    testImplementation 'org.testcontainers:junit-jupiter'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.security:spring-security-test'
+    testImplementation 'org.testcontainers:postgresql'
+    testImplementation 'org.testcontainers:kafka'
+    testImplementation 'io.rest-assured:rest-assured'
 
-	// Ops
-	implementation 'org.springframework.boot:spring-boot-starter-actuator'
-	implementation 'com.splunk.logging:splunk-library-javalogging:1.11.8'
-	implementation 'org.springframework.boot:spring-boot-starter-log4j2'
-	implementation 'io.minio:minio:8.5.17'
+    // Ops
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'com.splunk.logging:splunk-library-javalogging:1.11.8'
+    implementation 'org.springframework.boot:spring-boot-starter-log4j2'
+    implementation 'io.minio:minio:8.5.17'
 
-	// Database
-	implementation 'org.springframework.boot:spring-boot-starter-validation'
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.flywaydb:flyway-core'
-	implementation 'org.flywaydb:flyway-database-postgresql'
-	runtimeOnly 'org.postgresql:postgresql'
-	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
-	implementation 'redis.clients:jedis'
+    // Database
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.flywaydb:flyway-core'
+    implementation 'org.flywaydb:flyway-database-postgresql'
+    runtimeOnly 'org.postgresql:postgresql'
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    implementation 'redis.clients:jedis'
 
-	// Dev tools
-	compileOnly 'org.projectlombok:lombok'
-	annotationProcessor 'org.projectlombok:lombok'
-	annotationProcessor "org.projectlombok:lombok-mapstruct-binding:0.2.0"
-	annotationProcessor 'org.mapstruct:mapstruct-processor:1.6.2'
-	implementation 'org.mapstruct:mapstruct:1.6.2'
+    // Dev tools
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    annotationProcessor "org.projectlombok:lombok-mapstruct-binding:0.2.0"
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.6.2'
+    implementation 'org.mapstruct:mapstruct:1.6.2'
 }
 
 tasks.named('test') {
-	useJUnitPlatform()
+    useJUnitPlatform()
+}
+
+jacocoTestReport {
+    dependsOn test
+    reports {
+        xml.required = true
+        html.required = true
+        html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
+    }
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: [
+                    'greenbuildings/enterprise/dtos/**',
+                    'greenbuildings/enterprise/views/**',
+                    'greenbuildings/enterprise/mappers/*.class',
+                    'greenbuildings/enterprise/EnterpriseApplication.class',
+            ])
+        }))
+    }
+}
+
+jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            element = 'CLASS'
+            limit {
+                minimum = 0.6
+            }
+            excludes = [
+                    'greenbuildings.enterprise.dtos.*',
+                    'greenbuildings.enterprise.views.*',
+                    'greenbuildings.enterprise.mappers.*',
+                    '!greenbuildings.enterprise.mappers.decorators.*',
+                    'greenbuildings.enterprise.EnterpriseApplication'
+            ]
+        }
+    }
+}
+
+test {
+    finalizedBy jacocoTestReport
 }
