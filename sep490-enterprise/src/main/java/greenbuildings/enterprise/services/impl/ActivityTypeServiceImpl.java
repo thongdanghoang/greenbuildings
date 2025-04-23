@@ -9,7 +9,7 @@ import greenbuildings.enterprise.entities.EmissionActivityEntity;
 import greenbuildings.enterprise.mappers.ActivityTypeMapper;
 import greenbuildings.enterprise.repositories.ActivityTypeRepository;
 import greenbuildings.enterprise.repositories.EmissionActivityRepository;
-import greenbuildings.enterprise.repositories.EnterpriseRepository;
+import greenbuildings.enterprise.repositories.TenantRepository;
 import greenbuildings.enterprise.services.ActivityTypeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -36,7 +36,7 @@ public class ActivityTypeServiceImpl implements ActivityTypeService {
     private final ActivityTypeRepository repository;
     private final EmissionActivityRepository emissionActivityRepository;
     private final ActivityTypeMapper mapper;
-    private final EnterpriseRepository enterpriseRepository;
+    private final TenantRepository tenantRepository;
     
     @Override
     public List<ActivityTypeEntity> findAll() {
@@ -44,13 +44,16 @@ public class ActivityTypeServiceImpl implements ActivityTypeService {
     }
     
     @Override
-    public List<ActivityTypeEntity> findByTenantId(UUID entepriseId) {
-        return repository.findByTenantId(entepriseId);
+    public List<ActivityTypeEntity> findByTenantId(UUID tenantId) {
+        if (Objects.isNull(tenantId) || !tenantRepository.existsById(tenantId)) {
+            throw new NoSuchElementException("Tenant with ID " + tenantId + " not found");
+        }
+        return repository.findByTenantId(tenantId);
     }
     
     @Override
     public ActivityTypeEntity create(ActivityTypeDTO dto) {
-        if (Objects.isNull(dto.tenantID()) || !enterpriseRepository.existsById(dto.tenantID())) {
+        if (Objects.isNull(dto.tenantID()) || !tenantRepository.existsById(dto.tenantID())) {
             throw new NoSuchElementException("Tenant with ID " + dto.tenantID() + " not found");
         }
         ActivityTypeEntity entity = mapper.toEntity(dto);

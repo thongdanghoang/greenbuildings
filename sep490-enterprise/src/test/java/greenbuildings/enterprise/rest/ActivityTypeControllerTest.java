@@ -11,7 +11,6 @@ import greenbuildings.enterprise.mappers.EnterpriseMapper;
 import greenbuildings.enterprise.mappers.TenantMapper;
 import greenbuildings.enterprise.services.EnterpriseService;
 import greenbuildings.enterprise.services.TenantService;
-import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,12 +33,17 @@ public class ActivityTypeControllerTest extends TestcontainersConfigs {
     @Autowired
     private EnterpriseMapper enterpriseMapper;
     
+    @Override
+    protected String getBaseUrl() {
+        return "/activity-types";
+    }
+    
     private UUID createEnterprise() {
         var enterprise = EnterpriseDTO
                 .builder()
                 .email(randomEmail())
                 .name(randomString())
-                .hotline(randomNumber())
+                .hotline(randomPhoneNumber())
                 .build();
         return enterpriseService.createEnterprise(
                 enterpriseMapper.createEnterprise(enterprise)
@@ -51,7 +55,7 @@ public class ActivityTypeControllerTest extends TestcontainersConfigs {
                 .builder()
                 .email(randomEmail())
                 .name(randomString())
-                .hotline(randomNumber())
+                .hotline(randomPhoneNumber())
                 .build();
         return tenantService.create(tenantMapper.createTenant(tenant)).getId();
     }
@@ -64,17 +68,16 @@ public class ActivityTypeControllerTest extends TestcontainersConfigs {
                 .description("Donec iaculis viverra ante et.")
                 .tenantID(createTenant())
                 .build();
-        RestAssured.given()
-                   .auth().oauth2(getToken("enterprise.owner@greenbuildings.com", "enterprise.owner"))
-                   .contentType(ContentType.JSON)
-                   .when()
-                   .body(payload)
-                   .post("/activity-types/create")
-                   .then()
-                   .statusCode(201);
+        asEnterpriseOwner()
+                .contentType(ContentType.JSON)
+                .when()
+                .body(payload)
+                .post(getBaseUrl() + "/create")
+                .then()
+                .statusCode(201);
     }
     
-    /*@Test
+    @Test
     void create_returns200() {
         var payload = ActivityTypeDTO
                 .builder()
@@ -82,15 +85,14 @@ public class ActivityTypeControllerTest extends TestcontainersConfigs {
                 .description("Donec iaculis viverra ante et.")
                 .tenantID(createTenant())
                 .build();
-        RestAssured.given()
-                   .auth().oauth2(getToken("enterprise.owner@greenbuildings.com", "enterprise.owner"))
-                   .contentType(ContentType.JSON)
-                   .when()
-                   .body(payload)
-                   .post("/activity-types")
-                   .then()
-                   .statusCode(200);
-    }*/
+        asEnterpriseOwner()
+                .contentType(ContentType.JSON)
+                .when()
+                .body(payload)
+                .post(getBaseUrl())
+                .then()
+                .statusCode(200);
+    }
     
     @Test
     void create_invalidEnterpriseId_returns404() {
@@ -100,14 +102,13 @@ public class ActivityTypeControllerTest extends TestcontainersConfigs {
                 .description("Maecenas nisi sem, consequat et.")
                 .tenantID(UUID.randomUUID())
                 .build();
-        RestAssured.given()
-                   .auth().oauth2(getToken("enterprise.owner@greenbuildings.com", "enterprise.owner"))
-                   .contentType(ContentType.JSON)
-                   .when()
-                   .body(payload)
-                   .post("/activity-types")
-                   .then()
-                   .statusCode(404);
+        asEnterpriseOwner()
+                .contentType(ContentType.JSON)
+                .when()
+                .body(payload)
+                .post(getBaseUrl())
+                .then()
+                .statusCode(404);
     }
     
     @Test
@@ -117,98 +118,90 @@ public class ActivityTypeControllerTest extends TestcontainersConfigs {
                 .name("Donec vulputate sapien non elementum.")
                 .description("In consequat suscipit nibh, eget.")
                 .build();
-        RestAssured.given()
-                   .auth().oauth2(getToken("enterprise.owner@greenbuildings.com", "enterprise.owner"))
-                   .contentType(ContentType.JSON)
-                   .when()
-                   .body(payload)
-                   .post("/activity-types")
-                   .then()
-                   .statusCode(404);
+        asEnterpriseOwner()
+                .contentType(ContentType.JSON)
+                .when()
+                .body(payload)
+                .post(getBaseUrl())
+                .then()
+                .statusCode(404);
     }
     
     @Test
     void searchActivityType_returns200() {
-        RestAssured.given()
-                   .auth().oauth2(getToken("enterprise.owner@greenbuildings.com", "enterprise.owner"))
-                   .contentType(ContentType.JSON)
-                   .body(new SearchCriteriaDTO<ActivityTypeCriteriaDTO>(PageDTO.of(10, 0), null, new ActivityTypeCriteriaDTO("Lorem Ipsum", UUID.randomUUID())))
-                   .when()
-                   .post("/activity-types/search")
-                   .then()
-                   .statusCode(200);
+        asEnterpriseOwner()
+                .contentType(ContentType.JSON)
+                .body(new SearchCriteriaDTO<ActivityTypeCriteriaDTO>(PageDTO.of(10, 0), null, new ActivityTypeCriteriaDTO("Lorem Ipsum", UUID.randomUUID())))
+                .when()
+                .post(getBaseUrl() + "/search")
+                .then()
+                .statusCode(200);
     }
     
     @Test
     void findAll_returns200() {
-        RestAssured.given()
-                   .auth().oauth2(getToken("enterprise.owner@greenbuildings.com", "enterprise.owner"))
-                   .contentType(ContentType.JSON)
-                   .when()
-                   .get("/activity-types")
-                   .then()
-                   .statusCode(200);
+        asEnterpriseOwner()
+                .contentType(ContentType.JSON)
+                .when()
+                .get(getBaseUrl())
+                .then()
+                .statusCode(200);
     }
     
-/*    @Test
+    @Test
     void findByEnterpriseId_returns404() {
-        RestAssured.given()
-                   .auth().oauth2(getToken("enterprise.owner@greenbuildings.com", "enterprise.owner"))
-                   .contentType(ContentType.JSON)
-                   .when()
-                   .param("tenantId", UUID.randomUUID())
-                   .get("/activity-types")
-                   .then()
-                   .statusCode(404);
-    }*/
+        asEnterpriseOwner()
+                .contentType(ContentType.JSON)
+                .when()
+                .param("tenantId", UUID.randomUUID())
+                .get(getBaseUrl())
+                .then()
+                .statusCode(404);
+    }
     
     @Test
     void findByEnterpriseId_returns200() {
-        RestAssured.given()
-                   .auth().oauth2(getToken("enterprise.owner@greenbuildings.com", "enterprise.owner"))
-                   .contentType(ContentType.JSON)
-                   .when()
-                   .param("tenantId", createTenant())
-                   .get("/activity-types")
-                   .then()
-                   .statusCode(200);
+        asEnterpriseOwner()
+                .contentType(ContentType.JSON)
+                .when()
+                .param("tenantId", createTenant())
+                .get(getBaseUrl())
+                .then()
+                .statusCode(200);
     }
     
     @Test
     void findById_returns404() {
-        RestAssured.given()
-                   .auth().oauth2(getToken("enterprise.owner@greenbuildings.com", "enterprise.owner"))
-                   .contentType(ContentType.JSON)
-                   .when()
-                   .get("/activity-types/" + UUID.randomUUID())
-                   .then()
-                   .statusCode(404);
+        asEnterpriseOwner()
+                .contentType(ContentType.JSON)
+                .when()
+                .get(getBaseUrl() + "/" + UUID.randomUUID())
+                .then()
+                .statusCode(404);
     }
     
     @Test
     void delete_returns417() {
-        RestAssured.given()
-                   .auth().oauth2(getToken("enterprise.owner@greenbuildings.com", "enterprise.owner"))
-                   .contentType(ContentType.JSON)
-                   .when()
-                   .body(Collections.emptySet())
-                   .delete("/activity-types")
-                   .then()
-                   .log().all()
-                   .statusCode(417);
+        asEnterpriseOwner()
+                .contentType(ContentType.JSON)
+                .when()
+                .body(Collections.emptySet())
+                .delete(getBaseUrl())
+                .then()
+                .log().all()
+                .statusCode(417);
     }
     
     @Test
     void delete_returnsNoContent() {
-        RestAssured.given()
-                   .auth().oauth2(getToken("enterprise.owner@greenbuildings.com", "enterprise.owner"))
-                   .contentType(ContentType.JSON)
-                   .when()
-                   .body(Set.of(UUID.randomUUID()))
-                   .delete("/activity-types")
-                   .then()
-                   .log().all()
-                   .statusCode(204);
+        asEnterpriseOwner()
+                .contentType(ContentType.JSON)
+                .when()
+                .body(Set.of(UUID.randomUUID()))
+                .delete(getBaseUrl())
+                .then()
+                .log().all()
+                .statusCode(204);
     }
     
 }

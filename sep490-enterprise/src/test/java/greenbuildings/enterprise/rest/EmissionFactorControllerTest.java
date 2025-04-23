@@ -8,7 +8,6 @@ import greenbuildings.enterprise.entities.EmissionSourceEntity;
 import greenbuildings.enterprise.enums.EmissionUnit;
 import greenbuildings.enterprise.repositories.EmissionFactorRepository;
 import greenbuildings.enterprise.repositories.EmissionSourceRepository;
-import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +22,11 @@ public class EmissionFactorControllerTest extends TestcontainersConfigs {
     
     @Autowired
     private EmissionFactorRepository emissionFactorRepository;
+    
+    @Override
+    protected String getBaseUrl() {
+        return "/emission-factor";
+    }
     
     private EmissionSourceEntity createEmissionSource() {
         var emissionSource = new EmissionSourceEntity();
@@ -53,14 +57,13 @@ public class EmissionFactorControllerTest extends TestcontainersConfigs {
                 .validTo(LocalDate.now().plusYears(1))
                 .emissionSourceDTO(EmissionSourceDTO.builder().id(createEmissionSource().getId()).build())
                 .build();
-        RestAssured.given()
-                   .auth().oauth2(getToken("enterprise.owner@greenbuildings.com", "enterprise.owner"))
-                   .contentType(ContentType.JSON)
-                   .when()
-                   .body(payload)
-                   .post("/emission-factor")
-                   .then()
-                   .statusCode(201);
+        asEnterpriseOwner()
+                .contentType(ContentType.JSON)
+                .when()
+                .body(payload)
+                .post(getBaseUrl())
+                .then()
+                .statusCode(201);
     }
     
     @Test
@@ -76,26 +79,24 @@ public class EmissionFactorControllerTest extends TestcontainersConfigs {
                 .validTo(LocalDate.now().plusYears(1))
                 .emissionSourceDTO(EmissionSourceDTO.builder().id(createEmissionSource().getId()).build())
                 .build();
-        RestAssured.given()
-                   .auth().oauth2(getToken("enterprise.owner@greenbuildings.com", "enterprise.owner"))
-                   .contentType(ContentType.JSON)
-                   .when()
-                   .body(payload)
-                   .post("/emission-factor")
-                   .then()
-                   .statusCode(200);
+        asEnterpriseOwner()
+                .contentType(ContentType.JSON)
+                .when()
+                .body(payload)
+                .post(getBaseUrl())
+                .then()
+                .statusCode(200);
     }
     
     @Test
     void findById_returns200() {
         var existEmissionFactor = createEmissionFactor();
-        RestAssured.given()
-                   .auth().oauth2(getToken("enterprise.owner@greenbuildings.com", "enterprise.owner"))
-                   .contentType(ContentType.JSON)
-                   .when()
-                   .get("/emission-factor/" + existEmissionFactor.getId())
-                   .then()
-                   .statusCode(200);
+        asEnterpriseOwner()
+                .contentType(ContentType.JSON)
+                .when()
+                .get(getBaseUrl() + "/" + existEmissionFactor.getId())
+                .then()
+                .statusCode(200);
     }
     
 }

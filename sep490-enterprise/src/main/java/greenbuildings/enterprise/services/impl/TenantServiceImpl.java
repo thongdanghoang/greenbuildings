@@ -14,6 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -30,26 +32,32 @@ public class TenantServiceImpl implements TenantService {
     
     @Override
     public Optional<TenantEntity> findById(UUID id) {
-        return tenantRepository.findById(id);
+        return tenantRepository.findByIdWithActivityTypes(id);
     }
     
     @Override
     public List<TenantEntity> findAll() {
-        return tenantRepository.findAll();
+        return tenantRepository.findALlWithActivityTypes();
     }
     
     @Override
     public Page<TenantEntity> findAll(Pageable pageable) {
-        return tenantRepository.findAll(pageable);
+        var tenants = tenantRepository.findAllProjectToUUID(pageable);
+        var results = tenantRepository
+                .findAllByIdIn(tenants.toSet())
+                .stream()
+                .collect(Collectors.toMap(TenantEntity::getId, Function.identity()));
+        return tenants.map(results::get);
     }
     
     @Override
     public TenantEntity update(UUID id, TenantDTO dto) {
         TenantEntity existingEntity = tenantRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Tenant not found with id: " + id));
+                                                      .orElseThrow(() -> new RuntimeException("Tenant not found with id: " + id));
         
         tenantMapper.partialUpdate(dto, existingEntity);
-        return tenantRepository.save(existingEntity);
+        var tenantEntityId = tenantRepository.save(existingEntity).getId();
+        return tenantRepository.findByIdWithActivityTypes(tenantEntityId).orElseThrow();
     }
     
     @Override

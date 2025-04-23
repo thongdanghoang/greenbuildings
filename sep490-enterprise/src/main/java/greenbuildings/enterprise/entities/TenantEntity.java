@@ -9,7 +9,11 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.FieldNameConstants;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -18,18 +22,23 @@ import java.util.Set;
 @Table(name = "tenant")
 @Getter
 @Setter
+@NoArgsConstructor
+@RequiredArgsConstructor
+@FieldNameConstants
 public class TenantEntity extends AbstractAuditableEntity {
 
     @Column(name = "name")
     private String name;
 
+    @NonNull
     @NotBlank
     @Pattern(regexp = CommonConstant.EMAIL_PATTERN)
     @Column(name = "email", nullable = false, unique = true)
     private String email;
     
-    @Column(name = "hotline")
+    @NonNull
     @NotBlank
+    @Column(name = "hotline")
     @Pattern(regexp = CommonConstant.VIETNAM_PHONE_PATTERN)
     private String hotline;
     
@@ -38,6 +47,5 @@ public class TenantEntity extends AbstractAuditableEntity {
     
     @OneToMany(mappedBy = "tenant")
     private Set<ActivityTypeEntity> activityTypes = new HashSet<>();
-
 
 }
