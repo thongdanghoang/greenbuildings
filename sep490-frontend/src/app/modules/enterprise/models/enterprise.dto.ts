@@ -28,6 +28,18 @@ export interface Tenant extends BaseDTO {
   name: string;
 }
 
+export enum InvitationStatus {
+  PENDING = 'PENDING',
+  ACCEPTED = 'ACCEPTED',
+  REJECTED = 'REJECTED'
+}
+
+export interface InvitationDTO extends BaseDTO {
+  buildingGroup: BuildingGroup;
+  email: string;
+  status: InvitationStatus;
+}
+
 export interface BuildingGroup extends BaseDTO {
   name: string;
   description: string;

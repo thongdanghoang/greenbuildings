@@ -7,9 +7,12 @@ import greenbuildings.enterprise.dtos.BuildingGroupCriteria;
 import greenbuildings.enterprise.dtos.BuildingGroupDTO;
 import greenbuildings.enterprise.dtos.InviteTenantToBuildingGroup;
 import greenbuildings.enterprise.entities.BuildingGroupEntity;
+import greenbuildings.enterprise.entities.InvitationEntity;
+import greenbuildings.enterprise.enums.InvitationStatus;
 import greenbuildings.enterprise.mappers.BuildingGroupMapper;
 import greenbuildings.enterprise.repositories.BuildingGroupRepository;
 import greenbuildings.enterprise.repositories.EnterpriseRepository;
+import greenbuildings.enterprise.repositories.InvitationRepository;
 import greenbuildings.enterprise.repositories.TenantRepository;
 import greenbuildings.enterprise.services.BuildingGroupService;
 import greenbuildings.enterprise.services.IdpClientService;
@@ -34,6 +37,7 @@ public class BuildingGroupServiceImpl implements BuildingGroupService {
     private final IdpClientService idpClientService;
     private final TenantRepository tenantRepository;
     private final EnterpriseRepository enterpriseRepository;
+    private final InvitationRepository invitationRepository;
     
     @Override
     public BuildingGroupEntity create(BuildingGroupDTO dto) {
@@ -109,9 +113,19 @@ public class BuildingGroupServiceImpl implements BuildingGroupService {
         if (groups.size() != dto.buildingGroupIds().size()) {
             throw new BusinessException("buildingGroupIds", "business,groups.notFound");
         }
-        // TODO
-        if (enterpriseRepository.findByEmail(dto.email()).isPresent()) {
-            throw new BusinessException("tenantEmail", "business.groups.email");
+        if (enterpriseRepository.findByEmail(dto.tenantEmail()).isPresent()) {
+            throw new BusinessException("tenantEmail", "business.groups.tenantEmail");
         }
+        List<InvitationEntity> invitationEntities =
+                dto.buildingGroupIds()
+                   .stream()
+                   .map(buildingGroupId -> InvitationEntity.builder()
+                                                           .buildingGroup(buildingGroupRepository.findById(buildingGroupId).orElseThrow())
+                                                           .status(InvitationStatus.PENDING)
+                                                           .email(dto.tenantEmail())
+                                                           .build())
+                   .toList();
+        //TODO: send mails
+        invitationRepository.saveAll(invitationEntities);
     }
 } 
