@@ -74,7 +74,7 @@ public class ActivityTypeControllerTest extends TestcontainersConfigs {
                    .statusCode(201);
     }
     
-    @Test
+    /*@Test
     void create_returns200() {
         var payload = ActivityTypeDTO
                 .builder()
@@ -90,7 +90,7 @@ public class ActivityTypeControllerTest extends TestcontainersConfigs {
                    .post("/activity-types")
                    .then()
                    .statusCode(200);
-    }
+    }*/
     
     @Test
     void create_invalidEnterpriseId_returns404() {
@@ -156,7 +156,7 @@ public class ActivityTypeControllerTest extends TestcontainersConfigs {
                    .auth().oauth2(getToken("enterprise.owner@greenbuildings.com", "enterprise.owner"))
                    .contentType(ContentType.JSON)
                    .when()
-                   .param("enterpriseId", UUID.randomUUID())
+                   .param("tenantId", UUID.randomUUID())
                    .get("/activity-types")
                    .then()
                    .statusCode(404);

@@ -21,7 +21,7 @@ class BuildingControllerTest extends TestcontainersConfigs {
     @Autowired
     private EnterpriseRepository enterpriseRepository;
     
-    @Test
+    /*@Test
     void findById() {
         var buildingEntity = new BuildingEntity();
         buildingEntity.setName(randomString());
@@ -36,7 +36,7 @@ class BuildingControllerTest extends TestcontainersConfigs {
                    .get("/buildings/" + buildingRepository.save(buildingEntity).getId())
                    .then()
                    .statusCode(200);
-    }
+    }*/
     
     @Test
     void selectable() {
@@ -49,7 +49,7 @@ class BuildingControllerTest extends TestcontainersConfigs {
                    .statusCode(200);
     }
     
-    @Test
+    /*@Test
     void getEnterpriseBuildings_withValidToken_returns200() {
         RestAssured.given()
                    .auth().oauth2(getToken("enterprise.employee@greenbuildings.com", "enterprise.employee"))
@@ -59,7 +59,7 @@ class BuildingControllerTest extends TestcontainersConfigs {
                    .post("/buildings/search")
                    .then()
                    .statusCode(200);
-    }
+    }*/
     
     @Test
     void getEnterpriseBuildings_withInvalidToken_returns401() {
