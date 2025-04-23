@@ -6,15 +6,16 @@ import greenbuildings.enterprise.TestcontainersConfigs;
 import greenbuildings.enterprise.dtos.ActivityTypeCriteriaDTO;
 import greenbuildings.enterprise.dtos.ActivityTypeDTO;
 import greenbuildings.enterprise.dtos.EnterpriseDTO;
+import greenbuildings.enterprise.dtos.TenantDTO;
 import greenbuildings.enterprise.mappers.EnterpriseMapper;
+import greenbuildings.enterprise.mappers.TenantMapper;
 import greenbuildings.enterprise.services.EnterpriseService;
+import greenbuildings.enterprise.services.TenantService;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.testcontainers.shaded.org.apache.commons.lang3.RandomStringUtils;
 
-import java.security.SecureRandom;
 import java.util.Collections;
 import java.util.Set;
 import java.util.UUID;
@@ -23,6 +24,12 @@ public class ActivityTypeControllerTest extends TestcontainersConfigs {
     
     @Autowired
     private EnterpriseService enterpriseService;
+    
+    @Autowired
+    private TenantService tenantService;
+    
+    @Autowired
+    private TenantMapper tenantMapper;
     
     @Autowired
     private EnterpriseMapper enterpriseMapper;
@@ -39,13 +46,23 @@ public class ActivityTypeControllerTest extends TestcontainersConfigs {
                                                  );
     }
     
+    private UUID createTenant() {
+        var tenant = TenantDTO
+                .builder()
+                .email(randomEmail())
+                .name(randomString())
+                .hotline(randomNumber())
+                .build();
+        return tenantService.create(tenantMapper.createTenant(tenant)).getId();
+    }
+    
     @Test
     void createOrUpdate_returns201() {
         var payload = ActivityTypeDTO
                 .builder()
                 .name("Etiam vestibulum nulla sed magna.")
                 .description("Donec iaculis viverra ante et.")
-                .enterpriseId(createEnterprise())
+                .tenantID(createTenant())
                 .build();
         RestAssured.given()
                    .auth().oauth2(getToken("enterprise.owner@greenbuildings.com", "enterprise.owner"))
@@ -63,7 +80,7 @@ public class ActivityTypeControllerTest extends TestcontainersConfigs {
                 .builder()
                 .name("Etiam vestibulum nulla sed magna.")
                 .description("Donec iaculis viverra ante et.")
-                .enterpriseId(createEnterprise())
+                .tenantID(createTenant())
                 .build();
         RestAssured.given()
                    .auth().oauth2(getToken("enterprise.owner@greenbuildings.com", "enterprise.owner"))
@@ -81,7 +98,7 @@ public class ActivityTypeControllerTest extends TestcontainersConfigs {
                 .builder()
                 .name("Nam eu faucibus nunc. Proin.")
                 .description("Maecenas nisi sem, consequat et.")
-                .enterpriseId(UUID.randomUUID())
+                .tenantID(UUID.randomUUID())
                 .build();
         RestAssured.given()
                    .auth().oauth2(getToken("enterprise.owner@greenbuildings.com", "enterprise.owner"))
@@ -115,7 +132,7 @@ public class ActivityTypeControllerTest extends TestcontainersConfigs {
         RestAssured.given()
                    .auth().oauth2(getToken("enterprise.owner@greenbuildings.com", "enterprise.owner"))
                    .contentType(ContentType.JSON)
-                   .body(new SearchCriteriaDTO<ActivityTypeCriteriaDTO>(PageDTO.of(10, 0), null, new ActivityTypeCriteriaDTO("Lorem Ipsum")))
+                   .body(new SearchCriteriaDTO<ActivityTypeCriteriaDTO>(PageDTO.of(10, 0), null, new ActivityTypeCriteriaDTO("Lorem Ipsum", UUID.randomUUID())))
                    .when()
                    .post("/activity-types/search")
                    .then()
@@ -151,7 +168,7 @@ public class ActivityTypeControllerTest extends TestcontainersConfigs {
                    .auth().oauth2(getToken("enterprise.owner@greenbuildings.com", "enterprise.owner"))
                    .contentType(ContentType.JSON)
                    .when()
-                   .param("enterpriseId", createEnterprise())
+                   .param("tenantId", createTenant())
                    .get("/activity-types")
                    .then()
                    .statusCode(200);

@@ -12,6 +12,8 @@ public record TenantDTO(
         int version,
         Set<BuildingGroupDTO> buildingGroups,
         Set<ActivityTypeDTO> activityTypes,
-        String name
+        String name,
+        String email,
+        String hotline
 ) implements BaseDTO {
 } 
