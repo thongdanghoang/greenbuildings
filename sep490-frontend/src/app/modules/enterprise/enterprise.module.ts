@@ -14,6 +14,7 @@ import {CreditPackageService} from './services/credit-package.service';
 import {CurrencyConverterService} from './services/currency-converter.service';
 import {EmissionActivityRecordService} from './services/emission-activity-record.service';
 import {GroupItemService} from './services/group-item.service';
+import {InvitationService} from './services/invitation.service';
 import {MarkerService} from './services/marker.service';
 import {PaymentService} from './services/payment.service';
 import {PopupService} from './services/popup.service';
@@ -81,6 +82,7 @@ import {CreateTenantComponent} from './components/create-tenant/create-tenant.co
     CreditPackageService,
     SubscriptionService,
     BuildingGroupService,
+    InvitationService,
     TenantService,
     GroupItemService,
     EmissionActivityService,

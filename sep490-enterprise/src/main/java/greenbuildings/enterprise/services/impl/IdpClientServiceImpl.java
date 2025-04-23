@@ -14,7 +14,7 @@ public class IdpClientServiceImpl implements IdpClientService {
     @Override
     public Boolean checkEmailExists(String email) {
         return idpWebClient.get()
-                           .uri("/api/enterprise-user/check-email?email={email}", email)
+                           .uri("/api/enterprise-user/check-email?email={tenantEmail}", email)
                            .retrieve()
                            .bodyToMono(Boolean.class)
                            .block();

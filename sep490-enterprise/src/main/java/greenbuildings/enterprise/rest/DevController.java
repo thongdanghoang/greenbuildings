@@ -33,7 +33,7 @@ public class DevController {
     @PostMapping("/save-business-error")
     public String saveBusinessError(@RequestBody String body) {
         log.info(body);
-        throw new DemoException("email", "demo", new BusinessErrorParam("name", "invalid_name"));
+        throw new DemoException("tenantEmail", "demo", new BusinessErrorParam("name", "invalid_name"));
     }
     
     @PostMapping("/save-technical-error")

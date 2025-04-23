@@ -22,7 +22,7 @@ class DevControllerTest extends TestcontainersConfigs {
                    .then()
                    .log().all()
                    .statusCode(HttpStatus.EXPECTATION_FAILED.value())
-                   .body("field", equalTo("email"))
+                   .body("field", equalTo("tenantEmail"))
                    .body("i18nKey", equalTo("demo"));
     }
     
