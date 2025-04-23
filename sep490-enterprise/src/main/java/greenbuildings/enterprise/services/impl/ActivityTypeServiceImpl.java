@@ -50,8 +50,8 @@ public class ActivityTypeServiceImpl implements ActivityTypeService {
     
     @Override
     public ActivityTypeEntity create(ActivityTypeDTO dto) {
-        if (Objects.isNull(dto.enterpriseId()) || !enterpriseRepository.existsById(dto.enterpriseId())) {
-            throw new NoSuchElementException("Enterprise with ID " + dto.enterpriseId() + " not found");
+        if (Objects.isNull(dto.tenantID()) || !enterpriseRepository.existsById(dto.tenantID())) {
+            throw new NoSuchElementException("Tenant with ID " + dto.tenantID() + " not found");
         }
         ActivityTypeEntity entity = mapper.toEntity(dto);
         return repository.save(entity);
