@@ -16,6 +16,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.Setter;
 
 
@@ -50,7 +51,8 @@ import lombok.Setter;
 public class EmissionActivityEntity extends AbstractAuditableEntity {
 
     public static final String DETAILS_GRAPH = "EmissionActivity.details";
-
+    
+    @NonNull
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "building_group_id")
@@ -60,6 +62,7 @@ public class EmissionActivityEntity extends AbstractAuditableEntity {
     @JoinColumn(name = "emission_factor_id")
     private EmissionFactorEntity emissionFactorEntity;
     
+    @NonNull
     @NotBlank
     @Size(max = 255)
     @Column(name = "name")
@@ -69,6 +72,8 @@ public class EmissionActivityEntity extends AbstractAuditableEntity {
     @JoinColumn(name = "type_id")
     private ActivityTypeEntity type;
     
+    @NonNull
+    @NotBlank
     @Size(max = 255)
     @Column(name = "category")
     private String category;

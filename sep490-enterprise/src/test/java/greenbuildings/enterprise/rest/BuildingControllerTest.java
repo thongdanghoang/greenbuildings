@@ -3,9 +3,12 @@ package greenbuildings.enterprise.rest;
 import greenbuildings.commons.api.dto.SearchCriteriaDTO;
 import greenbuildings.enterprise.TestcontainersConfigs;
 import greenbuildings.enterprise.dtos.BuildingDTO;
+import greenbuildings.enterprise.dtos.DownloadReportDTO;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
 
 class BuildingControllerTest extends TestcontainersConfigs {
     
@@ -93,5 +96,35 @@ class BuildingControllerTest extends TestcontainersConfigs {
                    .post(getBaseUrl())
                    .then()
                    .statusCode(401);
+    }
+    
+    @Test
+    void generateReport() {
+        // given
+        var buildingEntity = insertBuildingEntity();
+        var emissionActivityDirect = insertActivity(true);
+        var emissionActivityIndirect = insertActivity(false);
+        for (int i = 0; i < 10; i++) {
+            insertRecord(emissionActivityDirect);
+            insertRecord(emissionActivityIndirect);
+        }
+        var downloadReport = DownloadReportDTO
+                .builder()
+                .selectedActivities(List.of(
+                                            emissionActivityDirect.getId(),
+                                            emissionActivityIndirect.getId()
+                                           )
+                                   )
+                .build();
+        // when
+        asEnterpriseOwner()
+                .contentType(ContentType.JSON)
+                .body(downloadReport)
+                .when()
+                .post(getBaseUrl() + "/generate-report")
+                .then()
+                .log().all()
+                .statusCode(200)
+                .contentType("application/octet-stream");
     }
 }

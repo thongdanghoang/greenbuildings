@@ -18,7 +18,7 @@ public interface EmissionActivityRecordRepository
         extends JpaRepository<EmissionActivityRecordEntity, UUID>, JpaSpecificationExecutor<EmissionActivityRecordEntity> {
     Page<EmissionActivityRecordEntity> findAllByGroupItemId(UUID groupItemId, Pageable pageable);
     
-    List<EmissionActivityRecordEntity> findAllByGroupItemId(UUID groupItemId);
+    List<EmissionActivityRecordEntity> findAllByEmissionActivityId(UUID groupItemId);
     
     Integer countAllByIdIn(Set<UUID> ids);
     

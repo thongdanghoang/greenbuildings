@@ -31,7 +31,6 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -82,17 +81,16 @@ public class BuildingServiceImpl implements BuildingService {
     @Override
     public byte[] generateReport(DownloadReportDTO downloadReport) {
         // TODO: excel template will display building info
-        BuildingEntity building = buildingRepository.findById(downloadReport.buildingID()).orElseThrow();
-        List<EmissionActivityEntity> activities = activityRepo.findAllByIdIn(downloadReport.selectedActivities());
+        var activities = activityRepo.findAllByIdIn(downloadReport.selectedActivities());
         
         if (activities.size() != downloadReport.selectedActivities().size()) {
             throw new BusinessException("activities", "validation.business.activities.notFound");
         }
         
-        Map<EmissionActivityEntity, List<EmissionActivityRecordEntity>> records = new HashMap<>();
+        var records = new HashMap<EmissionActivityEntity, List<EmissionActivityRecordEntity>>();
         
-        for (EmissionActivityEntity activity : activities) {
-            List<EmissionActivityRecordEntity> recordsByActivity = recordRepo.findAllByGroupItemId(activity.getId());
+        for (var activity : activities) {
+            var recordsByActivity = recordRepo.findAllByEmissionActivityId(activity.getId());
             records.put(activity, recordsByActivity);
         }
         try {
@@ -104,13 +102,13 @@ public class BuildingServiceImpl implements BuildingService {
             XSSFSheet sheet = workbook.getSheetAt(0);
             int rowIdx = 2;
             
-            for (Map.Entry<EmissionActivityEntity, List<EmissionActivityRecordEntity>> entry : records.entrySet()) {
-                EmissionActivityEntity activity = entry.getKey();
-                List<EmissionActivityRecordEntity> activityRecords = entry.getValue();
+            for (var entry : records.entrySet()) {
+                var activity = entry.getKey();
+                var activityRecords = entry.getValue();
                 calculationService.calculate(activity.getId(), activityRecords);
                 int startRow = rowIdx;
                 int endRow = rowIdx + activityRecords.size() - 1;
-                for (EmissionActivityRecordEntity recordEntity : activityRecords) {
+                for (var recordEntity : activityRecords) {
                     Row row = sheet.createRow(rowIdx++);
                     int colIdx = 0;
                     
@@ -139,9 +137,8 @@ public class BuildingServiceImpl implements BuildingService {
                 }
             }
             
-            try (ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream()) {
+            try (var byteArrayOutputStream = new ByteArrayOutputStream()) {
                 workbook.write(byteArrayOutputStream);
-                
                 return byteArrayOutputStream.toByteArray();
             }
         } catch (IOException ex) {
