@@ -56,8 +56,8 @@ export class BuildingGroupService {
     );
   }
 
-  getByTenantId(tenantId: UUID): Observable<BuildingGroup[]> {
-    return this.http.get<BuildingGroup[]>(`${this.baseUrl}/tenant/${tenantId}`);
+  getByTenant(): Observable<BuildingGroup[]> {
+    return this.http.get<BuildingGroup[]>(`${this.baseUrl}/tenant`);
   }
 
   create(buildingGroup: BuildingGroup): Observable<BuildingGroup> {

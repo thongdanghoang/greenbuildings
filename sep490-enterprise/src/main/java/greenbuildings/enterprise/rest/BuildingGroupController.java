@@ -2,6 +2,7 @@ package greenbuildings.enterprise.rest;
 
 import commons.springfw.impl.controller.AbstractRestController;
 import commons.springfw.impl.mappers.CommonMapper;
+import commons.springfw.impl.securities.UserContextData;
 import greenbuildings.commons.api.dto.SearchCriteriaDTO;
 import greenbuildings.commons.api.dto.SearchResultDTO;
 import greenbuildings.commons.api.security.UserRole;
@@ -16,6 +17,7 @@ import jakarta.annotation.security.RolesAllowed;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,7 +34,8 @@ import java.util.UUID;
 @RequestMapping("/building-groups")
 @RequiredArgsConstructor
 @RolesAllowed({
-        UserRole.RoleNameConstant.ENTERPRISE_OWNER
+        UserRole.RoleNameConstant.ENTERPRISE_OWNER,
+        UserRole.RoleNameConstant.TENANT,
 })
 public class BuildingGroupController extends AbstractRestController {
     
@@ -67,10 +70,10 @@ public class BuildingGroupController extends AbstractRestController {
                                                      .toList());
     }
     
-    @GetMapping("/tenant/{tenantId}")
-    public ResponseEntity<List<BuildingGroupDTO>> findByTenantId(@PathVariable UUID tenantId) {
-        return ResponseEntity.ok(buildingGroupService.findByTenantId(tenantId).stream()
-                                                     .map(buildingGroupMapper::toDTO)
+    @GetMapping("/tenant")
+    public ResponseEntity<List<BuildingGroupDTO>> findByTenant(@AuthenticationPrincipal UserContextData userContextData) {
+        return ResponseEntity.ok(buildingGroupService.findByTenantId(userContextData.getEnterpriseId()).stream()
+                                                     .map(buildingGroupMapper::toDTOWithBuilding)
                                                      .toList());
     }
     

@@ -21,6 +21,12 @@ public interface BuildingGroupMapper {
     @Mapping(target = "emissionActivities", ignore = true)
     BuildingGroupDTO toDetailDTO(BuildingGroupEntity entity);
     
+    @Mapping(target = "tenant", ignore = true)
+    @Mapping(target = "emissionActivities", ignore = true)
+    @Mapping(target = "building.buildingGroups", ignore = true)
+    @Mapping(target = "building.subscriptionDTO", ignore = true)
+    BuildingGroupDTO toDTOWithBuilding(BuildingGroupEntity entity);
+    
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     BuildingGroupEntity partialUpdate(BuildingGroupDTO dto, @MappingTarget BuildingGroupEntity entity);
 

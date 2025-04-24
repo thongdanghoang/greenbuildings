@@ -14,7 +14,10 @@ import {
   DynamicDialogRef
 } from 'primeng/dynamicdialog';
 import {Observable} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
 import {UUID} from '../../../../../types/uuid';
+import {AppRoutingConstants} from '../../../../app-routing.constant';
+import {UserRole} from '../../../authorization/enums/role-names';
 import {ApplicationService} from '../../../core/services/application.service';
 import {SubscriptionAwareComponent} from '../../../core/subscription-aware.component';
 import {TableTemplateColumn} from '../../../shared/components/table-template/table-template.component';
@@ -25,10 +28,8 @@ import {
 import {ModalProvider} from '../../../shared/services/modal-provider';
 import {ToastProvider} from '../../../shared/services/toast-provider';
 import {NewActivityDialogComponent} from '../../dialog/new-activity-dialog/new-activity-dialog.component';
-import {BuildingGroupService} from '../../services/building-group.service';
 import {BuildingGroup, EmissionActivity} from '../../models/enterprise.dto';
-import {takeUntil} from 'rxjs/operators';
-import {AppRoutingConstants} from '../../../../app-routing.constant';
+import {BuildingGroupService} from '../../services/building-group.service';
 import {
   ActivitySearchCriteria,
   EmissionActivityService
@@ -42,6 +43,7 @@ export class BuildingGroupDetailComponent
   extends SubscriptionAwareComponent
   implements OnInit
 {
+  userRole!: UserRole;
   buildingGroup!: BuildingGroup;
   ref: DynamicDialogRef | undefined;
   @ViewChild('typeTemplate', {static: true})
@@ -73,6 +75,7 @@ export class BuildingGroupDetailComponent
   }
 
   ngOnInit(): void {
+    this.getUserRole();
     this.buildCols();
     this.searchCriteria = {buildingGroupId: '' as UUID};
     this.fetchActivity = this.activityService.fetchActivityOfBuilding.bind(
@@ -83,11 +86,27 @@ export class BuildingGroupDetailComponent
   }
 
   goBack(): void {
-    void this.router.navigate([
-      AppRoutingConstants.ENTERPRISE_PATH,
-      AppRoutingConstants.BUILDING_MANAGEMENT_PATH,
-      this.buildingGroup.building.id
-    ]);
+    if (this.userRole === UserRole.TENANT) {
+      void this.router.navigate([
+        AppRoutingConstants.ENTERPRISE_PATH,
+        AppRoutingConstants.TENANT_MANAGEMENT_PATH
+      ]);
+    } else {
+      void this.router.navigate([
+        AppRoutingConstants.ENTERPRISE_PATH,
+        AppRoutingConstants.BUILDING_MANAGEMENT_PATH,
+        this.buildingGroup.building.id
+      ]);
+    }
+  }
+
+  getUserRole(): void {
+    this.applicationService
+      .getUserRoles()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(rs => {
+        this.userRole = rs[0];
+      });
   }
 
   buildCols(): void {
