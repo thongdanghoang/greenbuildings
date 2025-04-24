@@ -40,7 +40,7 @@ public abstract class BuildingGroupMapperDecorator implements BuildingGroupMappe
                 .name(entity.getName())
                 .description(entity.getDescription())
                 .building(mapper.toDto(building))
-                .tenant(tenantMapper.toDTO(tenant))
+                .tenant(tenantMapper.toBasicDTO(tenant))
                 .build();
     }
     
