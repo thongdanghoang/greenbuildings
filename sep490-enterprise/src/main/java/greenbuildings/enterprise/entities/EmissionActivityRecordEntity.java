@@ -51,7 +51,7 @@ public class EmissionActivityRecordEntity extends AbstractAuditableEntity {
     @Column(name = "end_date")
     private LocalDate endDate;
     
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "file_id", referencedColumnName = "id")
     private RecordFileEntity file;
     

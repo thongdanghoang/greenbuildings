@@ -3,9 +3,14 @@ package greenbuildings.enterprise;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import greenbuildings.enterprise.entities.BuildingEntity;
 import greenbuildings.enterprise.entities.BuildingGroupEntity;
+import greenbuildings.enterprise.entities.EmissionActivityEntity;
+import greenbuildings.enterprise.entities.EmissionActivityRecordEntity;
 import greenbuildings.enterprise.entities.TenantEntity;
 import greenbuildings.enterprise.repositories.BuildingGroupRepository;
 import greenbuildings.enterprise.repositories.BuildingRepository;
+import greenbuildings.enterprise.repositories.EmissionActivityRecordRepository;
+import greenbuildings.enterprise.repositories.EmissionActivityRepository;
+import greenbuildings.enterprise.repositories.EmissionFactorRepository;
 import greenbuildings.enterprise.repositories.EnterpriseRepository;
 import greenbuildings.enterprise.repositories.TenantRepository;
 import io.restassured.RestAssured;
@@ -26,7 +31,9 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.shaded.org.apache.commons.lang3.RandomStringUtils;
 import org.testcontainers.utility.DockerImageName;
 
+import java.math.BigDecimal;
 import java.security.SecureRandom;
+import java.time.LocalDate;
 import java.util.Map;
 import java.util.UUID;
 import java.util.function.Supplier;
@@ -179,5 +186,48 @@ public abstract class TestcontainersConfigs {
     protected TenantEntity insertTenantEntity() {
         var tenantEntity = new TenantEntity(randomEmail(), randomPhoneNumber());
         return tenantRepository.save(tenantEntity);
+    }
+    
+    @Autowired
+    private EmissionActivityRepository activityRepository;
+    
+    @Autowired
+    private EmissionFactorRepository emissionFactorRepository;
+    
+    @Autowired
+    private EmissionActivityRecordRepository emissionActivityRepository;
+    
+    protected EmissionActivityEntity insertActivity(boolean isDirectEmission) {
+        var emissionFactor = emissionFactorRepository
+                .findAll().stream()
+                .filter(ef -> ef.isDirectEmission() == isDirectEmission)
+                .map(ef -> {
+                    ef.setActive(true);
+                    return emissionFactorRepository.save(ef);
+                })
+                .findAny().orElseThrow();
+        var activity = new EmissionActivityEntity();
+        activity.setBuildingGroup(insertBuildingGroupEntity(insertBuildingEntity()));
+        activity.setCategory(randomString());
+        activity.setName(randomString());
+        activity.setEmissionFactorEntity(emissionFactor);
+        return activityRepository.save(activity);
+    }
+    
+    protected EmissionActivityRecordEntity insertRecord(EmissionActivityEntity emissionActivity) {
+        var record = new EmissionActivityRecordEntity();
+        var emissionUnit = emissionActivity.getEmissionFactorEntity().isDirectEmission()
+                           ? emissionActivity.getEmissionFactorEntity().getEmissionUnitDenominator()
+                           : emissionActivity.getEmissionFactorEntity().getEmissionUnitNumerator();
+        record.setUnit(emissionUnit);
+        record.setValue(new BigDecimal(RandomStringUtils.randomNumeric(6, 9)));
+        record.setStartDate(LocalDate.now().minusMonths(1));
+        record.setEndDate(LocalDate.now());
+        record.setEmissionActivity(emissionActivity);
+        return emissionActivityRepository.save(record);
+    }
+    
+    protected long randomLong(int count) {
+        return Long.parseLong(org.apache.commons.lang3.RandomStringUtils.secure().nextNumeric(count));
     }
 }

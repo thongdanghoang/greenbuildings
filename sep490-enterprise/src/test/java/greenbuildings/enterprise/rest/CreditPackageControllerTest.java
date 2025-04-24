@@ -66,9 +66,9 @@ public class CreditPackageControllerTest extends TestcontainersConfigs {
     void createCreditPackage_returns201() {
         var payload = CreditPackageDTO
                 .builder()
-                .numberOfCredits(Integer.parseInt(RandomStringUtils.randomNumeric(2)))
-                .price(Integer.parseInt(RandomStringUtils.randomNumeric(6)))
-                .discount(Integer.parseInt(RandomStringUtils.randomNumeric(1)))
+                .numberOfCredits(Integer.parseInt(RandomStringUtils.randomNumeric(2, 3)))
+                .price(Integer.parseInt(RandomStringUtils.randomNumeric(6, 9)))
+                .discount(Integer.parseInt(RandomStringUtils.randomNumeric(1, 2)))
                 .build();
         asSystemAdmin()
                 .contentType(ContentType.JSON)
@@ -86,18 +86,17 @@ public class CreditPackageControllerTest extends TestcontainersConfigs {
         creditPackageEntity.setActive(true);
         var creditPackageVersionEntity = new CreditPackageVersionEntity();
         creditPackageVersionEntity.setActive(true);
-        creditPackageVersionEntity.setDiscount(Integer.parseInt(RandomStringUtils.randomNumeric(2)));
-        creditPackageVersionEntity.setPrice(Integer.parseInt(RandomStringUtils.randomNumeric(6)));
-        creditPackageVersionEntity.setDiscount(Integer.parseInt(RandomStringUtils.randomNumeric(1)));
+        creditPackageVersionEntity.setDiscount(Integer.parseInt(RandomStringUtils.randomNumeric(1, 2)));
+        creditPackageVersionEntity.setPrice(Integer.parseInt(RandomStringUtils.randomNumeric(6, 9)));
         creditPackageVersionEntity.setCreditPackageEntity(creditPackageRepository.save(creditPackageEntity));
         var packageVersionEntity = creditPackageVersionRepository.save(creditPackageVersionEntity);
         var payload = CreditPackageDTO
                 .builder()
                 .id(packageVersionEntity.getId())
                 .version(packageVersionEntity.getVersion())
-                .numberOfCredits(Integer.parseInt(RandomStringUtils.randomNumeric(2)))
-                .price(Integer.parseInt(RandomStringUtils.randomNumeric(6)))
-                .discount(Integer.parseInt(RandomStringUtils.randomNumeric(1)))
+                .numberOfCredits(Integer.parseInt(RandomStringUtils.randomNumeric(2, 3)))
+                .price(Integer.parseInt(RandomStringUtils.randomNumeric(6, 9)))
+                .discount(Integer.parseInt(RandomStringUtils.randomNumeric(1, 2)))
                 .build();
         asSystemAdmin()
                 .contentType(ContentType.JSON)

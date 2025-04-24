@@ -1,22 +1,22 @@
 package greenbuildings.enterprise.services.impl;
 
 import commons.springfw.impl.utils.SecurityUtils;
+import greenbuildings.commons.api.exceptions.BusinessException;
+import greenbuildings.commons.api.exceptions.TechnicalException;
 import greenbuildings.enterprise.dtos.CreditConvertRatioDTO;
 import greenbuildings.enterprise.dtos.SubscribeRequestDTO;
 import greenbuildings.enterprise.entities.BuildingEntity;
 import greenbuildings.enterprise.entities.CreditConvertRatioEntity;
-import greenbuildings.enterprise.enums.CreditConvertType;
 import greenbuildings.enterprise.entities.SubscriptionEntity;
 import greenbuildings.enterprise.entities.TransactionEntity;
-import greenbuildings.enterprise.enums.TransactionType;
 import greenbuildings.enterprise.entities.WalletEntity;
+import greenbuildings.enterprise.enums.CreditConvertType;
+import greenbuildings.enterprise.enums.TransactionType;
 import greenbuildings.enterprise.repositories.BuildingRepository;
 import greenbuildings.enterprise.repositories.CreditConvertRatioRepository;
 import greenbuildings.enterprise.repositories.SubscriptionRepository;
 import greenbuildings.enterprise.repositories.WalletRepository;
 import greenbuildings.enterprise.services.SubscriptionService;
-import greenbuildings.commons.api.exceptions.BusinessException;
-import greenbuildings.commons.api.exceptions.TechnicalException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -76,21 +76,18 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     }
     
     private double calculateTransactionAmount(SubscribeRequestDTO request) {
-        List<CreditConvertRatioEntity> creditConvertRatios = getCreditConvertRatios();
-        CreditConvertRatioEntity monthRatio = creditConvertRatios
+        var creditConvertRatios = getCreditConvertRatios();
+        var monthRatio = creditConvertRatios
                 .stream()
                 .filter(x -> x.getConvertType().equals(CreditConvertType.MONTH))
                 .findFirst()
                 .orElseThrow();
-        CreditConvertRatioEntity noDevicesRatio = creditConvertRatios
+        var noDevicesRatio = creditConvertRatios
                 .stream()
                 .filter(x -> x.getConvertType().equals(CreditConvertType.DEVICE))
                 .findFirst()
                 .orElseThrow();
         
-        if (request.monthRatio() != monthRatio.getRatio() || request.deviceRatio() != noDevicesRatio.getRatio()) {
-            throw new BusinessException("", "validation.business.buildings.ratioNotMatch");
-        }
         if (request.type() == TransactionType.NEW_PURCHASE) {
             return calculateTransactionAmountForNew(request, monthRatio, noDevicesRatio);
         } else {
