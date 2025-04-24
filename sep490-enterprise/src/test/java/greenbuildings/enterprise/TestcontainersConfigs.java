@@ -226,4 +226,8 @@ public abstract class TestcontainersConfigs {
         record.setEmissionActivity(emissionActivity);
         return emissionActivityRepository.save(record);
     }
+    
+    protected long randomLong(int count) {
+        return Long.parseLong(org.apache.commons.lang3.RandomStringUtils.secure().nextNumeric(count));
+    }
 }

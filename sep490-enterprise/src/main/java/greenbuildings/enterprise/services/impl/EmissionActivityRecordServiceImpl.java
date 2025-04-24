@@ -23,6 +23,7 @@ import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
@@ -39,12 +40,13 @@ public class EmissionActivityRecordServiceImpl implements EmissionActivityRecord
     
     @Override
     public Page<EmissionActivityRecordEntity> search(SearchCriteriaDTO<EmissionActivityRecordCriteria> searchCriteria) {
-        Page<EmissionActivityRecordEntity> page = recordRepository
-                .findAllByGroupItemId(
+        var page = recordRepository
+                .findAllByEmissionActivityId(
                         searchCriteria.criteria().emissionActivityId(),
-                        CommonMapper.toPageable(searchCriteria.page(), searchCriteria.sort()));
+                        CommonMapper.toPageable(searchCriteria.page(), searchCriteria.sort())
+                                     );
         
-        List<EmissionActivityRecordEntity> modifiedContent = calculationService.calculate(searchCriteria.criteria().emissionActivityId(), page.getContent());
+        var modifiedContent = calculationService.calculate(searchCriteria.criteria().emissionActivityId(), page.getContent());
         modifiedContent.stream()
                        .filter(x -> x.getGhg() != null)
                        .forEach(entity -> entity.setGhg(entity.getGhg().setScale(2, RoundingMode.HALF_UP)));
@@ -63,7 +65,13 @@ public class EmissionActivityRecordServiceImpl implements EmissionActivityRecord
     }
     
     private void newRecord(EmissionActivityRecordEntity entity, MultipartFile file) {
-        if (recordRepository.existsByGroupItemIdAndDateOverlap(entity.getGroupItem().getId(), entity.getStartDate(), entity.getEndDate())) {
+        if (Objects.nonNull(entity.getGroupItem())
+            && recordRepository.existsByGroupItemIdAndDateOverlap(
+                entity.getGroupItem().getId(),
+                entity.getStartDate(),
+                entity.getEndDate()
+                                                                 )
+        ) {
             throw new BusinessException("rangeDates", "business.record.dateOverlap");
         }
         entity = recordRepository.save(entity);
@@ -84,10 +92,16 @@ public class EmissionActivityRecordServiceImpl implements EmissionActivityRecord
     }
     
     private void updateRecord(EmissionActivityRecordEntity entity, MultipartFile file) {
-        if (recordRepository.otherExistsByGroupItemIdAndDateOverlap(entity.getId(), entity.getGroupItem().getId(), entity.getStartDate(), entity.getEndDate())) {
+        if (Objects.nonNull(entity.getGroupItem())
+            && recordRepository.otherExistsByGroupItemIdAndDateOverlap(
+                entity.getId(),
+                entity.getGroupItem().getId(),
+                entity.getStartDate(),
+                entity.getEndDate())
+        ) {
             throw new BusinessException("rangeDates", "business.record.dateOverlap");
         }
-        EmissionActivityRecordEntity existing = recordRepository.findById(entity.getId()).orElseThrow();
+        var existing = recordRepository.findById(entity.getId()).orElseThrow();
         
         if (file == null) {
             entity.setFile(existing.getFile());
@@ -139,12 +153,12 @@ public class EmissionActivityRecordServiceImpl implements EmissionActivityRecord
     
     @Override
     public void deleteFile(UUID recordId, UUID fileId) {
-        EmissionActivityRecordEntity record = recordRepository.findById(recordId)
-            .orElseThrow(() -> new BusinessException(null, "Record not found"));
-            
-        RecordFileEntity file = fileRepository.findById(fileId)
-            .orElseThrow(() -> new BusinessException(null, "File not found"));
-            
+        var record = recordRepository.findById(recordId)
+                                                              .orElseThrow(() -> new BusinessException(null, "Record not found"));
+        
+        var file = fileRepository.findById(fileId)
+                                              .orElseThrow(() -> new BusinessException(null, "File not found"));
+        
         if (!file.getRecord().getId().equals(recordId)) {
             throw new BusinessException(null, "File does not belong to this record");
         }
@@ -154,14 +168,15 @@ public class EmissionActivityRecordServiceImpl implements EmissionActivityRecord
         
         // Delete from database
         file.getRecord().setFile(null);
-        fileRepository.delete(file);
+        record.setFile(null);
+        recordRepository.save(record);
     }
     
     @Override
     public String getFileUrl(UUID recordId, UUID fileId) {
         RecordFileEntity file = fileRepository.findById(fileId)
-            .orElseThrow(() -> new BusinessException(null, "File not found"));
-            
+                                              .orElseThrow(() -> new BusinessException(null, "File not found"));
+        
         if (!file.getRecord().getId().equals(recordId)) {
             throw new BusinessException(null, "File does not belong to this record");
         }
