@@ -74,6 +74,11 @@ export class SidebarComponent
             route: `/${AppRoutingConstants.ENTERPRISE_PATH}/${AppRoutingConstants.ACCOUNT_INFO_PATH}`
           },
           {
+            label: 'sidebar.tenant.manageTenant',
+            icon: 'pi pi-user',
+            route: `/${AppRoutingConstants.ENTERPRISE_PATH}/${AppRoutingConstants.TENANT_MANAGEMENT_PATH}`
+          },
+          {
             label: 'sidebar.basicUser.invitation',
             icon: 'pi pi-envelope',
             route: `/${AppRoutingConstants.ENTERPRISE_PATH}/${AppRoutingConstants.INVITATION_PATH}`

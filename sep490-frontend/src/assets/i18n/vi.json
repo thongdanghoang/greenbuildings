@@ -429,6 +429,9 @@
     "guide": "Hướng dẫn"
   },
   "sidebar": {
+    "tenant": {
+      "manageTenant": "Quản lý doanh nghiệp"
+    },
     "basicUser": {
       "welcome": "Chào mừng đến với Green Building",
       "info": "Thông tin tài khoản",

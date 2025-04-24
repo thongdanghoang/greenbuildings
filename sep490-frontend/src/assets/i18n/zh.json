@@ -428,6 +428,9 @@
     "guide": "指南"
   },
   "sidebar": {
+    "tenant": {
+      "manageTenant": "企业管理"
+    },
     "basicUser": {
       "welcome": "欢迎来到 Green Building",
       "info": "账户信息",

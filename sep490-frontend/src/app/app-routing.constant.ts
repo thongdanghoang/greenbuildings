@@ -28,6 +28,7 @@ export class AppRoutingConstants {
   public static readonly ENTERPRISE_PATH = 'enterprise';
   public static readonly BUILDING_PATH = 'buildings';
   public static readonly BUILDING_GROUP_PATH = 'building-group';
+  public static readonly TENANT_MANAGEMENT_PATH = 'manage-building';
   public static readonly BUILDING_MANAGEMENT_PATH = 'manage-building';
   public static readonly EMISSION_ACTIVITY_PATH = 'emission-activity';
   public static readonly EMISSION_ACTIVITY_DETAIL_PATH =

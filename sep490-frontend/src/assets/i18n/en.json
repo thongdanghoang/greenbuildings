@@ -435,6 +435,9 @@
     "guide": "Guide"
   },
   "sidebar": {
+    "tenant": {
+      "manageTenant": "Enterprise management"
+    },
     "basicUser": {
       "welcome": "Welcome to Green Building",
       "info": "Account Information",
