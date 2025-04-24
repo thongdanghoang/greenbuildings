@@ -19,7 +19,6 @@
     </p>
 </div>
 <table-template
-    *ngIf="!applicationService.isMobile()"
     [fetch]="fetchActivityTypes"
     [columns]="cols"
     [criteria]="searchCriteria"
