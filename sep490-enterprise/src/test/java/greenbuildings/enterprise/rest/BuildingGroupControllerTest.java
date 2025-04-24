@@ -174,7 +174,7 @@ public class BuildingGroupControllerTest extends TestcontainersConfigs {
         asEnterpriseOwner()
                 .contentType(ContentType.JSON)
                 .when()
-                .get(getBaseUrl() + "/tenant/{tenantId}", tenantEntity.getId())
+                .get(getBaseUrl() + "/tenant")
                 .then()
                 .log().all()
                 .statusCode(200);
