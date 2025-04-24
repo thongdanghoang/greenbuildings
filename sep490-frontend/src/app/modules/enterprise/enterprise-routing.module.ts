@@ -10,6 +10,7 @@ import {CreateTenantComponent} from './components/create-tenant/create-tenant.co
 import {EmissionActivityComponent} from './components/emission-activity/emission-activity.component';
 import {EmissionActivityDetailComponent} from './components/emission-activity-detail/emission-activity-detail.component';
 import {EnterpriseInvitationComponent} from './components/enterprise-invitation/enterprise-invitation.component';
+import {ManageTenantComponent} from './components/manage-tenant/manage-tenant.component';
 import {NewBuildingGroupComponent} from './components/new-building-group/new-building-group.component';
 import {NewGroupItemComponent} from './components/new-group-item/new-group-item.component';
 import {NewTenantComponent} from './components/new-tenant/new-tenant.component';
@@ -35,6 +36,10 @@ const routes: Routes = [
       {
         path: `${AppRoutingConstants.BUILDING_MANAGEMENT_PATH}/:id`,
         component: BuildingManagementComponent
+      },
+      {
+        path: `${AppRoutingConstants.TENANT_MANAGEMENT_PATH}`,
+        component: ManageTenantComponent
       },
       {
         path: `${AppRoutingConstants.BUILDING_GROUP_PATH}/:id`,

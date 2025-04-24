@@ -42,6 +42,7 @@ import {BuildingGroupDetailComponent} from './components/building-group-detail/b
 import {CreditPackageGuideDialogComponent} from './dialog/credit-package-guide-dialog/credit-package-guide-dialog.component';
 import {NewGroupItemComponent} from './components/new-group-item/new-group-item.component';
 import {CreateTenantComponent} from './components/create-tenant/create-tenant.component';
+import {ManageTenantComponent} from './components/manage-tenant/manage-tenant.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +71,8 @@ import {CreateTenantComponent} from './components/create-tenant/create-tenant.co
     CreditDeductionHistoryDialogComponent,
     CreditPackageGuideDialogComponent,
     NewGroupItemComponent,
-    CreateTenantComponent
+    CreateTenantComponent,
+    ManageTenantComponent
   ],
   imports: [SharedModule, EnterpriseRoutingModule],
   providers: [
