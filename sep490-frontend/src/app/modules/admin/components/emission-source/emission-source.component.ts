@@ -22,6 +22,7 @@ import {
 } from '../../../shared/models/base-models';
 import {EmissionSourceDialogComponent} from '../../dialog/emission-source-dialog/emission-source-dialog.component';
 import {EmissionSourceService} from '../../services/emission-source.service';
+import {ToastProvider} from '../../../shared/services/toast-provider';
 
 export interface EmissionSourceCriteria {
   criteria: string;
@@ -38,6 +39,7 @@ export class EmissionSourceComponent
   @ViewChild('actionsTemplate', {static: true})
   actionsTemplate!: TemplateRef<any>;
   ref: DynamicDialogRef | undefined;
+  isLoading: boolean = false;
   protected fetchEmissionSource!: (
     criteria: SearchCriteriaDto<EmissionSourceCriteria>
   ) => Observable<SearchResultDto<EmissionSource>>;
@@ -48,7 +50,8 @@ export class EmissionSourceComponent
   constructor(
     protected readonly applicationService: ApplicationService,
     private readonly emissionSourceService: EmissionSourceService,
-    private readonly dialogService: DialogService
+    private readonly dialogService: DialogService,
+    private readonly messageService: ToastProvider
   ) {
     super();
   }
@@ -60,6 +63,33 @@ export class EmissionSourceComponent
         this.emissionSourceService
       );
   }
+
+  uploadExcel(event: any): void {
+    const file = event.files[0];
+    if (!file) return;
+
+    this.isLoading = true;
+    this.emissionSourceService.importEmissionSources(file).subscribe({
+      next: () => {
+        this.isLoading = false;
+        this.messageService.success({
+          severity: 'success',
+          summary: 'Thành công',
+          detail: 'Import dữ liệu thành công'
+        });
+        this.search(); // Refresh lại table
+      },
+      error: err => {
+        this.isLoading = false;
+        this.messageService.businessError({
+          severity: 'error',
+          summary: 'Lỗi',
+          detail: `Import thất bại: ${err.message}`
+        });
+      }
+    });
+  }
+
   buildCols(): void {
     this.cols.push({
       field: 'nameVN',

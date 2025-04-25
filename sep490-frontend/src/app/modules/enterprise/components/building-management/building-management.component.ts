@@ -22,7 +22,11 @@ import {
 } from '../../../shared/models/base-models';
 import {ModalProvider} from '../../../shared/services/modal-provider';
 import {ToastProvider} from '../../../shared/services/toast-provider';
-import {BuildingDetails, BuildingGroup} from '../../models/enterprise.dto';
+import {
+  BuildingDetails,
+  BuildingGroup,
+  OverviewBuildingDTO
+} from '../../models/enterprise.dto';
 import {
   BuildingGroupCriteria,
   BuildingGroupService
@@ -49,7 +53,7 @@ export class BuildingManagementComponent
   protected readonly searchEvent: EventEmitter<void> = new EventEmitter();
   protected readonly clearSelectedEvent: EventEmitter<void> =
     new EventEmitter();
-
+  protected overviewBuilding?: OverviewBuildingDTO;
   protected selected: BuildingGroup[] = [];
 
   constructor(
@@ -191,6 +195,10 @@ export class BuildingManagementComponent
         this.searchCriteria.buildingId = this.buildingDetails.id;
         this.buildCols();
         this.searchEvent.emit();
+        // Fetch overview after building details
+        this.buildingService
+          .getBuildingOverview(this.buildingDetails.id)
+          .subscribe(overview => (this.overviewBuilding = overview));
       });
   }
 }

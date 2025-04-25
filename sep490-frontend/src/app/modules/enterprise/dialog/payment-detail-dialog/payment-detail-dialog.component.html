@@ -1,42 +1,52 @@
-<div class="mt-4 w-[400px] sm:w-[500px] md:w-[600px]">
+<div class="mt-4 w-[400px] rounded-xl shadow-lg sm:w-[500px] md:w-[600px]">
     <!-- Dialog Header -->
-    <div class="p-dialog-header border-b p-0">
-        <span class="text-xl font-semibold text-primary">{{
-            "paymentDetail.header" | translate
-        }}</span>
+    <div
+        class="p-dialog-header flex items-center justify-between rounded-t-xl border-b bg-gradient-to-r p-4"
+    >
+        <span
+            class="flex items-center gap-2 text-xl font-semibold text-indigo-700"
+        >
+            <i class="pi pi-wallet text-indigo-500"></i>
+            {{ "paymentDetail.header" | translate }}
+        </span>
         <button
             pButton
             type="button"
             icon="pi pi-times"
-            class="p-button-rounded p-button-text"
+            class="p-button-rounded p-button-text text-gray-600 transition-colors hover:bg-indigo-100"
             (click)="closeDialog()"
         ></button>
     </div>
 
     <!-- Dialog Content -->
     <div
-        class="p-dialog-content flex min-h-[200px] flex-col overflow-hidden p-0"
+        class="p-dialog-content flex min-h-[200px] flex-col overflow-hidden p-4"
     >
         <!-- Loading State -->
         <ng-container *ngIf="loading">
-            <div
-                class="justify-content-center align-items-center flex"
-                style="height: 300px"
-            >
-                <p-progressSpinner></p-progressSpinner>
+            <div class="flex items-center justify-center" style="height: 300px">
+                <p-progressSpinner
+                    styleClass="w-12 h-12 text-indigo-500"
+                    strokeWidth="4"
+                    animationDuration="1s"
+                >
+                </p-progressSpinner>
             </div>
         </ng-container>
 
         <!-- Payment Details -->
         <ng-container *ngIf="!loading && paymentDetail">
             <div class="p-4">
-                <div class="grid">
+                <div class="grid gap-4">
                     <!-- Created Date -->
-                    <div class="col-6 mb-3">
-                        <label class="text-sm font-semibold">{{
-                            "paymentDetail.labels.createdDate" | translate
-                        }}</label>
-                        <p class="text-base">
+                    <div class="col-6 mb-3 rounded-lg p-3 transition-colors">
+                        <label
+                            class="flex items-center gap-2 text-sm font-semibold"
+                        >
+                            <i class="pi pi-calendar text-indigo-500"></i>
+                            {{ "paymentDetail.labels.createdDate" | translate }}
+                        </label>
+                        <p class="mt-1 text-base text-gray-800">
                             {{
                                 paymentDetail.createdDate ||
                                     ("paymentDetail.fallback.na" | translate)
@@ -45,13 +55,17 @@
                     </div>
 
                     <!-- Status -->
-                    <div class="col-6 mb-3">
-                        <label class="text-sm font-semibold">{{
-                            "paymentDetail.labels.status" | translate
-                        }}</label>
-                        <p class="text-base">
+                    <div class="col-6 mb-3 rounded-lg transition-colors">
+                        <label
+                            class="flex items-center gap-2 text-sm font-semibold"
+                        >
+                            <i class="pi pi-check-circle text-indigo-500"></i>
+                            {{ "paymentDetail.labels.status" | translate }}
+                        </label>
+                        <p class="mt-1 text-base">
                             <span
                                 [ngClass]="getStatusClass(paymentDetail.status)"
+                                class="rounded-full px-2 py-1 text-sm"
                             >
                                 {{
                                     "enum.status.payment." +
@@ -62,22 +76,28 @@
                     </div>
 
                     <!-- Amount -->
-                    <div class="col-6 mb-3">
-                        <label class="text-sm font-semibold">{{
-                            "paymentDetail.labels.amount" | translate
-                        }}</label>
-                        <p class="text-base">
+                    <div class="col-6 mb-3 rounded-lg p-3 transition-colors">
+                        <label
+                            class="flex items-center gap-2 text-sm font-semibold"
+                        >
+                            <i class="pi pi-dollar text-indigo-500"></i>
+                            {{ "paymentDetail.labels.amount" | translate }}
+                        </label>
+                        <p class="mt-1 text-base font-medium">
                             {{ formatAmount(paymentDetail.amount) }}
                             {{ paymentDetail.currency }}
                         </p>
                     </div>
 
                     <!-- Number of Credits -->
-                    <div class="col-6 mb-3">
-                        <label class="text-sm font-semibold">{{
-                            "paymentDetail.labels.credits" | translate
-                        }}</label>
-                        <p class="text-base">
+                    <div class="col-6 mb-3 rounded-lg p-3 transition-colors">
+                        <label
+                            class="flex items-center gap-2 text-sm font-semibold"
+                        >
+                            <i class="pi pi-star text-indigo-500"></i>
+                            {{ "paymentDetail.labels.credits" | translate }}
+                        </label>
+                        <p class="mt-1 text-base">
                             {{
                                 paymentDetail.numberOfCredits ||
                                     ("paymentDetail.fallback.na" | translate)
@@ -85,202 +105,103 @@
                         </p>
                     </div>
 
-                    <!--                    &lt;!&ndash; Account Name &ndash;&gt;-->
-                    <!--                    <div class="col-6 mb-3">-->
-                    <!--                        <label class="text-sm font-semibold">{{-->
-                    <!--                            "paymentDetail.labels.accountName" | translate-->
-                    <!--                        }}</label>-->
-                    <!--                        <p class="text-base">-->
-                    <!--                            {{-->
-                    <!--                                paymentDetail.accountName ||-->
-                    <!--                                    ("paymentDetail.fallback.na" | translate)-->
-                    <!--                            }}-->
-                    <!--                        </p>-->
-                    <!--                    </div>-->
-
-                    <!--                    &lt;!&ndash; Account Number &ndash;&gt;-->
-                    <!--                    <div class="col-6 mb-3">-->
-                    <!--                        <label class="text-sm font-semibold">{{-->
-                    <!--                            "paymentDetail.labels.accountNumber" | translate-->
-                    <!--                        }}</label>-->
-                    <!--                        <p class="text-base">-->
-                    <!--                            {{-->
-                    <!--                                paymentDetail.accountNumber ||-->
-                    <!--                                    ("paymentDetail.fallback.na" | translate)-->
-                    <!--                            }}-->
-                    <!--                        </p>-->
-                    <!--                    </div>-->
-
-                    <!--                    &lt;!&ndash; Description &ndash;&gt;-->
-                    <!--                    <div class="col-12 mb-3">-->
-                    <!--                        <label class="text-sm font-semibold">{{-->
-                    <!--                            "paymentDetail.labels.description" | translate-->
-                    <!--                        }}</label>-->
-                    <!--                        <p class="text-base">-->
-                    <!--                            {{-->
-                    <!--                                paymentDetail.description ||-->
-                    <!--                                    ("paymentDetail.fallback.na" | translate)-->
-                    <!--                            }}-->
-                    <!--                        </p>-->
-                    <!--                    </div>-->
-
-                    <!-- Order Code -->
-                    <div class="col-6 mb-3">
-                        <label class="text-sm font-semibold">{{
-                            "paymentDetail.labels.orderCode" | translate
-                        }}</label>
-                        <p class="text-base">
+                    <!-- Account Name -->
+                    <div class="col-6 mb-3 rounded-lg transition-colors">
+                        <label
+                            class="flex items-center gap-2 text-sm font-semibold"
+                        >
+                            <i class="pi pi-user text-indigo-500"></i>
+                            {{ "paymentDetail.labels.accountName" | translate }}
+                        </label>
+                        <p class="mt-1 text-base">
                             {{
-                                paymentDetail.orderCode ||
+                                paymentDetail.accountName ||
                                     ("paymentDetail.fallback.na" | translate)
                             }}
                         </p>
                     </div>
 
-                    <!-- Payment Link ID -->
-                    <div class="col-6 mb-3">
-                        <label class="text-sm font-semibold">{{
-                            "paymentDetail.labels.paymentLinkId" | translate
-                        }}</label>
-                        <p class="text-base">
+                    <!-- Account Number -->
+                    <div class="col-6 mb-3 rounded-lg transition-colors">
+                        <label
+                            class="flex items-center gap-2 text-sm font-semibold"
+                        >
+                            <i class="pi pi-id-card text-indigo-500"></i>
                             {{
-                                paymentDetail.paymentLinkId ||
-                                    ("paymentDetail.fallback.na" | translate)
+                                "paymentDetail.labels.accountNumber" | translate
                             }}
-                        </p>
-                    </div>
-
-                    <!-- PayOS Status -->
-                    <div class="col-6 mb-3">
-                        <label class="text-sm font-semibold">{{
-                            "paymentDetail.labels.payOSStatus" | translate
-                        }}</label>
-                        <p class="text-base">
+                        </label>
+                        <p class="mt-1 text-base">
                             {{
-                                paymentDetail.payOSStatus ||
-                                    ("paymentDetail.fallback.na" | translate)
-                            }}
-                        </p>
-                    </div>
-
-                    <!-- Expired At -->
-                    <div class="col-6 mb-3">
-                        <label class="text-sm font-semibold">{{
-                            "paymentDetail.labels.expiresAt" | translate
-                        }}</label>
-                        <p class="text-base">
-                            {{
-                                paymentDetail.expiredAt ||
+                                paymentDetail.accountNumber ||
                                     ("paymentDetail.fallback.na" | translate)
                             }}
                         </p>
                     </div>
 
                     <!-- Enterprise Info -->
-                    <div class="col-12 mb-3">
-                        <label class="text-sm font-semibold">{{
-                            "paymentDetail.labels.enterprise" | translate
-                        }}</label>
-                        <p class="text-base">
+                    <div class="col-12 mb-3 rounded-lg transition-colors">
+                        <label
+                            class="flex items-center gap-2 text-sm font-semibold"
+                        >
+                            <i class="pi pi-building text-indigo-500"></i>
+                            {{ "paymentDetail.labels.enterprise" | translate }}
+                        </label>
+                        <p class="mt-1 text-base">
                             <ng-container
                                 *ngIf="
                                     paymentDetail.enterpriseDTO;
                                     else noEnterprise
                                 "
                             >
-                                {{ "paymentDetail.labels.name" | translate }}:
-                                {{
-                                    paymentDetail.enterpriseDTO.name ||
-                                        ("paymentDetail.fallback.na"
-                                            | translate)
-                                }}
+                                <span class="flex items-center gap-2">
+                                    <i
+                                        class="pi pi-tag text-sm text-indigo-400"
+                                    ></i>
+                                    {{
+                                        "paymentDetail.labels.name" | translate
+                                    }}:
+                                    {{
+                                        paymentDetail.enterpriseDTO.name ||
+                                            ("paymentDetail.fallback.na"
+                                                | translate)
+                                    }}
+                                </span>
                                 <br />
-                                Email:
-                                {{
-                                    paymentDetail.enterpriseDTO.email ||
-                                        ("paymentDetail.fallback.na"
-                                            | translate)
-                                }}
+                                <span class="flex items-center gap-2">
+                                    <i
+                                        class="pi pi-envelope text-sm text-indigo-400"
+                                    ></i>
+                                    Email:
+                                    {{
+                                        paymentDetail.enterpriseDTO.email ||
+                                            ("paymentDetail.fallback.na"
+                                                | translate)
+                                    }}
+                                </span>
                                 <br />
-                                {{
-                                    "paymentDetail.labels.hotline" | translate
-                                }}:
-                                {{
-                                    paymentDetail.enterpriseDTO.hotline ||
-                                        ("paymentDetail.fallback.na"
-                                            | translate)
-                                }}
+                                <span class="flex items-center gap-2">
+                                    <i
+                                        class="pi pi-phone text-sm text-indigo-400"
+                                    ></i>
+                                    {{
+                                        "paymentDetail.labels.hotline"
+                                            | translate
+                                    }}:
+                                    {{
+                                        paymentDetail.enterpriseDTO.hotline ||
+                                            ("paymentDetail.fallback.na"
+                                                | translate)
+                                    }}
+                                </span>
                             </ng-container>
                             <ng-template #noEnterprise>
                                 {{ "paymentDetail.fallback.na" | translate }}
                             </ng-template>
                         </p>
                     </div>
-
-                    <!-- Credit Package Version -->
-                    <div class="col-12 mb-3">
-                        <label class="text-sm font-semibold">{{
-                            "paymentDetail.labels.creditPackage" | translate
-                        }}</label>
-                        <p class="text-base">
-                            <ng-container
-                                *ngIf="
-                                    paymentDetail.creditPackageVersionDTO;
-                                    else noCreditPackage
-                                "
-                            >
-                                {{
-                                    "paymentDetail.labels.credits" | translate
-                                }}:
-                                {{
-                                    paymentDetail.creditPackageVersionDTO
-                                        .numberOfCredits ||
-                                        ("paymentDetail.fallback.na"
-                                            | translate)
-                                }}
-                                <br />
-                                {{ "paymentDetail.labels.amount" | translate }}:
-                                {{
-                                    paymentDetail.creditPackageVersionDTO.price
-                                        | currency
-                                            : "VND" ||
-                                                  ("paymentDetail.fallback.na"
-                                                      | translate)
-                                }}
-                            </ng-container>
-                            <ng-template #noCreditPackage>
-                                {{ "paymentDetail.fallback.na" | translate }}
-                            </ng-template>
-                        </p>
-                    </div>
-
-                    <!-- Checkout URL -->
-                    <div class="col-12 mb-3" *ngIf="paymentDetail.checkoutUrl">
-                        <label class="text-sm font-semibold">{{
-                            "paymentDetail.labels.checkoutUrl" | translate
-                        }}</label>
-                        <p class="text-base">
-                            <a
-                                [href]="paymentDetail.checkoutUrl"
-                                target="_blank"
-                                class="text-blue-600 hover:underline"
-                            >
-                                {{ paymentDetail.checkoutUrl }}
-                            </a>
-                        </p>
-                    </div>
                 </div>
             </div>
         </ng-container>
-
-        <!-- Action Buttons -->
-        <div class="flex justify-end p-4">
-            <p-button
-                [label]="'paymentDetail.buttons.close' | translate"
-                icon="pi pi-times"
-                severity="secondary"
-                (onClick)="closeDialog()"
-            ></p-button>
-        </div>
     </div>
 </div>

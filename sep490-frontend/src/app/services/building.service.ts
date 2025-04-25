@@ -6,6 +6,7 @@ import {AppRoutingConstants} from '../app-routing.constant';
 import {
   Building,
   BuildingDetails,
+  OverviewBuildingDTO,
   UserByBuilding
 } from '../modules/enterprise/models/enterprise.dto';
 import {
@@ -67,6 +68,12 @@ export class BuildingService {
     return this.httpClient.post<SearchResultDto<UserByBuilding>>(
       `${AppRoutingConstants.IDP_API_URL}/enterprise-user/search/${buildingId}`,
       searchCriteria
+    );
+  }
+
+  getBuildingOverview(id: UUID): Observable<OverviewBuildingDTO> {
+    return this.httpClient.get<OverviewBuildingDTO>(
+      `${AppRoutingConstants.ENTERPRISE_API_URL}/${AppRoutingConstants.BUILDING_PATH}/${id}/overview`
     );
   }
 }

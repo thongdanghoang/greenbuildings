@@ -3,6 +3,7 @@ package greenbuildings.enterprise.rest;
 import commons.springfw.impl.mappers.CommonMapper;
 import greenbuildings.commons.api.dto.SearchCriteriaDTO;
 import greenbuildings.commons.api.dto.SearchResultDTO;
+import greenbuildings.commons.api.exceptions.BusinessException;
 import greenbuildings.enterprise.dtos.EmissionSourceCriteriaDTO;
 import greenbuildings.enterprise.dtos.EmissionSourceDTO;
 import greenbuildings.enterprise.entities.EmissionSourceEntity;
@@ -13,7 +14,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -77,5 +80,12 @@ public class EmissionSourceController {
     private ResponseEntity<Void> saveAndReturnResponse(EmissionSourceEntity entity, HttpStatus status) {
         emissionSourceService.createOrUpdate(entity);
         return ResponseEntity.status(status).build();
+    }
+
+
+    @PostMapping("/excel")
+    public ResponseEntity<Void> importExcel(@RequestParam("file") MultipartFile file) {
+            emissionSourceService.importFromExcel(file);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 }

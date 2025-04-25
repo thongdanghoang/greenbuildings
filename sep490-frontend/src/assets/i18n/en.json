@@ -78,6 +78,9 @@
       },
       "record": {
         "dateOverlap": "Record date must not overlap with other records"
+      },
+      "excel": {
+        "invalidFormat": "Invalid file format. Please upload a valid Excel file."
       }
     },
     "emissionFactor": {
@@ -537,7 +540,13 @@
     },
     "emissionSource": {
       "name": "Emission source",
-      "addEmissionSource": "Add Emission Source"
+      "addEmissionSource": "Add Emission Source",
+      "upload": {
+        "title": "Import multiple records via Excel file",
+        "chooseFile": "Choose File",
+        "import": "Import",
+        "cancel": "Cancel"
+      }
     },
     "fuel": {
       "addFuel": "Add Fuel"
@@ -882,6 +891,44 @@
       "group": "Group",
       "email": "Tenant Email",
       "status": "Invitation Status"
+    }
+  },
+  "overview": {
+    "title": "Overview",
+    "numberOfGroups": "Number of groups:",
+    "numberOfCorporationTenant": "Number of corporation tenant:",
+    "numberOfItems": "Number of items in all building:",
+    "numberOfActivities": "Number of emission activities:"
+},
+  "tenant": {
+    "building": "This group of buildings is for tenants:",
+    "email": "Tenant's email:",
+    "hotline": "Tenant hotline number:",
+    "information": "Tenant information",
+    "detail": "Tenant Details",
+    "assign": "Assign Tenant",
+    "noTenant": "No tenant"
+  },
+  "buildingGroup": {
+    "description": "Description",
+    "building": {
+      "information": "Building Information",
+      "name": "Building Name",
+      "address": "Address"
+    },
+    "enterprise": {
+      "buildings": {
+        "group": {
+          "item": {
+            "new": "New Group Item"
+          }
+        }
+      },
+      "emission": {
+        "activity": {
+          "new": "New Activity"
+        }
+      }
     }
   }
 }

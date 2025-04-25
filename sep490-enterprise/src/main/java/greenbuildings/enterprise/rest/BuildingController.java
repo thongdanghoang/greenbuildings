@@ -8,6 +8,7 @@ import greenbuildings.commons.api.dto.SearchResultDTO;
 import greenbuildings.commons.api.security.UserRole;
 import greenbuildings.enterprise.dtos.BuildingDTO;
 import greenbuildings.enterprise.dtos.DownloadReportDTO;
+import greenbuildings.enterprise.dtos.OverviewBuildingDTO;
 import greenbuildings.enterprise.dtos.dashboard.SelectableBuildingDTO;
 import greenbuildings.enterprise.mappers.BuildingMapper;
 import greenbuildings.enterprise.services.BuildingService;
@@ -87,6 +88,12 @@ public class BuildingController extends AbstractRestController {
     public ResponseEntity<ByteArrayResource> generateReport(@RequestBody DownloadReportDTO downloadReport) {
         byte[] result = buildingService.generateReport(downloadReport);
         return generateFileDownloadResponse(new ByteArrayResource(result));
+    }
+
+    @GetMapping("/{id}/overview")
+    public ResponseEntity<OverviewBuildingDTO> getOverviewBuildingById(@PathVariable UUID id) {
+        var overviewBuilding = buildingService.getOverviewBuildingById(id);
+        return ResponseEntity.ok(overviewBuilding);
     }
     
 }

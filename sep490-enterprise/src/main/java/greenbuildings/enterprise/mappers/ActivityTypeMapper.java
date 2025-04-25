@@ -8,7 +8,9 @@ import org.mapstruct.MappingTarget;
 
 @Mapper(componentModel = "spring")
 public interface ActivityTypeMapper {
-    
+
+    @Mapping(target = "id", source = "id")
+    @Mapping(target = "name", source = "name")
     @Mapping(target = "tenantID", source = "tenant.id")
     ActivityTypeDTO toDTO(ActivityTypeEntity entity);
     

@@ -17,109 +17,193 @@
             {{ "enterprise.buildings.group.title" | translate }}
         </div>
     </div>
-    <div class="my-2 flex">
-        <div class="mx-2 mb-2 mt-2 md:w-1/2">
-            <p-card header="{{ buildingGroup.building.name }}">
-                <ng-template pTemplate="subtitle">
-                    <i class="pi pi-map-marker"></i>
-                    {{ buildingGroup.building.address }}
+    <div class="my-2 flex flex-col lg:flex-row">
+        <div class="mx-4 my-6 md:w-1/2">
+            <p-card styleClass="shadow-lg rounded-xl overflow-hidden">
+                <!-- Header -->
+                <ng-template pTemplate="header">
+                    <div class="bg-gradient-to-r from-blue-50 to-blue-100 p-6">
+                        <div class="mb-3 flex items-center gap-3">
+                            <i class="pi pi-home text-2xl text-blue-600"></i>
+                            <h2 class="text-2xl font-bold text-blue-900">
+                                {{ buildingGroup.name }}
+                            </h2>
+                        </div>
+                        <div class="flex items-start gap-2">
+                            <i class="pi pi-info-circle mt-1"></i>
+                            <p class="text-sm text-gray-600">
+                                <span class="font-medium"
+                                    >{{
+                                        "buildingGroup.description" | translate
+                                    }}:</span
+                                >
+                                {{ buildingGroup.description || "-" }}
+                            </p>
+                        </div>
+                    </div>
                 </ng-template>
-                <p-fieldset
-                    legend="{{
-                        'enterprise.emission.activity.subscriptionDetail'
-                            | translate
-                    }}"
-                    collapsed="false"
-                >
-                    <p>
-                        <i class="pi pi-star"></i>
-                        {{
-                            "enterprise.emission.activity.maxNoActivities"
-                                | translate
-                        }}
-                        {{
-                            buildingGroup.building.subscriptionDTO
-                                ?.maxNumberOfDevices
-                        }}
-                    </p>
-                    <p>
-                        <i class="pi pi-calendar"></i>
-                        {{
-                            "enterprise.emission.activity.subscriptionDuration"
-                                | translate
-                        }}
 
-                        {{
-                            buildingGroup.building.subscriptionDTO?.startDate
-                                | date: "dd/MM/yyyy"
-                        }}
-                        -
-                        {{
-                            buildingGroup.building.subscriptionDTO?.endDate
-                                | date: "dd/MM/yyyy"
-                        }}
-                    </p>
-                    <p>
-                        <i class="pi pi-hourglass"></i>
-                        {{
-                            "enterprise.emission.activity.remainingDays"
-                                | translate
-                        }}
-                        {{ getRemainingDays() }}
-                    </p>
-                </p-fieldset>
+                <!-- Content -->
+                <div class="p-6">
+                    <!-- Building Information in Fieldset -->
+                    <p-fieldset
+                        legend="{{
+                            'buildingGroup.building.information' | translate
+                        }}"
+                        [toggleable]="true"
+                        [collapsed]="false"
+                        styleClass="border border-gray-200 rounded-lg"
+                    >
+                        <div class="space-y-4 p-4">
+                            <div class="flex items-center gap-3">
+                                <i
+                                    class="pi pi-building text-lg text-blue-500"
+                                ></i>
+                                <span class="font-medium">
+                                    {{
+                                        "buildingGroup.building.name"
+                                            | translate
+                                    }}:
+                                </span>
+                                <span>{{
+                                    buildingGroup.building?.name || "-"
+                                }}</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <i
+                                    class="pi pi-map-marker text-lg text-blue-500"
+                                ></i>
+                                <span class="font-medium">
+                                    {{
+                                        "buildingGroup.building.address"
+                                            | translate
+                                    }}:
+                                </span>
+                                <span>{{
+                                    buildingGroup.building?.address || "-"
+                                }}</span>
+                            </div>
+                        </div>
+                    </p-fieldset>
+                </div>
+
+                <!-- Footer -->
                 <ng-template pTemplate="footer">
-                    <div class="mt-1 flex gap-4">
+                    <div class="flex gap-4 border-t border-gray-200 p-6">
                         <p-button
                             label="{{
-                                'enterprise.buildings.group.item.new'
+                                'buildingGroup.enterprise.buildings.group.item.new'
                                     | translate
                             }}"
-                            class="flex-1"
+                            icon="pi pi-plus"
                             severity="primary"
                             outlined
-                            styleClass="w-full"
+                            styleClass="w-full transition-colors duration-200"
                             (onClick)="openNewGroupItem()"
                             size="small"
                         ></p-button>
-
                         <p-button
                             label="{{
-                                'enterprise.emission.activity.new' | translate
+                                'buildingGroup.enterprise.emission.activity.new'
+                                    | translate
                             }}"
-                            class="flex-1"
-                            (onClick)="openNewActivityDialog()"
+                            icon="pi pi-plus"
                             severity="primary"
-                            styleClass="w-full"
+                            styleClass="w-full transition-colors duration-200"
+                            (onClick)="openNewActivityDialog()"
                             size="small"
                         ></p-button>
                     </div>
                 </ng-template>
             </p-card>
         </div>
-        <div class="mx-2 mb-2 mt-2 md:w-1/2">
-            <p-card header="{{ buildingGroup.building.name }}">
-                <ng-template pTemplate="subtitle">
-                    <i class="pi pi-map-marker"></i>
-                    {{ buildingGroup.building.address }}
+        <div class="mx-4 my-6 md:w-1/2">
+            <p-card styleClass="shadow-lg rounded-xl overflow-hidden">
+                <!-- Header -->
+                <ng-template pTemplate="header">
+                    <div
+                        class="flex items-center gap-3 bg-gradient-to-r from-blue-50 to-blue-100 p-6"
+                    >
+                        <p-image
+                            src="assets/images/icon/tenant.png"
+                            alt="Tenant Logo"
+                            width="32"
+                            height="32"
+                            styleClass="rounded-full"
+                        />
+                        <h2 class="text-xl font-bold text-blue-900">
+                            {{ "tenant.information" | translate }}
+                        </h2>
+                    </div>
                 </ng-template>
-                <div class="flex-1">
-                    Number of building groups: 150
-                    <br />
-                    Number of corporative tenant: 100
+
+                <!-- Content -->
+                <div class="p-[14px]">
+                    <ng-container *ngIf="buildingGroup.tenant; else noTenant">
+                        <div class="space-y-5">
+                            <div class="flex items-center gap-3">
+                                <i class="pi pi-home text-lg text-blue-500"></i>
+                                <span class="font-medium">
+                                    {{ "tenant.building" | translate }}
+                                </span>
+                                <span class="text-primary">{{
+                                    buildingGroup.tenant.name || "-"
+                                }}</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <i
+                                    class="pi pi-envelope text-lg text-blue-500"
+                                ></i>
+                                <span class="font-medium">
+                                    {{ "tenant.email" | translate }}
+                                </span>
+                                <span class="text-primary">{{
+                                    buildingGroup.tenant.email || "-"
+                                }}</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <i
+                                    class="pi pi-phone text-lg text-blue-500"
+                                ></i>
+                                <span class="font-medium">
+                                    {{ "tenant.hotline" | translate }}
+                                </span>
+                                <span class="text-primary">{{
+                                    buildingGroup.tenant.hotline || "-"
+                                }}</span>
+                            </div>
+                        </div>
+                    </ng-container>
+                    <ng-template #noTenant>
+                        <div class="flex items-center justify-center py-3">
+                            <i class="pi pi-exclamation-circle mr-2"></i>
+                            <span>{{ "tenant.noTenant" | translate }}</span>
+                        </div>
+                    </ng-template>
                 </div>
+
+                <!-- Footer -->
                 <ng-template pTemplate="footer">
-                    <div class="mt-1 flex gap-4">
+                    <div
+                        class="flex justify-end gap-4 border-t border-gray-200 p-6"
+                    >
                         <p-button
-                            label="{{
-                                'enterprise.emission.activity.manageActivityType'
-                                    | translate
-                            }}"
-                            class="flex-1"
-                            severity="secondary"
+                            *ngIf="buildingGroup.tenant"
+                            label="{{ 'tenant.detail' | translate }}"
+                            icon="pi pi-eye"
+                            severity="primary"
                             outlined
-                            styleClass="w-full"
-                            (onClick)="navigateToManageActivityType()"
+                            styleClass="transition-colors duration-200"
+                            (onClick)="navigateToTenantDetail()"
+                            size="small"
+                        ></p-button>
+                        <p-button
+                            *ngIf="!buildingGroup.tenant"
+                            label="{{ 'tenant.assign' | translate }}"
+                            icon="pi pi-user-plus"
+                            severity="primary"
+                            styleClass=" transition-colors duration-200"
+                            (onClick)="navigateToAssignTenant()"
                             size="small"
                         ></p-button>
                     </div>

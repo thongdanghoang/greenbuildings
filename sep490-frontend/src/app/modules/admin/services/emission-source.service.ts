@@ -32,4 +32,14 @@ export class EmissionSourceService {
   public get createOrUpdateEmissionSourceURL(): string {
     return `${AppRoutingConstants.ENTERPRISE_API_URL}/emission-source`;
   }
+
+  public importEmissionSources(file: File): Observable<void> {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    return this.httpClient.post<void>(
+      `${AppRoutingConstants.ENTERPRISE_API_URL}/emission-source/excel`,
+      formData
+    );
+  }
 }

@@ -78,6 +78,9 @@
       },
       "record": {
         "dateOverlap": "Ngày bản ghi phát thải không được trùng lặp với ngày bản ghi phát thải khác"
+      },
+      "excel": {
+        "invalidFormat": "Định dạng tệp không hợp lệ. Vui lòng tải lên tệp Excel hợp lệ."
       }
     },
     "emissionFactor": {
@@ -531,7 +534,13 @@
     },
     "emissionSource": {
       "name": "Nguồn phát thải",
-      "addEmissionSource": "Thêm Nguồn Phát Thải"
+      "addEmissionSource": "Thêm Nguồn Phát Thải",
+      "upload": {
+        "title": "Nhập nhiều dữ liệu qua file Excel",
+        "chooseFile": "Chọn File",
+        "import": "Nhập",
+        "cancel": "Hủy"
+      }
     },
     "fuel": {
       "addFuel": "Thêm nhiên liệu"
@@ -876,6 +885,44 @@
       "group": "Nhóm",
       "email": "Email người thuê",
       "status": "Trạng thái lời mời"
+    }
+  },
+  "overview": {
+    "title": "Tổng quan",
+    "numberOfGroups": "Số nhóm:",
+    "numberOfCorporationTenant": "Số lượng khách thuê doanh nghiệp:",
+    "numberOfItems": "Số lượng thiết bị trong toàn bộ tòa nhà:",
+    "numberOfActivities": "Số hoạt động phát thải:"
+  },
+  "tenant": {
+    "building": "Nhóm tòa này là của người thuê:",
+    "email": "Email của người thuê:",
+    "hotline": "Số điện thoại của người thuê nhà:",
+    "information": "Thông tin người thuê",
+    "detail": "Chi tiết người thuê nhà",
+    "assign": "Chỉ định người thuê",
+    "noTenant": "Chưa có người thuê"
+  },
+  "buildingGroup": {
+    "description": "Miêu tả",
+    "building": {
+      "information": "Thông tin tòa nhà",
+      "name": "Tên tòa nhà",
+      "address": "Địa chỉ"
+    },
+    "enterprise": {
+      "buildings": {
+        "group": {
+          "item": {
+            "new": "Thêm mục nhóm mới"
+          }
+        }
+      },
+      "emission": {
+        "activity": {
+          "new": "Thêm hoạt động mới"
+        }
+      }
     }
   }
 }

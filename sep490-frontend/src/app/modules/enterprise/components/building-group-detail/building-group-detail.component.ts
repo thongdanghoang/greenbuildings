@@ -142,6 +142,24 @@ export class BuildingGroupDetailComponent
     this.selected = selected;
   }
 
+  navigateToTenantDetail(): void {
+    if (this.buildingGroup.tenant?.id) {
+      // void this.router.navigate([
+      //   AppRoutingConstants.ENTERPRISE_PATH,
+      //   AppRoutingConstants.TENANT_DETAIL_PATH,
+      //   this.buildingGroup.tenant.id
+      // ]);
+    }
+  }
+
+  navigateToAssignTenant(): void {
+    void this.router.navigate([
+      AppRoutingConstants.ENTERPRISE_PATH,
+      AppRoutingConstants.NEW_TENANT_PATH,
+      this.buildingGroup.building.id
+    ]);
+  }
+
   getRemainingDays(): number | string {
     if (!this.buildingGroup.building?.subscriptionDTO?.endDate) {
       return 'N/A'; // Handle missing date
