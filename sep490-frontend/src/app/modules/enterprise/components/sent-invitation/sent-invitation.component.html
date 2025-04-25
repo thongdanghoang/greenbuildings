@@ -1,0 +1,77 @@
+<div class="mb-4 flex items-center justify-start border-b pb-1">
+    <p class="text-lg font-bold text-primary">
+        {{ "sentInvitation.title" | translate }}
+    </p>
+</div>
+<div class="">
+    <p>{{ "sentInvitation.description" | translate }}</p>
+</div>
+<table-template
+    [fetch]="fetchInvitations"
+    [columns]="cols"
+    [searchOnInit]="true"
+    [captionTemplateRef]="captionTemplateRef"
+    [criteria]="searchCriteria"
+    [triggerSearch]="searchEvent"
+>
+</table-template>
+<ng-template #captionTemplateRef>
+    <div class="flex items-center justify-between">
+        <div class="flex gap-2.5">
+            <p-iconfield>
+                <p-inputicon styleClass="pi pi-search" />
+                <input
+                    type="text"
+                    pInputText
+                    [(ngModel)]="searchCriteria.tenantEmail"
+                    placeholder="{{ 'common.search' | translate }}"
+                />
+            </p-iconfield>
+            <p-select
+                [options]="availableBuildings"
+                [filter]="true"
+                showClear="true"
+                (onChange)="searchEvent.emit()"
+                (onClear)="searchEvent.emit()"
+                filterBy="name"
+                [(ngModel)]="searchCriteria.buildingId"
+                optionLabel="name"
+                optionValue="id"
+                [placeholder]="
+                    'sentInvitation.table.selectBuilding' | translate
+                "
+            />
+            <p-button
+                styleClass="justify-self-end"
+                severity="primary"
+                [label]="'enterprise.Users.search' | translate"
+                icon="pi pi-search"
+                outlined
+                (onClick)="searchEvent.emit()"
+            />
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #buildingNameTemplate let-invitation>
+    <span>{{ invitation?.buildingGroup.building.name }}</span>
+</ng-template>
+<ng-template #buildingGroupNameTemplate let-invitation>
+    <span>{{ invitation?.buildingGroup.name }}</span>
+</ng-template>
+<ng-template #invitationStatusTemplate let-rowData>
+    <p-tag
+        [ngClass]="getStatusClass(rowData.status)"
+        [value]="'enum.invitation.status.' + rowData.status | translate"
+    />
+</ng-template>
+<ng-template #actionsTemplate let-rowData>
+    <p-button
+        *ngIf="rowData.status === InvitationStatus.PENDING"
+        icon="pi pi-times"
+        [rounded]="true"
+        [text]="true"
+        severity="danger"
+        (onClick)="onRejectInvitation(rowData)"
+    />
+</ng-template>

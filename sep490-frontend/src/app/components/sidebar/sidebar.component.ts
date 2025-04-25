@@ -133,6 +133,11 @@ export class SidebarComponent
             label: 'sidebar.owner.payment',
             icon: 'pi pi-wallet',
             route: `/${AppRoutingConstants.ENTERPRISE_PATH}/${AppRoutingConstants.PAYMENT_PATH}`
+          },
+          {
+            label: 'sidebar.owner.invitation',
+            icon: 'pi pi-envelope',
+            route: `/${AppRoutingConstants.ENTERPRISE_PATH}/${AppRoutingConstants.SENT_INVITATION_PATH}`
           }
         ]
       },

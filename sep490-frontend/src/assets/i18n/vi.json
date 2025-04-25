@@ -396,6 +396,13 @@
         "PROCESSING": "Đang xử lý",
         "CANCELLED": "Đã hủy"
       }
+    },
+    "invitation": {
+      "status": {
+        "PENDING": "Đang chờ",
+        "REJECTED": "Đã từ chối",
+        "ACCEPTED": "Đã chấp nhận"
+      }
     }
   },
   "table": {
@@ -454,6 +461,7 @@
       "dashboard": "Bảng điều khiển",
       "coefficientCenter": "Hệ số trung tâm",
       "emission": "Hoạt động phát thải",
+      "invitation": "Lời mời đã gửi",
       "building": "Tòa nhà",
       "manage": "Quản lý",
       "users": "Người dùng",
@@ -855,6 +863,18 @@
       "title": "Gói Tín Dụng Đề Xuất",
       "description": "Dựa trên thông tin bạn cung cấp, chúng tôi đề xuất gói tín dụng sau:",
       "noSuitablePackage": "Không tìm thấy gói tín dụng phù hợp với yêu cầu của bạn."
+    }
+  },
+  "sentInvitation": {
+    "title": "Lời mời đã gửi",
+    "description": "Xem và quản lý tất cả các lời mời đã gửi cho người thuê để hợp tác với doanh nghiệp của bạn",
+    "reject": "Đã từ chối lời mời thành công!",
+    "table": {
+      "selectBuilding": "Chọn tòa nhà",
+      "building": "Tòa nhà",
+      "group": "Nhóm",
+      "email": "Email người thuê",
+      "status": "Trạng thái lời mời"
     }
   }
 }
