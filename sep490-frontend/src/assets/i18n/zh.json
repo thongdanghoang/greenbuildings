@@ -78,6 +78,9 @@
       },
       "record": {
         "dateOverlap": "排放记录日期不得与另一排放记录日期重叠"
+      },
+      "excel": {
+        "invalidFormat": "文件格式无效。请上传有效的 Excel 文件。"
       }
     },
     "emissionFactor": {
@@ -322,6 +325,7 @@
         "record": {
           "title": "排放记录",
           "deleteWithCount": "删除（{{count}}）条记录",
+          "new": "新的排放记录",
           "dateWarning": "记录日期在将来，报告可能不准确",
           "table": {
             "value": "数值",
@@ -530,7 +534,13 @@
     },
     "emissionSource": {
       "name": "排放源",
-      "addEmissionSource": "添加排放源"
+      "addEmissionSource": "添加排放源",
+      "upload": {
+        "title": "通过 Excel 文件导入多个数据",
+        "chooseFile": "选择文件",
+        "import": "导入",
+        "cancel": "取消"
+      }
     },
     "fuel": {
       "addFuel": "添加燃料"
@@ -876,5 +886,43 @@
       "email": "租户邮箱",
       "status": "邀请状态"
       }
+  },
+  "overview": {
+    "title": "概览",
+    "numberOfGroups": "组数：",
+    "numberOfCorporationTenant": "企业租户数量：",
+    "numberOfItems": "所有建筑中的项目数：",
+    "numberOfActivities": "排放活动数："
+  },
+  "tenant": {
+    "building": "这组建筑供租户使用:",
+    "email": "租户地址:",
+    "hotline": "租户热线电话号码:",
+    "information": "租户信息",
+    "detail": "租户详情",
+    "assign": "分配租户",
+    "noTenant": "无租户"
+  },
+  "buildingGroup": {
+    "description": "描述",
+    "building": {
+      "information": "建筑信息",
+      "name": "建筑名称",
+      "address": "地址"
+    },
+    "enterprise": {
+      "buildings": {
+        "group": {
+          "item": {
+            "new": "新建组项目"
+          }
+        }
+      },
+      "emission": {
+        "activity": {
+          "new": "新建活动"
+        }
+      }
+    }
   }
 }

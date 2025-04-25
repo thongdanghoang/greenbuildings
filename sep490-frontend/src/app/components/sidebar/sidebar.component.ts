@@ -82,6 +82,11 @@ export class SidebarComponent
             label: 'sidebar.basicUser.invitation',
             icon: 'pi pi-envelope',
             route: `/${AppRoutingConstants.ENTERPRISE_PATH}/${AppRoutingConstants.INVITATION_PATH}`
+          },
+          {
+            label: 'sidebar.owner.activityType',
+            icon: 'pi pi-sitemap',
+            route: `/${AppRoutingConstants.ENTERPRISE_PATH}/${AppRoutingConstants.ACTIVITY_TYPE}`
           }
         ]
       }

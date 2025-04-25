@@ -4,6 +4,7 @@ import commons.springfw.impl.utils.SecurityUtils;
 import greenbuildings.commons.api.exceptions.BusinessException;
 import greenbuildings.commons.api.exceptions.TechnicalException;
 import greenbuildings.enterprise.dtos.DownloadReportDTO;
+import greenbuildings.enterprise.dtos.OverviewBuildingDTO;
 import greenbuildings.enterprise.entities.BuildingEntity;
 import greenbuildings.enterprise.entities.EmissionActivityEntity;
 import greenbuildings.enterprise.entities.EmissionActivityRecordEntity;
@@ -150,5 +151,25 @@ public class BuildingServiceImpl implements BuildingService {
     public List<BuildingEntity> findBuildingsByEnterpriseId(UUID enterpriseId) {
         return buildingRepository.findAllByEnterpriseId(enterpriseId);
     }
+
+    @Override
+    public OverviewBuildingDTO getOverviewBuildingById(UUID id) {
+    var building = buildingRepository.findById(id).orElseThrow();
+    long numberOfGroups = building.getBuildingGroups().size();
+    long numberOfCorporationTenant = building.getBuildingGroups()
+        .stream()
+        .filter(group -> group.getTenant() != null)
+        .count();
+    long numberOfActivities = building.getBuildingGroups()
+        .stream()
+        .mapToLong(group -> group.getEmissionActivities().size())
+        .sum();
+    long numberOfItems = building.getBuildingGroups()
+        .stream()
+        .mapToLong(group -> group.getGroupItems().size())
+        .sum();
+
+    return new OverviewBuildingDTO(numberOfGroups, numberOfCorporationTenant, numberOfActivities, numberOfItems);
+}
     
 }

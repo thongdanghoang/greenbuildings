@@ -27,7 +27,7 @@ export class ActivityTypeDialogComponent extends AbstractFormComponent<ActivityT
     version: new FormControl(0),
     name: new FormControl('', Validators.required),
     description: new FormControl('', Validators.required),
-    enterpriseId: new FormControl('')
+    tenantID: new FormControl('')
   };
 
   constructor(
@@ -78,7 +78,7 @@ export class ActivityTypeDialogComponent extends AbstractFormComponent<ActivityT
     this.applicationService.UserData.pipe(takeUntil(this.destroy$)).subscribe(
       u => {
         if (u?.enterpriseId) {
-          this.formGroup.get('enterpriseId')?.setValue(u.enterpriseId);
+          this.formGroup.get('tenantID')?.setValue(u.enterpriseId);
           // or alternatively: this.formStructure.enterpriseId.setValue(u.enterpriseId);
         }
       }

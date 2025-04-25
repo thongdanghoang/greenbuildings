@@ -10,8 +10,7 @@ import {
 } from '../../shared/models/base-models';
 
 export interface ActivityTypeCriteria {
-  tenantId: UUID;
-  criteria?: string;
+  criteria: string;
 }
 
 @Injectable({

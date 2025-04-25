@@ -15,6 +15,13 @@ export interface Building extends BaseDTO {
   subscriptionDTO?: Subscription;
 }
 
+export interface OverviewBuildingDTO {
+  numberOfGroups: number;
+  numberOfCorporationTenant: number;
+  numberOfActivities: number;
+  numberOfItems: number;
+}
+
 export interface BuildingDetails extends BaseDTO {
   name: string;
   latitude: number;
@@ -26,6 +33,8 @@ export interface BuildingDetails extends BaseDTO {
 
 export interface Tenant extends BaseDTO {
   name: string;
+  email: string;
+  hotline: string;
 }
 
 export enum InvitationStatus {
@@ -77,7 +86,7 @@ export interface CreateNewActivityDTO extends BaseDTO {
 export interface ActivityType extends BaseDTO {
   name: string;
   description: string;
-  enterpriseId: UUID;
+  tenantID: UUID;
 }
 
 export interface DownloadReport {

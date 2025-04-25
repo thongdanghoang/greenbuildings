@@ -88,7 +88,7 @@ const routes: Routes = [
         component: CreateTenantComponent
       },
       {
-        path: `${AppRoutingConstants.ACTIVITY_TYPE}/:id`,
+        path: `${AppRoutingConstants.ACTIVITY_TYPE}`,
         component: ActivityTypeComponent
       },
       {
