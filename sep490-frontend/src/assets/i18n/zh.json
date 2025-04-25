@@ -223,6 +223,7 @@
         "new": "与您的租户和建筑群组合作",
         "email": "企业关联邮箱",
         "buildingGroup": "可用的建筑群组",
+        "noGroups": "没有可连接的建筑群组",
         "sendInvitation": "发送邀请",
         "placeholder": {
           "email": "请输入企业关联邮箱",
@@ -395,6 +396,13 @@
         "PROCESSING": "处理中",
         "CANCELLED": "已取消"
       }
+    },
+    "invitation": {
+      "status": {
+        "PENDING": "待处理",
+        "REJECTED": "已拒绝",
+        "ACCEPTED": "已接受"
+      }
     }
   },
   "table": {
@@ -453,6 +461,7 @@
       "dashboard": "仪表板",
       "coefficientCenter": "系数中心",
       "emission": "排放活动",
+      "invitation": "已发送邀请",
       "building": "建筑",
       "manage": "管理",
       "users": "用户",
@@ -855,5 +864,17 @@
       "description": "根据您输入的信息，我们推荐以下信用包：",
       "noSuitablePackage": "未找到适合您需求的信用包。"
     }
+  },
+  "sentInvitation": {
+    "title": "已发送邀请",
+    "description": "查看和管理发送给租户的所有企业合作邀请",
+    "reject": "邀请已成功拒绝！",
+    "table": {
+      "selectBuilding": "选择建筑",
+      "building": "建筑",
+      "group": "群组",
+      "email": "租户邮箱",
+      "status": "邀请状态"
+      }
   }
 }

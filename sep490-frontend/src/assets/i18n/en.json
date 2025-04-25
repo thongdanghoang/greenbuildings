@@ -223,6 +223,7 @@
         "new": "Collaborate with tenant and your building group",
         "email": "Tenant email",
         "sendInvitation": "Send invitation",
+        "noGroups": "No available building groups to connect",
         "buildingGroup": "Available building groups",
         "placeholder": {
           "email": "Input your tenant email",
@@ -402,6 +403,13 @@
         "PROCESSING": "Processing",
         "CANCELLED": "Cancelled"
       }
+    },
+    "invitation": {
+      "status": {
+        "PENDING": "Pending",
+        "REJECTED": "Rejected",
+        "ACCEPTED": "Accepted"
+      }
     }
   },
   "table": {
@@ -460,6 +468,7 @@
       "dashboard": "Dashboard",
       "coefficientCenter": "Coefficient center",
       "emission": "Emission Activity",
+      "invitation": "Sent Invitation",
       "building": "Building",
       "manage": "Manage",
       "users": "Users",
@@ -861,6 +870,18 @@
       "title": "Recommended Credit Package",
       "description": "Based on your input, we recommend the following credit package:",
       "noSuitablePackage": "No suitable credit package found for your requirements."
+    }
+  },
+  "sentInvitation": {
+    "title": "Sent Invitation",
+    "description": "View and manage all invitations sent to tenants for collaboration with your enterprise",
+    "reject": "Rejected invitation successfully !",
+    "table": {
+      "selectBuilding": "Select building",
+      "building": "Building",
+      "group": "Group",
+      "email": "Tenant Email",
+      "status": "Invitation Status"
     }
   }
 }

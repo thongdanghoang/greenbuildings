@@ -16,6 +16,7 @@ import {NewGroupItemComponent} from './components/new-group-item/new-group-item.
 import {NewTenantComponent} from './components/new-tenant/new-tenant.component';
 import {PaymentComponent} from './components/payment/payment.component';
 import {PlanComponent} from './components/plan/plan.component';
+import {SentInvitationComponent} from './components/sent-invitation/sent-invitation.component';
 import {EnterpriseComponent} from './enterprise.component';
 import {ActivityTypeComponent} from './components/activity-type/activity-type.component';
 import {BuildingGroupDetailComponent} from './components/building-group-detail/building-group-detail.component';
@@ -48,6 +49,10 @@ const routes: Routes = [
       {
         path: `${AppRoutingConstants.NEW_TENANT_PATH}/:id`,
         component: NewTenantComponent
+      },
+      {
+        path: `${AppRoutingConstants.SENT_INVITATION_PATH}`,
+        component: SentInvitationComponent
       },
       {
         path: `${AppRoutingConstants.NEW_GROUP_PATH}/:id`,
