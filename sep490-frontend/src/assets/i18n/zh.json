@@ -149,11 +149,22 @@
       "email": "电子邮件",
       "taxCode": "税号",
       "hotline": "热线",
+      "header1": "介绍",
+      "header2": "选择角色",
+      "header3": "信息",
+      "welcomeTitle": "欢迎使用 GreenBuildings！",
+      "intro": "您已经拥有系统账户。请注册您的企业信息，以便我们为您分配相应的权限。",
+      "roleInstruction": "根据您注册的企业类型，系统将为您分配相应的角色：",
+      "callToAction": "请先注册企业信息，以便使用系统的完整功能。",
       "role": {
         "buildingOwnerLabel": "建筑所有者",
         "buildingOwnerDescription": "管理一个或多个建筑物，可以邀请租户加入并管理群组。",
         "tenantLabel": "租户",
-        "tenantDescription": "成为租户并可通过邀请加入建筑物。可访问分配的群组。"
+        "tenantDescription": "成为租户并可通过邀请加入建筑物。可访问分配的群组。",
+        "buildingOwner": "大楼所有者",
+        "buildingOwnerDesc": "管理整栋大楼，监控温室气体排放、设备和能源使用情况。",
+        "tenant": "租户",
+        "tenantDesc": "监控并管理所租区域的活动、设备及能源使用。"
       },
       "placeholders": {
         "enterName": "输入名称",

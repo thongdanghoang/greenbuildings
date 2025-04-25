@@ -19,29 +19,70 @@
 <div class="card flex justify-center">
     <p-stepper [value]="1" class="w-full" [linear]="true">
         <p-step-list>
-            <p-step [value]="1">Header I</p-step>
-            <p-step [value]="2">Header II</p-step>
-            <p-step [value]="3">Header II</p-step>
+            <p-step [value]="1">{{
+                "enterprise.create.header1" | translate
+            }}</p-step>
+            <p-step [value]="2">{{
+                "enterprise.create.header2" | translate
+            }}</p-step>
+            <p-step [value]="3">{{
+                "enterprise.create.header3" | translate
+            }}</p-step>
         </p-step-list>
         <p-step-panels>
             <p-step-panel [value]="1">
                 <ng-template #content let-activateCallback="activateCallback">
                     <div class="flex h-48 flex-col">
                         <div
-                            class="rounded border-2 border-dashed border-surface-200 bg-surface-50 dark:border-surface-700 dark:bg-surface-950"
+                            class="rounded-xl border-2 border-dashed border-surface-200 bg-surface-50 p-5 dark:border-surface-700 dark:bg-surface-950"
                         >
-                            <p class="m-0">
-                                LLorem ipsum dolor sit amet, consectetur
-                                adipiscing elit, sed do eiusmod tempor
-                                incididunt ut labore et dolore magna aliqua. Ut
-                                enim ad minim veniam, quis nostrud exercitation
-                                ullamco laboris nisi ut aliquip ex ea commodo
-                                consequat. Duis aute irure dolor in
-                                reprehenderit in voluptate velit esse cillum
-                                dolore eu fugiat nulla pariatur. Excepteur sint
-                                occaecat cupidatat non proident, sunt in culpa
-                                qui officia deserunt mollit anim id est
-                                laborum..
+                            <h2
+                                class="mb-3 text-2xl font-semibold text-gray-800 dark:text-gray-200"
+                            >
+                                👋
+                                {{
+                                    "enterprise.create.welcomeTitle" | translate
+                                }}
+                            </h2>
+                            <p class="mb-3 text-gray-700 dark:text-gray-300">
+                                {{ "enterprise.create.intro" | translate }}
+                            </p>
+                            <p class="mb-3 text-gray-700 dark:text-gray-300">
+                                {{
+                                    "enterprise.create.roleInstruction"
+                                        | translate
+                                }}
+                            </p>
+                            <ul
+                                class="mb-3 list-inside list-disc text-gray-700 dark:text-gray-300"
+                            >
+                                <li>
+                                    <strong>{{
+                                        "enterprise.create.role.buildingOwner"
+                                            | translate
+                                    }}</strong
+                                    >:
+                                    {{
+                                        "enterprise.create.role.buildingOwnerDesc"
+                                            | translate
+                                    }}
+                                </li>
+                                <li>
+                                    <strong>{{
+                                        "enterprise.create.role.tenant"
+                                            | translate
+                                    }}</strong
+                                    >:
+                                    {{
+                                        "enterprise.create.role.tenantDesc"
+                                            | translate
+                                    }}
+                                </li>
+                            </ul>
+                            <p class="text-gray-700 dark:text-gray-300">
+                                {{
+                                    "enterprise.create.callToAction" | translate
+                                }}
                             </p>
                         </div>
                         <div class="flex justify-end pt-6">
@@ -61,7 +102,7 @@
                     <div class="flex flex-col gap-6">
                         <form
                             [formGroup]="formGroup"
-                            class="rounded border-2 border-dashed border-gray-300 bg-gray-50 p-4 dark:border-gray-600 dark:bg-gray-800"
+                            class="rounded-xl border-2 border-dashed border-surface-200 bg-surface-50 p-5 dark:border-surface-700 dark:bg-surface-950"
                         >
                             <div class="mb-4 flex items-start gap-3">
                                 <p-radiobutton
@@ -142,7 +183,7 @@
                     <div>
                         <form
                             [formGroup]="formGroup"
-                            class="rounded border-2 border-dashed border-gray-300 bg-gray-50 p-4 dark:border-gray-600 dark:bg-gray-800"
+                            class="rounded-xl border-2 border-dashed border-surface-200 bg-surface-50 p-5 dark:border-surface-700 dark:bg-surface-950"
                         >
                             <!-- Name -->
                             <div
