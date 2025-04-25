@@ -452,6 +452,7 @@
     "owner": {
       "dashboard": "仪表板",
       "coefficientCenter": "系数中心",
+      "emission": "排放活动",
       "building": "建筑",
       "manage": "管理",
       "users": "用户",

@@ -459,6 +459,7 @@
     "owner": {
       "dashboard": "Dashboard",
       "coefficientCenter": "Coefficient center",
+      "emission": "Emission Activity",
       "building": "Building",
       "manage": "Manage",
       "users": "Users",

@@ -99,11 +99,11 @@ export class SidebarComponent
             icon: 'pi pi-chart-line',
             route: `/${AppRoutingConstants.DASHBOARD_PATH}`
           },
-          // {
-          //   label: 'sidebar.owner.coefficientCenter',
-          //   icon: 'pi pi-percentage',
-          //   route: `/${AppRoutingConstants.EMISSIONS_PATH}`
-          // },
+          {
+            label: 'sidebar.owner.emission',
+            icon: 'pi pi-percentage',
+            route: `/${AppRoutingConstants.EMISSIONS_PATH}`
+          },
           {
             label: 'sidebar.owner.building',
             icon: 'pi pi-building',
