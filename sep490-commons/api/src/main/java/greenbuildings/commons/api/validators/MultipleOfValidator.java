@@ -1,4 +1,4 @@
-package green_buildings.commons.api.validators;
+package greenbuildings.commons.api.validators;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
