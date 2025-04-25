@@ -137,11 +137,15 @@ export class SentInvitationComponent
     this.cols.push({
       header: 'sentInvitation.table.building',
       field: '',
+      sortField: 'buildingGroup.building.name',
+      sortable: true,
       templateRef: this.buildingNameTemplate
     });
     this.cols.push({
       header: 'sentInvitation.table.group',
       field: '',
+      sortField: 'buildingGroup.name',
+      sortable: true,
       templateRef: this.buildingGroupNameTemplate
     });
     this.cols.push({

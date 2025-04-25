@@ -223,6 +223,7 @@
         "new": "Collaborate with tenant and your building group",
         "email": "Tenant email",
         "sendInvitation": "Send invitation",
+        "noGroups": "No available building groups to connect",
         "buildingGroup": "Available building groups",
         "placeholder": {
           "email": "Input your tenant email",

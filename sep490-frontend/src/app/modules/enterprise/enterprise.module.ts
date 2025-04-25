@@ -43,7 +43,7 @@ import {CreditPackageGuideDialogComponent} from './dialog/credit-package-guide-d
 import {NewGroupItemComponent} from './components/new-group-item/new-group-item.component';
 import {CreateTenantComponent} from './components/create-tenant/create-tenant.component';
 import {ManageTenantComponent} from './components/manage-tenant/manage-tenant.component';
-import { SentInvitationComponent } from './components/sent-invitation/sent-invitation.component';
+import {SentInvitationComponent} from './components/sent-invitation/sent-invitation.component';
 
 @NgModule({
   declarations: [

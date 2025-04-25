@@ -42,6 +42,12 @@
             <label class="col-span-12 font-normal sm:col-span-3">
                 {{ "enterprise.buildings.tenant.buildingGroup" | translate }}
             </label>
+            <p
+                class="col-span-12 sm:col-span-9"
+                *ngIf="availableGroups.length === 0"
+            >
+                {{ "enterprise.buildings.tenant.noGroups" | translate }}
+            </p>
             <div
                 class="col-span-12 grid grid-cols-1 gap-3 sm:col-span-9 sm:grid-cols-2 lg:grid-cols-3"
             >

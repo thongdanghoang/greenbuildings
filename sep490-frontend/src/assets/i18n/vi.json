@@ -223,6 +223,7 @@
         "new": "Hợp tác với doanh nghiệp và nhóm tòa nhà của bạn",
         "email": "Email doanh nghiệp liên kết",
         "buildingGroup": "Các nhóm tòa nhà trống",
+        "noGroups": "Không có nhóm tòa nhà phù hợp để liên kết",
         "sendInvitation": "Gửi lời mời",
         "placeholder": {
           "email": "Nhập email doanh nghiệp liên kết",
