@@ -46,6 +46,7 @@
         "exist": "Email address already exists"
       },
       "groups": {
+        "tenantEmail": "This email cannot be assigned as a tenant",
         "notFound": "Building groups not found"
       },
       "buildings": {

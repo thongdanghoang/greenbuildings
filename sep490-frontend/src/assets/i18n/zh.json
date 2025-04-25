@@ -46,6 +46,7 @@
         "exist": "电子邮件地址已存在"
       },
       "groups": {
+        "tenantEmail": "电子邮件不适合此任务",
         "notFound": "未找到建筑群组"
       },
       "buildings": {

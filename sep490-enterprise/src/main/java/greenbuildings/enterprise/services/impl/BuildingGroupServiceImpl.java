@@ -109,23 +109,16 @@ public class BuildingGroupServiceImpl implements BuildingGroupService {
     
     @Override
     public void inviteTenant(InviteTenantToBuildingGroup dto) {
-        List<BuildingGroupEntity> groups = buildingGroupRepository.findAllById(dto.buildingGroupIds());
-        if (groups.size() != dto.buildingGroupIds().size()) {
-            throw new BusinessException("buildingGroupIds", "business,groups.notFound");
-        }
+        BuildingGroupEntity group = buildingGroupRepository.findById(dto.selectedGroupId()).orElseThrow();
+        // TODO: what about email belong to registered user?
         if (enterpriseRepository.findByEmail(dto.tenantEmail()).isPresent()) {
             throw new BusinessException("tenantEmail", "business.groups.tenantEmail");
         }
-        List<InvitationEntity> invitationEntities =
-                dto.buildingGroupIds()
-                   .stream()
-                   .map(buildingGroupId -> InvitationEntity.builder()
-                                                           .buildingGroup(buildingGroupRepository.findById(buildingGroupId).orElseThrow())
-                                                           .status(InvitationStatus.PENDING)
-                                                           .email(dto.tenantEmail())
-                                                           .build())
-                   .toList();
-        //TODO: send mails
-        invitationRepository.saveAll(invitationEntities);
+        InvitationEntity invitation = InvitationEntity.builder()
+                                                      .buildingGroup(group)
+                                                      .status(InvitationStatus.PENDING)
+                                                      .email(dto.tenantEmail())
+                                                      .build();
+        invitationRepository.save(invitation);
     }
 } 

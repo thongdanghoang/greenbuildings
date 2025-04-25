@@ -46,6 +46,7 @@
         "exist": "Địa chỉ email đã tồn tại"
       },
       "groups": {
+        "tenantEmail": "Email không phù hợp cho tác vụ này",
         "notFound": "Không tìm thấy nhóm tòa nhà"
       },
       "buildings": {

@@ -37,7 +37,7 @@ export class NewTenantComponent
   protected readonly formStructure = {
     buildingId: new FormControl('', [Validators.required]),
     tenantEmail: new FormControl('', [Validators.required, Validators.email]),
-    buildingGroupIds: new FormControl<UUID[] | null>([], Validators.required)
+    selectedGroupId: new FormControl<UUID | null>(null, Validators.required)
   };
 
   constructor(
@@ -88,6 +88,10 @@ export class NewTenantComponent
       AppRoutingConstants.BUILDING_MANAGEMENT_PATH,
       this.buildingDetails.id
     ]);
+  }
+
+  selectGroup(id: UUID): void {
+    this.formStructure.selectedGroupId.setValue(id);
   }
 
   protected override initializeFormControls(): {

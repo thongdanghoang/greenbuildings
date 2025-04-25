@@ -23,7 +23,7 @@ export interface CreateBuildingGroupDTO {
 export interface InviteTenantToBuildingGroup {
   buildingId: UUID;
   email: string;
-  buildingGroupIds: UUID[];
+  selectedGroupId: UUID;
 }
 
 @Injectable({
