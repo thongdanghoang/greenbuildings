@@ -18,8 +18,10 @@
         </div>
     </div>
     <div class="my-2 flex flex-col lg:flex-row">
-        <div class="mx-4 my-6 md:w-1/2">
-            <p-card styleClass="shadow-lg rounded-xl overflow-hidden">
+        <div class="m-2 md:w-1/2">
+            <p-card
+                styleClass="shadow-lg rounded-xl overflow-hidden h-full w-full"
+            >
                 <!-- Header -->
                 <ng-template pTemplate="header">
                     <div class="bg-gradient-to-r from-blue-50 to-blue-100 p-6">
@@ -44,47 +46,24 @@
                 </ng-template>
 
                 <!-- Content -->
-                <div class="p-6">
+                <div class="space-y-5 p-2">
                     <!-- Building Information in Fieldset -->
-                    <p-fieldset
-                        legend="{{
-                            'buildingGroup.building.information' | translate
-                        }}"
-                        [toggleable]="true"
-                        [collapsed]="false"
-                        styleClass="border border-gray-200 rounded-lg"
-                    >
-                        <div class="space-y-4 p-4">
-                            <div class="flex items-center gap-3">
-                                <i
-                                    class="pi pi-building text-lg text-blue-500"
-                                ></i>
-                                <span class="font-medium">
-                                    {{
-                                        "buildingGroup.building.name"
-                                            | translate
-                                    }}:
-                                </span>
-                                <span>{{
-                                    buildingGroup.building?.name || "-"
-                                }}</span>
-                            </div>
-                            <div class="flex items-center gap-3">
-                                <i
-                                    class="pi pi-map-marker text-lg text-blue-500"
-                                ></i>
-                                <span class="font-medium">
-                                    {{
-                                        "buildingGroup.building.address"
-                                            | translate
-                                    }}:
-                                </span>
-                                <span>{{
-                                    buildingGroup.building?.address || "-"
-                                }}</span>
-                            </div>
-                        </div>
-                    </p-fieldset>
+                    <div class="flex items-center gap-3">
+                        <i class="pi pi-building text-lg text-blue-500"></i>
+                        <span class="font-medium">
+                            {{ "buildingGroup.building.name" | translate }}:
+                        </span>
+                        <span>{{ buildingGroup.building?.name || "-" }}</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <i class="pi pi-map-marker text-lg text-blue-500"></i>
+                        <span class="font-medium">
+                            {{ "buildingGroup.building.address" | translate }}:
+                        </span>
+                        <span>{{
+                            buildingGroup.building?.address || "-"
+                        }}</span>
+                    </div>
                 </div>
 
                 <!-- Footer -->
@@ -117,8 +96,10 @@
                 </ng-template>
             </p-card>
         </div>
-        <div class="mx-4 my-6 md:w-1/2">
-            <p-card styleClass="shadow-lg rounded-xl overflow-hidden">
+        <div class="m-2 md:w-1/2">
+            <p-card
+                styleClass="shadow-lg rounded-xl overflow-hidden h-full w-full"
+            >
                 <!-- Header -->
                 <ng-template pTemplate="header">
                     <div
@@ -138,7 +119,7 @@
                 </ng-template>
 
                 <!-- Content -->
-                <div class="p-[14px]">
+                <div class="p-2">
                     <ng-container *ngIf="buildingGroup.tenant; else noTenant">
                         <div class="space-y-5">
                             <div class="flex items-center gap-3">

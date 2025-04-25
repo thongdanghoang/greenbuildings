@@ -17,9 +17,12 @@
             {{ "enterprise.buildings.management.title" | translate }}
         </div>
     </div>
-    <div class="my-2 flex">
-        <div class="mx-2 mb-2 mt-2 md:w-1/2">
-            <p-card header="{{ buildingDetails.name }}">
+    <div class="my-2 flex flex-col lg:flex-row">
+        <div class="m-2 w-full md:w-1/2">
+            <p-card
+                header="{{ buildingDetails.name }}"
+                styleClass="h-full w-full block"
+            >
                 <ng-template pTemplate="subtitle">
                     <i class="pi pi-map-marker"></i>
                     {{ buildingDetails.address }}
@@ -95,12 +98,11 @@
                 </ng-template>
             </p-card>
         </div>
-        <div class="mx-2 mb-4 mt-4 md:w-1/2">
+        <div class="m-2 w-full md:w-1/2">
             <p-card
                 header="{{ 'overview.title' | translate }}"
+                styleClass="h-full w-full block"
                 *ngIf="overviewBuilding"
-                class="shadow-lg transition-shadow duration-300 hover:shadow-xl"
-                styleClass="p-6 rounded-xl border border-gray-100"
             >
                 <div class="space-y-4">
                     <div
