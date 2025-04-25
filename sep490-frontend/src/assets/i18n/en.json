@@ -46,6 +46,7 @@
         "exist": "Email address already exists"
       },
       "groups": {
+        "tenantEmail": "This email cannot be assigned as a tenant",
         "notFound": "Building groups not found"
       },
       "buildings": {
@@ -458,6 +459,7 @@
     "owner": {
       "dashboard": "Dashboard",
       "coefficientCenter": "Coefficient center",
+      "emission": "Emission Activity",
       "building": "Building",
       "manage": "Manage",
       "users": "Users",

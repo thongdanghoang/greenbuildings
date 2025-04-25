@@ -151,11 +151,7 @@ public class BuildingGroupControllerTest extends TestcontainersConfigs {
                 .builder()
                 .buildingId(buildingEntity.getId())
                 .tenantEmail(randomEmail())
-                .buildingGroupIds(List.of(
-                        insertBuildingGroupEntity(buildingEntity).getId(),
-                        insertBuildingGroupEntity(buildingEntity).getId(),
-                        insertBuildingGroupEntity(buildingEntity).getId()
-                                         ))
+                .selectedGroupId(insertBuildingGroupEntity(buildingEntity).getId())
                 .build();
         
         asEnterpriseOwner()

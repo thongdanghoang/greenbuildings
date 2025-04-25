@@ -38,27 +38,37 @@
                 <form-field-error></form-field-error>
             </div>
         </div>
-        <div class="my-3 mb-8 grid grid-cols-12 items-center gap-2 sm:gap-4">
-            <label class="col-span-12 font-normal sm:col-span-3">{{
-                "enterprise.buildings.tenant.buildingGroup" | translate
-            }}</label>
-            <div class="errorMessages col-span-12 *:w-full sm:col-span-9">
-                <p-multiselect
-                    [options]="availableGroups"
-                    formControlName="buildingGroupIds"
-                    optionLabel="name"
-                    [placeholder]="
-                        'enterprise.buildings.tenant.placeholder.buildingGroup'
-                            | translate
-                    "
-                    optionValue="id"
-                    styleClass="w-full"
-                    class="w-full"
-                    lazy="true"
-                ></p-multiselect>
+        <div class="my-3 mb-8 grid grid-cols-12 items-start gap-2 sm:gap-4">
+            <label class="col-span-12 font-normal sm:col-span-3">
+                {{ "enterprise.buildings.tenant.buildingGroup" | translate }}
+            </label>
+            <div
+                class="col-span-12 grid grid-cols-1 gap-3 sm:col-span-9 sm:grid-cols-2 lg:grid-cols-3"
+            >
+                <div
+                    *ngFor="let group of availableGroups"
+                    (click)="selectGroup(group.id)"
+                    [ngClass]="{
+                        'border-blue-600 bg-green-200 ring-2 ring-blue-500':
+                            formStructure.selectedGroupId.value === group.id,
+                        'border-gray-300 bg-blue-50 hover:bg-gray-50':
+                            formStructure.selectedGroupId.value !== group.id,
+                    }"
+                    class="cursor-pointer rounded-xl border p-4 shadow-sm transition-all duration-200"
+                >
+                    <h3 class="text-base font-semibold text-gray-800">
+                        {{ group.name }}
+                    </h3>
+                    <p class="mt-1 text-sm text-gray-600">
+                        {{ group.description }}
+                    </p>
+                </div>
+            </div>
+            <div class="col-span-12 sm:col-span-9 sm:col-start-4">
                 <form-field-error></form-field-error>
             </div>
         </div>
+
         <div class="flex justify-end gap-4 *:min-w-24 sm:justify-start">
             <p-button
                 [label]="
@@ -66,6 +76,7 @@
                 "
                 severity="primary"
                 styleClass="w-full"
+                [disabled]="this.formGroup.invalid"
                 (onClick)="submit()"
             ></p-button>
             <p-button

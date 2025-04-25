@@ -46,6 +46,7 @@
         "exist": "Địa chỉ email đã tồn tại"
       },
       "groups": {
+        "tenantEmail": "Email không phù hợp cho tác vụ này",
         "notFound": "Không tìm thấy nhóm tòa nhà"
       },
       "buildings": {
@@ -452,6 +453,7 @@
     "owner": {
       "dashboard": "Bảng điều khiển",
       "coefficientCenter": "Hệ số trung tâm",
+      "emission": "Hoạt động phát thải",
       "building": "Tòa nhà",
       "manage": "Quản lý",
       "users": "Người dùng",
