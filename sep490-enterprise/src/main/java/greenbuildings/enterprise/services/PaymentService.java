@@ -1,8 +1,8 @@
 package greenbuildings.enterprise.services;
 
+import greenbuildings.commons.api.dto.SearchCriteriaDTO;
 import greenbuildings.enterprise.dtos.PaymentCriteriaDTO;
 import greenbuildings.enterprise.entities.PaymentEntity;
-import greenbuildings.commons.api.dto.SearchCriteriaDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -14,9 +14,9 @@ public interface PaymentService {
     
     Page<PaymentEntity> search(SearchCriteriaDTO<PaymentCriteriaDTO> searchCriteria, Pageable pageable);
     
-    PaymentEntity createPayment(UUID id, String requestOrigin);
+    PaymentEntity createPayment(UUID enterpriseID, UUID creditPackageVersionUUID, String requestOrigin);
     
-    void updatePaymentInfo(Long orderCode);
+    void updatePaymentInfo(UUID enterpriseID, Long orderCode);
 
     Optional<PaymentEntity>  findById(UUID id);
 }
