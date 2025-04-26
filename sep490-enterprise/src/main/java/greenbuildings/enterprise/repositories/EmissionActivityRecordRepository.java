@@ -31,24 +31,22 @@ public interface EmissionActivityRecordRepository
     @Query("""
                 SELECT CASE WHEN COUNT(e) > 0 THEN true ELSE false END
                 FROM EmissionActivityRecordEntity e
-                WHERE e.groupItem.id = :groupItemId
-                AND (
+                WHERE (
                     (e.startDate < :endDate AND e.endDate > :startDate)
                 )
             """)
-    boolean existsByGroupItemIdAndDateOverlap(UUID groupItemId, LocalDate startDate, LocalDate endDate);
+    boolean existsByGroupItemIdAndDateOverlap(LocalDate startDate, LocalDate endDate);
     
     
     @Query("""
                 SELECT CASE WHEN COUNT(e) > 0 THEN true ELSE false END
                 FROM EmissionActivityRecordEntity e
                 WHERE e.id <> :recordId
-                AND e.groupItem.id = :groupItemId
                 AND (
                     (e.startDate < :endDate AND e.endDate > :startDate)
                 )
             """)
-    boolean otherExistsByGroupItemIdAndDateOverlap(UUID recordId, UUID groupItemId, LocalDate startDate, LocalDate endDate);
+    boolean otherExistsByGroupItemIdAndDateOverlap(UUID recordId, LocalDate startDate, LocalDate endDate);
     
     
 }

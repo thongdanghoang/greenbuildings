@@ -29,10 +29,6 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class EmissionActivityRecordEntity extends AbstractAuditableEntity {
     
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "group_item_id")
-    private GroupItemEntity groupItem;
-    
     @NotNull
     @Min(0)
     @Column(name = "value")

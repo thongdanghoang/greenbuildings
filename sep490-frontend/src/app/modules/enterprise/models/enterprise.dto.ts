@@ -19,7 +19,6 @@ export interface OverviewBuildingDTO {
   numberOfGroups: number;
   numberOfCorporationTenant: number;
   numberOfActivities: number;
-  numberOfItems: number;
 }
 
 export interface BuildingDetails extends BaseDTO {
@@ -54,13 +53,6 @@ export interface BuildingGroup extends BaseDTO {
   description: string;
   building: Building;
   tenant: Tenant;
-  emissionActivities: EmissionActivity[];
-}
-
-export interface GroupItem extends BaseDTO {
-  name: string;
-  description: string;
-  buildingGroup: BuildingGroup;
   emissionActivities: EmissionActivity[];
 }
 

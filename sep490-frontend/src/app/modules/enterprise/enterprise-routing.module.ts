@@ -12,7 +12,6 @@ import {EmissionActivityDetailComponent} from './components/emission-activity-de
 import {EnterpriseInvitationComponent} from './components/enterprise-invitation/enterprise-invitation.component';
 import {ManageTenantComponent} from './components/manage-tenant/manage-tenant.component';
 import {NewBuildingGroupComponent} from './components/new-building-group/new-building-group.component';
-import {NewGroupItemComponent} from './components/new-group-item/new-group-item.component';
 import {NewTenantComponent} from './components/new-tenant/new-tenant.component';
 import {PaymentComponent} from './components/payment/payment.component';
 import {PlanComponent} from './components/plan/plan.component';
@@ -90,10 +89,6 @@ const routes: Routes = [
       {
         path: `${AppRoutingConstants.ACTIVITY_TYPE}`,
         component: ActivityTypeComponent
-      },
-      {
-        path: `${AppRoutingConstants.NEW_GROUP_ITEM}/:id`,
-        component: NewGroupItemComponent
       }
     ]
   }

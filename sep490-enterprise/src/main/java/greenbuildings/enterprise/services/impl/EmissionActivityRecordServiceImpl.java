@@ -23,7 +23,6 @@ import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
@@ -65,9 +64,7 @@ public class EmissionActivityRecordServiceImpl implements EmissionActivityRecord
     }
     
     private void newRecord(EmissionActivityRecordEntity entity, MultipartFile file) {
-        if (Objects.nonNull(entity.getGroupItem())
-            && recordRepository.existsByGroupItemIdAndDateOverlap(
-                entity.getGroupItem().getId(),
+        if (recordRepository.existsByGroupItemIdAndDateOverlap(
                 entity.getStartDate(),
                 entity.getEndDate()
                                                                  )
@@ -92,10 +89,8 @@ public class EmissionActivityRecordServiceImpl implements EmissionActivityRecord
     }
     
     private void updateRecord(EmissionActivityRecordEntity entity, MultipartFile file) {
-        if (Objects.nonNull(entity.getGroupItem())
-            && recordRepository.otherExistsByGroupItemIdAndDateOverlap(
+        if (recordRepository.otherExistsByGroupItemIdAndDateOverlap(
                 entity.getId(),
-                entity.getGroupItem().getId(),
                 entity.getStartDate(),
                 entity.getEndDate())
         ) {
