@@ -1,13 +1,12 @@
 package greenbuildings.idp.validators;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 import greenbuildings.commons.api.exceptions.BusinessException;
-import greenbuildings.commons.api.security.UserRole;
 import greenbuildings.commons.api.security.UserScope;
 import greenbuildings.idp.entity.BuildingPermissionEntity;
 import greenbuildings.idp.entity.UserEntity;
 import greenbuildings.idp.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
 import java.util.Objects;
 
@@ -30,15 +29,6 @@ public class UserValidator {
                         .distinct()
                         .count() != employee.getBuildingPermissions().size()) {
                 throw new BusinessException("buildingPermissions", "business.buildingPermissions.shouldHaveUnique");
-            }
-        }
-        if (employee.getEnterprise().getScope() == UserScope.ENTERPRISE) {
-            if (employee.getBuildingPermissions().size() != 1
-                || employee.getBuildingPermissions().stream()
-                           .map(BuildingPermissionEntity::getBuilding)
-                           .anyMatch(Objects::nonNull)) {
-                throw new BusinessException("buildingPermissions",
-                                            "business.buildingPermissions.idBuildingIsNull");
             }
         }
         // validators need query should be last
