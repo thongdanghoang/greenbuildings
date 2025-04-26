@@ -1,5 +1,5 @@
 import {DecimalPipe} from '@angular/common';
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {Confirmation} from 'primeng/api';
 import {Nullable} from 'primeng/ts-helpers';
@@ -32,9 +32,11 @@ export class PlanComponent
   extends SubscriptionAwareComponent
   implements OnInit
 {
+  @ViewChild('aboutContent', {static: true}) aboutContent!: TemplateRef<any>;
+  @ViewChild('termContent', {static: true}) termContent!: TemplateRef<any>;
   tabs = [
-    {title: 'purchaseCredit.about', content: 'Content 1', value: '0'},
-    {title: 'purchaseCredit.termService', content: 'Content 2', value: '1'}
+    {title: 'purchaseCredit.about', content: 'aboutContent', value: '0'},
+    {title: 'purchaseCredit.termService', content: 'termContent', value: '1'}
   ];
   creditPackages: CreditPackage[] = [];
   selectedPackage: Nullable<CreditPackage>;
@@ -75,6 +77,17 @@ export class PlanComponent
         )
       )
       .subscribe();
+  }
+
+  getContentTemplate(name: string): any {
+    switch (name) {
+      case 'aboutContent':
+        return this.aboutContent;
+      case 'termContent':
+        return this.termContent;
+      default:
+        return null;
+    }
   }
 
   showCreditPackageDialog(): void {

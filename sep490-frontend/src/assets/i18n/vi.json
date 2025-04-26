@@ -924,5 +924,15 @@
         }
       }
     }
+  },
+  "creditTerms": {
+    "termServiceTitle": "Điều khoản & Dịch vụ – Nhận Credit Khi Nạp Tiền",
+    "term1": "Bằng việc sử dụng dịch vụ nạp tiền để nhận Credit, bạn đồng ý với các điều khoản và điều kiện sau:",
+    "term2": "Tỷ lệ quy đổi: 1.000 VNĐ = 1 Credit (trừ khi có chương trình khuyến mãi).",
+    "term3": "Credit không có giá trị quy đổi ngược thành tiền mặt và không thể chuyển nhượng.",
+    "term4": "Mọi giao dịch nạp tiền là không hoàn lại, trừ khi có lỗi kỹ thuật từ hệ thống.",
+    "termNotice": "Chúng tôi có quyền cập nhật các điều khoản bất kỳ lúc nào mà không cần thông báo trước.",
+    "aboutContentTitle": "Giới thiệu về Credit & phương thức nạp",
+    "aboutContent": "Bạn có thể nạp tiền vào tài khoản và nhận Credit để sử dụng trong các dịch vụ của chúng tôi. Hệ thống hỗ trợ nhiều phương thức thanh toán như MoMo, VNPAY, thẻ Visa/MasterCard,..."
   }
 }
