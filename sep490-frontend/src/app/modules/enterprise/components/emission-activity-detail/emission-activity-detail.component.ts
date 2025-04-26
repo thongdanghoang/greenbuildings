@@ -59,7 +59,10 @@ export class EmissionActivityDetailComponent
     buildingGroupId: new FormControl('', [Validators.required]),
     emissionFactorID: new FormControl('', [Validators.required]),
     type: new FormControl(),
-    category: new FormControl(''),
+    category: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required]
+    }),
     description: new FormControl(''),
     records: new FormControl([])
   };
