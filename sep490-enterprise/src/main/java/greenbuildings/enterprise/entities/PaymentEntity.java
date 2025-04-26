@@ -11,10 +11,10 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Entity
@@ -22,20 +22,22 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@Builder
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class PaymentEntity extends AbstractAuditableEntity {
     
+    @NonNull
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "enterprise_id", nullable = false)
     private EnterpriseEntity enterprise;
-
-
+    
+    @NonNull
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "credit_packages_versions_id")
     private CreditPackageVersionEntity creditPackageVersionEntity;
     
+    @NonNull
     @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "status")

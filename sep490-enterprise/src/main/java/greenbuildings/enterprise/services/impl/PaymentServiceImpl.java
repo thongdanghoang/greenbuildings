@@ -6,7 +6,8 @@ import greenbuildings.commons.api.enums.PaymentStatus;
 import greenbuildings.commons.api.exceptions.TechnicalException;
 import greenbuildings.enterprise.adapters.payos.payos.PayOSAdapter;
 import greenbuildings.enterprise.dtos.PaymentCriteriaDTO;
-import greenbuildings.enterprise.entities.*;
+import greenbuildings.enterprise.entities.PaymentEntity;
+import greenbuildings.enterprise.entities.WalletEntity;
 import greenbuildings.enterprise.repositories.CreditPackageVersionRepository;
 import greenbuildings.enterprise.repositories.EnterpriseRepository;
 import greenbuildings.enterprise.repositories.PaymentRepository;
@@ -42,25 +43,24 @@ public class PaymentServiceImpl implements PaymentService {
         UUID enterpriseId = SecurityUtils.getCurrentUserEnterpriseId().orElseThrow();
         return payRepo.findByEnterpriseId(enterpriseId, pageable);
     }
-
+    
     public Optional<PaymentEntity> findById(UUID id) {
         return payRepo.findById(id);
     }
     
     @Override
-    public PaymentEntity createPayment(UUID creditPackageVersionUUID, String requestOrigin) {
+    public PaymentEntity createPayment(UUID enterpriseID, UUID creditPackageVersionUUID, String requestOrigin) {
         try {
             // Validate
             if (StringUtils.isEmpty(requestOrigin)) {
                 throw new TechnicalException("Invalid request origin");
             }
             // Prepare
-            CreditPackageVersionEntity creditPackageVersionEntity = creditPackageVersionRepository.findById(creditPackageVersionUUID).orElseThrow();
-            UUID enterpriseUUID = SecurityUtils.getCurrentUserEnterpriseId().orElseThrow();
-            EnterpriseEntity enterpriseEntity = enterpriseRepo.findById(enterpriseUUID).orElseThrow();
+            var creditPackageVersionEntity = creditPackageVersionRepository.findById(creditPackageVersionUUID).orElseThrow();
+            var enterpriseEntity = enterpriseRepo.findById(enterpriseID).orElseThrow();
             
             // Build info
-            PaymentEntity paymentEntity = payOSAdapter.newPayment(creditPackageVersionEntity, enterpriseEntity, requestOrigin);
+            var paymentEntity = payOSAdapter.newPayment(creditPackageVersionEntity, enterpriseEntity, requestOrigin);
             
             return payRepo.save(paymentEntity);
         } catch (Exception e) {
@@ -70,14 +70,14 @@ public class PaymentServiceImpl implements PaymentService {
     }
     
     @Override
-    public void updatePaymentInfo(Long orderCode) {
-        UUID uuid = SecurityUtils.getCurrentUserEnterpriseId().orElseThrow();
-        PaymentEntity paymentEntity = payRepo.findByOrderCodeAndEnterpriseId(orderCode, uuid).orElseThrow();
+    public void updatePaymentInfo(UUID enterpriseID, Long orderCode) {
+        var paymentEntity = payRepo.findByOrderCodeAndEnterpriseId(orderCode, enterpriseID).orElseThrow();
         
-        PaymentStatus newStatus = payOSAdapter.getPaymentStatus(orderCode)
-                                              .orElseThrow(() -> new TechnicalException("Error in getting payment status from PayOS"));
+        var newStatus = payOSAdapter
+                .getPaymentStatus(orderCode)
+                .orElseThrow(() -> new TechnicalException("Error in getting payment status from PayOS"));
         
-        updateWallet(newStatus, paymentEntity, uuid);
+        updateWallet(newStatus, paymentEntity, enterpriseID);
         paymentEntity.setStatus(newStatus);
         payRepo.save(paymentEntity);
         

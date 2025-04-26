@@ -51,14 +51,14 @@ public class ChemicalDensityServiceImpl implements ChemicalDensityService {
     }
     
     @Override
-    public void delete(Set<UUID> typeIds) {
+    public void delete(Set<UUID> densityIDs) {
         // Validate input
-        if (CollectionUtils.isEmpty(typeIds)) {
+        if (CollectionUtils.isEmpty(densityIDs)) {
             throw new BusinessException("activityType", "activityType.delete.no.ids", Collections.emptyList());
         }
         
         // Fetch all types in one query
-        List<ChemicalDensityEntity> chemicalDensityEntities = chemicalDensityRepo.findAllById(typeIds);
+        List<ChemicalDensityEntity> chemicalDensityEntities = chemicalDensityRepo.findAllById(densityIDs);
         if (chemicalDensityEntities.isEmpty()) {
             return; // Nothing to delete
         }

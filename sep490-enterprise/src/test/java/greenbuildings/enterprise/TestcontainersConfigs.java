@@ -230,4 +230,8 @@ public abstract class TestcontainersConfigs {
     protected long randomLong(int count) {
         return Long.parseLong(org.apache.commons.lang3.RandomStringUtils.secure().nextNumeric(count));
     }
+    
+    protected String excelMimeType() {
+        return "application/vnd.ms-excel";
+    }
 }
