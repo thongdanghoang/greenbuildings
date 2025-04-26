@@ -15,7 +15,6 @@ public interface EmissionActivityRecordMapper {
 
     EmissionActivityRecordDTO toDTO(EmissionActivityRecordEntity emissionActivityEntity);
 
-    @Mapping(target = "groupItem", ignore = true)
     @Mapping(target = "emissionActivity.id", source = "activityId")
     EmissionActivityRecordEntity newToEntity(NewEmissionActivityRecordDTO emissionActivityRecordDTO);
 }

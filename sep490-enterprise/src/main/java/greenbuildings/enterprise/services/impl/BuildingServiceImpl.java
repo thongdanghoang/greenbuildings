@@ -164,12 +164,8 @@ public class BuildingServiceImpl implements BuildingService {
         .stream()
         .mapToLong(group -> group.getEmissionActivities().size())
         .sum();
-    long numberOfItems = building.getBuildingGroups()
-        .stream()
-        .mapToLong(group -> group.getGroupItems().size())
-        .sum();
 
-    return new OverviewBuildingDTO(numberOfGroups, numberOfCorporationTenant, numberOfActivities, numberOfItems);
+    return new OverviewBuildingDTO(numberOfGroups, numberOfCorporationTenant, numberOfActivities);
 }
     
 }

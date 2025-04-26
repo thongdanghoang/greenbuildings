@@ -13,7 +13,6 @@ import {BuildingGroupService} from './services/building-group.service';
 import {CreditPackageService} from './services/credit-package.service';
 import {CurrencyConverterService} from './services/currency-converter.service';
 import {EmissionActivityRecordService} from './services/emission-activity-record.service';
-import {GroupItemService} from './services/group-item.service';
 import {InvitationService} from './services/invitation.service';
 import {MarkerService} from './services/marker.service';
 import {PaymentService} from './services/payment.service';
@@ -40,7 +39,6 @@ import {CreditDeductionHistoryDialogComponent} from './dialog/credit-deduction-h
 import {TransactionService} from './services/transaction.service';
 import {BuildingGroupDetailComponent} from './components/building-group-detail/building-group-detail.component';
 import {CreditPackageGuideDialogComponent} from './dialog/credit-package-guide-dialog/credit-package-guide-dialog.component';
-import {NewGroupItemComponent} from './components/new-group-item/new-group-item.component';
 import {CreateTenantComponent} from './components/create-tenant/create-tenant.component';
 import {ManageTenantComponent} from './components/manage-tenant/manage-tenant.component';
 import {SentInvitationComponent} from './components/sent-invitation/sent-invitation.component';
@@ -74,7 +72,6 @@ import {EnterpriseService} from './services/enterprise.service';
     BuildingGroupDetailComponent,
     CreditDeductionHistoryDialogComponent,
     CreditPackageGuideDialogComponent,
-    NewGroupItemComponent,
     CreateTenantComponent,
     ManageTenantComponent,
     SentInvitationComponent,
@@ -93,7 +90,6 @@ import {EnterpriseService} from './services/enterprise.service';
     BuildingGroupService,
     InvitationService,
     TenantService,
-    GroupItemService,
     EmissionActivityService,
     EmissionActivityRecordService,
     CurrencyConverterService,

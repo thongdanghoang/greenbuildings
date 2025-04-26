@@ -47,8 +47,5 @@ public class BuildingGroupEntity extends AbstractAuditableEntity {
     private Set<EmissionActivityEntity> emissionActivities = new HashSet<>();
     
     @OneToMany(mappedBy = "buildingGroup")
-    private Set<GroupItemEntity> groupItems = new HashSet<>();
-    
-    @OneToMany(mappedBy = "buildingGroup")
     private Set<InvitationEntity> invitations = new HashSet<>();
 }

@@ -11,7 +11,6 @@ import java.util.UUID;
 public record NewEmissionActivityRecordDTO(
         UUID id,
         int version,
-        UUID groupItemId,
         BigDecimal value,
         EmissionUnit unit,
         LocalDateTime startDate,
