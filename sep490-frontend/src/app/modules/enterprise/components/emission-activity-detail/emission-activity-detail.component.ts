@@ -1,46 +1,25 @@
 import {HttpClient} from '@angular/common/http';
-import {
-  Component,
-  EventEmitter,
-  OnInit,
-  TemplateRef,
-  ViewChild
-} from '@angular/core';
-import {
-  AbstractControl,
-  FormBuilder,
-  FormControl,
-  Validators
-} from '@angular/forms';
+import {Component, EventEmitter, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {AbstractControl, FormBuilder, FormControl, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
 import {DialogService, DynamicDialogConfig} from 'primeng/dynamicdialog';
-import {Observable, Observer, filter, map, switchMap, takeUntil} from 'rxjs';
+import {filter, map, Observable, Observer, switchMap, takeUntil} from 'rxjs';
 import {validate} from 'uuid';
 import {UUID} from '../../../../../types/uuid';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
 import {ApplicationService} from '../../../core/services/application.service';
 import {AbstractFormComponent} from '../../../shared/components/form/abstract-form-component';
 import {TableTemplateColumn} from '../../../shared/components/table-template/table-template.component';
-import {
-  SearchCriteriaDto,
-  SearchResultDto
-} from '../../../shared/models/base-models';
+import {SearchCriteriaDto, SearchResultDto} from '../../../shared/models/base-models';
 import {ToastProvider} from '../../../shared/services/toast-provider';
 import {
   NewActivityRecordDialogComponent,
   NewActivityRecordDialogConfig
 } from '../../dialog/new-activity-record-dialog/new-activity-record-dialog.component';
-import {
-  ActivityType,
-  EmissionActivityDetails,
-  EmissionActivityRecord
-} from '../../models/enterprise.dto';
+import {ActivityType, EmissionActivityDetails, EmissionActivityRecord} from '../../models/enterprise.dto';
 import {ActivityTypeService} from '../../services/activity-type.service';
-import {
-  EmissionActivityRecordCriteria,
-  EmissionActivityRecordService
-} from '../../services/emission-activity-record.service';
+import {EmissionActivityRecordCriteria, EmissionActivityRecordService} from '../../services/emission-activity-record.service';
 import {EmissionActivityService} from '../../services/emission-activity.service';
 
 @Component({
@@ -59,7 +38,10 @@ export class EmissionActivityDetailComponent
     buildingGroupId: new FormControl('', [Validators.required]),
     emissionFactorID: new FormControl('', [Validators.required]),
     type: new FormControl(),
-    category: new FormControl(''),
+    category: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required]
+    }),
     description: new FormControl(''),
     records: new FormControl([])
   };
