@@ -29,7 +29,6 @@ public class EmissionSourceControllerTest extends TestcontainersConfigs {
                 .when()
                 .get(getBaseUrl())
                 .then()
-                .log().all()
                 .statusCode(200);
     }
     
