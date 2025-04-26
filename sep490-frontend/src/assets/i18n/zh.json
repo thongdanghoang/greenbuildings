@@ -49,6 +49,11 @@
         "tenantEmail": "电子邮件不适合此任务",
         "notFound": "未找到建筑群组"
       },
+      "activityType": {
+        "name": {
+          "exist": "活动类型名称已存在"
+        }
+      },
       "buildings": {
         "name": {
           "exist": "名称建筑已存在"
@@ -453,7 +458,8 @@
   },
   "sidebar": {
     "tenant": {
-      "manageTenant": "企业管理"
+      "manageTenant": "企业管理",
+      "manageMenu": "管理"
     },
     "basicUser": {
       "welcome": "欢迎来到 Green Building",

@@ -49,6 +49,11 @@
         "tenantEmail": "This email cannot be assigned as a tenant",
         "notFound": "Building groups not found"
       },
+      "activityType": {
+        "name": {
+          "exist": "Activity type name already exists"
+        }
+      },
       "buildings": {
         "name": {
           "exist": "Name building already exists"
@@ -459,7 +464,8 @@
   },
   "sidebar": {
     "tenant": {
-      "manageTenant": "Enterprise management"
+      "manageTenant": "Enterprise management",
+      "manageMenu": "Manage"
     },
     "basicUser": {
       "welcome": "Welcome to Green Building",
