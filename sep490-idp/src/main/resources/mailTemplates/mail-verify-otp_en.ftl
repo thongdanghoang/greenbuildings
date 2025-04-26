@@ -82,7 +82,7 @@
         <div class="footer">
             <p>Need help? <a href="mailto:support@greenbuilding.com" style="color: #0056b3; text-decoration: none;">Contact our
                     support team</a></p>
-            <p>© 2023 Your Company Name. All rights reserved.</p>
+            <p>© 2025 GreenBuilding. All rights reserved.</p>
         </div>
     </div>
 </div>

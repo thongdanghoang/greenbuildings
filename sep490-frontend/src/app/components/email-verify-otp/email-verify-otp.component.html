@@ -49,7 +49,7 @@
             iconPos="right"
             label="{{ 'mailOTP.verify' | translate }}"
             class="w-full"
-            [disabled]="formGroup.invalid && !firstSent"
+            [disabled]="formGroup.invalid || !firstSent"
         ></button>
     </form>
 
