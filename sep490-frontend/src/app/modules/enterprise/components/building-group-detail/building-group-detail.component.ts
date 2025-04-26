@@ -261,4 +261,6 @@ export class BuildingGroupDetailComponent
       this.buildingGroup.id
     ]);
   }
+
+  protected readonly UserRole = UserRole;
 }
