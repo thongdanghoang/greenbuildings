@@ -18,6 +18,10 @@ export interface NewEnterpriseDTO {
   role: keyof typeof UserRole;
 }
 
+export interface ValidateOTPRequest {
+  otpCode: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -65,6 +69,23 @@ export class EnterpriseUserService {
   public getUserOwner(): Observable<EnterpriseUserDetails> {
     return this.httpClient.get<EnterpriseUserDetails>(
       `${AppRoutingConstants.IDP_API_URL}/${EnterpriseUserService.ENTERPRISE_USER_API_URL}/enterprise-owner`
+    );
+  }
+
+  public sendOTP(): Observable<void> {
+    return this.httpClient.get<void>(
+      `${AppRoutingConstants.IDP_API_URL}/${EnterpriseUserService.ENTERPRISE_USER_API_URL}/requestOTP`
+    );
+  }
+
+  public get getValidateOTPURL(): string {
+    return `${AppRoutingConstants.IDP_API_URL}/${EnterpriseUserService.ENTERPRISE_USER_API_URL}/validateOTP`;
+  }
+
+  public validateOTP(request: ValidateOTPRequest): Observable<void> {
+    return this.httpClient.post<void>(
+      `${AppRoutingConstants.IDP_API_URL}/${EnterpriseUserService.ENTERPRISE_USER_API_URL}/validateOTP`,
+      request
     );
   }
 }

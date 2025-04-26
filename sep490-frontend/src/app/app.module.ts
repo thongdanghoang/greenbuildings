@@ -21,6 +21,7 @@ import {AppRoutingConstants} from './app-routing.constant';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {DashboardComponent} from './components/dashboard/dashboard.component';
+import {EmailVerifyOTPComponent} from './components/email-verify-otp/email-verify-otp.component';
 import {FooterComponent} from './components/footer/footer.component';
 import {ForbiddenComponent} from './components/forbidden/forbidden.component';
 import {HeaderComponent} from './components/header/header.component';
@@ -97,7 +98,8 @@ export const httpLoaderFactory = (
     PricingComponent,
     DashboardComponent,
     LandingPageComponent,
-    CreateDashboardComponent
+    CreateDashboardComponent,
+    EmailVerifyOTPComponent
   ],
   imports: [
     AppRoutingModule,

@@ -27,13 +27,22 @@ public class UserOTP extends AbstractBaseEntity {
     @OneToOne
     @JoinColumn(name = "user_id")
     private UserEntity user;
-
-
+    
+    public UserOTP(UserEntity user) {
+        this.user = user;
+        this.otpCode = CommonUtils.generateRandomOTP(6);
+        this.expiredTime = LocalDateTime.now().plusMinutes(10);
+    }
 
     public void updateOtp(UserEntity user) {
         this.user = user;
         this.otpCode = CommonUtils.generateRandomOTP(6);
         this.expiredTime = LocalDateTime.now().plusMinutes(10);
+    }
+    
+    public void resetOTP() {
+        otpCode = CommonUtils.generateRandomOTP(6);
+        expiredTime = LocalDateTime.now().plusMinutes(10);
     }
 
 }

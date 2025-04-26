@@ -7,6 +7,7 @@ import greenbuildings.idp.dto.NewEnterpriseDTO;
 import greenbuildings.idp.dto.SignupDTO;
 import greenbuildings.idp.dto.SignupResult;
 import greenbuildings.idp.dto.UserCriteriaDTO;
+import greenbuildings.idp.dto.ValidateOTPRequest;
 import greenbuildings.idp.entity.UserEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -44,4 +45,8 @@ public interface UserService {
     void createNewEnterprise(UserContextData userContextData, NewEnterpriseDTO enterpriseDTO);
     
     UserEntity updateBasicUser(UserEntity user);
+    
+    void sendOtp();
+    
+    void validateOTP(ValidateOTPRequest request);
 }

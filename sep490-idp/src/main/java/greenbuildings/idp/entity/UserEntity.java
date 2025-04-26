@@ -98,6 +98,9 @@ public class UserEntity extends AbstractAuditableEntity {
     @Column(name = "locale", length = 5)
     private String locale = "vi-VN";
     
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private UserOTP otp;
+    
     public static UserEntity register(
             String email,
             boolean emailVerified,

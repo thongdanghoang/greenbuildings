@@ -6,7 +6,7 @@
     >
         <div
             class="hidden overflow-y-hidden"
-            [class.lg:block]="authenticated | async"
+            [class.lg:block]="authenticated && emailVerified | async"
         >
             @if (authenticated | async) {
                 <app-sidebar></app-sidebar>
@@ -14,7 +14,7 @@
         </div>
         <div
             class="no-scrollbar col-span-5 overflow-auto"
-            [class.lg:col-span-4]="authenticated | async"
+            [class.lg:col-span-4]="authenticated && emailVerified | async"
         >
             <router-outlet></router-outlet>
         </div>

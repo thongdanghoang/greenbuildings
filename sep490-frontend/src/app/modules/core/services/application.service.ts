@@ -96,6 +96,19 @@ export class ApplicationService
       .pipe(filter((user): user is UserData => user !== null));
   }
 
+  get UserInfoData(): Observable<UserInfoData> {
+    return this.userInfoSubject
+      .asObservable()
+      .pipe(filter((user): user is UserInfoData => user !== null));
+  }
+
+  isEmailVerified(): Observable<boolean> {
+    return this.userInfoSubject.asObservable().pipe(
+      filter((user): user is UserInfoData => user !== null),
+      map((userInfo): boolean => userInfo.email_verified)
+    );
+  }
+
   isAuthenticated(): Observable<boolean> {
     return this.oidcSecurityService.isAuthenticated$.pipe(
       map((result: AuthenticatedResult): boolean => result.isAuthenticated)
