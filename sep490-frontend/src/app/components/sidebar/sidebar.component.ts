@@ -72,7 +72,12 @@ export class SidebarComponent
             label: 'sidebar.basicUser.info',
             icon: 'pi pi-user',
             route: `/${AppRoutingConstants.ENTERPRISE_PATH}/${AppRoutingConstants.ACCOUNT_INFO_PATH}`
-          },
+          }
+        ]
+      },
+      {
+        label: 'sidebar.tenant.manageMenu',
+        items: [
           {
             label: 'sidebar.tenant.manageTenant',
             icon: 'pi pi-user',

@@ -19,7 +19,7 @@
         class="p-dialog-content flex min-h-[150px] flex-col overflow-hidden p-0"
     >
         <form [formGroup]="formGroup">
-            <p-iftalabel class="my-2">
+            <p-iftalabel class="my-2" errorMessages>
                 <input
                     pInputText
                     formControlName="name"
@@ -27,8 +27,9 @@
                     autocomplete="off"
                 />
                 <label>{{ "common.name" | translate }}</label>
+                <form-field-error></form-field-error>
             </p-iftalabel>
-            <p-iftalabel class="my-2">
+            <p-iftalabel class="my-2" errorMessages>
                 <input
                     pInputText
                     formControlName="description"
@@ -38,6 +39,7 @@
                 <label>{{
                     "admin.emissionFactor.description" | translate
                 }}</label>
+                <form-field-error></form-field-error>
             </p-iftalabel>
         </form>
         <div class="mt-2 flex justify-end">

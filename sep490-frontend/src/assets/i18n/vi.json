@@ -49,6 +49,11 @@
         "tenantEmail": "Email không phù hợp cho tác vụ này",
         "notFound": "Không tìm thấy nhóm tòa nhà"
       },
+      "activityType": {
+        "name": {
+          "exist": "Tên loại hoạt động đã tồn tại"
+        }
+      },
       "buildings": {
         "name": {
           "exist": "Tên tòa nhà đã tồn tại"
@@ -453,10 +458,11 @@
   },
   "sidebar": {
     "tenant": {
-      "manageTenant": "Quản lý doanh nghiệp"
+      "manageTenant": "Quản lý doanh nghiệp",
+      "manageMenu": "Quản lý"
     },
     "basicUser": {
-      "welcome": "Chào mừng đến với Green Building",
+      "welcome": "Chào mừng đến Green Building",
       "info": "Thông tin tài khoản",
       "enterprise": "Mở doanh nghiệp",
       "invitation": "Lời mời của bạn"

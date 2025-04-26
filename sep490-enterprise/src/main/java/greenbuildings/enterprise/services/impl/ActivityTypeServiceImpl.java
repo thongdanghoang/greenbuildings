@@ -80,6 +80,17 @@ public class ActivityTypeServiceImpl implements ActivityTypeService {
     
     @Override
     public void createOrUpdate(ActivityTypeEntity activityTypeEntity) {
+        if (activityTypeEntity.getId() != null) {
+            var oldActivityType = repository.findById(activityTypeEntity.getId()).orElseThrow();
+            if (oldActivityType.getName().equalsIgnoreCase(activityTypeEntity.getName())) {
+                repository.save(activityTypeEntity);
+                return;
+            }
+        }
+        UUID enterpriseId = SecurityUtils.getCurrentUserEnterpriseId().orElseThrow();
+        if (repository.existsByNameActivityTypeInTenant(activityTypeEntity.getName(), enterpriseId)) {
+            throw new BusinessException("name", "business.activityType.name.exist");
+        }
         repository.save(activityTypeEntity);
     }
     
