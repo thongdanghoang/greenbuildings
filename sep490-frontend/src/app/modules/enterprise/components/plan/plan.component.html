@@ -112,12 +112,52 @@
                     tab.title | translate
                 }}</p-accordion-header>
                 <p-accordion-content>
-                    <p class="m-0">{{ tab.content | translate }}</p>
+                    <ng-container
+                        *ngTemplateOutlet="getContentTemplate(tab.content)"
+                    ></ng-container>
                 </p-accordion-content>
             </p-accordion-panel>
         }
     </p-accordion>
 </div>
+
+<ng-template #aboutContent>
+    <div
+        class="rounded-md border border-gray-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-900"
+    >
+        <h2
+            class="mb-2 text-xl font-semibold text-primary dark:text-primary-400"
+        >
+            {{ "creditTerms.aboutContentTitle" | translate }}
+        </h2>
+        <p class="text-gray-700 dark:text-gray-300">
+            {{ "creditTerms.aboutContent" | translate }}
+        </p>
+    </div>
+</ng-template>
+
+<ng-template #termContent>
+    <div
+        class="rounded-md border border-gray-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-900"
+    >
+        <h2 class="mb-4 text-2xl font-bold text-primary dark:text-primary-400">
+            {{ "creditTerms.termServiceTitle" | translate }}
+        </h2>
+        <p class="mb-3 text-gray-700 dark:text-gray-300">
+            {{ "creditTerms.term1" | translate }}
+        </p>
+        <ul
+            class="mb-4 list-disc space-y-2 pl-6 text-gray-700 dark:text-gray-300"
+        >
+            <li>{{ "creditTerms.term2" | translate }}</li>
+            <li>{{ "creditTerms.term3" | translate }}</li>
+            <li>{{ "creditTerms.term4" | translate }}</li>
+        </ul>
+        <p class="text-sm italic text-gray-500 dark:text-gray-400">
+            {{ "creditTerms.termNotice" | translate }}
+        </p>
+    </div>
+</ng-template>
 
 <ng-template #creditBundleTemplate let-creditBundle>
     <div
