@@ -80,7 +80,7 @@
         <div class="footer">
             <p>需要帮助？ <a href="mailto:support@greenbuilding.com" style="color: #0056b3; text-decoration: none;">联系客服团队</a>
             </p>
-            <p>© 2023 您的公司名称。保留所有权利。</p>
+            <p>© 2025 GreenBuilding。保留所有权利。</p>
         </div>
     </div>
 </div>

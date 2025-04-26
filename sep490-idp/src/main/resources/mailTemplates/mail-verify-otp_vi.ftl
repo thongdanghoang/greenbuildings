@@ -73,7 +73,7 @@
 
         <div class="footer">
             <p>Cần hỗ trợ? <a href="mailto:support@greenbuilding.com" style="color: #0056b3; text-decoration: none;">Liên hệ đội ngũ hỗ trợ</a></p>
-            <p>© 2023 Tên Công Ty Của Bạn. Bảo lưu mọi quyền.</p>
+            <p>© 2025 GreenBuilding. Bảo lưu mọi quyền.</p>
         </div>
     </div>
 </div>
