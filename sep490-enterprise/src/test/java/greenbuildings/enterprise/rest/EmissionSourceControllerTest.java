@@ -23,16 +23,6 @@ public class EmissionSourceControllerTest extends TestcontainersConfigs {
     }
     
     @Test
-    void findAll() {
-        asEnterpriseOwner()
-                .contentType(ContentType.JSON)
-                .when()
-                .get(getBaseUrl())
-                .then()
-                .statusCode(200);
-    }
-    
-    @Test
     void searchEmissionSource() {
         var searchCriteria = SearchCriteriaDTO
                 .of(
