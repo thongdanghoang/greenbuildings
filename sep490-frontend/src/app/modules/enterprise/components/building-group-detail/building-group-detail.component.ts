@@ -50,6 +50,7 @@ export class BuildingGroupDetailComponent
   typeTemplate!: TemplateRef<any>;
   @ViewChild('actionsTemplate', {static: true})
   actionsTemplate!: TemplateRef<any>;
+  protected readonly UserRole = UserRole;
   protected fetchActivity!: (
     criteria: SearchCriteriaDto<ActivitySearchCriteria>
   ) => Observable<SearchResultDto<EmissionActivity>>;
@@ -261,6 +262,4 @@ export class BuildingGroupDetailComponent
       this.buildingGroup.id
     ]);
   }
-
-  protected readonly UserRole = UserRole;
 }
