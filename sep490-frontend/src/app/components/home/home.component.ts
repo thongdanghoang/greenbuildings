@@ -22,6 +22,7 @@ export class HomeComponent
   userData?: UserData;
   userRoles: UserRole[] = [];
   userInfo?: EnterpriseUserDetails;
+  emailVerified: boolean = false;
 
   protected readonly UserRole = UserRole;
   protected readonly AppRoutingConstants = AppRoutingConstants;
@@ -39,16 +40,17 @@ export class HomeComponent
       switchMap(userData => {
         this.userData = userData;
         return this.applicationService.getUserRoles();
-      })
-    ).subscribe(roles => {
-      this.userRoles = roles;
-    });
-
-    this.userService
-      .getUserInfo()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(userInfo => {
+      }),
+      switchMap(roles => {
+        this.userRoles = roles;
+        return this.userService.getUserInfo();
+      }),
+      switchMap(userInfo => {
         this.userInfo = userInfo;
-      });
+        return this.applicationService.isEmailVerified();
+      })
+    ).subscribe(verified => {
+      this.emailVerified = verified;
+    });
   }
 }

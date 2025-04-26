@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {MenuItem} from 'primeng/api';
-import {takeUntil} from 'rxjs';
+import {filter, switchMap, takeUntil} from 'rxjs';
 import {AppRoutingConstants} from '../../app-routing.constant';
 import {UserRole} from '../../modules/authorization/enums/role-names';
 import {
@@ -30,9 +30,17 @@ export class SidebarComponent
     super();
   }
 
+  // eslint-disable-next-line max-lines-per-function
   ngOnInit(): void {
-    this.applicationService.UserData.pipe(takeUntil(this.destroy$)).subscribe(
-      (userData: UserData): void => {
+    this.applicationService
+      .isEmailVerified()
+      .pipe(
+        takeUntil(this.destroy$),
+        filter(verified => verified),
+        switchMap(() => this.applicationService.UserData),
+        takeUntil(this.destroy$)
+      )
+      .subscribe((userData: UserData): void => {
         switch (true) {
           case this.applicationService.includeRole(
             userData.authorities,
@@ -59,8 +67,7 @@ export class SidebarComponent
             this.items = this.buildBasicUserMenu();
             break;
         }
-      }
-    );
+      });
   }
 
   buildTenantMenu(): MenuItem[] {

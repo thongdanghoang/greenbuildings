@@ -41,6 +41,10 @@
     "multipleOf": "该值必须是 {{requiredMultiple}} 的倍数",
     "pattern": "无效的值",
     "required": "此字段是必填项",
+    "validateOTP": {
+      "invalidCode": "一次性密码无效",
+      "expired": "一次性密码已过期，请重试"
+    },
     "business": {
       "email": {
         "exist": "电子邮件地址已存在"
@@ -940,5 +944,14 @@
     "termNotice": "我们保留随时修改条款的权利，恕不另行通知。",
     "aboutContentTitle": "信用和存款方法介绍",
     "aboutContent": "您可以通过充值账户获取积分，以用于我们的服务。支持多种支付方式，如 MoMo、VNPAY、Visa/MasterCard 等。"
+  },
+  "mailOTP": {
+    "title": "验证您的电子邮件",
+    "description": "点击'发送验证码'以接收发送到 {{email}} 的验证码",
+    "label": "输入验证码",
+    "send": "发送验证码",
+    "verify": "验证",
+    "notReceived": "没有收到验证码？",
+    "resend": "重新发送验证码"
   }
 }

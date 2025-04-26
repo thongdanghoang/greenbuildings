@@ -17,8 +17,11 @@ import greenbuildings.idp.dto.NewEnterpriseDTO;
 import greenbuildings.idp.dto.SignupDTO;
 import greenbuildings.idp.dto.SignupResult;
 import greenbuildings.idp.dto.UserCriteriaDTO;
+import greenbuildings.idp.dto.ValidateOTPRequest;
 import greenbuildings.idp.entity.UserEntity;
+import greenbuildings.idp.entity.UserOTP;
 import greenbuildings.idp.producers.IdPEventProducer;
+import greenbuildings.idp.repository.UserOTPRepository;
 import greenbuildings.idp.repository.UserRepository;
 import greenbuildings.idp.repository.UserRepositoryAdapter;
 import greenbuildings.idp.service.UserService;
@@ -39,6 +42,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.util.CollectionUtils;
 
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -66,6 +70,7 @@ public class UserServiceImpl extends SagaManager implements UserService {
     private final Validator<SignupDTO> validator;
     private final IMessageUtil messageUtil;
     private final IEmailUtil emailUtil;
+    private final UserOTPRepository otpRepo;
     @Value("${spring.application.homepage}")
     private String homepage;
     private final IdPEventProducer kafkaAdapter;
@@ -252,6 +257,18 @@ public class UserServiceImpl extends SagaManager implements UserService {
         return message;
     }
     
+    private SEPMailMessage createMessageForVerifyOTP(UserEntity userEntity) {
+        SEPMailMessage message = new SEPMailMessage();
+        
+        message.setTemplateName("mail-verify-otp.ftl");
+        message.setTo(userEntity.getEmail());
+        message.setSubject(messageUtil.getMessage("verifyOtp.mail.title"));
+        
+        message.addTemplateModel("userEmail", userEntity.getEmail());
+        message.addTemplateModel("otpCode", userEntity.getOtp().getOtpCode());
+        return message;
+    }
+    
     @Override
     public UserEntity getEnterpriseUserDetail(UUID id) {
         return userRepo.findByIdWithBuildingPermissions(id).orElseThrow();
@@ -276,6 +293,47 @@ public class UserServiceImpl extends SagaManager implements UserService {
     @Override
     public void update(UserEntity user) {
         userRepo.save(user);
+    }
+    
+    @Override
+    public void sendOtp() {
+        UserEntity userEntity = userRepo.findByEmail(SecurityUtils.getCurrentUserEmail().orElseThrow()).orElseThrow();
+        
+        if (userEntity.isEmailVerified()) {
+            return;
+        }
+        
+        if (userEntity.getOtp() != null) {
+            userEntity.getOtp().resetOTP();
+        } else {
+            userEntity.setOtp(new UserOTP(userEntity));
+        }
+        userEntity = userRepo.save(userEntity);
+        
+        try {
+            var message = createMessageForVerifyOTP(userEntity);
+            emailUtil.sendMail(message);
+        } catch (Exception ex) {
+            log.error(ex.getMessage());
+            throw new TechnicalException("Gửi OTP thất bại, vui lòng thử lại sau!");
+        }
+    }
+    
+    @Override
+    public void validateOTP(ValidateOTPRequest request) {
+        UserEntity userEntity = userRepo.findByEmail(SecurityUtils.getCurrentUserEmail().orElseThrow()).orElseThrow();
+        
+        var otp = userEntity.getOtp();
+        if (!otp.getOtpCode().equals(request.otpCode())) {
+            throw new BusinessException("otpCode", "business.validateOTP.invalidCode");
+        }
+        if (LocalDateTime.now().isAfter(otp.getExpiredTime())) {
+            throw new BusinessException("otpCode", "business.validateOTP.expired");
+        }
+        userEntity.setEmailVerified(true);
+        userEntity.setOtp(null);
+        userRepo.saveAndFlush(userEntity);
+        otpRepo.delete(otp);
     }
     
 }

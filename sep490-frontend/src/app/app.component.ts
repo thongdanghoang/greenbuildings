@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
-import {Observable, Subject, filter, switchMap, take} from 'rxjs';
+import {Observable, Subject, filter, map, switchMap, take} from 'rxjs';
 import {ApplicationService} from './modules/core/services/application.service';
 import {ThemeService} from './modules/core/services/theme.service';
 import {UserService} from './services/user.service';
@@ -50,6 +50,14 @@ export class AppComponent implements OnInit, OnDestroy {
       'change',
       this.handleThemeChange
     );
+  }
+
+  get emailVerified(): Observable<boolean> {
+    return this.applicationService.isEmailVerified();
+  }
+
+  get notEmailVerified(): Observable<boolean> {
+    return this.applicationService.isEmailVerified().pipe(map(auth => !auth));
   }
 
   get authenticated(): Observable<boolean> {

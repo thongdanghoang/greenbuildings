@@ -41,6 +41,10 @@
     "pattern": "Invalid value",
     "multipleOf": "The value must be a multiple of {{requiredMultiple}}",
     "required": "This field is required",
+    "validateOTP": {
+      "invalidCode": "Invalid OTP code",
+      "expired": "OTP code has expired, please try again"
+    },
     "business": {
       "email": {
         "exist": "Email address already exists"
@@ -946,5 +950,14 @@
     "termNotice": "We reserve the right to update these terms at any time without prior notice.",
     "aboutContentTitle": "Introduction to Credit and deposit methods",
     "aboutContent": "You can top up your account to receive credits for using our services. Multiple payment methods are supported, including MoMo, VNPAY, Visa/MasterCard, etc."
+  },
+  "mailOTP": {
+    "title": "Verify Your Email",
+    "description": "Click 'Send OTP' to receive a code at {{email}}",
+    "label": "Enter OTP Code",
+    "send": "Send",
+    "verify": "Verify",
+    "notReceived": "Didn't get the code?",
+    "resend": "Send OTP"
   }
 }

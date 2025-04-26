@@ -41,6 +41,10 @@
     "multipleOf": "Giá trị phải là chia hết cho {{requiredMultiple}}",
     "pattern": "Giá trị không hợp lệ",
     "required": "Trường này là bắt buộc",
+    "validateOTP": {
+      "invalidCode": "Mã OTP không hợp lệ",
+      "expired": "Mã OTP đã hết hạn, vui lòng thử lại"
+    },
     "business": {
       "email": {
         "exist": "Địa chỉ email đã tồn tại"
@@ -940,5 +944,14 @@
     "termNotice": "Chúng tôi có quyền cập nhật các điều khoản bất kỳ lúc nào mà không cần thông báo trước.",
     "aboutContentTitle": "Giới thiệu về Credit & phương thức nạp",
     "aboutContent": "Bạn có thể nạp tiền vào tài khoản và nhận Credit để sử dụng trong các dịch vụ của chúng tôi. Hệ thống hỗ trợ nhiều phương thức thanh toán như MoMo, VNPAY, thẻ Visa/MasterCard,..."
+  },
+  "mailOTP": {
+    "title": "Xác thực Email của bạn",
+    "description": "Nhấp 'Gửi mã OTP' để nhận mã tại {{email}}",
+    "label": "Nhập mã OTP",
+    "send": "Gửi mã OTP",
+    "verify": "Xác thực",
+    "notReceived": "Chưa nhận được mã?",
+    "resend": "Gửi lại mã OTP"
   }
 }

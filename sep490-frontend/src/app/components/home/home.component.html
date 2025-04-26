@@ -1,4 +1,7 @@
-<div class="flex min-h-[calc(100vh-4rem)] flex-col items-center justify-center">
+<div
+    *ngIf="emailVerified"
+    class="flex min-h-[calc(100vh-4rem)] flex-col items-center justify-center"
+>
     <div class="w-full max-w-4xl rounded-lg p-8 shadow-lg">
         @if (userRoles.includes(UserRole.BASIC_USER) && userData && userInfo) {
             <div class="text-center">
@@ -102,3 +105,4 @@
         }
     </div>
 </div>
+<app-email-verify-otp *ngIf="!emailVerified"></app-email-verify-otp>

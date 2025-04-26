@@ -38,7 +38,9 @@ import {ImageModule} from 'primeng/image';
 import {InputGroupModule} from 'primeng/inputgroup';
 import {InputGroupAddonModule} from 'primeng/inputgroupaddon';
 import {InputIconModule} from 'primeng/inputicon';
+import {InputMaskModule} from 'primeng/inputmask';
 import {InputNumberModule} from 'primeng/inputnumber';
+import {InputOtpModule} from 'primeng/inputotp';
 import {InputSwitchModule} from 'primeng/inputswitch';
 import {InputTextModule} from 'primeng/inputtext';
 import {MenuModule} from 'primeng/menu';
@@ -122,6 +124,8 @@ const primeNgModules = [
   InputNumberModule,
   CarouselModule,
   ImageModule,
+  InputMaskModule,
+  InputOtpModule,
   ToggleButtonModule,
   ChipModule,
   Fieldset,

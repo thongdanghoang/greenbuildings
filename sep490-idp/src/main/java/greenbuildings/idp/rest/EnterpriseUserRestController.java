@@ -5,6 +5,7 @@ import commons.springfw.impl.securities.UserContextData;
 import commons.springfw.impl.utils.SecurityUtils;
 import greenbuildings.idp.dto.NewEnterpriseDTO;
 import greenbuildings.idp.dto.UserByBuildingDTO;
+import greenbuildings.idp.dto.ValidateOTPRequest;
 import jakarta.annotation.security.RolesAllowed;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -37,7 +38,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/enterprise-user")
 @RequiredArgsConstructor
-@RolesAllowed({UserRole.RoleNameConstant.ENTERPRISE_OWNER})
+@RolesAllowed({UserRole.RoleNameConstant.ENTERPRISE_OWNER, UserRole.RoleNameConstant.SYSTEM_ADMIN, UserRole.RoleNameConstant.BASIC_USER, UserRole.RoleNameConstant.TENANT})
 public class EnterpriseUserRestController {
     
     private final UserService userService;
@@ -132,5 +133,17 @@ public class EnterpriseUserRestController {
     @GetMapping("/check-email")
     public ResponseEntity<Boolean> checkEmailExist(@RequestParam String email) {
         return ResponseEntity.ok(userService.findByEmail(email).isPresent());
+    }
+    
+    @GetMapping("/requestOTP")
+    public ResponseEntity<?> getOtpByMail() {
+        userService.sendOtp();
+        return ResponseEntity.noContent().build();
+    }
+    
+    @PostMapping("/validateOTP")
+    public ResponseEntity<?> getOtpByMail(@RequestBody ValidateOTPRequest request) {
+        userService.validateOTP(request);
+        return ResponseEntity.noContent().build();
     }
 }
