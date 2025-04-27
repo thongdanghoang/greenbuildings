@@ -46,6 +46,12 @@ export class BuildingGroupService {
     return this.http.get<BuildingGroup[]>(this.baseUrl);
   }
 
+  getAllWithBuilding(): Observable<BuildingGroup[]> {
+    return this.http.get<BuildingGroup[]>(
+      `${this.baseUrl}/search/with-buildings`
+    );
+  }
+
   getById(id: UUID): Observable<BuildingGroup> {
     return this.http.get<BuildingGroup>(`${this.baseUrl}/${id}`);
   }
