@@ -32,6 +32,7 @@ import {SidebarComponent} from './components/sidebar/sidebar.component';
 import {UnauthorizedComponent} from './components/unauthorized/unauthorized.component';
 import {CoreModule} from './modules/core/core.module';
 import {HttpErrorHandlerInterceptor} from './modules/core/services/http-error-handler.interceptor';
+import {WINDOW} from './modules/shared/directives/unsaved-changes/global-events.service';
 import {SharedModule} from './modules/shared/shared.module';
 import {LandingPageComponent} from './components/landing-page/landing-page.component';
 import {CreateDashboardComponent} from './components/dashboard/create-dashboard/create-dashboard.component';
@@ -138,7 +139,8 @@ export const httpLoaderFactory = (
       provide: HTTP_INTERCEPTORS,
       useClass: HttpErrorHandlerInterceptor,
       multi: true
-    }
+    },
+    {provide: WINDOW, useValue: window}
   ],
   bootstrap: [AppComponent]
 })

@@ -17,6 +17,7 @@ import {NewTenantComponent} from './components/new-tenant/new-tenant.component';
 import {PaymentComponent} from './components/payment/payment.component';
 import {PlanComponent} from './components/plan/plan.component';
 import {SentInvitationComponent} from './components/sent-invitation/sent-invitation.component';
+import {UnsavedChangesGuard} from '../shared/directives/unsaved-changes/unsaved-changes-guard.service';
 import {EnterpriseComponent} from './enterprise.component';
 import {ActivityTypeComponent} from './components/activity-type/activity-type.component';
 import {BuildingGroupDetailComponent} from './components/building-group-detail/building-group-detail.component';
@@ -32,7 +33,8 @@ const routes: Routes = [
       },
       {
         path: `${AppRoutingConstants.BUILDING_PATH}/:id`,
-        component: BuildingDetailsComponent
+        component: BuildingDetailsComponent,
+        canDeactivate: [UnsavedChangesGuard]
       },
       {
         path: `${AppRoutingConstants.BUILDING_MANAGEMENT_PATH}/:id`,

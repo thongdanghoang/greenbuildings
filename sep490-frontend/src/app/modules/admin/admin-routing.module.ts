@@ -2,6 +2,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {AppRoutingConstants} from '../../app-routing.constant';
 
 import {NgModule} from '@angular/core';
+import {UnsavedChangesGuard} from '../shared/directives/unsaved-changes/unsaved-changes-guard.service';
 import {AdminComponent} from './admin.component';
 import {PackageCreditComponent} from './components/package-credit/package-credit.component';
 import {CreateUpdatePackageCreditComponent} from './components/create-update-package-credit/create-update-package-credit.component';
@@ -27,7 +28,8 @@ const routes: Routes = [
       },
       {
         path: `${AppRoutingConstants.CREDIT_CONVERT_RATIO_DETAILS}/:id`,
-        component: UpdateRatioComponent
+        component: UpdateRatioComponent,
+        canDeactivate: [UnsavedChangesGuard]
       },
       {
         path: `${AppRoutingConstants.PACKAGE_CREDIT_DETAILS_PATH}`,
@@ -35,7 +37,8 @@ const routes: Routes = [
       },
       {
         path: `${AppRoutingConstants.PACKAGE_CREDIT_DETAILS_PATH}/:id`,
-        component: CreateUpdatePackageCreditComponent
+        component: CreateUpdatePackageCreditComponent,
+        canDeactivate: [UnsavedChangesGuard]
       },
       {
         path: `${AppRoutingConstants.EMISSION_SOURCE}`,

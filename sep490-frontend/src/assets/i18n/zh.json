@@ -32,6 +32,12 @@
     "name": "姓名"
   },
   "validation": {
+    "unsavedChanges": {
+      "title": "未保存的更改",
+      "message": "您确定要放弃这些更改吗?",
+      "cancel": "返回",
+      "discard": "继续"
+    },
     "authorizeDenied": "您无权执行此操作",
     "email": "格式无效：请输入有效的电子邮件地址",
     "max": "值必须小于或等于{{max}}",

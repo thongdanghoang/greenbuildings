@@ -149,6 +149,7 @@ export abstract class AbstractFormComponent<T>
             this.showSaveSuccessNotification(r);
             this.onSubmitFormDataSuccess(r);
             this.enableSubmitBtn();
+            this.formGroup.markAsPristine();
           },
           error: error => {
             this.displayFormResultErrors(error.error);

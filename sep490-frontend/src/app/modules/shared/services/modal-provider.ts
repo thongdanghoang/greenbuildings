@@ -1,9 +1,9 @@
 import {Injectable, OnDestroy} from '@angular/core';
 import {Confirmation} from 'primeng/api';
 import {DialogService, DynamicDialogRef} from 'primeng/dynamicdialog';
+import {Observable} from 'rxjs';
 import {SubscriptionAwareComponent} from '../../core/subscription-aware.component';
 import {ConfirmDialogComponent} from '../components/dialog/confirm-dialog/confirm-dialog.component';
-import {Observable} from 'rxjs';
 
 @Injectable()
 export class ModalProvider
@@ -29,8 +29,20 @@ export class ModalProvider
     // TODO: Implement error dialog
   }
 
-  showDirtyCheckConfirm(): void {
-    // TODO: Implement dirty check confirmation
+  showDirtyCheckConfirm(params: Confirmation): Observable<boolean> {
+    this.ref = this.dialogService.open(ConfirmDialogComponent, {
+      header: params.header,
+      modal: true,
+      data: {
+        ...params,
+        icon: 'pi pi-info-circle',
+        acceptButtonStyleClass: 'p-button-danger p-button-text min-w-20',
+        rejectButtonStyleClass: 'p-button-contrast p-button-text min-w-20',
+        acceptIcon: 'none',
+        rejectIcon: 'none'
+      }
+    });
+    return this.ref.onClose;
   }
 
   override ngOnDestroy(): void {
