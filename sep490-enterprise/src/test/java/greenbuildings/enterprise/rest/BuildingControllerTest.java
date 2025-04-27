@@ -8,6 +8,7 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
 import java.util.List;
 
 class BuildingControllerTest extends TestcontainersConfigs {
@@ -104,9 +105,16 @@ class BuildingControllerTest extends TestcontainersConfigs {
         var buildingEntity = insertBuildingEntity();
         var emissionActivityDirect = insertActivity(true);
         var emissionActivityIndirect = insertActivity(false);
+        var startDate = LocalDate.now().minusMonths(60);
         for (int i = 0; i < 10; i++) {
-            insertRecord(emissionActivityDirect);
-            insertRecord(emissionActivityIndirect);
+            var endDate = startDate.plusMonths(i);
+            insertRecord(emissionActivityDirect, startDate, endDate);
+            startDate = endDate.plusDays(1);
+        }
+        for (int i = 0; i < 10; i++) {
+            var endDate = startDate.plusMonths(i);
+            insertRecord(emissionActivityIndirect, startDate, endDate);
+            startDate = endDate.plusDays(1);
         }
         var downloadReport = DownloadReportDTO
                 .builder()

@@ -103,6 +103,7 @@ export interface DownloadReport {
 }
 
 export interface EmissionActivityDetails extends BaseDTO {
+  buildingId: UUID;
   records: EmissionActivityRecord[];
   buildingGroup: BuildingGroup;
   emissionFactor: EmissionFactorDTO;

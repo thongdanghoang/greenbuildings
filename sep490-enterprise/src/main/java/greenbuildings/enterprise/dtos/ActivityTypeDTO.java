@@ -9,7 +9,7 @@ public record ActivityTypeDTO(
         UUID id,
         int version,
         String name,
-        UUID tenantID,
+        UUID buildingId,
         String description) {
 }
 

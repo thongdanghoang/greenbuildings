@@ -33,7 +33,7 @@ public class TenantServiceImpl implements TenantService {
     
     @Override
     public Optional<TenantEntity> findById(UUID id) {
-        return tenantRepository.findByIdWithActivityTypes(id);
+        return tenantRepository.findById(id);
     }
     
     @Override
@@ -59,7 +59,7 @@ public class TenantServiceImpl implements TenantService {
 
     @Override
     public List<TenantEntity> findAll() {
-        return tenantRepository.findALlWithActivityTypes();
+        return tenantRepository.findAll();
     }
     
     @Override
@@ -79,7 +79,7 @@ public class TenantServiceImpl implements TenantService {
         
         tenantMapper.partialUpdate(dto, existingEntity);
         var tenantEntityId = tenantRepository.save(existingEntity).getId();
-        return tenantRepository.findByIdWithActivityTypes(tenantEntityId).orElseThrow();
+        return tenantRepository.findById(tenantEntityId).orElseThrow();
     }
     
     @Override

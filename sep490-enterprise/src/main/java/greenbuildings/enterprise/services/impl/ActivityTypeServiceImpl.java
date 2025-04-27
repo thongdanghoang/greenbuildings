@@ -9,6 +9,7 @@ import greenbuildings.enterprise.entities.ActivityTypeEntity;
 import greenbuildings.enterprise.entities.EmissionActivityEntity;
 import greenbuildings.enterprise.mappers.ActivityTypeMapper;
 import greenbuildings.enterprise.repositories.ActivityTypeRepository;
+import greenbuildings.enterprise.repositories.BuildingRepository;
 import greenbuildings.enterprise.repositories.EmissionActivityRepository;
 import greenbuildings.enterprise.repositories.TenantRepository;
 import greenbuildings.enterprise.services.ActivityTypeService;
@@ -38,6 +39,7 @@ public class ActivityTypeServiceImpl implements ActivityTypeService {
     private final EmissionActivityRepository emissionActivityRepository;
     private final ActivityTypeMapper mapper;
     private final TenantRepository tenantRepository;
+    private final BuildingRepository buildingRepository;
     
     @Override
     public List<ActivityTypeEntity> findAll() {
@@ -45,17 +47,17 @@ public class ActivityTypeServiceImpl implements ActivityTypeService {
     }
     
     @Override
-    public List<ActivityTypeEntity> findByTenantId(UUID tenantId) {
-        if (Objects.isNull(tenantId) || !tenantRepository.existsById(tenantId)) {
-            throw new NoSuchElementException("Tenant with ID " + tenantId + " not found");
+    public List<ActivityTypeEntity> findByBuildingId(UUID buildingId) {
+        if (Objects.isNull(buildingId) || !buildingRepository.existsById(buildingId)) {
+            throw new NoSuchElementException("Building with ID " + buildingId + " not found");
         }
-        return repository.findByTenantId(tenantId);
+        return repository.findByBuildingId(buildingId);
     }
     
     @Override
     public ActivityTypeEntity create(ActivityTypeDTO dto) {
-        if (Objects.isNull(dto.tenantID()) || !tenantRepository.existsById(dto.tenantID())) {
-            throw new NoSuchElementException("Tenant with ID " + dto.tenantID() + " not found");
+        if (Objects.isNull(dto.buildingId()) || !tenantRepository.existsById(dto.buildingId())) {
+            throw new NoSuchElementException("Tenant with ID " + dto.buildingId() + " not found");
         }
         ActivityTypeEntity entity = mapper.toEntity(dto);
         return repository.save(entity);
@@ -63,10 +65,7 @@ public class ActivityTypeServiceImpl implements ActivityTypeService {
     
     @Override
     public Page<ActivityTypeEntity> search(SearchCriteriaDTO<ActivityTypeCriteriaDTO> searchCriteria, Pageable pageable) {
-        UUID enterpriseId = SecurityUtils.getCurrentUserEnterpriseId().orElseThrow();
-        var emissionSourceIDs = repository.findByName(
-                searchCriteria.criteria().criteria(),
-                pageable,enterpriseId);
+        var emissionSourceIDs = repository.findByName(searchCriteria.criteria().criteria(), pageable);
         var results = repository.findAllById(emissionSourceIDs.toSet())
                                 .stream()
                                 .collect(Collectors.toMap(ActivityTypeEntity::getId, Function.identity()));
@@ -87,8 +86,7 @@ public class ActivityTypeServiceImpl implements ActivityTypeService {
                 return;
             }
         }
-        UUID enterpriseId = SecurityUtils.getCurrentUserEnterpriseId().orElseThrow();
-        if (repository.existsByNameActivityTypeInTenant(activityTypeEntity.getName(), enterpriseId)) {
+        if (repository.existsByNameActivityTypeInTenant(activityTypeEntity.getName())) {
             throw new BusinessException("name", "business.activityType.name.exist");
         }
         repository.save(activityTypeEntity);

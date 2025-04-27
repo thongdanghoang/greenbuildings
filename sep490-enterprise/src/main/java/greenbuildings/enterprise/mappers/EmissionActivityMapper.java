@@ -19,11 +19,13 @@ public interface EmissionActivityMapper {
     @Mapping(target = "records", ignore = true)
     EmissionActivityDTO toDTO(EmissionActivityEntity emissionActivityEntity);
     
+    @Mapping(target = "building.id", source = "buildingId")
     @Mapping(target = "buildingGroup", ignore = true)
     @Mapping(target = "emissionFactorEntity", ignore = true)
     @Mapping(target = "type", ignore = true)
     EmissionActivityEntity createNewActivity(CreateEmissionActivityDTO dto);
 
+    @Mapping(target = "buildingId", source = "building.id")
     @Mapping(target = "buildingGroup", source = "buildingGroup")
     @Mapping(target = "buildingGroup.emissionActivities", ignore = true)
     @Mapping(target = "buildingGroup.building", ignore = true)
@@ -35,7 +37,8 @@ public interface EmissionActivityMapper {
     @Mapping(target = "records", ignore = true)
     @Mapping(target = "type", source = "type")
     EmissionActivityDetailsDTO toDetailsDTO(EmissionActivityEntity entity);
-
+    
+    @Mapping(target = "building.id", source = "buildingId")
     @Mapping(target = "emissionFactorEntity", ignore = true)
     @Mapping(target = "buildingGroup", ignore = true)
     @Mapping(target = "type", ignore = true)

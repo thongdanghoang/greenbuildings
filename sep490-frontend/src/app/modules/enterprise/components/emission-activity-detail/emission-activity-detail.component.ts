@@ -56,8 +56,9 @@ export class EmissionActivityDetailComponent
     id: new FormControl('', Validators.required),
     version: new FormControl(0, Validators.required),
     name: new FormControl('', [Validators.required]),
-    buildingGroupId: new FormControl('', [Validators.required]),
-    emissionFactorID: new FormControl('', [Validators.required]),
+    buildingId: new FormControl<null | UUID>(null, [Validators.required]),
+    buildingGroupId: new FormControl<null | UUID>(null),
+    emissionFactorID: new FormControl<null | UUID>(null, [Validators.required]),
     type: new FormControl(),
     category: new FormControl('', {
       nonNullable: true,
@@ -137,11 +138,12 @@ export class EmissionActivityDetailComponent
   updateFormStructureData(): void {
     this.formStructure.id.setValue(this.activity.id.toString());
     this.formStructure.version.setValue(this.activity.version);
+    this.formStructure.buildingId.setValue(this.activity.buildingId);
     this.formStructure.buildingGroupId.setValue(
-      this.activity.buildingGroup.id.toString()
+      this.activity.buildingGroup?.id
     );
     this.formStructure.emissionFactorID.setValue(
-      this.activity.emissionFactor.id.toString()
+      this.activity.emissionFactor.id
     );
     this.formStructure.name.setValue(this.activity.name);
     if (this.activity.type) {

@@ -72,4 +72,7 @@ public class BuildingEntity extends AbstractAuditableEntity {
     @OneToMany(mappedBy = "building", orphanRemoval = true)
     private Set<BuildingGroupEntity> buildingGroups = new HashSet<>();
     
+    @OneToMany(mappedBy = "building")
+    private Set<ActivityTypeEntity> activityTypes = new HashSet<>();
+    
 }

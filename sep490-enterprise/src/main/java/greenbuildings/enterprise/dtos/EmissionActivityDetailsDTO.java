@@ -10,31 +10,15 @@ import java.util.UUID;
 
 public record EmissionActivityDetailsDTO(
         UUID id,
-        
         int version,
-        
-        @NotNull
+        @NotNull UUID buildingId,
         BuildingGroupDTO buildingGroup,
-        
-        @NotNull
-        EmissionFactorDTO emissionFactor,
-        
+        @NotNull EmissionFactorDTO emissionFactor,
         Set<EmissionActivityRecordDTO> records,
-        
-        @NotBlank
-        @Size(max = 255)
-        String name,
-        
-        @Size(max = 255)
-        ActivityTypeDTO type,
-        
-        @Size(max = 255)
-        String category,
-        
-        @Min(0)
-        int quantity,
-        
-        @Size(max = 1000)
-        String description
+        @NotBlank @Size(max = 255) String name,
+        @Size(max = 255) ActivityTypeDTO type,
+        @Size(max = 255) String category,
+        @Min(0) int quantity,
+        @Size(max = 1000) String description
 ) {
 } 

@@ -73,7 +73,8 @@ const routes: Routes = [
       },
       {
         path: `${AppRoutingConstants.EMISSION_ACTIVITY_DETAIL_PATH}/:emissionId`,
-        component: EmissionActivityDetailComponent
+        component: EmissionActivityDetailComponent,
+        canDeactivate: [UnsavedChangesGuard]
       },
       {
         path: `${AppRoutingConstants.ACCOUNT_INFO_PATH}`,
