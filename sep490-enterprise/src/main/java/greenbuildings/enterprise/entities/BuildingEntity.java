@@ -27,10 +27,7 @@ import java.util.Set;
 @NamedEntityGraph(
         name = BuildingEntity.WITH_ACTIVITIES_ENTITY_GRAPH,
         attributeNodes = {
-                @NamedAttributeNode(value = "buildingGroups", subgraph = BuildingEntity.WITH_ACTIVITIES_RECORDS_SUB_GRAPH)
-        },
-        subgraphs = {
-                @NamedSubgraph(name = BuildingEntity.WITH_ACTIVITIES_RECORDS_SUB_GRAPH, attributeNodes = @NamedAttributeNode("groupItems"))
+                @NamedAttributeNode(value = "buildingGroups")
         }
 )
 @Table(name = "buildings")

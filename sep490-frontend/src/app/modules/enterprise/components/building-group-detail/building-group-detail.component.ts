@@ -189,14 +189,6 @@ export class BuildingGroupDetailComponent
     });
   }
 
-  openNewGroupItem(): void {
-    void this.router.navigate([
-      AppRoutingConstants.ENTERPRISE_PATH,
-      AppRoutingConstants.NEW_GROUP_ITEM,
-      this.buildingGroup.id
-    ]);
-  }
-
   fetchBuildingGroupDetails(): void {
     this.activatedRoute.paramMap
       .pipe(takeUntil(this.destroy$))
