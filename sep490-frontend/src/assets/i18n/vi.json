@@ -40,6 +40,7 @@
     },
     "authorizeDenied": "Bạn không thể thực hiện chức năng này",
     "email": "Định dạng không đúng: vui lòng nhập địa chỉ email hợp lệ",
+    "phoneNumber": "Số điện thoại không hợp lệ",
     "max": "Giá trị phải nhỏ hơn hoặc bằng {{max}}",
     "maxlength": "Tối đa {{requiredLength}} ký tự được hỗ trợ",
     "min": "Giá trị phải lớn hơn hoặc bằng {{min}}",
@@ -249,7 +250,9 @@
         }
       },
       "management": {
-        "title": "Quản lý tòa nhà"
+        "title": "Quản lý tòa nhà",
+        "title1": "Quản lý Doanh nghiệp",
+        "description": "Quản lý các doanh nghiệp của bạn một cách hiệu quả với công cụ này."
       },
       "group": {
         "new": "Thêm nhóm",
@@ -391,6 +394,13 @@
           "description": "Nhập mô tả"
         }
       }
+    },
+    "profile": {
+      "title": "Hồ sơ doanh nghiệp",
+      "description": "Quản lý thông tin doanh nghiệp của bạn",
+      "name": "Tên doanh nghiệp",
+      "email": "Email doanh nghiệp",
+      "hotline": "Đường dây nóng doanh nghiệp"
     }
   },
   "enum": {
@@ -469,7 +479,9 @@
   "sidebar": {
     "tenant": {
       "manageTenant": "Quản lý doanh nghiệp",
-      "manageMenu": "Quản lý"
+      "manageMenu": "Quản lý",
+      "account": "Tài khoản",
+      "profile": "Hồ sơ người thuê"
     },
     "basicUser": {
       "welcome": "Chào mừng đến Green Building",
@@ -478,6 +490,7 @@
       "invitation": "Lời mời của bạn"
     },
     "owner": {
+      "profile": "Hồ sơ doanh nghiệp",
       "dashboard": "Bảng điều khiển",
       "coefficientCenter": "Hệ số trung tâm",
       "emission": "Hoạt động phát thải",
@@ -917,7 +930,14 @@
     "information": "Thông tin người thuê",
     "detail": "Chi tiết người thuê nhà",
     "assign": "Chỉ định người thuê",
-    "noTenant": "Chưa có người thuê"
+    "noTenant": "Chưa có người thuê",
+    "profile": {
+      "title": "Hồ sơ người thuê",
+      "description": "Xem và quản lý thông tin người thuê",
+      "name": "Tên người thuê nhà",
+      "email": "Email",
+      "hotline": "Hotline"
+    }
   },
   "buildingGroup": {
     "description": "Miêu tả",
@@ -959,5 +979,9 @@
     "verify": "Xác thực",
     "notReceived": "Chưa nhận được mã?",
     "resend": "Gửi lại mã OTP"
+  },
+  "invitation": {
+    "title": "Lời Mời Của Bạn",
+    "description": "Xem xét và quản lý các lời mời đang chờ để tham gia các nhóm tòa nhà."
   }
 }

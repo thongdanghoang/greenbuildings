@@ -1,0 +1,165 @@
+<div
+    class="surface-card border-round-xl animate__animated animate__fadeIn mx-auto max-w-7xl p-6 shadow-lg dark:bg-gray-800"
+>
+    <!-- Header -->
+    <div class="mb-6">
+        <div class="mb-3 flex items-center gap-4">
+            <i class="pi pi-building text-3xl text-primary"></i>
+            <h1
+                class="text-2xl font-bold text-gray-800 md:text-3xl dark:text-gray-100"
+            >
+                {{ "enterprise.profile.title" | translate }}
+            </h1>
+        </div>
+        <p class="text-sm text-gray-600 md:text-base dark:text-gray-300">
+            {{ "enterprise.profile.description" | translate }}
+        </p>
+    </div>
+
+    <p-toast></p-toast>
+
+    <!-- Loading State -->
+    <div *ngIf="loading" class="my-8 flex justify-center">
+        <p-progressSpinner
+            styleClass="w-12 h-12"
+            strokeWidth="4"
+            animationDuration="1s"
+        ></p-progressSpinner>
+    </div>
+
+    <!-- Form -->
+    <form
+        [formGroup]="profileForm"
+        (ngSubmit)="onSubmit()"
+        *ngIf="!loading"
+        class="space-y-6"
+    >
+        <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <!-- Enterprise Name -->
+            <div>
+                <label
+                    for="name"
+                    class="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-200"
+                >
+                    {{ "enterprise.profile.name" | translate }} *
+                </label>
+                <div class="relative">
+                    <span
+                        class="absolute inset-y-0 left-0 flex items-center pl-3"
+                    >
+                        <i
+                            class="pi pi-building text-gray-500 dark:text-gray-400"
+                        ></i>
+                    </span>
+                    <input
+                        id="name"
+                        type="text"
+                        pInputText
+                        formControlName="name"
+                        class="w-full rounded-md border-0 bg-gray-100 py-2 pl-10 text-gray-800 focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-gray-100 dark:focus:ring-blue-400"
+                        [ngClass]="{
+                            'ng-invalid ng-dirty': isInvalid('name'),
+                            'border-red-500': isInvalid('name'),
+                        }"
+                    />
+                </div>
+                <small
+                    *ngIf="isInvalid('name')"
+                    class="p-error mt-1 text-sm text-red-500"
+                >
+                    {{ getErrorMessage("name") }}
+                </small>
+            </div>
+
+            <!-- Enterprise Email -->
+            <div>
+                <label
+                    for="email"
+                    class="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-200"
+                >
+                    {{ "enterprise.profile.email" | translate }} *
+                </label>
+                <div class="relative">
+                    <span
+                        class="absolute inset-y-0 left-0 flex items-center pl-3"
+                    >
+                        <i
+                            class="pi pi-envelope text-gray-500 dark:text-gray-400"
+                        ></i>
+                    </span>
+                    <input
+                        id="email"
+                        type="email"
+                        pInputText
+                        formControlName="email"
+                        class="w-full rounded-md border-0 bg-gray-100 py-2 pl-10 text-gray-800 focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-gray-100 dark:focus:ring-blue-400"
+                        [ngClass]="{
+                            'ng-invalid ng-dirty': isInvalid('email'),
+                            'border-red-500': isInvalid('email'),
+                        }"
+                    />
+                </div>
+                <small
+                    *ngIf="isInvalid('email')"
+                    class="p-error mt-1 text-sm text-red-500"
+                >
+                    {{ getErrorMessage("email") }}
+                </small>
+            </div>
+
+            <!-- Enterprise Hotline -->
+            <div>
+                <label
+                    for="hotline"
+                    class="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-200"
+                >
+                    {{ "enterprise.profile.hotline" | translate }} *
+                </label>
+                <div class="relative">
+                    <span
+                        class="absolute inset-y-0 left-0 flex items-center pl-3"
+                    >
+                        <i
+                            class="pi pi-phone text-gray-500 dark:text-gray-400"
+                        ></i>
+                    </span>
+                    <input
+                        id="hotline"
+                        type="text"
+                        pInputText
+                        formControlName="hotline"
+                        class="w-full rounded-md border-0 bg-gray-100 py-2 pl-10 text-gray-800 focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-gray-100 dark:focus:ring-blue-400"
+                        [ngClass]="{
+                            'ng-invalid ng-dirty': isInvalid('hotline'),
+                            'border-red-500': isInvalid('hotline'),
+                        }"
+                    />
+                </div>
+                <small
+                    *ngIf="isInvalid('hotline')"
+                    class="p-error mt-1 text-sm text-red-500"
+                >
+                    {{ getErrorMessage("hotline") }}
+                </small>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="mt-6 flex justify-end gap-4">
+            <p-button
+                type="button"
+                [label]="'common.revert' | translate"
+                styleClass="p-button-outlined p-button-secondary bg-transparent border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                icon="pi pi-refresh"
+                (onClick)="loadEnterpriseProfile()"
+                [disabled]="submitting"
+            ></p-button>
+            <p-button
+                type="submit"
+                [label]="'common.save' | translate"
+                icon="pi pi-save"
+                [loading]="submitting"
+            ></p-button>
+        </div>
+    </form>
+</div>

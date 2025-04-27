@@ -1,6 +1,7 @@
 package greenbuildings.enterprise.services;
 
 import greenbuildings.enterprise.dtos.TenantDTO;
+import greenbuildings.enterprise.dtos.TenantDetailDTO;
 import greenbuildings.enterprise.entities.TenantEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,6 +15,10 @@ public interface TenantService {
     
     Optional<TenantEntity> findById(UUID id);
     
+    Optional<TenantDetailDTO> getTenantDetail(UUID id);
+
+    TenantDetailDTO updateTenantDetail(UUID id, TenantDetailDTO detailDTO);
+
     List<TenantEntity> findAll();
     
     Page<TenantEntity> findAll(Pageable pageable);
@@ -21,4 +26,4 @@ public interface TenantService {
     TenantEntity update(UUID id, TenantDTO dto);
     
     void delete(UUID id);
-} 
+}

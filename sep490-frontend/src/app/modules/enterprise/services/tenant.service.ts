@@ -3,7 +3,7 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {UUID} from '../../../../types/uuid';
 import {AppRoutingConstants} from '../../../app-routing.constant';
-import {Tenant} from '../models/enterprise.dto';
+import {Tenant, TenantDetailDTO} from '../models/enterprise.dto';
 import {
   SearchCriteriaDto,
   SearchResultDto
@@ -31,6 +31,20 @@ export class TenantService {
 
   getById(id: UUID): Observable<Tenant> {
     return this.http.get<Tenant>(`${this.baseUrl}/${id}`);
+  }
+
+  getTenantDetail(id: UUID): Observable<TenantDetailDTO> {
+    return this.http.get<TenantDetailDTO>(`${this.baseUrl}/${id}/detail`);
+  }
+
+  updateTenantDetail(
+    id: UUID,
+    tenantDetail: TenantDetailDTO
+  ): Observable<TenantDetailDTO> {
+    return this.http.put<TenantDetailDTO>(
+      `${this.baseUrl}/${id}/detail`,
+      tenantDetail
+    );
   }
 
   create(tenant: Tenant): Observable<Tenant> {

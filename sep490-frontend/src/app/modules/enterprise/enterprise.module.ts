@@ -45,6 +45,9 @@ import {CreateTenantComponent} from './components/create-tenant/create-tenant.co
 import {ManageTenantComponent} from './components/manage-tenant/manage-tenant.component';
 import {SentInvitationComponent} from './components/sent-invitation/sent-invitation.component';
 import {ActivityTypeService} from './services/activity-type.service';
+import {TenantProfileComponent} from './components/tenant-profile/tenant-profile.component';
+import {EnterpriseProfileComponent} from './components/enterprise-profile/enterprise-profile.component';
+import {EnterpriseService} from './services/enterprise.service';
 @NgModule({
   declarations: [
     EnterpriseComponent,
@@ -74,7 +77,9 @@ import {ActivityTypeService} from './services/activity-type.service';
     NewGroupItemComponent,
     CreateTenantComponent,
     ManageTenantComponent,
-    SentInvitationComponent
+    SentInvitationComponent,
+    TenantProfileComponent,
+    EnterpriseProfileComponent
   ],
   imports: [SharedModule, EnterpriseRoutingModule],
   providers: [
@@ -93,7 +98,8 @@ import {ActivityTypeService} from './services/activity-type.service';
     EmissionActivityRecordService,
     CurrencyConverterService,
     TransactionService,
-    ActivityTypeService
+    ActivityTypeService,
+    EnterpriseService
   ]
 })
 export class EnterpriseModule {}

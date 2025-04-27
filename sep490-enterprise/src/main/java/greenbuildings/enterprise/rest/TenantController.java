@@ -6,6 +6,7 @@ import greenbuildings.commons.api.dto.SearchCriteriaDTO;
 import greenbuildings.commons.api.dto.SearchResultDTO;
 import greenbuildings.commons.api.security.UserRole;
 import greenbuildings.enterprise.dtos.TenantDTO;
+import greenbuildings.enterprise.dtos.TenantDetailDTO;
 import greenbuildings.enterprise.mappers.TenantMapper;
 import greenbuildings.enterprise.services.TenantService;
 import jakarta.annotation.security.RolesAllowed;
@@ -20,7 +21,7 @@ import java.util.UUID;
 @RequestMapping("/tenants")
 @RequiredArgsConstructor
 @RolesAllowed({
-        UserRole.RoleNameConstant.ENTERPRISE_OWNER
+        UserRole.RoleNameConstant.ENTERPRISE_OWNER, UserRole.RoleNameConstant.TENANT
 })
 public class TenantController extends AbstractRestController {
     
@@ -34,7 +35,19 @@ public class TenantController extends AbstractRestController {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
-    
+
+    @GetMapping("/{id}/detail")
+    public ResponseEntity<TenantDetailDTO> getTenantDetail(@PathVariable UUID id) {
+        return tenantService.getTenantDetail(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @PostMapping("/{id}/detail")
+    public ResponseEntity<TenantDetailDTO> updateTenantDetail(@PathVariable UUID id, @RequestBody TenantDetailDTO detailDTO) {
+        return ResponseEntity.ok(tenantService.updateTenantDetail(id, detailDTO));
+    }
+
     @GetMapping
     public ResponseEntity<List<TenantDTO>> findAll() {
         return ResponseEntity.ok(tenantService.findAll().stream()
@@ -59,4 +72,4 @@ public class TenantController extends AbstractRestController {
         tenantService.delete(id);
         return ResponseEntity.ok().build();
     }
-} 
+}

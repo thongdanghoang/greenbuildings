@@ -24,16 +24,24 @@
             >
                 <!-- Header -->
                 <ng-template pTemplate="header">
-                    <div class="bg-gradient-to-r from-blue-50 to-blue-100 p-6">
+                    <div
+                        class="bg-gradient-to-r from-blue-50 to-blue-100 p-6 dark:bg-gradient-to-r dark:from-gray-800 dark:to-blue-900"
+                    >
                         <div class="mb-3 flex items-center gap-3">
-                            <i class="pi pi-home text-2xl text-blue-600"></i>
-                            <h2 class="text-2xl font-bold text-blue-900">
+                            <i
+                                class="pi pi-home text-2xl text-blue-600 dark:text-blue-300"
+                            ></i>
+                            <h2
+                                class="text-2xl font-bold text-blue-900 dark:text-white"
+                            >
                                 {{ buildingGroup.name }}
                             </h2>
                         </div>
                         <div class="flex items-start gap-2">
-                            <i class="pi pi-info-circle mt-1"></i>
-                            <p class="text-sm text-gray-600">
+                            <i
+                                class="pi pi-info-circle mt-1 text-gray-600 dark:text-gray-300"
+                            ></i>
+                            <p class="text-sm text-gray-600 dark:text-gray-300">
                                 <span class="font-medium"
                                     >{{
                                         "buildingGroup.description" | translate
@@ -103,7 +111,7 @@
                 <!-- Header -->
                 <ng-template pTemplate="header">
                     <div
-                        class="flex items-center gap-3 bg-gradient-to-r from-blue-50 to-blue-100 p-6"
+                        class="flex items-center gap-3 bg-gradient-to-r from-blue-50 to-blue-100 p-6 dark:bg-gradient-to-r dark:from-gray-800 dark:to-blue-900"
                     >
                         <p-image
                             src="assets/images/icon/tenant.png"
@@ -112,7 +120,9 @@
                             height="32"
                             styleClass="rounded-full"
                         />
-                        <h2 class="text-xl font-bold text-blue-900">
+                        <h2
+                            class="text-xl font-bold text-blue-900 dark:text-white"
+                        >
                             {{ "tenant.information" | translate }}
                         </h2>
                     </div>

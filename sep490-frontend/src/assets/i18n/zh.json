@@ -40,6 +40,7 @@
     },
     "authorizeDenied": "您无权执行此操作",
     "email": "格式无效：请输入有效的电子邮件地址",
+    "phoneNumber": "无效的电话号码",
     "max": "值必须小于或等于{{max}}",
     "maxlength": "最多支持{{requiredLength}}个字符",
     "min": "值必须大于或等于{{min}}",
@@ -249,7 +250,9 @@
         }
       },
       "management": {
-        "title": "建筑管理"
+        "title": "建筑管理",
+        "title1": "企业管理",
+        "description": "使用此工具高效管理您的企业。"
       },
       "group": {
         "new": "新组",
@@ -391,6 +394,13 @@
           "description": "输入描述"
         }
       }
+    },
+    "profile": {
+      "title": "企业简介",
+      "description": "管理您的企业信息",
+      "name": "企业名称",
+      "email": "企业邮箱",
+      "hotline": "企业热线"
     }
   },
   "enum": {
@@ -469,7 +479,9 @@
   "sidebar": {
     "tenant": {
       "manageTenant": "企业管理",
-      "manageMenu": "管理"
+      "manageMenu": "管理",
+      "account": "账户",
+      "profile": "租户资料"
     },
     "basicUser": {
       "welcome": "欢迎来到 Green Building",
@@ -478,6 +490,7 @@
       "invitation": "您的邀请"
     },
     "owner": {
+      "profile": "企业简介",
       "dashboard": "仪表板",
       "coefficientCenter": "系数中心",
       "emission": "排放活动",
@@ -917,7 +930,14 @@
     "information": "租户信息",
     "detail": "租户详情",
     "assign": "分配租户",
-    "noTenant": "无租户"
+    "noTenant": "无租户",
+    "profile": {
+      "title": "租户资料",
+      "description": "查看和管理租户信息",
+      "name": "租户姓名",
+      "email": "电子邮件",
+      "hotline": "热线"
+    }
   },
   "buildingGroup": {
     "description": "描述",
@@ -959,5 +979,9 @@
     "verify": "验证",
     "notReceived": "没有收到验证码？",
     "resend": "重新发送验证码"
+  },
+  "invitation": {
+    "title": "您的邀请",
+    "description": "查看和管理您待处理的加入建筑群组的邀请。"
   }
 }

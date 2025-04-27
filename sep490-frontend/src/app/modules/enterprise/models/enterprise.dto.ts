@@ -37,6 +37,12 @@ export interface Tenant extends BaseDTO {
   hotline: string;
 }
 
+export interface TenantDetailDTO extends BaseDTO {
+  name: string;
+  email: string;
+  hotline: string;
+}
+
 export enum InvitationStatus {
   PENDING = 'PENDING',
   ACCEPTED = 'ACCEPTED',
