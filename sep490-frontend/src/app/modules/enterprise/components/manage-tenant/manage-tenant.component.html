@@ -1,21 +1,11 @@
-<div class="sm:px-5">
-    <div class="mb-3">
-        <p-button
-            icon="pi pi-arrow-left"
-            [label]="'common.back' | translate"
-            severity="primary"
-            outlined="true"
-            [routerLink]="['/']"
-            size="small"
-        ></p-button>
-    </div>
-    <h1 class="my-4 text-lg font-bold">
+<div class="mb-4 flex items-center justify-between border-b pb-1">
+    <h1 class="text-lg font-bold text-primary">
         {{ "enterprise.buildings.management.title1" | translate }}
     </h1>
-    <p class="mb-4 text-sm text-gray-500">
-        {{ "enterprise.buildings.management.description" | translate }}
-    </p>
 </div>
+<p>
+    {{ "enterprise.buildings.management.description" | translate }}
+</p>
 
 <div *ngFor="let group of buildingGroups">
     <div

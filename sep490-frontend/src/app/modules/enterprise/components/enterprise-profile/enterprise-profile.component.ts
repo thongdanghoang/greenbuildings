@@ -98,10 +98,7 @@ export class EnterpriseProfileComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       hotline: [
         '',
-        [
-          Validators.required,
-          Validators.pattern('^(\\+84|84|0)[35789][0-9]{8}$')
-        ]
+        [Validators.required, Validators.pattern('^(\\+84|84|0)[0-9]{9}$')]
       ]
     });
   }
