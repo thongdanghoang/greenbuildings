@@ -26,9 +26,8 @@ public interface EmissionActivityRecordRepository
                 SELECT CASE WHEN COUNT(e) > 0 THEN true ELSE false END
                 FROM EmissionActivityRecordEntity e
                 WHERE e.emissionActivity.id = :emissionActivityId
-                AND (
-                    (e.startDate <= :endDate AND e.endDate >= :startDate)
-                )
+                AND ((e.startDate <= :endDate AND e.endDate >= :startDate))
+                AND (:id IS NULL OR e.id <> :id)
             """)
-    boolean existsByGroupItemIdAndDateOverlap(UUID emissionActivityId, LocalDate startDate, LocalDate endDate);
+    boolean existsByGroupItemIdAndDateOverlap(UUID id, UUID emissionActivityId, LocalDate startDate, LocalDate endDate);
 }

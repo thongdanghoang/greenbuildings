@@ -55,6 +55,7 @@ public class EmissionActivityRecordServiceImpl implements EmissionActivityRecord
     @Override
     public void createWithFile(EmissionActivityRecordEntity record, MultipartFile file) {
         if (recordRepository.existsByGroupItemIdAndDateOverlap(
+                record.getId(),
                 record.getEmissionActivity().getId(),
                 record.getStartDate(),
                 record.getEndDate())
