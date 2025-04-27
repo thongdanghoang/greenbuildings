@@ -70,6 +70,7 @@ export class SidebarComponent
       });
   }
 
+  // eslint-disable-next-line max-lines-per-function
   buildTenantMenu(): MenuItem[] {
     return [
       {
@@ -101,6 +102,16 @@ export class SidebarComponent
             route: `/${AppRoutingConstants.ENTERPRISE_PATH}/${AppRoutingConstants.ACTIVITY_TYPE}`
           }
         ]
+      },
+      {
+        label: 'sidebar.tenant.account',
+        items: [
+          {
+            label: 'sidebar.tenant.profile',
+            icon: 'pi pi-id-card',
+            route: `/${AppRoutingConstants.ENTERPRISE_PATH}/${AppRoutingConstants.TENANT_PROFILE}`
+          }
+        ]
       }
     ];
   }
@@ -125,6 +136,11 @@ export class SidebarComponent
             label: 'sidebar.owner.building',
             icon: 'pi pi-building',
             route: `/${AppRoutingConstants.ENTERPRISE_PATH}/${AppRoutingConstants.BUILDING_PATH}`
+          },
+          {
+            label: 'sidebar.owner.profile',
+            icon: 'pi pi-user-edit',
+            route: `/${AppRoutingConstants.ENTERPRISE_PATH}/${AppRoutingConstants.ENTERPRISE_PROFILE}`
           }
           // {
           //   label: 'sidebar.owner.activityType',

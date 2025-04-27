@@ -40,6 +40,7 @@ export class AppRoutingConstants {
   public static readonly NEW_GROUP_PATH = 'new-group';
   public static readonly ACTIVITY_TYPE = 'activity-type';
   public static readonly NEW_GROUP_ITEM = 'new-group-item';
+  public static readonly ENTERPRISE_PROFILE = 'enterprise-profile';
   // Emissions Module
   public static readonly EMISSIONS_PATH = 'emissions';
 
@@ -60,6 +61,8 @@ export class AppRoutingConstants {
   public static readonly FORBIDDEN = 'forbidden';
   public static readonly UNAUTHORIZED = 'unauthorized';
 
+  // Tenant Module
+  public static readonly TENANT_PROFILE = 'tenant-profile';
   // Third party
   public static readonly GEOCODING_PATH = 'geocoding';
 }

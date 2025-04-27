@@ -1,6 +1,7 @@
 package greenbuildings.enterprise.services.impl;
 
 import greenbuildings.enterprise.dtos.TenantDTO;
+import greenbuildings.enterprise.dtos.TenantDetailDTO;
 import greenbuildings.enterprise.entities.TenantEntity;
 import greenbuildings.enterprise.mappers.TenantMapper;
 import greenbuildings.enterprise.repositories.TenantRepository;
@@ -36,6 +37,27 @@ public class TenantServiceImpl implements TenantService {
     }
     
     @Override
+    public Optional<TenantDetailDTO> getTenantDetail(UUID id) {
+        return tenantRepository.findById(id)
+                .map(tenantMapper::toDetailDTO);
+    }
+
+    @Override
+    public TenantDetailDTO updateTenantDetail(UUID id, TenantDetailDTO detailDTO) {
+        TenantEntity existingEntity = tenantRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Tenant not found with id: " + id));
+
+        // Update fields from detailDTO
+        existingEntity.setName(detailDTO.name());
+        existingEntity.setEmail(detailDTO.email());
+        existingEntity.setHotline(detailDTO.hotline());
+
+        // Save and return updated entity
+        TenantEntity savedEntity = tenantRepository.save(existingEntity);
+        return tenantMapper.toDetailDTO(savedEntity);
+    }
+
+    @Override
     public List<TenantEntity> findAll() {
         return tenantRepository.findALlWithActivityTypes();
     }
@@ -64,4 +86,4 @@ public class TenantServiceImpl implements TenantService {
     public void delete(UUID id) {
         tenantRepository.deleteById(id);
     }
-} 
+}

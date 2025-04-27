@@ -29,7 +29,8 @@
       "unexpectedError": "Unexpected Server Error",
       "businessError": "Error"
     },
-    "name": "Name"
+    "name": "Name",
+    "lastUpdated": "Last updated"
   },
   "validation": {
     "unsavedChanges": {
@@ -40,6 +41,7 @@
     },
     "authorizeDenied": "You are not allowed to perform this action",
     "email": "Invalid format: please enter a valid email address",
+    "phoneNumber": "Invalid phone number",
     "max": "Value must be less than or equal to {{max}}",
     "maxlength": "A maximum of {{requiredLength}} characters is supported",
     "min": "Value must be greater than or equal to {{min}}",
@@ -261,7 +263,9 @@
         }
       },
       "management": {
-        "title": "Building Management"
+        "title": "Building Management",
+        "title1": "Enterprise Manager",
+        "description": "Manage your business enterprises efficiently with this tool."
       },
       "overview": {
         "title": "Buildings",
@@ -397,6 +401,13 @@
           "description": "Enter description"
         }
       }
+    },
+    "profile": {
+      "title": "Enterprise Profile",
+      "description": "Manage your enterprise information",
+      "name": "Enterprise Name",
+      "email": "Enterprise Email",
+      "hotline": "Enterprise Hotline"
     }
   },
   "enum": {
@@ -475,7 +486,9 @@
   "sidebar": {
     "tenant": {
       "manageTenant": "Enterprise management",
-      "manageMenu": "Manage"
+      "manageMenu": "Manage",
+      "account": "Account",
+      "profile": "Profile Tenant"
     },
     "basicUser": {
       "welcome": "Welcome to Green Building",
@@ -484,6 +497,7 @@
       "invitation": "Your Invitation"
     },
     "owner": {
+      "profile": "Enterprise Profile",
       "dashboard": "Dashboard",
       "coefficientCenter": "Coefficient center",
       "emission": "Emission Activity",
@@ -923,7 +937,14 @@
     "information": "Tenant information",
     "detail": "Tenant Details",
     "assign": "Assign Tenant",
-    "noTenant": "No tenant"
+    "noTenant": "No tenant",
+    "profile": {
+      "title": "Tenant Profile",
+      "description": "View and manage tenant information",
+      "name": "Tenant Name",
+      "email": "Email",
+      "hotline": "Hotline"
+    }
   },
   "buildingGroup": {
     "description": "Description",
@@ -965,5 +986,9 @@
     "verify": "Verify",
     "notReceived": "Didn't get the code?",
     "resend": "Send OTP"
+  },
+  "invitation": {
+    "title": "Your Invitations",
+    "description": "Review and manage your pending invitations to join building groups."
   }
 }

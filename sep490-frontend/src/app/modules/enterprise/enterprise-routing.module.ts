@@ -21,6 +21,8 @@ import {UnsavedChangesGuard} from '../shared/directives/unsaved-changes/unsaved-
 import {EnterpriseComponent} from './enterprise.component';
 import {ActivityTypeComponent} from './components/activity-type/activity-type.component';
 import {BuildingGroupDetailComponent} from './components/building-group-detail/building-group-detail.component';
+import {TenantProfileComponent} from './components/tenant-profile/tenant-profile.component';
+import {EnterpriseProfileComponent} from './components/enterprise-profile/enterprise-profile.component';
 
 const routes: Routes = [
   {
@@ -96,6 +98,14 @@ const routes: Routes = [
       {
         path: `${AppRoutingConstants.NEW_GROUP_ITEM}/:id`,
         component: NewGroupItemComponent
+      },
+      {
+        path: `${AppRoutingConstants.TENANT_PROFILE}`,
+        component: TenantProfileComponent
+      },
+      {
+        path: `${AppRoutingConstants.ENTERPRISE_PROFILE}`,
+        component: EnterpriseProfileComponent
       }
     ]
   }

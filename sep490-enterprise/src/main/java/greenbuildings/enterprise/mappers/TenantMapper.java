@@ -2,6 +2,7 @@ package greenbuildings.enterprise.mappers;
 
 import greenbuildings.commons.api.events.PendingEnterpriseRegisterEvent;
 import greenbuildings.enterprise.dtos.TenantDTO;
+import greenbuildings.enterprise.dtos.TenantDetailDTO;
 import greenbuildings.enterprise.entities.TenantEntity;
 import org.mapstruct.*;
 
@@ -22,4 +23,6 @@ public interface TenantMapper {
     
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     TenantEntity partialUpdate(TenantDTO dto, @MappingTarget TenantEntity entity);
-} 
+
+    TenantDetailDTO toDetailDTO(TenantEntity entity);
+}
