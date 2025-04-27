@@ -23,7 +23,6 @@ import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
@@ -44,7 +43,7 @@ public class EmissionActivityRecordServiceImpl implements EmissionActivityRecord
                 .findAllByEmissionActivityId(
                         searchCriteria.criteria().emissionActivityId(),
                         CommonMapper.toPageable(searchCriteria.page(), searchCriteria.sort())
-                                     );
+                                            );
         
         var modifiedContent = calculationService.calculate(searchCriteria.criteria().emissionActivityId(), page.getContent());
         modifiedContent.stream()
@@ -55,6 +54,13 @@ public class EmissionActivityRecordServiceImpl implements EmissionActivityRecord
     
     @Override
     public void createWithFile(EmissionActivityRecordEntity record, MultipartFile file) {
+        if (recordRepository.existsByGroupItemIdAndDateOverlap(
+                record.getEmissionActivity().getId(),
+                record.getStartDate(),
+                record.getEndDate())
+        ) {
+            throw new BusinessException("rangeDates", "business.record.dateOverlap");
+        }
         boolean isSaving = record.getId() == null;
         
         if (isSaving) {
@@ -65,15 +71,6 @@ public class EmissionActivityRecordServiceImpl implements EmissionActivityRecord
     }
     
     private void newRecord(EmissionActivityRecordEntity entity, MultipartFile file) {
-        if (Objects.nonNull(entity.getGroupItem())
-            && recordRepository.existsByGroupItemIdAndDateOverlap(
-                entity.getGroupItem().getId(),
-                entity.getStartDate(),
-                entity.getEndDate()
-                                                                 )
-        ) {
-            throw new BusinessException("rangeDates", "business.record.dateOverlap");
-        }
         entity = recordRepository.save(entity);
         if (file != null) {
             String minioPath = minioService.uploadFile(file, entity.getId().toString());
@@ -92,15 +89,6 @@ public class EmissionActivityRecordServiceImpl implements EmissionActivityRecord
     }
     
     private void updateRecord(EmissionActivityRecordEntity entity, MultipartFile file) {
-        if (Objects.nonNull(entity.getGroupItem())
-            && recordRepository.otherExistsByGroupItemIdAndDateOverlap(
-                entity.getId(),
-                entity.getGroupItem().getId(),
-                entity.getStartDate(),
-                entity.getEndDate())
-        ) {
-            throw new BusinessException("rangeDates", "business.record.dateOverlap");
-        }
         var existing = recordRepository.findById(entity.getId()).orElseThrow();
         
         if (file == null) {
@@ -154,10 +142,10 @@ public class EmissionActivityRecordServiceImpl implements EmissionActivityRecord
     @Override
     public void deleteFile(UUID recordId, UUID fileId) {
         var record = recordRepository.findById(recordId)
-                                                              .orElseThrow(() -> new BusinessException(null, "Record not found"));
+                                     .orElseThrow(() -> new BusinessException(null, "Record not found"));
         
         var file = fileRepository.findById(fileId)
-                                              .orElseThrow(() -> new BusinessException(null, "File not found"));
+                                 .orElseThrow(() -> new BusinessException(null, "File not found"));
         
         if (!file.getRecord().getId().equals(recordId)) {
             throw new BusinessException(null, "File does not belong to this record");

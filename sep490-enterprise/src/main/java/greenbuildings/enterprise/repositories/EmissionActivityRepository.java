@@ -1,5 +1,6 @@
 package greenbuildings.enterprise.repositories;
 
+import commons.springfw.impl.repositories.AbstractBaseRepository;
 import greenbuildings.enterprise.entities.EmissionActivityEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,7 +14,7 @@ import java.util.Set;
 import java.util.UUID;
 
 @Repository
-public interface EmissionActivityRepository extends JpaRepository<EmissionActivityEntity, UUID> {
+public interface EmissionActivityRepository extends AbstractBaseRepository<EmissionActivityEntity> {
     
     List<EmissionActivityEntity> findByBuildingGroupId(UUID id);
 

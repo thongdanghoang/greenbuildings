@@ -1,6 +1,7 @@
 package greenbuildings.enterprise.entities;
 
 import commons.springfw.impl.entities.AbstractAuditableEntity;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -18,6 +19,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.Setter;
+
+import java.util.Set;
 
 
 @Entity
@@ -86,6 +89,6 @@ public class EmissionActivityEntity extends AbstractAuditableEntity {
     @JoinColumn(name = "building_group_id")
     private BuildingGroupEntity buildingGroup;
     
-    @OneToMany(mappedBy = "emissionActivity", fetch = FetchType.LAZY)
-    private java.util.Set<EmissionActivityRecordEntity> records = new java.util.HashSet<>();
+    @OneToMany(mappedBy = "emissionActivity", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    private Set<EmissionActivityRecordEntity> records = new java.util.HashSet<>();
 }
