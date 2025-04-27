@@ -325,10 +325,10 @@ public class UserServiceImpl extends SagaManager implements UserService {
         
         var otp = userEntity.getOtp();
         if (!otp.getOtpCode().equals(request.otpCode())) {
-            throw new BusinessException("otpCode", "business.validateOTP.invalidCode");
+            throw new BusinessException("otpCode", "validateOTP.invalidCode");
         }
         if (LocalDateTime.now().isAfter(otp.getExpiredTime())) {
-            throw new BusinessException("otpCode", "business.validateOTP.expired");
+            throw new BusinessException("otpCode", "validateOTP.expired");
         }
         userEntity.setEmailVerified(true);
         userEntity.setOtp(null);

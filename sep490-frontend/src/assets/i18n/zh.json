@@ -143,6 +143,10 @@
     "viewDashboard": "查看仪表板"
   },
   "account": {
+    "validateOTP": {
+      "success": "验证码验证成功！",
+      "redirect": "正在重定向到仪表板，还剩 "
+    },
     "title": "账户信息",
     "email": "电子邮件",
     "firstName": "名字",

@@ -68,9 +68,9 @@ export class EmailVerifyOTPComponent extends AbstractFormComponent<ValidateOTPRe
     const messageService = this.injector.get(MessageService);
 
     const countdown = 5;
-    const message = this.translate.instant('enterprise.create.success');
+    const message = this.translate.instant('account.validateOTP.success');
     const redirectMessage = this.translate.instant(
-      'enterprise.create.redirect'
+      'account.validateOTP.redirect'
     );
 
     messageService.clear();

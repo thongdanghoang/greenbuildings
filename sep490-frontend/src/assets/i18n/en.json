@@ -144,6 +144,10 @@
     "viewDashboard": "View Dashboard"
   },
   "account": {
+    "validateOTP": {
+      "success": "Validate OTP Successfully!",
+      "redirect": "Redirecting to dashboard in "
+    },
     "title": "Account Information",
     "email": "Email",
     "firstName": "First Name",
