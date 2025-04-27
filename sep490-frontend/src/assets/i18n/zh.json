@@ -912,6 +912,8 @@
     "title": "已发送邀请",
     "description": "查看和管理发送给租户的所有企业合作邀请",
     "reject": "邀请已成功拒绝！",
+    "noInvitationsTitle": "暂无邀请",
+    "noInvitationsDescription": "目前您没有任何可用的邀请。",
     "table": {
       "selectBuilding": "选择建筑",
       "selectBuildingGroup": "选择建筑群组",

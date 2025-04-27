@@ -77,9 +77,9 @@ export class SidebarComponent
         label: 'sidebar.basicUser.welcome',
         items: [
           {
-            label: 'sidebar.basicUser.info',
-            icon: 'pi pi-user',
-            route: `/${AppRoutingConstants.ENTERPRISE_PATH}/${AppRoutingConstants.ACCOUNT_INFO_PATH}`
+            label: 'sidebar.tenant.profile',
+            icon: 'pi pi-id-card',
+            route: `/${AppRoutingConstants.ENTERPRISE_PATH}/${AppRoutingConstants.TENANT_PROFILE}`
           }
         ]
       },
@@ -92,24 +92,14 @@ export class SidebarComponent
             route: `/${AppRoutingConstants.ENTERPRISE_PATH}/${AppRoutingConstants.TENANT_MANAGEMENT_PATH}`
           },
           {
-            label: 'sidebar.basicUser.invitation',
-            icon: 'pi pi-envelope',
-            route: `/${AppRoutingConstants.ENTERPRISE_PATH}/${AppRoutingConstants.INVITATION_PATH}`
-          },
-          {
             label: 'sidebar.owner.activityType',
             icon: 'pi pi-sitemap',
             route: `/${AppRoutingConstants.ENTERPRISE_PATH}/${AppRoutingConstants.ACTIVITY_TYPE}`
-          }
-        ]
-      },
-      {
-        label: 'sidebar.tenant.account',
-        items: [
+          },
           {
-            label: 'sidebar.tenant.profile',
-            icon: 'pi pi-id-card',
-            route: `/${AppRoutingConstants.ENTERPRISE_PATH}/${AppRoutingConstants.TENANT_PROFILE}`
+            label: 'sidebar.basicUser.invitation',
+            icon: 'pi pi-envelope',
+            route: `/${AppRoutingConstants.ENTERPRISE_PATH}/${AppRoutingConstants.INVITATION_PATH}`
           }
         ]
       }
@@ -122,6 +112,11 @@ export class SidebarComponent
       {
         label: 'enterprise.title',
         items: [
+          {
+            label: 'sidebar.owner.profile',
+            icon: 'pi pi-user-edit',
+            route: `/${AppRoutingConstants.ENTERPRISE_PATH}/${AppRoutingConstants.ENTERPRISE_PROFILE}`
+          },
           {
             label: 'sidebar.owner.dashboard',
             icon: 'pi pi-chart-line',
@@ -136,11 +131,6 @@ export class SidebarComponent
             label: 'sidebar.owner.building',
             icon: 'pi pi-building',
             route: `/${AppRoutingConstants.ENTERPRISE_PATH}/${AppRoutingConstants.BUILDING_PATH}`
-          },
-          {
-            label: 'sidebar.owner.profile',
-            icon: 'pi pi-user-edit',
-            route: `/${AppRoutingConstants.ENTERPRISE_PATH}/${AppRoutingConstants.ENTERPRISE_PROFILE}`
           }
           // {
           //   label: 'sidebar.owner.activityType',

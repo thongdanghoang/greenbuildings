@@ -1,4 +1,6 @@
 import {Component, OnInit} from '@angular/core';
+import {TranslateService} from '@ngx-translate/core';
+import {ToastProvider} from '../../../shared/services/toast-provider';
 import {InvitationDTO, InvitationStatus} from '../../models/enterprise.dto';
 import {
   InvitationResponse,
@@ -13,18 +15,35 @@ import {
 export class EnterpriseInvitationComponent implements OnInit {
   invitations: InvitationDTO[] = [];
 
-  constructor(private readonly invitationService: InvitationService) {}
+  constructor(
+    private readonly invitationService: InvitationService,
+    public readonly translate: TranslateService,
+    private readonly messageService: ToastProvider
+  ) {}
 
   ngOnInit(): void {
     this.fetchPendingInvitation();
   }
 
-  fetchPendingInvitation(): void {
+  handleFetchInvitations(showSuccessMessage: boolean = false): void {
     this.invitationService
       .findAllPendingByEmail()
       .subscribe((invitations: InvitationDTO[]) => {
         this.invitations = invitations;
+        if (showSuccessMessage) {
+          this.messageService.success({
+            summary: this.translate.instant('common.success')
+          });
+        }
       });
+  }
+
+  fetchPendingInvitation(): void {
+    this.handleFetchInvitations();
+  }
+
+  refetchPendingInvitation(): void {
+    this.handleFetchInvitations(true);
   }
 
   acceptInvitation(invitation: InvitationDTO): void {

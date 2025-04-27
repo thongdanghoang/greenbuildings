@@ -917,6 +917,8 @@
   },
   "sentInvitation": {
     "title": "Sent Invitation",
+    "noInvitationsTitle": "No Invitations",
+    "noInvitationsDescription": "You currently have no invitations available.",
     "description": "View and manage all invitations sent to tenants for collaboration with your enterprise",
     "reject": "Rejected invitation successfully !",
     "table": {

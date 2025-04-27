@@ -912,6 +912,8 @@
     "title": "Lời mời đã gửi",
     "description": "Xem và quản lý tất cả các lời mời đã gửi cho người thuê để hợp tác với doanh nghiệp của bạn",
     "reject": "Đã từ chối lời mời thành công!",
+    "noInvitationsTitle": "Không có lời mời",
+    "noInvitationsDescription": "Hiện tại bạn không có lời mời nào.",
     "table": {
       "selectBuilding": "Chọn tòa nhà",
       "selectBuildingGroup": "Chọn nhóm tòa nhà",
