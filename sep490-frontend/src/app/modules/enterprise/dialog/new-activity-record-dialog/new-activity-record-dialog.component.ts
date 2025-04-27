@@ -9,6 +9,7 @@ import {
 import {TranslateService} from '@ngx-translate/core';
 import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
 import {takeUntil} from 'rxjs';
+import {UUID} from '../../../../../types/uuid';
 import {AbstractFormComponent} from '../../../shared/components/form/abstract-form-component';
 import {
   EmissionFactorDTO,

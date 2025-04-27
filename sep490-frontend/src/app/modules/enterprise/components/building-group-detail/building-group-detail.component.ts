@@ -172,8 +172,11 @@ export class BuildingGroupDetailComponent
   }
 
   openNewActivityDialog(): void {
-    const config: DynamicDialogConfig<UUID> = {
-      data: this.buildingGroup.id,
+    const config: DynamicDialogConfig = {
+      data: {
+        buildingId: this.buildingGroup.building.id,
+        buildingGroupId: this.buildingGroup.id
+      },
       closeOnEscape: true,
       dismissableMask: true,
       showHeader: false
