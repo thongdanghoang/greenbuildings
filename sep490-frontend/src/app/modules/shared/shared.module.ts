@@ -72,6 +72,7 @@ import {PaymentStatusComponent} from './components/payment-status/payment-status
 import {TableTemplateComponent} from './components/table-template/table-template.component';
 import {ErrorMessagesDirective} from './directives/error-messages.directive';
 import {FormFieldErrorDirective} from './directives/form-field-error.directive';
+import {UnsavedChangesDirective} from './directives/unsaved-changes/unsaved-changes.directive';
 import {TranslateParamsPipe} from './pipes/translate-params.pipe';
 import {EmissionFactorService} from './services/emission-factor.service';
 import {EmissionSourceService} from './services/emission-source.service';
@@ -161,7 +162,8 @@ const commons = [
     ErrorMessagesDirective,
     FormFieldErrorDirective,
     FormFieldErrorComponent,
-    PaymentStatusComponent
+    PaymentStatusComponent,
+    UnsavedChangesDirective
   ],
   imports: [...commons, ...primeNgModules],
   exports: [
@@ -173,7 +175,8 @@ const commons = [
     ErrorMessagesDirective,
     FormFieldErrorDirective,
     FormFieldErrorComponent,
-    PaymentStatusComponent
+    PaymentStatusComponent,
+    UnsavedChangesDirective
   ],
   providers: [
     DatePipe,

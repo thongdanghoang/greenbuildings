@@ -32,6 +32,12 @@
     "name": "Tên"
   },
   "validation": {
+    "unsavedChanges": {
+      "title": "Thay đổi chưa lưu",
+      "message": "Bạn có chắc chắn muốn hủy bỏ những thay đổi không?",
+      "cancel": "Trở về",
+      "discard": "Tiếp tục"
+    },
     "authorizeDenied": "Bạn không thể thực hiện chức năng này",
     "email": "Định dạng không đúng: vui lòng nhập địa chỉ email hợp lệ",
     "max": "Giá trị phải nhỏ hơn hoặc bằng {{max}}",

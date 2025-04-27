@@ -32,6 +32,12 @@
     "name": "Name"
   },
   "validation": {
+    "unsavedChanges": {
+      "title": "Unsaved Changes",
+      "message": "Are you sure you want to discard the changes?",
+      "cancel": "Cancel",
+      "discard": "Discard"
+    },
     "authorizeDenied": "You are not allowed to perform this action",
     "email": "Invalid format: please enter a valid email address",
     "max": "Value must be less than or equal to {{max}}",
