@@ -19,7 +19,12 @@
         {{ "enterprise.Users.description" | translate }}
     </p>
 </div>
-<form [formGroup]="formGroup" class="py-5 sm:mt-5 sm:px-5">
+<form
+    [formGroup]="formGroup"
+    class="py-5 sm:mt-5 sm:px-5"
+    unsavedChanges
+    id="enterpriseUserForm"
+>
     @if (isEdit) {
         <!-- ID -->
         <div class="my-3 mb-8 grid grid-cols-12 items-center gap-2 sm:gap-4">

@@ -30,7 +30,7 @@
     </div>
 }
 
-<form [formGroup]="formGroup">
+<form [formGroup]="formGroup" unsavedChanges id="powerBiAccessTokenForm">
     <div class="flex flex-col *:max-w-96" errorMessages>
         <label for="name" class="font-semibold">{{
             "powerBi.tokenName" | translate

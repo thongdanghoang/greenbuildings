@@ -20,7 +20,12 @@
                 <div
                     class="flex flex-col items-center justify-center gap-2 pt-6"
                 >
-                    <form [formGroup]="formGroup" class="py-5 sm:mt-5">
+                    <form
+                        [formGroup]="formGroup"
+                        class="py-5 sm:mt-5"
+                        unsavedChanges
+                        id="updateRatioForm"
+                    >
                         <div
                             errorMessages
                             class="flex flex-col items-center justify-center gap-2"
