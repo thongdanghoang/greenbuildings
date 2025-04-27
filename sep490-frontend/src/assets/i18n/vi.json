@@ -914,6 +914,7 @@
     "reject": "Đã từ chối lời mời thành công!",
     "table": {
       "selectBuilding": "Chọn tòa nhà",
+      "selectBuildingGroup": "Chọn nhóm tòa nhà",
       "building": "Tòa nhà",
       "group": "Nhóm",
       "email": "Email người thuê",

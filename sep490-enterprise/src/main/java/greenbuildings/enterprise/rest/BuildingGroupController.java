@@ -63,6 +63,13 @@ public class BuildingGroupController extends AbstractRestController {
                                                      .toList());
     }
     
+    @GetMapping("/search/with-buildings")
+    public ResponseEntity<List<BuildingGroupDTO>> findAllWithBuilding() {
+        return ResponseEntity.ok(buildingGroupService.findAll().stream()
+                                                     .map(buildingGroupMapper::toDTOWithBuilding)
+                                                     .toList());
+    }
+    
     @GetMapping("/building/{buildingId}")
     public ResponseEntity<List<BuildingGroupDTO>> findByBuildingId(@PathVariable UUID buildingId) {
         return ResponseEntity.ok(buildingGroupService.findByBuildingId(buildingId).stream()

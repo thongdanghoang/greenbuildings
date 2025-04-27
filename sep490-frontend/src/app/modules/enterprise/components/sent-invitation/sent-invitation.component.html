@@ -16,33 +16,52 @@
 >
 </table-template>
 <ng-template #captionTemplateRef>
-    <div class="flex items-center justify-between">
-        <div class="flex gap-2.5">
-            <p-iconfield>
-                <p-inputicon styleClass="pi pi-search" />
-                <input
-                    type="text"
-                    pInputText
-                    [(ngModel)]="searchCriteria.tenantEmail"
-                    placeholder="{{ 'common.search' | translate }}"
-                />
-            </p-iconfield>
-            <p-select
-                [options]="availableBuildings"
-                [filter]="true"
-                showClear="true"
-                (onChange)="searchEvent.emit()"
-                (onClear)="searchEvent.emit()"
-                filterBy="name"
-                [(ngModel)]="searchCriteria.buildingId"
-                optionLabel="name"
-                optionValue="id"
-                [placeholder]="
-                    'sentInvitation.table.selectBuilding' | translate
-                "
+    <div class="grid grid-cols-1 gap-2.5">
+        <p-iconfield class="w-full md:w-1/2">
+            <p-inputicon styleClass="pi pi-search" />
+            <input
+                class="w-full"
+                type="text"
+                pInputText
+                [(ngModel)]="searchCriteria.tenantEmail"
+                placeholder="{{ 'common.search' | translate }}"
+            />
+        </p-iconfield>
+        <p-select
+            class="w-full md:w-1/2"
+            [options]="availableBuildings"
+            [filter]="true"
+            showClear="true"
+            (onChange)="onSelectBuilding($event)"
+            (onClear)="onSelectBuilding($event)"
+            filterBy="name"
+            [(ngModel)]="searchCriteria.buildingId"
+            optionLabel="name"
+            optionValue="id"
+            [placeholder]="'sentInvitation.table.selectBuilding' | translate"
+        />
+        <p-select
+            class="w-full md:w-1/2"
+            [options]="matchingGroups"
+            [filter]="true"
+            showClear="true"
+            filterBy="name"
+            [(ngModel)]="searchCriteria.buildingGroupId"
+            optionLabel="name"
+            optionValue="id"
+            [placeholder]="
+                'sentInvitation.table.selectBuildingGroup' | translate
+            "
+        />
+        <div class="flex w-full justify-between md:w-1/2">
+            <p-button
+                severity="danger"
+                [label]="'common.revert' | translate"
+                icon="pi pi-times"
+                outlined
+                (onClick)="clearCriteria()"
             />
             <p-button
-                styleClass="justify-self-end"
                 severity="primary"
                 [label]="'enterprise.Users.search' | translate"
                 icon="pi pi-search"

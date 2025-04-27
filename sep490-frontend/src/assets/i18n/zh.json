@@ -914,6 +914,7 @@
     "reject": "邀请已成功拒绝！",
     "table": {
       "selectBuilding": "选择建筑",
+      "selectBuildingGroup": "选择建筑群组",
       "building": "建筑",
       "group": "群组",
       "email": "租户邮箱",

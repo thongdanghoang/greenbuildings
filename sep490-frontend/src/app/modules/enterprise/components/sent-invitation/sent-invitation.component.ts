@@ -5,9 +5,7 @@ import {
   TemplateRef,
   ViewChild
 } from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
-import {DialogService} from 'primeng/dynamicdialog';
 import {Observable, takeUntil} from 'rxjs';
 import {UUID} from '../../../../../types/uuid';
 import {BuildingService} from '../../../../services/building.service';
@@ -18,7 +16,6 @@ import {
   SearchCriteriaDto,
   SearchResultDto
 } from '../../../shared/models/base-models';
-import {ModalProvider} from '../../../shared/services/modal-provider';
 import {ToastProvider} from '../../../shared/services/toast-provider';
 import {
   Building,
@@ -26,6 +23,7 @@ import {
   InvitationDTO,
   InvitationStatus
 } from '../../models/enterprise.dto';
+import {BuildingGroupService} from '../../services/building-group.service';
 import {
   InvitationResponse,
   InvitationSearchCriteria,
@@ -51,7 +49,8 @@ export class SentInvitationComponent
   actionTemplate!: TemplateRef<any>;
 
   availableBuildings: Building[] = [];
-  availableGroups: BuildingGroup[] = [];
+  allAvailableGroups: BuildingGroup[] = [];
+  matchingGroups: BuildingGroup[] = [];
 
   protected fetchInvitations!: (
     criteria: SearchCriteriaDto<InvitationSearchCriteria>
@@ -66,14 +65,11 @@ export class SentInvitationComponent
   protected readonly searchEvent: EventEmitter<void> = new EventEmitter();
 
   constructor(
-    private readonly activatedRoute: ActivatedRoute,
     private readonly msgService: ToastProvider,
-    private readonly router: Router,
     private readonly translate: TranslateService,
     private readonly buildingService: BuildingService,
+    private readonly buildingGroupService: BuildingGroupService,
     private readonly invitationService: InvitationService,
-    private readonly dialogService: DialogService,
-    private readonly modalProvider: ModalProvider,
     protected readonly applicationService: ApplicationService
   ) {
     super();
@@ -85,6 +81,7 @@ export class SentInvitationComponent
       this.invitationService
     );
     this.fetchBuildings();
+    this.fetchBuildingGroups();
     this.applicationService.UserData.pipe(takeUntil(this.destroy$)).subscribe(
       user => {
         this.searchCriteria.enterpriseId = user.enterpriseId;
@@ -117,6 +114,34 @@ export class SentInvitationComponent
         detail: this.translate.instant('sentInvitation.reject')
       });
     });
+  }
+
+  clearCriteria(): void {
+    this.searchCriteria.tenantEmail = '';
+    this.matchingGroups = [];
+    this.searchCriteria.buildingId = '' as UUID;
+    this.searchCriteria.buildingGroupId = '' as UUID;
+    this.searchEvent.emit();
+  }
+
+  onSelectBuilding(event: any): void {
+    if (event.value) {
+      this.matchingGroups = this.allAvailableGroups.filter(
+        group => group.building.id === event.value
+      );
+    } else {
+      this.matchingGroups = [];
+      this.searchCriteria.buildingGroupId = '' as UUID;
+    }
+  }
+
+  fetchBuildingGroups(): void {
+    this.buildingGroupService
+      .getAllWithBuilding()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(groups => {
+        this.allAvailableGroups = groups;
+      });
   }
 
   fetchBuildings(): void {

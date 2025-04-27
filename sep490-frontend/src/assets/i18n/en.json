@@ -921,6 +921,7 @@
     "reject": "Rejected invitation successfully !",
     "table": {
       "selectBuilding": "Select building",
+      "selectBuildingGroup": "Select building groups",
       "building": "Building",
       "group": "Group",
       "email": "Tenant Email",
