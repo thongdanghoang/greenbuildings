@@ -143,6 +143,10 @@
     "viewDashboard": "Xem Bảng điều khiển"
   },
   "account": {
+    "validateOTP": {
+      "success": "Xác thực OTP thành công!",
+      "redirect": "Chuyển hướng đến bảng điều khiển trong "
+    },
     "title": "Thông tin tài khoản",
     "email": "Email",
     "firstName": "Tên",
