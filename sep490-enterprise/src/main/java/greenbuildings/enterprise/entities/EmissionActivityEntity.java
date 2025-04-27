@@ -55,8 +55,8 @@ public class EmissionActivityEntity extends AbstractAuditableEntity {
     @NonNull
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "building_group_id")
-    private BuildingGroupEntity buildingGroup;
+    @JoinColumn(name = "building_id")
+    private BuildingEntity building;
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "emission_factor_id")
@@ -81,6 +81,10 @@ public class EmissionActivityEntity extends AbstractAuditableEntity {
     @Size(max = 1000)
     @Column(name = "description")
     private String description;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "building_group_id")
+    private BuildingGroupEntity buildingGroup;
     
     @OneToMany(mappedBy = "emissionActivity", fetch = FetchType.LAZY)
     private java.util.Set<EmissionActivityRecordEntity> records = new java.util.HashSet<>();

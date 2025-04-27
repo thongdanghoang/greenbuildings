@@ -2,7 +2,6 @@ package greenbuildings.enterprise.repositories;
 
 import greenbuildings.enterprise.entities.ActivityTypeEntity;
 import jakarta.validation.constraints.NotBlank;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,18 +13,16 @@ import java.util.UUID;
 
 @Repository
 public interface ActivityTypeRepository extends JpaRepository<ActivityTypeEntity, UUID> {
-    List<ActivityTypeEntity> findByTenantId(UUID tenantId);
-
+    List<ActivityTypeEntity> findByBuildingId(UUID buildingId);
+    
     @Query("""
             SELECT e.id
             FROM ActivityTypeEntity e
-            WHERE (LOWER(e.name) LIKE LOWER(CONCAT('%', :name, '%')) AND e.tenant.id = :tenantId )
+            WHERE (LOWER(e.name) LIKE LOWER(CONCAT('%', :name, '%')))
             """
     )
-    Page<UUID> findByName(String name, Pageable pageable, UUID tenantId);
-
- List<ActivityTypeEntity> findAllById(@NotNull Iterable<UUID> ids);
-
-    @Query("SELECT CASE WHEN COUNT(b) > 0 THEN true ELSE false END FROM ActivityTypeEntity b WHERE b.name = :name AND b.tenant.id = :enterpriseId")
-    boolean existsByNameActivityTypeInTenant(@NotBlank String name, UUID enterpriseId);
+    Page<UUID> findByName(String name, Pageable pageable);
+    
+    @Query("SELECT CASE WHEN COUNT(b) > 0 THEN true ELSE false END FROM ActivityTypeEntity b WHERE b.name = :name")
+    boolean existsByNameActivityTypeInTenant(@NotBlank String name);
 } 

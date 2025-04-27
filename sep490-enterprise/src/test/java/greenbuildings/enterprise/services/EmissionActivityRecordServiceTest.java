@@ -54,8 +54,11 @@ public class EmissionActivityRecordServiceTest extends TestcontainersConfigs {
     @Test
     void search() {
         var emissionActivityEntity = insertActivity(true);
+        var startDate = LocalDate.now().minusMonths(60);
         for (int i = 0; i < 10; i++) {
-            insertRecord(emissionActivityEntity);
+            var endDate = startDate.plusMonths(i);
+            insertRecord(emissionActivityEntity, startDate, endDate);
+            startDate = endDate.plusDays(1);
         }
         var criteria = new EmissionActivityRecordCriteria(emissionActivityEntity.getId());
         var searchCriteria = SearchCriteriaDTO.of(PageDTO.of(10, 0), null, criteria);

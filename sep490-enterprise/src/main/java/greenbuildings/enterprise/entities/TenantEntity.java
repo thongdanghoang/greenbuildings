@@ -44,8 +44,5 @@ public class TenantEntity extends AbstractAuditableEntity {
     
     @OneToMany(mappedBy = "tenant")
     private Set<BuildingGroupEntity> buildingGroups = new HashSet<>();
-    
-    @OneToMany(mappedBy = "tenant")
-    private Set<ActivityTypeEntity> activityTypes = new HashSet<>();
 
 }

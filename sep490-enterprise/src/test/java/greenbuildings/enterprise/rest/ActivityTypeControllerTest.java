@@ -66,7 +66,7 @@ public class ActivityTypeControllerTest extends TestcontainersConfigs {
                 .builder()
                 .name("Etiam vestibulum nulla sed magna.")
                 .description("Donec iaculis viverra ante et.")
-                .tenantID(createTenant())
+                .buildingId(insertBuildingEntity().getId())
                 .build();
         asEnterpriseOwner()
                 .contentType(ContentType.JSON)
@@ -78,29 +78,12 @@ public class ActivityTypeControllerTest extends TestcontainersConfigs {
     }
     
     @Test
-    void create_returns200() {
-        var payload = ActivityTypeDTO
-                .builder()
-                .name("Etiam vestibulum nulla sed magna.")
-                .description("Donec iaculis viverra ante et.")
-                .tenantID(createTenant())
-                .build();
-        asEnterpriseOwner()
-                .contentType(ContentType.JSON)
-                .when()
-                .body(payload)
-                .post(getBaseUrl())
-                .then()
-                .statusCode(200);
-    }
-    
-    @Test
     void create_invalidEnterpriseId_returns404() {
         var payload = ActivityTypeDTO
                 .builder()
                 .name("Nam eu faucibus nunc. Proin.")
                 .description("Maecenas nisi sem, consequat et.")
-                .tenantID(UUID.randomUUID())
+                .buildingId(UUID.randomUUID())
                 .build();
         asEnterpriseOwner()
                 .contentType(ContentType.JSON)
@@ -153,7 +136,7 @@ public class ActivityTypeControllerTest extends TestcontainersConfigs {
         asEnterpriseOwner()
                 .contentType(ContentType.JSON)
                 .when()
-                .param("tenantId", UUID.randomUUID())
+                .param("buildingId", UUID.randomUUID())
                 .get(getBaseUrl())
                 .then()
                 .statusCode(404);

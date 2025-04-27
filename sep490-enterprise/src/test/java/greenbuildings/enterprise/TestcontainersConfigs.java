@@ -207,22 +207,22 @@ public abstract class TestcontainersConfigs {
                 })
                 .findAny().orElseThrow();
         var activity = new EmissionActivityEntity();
-        activity.setBuildingGroup(insertBuildingGroupEntity(insertBuildingEntity()));
+        activity.setBuilding(insertBuildingEntity());
         activity.setCategory(randomString());
         activity.setName(randomString());
         activity.setEmissionFactorEntity(emissionFactor);
         return activityRepository.save(activity);
     }
     
-    protected EmissionActivityRecordEntity insertRecord(EmissionActivityEntity emissionActivity) {
+    protected EmissionActivityRecordEntity insertRecord(EmissionActivityEntity emissionActivity, LocalDate startDate, LocalDate endDate) {
         var record = new EmissionActivityRecordEntity();
         var emissionUnit = emissionActivity.getEmissionFactorEntity().isDirectEmission()
                            ? emissionActivity.getEmissionFactorEntity().getEmissionUnitDenominator()
                            : emissionActivity.getEmissionFactorEntity().getEmissionUnitNumerator();
         record.setUnit(emissionUnit);
         record.setValue(new BigDecimal(RandomStringUtils.randomNumeric(6, 9)));
-        record.setStartDate(LocalDate.now().minusMonths(1));
-        record.setEndDate(LocalDate.now());
+        record.setStartDate(startDate);
+        record.setEndDate(endDate);
         record.setEmissionActivity(emissionActivity);
         return emissionActivityRepository.save(record);
     }
