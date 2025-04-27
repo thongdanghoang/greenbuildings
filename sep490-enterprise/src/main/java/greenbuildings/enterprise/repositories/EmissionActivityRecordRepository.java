@@ -20,12 +20,6 @@ public interface EmissionActivityRecordRepository
     
     List<EmissionActivityRecordEntity> findAllByEmissionActivityId(UUID groupItemId);
     
-    Integer countAllByIdIn(Set<UUID> ids);
-    
-    default boolean existsAllById(Set<UUID> ids) {
-        return countAllByIdIn(ids).equals(ids.size());
-    }
-    
     List<EmissionActivityRecordEntity> findAllByIdIn(Set<UUID> ids);
     
     @Query("""
@@ -37,18 +31,4 @@ public interface EmissionActivityRecordRepository
                 )
             """)
     boolean existsByGroupItemIdAndDateOverlap(UUID emissionActivityId, LocalDate startDate, LocalDate endDate);
-    
-    
-    @Query("""
-                SELECT CASE WHEN COUNT(e) > 0 THEN true ELSE false END
-                FROM EmissionActivityRecordEntity e
-                WHERE e.id <> :recordId
-                AND e.groupItem.id = :groupItemId
-                AND (
-                    (e.startDate < :endDate AND e.endDate > :startDate)
-                )
-            """)
-    boolean otherExistsByGroupItemIdAndDateOverlap(UUID recordId, UUID groupItemId, LocalDate startDate, LocalDate endDate);
-    
-    
 }
