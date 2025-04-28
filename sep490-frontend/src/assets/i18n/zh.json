@@ -243,7 +243,7 @@
     },
     "buildings": {
       "tenant": {
-        "new": "与您的租户和建筑群组合作",
+        "new": "与您的租户",
         "email": "企业关联邮箱",
         "buildingGroup": "可用的建筑群组",
         "noGroups": "没有可连接的建筑群组",

@@ -36,8 +36,8 @@ repositories {
 }
 
 dependencies {
-    implementation 'sep490:commons-api:0.0.1-SNAPSHOT'
-    implementation 'sep490:commons-springfw-impl:0.0.1-SNAPSHOT'
+    implementation(project(':sep490-commons-api'))
+    implementation(project(':sep490-commons-springfw-impl'))
 
     implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
     implementation 'org.springframework.boot:spring-boot-starter-security'

@@ -15,5 +15,16 @@ public class IdentityProvider {
     public static void main(String[] args) {
         SpringApplication.run(IdentityProvider.class, args);
     }
+
+//    @Bean
+//    public FlywayMigrationStrategy cleanMigrateStrategy() {
+//        return new FlywayMigrationStrategy() {
+//            @Override
+//            public void migrate(Flyway flyway) {
+//                flyway.clean();
+//                flyway.migrate();
+//            }
+//        };
+//    }
     
 }

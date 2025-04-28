@@ -7,11 +7,8 @@ on:
 
 jobs:
   release-java-modules:
-    name: Release Java Modules
+    name: Release Services
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        module: [ 'sep490-idp', 'sep490-enterprise' ]
     steps:
       - name: Extract version from branch name
         run: echo "VERSION=${GITHUB_REF#refs/heads/release/}" >> "$GITHUB_ENV"
@@ -29,14 +26,12 @@ jobs:
             ${{ runner.os }}-gradle-
       - name: Validate Gradle wrapper
         uses: gradle/wrapper-validation-action@v1
-      - name: Build with Gradle
-        timeout-minutes: 15
+      - name: Build Identity Provider
         run: |
-          ./gradlew build \
-          --no-daemon \
-          -Dorg.gradle.jvmargs="-Xmx4g -XX:MaxMetaspaceSize=1g"
-        working-directory: ${{ matrix.module }}
-
+          ./gradlew :sep490-idp:build --no-daemon -Dorg.gradle.jvmargs="-Xmx4g -XX:MaxMetaspaceSize=1g"
+      - name: Build Enterprise
+        run: |
+          ./gradlew :sep490-enterprise:build --no-daemon -Dorg.gradle.jvmargs="-Xmx4g -XX:MaxMetaspaceSize=1g"
       - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
@@ -44,16 +39,26 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-      - name: Build and push module
+      - name: Build and push Identity Provider
         uses: docker/build-push-action@v5
         with:
-          context: ./${{ matrix.module }}
-          file: ./${{ matrix.module }}/Dockerfile
+          context: ./sep490-idp
+          file: ./sep490-idp/Dockerfile
           push: true
           platforms: linux/amd64,linux/arm64
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ matrix.module }}:${{ env.VERSION }}
-          cache-from: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/${{ matrix.module }}:buildcache
-          cache-to: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/${{ matrix.module }}:buildcache,mode=max
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/sep490-idp:${{ env.VERSION }}
+          cache-from: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/sep490-idp:buildcache
+          cache-to: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/sep490-idp:buildcache,mode=max
+      - name: Build and push Enterprise
+        uses: docker/build-push-action@v5
+        with:
+          context: ./sep490-enterprise
+          file: ./sep490-enterprise/Dockerfile
+          push: true
+          platforms: linux/amd64,linux/arm64
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/sep490-enterprise:${{ env.VERSION }}
+          cache-from: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/sep490-enterprise:buildcache
+          cache-to: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/sep490-enterprise:buildcache,mode=max
 
   release-frontend:
     name: Release Frontend
@@ -79,7 +84,6 @@ jobs:
       - run: npm run build
         timeout-minutes: 5
         working-directory: sep490-frontend
-
       - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
