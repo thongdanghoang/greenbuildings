@@ -123,6 +123,7 @@ public class BuildingServiceImpl implements BuildingService {
                     }
                     row.createCell(colIdx++).setCellValue(recordEntity.getStartDate().toString());
                     row.createCell(colIdx++).setCellValue(recordEntity.getEndDate().toString());
+                    // row.createCell(colIdx++).setCellValue(recordEntity.getQuantity()); // TODO: adapt with new report file
                     row.createCell(colIdx++).setCellValue(recordEntity.getValue().toString());
                     row.createCell(colIdx++).setCellValue(recordEntity.getUnit().name());
                     BigDecimal ghg = recordEntity.getGhg().setScale(2, RoundingMode.HALF_UP);

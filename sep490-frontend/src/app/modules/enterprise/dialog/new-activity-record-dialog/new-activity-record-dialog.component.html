@@ -42,6 +42,13 @@
         class="grid grid-cols-1 gap-4 md:grid-cols-1"
     >
         <p-iftalabel class="my-2">
+            <p-inputnumber formControlName="quantity" class="w-full" [min]="0">
+            </p-inputnumber>
+            <label>{{
+                "enterprise.emission.activity.record.table.quantity" | translate
+            }}</label>
+        </p-iftalabel>
+        <p-iftalabel class="my-2">
             <p-dropdown
                 formControlName="unit"
                 [options]="unitOptions"
