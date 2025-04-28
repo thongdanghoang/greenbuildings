@@ -2,9 +2,9 @@ import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {AppRoutingConstants} from '../app-routing.constant';
-import {EnterpriseUserDetails} from '../modules/authorization/models/enterprise-user';
+import {EnterpriseUserDetails} from '../models/enterprise-user';
 import {UserLocale} from '../modules/shared/enums/user-language.enum';
-import {UserConfigs} from '../modules/shared/models/user-configs';
+import {UserConfigs} from '../models/user-configs';
 
 @Injectable({
   providedIn: 'root'

@@ -12,14 +12,14 @@ import {filter, map, switchMap, takeUntil} from 'rxjs';
 import {validate} from 'uuid';
 import {UUID} from '../../../../../types/uuid';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
+import {BuildingDetails} from '../../../../models/enterprise';
 import {BuildingService} from '../../../../services/building.service';
 import {AbstractFormComponent} from '../../../shared/components/form/abstract-form-component';
 import {ToastProvider} from '../../../shared/services/toast-provider';
-import {BuildingDetails} from '../../models/enterprise.dto';
 import {
   BuildingGroupService,
   CreateBuildingGroupDTO
-} from '../../services/building-group.service';
+} from '../../../../services/building-group.service';
 
 @Component({
   selector: 'app-new-building-group',
@@ -69,8 +69,6 @@ export class NewBuildingGroupComponent
         this.buildingDetails = details;
       });
   }
-
-  onSubmit(): void {}
 
   onCancel(): void {
     void this.router.navigate([

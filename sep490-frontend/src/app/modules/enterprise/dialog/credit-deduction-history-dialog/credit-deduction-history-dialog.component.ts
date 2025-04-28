@@ -5,22 +5,20 @@ import {
   TemplateRef,
   ViewChild
 } from '@angular/core';
+import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
+import {Observable} from 'rxjs';
+import {UUID} from '../../../../../types/uuid';
+import {AppRoutingConstants} from '../../../../app-routing.constant';
+import {TransactionDTO} from '../../../../models/enterprise';
+import {TransactionService} from '../../../../services/transaction.service';
+import {ApplicationService} from '../../../core/services/application.service';
 import {SubscriptionAwareComponent} from '../../../core/subscription-aware.component';
+import {TableTemplateColumn} from '../../../shared/components/table-template/table-template.component';
 import {
   SearchCriteriaDto,
   SearchResultDto
 } from '../../../shared/models/base-models';
-import {Observable} from 'rxjs';
-import {TransactionDTO} from '../../models/enterprise.dto';
-import {TableTemplateColumn} from '../../../shared/components/table-template/table-template.component';
-import {ApplicationService} from '../../../core/services/application.service';
-import {ToastProvider} from '../../../shared/services/toast-provider';
-import {ModalProvider} from '../../../shared/services/modal-provider';
-import {TranslateService} from '@ngx-translate/core';
-import {AppRoutingConstants} from '../../../../app-routing.constant';
-import {TransactionService} from '../../services/transaction.service';
-import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
-import {UUID} from '../../../../../types/uuid';
+
 export interface TransactionCriteria {
   criteria: string;
   // specific criteria such as name, category, etc.
@@ -51,9 +49,6 @@ export class CreditDeductionHistoryDialogComponent
   constructor(
     protected readonly applicationService: ApplicationService,
     private readonly transactionService: TransactionService,
-    private readonly messageService: ToastProvider,
-    private readonly modalProvider: ModalProvider,
-    private readonly translate: TranslateService,
     protected readonly ref: DynamicDialogRef,
     public config: DynamicDialogConfig<UUID>
   ) {
@@ -97,9 +92,5 @@ export class CreditDeductionHistoryDialogComponent
 
   onSelectionChange(selectedTransaction: TransactionDTO[]): void {
     this.selected = selectedTransaction;
-  }
-
-  search(): void {
-    this.searchEvent.emit();
   }
 }

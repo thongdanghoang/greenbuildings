@@ -19,6 +19,11 @@ import {Observable, Observer, filter, map, switchMap, takeUntil} from 'rxjs';
 import {validate} from 'uuid';
 import {UUID} from '../../../../../types/uuid';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
+import {
+  ActivityType,
+  EmissionActivityDetails,
+  EmissionActivityRecord
+} from '../../../../models/enterprise';
 import {ApplicationService} from '../../../core/services/application.service';
 import {AbstractFormComponent} from '../../../shared/components/form/abstract-form-component';
 import {TableTemplateColumn} from '../../../shared/components/table-template/table-template.component';
@@ -31,17 +36,12 @@ import {
   NewActivityRecordDialogComponent,
   NewActivityRecordDialogConfig
 } from '../../dialog/new-activity-record-dialog/new-activity-record-dialog.component';
-import {
-  ActivityType,
-  EmissionActivityDetails,
-  EmissionActivityRecord
-} from '../../models/enterprise.dto';
-import {ActivityTypeService} from '../../services/activity-type.service';
+import {ActivityTypeService} from '../../../../services/activity-type.service';
 import {
   EmissionActivityRecordCriteria,
   EmissionActivityRecordService
-} from '../../services/emission-activity-record.service';
-import {EmissionActivityService} from '../../services/emission-activity.service';
+} from '../../../../services/emission-activity-record.service';
+import {EmissionActivityService} from '../../../../services/emission-activity.service';
 
 @Component({
   selector: 'app-emission-activity-detail',

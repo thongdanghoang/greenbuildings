@@ -12,7 +12,17 @@ import {Observable, filter, map, switchMap, takeUntil} from 'rxjs';
 import {validate} from 'uuid';
 import {UUID} from '../../../../../types/uuid';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
+import {
+  BuildingDetails,
+  BuildingGroup,
+  OverviewBuildingDTO
+} from '../../../../models/enterprise';
+import {
+  BuildingGroupCriteria,
+  BuildingGroupService
+} from '../../../../services/building-group.service';
 import {BuildingService} from '../../../../services/building.service';
+import {TenantService} from '../../../../services/tenant.service';
 import {ApplicationService} from '../../../core/services/application.service';
 import {SubscriptionAwareComponent} from '../../../core/subscription-aware.component';
 import {TableTemplateColumn} from '../../../shared/components/table-template/table-template.component';
@@ -22,16 +32,6 @@ import {
 } from '../../../shared/models/base-models';
 import {ModalProvider} from '../../../shared/services/modal-provider';
 import {ToastProvider} from '../../../shared/services/toast-provider';
-import {
-  BuildingDetails,
-  BuildingGroup,
-  OverviewBuildingDTO
-} from '../../models/enterprise.dto';
-import {
-  BuildingGroupCriteria,
-  BuildingGroupService
-} from '../../services/building-group.service';
-import {TenantService} from '../../services/tenant.service';
 
 @Component({
   selector: 'app-building-management',

@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {Building} from '../../models/enterprise.dto';
+import {Building} from '../../../../models/enterprise';
 
 @Component({
   selector: 'app-building-popup-marker',

@@ -11,13 +11,12 @@ import {TranslateService} from '@ngx-translate/core';
 import {Observable} from 'rxjs';
 import {UUID} from '../../../../../types/uuid';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
-import {ApplicationService} from '../../../core/services/application.service';
-import {SubscriptionAwareComponent} from '../../../core/subscription-aware.component';
-
 import {
   CreditPackageAdmin,
   CreditPackageVersion
-} from '../../../enterprise/models/enterprise.dto';
+} from '../../../../models/enterprise';
+import {ApplicationService} from '../../../core/services/application.service';
+import {SubscriptionAwareComponent} from '../../../core/subscription-aware.component';
 import {TableTemplateColumn} from '../../../shared/components/table-template/table-template.component';
 import {
   SearchCriteriaDto,
@@ -25,7 +24,7 @@ import {
   SortDto
 } from '../../../shared/models/base-models';
 import {ToastProvider} from '../../../shared/services/toast-provider';
-import {PackageCreditService} from '../../services/package-credit.service';
+import {PackageCreditService} from '../../../../services/package-credit.service';
 
 @Component({
   selector: 'app-package-credit',

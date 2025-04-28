@@ -8,7 +8,7 @@ import {
   BuildingDetails,
   OverviewBuildingDTO,
   UserByBuilding
-} from '../modules/enterprise/models/enterprise.dto';
+} from '../models/enterprise';
 import {
   SearchCriteriaDto,
   SearchResultDto

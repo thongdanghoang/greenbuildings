@@ -10,16 +10,16 @@ import {TranslateService} from '@ngx-translate/core';
 import moment from 'moment';
 import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
-import {AbstractFormComponent} from '../../../shared/components/form/abstract-form-component';
-import {ToastProvider} from '../../../shared/services/toast-provider';
 import {
   Building,
   BuildingDetails,
   CreditConvertRatio,
   CreditConvertType,
   TransactionType
-} from '../../models/enterprise.dto';
-import {SubscriptionService} from '../../services/subscription.service';
+} from '../../../../models/enterprise';
+import {AbstractFormComponent} from '../../../shared/components/form/abstract-form-component';
+import {ToastProvider} from '../../../shared/services/toast-provider';
+import {SubscriptionService} from '../../../../services/subscription.service';
 
 export interface SubscriptionDialogOptions {
   selectedBuildingDetails: BuildingDetails;

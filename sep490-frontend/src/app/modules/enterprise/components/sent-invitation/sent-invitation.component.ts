@@ -8,7 +8,19 @@ import {
 import {TranslateService} from '@ngx-translate/core';
 import {Observable, takeUntil} from 'rxjs';
 import {UUID} from '../../../../../types/uuid';
+import {
+  Building,
+  BuildingGroup,
+  InvitationDTO,
+  InvitationStatus
+} from '../../../../models/enterprise';
+import {BuildingGroupService} from '../../../../services/building-group.service';
 import {BuildingService} from '../../../../services/building.service';
+import {
+  InvitationResponse,
+  InvitationSearchCriteria,
+  InvitationService
+} from '../../../../services/invitation.service';
 import {ApplicationService} from '../../../core/services/application.service';
 import {SubscriptionAwareComponent} from '../../../core/subscription-aware.component';
 import {TableTemplateColumn} from '../../../shared/components/table-template/table-template.component';
@@ -17,18 +29,6 @@ import {
   SearchResultDto
 } from '../../../shared/models/base-models';
 import {ToastProvider} from '../../../shared/services/toast-provider';
-import {
-  Building,
-  BuildingGroup,
-  InvitationDTO,
-  InvitationStatus
-} from '../../models/enterprise.dto';
-import {BuildingGroupService} from '../../services/building-group.service';
-import {
-  InvitationResponse,
-  InvitationSearchCriteria,
-  InvitationService
-} from '../../services/invitation.service';
 
 @Component({
   selector: 'app-sent-invitation',

@@ -21,11 +21,11 @@ import {
   SearchCriteriaDto,
   SearchResultDto
 } from '../../../shared/models/base-models';
-import {ChemicalDensityDTO} from '../../../shared/models/shared-models';
+import {ChemicalDensityDTO} from '../../../../models/shared-models';
 import {ModalProvider} from '../../../shared/services/modal-provider';
 import {ToastProvider} from '../../../shared/services/toast-provider';
 import {ChemicalDensityDialogComponent} from '../../dialog/chemical-density-dialog/chemical-density-dialog.component';
-import {ChemicalDensityService} from '../../services/chemical-density.service';
+import {ChemicalDensityService} from '../../../../services/chemical-density.service';
 
 export interface ChemicalDensityCriteria {
   criteria: string;

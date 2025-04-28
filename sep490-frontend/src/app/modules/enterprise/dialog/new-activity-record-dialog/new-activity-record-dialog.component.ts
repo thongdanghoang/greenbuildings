@@ -9,15 +9,15 @@ import {
 import {TranslateService} from '@ngx-translate/core';
 import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
 import {takeUntil} from 'rxjs';
+import {EmissionActivityRecord} from '../../../../models/enterprise';
 import {AbstractFormComponent} from '../../../shared/components/form/abstract-form-component';
 import {
   EmissionFactorDTO,
   EmissionUnit
-} from '../../../shared/models/shared-models';
+} from '../../../../models/shared-models';
 import {ToastProvider} from '../../../shared/services/toast-provider';
-import {UnitService} from '../../../shared/services/unit.service';
-import {EmissionActivityRecord} from '../../models/enterprise.dto';
-import {EmissionActivityRecordService} from '../../services/emission-activity-record.service';
+import {UnitService} from '../../../../services/unit.service';
+import {EmissionActivityRecordService} from '../../../../services/emission-activity-record.service';
 
 export interface NewActivityRecordDialogConfig {
   activityId: string;
@@ -142,7 +142,7 @@ export class NewActivityRecordDialogComponent extends AbstractFormComponent<Emis
   /* eslint-disable dot-notation */
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  override onSubmitFormDataSuccess(result: any): void {
+  override onSubmitFormDataSuccess(_result: any): void {
     this.notificationService.success({
       summary: this.translate.instant('common.success'),
       detail: this.translate.instant('common.saveSuccess')
@@ -196,10 +196,6 @@ export class NewActivityRecordDialogComponent extends AbstractFormComponent<Emis
       });
   }
 
-  removeFile(): void {
-    //
-  }
-
   /* eslint-enable dot-notation */
 
   onCancel(): void {
@@ -244,7 +240,7 @@ export class NewActivityRecordDialogComponent extends AbstractFormComponent<Emis
   }
 
   initUnits(): void {
-    let supportedUnits: EmissionUnit[] = [];
+    let supportedUnits: EmissionUnit[];
 
     if (this.data!.factor.directEmission) {
       supportedUnits = this.unitService.getSameUnitType(

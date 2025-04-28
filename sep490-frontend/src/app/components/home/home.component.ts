@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AppRoutingConstants} from '../../app-routing.constant';
-import {UserRole} from '../../modules/authorization/enums/role-names';
-import {EnterpriseUserDetails} from '../../modules/authorization/models/enterprise-user';
+import {UserRole} from '../../models/role-names';
+import {EnterpriseUserDetails} from '../../models/enterprise-user';
 import {
   ApplicationService,
   UserData

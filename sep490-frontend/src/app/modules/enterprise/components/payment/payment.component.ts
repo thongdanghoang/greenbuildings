@@ -16,10 +16,10 @@ import {
 } from '../../../shared/models/base-models';
 import {Observable} from 'rxjs';
 import {ApplicationService} from '../../../core/services/application.service';
-import {PaymentStatus} from '../../enums/payment-status';
-import {PaymentDTO} from '../../models/payment';
-import {PaymentService} from '../../services/payment.service';
-import {WalletService} from '../../services/wallet.service';
+import {PaymentStatus} from '../../../../models/payment-status';
+import {PaymentDTO} from '../../../../models/payment';
+import {PaymentService} from '../../../../services/payment.service';
+import {WalletService} from '../../../../services/wallet.service';
 import {
   DialogService,
   DynamicDialogConfig,

@@ -3,7 +3,7 @@ import {Router} from '@angular/router';
 import {MenuItem} from 'primeng/api';
 import {filter, switchMap, takeUntil} from 'rxjs';
 import {AppRoutingConstants} from '../../app-routing.constant';
-import {UserRole} from '../../modules/authorization/enums/role-names';
+import {UserRole} from '../../models/role-names';
 import {
   ApplicationService,
   UserData

@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
+import {CreditConvertRatio} from '../../../../models/enterprise';
 import {SubscriptionAwareComponent} from '../../../core/subscription-aware.component';
-import {CreditConvertRatio} from '../../../enterprise/models/enterprise.dto';
-import {CreditConvertRatioService} from '../../services/credit-convert-ratio.service';
+import {CreditConvertRatioService} from '../../../../services/credit-convert-ratio.service';
 
 @Component({
   selector: 'app-credit-covert-ratio',

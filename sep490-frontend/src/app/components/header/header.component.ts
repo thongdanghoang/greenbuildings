@@ -5,7 +5,7 @@ import {MenuItem} from 'primeng/api';
 import {Drawer} from 'primeng/drawer';
 import {Observable, filter, map, switchMap, take, takeUntil} from 'rxjs';
 import {AppRoutingConstants} from '../../app-routing.constant';
-import {UserRole} from '../../modules/authorization/enums/role-names';
+import {UserRole} from '../../models/role-names';
 import {ApplicationService} from '../../modules/core/services/application.service';
 import {ThemeService} from '../../modules/core/services/theme.service';
 import {SubscriptionAwareComponent} from '../../modules/core/subscription-aware.component';

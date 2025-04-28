@@ -24,10 +24,10 @@ import {
   EmissionFactorDTO,
   EmissionSourceDTO,
   FuelDTO
-} from '../../../shared/models/shared-models';
+} from '../../../../models/shared-models';
 import {ToastProvider} from '../../../shared/services/toast-provider';
 import {EmissionFactorDialogComponent} from '../../dialog/emission-factor-dialog/emission-factor-dialog.component';
-import {EmissionFactorService} from '../../services/emission_factor.service';
+import {EmissionFactorService} from '../../../../services/emission_factor.service';
 
 export interface EmissionFactorCriteria {
   criteria: string;

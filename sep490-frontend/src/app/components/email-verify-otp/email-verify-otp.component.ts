@@ -13,7 +13,7 @@ import {delay, take, tap} from 'rxjs';
 import {
   EnterpriseUserService,
   ValidateOTPRequest
-} from '../../modules/authorization/services/enterprise-user.service';
+} from '../../services/enterprise-user.service';
 import {ApplicationService} from '../../modules/core/services/application.service';
 import {AbstractFormComponent} from '../../modules/shared/components/form/abstract-form-component';
 import {ToastProvider} from '../../modules/shared/services/toast-provider';

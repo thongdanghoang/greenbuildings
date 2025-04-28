@@ -10,11 +10,11 @@ import {TranslateService} from '@ngx-translate/core';
 import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
 import {take} from 'rxjs';
 import {UUID} from '../../../../../types/uuid';
+import {DownloadReport, EmissionActivity} from '../../../../models/enterprise';
 import {BuildingService} from '../../../../services/building.service';
+import {EmissionActivityService} from '../../../../services/emission-activity.service';
 import {AbstractFormComponent} from '../../../shared/components/form/abstract-form-component';
 import {ToastProvider} from '../../../shared/services/toast-provider';
-import {DownloadReport, EmissionActivity} from '../../models/enterprise.dto';
-import {EmissionActivityService} from '../../services/emission-activity.service';
 
 @Component({
   selector: 'app-report-dialog',

@@ -10,11 +10,11 @@ import {TranslateService} from '@ngx-translate/core';
 import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
 import {takeUntil} from 'rxjs';
 import {UUID} from '../../../../../types/uuid';
+import {ActivityType} from '../../../../models/enterprise';
 import {ApplicationService} from '../../../core/services/application.service';
 import {AbstractFormComponent} from '../../../shared/components/form/abstract-form-component';
 import {ToastProvider} from '../../../shared/services/toast-provider';
-import {ActivityType} from '../../models/enterprise.dto';
-import {ActivityTypeService} from '../../services/activity-type.service';
+import {ActivityTypeService} from '../../../../services/activity-type.service';
 
 @Component({
   selector: 'app-activity-type-dialog',

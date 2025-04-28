@@ -17,7 +17,12 @@ import {Observable, Observer, filter, map, switchMap, takeUntil} from 'rxjs';
 import {validate} from 'uuid';
 import {UUID} from '../../../../../types/uuid';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
+import {BuildingDetails, EmissionActivity} from '../../../../models/enterprise';
 import {BuildingService} from '../../../../services/building.service';
+import {
+  ActivitySearchCriteria,
+  EmissionActivityService
+} from '../../../../services/emission-activity.service';
 import {ApplicationService} from '../../../core/services/application.service';
 import {SubscriptionAwareComponent} from '../../../core/subscription-aware.component';
 import {TableTemplateColumn} from '../../../shared/components/table-template/table-template.component';
@@ -29,11 +34,6 @@ import {ModalProvider} from '../../../shared/services/modal-provider';
 import {ToastProvider} from '../../../shared/services/toast-provider';
 import {NewActivityDialogComponent} from '../../dialog/new-activity-dialog/new-activity-dialog.component';
 import {ReportDialogComponent} from '../../dialog/report-dialog/report-dialog.component';
-import {BuildingDetails, EmissionActivity} from '../../models/enterprise.dto';
-import {
-  ActivitySearchCriteria,
-  EmissionActivityService
-} from '../../services/emission-activity.service';
 
 @Component({
   selector: 'app-emission-activity',
