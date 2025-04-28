@@ -13,7 +13,9 @@
             <p>
                 {{ "payment.history.balance" | translate }}
             </p>
-            <span class="text-5xl font-medium">{{ balance }}</span>
+            <span class="text-3xl text-primary">{{
+                balance | number: "1.0-0"
+            }}</span>
         </div>
         <span class="flex items-center text-center">{{
             "payment.history.credit.label" | translate

@@ -169,7 +169,7 @@ export class ApplicationService
 
   private postLogout(): void {
     sessionStorage.clear();
-    localStorage.clear();
+    // localStorage.clear();
     this.userInfoSubject.next(null);
   }
 }

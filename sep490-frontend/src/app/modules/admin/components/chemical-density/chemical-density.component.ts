@@ -105,6 +105,7 @@ export class ChemicalDensityComponent
     this.selected = []; // Clear local selection
     this.clearSelectedEvent.emit();
     const config: DynamicDialogConfig<UUID | undefined> = {
+      modal: true,
       // Allow undefined in config.data
       data: emissionId, // Will be undefined for add, UUID for edit
       closeOnEscape: true,

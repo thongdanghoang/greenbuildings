@@ -147,7 +147,8 @@ export class PaymentComponent
       data: paymentId, // Will be undefined for add, UUID for edit
       closeOnEscape: true,
       dismissableMask: true,
-      showHeader: false
+      showHeader: false,
+      modal: true
     };
 
     // Clean up previous dialog if it exists

@@ -264,8 +264,8 @@ export class BuildingDetailsComponent extends AbstractFormComponent<BuildingDeta
   }
 
   private initMap(): void {
-    if (document.getElementById('map')) {
-      this.map = L.map('map', {
+    if (document.getElementById('building-details-map')) {
+      this.map = L.map('building-details-map', {
         center: [10.841394, 106.810052], // Vị trí mặc định
         zoom: 16
       });
@@ -361,6 +361,7 @@ export class BuildingDetailsComponent extends AbstractFormComponent<BuildingDeta
   private updateAddressFromCoordinates(lat: number, lng: number): void {
     this.geocodingService.reverse(lat, lng).subscribe(address => {
       if (address) {
+        this.showMap = false;
         this.buildingDetailsStructure.address.setValue(address.displayName);
       }
     });
