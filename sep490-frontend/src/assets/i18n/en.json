@@ -847,7 +847,7 @@
       "amount": "Amount",
       "credits": "Credits",
       "accountName": "Recipient account name",
-      "accountNumber": "Account number of the account recipient",
+      "accountNumber": "Recipient account number",
       "description": "Description",
       "orderCode": "Order Code",
       "paymentLinkId": "Payment Link ID",
