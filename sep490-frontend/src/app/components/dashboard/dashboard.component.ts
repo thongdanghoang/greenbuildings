@@ -5,7 +5,7 @@ import {DialogService, DynamicDialogRef} from 'primeng/dynamicdialog';
 import {SelectChangeEvent} from 'primeng/select';
 import {Observable, filter, switchMap, take, takeUntil, tap} from 'rxjs';
 import {AppRoutingConstants} from '../../app-routing.constant';
-import {SubscriptionAwareComponent} from '../../modules/core/subscription-aware.component';
+import {SubscriptionAwareComponent} from '@shared/directives/subscription-aware.component';
 import {BaseDTO, SelectableItem} from '@shared/models/base-models';
 import {ToastProvider} from '@shared/services/toast-provider';
 import {CreateDashboardComponent} from './create-dashboard/create-dashboard.component';

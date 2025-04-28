@@ -14,7 +14,7 @@ import {
   ValidationErrors
 } from '@angular/forms';
 import {Observable, Subject, merge, takeUntil} from 'rxjs';
-import {SubscriptionAwareComponent} from '../../core/subscription-aware.component';
+import {SubscriptionAwareComponent} from '@shared/directives/subscription-aware.component';
 
 @Directive({
   selector: '[errorMessages]'

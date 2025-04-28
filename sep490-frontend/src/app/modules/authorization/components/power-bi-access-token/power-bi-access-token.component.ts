@@ -7,8 +7,8 @@ import {AppRoutingConstants} from '../../../../app-routing.constant';
 import {ApplicationConstant} from '../../../../application.constant';
 import {PowerBiAuthority} from '@models/power-bi-access-token';
 import {PowerBiAccessTokenService} from '@services/power-bi-access-token.service';
-import {ApplicationService} from '../../../core/services/application.service';
-import {SubscriptionAwareComponent} from '../../../core/subscription-aware.component';
+import {ApplicationService} from '@services/application.service';
+import {SubscriptionAwareComponent} from '@shared/directives/subscription-aware.component';
 import {ModalProvider} from '@shared/services/modal-provider';
 import {ToastProvider} from '@shared/services/toast-provider';
 

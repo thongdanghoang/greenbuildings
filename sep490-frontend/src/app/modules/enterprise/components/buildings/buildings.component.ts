@@ -14,7 +14,7 @@ import {AppRoutingConstants} from '../../../../app-routing.constant';
 import {Building, BuildingDetails, TransactionType} from '@models/enterprise';
 import {BuildingService} from '@services/building.service';
 import {WalletService} from '@services/wallet.service';
-import {SubscriptionAwareComponent} from '../../../core/subscription-aware.component';
+import {SubscriptionAwareComponent} from '@shared/directives/subscription-aware.component';
 import {ModalProvider} from '@shared/services/modal-provider';
 import {ToastProvider} from '@shared/services/toast-provider';
 import {

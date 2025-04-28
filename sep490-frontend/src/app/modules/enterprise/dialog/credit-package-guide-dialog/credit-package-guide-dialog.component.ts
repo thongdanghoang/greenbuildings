@@ -10,7 +10,7 @@ import {
 } from '@models/enterprise';
 import {SubscriptionService} from '@services/subscription.service';
 import {WalletService} from '@services/wallet.service';
-import {ApplicationService} from '../../../core/services/application.service';
+import {ApplicationService} from '@services/application.service';
 
 @Component({
   selector: 'app-credit-package-guide-dialog',

@@ -11,8 +11,8 @@ import {TranslateService} from '@ngx-translate/core';
 import {OidcSecurityService} from 'angular-auth-oidc-client';
 import {MessageService} from 'primeng/api';
 import {delay, take, tap} from 'rxjs';
-import {EnterpriseUserService} from '../../services/enterprise-user.service';
-import {ApplicationService} from '../../modules/core/services/application.service';
+import {EnterpriseUserService} from '@services/enterprise-user.service';
+import {ApplicationService} from '@services/application.service';
 import {AbstractFormComponent} from '@shared/components/form/abstract-form-component';
 import {ToastProvider} from '@shared/services/toast-provider';
 

@@ -3,7 +3,7 @@ import {definePreset} from '@primeng/themes';
 import Aura from '@primeng/themes/aura';
 import {PrimeNG, ThemeType} from 'primeng/config';
 import {BehaviorSubject, Observable, of} from 'rxjs';
-import {SubscriptionAwareComponent} from '../subscription-aware.component';
+import {SubscriptionAwareComponent} from '@shared/directives/subscription-aware.component';
 
 enum Theme {
   DARK,

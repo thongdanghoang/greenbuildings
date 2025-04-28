@@ -13,7 +13,7 @@ import {HomeComponent} from './components/home/home.component';
 import {LandingPageComponent} from './components/landing-page/landing-page.component';
 import {NotFoundComponent} from './components/not-found/not-found.component';
 import {UnauthorizedComponent} from './components/unauthorized/unauthorized.component';
-import {ApplicationService} from './modules/core/services/application.service';
+import {ApplicationService} from '@services/application.service';
 
 const authGuard: () => Observable<LoginResponse> = () => {
   const authService = inject(OidcSecurityService);

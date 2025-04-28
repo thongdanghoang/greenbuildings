@@ -18,8 +18,8 @@ import {
 import {BuildingGroupService} from '@services/building-group.service';
 import {BuildingService} from '@services/building.service';
 import {InvitationService} from '@services/invitation.service';
-import {ApplicationService} from '../../../core/services/application.service';
-import {SubscriptionAwareComponent} from '../../../core/subscription-aware.component';
+import {ApplicationService} from '@services/application.service';
+import {SubscriptionAwareComponent} from '@shared/directives/subscription-aware.component';
 import {TableTemplateColumn} from '@shared/components/table-template/table-template.component';
 import {SearchCriteriaDto, SearchResultDto} from '@shared/models/base-models';
 import {ToastProvider} from '@shared/services/toast-provider';

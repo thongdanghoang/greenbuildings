@@ -8,7 +8,7 @@ import {
 import {ValidationErrors} from '@angular/forms';
 import {TranslateService} from '@ngx-translate/core';
 import {takeUntil, tap} from 'rxjs';
-import {SubscriptionAwareComponent} from '../../core/subscription-aware.component';
+import {SubscriptionAwareComponent} from '@shared/directives/subscription-aware.component';
 import {TranslateParamsPipe} from '../pipes/translate-params.pipe';
 import {ErrorMessagesDirective} from './error-messages.directive';
 

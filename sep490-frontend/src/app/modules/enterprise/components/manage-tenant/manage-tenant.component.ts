@@ -4,7 +4,7 @@ import {DialogService} from 'primeng/dynamicdialog';
 import {UUID} from '../../../../../types/uuid';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
 import {BuildingGroup} from '@models/enterprise';
-import {SubscriptionAwareComponent} from '../../../core/subscription-aware.component';
+import {SubscriptionAwareComponent} from '@shared/directives/subscription-aware.component';
 import {BuildingGroupService} from '@services/building-group.service';
 
 @Component({

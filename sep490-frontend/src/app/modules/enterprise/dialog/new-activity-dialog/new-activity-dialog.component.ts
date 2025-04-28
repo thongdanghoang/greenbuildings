@@ -15,7 +15,7 @@ import {EmissionFactorDTO, EmissionSourceDTO} from '@models/shared-models';
 import {ActivityTypeService} from '@services/activity-type.service';
 import {EmissionActivityService} from '@services/emission-activity.service';
 import {EmissionFactorService} from '@services/emission-factor.service';
-import {ApplicationService} from '../../../core/services/application.service';
+import {ApplicationService} from '@services/application.service';
 import {AbstractFormComponent} from '@shared/components/form/abstract-form-component';
 import {ToastProvider} from '@shared/services/toast-provider';
 

@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
 import {CreditConvertRatio} from '@models/enterprise';
-import {SubscriptionAwareComponent} from '../../../core/subscription-aware.component';
+import {SubscriptionAwareComponent} from '@shared/directives/subscription-aware.component';
 import {CreditConvertRatioService} from '@services/credit-convert-ratio.service';
 
 @Component({

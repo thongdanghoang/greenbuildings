@@ -1,14 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
+import {UserRole} from '@models/role-names';
+import {ApplicationService, UserData} from '@services/application.service';
+import {SubscriptionAwareComponent} from '@shared/directives/subscription-aware.component';
 import {MenuItem} from 'primeng/api';
 import {filter, switchMap, takeUntil} from 'rxjs';
 import {AppRoutingConstants} from '../../app-routing.constant';
-import {UserRole} from '../../models/role-names';
-import {
-  ApplicationService,
-  UserData
-} from '../../modules/core/services/application.service';
-import {SubscriptionAwareComponent} from '../../modules/core/subscription-aware.component';
 
 @Component({
   selector: 'app-sidebar',
@@ -23,10 +19,7 @@ export class SidebarComponent
 
   private readonly POWER_BI_ACCESS_TOKEN_PATH = `${AppRoutingConstants.AUTH_PATH}/${AppRoutingConstants.SETTINGS}/${AppRoutingConstants.POWER_BI_ACCESS_TOKEN}`;
 
-  constructor(
-    private readonly applicationService: ApplicationService,
-    private readonly router: Router
-  ) {
+  constructor(private readonly applicationService: ApplicationService) {
     super();
   }
 

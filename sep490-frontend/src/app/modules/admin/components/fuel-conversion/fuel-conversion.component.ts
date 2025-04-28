@@ -13,16 +13,13 @@ import {
 } from 'primeng/dynamicdialog';
 import {Observable} from 'rxjs';
 import {UUID} from '../../../../../types/uuid';
-import {EnergyConversionDTO, FuelDTO} from '../../../../models/shared-models';
-import {ApplicationService} from '../../../core/services/application.service';
-import {SubscriptionAwareComponent} from '../../../core/subscription-aware.component';
-import {TableTemplateColumn} from '../../../shared/components/table-template/table-template.component';
-import {
-  SearchCriteriaDto,
-  SearchResultDto
-} from '../../../shared/models/base-models';
+import {EnergyConversionDTO, FuelDTO} from '@models/shared-models';
+import {ApplicationService} from '@services/application.service';
+import {SubscriptionAwareComponent} from '@shared/directives/subscription-aware.component';
+import {TableTemplateColumn} from '@shared/components/table-template/table-template.component';
+import {SearchCriteriaDto, SearchResultDto} from '@shared/models/base-models';
 import {FuelDialogComponent} from '../../dialog/fuel-dialog/fuel-dialog.component';
-import {FuelConversionService} from '../../../../services/fuel-conversion.service';
+import {FuelConversionService} from '@services/fuel-conversion.service';
 
 export interface FuelConversionCriteria {
   criteria: string;

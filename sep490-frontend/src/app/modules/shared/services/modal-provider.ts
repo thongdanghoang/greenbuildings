@@ -2,7 +2,7 @@ import {Injectable, OnDestroy} from '@angular/core';
 import {Confirmation} from 'primeng/api';
 import {DialogService, DynamicDialogRef} from 'primeng/dynamicdialog';
 import {Observable} from 'rxjs';
-import {SubscriptionAwareComponent} from '../../core/subscription-aware.component';
+import {SubscriptionAwareComponent} from '@shared/directives/subscription-aware.component';
 import {ConfirmDialogComponent} from '../components/dialog/confirm-dialog/confirm-dialog.component';
 
 @Injectable()

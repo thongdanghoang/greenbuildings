@@ -11,7 +11,7 @@ import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
 import {takeUntil} from 'rxjs';
 import {UUID} from '../../../../../types/uuid';
 import {ActivityType} from '@models/enterprise';
-import {ApplicationService} from '../../../core/services/application.service';
+import {ApplicationService} from '@services/application.service';
 import {AbstractFormComponent} from '@shared/components/form/abstract-form-component';
 import {ToastProvider} from '@shared/services/toast-provider';
 import {ActivityTypeService} from '@services/activity-type.service';

@@ -13,7 +13,7 @@ import {MessageService} from 'primeng/api';
 import {delay, take, tap} from 'rxjs';
 import {UserRole} from '@models/role-names';
 import {EnterpriseUserService} from '@services/enterprise-user.service';
-import {ApplicationService} from '../../../core/services/application.service';
+import {ApplicationService} from '@services/application.service';
 import {AbstractFormComponent} from '@shared/components/form/abstract-form-component';
 import {ToastProvider} from '@shared/services/toast-provider';
 

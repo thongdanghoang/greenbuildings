@@ -16,7 +16,7 @@ import {AbstractFormComponent} from '@shared/components/form/abstract-form-compo
 import {ToastProvider} from '@shared/services/toast-provider';
 import {TenantService} from '@services/tenant.service';
 import {Location} from '@angular/common';
-import {ApplicationService} from '../../../core/services/application.service';
+import {ApplicationService} from '@services/application.service';
 
 @Component({
   selector: 'app-tenant-profile',

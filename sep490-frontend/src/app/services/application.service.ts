@@ -12,9 +12,9 @@ import {
   switchMap,
   takeUntil
 } from 'rxjs';
-import {UUID} from '../../../../types/uuid';
+import {UUID} from '../../types/uuid';
 import {UserRole} from '@models/role-names';
-import {SubscriptionAwareComponent} from '../subscription-aware.component';
+import {SubscriptionAwareComponent} from '@shared/directives/subscription-aware.component';
 
 interface UserInfoEmailScope {
   email: string;
@@ -61,7 +61,9 @@ interface UserInfoProfileScope {
   zoneinfo: string;
 }
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class ApplicationService
   extends SubscriptionAwareComponent
   implements OnDestroy

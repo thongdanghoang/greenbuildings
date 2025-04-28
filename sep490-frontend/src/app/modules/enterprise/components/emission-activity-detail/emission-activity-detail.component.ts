@@ -25,7 +25,7 @@ import {
   EmissionActivityDetails,
   EmissionActivityRecord
 } from '@models/enterprise';
-import {ApplicationService} from '../../../core/services/application.service';
+import {ApplicationService} from '@services/application.service';
 import {AbstractFormComponent} from '@shared/components/form/abstract-form-component';
 import {TableTemplateColumn} from '@shared/components/table-template/table-template.component';
 import {SearchCriteriaDto, SearchResultDto} from '@shared/models/base-models';
