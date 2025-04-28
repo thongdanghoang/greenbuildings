@@ -23,7 +23,7 @@
     unsavedChanges
     id="buildingDetailsForm"
     [formGroup]="formGroup"
-    class="grid grid-cols-2 gap-4 rounded-lg border border-black p-4"
+    class="flex flex-col gap-2.5 rounded-lg border border-black/20 p-4 dark:border-white/20"
 >
     <div class="flex flex-col gap-2" errorMessages>
         <label class="text-lg font-medium" for="name">{{
@@ -32,29 +32,7 @@
         <input pInputText formControlName="name" id="name" type="text" />
         <form-field-error></form-field-error>
     </div>
-    <ng-container *ngIf="hasSubscription">
-        <div class="flex flex-col gap-2" errorMessages>
-            <label class="text-lg font-medium" for="startDate">{{
-                "enterprise.buildings.details.labels.validFromInclusive"
-                    | translate
-            }}</label>
-            <input
-                pInputText
-                [formControl]="startDateControl"
-                id="startDate"
-                type="text"
-                [disabled]="false"
-            />
-            <form-field-error></form-field-error>
-        </div>
-    </ng-container>
-    <ng-container *ngIf="!hasSubscription">
-        <span></span>
-    </ng-container>
     <div class="flex flex-col gap-2" errorMessages>
-        <span></span>
-        <span></span>
-        <span></span>
         <label class="text-lg font-medium">{{
             "enterprise.buildings.details.labels.address" | translate
         }}</label>
@@ -71,13 +49,13 @@
                 [minLength]="2"
                 [dropdown]="false"
                 [forceSelection]="false"
-                placeholder="Enter address"
             />
             <p-inputgroup-addon>
                 <p-button
                     (onClick)="showMapView()"
                     icon="pi pi-map"
                     severity="secondary"
+                    text
                     class="h-full"
                 />
             </p-inputgroup-addon>
@@ -85,10 +63,22 @@
         <form-field-error></form-field-error>
     </div>
     <ng-container *ngIf="hasSubscription">
-        <div class="flex flex-col gap-2" errorMessages>
-            <span></span>
-            <span></span>
-            <span></span>
+        <div class="flex flex-col gap-2">
+            <label class="text-lg font-medium" for="startDate">{{
+                "enterprise.buildings.details.labels.validFromInclusive"
+                    | translate
+            }}</label>
+            <input
+                pInputText
+                [formControl]="startDateControl"
+                id="startDate"
+                type="text"
+                [disabled]="false"
+            />
+        </div>
+    </ng-container>
+    <ng-container *ngIf="hasSubscription">
+        <div class="flex flex-col gap-2">
             <label class="text-lg font-medium" for="endDate">{{
                 "enterprise.buildings.details.labels.validToInclusive"
                     | translate
@@ -100,7 +90,6 @@
                 type="text"
                 [disabled]="false"
             />
-            <form-field-error></form-field-error>
         </div>
     </ng-container>
     <ng-container *ngIf="!hasSubscription">
@@ -108,7 +97,7 @@
     </ng-container>
     <span></span>
     <ng-container *ngIf="hasSubscription">
-        <div class="flex flex-col gap-2" errorMessages>
+        <div class="flex flex-col gap-2">
             <label class="text-lg font-medium" for="maxNumberOfDevices">{{
                 "enterprise.buildings.details.labels.haveSubscriptionOfNumberOfDevices"
                     | translate
@@ -120,7 +109,6 @@
                 type="text"
                 [disabled]="false"
             />
-            <form-field-error></form-field-error>
         </div>
     </ng-container>
     <span></span>
@@ -143,15 +131,15 @@
 
 <!-- Hiển thị bản đồ khi showMap là true -->
 @if (showMap) {
-    <div style="height: 400px; width: 100%; margin-bottom: 20px">
-        <div id="map" style="height: 100%; width: 100%"></div>
+    <div style="height: 600px; width: 100%">
+        <div id="building-details-map" style="height: 100%; width: 100%"></div>
     </div>
 }
 
 <!-- Các phần khác giữ nguyên -->
-@if (isEdit) {
-    <div class="flex items-center justify-center lg:justify-start">
-        <p class="px-4 font-bold text-primary">
+<div *ngIf="isEdit">
+    <div class="mb-1 mt-2 flex items-center justify-start">
+        <p class="font-bold text-primary">
             {{ "enterprise.userInBuildings" | translate }}
         </p>
     </div>
@@ -161,7 +149,7 @@
         [triggerSearch]="triggerSearch"
     >
     </table-template>
-}
+</div>
 <ng-template #permissionTemplate let-rowData>
     <p>{{ "enum.permissionRole." + rowData.role | translate }}</p>
 </ng-template>

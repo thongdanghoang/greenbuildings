@@ -840,7 +840,7 @@
       "amount": "Số tiền",
       "credits": "Tín dụng",
       "accountName": "Tên tài khoản người nhận",
-      "accountNumber": "Số tài khoản của người nhận tài khoản",
+      "accountNumber": "Số tài khoản người nhận",
       "description": "Mô tả",
       "orderCode": "Mã đơn hàng",
       "paymentLinkId": "ID liên kết thanh toán",

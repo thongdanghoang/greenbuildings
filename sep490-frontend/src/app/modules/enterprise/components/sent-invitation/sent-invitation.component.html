@@ -16,11 +16,10 @@
 >
 </table-template>
 <ng-template #captionTemplateRef>
-    <div class="grid grid-cols-1 gap-2.5">
-        <p-iconfield class="w-full md:w-1/2">
+    <div class="-mx-4 grid grid-cols-3 gap-2.5 lg:mx-0">
+        <p-iconfield class="col-span-3 *:w-full lg:col-span-1">
             <p-inputicon styleClass="pi pi-search" />
             <input
-                class="w-full"
                 type="text"
                 pInputText
                 [(ngModel)]="searchCriteria.tenantEmail"
@@ -28,7 +27,7 @@
             />
         </p-iconfield>
         <p-select
-            class="w-full md:w-1/2"
+            class="col-span-3 lg:col-span-1"
             [options]="availableBuildings"
             [filter]="true"
             showClear="true"
@@ -41,7 +40,7 @@
             [placeholder]="'sentInvitation.table.selectBuilding' | translate"
         />
         <p-select
-            class="w-full md:w-1/2"
+            class="col-span-3 lg:col-span-1"
             [options]="matchingGroups"
             [filter]="true"
             showClear="true"
@@ -53,13 +52,14 @@
                 'sentInvitation.table.selectBuildingGroup' | translate
             "
         />
-        <div class="flex w-full justify-between md:w-1/2">
+        <div class="col-span-3 flex w-full justify-end gap-2.5">
             <p-button
                 severity="danger"
                 [label]="'common.revert' | translate"
                 icon="pi pi-times"
                 outlined
                 (onClick)="clearCriteria()"
+                size="small"
             />
             <p-button
                 severity="primary"
@@ -67,6 +67,7 @@
                 icon="pi pi-search"
                 outlined
                 (onClick)="searchEvent.emit()"
+                size="small"
             />
         </div>
     </div>
