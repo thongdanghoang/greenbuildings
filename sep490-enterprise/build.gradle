@@ -1,3 +1,23 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.4.2'
+    id 'io.spring.dependency-management' version '1.1.7'
+    id 'jacoco'
+}
+
+jacoco {
+    toolVersion = "0.8.13"
+}
+
+group = 'sep490'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
 configurations {
     compileOnly {
         extendsFrom annotationProcessor
@@ -8,15 +28,16 @@ configurations {
     }
 }
 
-dependencyManagement {
-    imports {
-        mavenBom org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES
+repositories {
+    mavenCentral()
+    maven {
+        url 'https://splunk.jfrog.io/splunk/ext-releases-local'
     }
 }
 
 dependencies {
     implementation(project(':sep490-commons-api'))
-	implementation(project(':sep490-commons-springfw-impl'))
+    implementation(project(':sep490-commons-springfw-impl'))
 
     implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
     implementation 'org.springframework.boot:spring-boot-starter-security'

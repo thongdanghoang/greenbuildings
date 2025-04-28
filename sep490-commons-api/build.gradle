@@ -1,5 +1,16 @@
 plugins {
+    id 'java'
     id 'java-library'
+    id 'maven-publish'
+}
+
+group = 'sep490'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
 }
 
 configurations {
@@ -7,6 +18,11 @@ configurations {
         extendsFrom annotationProcessor
     }
 }
+
+repositories {
+    mavenCentral()
+}
+
 
 dependencies {
     compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.34'
