@@ -53,9 +53,9 @@ spring:
     username: postgres
     password: postgres
   flyway:
-    clean-disabled: false
     output-query-results: true
     create-schemas: false
+    clean-disabled: true
   jpa:
     hibernate:
       naming:
