@@ -1,26 +1,11 @@
 plugins {
-    id 'java'
     id 'java-library'
-    id 'maven-publish'
-}
-
-group = 'sep490'
-version = '0.0.1-SNAPSHOT'
-
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
-    }
 }
 
 configurations {
     compileOnly {
         extendsFrom annotationProcessor
     }
-}
-
-repositories {
-    mavenCentral()
 }
 
 dependencies {

@@ -244,7 +244,7 @@
     },
     "buildings": {
       "tenant": {
-        "new": "Collaborate with tenant and your building group",
+        "new": "Collaborate with tenant",
         "email": "Tenant email",
         "sendInvitation": "Send invitation",
         "noGroups": "No available building groups to connect",

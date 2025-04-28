@@ -1,0 +1,13 @@
+pluginManagement {
+    repositories {
+        maven { url 'https://repo.spring.io/milestone' }
+        maven { url 'https://repo.spring.io/snapshot' }
+        gradlePluginPortal()
+    }
+}
+
+rootProject.name = 'greenbuildings-parent'
+include(":sep490-idp")
+include(":sep490-enterprise")
+include(":sep490-commons-api")
+include(":sep490-commons-springfw-impl")

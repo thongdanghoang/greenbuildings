@@ -20,6 +20,7 @@ spring:
   flyway:
     output-query-results: true
     create-schemas: false
+    clean-disabled: false
   jpa:
     hibernate:
       naming:
@@ -79,9 +80,9 @@ payment:
     cancelPath: /enterprise/payment
 
 exchangerate-api:
-  key: secret
+  key: 80a3459aa627df3e98af22e1
   url: https://v6.exchangerate-api.com/v6/
 
 geocoding:
-  key: secret
+  key: 67bf29d839123857967394ilhe81a49
   url: https://geocode.maps.co/reverse
