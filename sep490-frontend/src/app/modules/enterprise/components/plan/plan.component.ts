@@ -4,15 +4,7 @@ import {TranslateService} from '@ngx-translate/core';
 import {Confirmation} from 'primeng/api';
 import {DialogService} from 'primeng/dynamicdialog';
 import {Nullable} from 'primeng/ts-helpers';
-import {
-  Observable,
-  filter,
-  forkJoin,
-  map,
-  of,
-  switchMap,
-  takeUntil
-} from 'rxjs';
+import {Observable, filter, forkJoin, map, of, switchMap, takeUntil} from 'rxjs';
 import {CreditPackage} from '@models/enterprise';
 import {CreditPackageService} from '@services/credit-package.service';
 import {CurrencyConverterService} from '@services/currency-converter.service';
@@ -27,10 +19,7 @@ import {CreditPackageGuideDialogComponent} from '../../dialog/credit-package-gui
   templateUrl: './plan.component.html',
   styleUrl: './plan.component.css'
 })
-export class PlanComponent
-  extends SubscriptionAwareComponent
-  implements OnInit
-{
+export class PlanComponent extends SubscriptionAwareComponent implements OnInit {
   @ViewChild('aboutContent', {static: true}) aboutContent!: TemplateRef<any>;
   @ViewChild('termContent', {static: true}) termContent!: TemplateRef<any>;
   tabs = [
@@ -100,10 +89,7 @@ export class PlanComponent
   }
 
   formatedCurrency(currency: number): string | null {
-    const converted = this.decimalPipe.transform(
-      currency,
-      this.getDigitsInfo()
-    );
+    const converted = this.decimalPipe.transform(currency, this.getDigitsInfo());
     const symbol = this.translate.instant('currency.symbol');
     if (this.translate.currentLang === 'vi') {
       return `${converted} ${symbol}`;
@@ -208,17 +194,11 @@ export class PlanComponent
       });
   }
 
-  private currencyConverter(
-    lang: string,
-    credit: CreditPackage
-  ): Observable<number> {
+  private currencyConverter(lang: string, credit: CreditPackage): Observable<number> {
     if (lang === 'vi') {
       return of(credit.price);
     }
     const toCurrency = lang === 'en' ? 'USD' : 'CNY';
-    return this.currencyConverterService.convertToVndCurrency(
-      credit.price,
-      toCurrency
-    );
+    return this.currencyConverterService.convertToVndCurrency(credit.price, toCurrency);
   }
 }

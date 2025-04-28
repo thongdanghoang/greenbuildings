@@ -1,18 +1,8 @@
-import {
-  Component,
-  EventEmitter,
-  OnInit,
-  TemplateRef,
-  ViewChild
-} from '@angular/core';
+import {Component, EventEmitter, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {ActivitySearchCriteria} from '@models/emission-activity';
 import {TranslateService} from '@ngx-translate/core';
-import {
-  DialogService,
-  DynamicDialogConfig,
-  DynamicDialogRef
-} from 'primeng/dynamicdialog';
+import {DialogService, DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
 import {Observable} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {UUID} from '../../../../../types/uuid';
@@ -33,10 +23,7 @@ import {NewActivityDialogComponent} from '../../dialog/new-activity-dialog/new-a
   selector: 'app-building-group-detail',
   templateUrl: './building-group-detail.component.html'
 })
-export class BuildingGroupDetailComponent
-  extends SubscriptionAwareComponent
-  implements OnInit
-{
+export class BuildingGroupDetailComponent extends SubscriptionAwareComponent implements OnInit {
   userRole!: UserRole;
   buildingGroup!: BuildingGroup;
   ref: DynamicDialogRef | undefined;
@@ -51,8 +38,7 @@ export class BuildingGroupDetailComponent
   protected searchCriteria!: ActivitySearchCriteria;
   protected cols: TableTemplateColumn[] = [];
   protected readonly searchEvent: EventEmitter<void> = new EventEmitter();
-  protected readonly clearSelectedEvent: EventEmitter<void> =
-    new EventEmitter();
+  protected readonly clearSelectedEvent: EventEmitter<void> = new EventEmitter();
   protected selected: EmissionActivity[] = [];
 
   constructor(
@@ -73,19 +59,14 @@ export class BuildingGroupDetailComponent
     this.getUserRole();
     this.buildCols();
     this.searchCriteria = {buildingGroupId: '' as UUID};
-    this.fetchActivity = this.activityService.fetchActivityOfBuilding.bind(
-      this.activityService
-    );
+    this.fetchActivity = this.activityService.fetchActivityOfBuilding.bind(this.activityService);
 
     this.fetchBuildingGroupDetails();
   }
 
   goBack(): void {
     if (this.userRole === UserRole.TENANT) {
-      void this.router.navigate([
-        AppRoutingConstants.ENTERPRISE_PATH,
-        AppRoutingConstants.TENANT_MANAGEMENT_PATH
-      ]);
+      void this.router.navigate([AppRoutingConstants.ENTERPRISE_PATH, AppRoutingConstants.TENANT_MANAGEMENT_PATH]);
     } else {
       void this.router.navigate([
         AppRoutingConstants.ENTERPRISE_PATH,
@@ -174,20 +155,16 @@ export class BuildingGroupDetailComponent
   }
 
   fetchBuildingGroupDetails(): void {
-    this.activatedRoute.paramMap
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((params: ParamMap) => {
-        const groupId = params.get('id');
-        if (groupId) {
-          this.buildingGroupService
-            .getById(groupId as UUID)
-            .subscribe((group: BuildingGroup) => {
-              this.buildingGroup = group;
-              this.searchCriteria.buildingGroupId = group.id;
-              this.searchEvent.emit();
-            });
-        }
-      });
+    this.activatedRoute.paramMap.pipe(takeUntil(this.destroy$)).subscribe((params: ParamMap) => {
+      const groupId = params.get('id');
+      if (groupId) {
+        this.buildingGroupService.getById(groupId as UUID).subscribe((group: BuildingGroup) => {
+          this.buildingGroup = group;
+          this.searchCriteria.buildingGroupId = group.id;
+          this.searchEvent.emit();
+        });
+      }
+    });
   }
 
   confirmDelete(): void {

@@ -6,10 +6,7 @@ import {SubscriptionAwareComponent} from '@shared/directives/subscription-aware.
 import {ConfirmDialogComponent} from '../components/dialog/confirm-dialog/confirm-dialog.component';
 
 @Injectable()
-export class ModalProvider
-  extends SubscriptionAwareComponent
-  implements OnDestroy
-{
+export class ModalProvider extends SubscriptionAwareComponent implements OnDestroy {
   ref: DynamicDialogRef | undefined;
 
   constructor(private readonly dialogService: DialogService) {

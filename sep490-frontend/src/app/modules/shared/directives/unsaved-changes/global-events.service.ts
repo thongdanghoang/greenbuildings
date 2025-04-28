@@ -19,14 +19,8 @@ export class GlobalEventsService {
   public readonly wheel$: Observable<Event>;
   public readonly resize$: Observable<UIEvent>;
 
-  constructor(
-    @Inject(DOCUMENT) document: Document,
-    @Inject(WINDOW) window: Window
-  ) {
-    this.beforeUnload$ = this.buildObservable<BeforeUnloadEvent>(
-      window,
-      'beforeunload'
-    );
+  constructor(@Inject(DOCUMENT) document: Document, @Inject(WINDOW) window: Window) {
+    this.beforeUnload$ = this.buildObservable<BeforeUnloadEvent>(window, 'beforeunload');
     this.click$ = this.buildObservable<MouseEvent>(document, 'click');
     this.mouseDown$ = this.buildObservable<MouseEvent>(document, 'mousedown');
     this.mouseMove$ = this.buildObservable<MouseEvent>(document, 'mousemove');
@@ -37,10 +31,7 @@ export class GlobalEventsService {
     this.resize$ = this.buildObservable<UIEvent>(window, 'resize');
   }
 
-  private buildObservable<T>(
-    target: Window | Document,
-    event: string
-  ): Observable<T> {
+  private buildObservable<T>(target: Window | Document, event: string): Observable<T> {
     return fromEvent<T>(target, event).pipe(share());
   }
 }

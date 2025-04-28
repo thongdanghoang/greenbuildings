@@ -8,30 +8,30 @@
 </table-template>
 <ng-template #captionTemplateRef>
     <div class="flex items-center justify-between">
-        <span class="font-bold text-primary">{{
-            "admin.packageCredit.title" | translate
-        }}</span>
+        <span class="font-bold text-primary">{{ 'admin.packageCredit.title' | translate }}</span>
         <button
             pButton
             size="small"
             class="p-button font-bold"
-            [routerLink]="[
-                '/',
-                AppRoutingConstants.ADMIN_PATH,
-                AppRoutingConstants.PACKAGE_CREDIT_DETAILS_PATH,
-            ]"
+            [routerLink]="['/', AppRoutingConstants.ADMIN_PATH, AppRoutingConstants.PACKAGE_CREDIT_DETAILS_PATH]"
         >
             <i class="pi pi-credit-card"></i>
-            {{ "admin.packageCredit.addPackageCredit" | translate }}
+            {{ 'admin.packageCredit.addPackageCredit' | translate }}
         </button>
     </div>
 </ng-template>
 
-<ng-template #priceTemplate let-rowData>
-    <p>{{ rowData.price | number: "1.0-0" }} VND</p>
+<ng-template
+    #priceTemplate
+    let-rowData
+>
+    <p>{{ rowData.price | number: '1.0-0' }} VND</p>
 </ng-template>
 
-<ng-template #actionsTemplate let-rowData>
+<ng-template
+    #actionsTemplate
+    let-rowData
+>
     <div class="flex">
         <p-button
             icon="pi pi-pencil"
@@ -42,7 +42,10 @@
         />
     </div>
 </ng-template>
-<ng-template #activeTemplate let-rowData>
+<ng-template
+    #activeTemplate
+    let-rowData
+>
     <div class="flex items-center gap-2">
         <p-inputSwitch
             [ngModel]="rowData.active"
@@ -50,7 +53,10 @@
         ></p-inputSwitch>
     </div>
 </ng-template>
-<ng-template #viewVersionsTemplate let-rowData>
+<ng-template
+    #viewVersionsTemplate
+    let-rowData
+>
     <p-button
         icon="pi pi-eye"
         [rounded]="true"
@@ -65,7 +71,7 @@
     modal
     [closable]="true"
     [header]="'admin.packageCredit.versionList' | translate"
-    [style]="{ width: '500px' }"
+    [style]="{width: '500px'}"
 >
     <div *ngIf="selectedPackageVersions.length > 0; else noDataTemplate">
         <div class="grid gap-3">
@@ -75,15 +81,11 @@
             >
                 <div class="flex items-center gap-3">
                     <i class="pi pi-bitcoin text-lg text-yellow-500"></i>
-                    <span class="text-lg font-semibold">{{
-                        version.numberOfCredits
-                    }}</span>
+                    <span class="text-lg font-semibold">{{ version.numberOfCredits }}</span>
                 </div>
                 <div class="flex items-center gap-3">
                     <i class="pi pi-dollar text-lg text-green-500"></i>
-                    <span class="text-lg font-semibold"
-                        >{{ version.price | number: "1.0-0" }} VND</span
-                    >
+                    <span class="text-lg font-semibold">{{ version.price | number: '1.0-0' }} VND</span>
                 </div>
                 <p-chip
                     [label]="
@@ -91,22 +93,16 @@
                             ? ('admin.packageCredit.current' | translate)
                             : ('admin.packageCredit.outdated' | translate)
                     "
-                    [styleClass]="
-                        version.active
-                            ? 'bg-green-500 text-white'
-                            : 'bg-red-500 text-white'
-                    "
+                    [styleClass]="version.active ? 'bg-green-500 text-white' : 'bg-red-500 text-white'"
                 ></p-chip>
             </div>
         </div>
     </div>
 
     <ng-template #noDataTemplate>
-        <div
-            class="flex flex-col items-center justify-center py-4 text-lg text-gray-500"
-        >
+        <div class="flex flex-col items-center justify-center py-4 text-lg text-gray-500">
             <i class="pi pi-info-circle mb-2 text-2xl"></i>
-            <p>{{ "admin.packageCredit.noVersions" | translate }}</p>
+            <p>{{ 'admin.packageCredit.noVersions' | translate }}</p>
         </div>
     </ng-template>
 </p-dialog>

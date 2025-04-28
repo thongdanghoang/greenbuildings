@@ -2,7 +2,7 @@
     <!-- Dialog Header -->
     <div class="p-dialog-header border-b p-0">
         <span class="text-xl font-semibold">
-            {{ "sidebar.admin.fuel" | translate }}
+            {{ 'sidebar.admin.fuel' | translate }}
         </span>
         <button
             pButton
@@ -14,14 +14,18 @@
     </div>
 
     <!-- Stepper with Two Steps -->
-    <p-stepper [value]="1" class="block">
+    <p-stepper
+        [value]="1"
+        class="block"
+    >
         <p-step-panels class="block h-full">
             <!-- Step 1: Fuel Names (Vietnamese, English, Chinese) -->
             <p-step-panel [value]="1">
-                <ng-template #content let-activateCallback="activateCallback">
-                    <div
-                        class="p-dialog-content flex min-h-[400px] flex-col overflow-hidden p-0"
-                    >
+                <ng-template
+                    #content
+                    let-activateCallback="activateCallback"
+                >
+                    <div class="p-dialog-content flex min-h-[400px] flex-col overflow-hidden p-0">
                         <div [formGroup]="fuelFormGroup">
                             <p-iftalabel class="my-2">
                                 <input
@@ -30,9 +34,7 @@
                                     class="w-full"
                                     autocomplete="off"
                                 />
-                                <label
-                                    >{{ "common.name" | translate }} (VN)</label
-                                >
+                                <label>{{ 'common.name' | translate }} (VN)</label>
                             </p-iftalabel>
                             <p-iftalabel class="my-2">
                                 <input
@@ -41,9 +43,7 @@
                                     class="w-full"
                                     autocomplete="off"
                                 />
-                                <label
-                                    >{{ "common.name" | translate }} (EN)</label
-                                >
+                                <label>{{ 'common.name' | translate }} (EN)</label>
                             </p-iftalabel>
                             <p-iftalabel class="my-2">
                                 <input
@@ -52,9 +52,7 @@
                                     class="w-full"
                                     autocomplete="off"
                                 />
-                                <label
-                                    >{{ "common.name" | translate }} (ZH)</label
-                                >
+                                <label>{{ 'common.name' | translate }} (ZH)</label>
                             </p-iftalabel>
                         </div>
                         <div class="mt-2 flex justify-end">
@@ -71,10 +69,11 @@
 
             <!-- Step 2: Conversion Details -->
             <p-step-panel [value]="2">
-                <ng-template #content let-activateCallback="activateCallback">
-                    <div
-                        class="p-dialog-content flex min-h-[400px] flex-col overflow-hidden p-0"
-                    >
+                <ng-template
+                    #content
+                    let-activateCallback="activateCallback"
+                >
+                    <div class="p-dialog-content flex min-h-[400px] flex-col overflow-hidden p-0">
                         <div [formGroup]="formGroup">
                             <p-iftalabel class="my-2">
                                 <input
@@ -84,10 +83,7 @@
                                     autocomplete="off"
                                     type="number"
                                 />
-                                <label>{{
-                                    "admin.energyConversion.conversionValue"
-                                        | translate
-                                }}</label>
+                                <label>{{ 'admin.energyConversion.conversionValue' | translate }}</label>
                             </p-iftalabel>
                             <p-iftalabel class="my-2">
                                 <p-dropdown
@@ -95,15 +91,10 @@
                                     formControlName="conversionUnitNumerator"
                                     optionLabel="label"
                                     optionValue="value"
-                                    [style]="{ width: '100%' }"
-                                    placeholder="{{
-                                        'Select Numerator Unit' | translate
-                                    }}"
+                                    [style]="{width: '100%'}"
+                                    placeholder="{{ 'Select Numerator Unit' | translate }}"
                                 ></p-dropdown>
-                                <label>{{
-                                    "admin.energyConversion.conversionUnitNumerator"
-                                        | translate
-                                }}</label>
+                                <label>{{ 'admin.energyConversion.conversionUnitNumerator' | translate }}</label>
                             </p-iftalabel>
                             <p-iftalabel class="my-2">
                                 <p-dropdown
@@ -111,15 +102,10 @@
                                     formControlName="conversionUnitDenominator"
                                     optionLabel="label"
                                     optionValue="value"
-                                    [style]="{ width: '100%' }"
-                                    placeholder="{{
-                                        'Select Denominator Unit' | translate
-                                    }}"
+                                    [style]="{width: '100%'}"
+                                    placeholder="{{ 'Select Denominator Unit' | translate }}"
                                 ></p-dropdown>
-                                <label>{{
-                                    "admin.energyConversion.conversionUnitDenominator"
-                                        | translate
-                                }}</label>
+                                <label>{{ 'admin.energyConversion.conversionUnitDenominator' | translate }}</label>
                             </p-iftalabel>
                         </div>
                         <div class="mt-2 flex justify-between">

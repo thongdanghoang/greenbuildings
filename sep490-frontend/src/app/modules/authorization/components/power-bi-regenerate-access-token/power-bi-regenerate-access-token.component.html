@@ -1,17 +1,15 @@
 <div class="flex items-center justify-between border-b py-2">
-    <p class="text-xl">{{ "powerBi.regenerateTokenTitle" | translate }}</p>
+    <p class="text-xl">{{ 'powerBi.regenerateTokenTitle' | translate }}</p>
 </div>
 
-<div
-    class="rounded-lg border border-yellow-200 bg-yellow-50 dark:border-yellow-800 dark:bg-yellow-950"
->
+<div class="rounded-lg border border-yellow-200 bg-yellow-50 dark:border-yellow-800 dark:bg-yellow-950">
     <div class="flex items-center gap-5 p-5">
-        {{ "powerBi.submitThisForm" | translate }}
+        {{ 'powerBi.submitThisForm' | translate }}
     </div>
 </div>
 
 <div>
-    <label class="font-semibold">{{ "powerBi.expiration" | translate }}</label>
+    <label class="font-semibold">{{ 'powerBi.expiration' | translate }}</label>
     <div class="flex gap-2">
         <p-select
             [(ngModel)]="expirationTime"
@@ -19,16 +17,25 @@
             scrollHeight="300px"
             class="min-w-64"
         >
-            <ng-template #selectedItem let-selectedOption>
-                <div class="flex items-center gap-2" *ngIf="selectedOption">
+            <ng-template
+                #selectedItem
+                let-selectedOption
+            >
+                <div
+                    class="flex items-center gap-2"
+                    *ngIf="selectedOption"
+                >
                     <i class="pi pi-calendar"></i>
                     <div>{{ selectedOption.label | translate }}</div>
                     @if (expirationTime) {
-                        <div>({{ expirationTime | date: "MMM d, yyyy" }})</div>
+                        <div>({{ expirationTime | date: 'MMM d, yyyy' }})</div>
                     }
                 </div>
             </ng-template>
-            <ng-template let-selectedOption #item>
+            <ng-template
+                let-selectedOption
+                #item
+            >
                 <div class="flex items-center gap-2">
                     <div>{{ selectedOption.label | translate }}</div>
                 </div>
@@ -42,7 +49,7 @@
             ></p-datepicker>
         }
     </div>
-    <small>{{ "powerBi.tokenWillExpire" | translate }}</small>
+    <small>{{ 'powerBi.tokenWillExpire' | translate }}</small>
 </div>
 
 <div class="flex gap-4">

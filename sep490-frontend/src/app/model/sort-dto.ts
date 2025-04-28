@@ -17,6 +17,5 @@ export namespace SortDTO {
     ASC: 'ASC',
     DESC: 'DESC'
   } as const;
-  export type DirectionEnum =
-    (typeof DirectionEnum)[keyof typeof DirectionEnum];
+  export type DirectionEnum = (typeof DirectionEnum)[keyof typeof DirectionEnum];
 }

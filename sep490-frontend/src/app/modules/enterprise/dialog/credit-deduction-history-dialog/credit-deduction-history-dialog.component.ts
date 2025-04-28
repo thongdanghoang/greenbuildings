@@ -1,10 +1,4 @@
-import {
-  Component,
-  EventEmitter,
-  OnInit,
-  TemplateRef,
-  ViewChild
-} from '@angular/core';
+import {Component, EventEmitter, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {TransactionCriteria} from '@models/transactions';
 import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
 import {Observable} from 'rxjs';
@@ -22,10 +16,7 @@ import {SearchCriteriaDto, SearchResultDto} from '@shared/models/base-models';
   templateUrl: './credit-deduction-history-dialog.component.html',
   styleUrl: './credit-deduction-history-dialog.component.css'
 })
-export class CreditDeductionHistoryDialogComponent
-  extends SubscriptionAwareComponent
-  implements OnInit
-{
+export class CreditDeductionHistoryDialogComponent extends SubscriptionAwareComponent implements OnInit {
   @ViewChild('typeTemplate', {static: true})
   typeTemplate!: TemplateRef<any>;
   protected readonly AppRoutingConstants = AppRoutingConstants;
@@ -34,8 +25,7 @@ export class CreditDeductionHistoryDialogComponent
   ) => Observable<SearchResultDto<TransactionDTO>>;
   protected cols: TableTemplateColumn[] = [];
   protected readonly searchEvent: EventEmitter<void> = new EventEmitter();
-  protected readonly clearSelectedEvent: EventEmitter<void> =
-    new EventEmitter();
+  protected readonly clearSelectedEvent: EventEmitter<void> = new EventEmitter();
   protected selected: TransactionDTO[] = [];
   protected searchCriteria: TransactionCriteria = {criteria: ''};
   private readonly buildingId: UUID | undefined;
@@ -54,8 +44,7 @@ export class CreditDeductionHistoryDialogComponent
     this.buildCols();
     this.fetchTransaction = (
       criteria: SearchCriteriaDto<TransactionCriteria>
-    ): Observable<SearchResultDto<TransactionDTO>> =>
-      this.transactionService.search(criteria, this.buildingId);
+    ): Observable<SearchResultDto<TransactionDTO>> => this.transactionService.search(criteria, this.buildingId);
   }
 
   buildCols(): void {

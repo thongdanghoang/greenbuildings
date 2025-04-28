@@ -42,8 +42,7 @@ export namespace ChemicalDensityDTO {
     PERCENT: 'PERCENT',
     PIECES: 'PIECES'
   } as const;
-  export type UnitNumeratorEnum =
-    (typeof UnitNumeratorEnum)[keyof typeof UnitNumeratorEnum];
+  export type UnitNumeratorEnum = (typeof UnitNumeratorEnum)[keyof typeof UnitNumeratorEnum];
   export const UnitDenominatorEnum = {
     GRAM: 'GRAM',
     KILOGRAM: 'KILOGRAM',
@@ -69,6 +68,5 @@ export namespace ChemicalDensityDTO {
     PERCENT: 'PERCENT',
     PIECES: 'PIECES'
   } as const;
-  export type UnitDenominatorEnum =
-    (typeof UnitDenominatorEnum)[keyof typeof UnitDenominatorEnum];
+  export type UnitDenominatorEnum = (typeof UnitDenominatorEnum)[keyof typeof UnitDenominatorEnum];
 }

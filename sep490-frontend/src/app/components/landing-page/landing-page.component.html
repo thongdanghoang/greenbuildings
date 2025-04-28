@@ -4,16 +4,17 @@
     [numScroll]="1"
     [showNavigators]="false"
 >
-    <ng-template let-item pTemplate="item">
+    <ng-template
+        let-item
+        pTemplate="item"
+    >
         <div class="relative">
             <p-image
                 [src]="item.image"
                 alt="Carousel image"
                 class="w-full object-cover"
             />
-            <div
-                class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40"
-            >
+            <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40">
                 <div class="p-6 text-center">
                     <h5
                         class="mb-8 font-medium uppercase tracking-widest text-white md:font-bold lg:font-bold"
@@ -68,9 +69,7 @@
                         class="h-full w-full rounded-lg object-cover shadow-lg"
                         alt="About Image"
                     />
-                    <div
-                        class="absolute bottom-0 right-0 h-40 w-40 translate-x-10 translate-y-10 transform"
-                    >
+                    <div class="absolute bottom-0 right-0 h-40 w-40 translate-x-10 translate-y-10 transform">
                         <img
                             src="assets/images/landing-page/getStart2.jpg"
                             class="h-full w-full rounded-full border-4 border-white object-cover shadow-lg"
@@ -83,32 +82,24 @@
             <!-- Right: Content -->
             <div class="animate-fadeInRight">
                 <div class="text-start">
-                    <h1
-                        class="mt-2 text-4xl font-bold leading-tight md:text-5xl"
-                    >
-                        {{ "landingPage.intro.title" | translate }}
+                    <h1 class="mt-2 text-4xl font-bold leading-tight md:text-5xl">
+                        {{ 'landingPage.intro.title' | translate }}
                     </h1>
                     <p class="mt-4 text-gray-600">
-                        {{ "landingPage.intro.description" | translate }}
+                        {{ 'landingPage.intro.description' | translate }}
                     </p>
                     <div class="mt-6 space-y-3">
                         <p class="flex items-center">
-                            <i
-                                class="pi pi-check mr-3 text-lg text-primary"
-                            ></i>
-                            {{ "landingPage.intro.item1" | translate }}
+                            <i class="pi pi-check mr-3 text-lg text-primary"></i>
+                            {{ 'landingPage.intro.item1' | translate }}
                         </p>
                         <p class="flex items-center">
-                            <i
-                                class="pi pi-check mr-3 text-lg text-primary"
-                            ></i>
-                            {{ "landingPage.intro.item2" | translate }}
+                            <i class="pi pi-check mr-3 text-lg text-primary"></i>
+                            {{ 'landingPage.intro.item2' | translate }}
                         </p>
                         <p class="flex items-center">
-                            <i
-                                class="pi pi-check mr-3 text-lg text-primary"
-                            ></i>
-                            {{ "landingPage.intro.item3" | translate }}
+                            <i class="pi pi-check mr-3 text-lg text-primary"></i>
+                            {{ 'landingPage.intro.item3' | translate }}
                         </p>
                     </div>
                 </div>
@@ -122,13 +113,11 @@
     <div class="container mx-auto px-6 lg:px-20">
         <!-- Section Title -->
         <div class="animate-fadeInUp mb-10 text-center">
-            <h4
-                class="text-lg font-semibold uppercase tracking-wide text-primary"
-            >
-                {{ "landingPage.dashBoard.header" | translate }}
+            <h4 class="text-lg font-semibold uppercase tracking-wide text-primary">
+                {{ 'landingPage.dashBoard.header' | translate }}
             </h4>
             <h1 class="mt-2 text-4xl font-bold md:text-5xl">
-                {{ "landingPage.dashBoard.title" | translate }}
+                {{ 'landingPage.dashBoard.title' | translate }}
             </h1>
         </div>
 
@@ -147,10 +136,10 @@
                 </div>
                 <div class="border-t-4 border-primary p-5 text-center">
                     <h5 class="text-lg font-semibold text-gray-900">
-                        {{ "landingPage.dashBoard.item1.title" | translate }}
+                        {{ 'landingPage.dashBoard.item1.title' | translate }}
                     </h5>
                     <p class="text-gray-600">
-                        {{ "landingPage.dashBoard.item1.detail" | translate }}
+                        {{ 'landingPage.dashBoard.item1.detail' | translate }}
                     </p>
                 </div>
             </div>
@@ -168,10 +157,10 @@
                 </div>
                 <div class="border-t-4 border-primary p-5 text-center">
                     <h5 class="text-lg font-semibold text-gray-900">
-                        {{ "landingPage.dashBoard.item2.title" | translate }}
+                        {{ 'landingPage.dashBoard.item2.title' | translate }}
                     </h5>
                     <p class="text-gray-600">
-                        {{ "landingPage.dashBoard.item2.detail" | translate }}
+                        {{ 'landingPage.dashBoard.item2.detail' | translate }}
                     </p>
                 </div>
             </div>
@@ -188,10 +177,10 @@
                 </div>
                 <div class="border-t-4 border-primary p-5 text-center">
                     <h5 class="text-lg font-semibold text-gray-900">
-                        {{ "landingPage.dashBoard.item3.title" | translate }}
+                        {{ 'landingPage.dashBoard.item3.title' | translate }}
                     </h5>
                     <p class="text-gray-600">
-                        {{ "landingPage.dashBoard.item3.detail" | translate }}
+                        {{ 'landingPage.dashBoard.item3.detail' | translate }}
                     </p>
                 </div>
             </div>
@@ -208,10 +197,10 @@
                 </div>
                 <div class="border-t-4 border-primary p-5 text-center">
                     <h5 class="text-lg font-semibold text-gray-900">
-                        {{ "landingPage.dashBoard.item4.title" | translate }}
+                        {{ 'landingPage.dashBoard.item4.title' | translate }}
                     </h5>
                     <p class="text-gray-600">
-                        {{ "landingPage.dashBoard.item4.detail" | translate }}
+                        {{ 'landingPage.dashBoard.item4.detail' | translate }}
                     </p>
                 </div>
             </div>
@@ -220,90 +209,61 @@
 </div>
 <!-- Team Section End -->
 <!-- Features Section -->
-<section id="features" class="w-full py-16">
+<section
+    id="features"
+    class="w-full py-16"
+>
     <div class="container px-4 md:px-6">
-        <div
-            class="flex flex-col items-center justify-center space-y-4 text-center"
-        >
+        <div class="flex flex-col items-center justify-center space-y-4 text-center">
             <div class="space-y-2">
-                <div
-                    class="inline-block rounded-lg bg-green-100 px-3 py-1 text-sm text-green-800"
-                >
-                    {{ "landingPage.features.title" | translate }}
+                <div class="inline-block rounded-lg bg-green-100 px-3 py-1 text-sm text-green-800">
+                    {{ 'landingPage.features.title' | translate }}
                 </div>
                 <h2 class="text-3xl font-bold tracking-tighter md:text-4xl">
-                    {{ "landingPage.features.mainTitle" | translate }}
+                    {{ 'landingPage.features.mainTitle' | translate }}
                 </h2>
-                <p
-                    class="max-w-[900px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed"
-                >
-                    {{ "landingPage.features.description" | translate }}
+                <p class="max-w-[900px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                    {{ 'landingPage.features.description' | translate }}
                 </p>
             </div>
         </div>
-        <div
-            class="mx-auto grid max-w-5xl items-center gap-6 py-12 lg:grid-cols-3 lg:gap-12"
-        >
+        <div class="mx-auto grid max-w-5xl items-center gap-6 py-12 lg:grid-cols-3 lg:gap-12">
             <div class="flex flex-col justify-center space-y-4">
-                <div
-                    class="flex h-12 w-12 items-center justify-center rounded-lg bg-green-100 text-green-700"
-                >
+                <div class="flex h-12 w-12 items-center justify-center rounded-lg bg-green-100 text-green-700">
                     <i class="pi pi-building text-xl"></i>
                 </div>
                 <div class="space-y-2">
                     <h3 class="text-xl font-bold">
-                        {{
-                            "landingPage.features.buildingManagement.title"
-                                | translate
-                        }}
+                        {{ 'landingPage.features.buildingManagement.title' | translate }}
                     </h3>
                     <p class="text-gray-500">
-                        {{
-                            "landingPage.features.buildingManagement.description"
-                                | translate
-                        }}
+                        {{ 'landingPage.features.buildingManagement.description' | translate }}
                     </p>
                 </div>
             </div>
             <div class="flex flex-col justify-center space-y-4">
-                <div
-                    class="flex h-12 w-12 items-center justify-center rounded-lg bg-green-100 text-green-700"
-                >
+                <div class="flex h-12 w-12 items-center justify-center rounded-lg bg-green-100 text-green-700">
                     <i class="pi pi-sitemap text-xl"></i>
                 </div>
                 <div class="space-y-2">
                     <h3 class="text-xl font-bold">
-                        {{
-                            "landingPage.features.realTimeAnalytics.title"
-                                | translate
-                        }}
+                        {{ 'landingPage.features.realTimeAnalytics.title' | translate }}
                     </h3>
                     <p class="text-gray-500">
-                        {{
-                            "landingPage.features.realTimeAnalytics.description"
-                                | translate
-                        }}
+                        {{ 'landingPage.features.realTimeAnalytics.description' | translate }}
                     </p>
                 </div>
             </div>
             <div class="flex flex-col justify-center space-y-4">
-                <div
-                    class="flex h-12 w-12 items-center justify-center rounded-lg bg-green-100 text-green-700"
-                >
+                <div class="flex h-12 w-12 items-center justify-center rounded-lg bg-green-100 text-green-700">
                     <i class="pi pi-user text-xl"></i>
                 </div>
                 <div class="space-y-2">
                     <h3 class="text-xl font-bold">
-                        {{
-                            "landingPage.features.tenantPortal.title"
-                                | translate
-                        }}
+                        {{ 'landingPage.features.tenantPortal.title' | translate }}
                     </h3>
                     <p class="text-gray-500">
-                        {{
-                            "landingPage.features.tenantPortal.description"
-                                | translate
-                        }}
+                        {{ 'landingPage.features.tenantPortal.description' | translate }}
                     </p>
                 </div>
             </div>
@@ -314,19 +274,17 @@
 <div class="py-16">
     <div class="container mx-auto px-6 lg:px-20">
         <!-- Thẻ con với màu nền và chiều rộng giới hạn -->
-        <div
-            class="max-w-full rounded-lg bg-primary-300 py-8 dark:bg-primary-700"
-        >
+        <div class="max-w-full rounded-lg bg-primary-300 py-8 dark:bg-primary-700">
             <!-- Section Title -->
             <div class="animate-fadeInUp mb-10 px-8 py-4 text-center">
                 <h4 class="text-lg font-semibold uppercase tracking-wide">
-                    {{ "landingPage.testimonials.title" | translate }}
+                    {{ 'landingPage.testimonials.title' | translate }}
                 </h4>
                 <h1 class="mt-2 text-4xl font-bold md:text-5xl">
-                    {{ "landingPage.testimonials.subtitle" | translate }}
+                    {{ 'landingPage.testimonials.subtitle' | translate }}
                 </h1>
                 <p class="mt-5">
-                    {{ "landingPage.testimonials.description" | translate }}
+                    {{ 'landingPage.testimonials.description' | translate }}
                 </p>
             </div>
         </div>
@@ -338,16 +296,14 @@
     <div class="container mx-auto px-6 lg:px-20">
         <!-- Section Title -->
         <div class="animate-fadeInUp mb-10 text-center">
-            <h4
-                class="text-lg font-semibold uppercase tracking-wide text-primary"
-            >
-                {{ "landingPage.reason.subtitle" | translate }}
+            <h4 class="text-lg font-semibold uppercase tracking-wide text-primary">
+                {{ 'landingPage.reason.subtitle' | translate }}
             </h4>
             <h1 class="mt-2 text-4xl font-bold md:text-5xl">
-                {{ "landingPage.reason.title" | translate }}
+                {{ 'landingPage.reason.title' | translate }}
             </h1>
             <p class="mx-auto mt-4 max-w-3xl">
-                {{ "landingPage.reason.description" | translate }}
+                {{ 'landingPage.reason.description' | translate }}
             </p>
         </div>
 
@@ -367,13 +323,10 @@
                         (click)="login()"
                         class="block cursor-pointer text-2xl font-bold text-gray-900 transition-all hover:text-primary"
                     >
-                        {{ "landingPage.whyChoose.item1.title" | translate }}
+                        {{ 'landingPage.whyChoose.item1.title' | translate }}
                     </a>
                     <p class="my-4 text-gray-600">
-                        {{
-                            "landingPage.whyChoose.item1.description"
-                                | translate
-                        }}
+                        {{ 'landingPage.whyChoose.item1.description' | translate }}
                     </p>
                 </div>
             </div>
@@ -392,13 +345,10 @@
                         (click)="login()"
                         class="block cursor-pointer text-2xl font-bold text-gray-900 transition-all hover:text-primary"
                     >
-                        {{ "landingPage.whyChoose.item2.title" | translate }}</a
+                        {{ 'landingPage.whyChoose.item2.title' | translate }}</a
                     >
                     <p class="my-4 text-gray-600">
-                        {{
-                            "landingPage.whyChoose.item2.description"
-                                | translate
-                        }}
+                        {{ 'landingPage.whyChoose.item2.description' | translate }}
                     </p>
                 </div>
             </div>
@@ -415,15 +365,10 @@
                     <a
                         (click)="login()"
                         class="block cursor-pointer text-2xl font-bold text-gray-900 transition-all hover:text-primary"
-                        >{{
-                            "landingPage.whyChoose.item3.title" | translate
-                        }}</a
+                        >{{ 'landingPage.whyChoose.item3.title' | translate }}</a
                     >
                     <p class="my-4 text-gray-600">
-                        {{
-                            "landingPage.whyChoose.item3.description"
-                                | translate
-                        }}
+                        {{ 'landingPage.whyChoose.item3.description' | translate }}
                     </p>
                 </div>
             </div>
@@ -439,15 +384,10 @@
                     <a
                         (click)="login()"
                         class="block cursor-pointer text-2xl font-bold text-gray-900 transition-all hover:text-primary"
-                        >{{
-                            "landingPage.whyChoose.item4.title" | translate
-                        }}</a
+                        >{{ 'landingPage.whyChoose.item4.title' | translate }}</a
                     >
                     <p class="my-4 text-gray-600">
-                        {{
-                            "landingPage.whyChoose.item4.description"
-                                | translate
-                        }}
+                        {{ 'landingPage.whyChoose.item4.description' | translate }}
                     </p>
                 </div>
             </div>
@@ -456,39 +396,29 @@
 </div>
 <!-- Blog Section End -->
 <!-- Testimonials Section -->
-<section id="testimonials" class="w-full py-12 md:py-24 lg:py-32">
+<section
+    id="testimonials"
+    class="w-full py-12 md:py-24 lg:py-32"
+>
     <div class="container px-4 md:px-6">
-        <div
-            class="flex flex-col items-center justify-center space-y-4 text-center"
-        >
+        <div class="flex flex-col items-center justify-center space-y-4 text-center">
             <div class="space-y-2">
-                <div
-                    class="inline-block rounded-lg bg-green-100 px-3 py-1 text-sm text-green-800"
-                >
-                    {{ "landingPage.testimonials.title" | translate }}
+                <div class="inline-block rounded-lg bg-green-100 px-3 py-1 text-sm text-green-800">
+                    {{ 'landingPage.testimonials.title' | translate }}
                 </div>
                 <h2 class="text-3xl font-bold tracking-tighter md:text-4xl">
-                    {{ "landingPage.testimonials.mainTitle" | translate }}
+                    {{ 'landingPage.testimonials.mainTitle' | translate }}
                 </h2>
-                <p
-                    class="max-w-[900px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed"
-                >
-                    {{ "landingPage.testimonials.description" | translate }}
+                <p class="max-w-[900px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                    {{ 'landingPage.testimonials.description' | translate }}
                 </p>
             </div>
         </div>
-        <div
-            class="mx-auto grid max-w-5xl gap-6 py-12 lg:grid-cols-2 lg:gap-12"
-        >
-            <div
-                class="bg-card flex flex-col justify-between rounded-lg border p-6 shadow-sm"
-            >
+        <div class="mx-auto grid max-w-5xl gap-6 py-12 lg:grid-cols-2 lg:gap-12">
+            <div class="bg-card flex flex-col justify-between rounded-lg border p-6 shadow-sm">
                 <div class="space-y-4">
                     <p class="text-gray-500">
-                        {{
-                            "landingPage.testimonials.item1.description"
-                                | translate
-                        }}
+                        {{ 'landingPage.testimonials.item1.description' | translate }}
                     </p>
                 </div>
                 <div class="flex items-center gap-4 pt-4">
@@ -498,23 +428,15 @@
                     <div>
                         <p class="text-sm font-medium">Sarah Johnson</p>
                         <p class="text-sm text-gray-500">
-                            {{
-                                "landingPage.testimonials.item1.author"
-                                    | translate
-                            }}
+                            {{ 'landingPage.testimonials.item1.author' | translate }}
                         </p>
                     </div>
                 </div>
             </div>
-            <div
-                class="bg-card flex flex-col justify-between rounded-lg border p-6 shadow-sm"
-            >
+            <div class="bg-card flex flex-col justify-between rounded-lg border p-6 shadow-sm">
                 <div class="space-y-4">
                     <p class="text-gray-500">
-                        {{
-                            "landingPage.testimonials.item2.description"
-                                | translate
-                        }}
+                        {{ 'landingPage.testimonials.item2.description' | translate }}
                     </p>
                 </div>
                 <div class="flex items-center gap-4 pt-4">
@@ -524,10 +446,7 @@
                     <div>
                         <p class="text-sm font-medium">Michael Chen</p>
                         <p class="text-sm text-gray-500">
-                            {{
-                                "landingPage.testimonials.item2.author"
-                                    | translate
-                            }}
+                            {{ 'landingPage.testimonials.item2.author' | translate }}
                         </p>
                     </div>
                 </div>
@@ -537,25 +456,21 @@
 </section>
 <!-- Footer -->
 <section class="w-full border-t py-6 md:py-12">
-    <div
-        class="container flex flex-col gap-6 px-4 md:flex-row md:items-center md:px-6"
-    >
+    <div class="container flex flex-col gap-6 px-4 md:flex-row md:items-center md:px-6">
         <div class="flex flex-col gap-2">
             <div class="flex items-center gap-2">
                 <i class="fa-solid fa-leaf text-xl text-green-600"></i>
-                <span class="text-xl font-bold">{{
-                    "landingPage.footer.brand" | translate
-                }}</span>
+                <span class="text-xl font-bold">{{ 'landingPage.footer.brand' | translate }}</span>
             </div>
             <p class="text-sm text-gray-500">
-                {{ "landingPage.footer.slogan" | translate }}
+                {{ 'landingPage.footer.slogan' | translate }}
             </p>
         </div>
         <div class="flex-1"></div>
         <nav class="grid grid-cols-2 gap-8 sm:grid-cols-3">
             <div class="space-y-3">
                 <h4 class="text-sm font-medium">
-                    {{ "landingPage.footer.navigation.product" | translate }}
+                    {{ 'landingPage.footer.navigation.product' | translate }}
                 </h4>
                 <ul class="space-y-2">
                     <li>
@@ -563,10 +478,7 @@
                             href="#features"
                             class="text-sm text-gray-500 hover:text-green-600"
                         >
-                            {{
-                                "landingPage.footer.productLinks.features"
-                                    | translate
-                            }}
+                            {{ 'landingPage.footer.productLinks.features' | translate }}
                         </a>
                     </li>
                     <li>
@@ -574,10 +486,7 @@
                             href="#pricing"
                             class="text-sm text-gray-500 hover:text-green-600"
                         >
-                            {{
-                                "landingPage.footer.productLinks.pricing"
-                                    | translate
-                            }}
+                            {{ 'landingPage.footer.productLinks.pricing' | translate }}
                         </a>
                     </li>
                     <li>
@@ -585,17 +494,14 @@
                             href="#"
                             class="text-sm text-gray-500 hover:text-green-600"
                         >
-                            {{
-                                "landingPage.footer.productLinks.caseStudies"
-                                    | translate
-                            }}
+                            {{ 'landingPage.footer.productLinks.caseStudies' | translate }}
                         </a>
                     </li>
                 </ul>
             </div>
             <div class="space-y-3">
                 <h4 class="text-sm font-medium">
-                    {{ "landingPage.footer.navigation.company" | translate }}
+                    {{ 'landingPage.footer.navigation.company' | translate }}
                 </h4>
                 <ul class="space-y-2">
                     <li>
@@ -603,10 +509,7 @@
                             href="#"
                             class="text-sm text-gray-500 hover:text-green-600"
                         >
-                            {{
-                                "landingPage.footer.companyLinks.aboutUs"
-                                    | translate
-                            }}
+                            {{ 'landingPage.footer.companyLinks.aboutUs' | translate }}
                         </a>
                     </li>
                     <li>
@@ -614,10 +517,7 @@
                             href="#"
                             class="text-sm text-gray-500 hover:text-green-600"
                         >
-                            {{
-                                "landingPage.footer.companyLinks.blog"
-                                    | translate
-                            }}
+                            {{ 'landingPage.footer.companyLinks.blog' | translate }}
                         </a>
                     </li>
                     <li>
@@ -625,10 +525,7 @@
                             href="#"
                             class="text-sm text-gray-500 hover:text-green-600"
                         >
-                            {{
-                                "landingPage.footer.companyLinks.careers"
-                                    | translate
-                            }}
+                            {{ 'landingPage.footer.companyLinks.careers' | translate }}
                         </a>
                     </li>
                     <li>
@@ -636,17 +533,14 @@
                             href="#contact"
                             class="text-sm text-gray-500 hover:text-green-600"
                         >
-                            {{
-                                "landingPage.footer.companyLinks.contact"
-                                    | translate
-                            }}
+                            {{ 'landingPage.footer.companyLinks.contact' | translate }}
                         </a>
                     </li>
                 </ul>
             </div>
             <div class="space-y-3">
                 <h4 class="text-sm font-medium">
-                    {{ "landingPage.footer.navigation.legal" | translate }}
+                    {{ 'landingPage.footer.navigation.legal' | translate }}
                 </h4>
                 <ul class="space-y-2">
                     <li>
@@ -654,10 +548,7 @@
                             href="#"
                             class="text-sm text-gray-500 hover:text-green-600"
                         >
-                            {{
-                                "landingPage.footer.legalLinks.privacyPolicy"
-                                    | translate
-                            }}
+                            {{ 'landingPage.footer.legalLinks.privacyPolicy' | translate }}
                         </a>
                     </li>
                     <li>
@@ -665,10 +556,7 @@
                             href="#"
                             class="text-sm text-gray-500 hover:text-green-600"
                         >
-                            {{
-                                "landingPage.footer.legalLinks.termsOfService"
-                                    | translate
-                            }}
+                            {{ 'landingPage.footer.legalLinks.termsOfService' | translate }}
                         </a>
                     </li>
                     <li>
@@ -676,10 +564,7 @@
                             href="#"
                             class="text-sm text-gray-500 hover:text-green-600"
                         >
-                            {{
-                                "landingPage.footer.legalLinks.cookiePolicy"
-                                    | translate
-                            }}
+                            {{ 'landingPage.footer.legalLinks.cookiePolicy' | translate }}
                         </a>
                     </li>
                 </ul>

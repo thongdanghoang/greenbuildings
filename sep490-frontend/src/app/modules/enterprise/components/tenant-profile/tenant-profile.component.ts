@@ -1,11 +1,6 @@
 import {HttpClient} from '@angular/common/http';
 import {Component} from '@angular/core';
-import {
-  AbstractControl,
-  FormBuilder,
-  FormControl,
-  Validators
-} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormControl, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
 import {takeUntil} from 'rxjs';
@@ -69,12 +64,10 @@ export class TenantProfileComponent extends AbstractFormComponent<TenantDetailDT
   }
 
   protected initializeData(): void {
-    this.applicationService.UserData.pipe(takeUntil(this.destroy$)).subscribe(
-      userData => {
-        this.enterpriseId = userData.enterpriseId;
-        this.loadTenantDetail();
-      }
-    );
+    this.applicationService.UserData.pipe(takeUntil(this.destroy$)).subscribe(userData => {
+      this.enterpriseId = userData.enterpriseId;
+      this.loadTenantDetail();
+    });
   }
 
   protected initializeFormControls(): {[p: string]: AbstractControl} {
@@ -91,11 +84,7 @@ export class TenantProfileComponent extends AbstractFormComponent<TenantDetailDT
   }
 
   protected onSubmitFormDataSuccess(): void {
-    void this.router.navigate([
-      '/',
-      AppRoutingConstants.ENTERPRISE_PATH,
-      'tenants'
-    ]);
+    void this.router.navigate(['/', AppRoutingConstants.ENTERPRISE_PATH, 'tenants']);
   }
 
   private loadTenantDetail(): void {

@@ -14,15 +14,23 @@
         style="min-height: 42px"
     >
         <div class="text-lg font-bold text-primary">
-            {{ "enterprise.tenant.create.title" | translate }}
+            {{ 'enterprise.tenant.create.title' | translate }}
         </div>
     </div>
-    <form [formGroup]="formGroup" class="py-5 sm:mt-5 sm:px-5">
+    <form
+        [formGroup]="formGroup"
+        class="py-5 sm:mt-5 sm:px-5"
+    >
         <div class="my-3 mb-8 grid grid-cols-12 items-center gap-2 sm:gap-4">
-            <label class="col-span-12 font-normal sm:col-span-3" for="name">{{
-                "enterprise.buildings.tenant.email" | translate
-            }}</label>
-            <div class="col-span-12 *:w-full sm:col-span-9" errorMessages>
+            <label
+                class="col-span-12 font-normal sm:col-span-3"
+                for="name"
+                >{{ 'enterprise.buildings.tenant.email' | translate }}</label
+            >
+            <div
+                class="col-span-12 *:w-full sm:col-span-9"
+                errorMessages
+            >
                 <input
                     class="w-full"
                     pInputText
@@ -30,35 +38,29 @@
                     formControlName="tenantEmail"
                     id="name"
                     type="text"
-                    [placeholder]="
-                        'enterprise.buildings.tenant.placeholder.email'
-                            | translate
-                    "
+                    [placeholder]="'enterprise.buildings.tenant.placeholder.email' | translate"
                 />
                 <form-field-error></form-field-error>
             </div>
         </div>
         <div class="my-3 mb-8 grid grid-cols-12 items-start gap-2 sm:gap-4">
             <label class="col-span-12 font-normal sm:col-span-3">
-                {{ "enterprise.buildings.tenant.buildingGroup" | translate }}
+                {{ 'enterprise.buildings.tenant.buildingGroup' | translate }}
             </label>
             <p
                 class="col-span-12 sm:col-span-9"
                 *ngIf="availableGroups.length === 0"
             >
-                {{ "enterprise.buildings.tenant.noGroups" | translate }}
+                {{ 'enterprise.buildings.tenant.noGroups' | translate }}
             </p>
-            <div
-                class="col-span-12 grid grid-cols-1 gap-3 sm:col-span-9 sm:grid-cols-2 lg:grid-cols-3"
-            >
+            <div class="col-span-12 grid grid-cols-1 gap-3 sm:col-span-9 sm:grid-cols-2 lg:grid-cols-3">
                 <div
                     *ngFor="let group of availableGroups"
                     (click)="selectGroup(group.id)"
                     [ngClass]="{
                         'border-blue-600 bg-green-200 ring-2 ring-blue-500':
                             formStructure.selectedGroupId.value === group.id,
-                        'border-gray-300 bg-blue-50 hover:bg-gray-50':
-                            formStructure.selectedGroupId.value !== group.id,
+                        'border-gray-300 bg-blue-50 hover:bg-gray-50': formStructure.selectedGroupId.value !== group.id
                     }"
                     class="cursor-pointer rounded-xl border p-4 shadow-sm transition-all duration-200"
                 >
@@ -77,9 +79,7 @@
 
         <div class="flex justify-end gap-4 *:min-w-24 sm:justify-start">
             <p-button
-                [label]="
-                    'enterprise.buildings.tenant.sendInvitation' | translate
-                "
+                [label]="'enterprise.buildings.tenant.sendInvitation' | translate"
                 severity="primary"
                 styleClass="w-full"
                 [disabled]="this.formGroup.invalid"

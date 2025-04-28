@@ -59,11 +59,7 @@ export class UnitService {
       case EmissionUnit.TERAJOULE:
       case EmissionUnit.GIGAJOULE:
       case EmissionUnit.MEGAJOULE:
-        return [
-          EmissionUnit.TERAJOULE,
-          EmissionUnit.GIGAJOULE,
-          EmissionUnit.MEGAJOULE
-        ];
+        return [EmissionUnit.TERAJOULE, EmissionUnit.GIGAJOULE, EmissionUnit.MEGAJOULE];
 
       // Other units
       case EmissionUnit.PERCENT:

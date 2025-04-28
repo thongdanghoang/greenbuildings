@@ -1,11 +1,6 @@
 import {HttpClient} from '@angular/common/http';
 import {Component} from '@angular/core';
-import {
-  AbstractControl,
-  FormBuilder,
-  FormControl,
-  Validators
-} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormControl, Validators} from '@angular/forms';
 import {TranslateService} from '@ngx-translate/core';
 import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
 import {takeUntil} from 'rxjs';
@@ -38,10 +33,7 @@ export class NewActivityRecordDialogComponent extends AbstractFormComponent<Emis
     unit: new FormControl('', [Validators.required]),
     quantity: new FormControl(0, [Validators.required, Validators.min(0)]),
     startDate: new FormControl(new Date()),
-    rangeDates: new FormControl(
-      [],
-      [Validators.required, Validators.min(2), Validators.max(2)]
-    ),
+    rangeDates: new FormControl([], [Validators.required, Validators.min(2), Validators.max(2)]),
     endDate: new FormControl(new Date())
   };
 
@@ -92,9 +84,7 @@ export class NewActivityRecordDialogComponent extends AbstractFormComponent<Emis
     }
     if (startDate.value > Date.now() || endDate.value > Date.now()) {
       this.notificationService.businessError({
-        detail: this.translate.instant(
-          'enterprise.emission.activity.record.dateWarning'
-        ),
+        detail: this.translate.instant('enterprise.emission.activity.record.dateWarning'),
         summary: this.translate.instant('common.error.title')
       });
       rangeDates.setValue([]);
@@ -109,10 +99,7 @@ export class NewActivityRecordDialogComponent extends AbstractFormComponent<Emis
         startDate: this.convertDateToUTC(this.formGroup.value.startDate),
         endDate: this.convertDateToUTC(this.formGroup.value.endDate)
       };
-      formData.append(
-        'record',
-        new Blob([JSON.stringify(recordData)], {type: 'application/json'})
-      );
+      formData.append('record', new Blob([JSON.stringify(recordData)], {type: 'application/json'}));
       if (this.selectedFile) {
         formData.append('file', this.selectedFile);
       }
@@ -165,21 +152,15 @@ export class NewActivityRecordDialogComponent extends AbstractFormComponent<Emis
 
   handleUpdate(): void {
     if (this.data?.editRecord) {
-      this.formGroup.controls['startDate'].setValue(
-        new Date(this.data.editRecord.startDate)
-      );
-      this.formGroup.controls['endDate'].setValue(
-        new Date(this.data.editRecord.endDate)
-      );
+      this.formGroup.controls['startDate'].setValue(new Date(this.data.editRecord.startDate));
+      this.formGroup.controls['endDate'].setValue(new Date(this.data.editRecord.endDate));
       this.formGroup.controls['rangeDates'].setValue([
         new Date(this.data.editRecord.startDate),
         new Date(this.data.editRecord.endDate)
       ]);
       this.formGroup.controls['value'].setValue(this.data.editRecord.value);
       this.formGroup.controls['unit'].setValue(this.data.editRecord.unit);
-      this.formGroup.controls['quantity'].setValue(
-        this.data.editRecord.quantity
-      );
+      this.formGroup.controls['quantity'].setValue(this.data.editRecord.quantity);
       this.formGroup.controls['id'].setValue(this.data.editRecord.id);
       this.formGroup.controls['version'].setValue(this.data.editRecord.version);
     }
@@ -187,10 +168,7 @@ export class NewActivityRecordDialogComponent extends AbstractFormComponent<Emis
 
   onDownloadFile(): void {
     this.emissionActivityRecordService
-      .getFileUrl(
-        this.data?.editRecord!.id as string,
-        this.data?.editRecord!.file.id as string
-      )
+      .getFileUrl(this.data?.editRecord!.id as string, this.data?.editRecord!.file.id as string)
       .subscribe((result: any) => {
         const url = result.url;
         window.open(url, '_blank'); // Open in a new tab
@@ -205,10 +183,7 @@ export class NewActivityRecordDialogComponent extends AbstractFormComponent<Emis
 
   onFileSelect(event: any): void {
     const file: File = event.files[0];
-    if (
-      file.size > 5 * 1024 * 1024 ||
-      (file.type !== 'application/pdf' && !file.type.startsWith('image/'))
-    ) {
+    if (file.size > 5 * 1024 * 1024 || (file.type !== 'application/pdf' && !file.type.startsWith('image/'))) {
       this.notificationService.businessError({
         summary: this.translate.instant('common.error.title'),
         detail: this.translate.instant('common.error.fileSizeError')
@@ -244,9 +219,7 @@ export class NewActivityRecordDialogComponent extends AbstractFormComponent<Emis
     let supportedUnits: EmissionUnit[];
 
     if (this.data!.factor.directEmission) {
-      supportedUnits = this.unitService.getSameUnitType(
-        this.data!.factor.emissionUnitDenominator
-      );
+      supportedUnits = this.unitService.getSameUnitType(this.data!.factor.emissionUnitDenominator);
     } else {
       supportedUnits = this.unitService.getSameUnitType(
         this.data!.factor.energyConversionDTO!.conversionUnitDenominator

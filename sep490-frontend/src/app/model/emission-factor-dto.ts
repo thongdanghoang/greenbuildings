@@ -55,8 +55,7 @@ export namespace EmissionFactorDTO {
     PERCENT: 'PERCENT',
     PIECES: 'PIECES'
   } as const;
-  export type EmissionUnitNumeratorEnum =
-    (typeof EmissionUnitNumeratorEnum)[keyof typeof EmissionUnitNumeratorEnum];
+  export type EmissionUnitNumeratorEnum = (typeof EmissionUnitNumeratorEnum)[keyof typeof EmissionUnitNumeratorEnum];
   export const EmissionUnitDenominatorEnum = {
     GRAM: 'GRAM',
     KILOGRAM: 'KILOGRAM',

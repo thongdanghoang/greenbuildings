@@ -1,12 +1,8 @@
-<div
-    class="card overflow-hidden rounded-xl bg-white shadow-xl dark:bg-gray-800"
->
-    <div
-        class="card-header bg-gradient-to-r from-blue-400 to-indigo-400 p-6 dark:from-blue-700 dark:to-indigo-600"
-    >
+<div class="card overflow-hidden rounded-xl bg-white shadow-xl dark:bg-gray-800">
+    <div class="card-header bg-gradient-to-r from-blue-400 to-indigo-400 p-6 dark:from-blue-700 dark:to-indigo-600">
         <div class="flex items-center justify-between">
             <h3 class="text-2xl font-bold text-white">
-                {{ "tenant.profile.title" | translate }}
+                {{ 'tenant.profile.title' | translate }}
             </h3>
             <button
                 pButton
@@ -20,14 +16,17 @@
     </div>
 
     <div class="card-body bg-gray-50 p-8 dark:bg-gray-900">
-        <form [formGroup]="formGroup" class="space-y-6">
+        <form
+            [formGroup]="formGroup"
+            class="space-y-6"
+        >
             <!-- Name -->
             <div class="field">
                 <label
                     for="name"
                     class="mb-2 block text-sm font-semibold text-gray-800 dark:text-gray-200"
                 >
-                    {{ "tenant.profile.name" | translate }} *
+                    {{ 'tenant.profile.name' | translate }} *
                 </label>
                 <div class="p-inputgroup relative w-full">
                     <input
@@ -38,13 +37,10 @@
                     />
                 </div>
                 <small
-                    *ngIf="
-                        formGroup.get('name')?.invalid &&
-                        formGroup.get('name')?.touched
-                    "
+                    *ngIf="formGroup.get('name')?.invalid && formGroup.get('name')?.touched"
                     class="mt-1 block text-xs font-medium text-red-600 dark:text-red-400"
                 >
-                    {{ "validation.required" | translate }}
+                    {{ 'validation.required' | translate }}
                 </small>
             </div>
 
@@ -54,7 +50,7 @@
                     for="email"
                     class="mb-2 block text-sm font-semibold text-gray-800 dark:text-gray-200"
                 >
-                    {{ "tenant.profile.email" | translate }} *
+                    {{ 'tenant.profile.email' | translate }} *
                 </label>
                 <div class="p-inputgroup relative w-full">
                     <input
@@ -66,22 +62,16 @@
                     />
                 </div>
                 <small
-                    *ngIf="
-                        formGroup.get('email')?.hasError('required') &&
-                        formGroup.get('email')?.touched
-                    "
+                    *ngIf="formGroup.get('email')?.hasError('required') && formGroup.get('email')?.touched"
                     class="mt-1 block text-xs font-medium text-red-600 dark:text-red-400"
                 >
-                    {{ "validation.required" | translate }}
+                    {{ 'validation.required' | translate }}
                 </small>
                 <small
-                    *ngIf="
-                        formGroup.get('email')?.hasError('email') &&
-                        formGroup.get('email')?.touched
-                    "
+                    *ngIf="formGroup.get('email')?.hasError('email') && formGroup.get('email')?.touched"
                     class="mt-1 block text-xs font-medium text-red-600 dark:text-red-400"
                 >
-                    {{ "validation.email" | translate }}
+                    {{ 'validation.email' | translate }}
                 </small>
             </div>
 
@@ -91,7 +81,7 @@
                     for="hotline"
                     class="mb-2 block text-sm font-semibold text-gray-800 dark:text-gray-200"
                 >
-                    {{ "tenant.profile.hotline" | translate }} *
+                    {{ 'tenant.profile.hotline' | translate }} *
                 </label>
                 <div class="p-inputgroup relative w-full">
                     <input
@@ -102,29 +92,21 @@
                     />
                 </div>
                 <small
-                    *ngIf="
-                        formGroup.get('hotline')?.hasError('required') &&
-                        formGroup.get('hotline')?.touched
-                    "
+                    *ngIf="formGroup.get('hotline')?.hasError('required') && formGroup.get('hotline')?.touched"
                     class="mt-1 block text-xs font-medium text-red-600 dark:text-red-400"
                 >
-                    {{ "validation.required" | translate }}
+                    {{ 'validation.required' | translate }}
                 </small>
                 <small
-                    *ngIf="
-                        formGroup.get('hotline')?.hasError('pattern') &&
-                        formGroup.get('hotline')?.touched
-                    "
+                    *ngIf="formGroup.get('hotline')?.hasError('pattern') && formGroup.get('hotline')?.touched"
                     class="mt-1 block text-xs font-medium text-red-600 dark:text-red-400"
                 >
-                    {{ "validation.phoneNumber" | translate }}
+                    {{ 'validation.phoneNumber' | translate }}
                 </small>
             </div>
 
             <!-- Action Buttons -->
-            <div
-                class="mt-8 flex justify-end space-x-4 border-t border-gray-200 pt-6 dark:border-gray-700"
-            >
+            <div class="mt-8 flex justify-end space-x-4 border-t border-gray-200 pt-6 dark:border-gray-700">
                 <button
                     pButton
                     type="button"

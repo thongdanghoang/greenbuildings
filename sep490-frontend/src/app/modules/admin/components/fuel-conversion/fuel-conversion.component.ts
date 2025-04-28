@@ -1,16 +1,6 @@
-import {
-  Component,
-  EventEmitter,
-  OnInit,
-  TemplateRef,
-  ViewChild
-} from '@angular/core';
+import {Component, EventEmitter, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
-import {
-  DialogService,
-  DynamicDialogConfig,
-  DynamicDialogRef
-} from 'primeng/dynamicdialog';
+import {DialogService, DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
 import {Observable} from 'rxjs';
 import {UUID} from '../../../../../types/uuid';
 import {EnergyConversionDTO, FuelDTO} from '@models/shared-models';
@@ -29,10 +19,7 @@ export interface FuelConversionCriteria {
   templateUrl: './fuel-conversion.component.html',
   styleUrl: './fuel-conversion.component.css'
 })
-export class FuelConversionComponent
-  extends SubscriptionAwareComponent
-  implements OnInit
-{
+export class FuelConversionComponent extends SubscriptionAwareComponent implements OnInit {
   @ViewChild('fuelTemplate', {static: true})
   fuelTemplate!: TemplateRef<any>;
   @ViewChild('actionsTemplate', {static: true})
@@ -56,9 +43,7 @@ export class FuelConversionComponent
 
   ngOnInit(): void {
     this.buildCols();
-    this.fetchFuel = this.fuelConversionService.getFuelConversion.bind(
-      this.fuelConversionService
-    );
+    this.fetchFuel = this.fuelConversionService.getFuelConversion.bind(this.fuelConversionService);
   }
 
   getLocalizedFuelName(source: FuelDTO | undefined): string {

@@ -1,20 +1,14 @@
-<div
-    class="grid grid-cols-1 items-center justify-center gap-4 p-4 md:grid-cols-2 lg:grid-cols-2"
->
+<div class="grid grid-cols-1 items-center justify-center gap-4 p-4 md:grid-cols-2 lg:grid-cols-2">
     @for (ratio of creditConvertRatios; track ratio.id) {
         <p-card class="rounded-2xl shadow-lg">
             <ng-template #header>
-                <div
-                    class="bg-primary-400 py-6 text-center text-lg font-semibold dark:bg-primary-600"
-                >
-                    {{ "admin.ratio.type." + ratio.convertType | translate }}
+                <div class="bg-primary-400 py-6 text-center text-lg font-semibold dark:bg-primary-600">
+                    {{ 'admin.ratio.type.' + ratio.convertType | translate }}
                 </div>
             </ng-template>
             <ng-template #title>
-                <div
-                    class="flex items-center justify-center text-primary-emphasis"
-                >
-                    {{ "admin.ratio.title" | translate }}
+                <div class="flex items-center justify-center text-primary-emphasis">
+                    {{ 'admin.ratio.title' | translate }}
                 </div>
             </ng-template>
             <ng-template #subtitle>
@@ -22,10 +16,7 @@
                     <div
                         pRipple
                         class="box cursor-pointer rounded-full p-4"
-                        style="
-                            border: 1px solid rgba(75, 175, 80, 0.3);
-                            --p-ripple-background: rgba(75, 175, 80, 0.3);
-                        "
+                        style="border: 1px solid rgba(75, 175, 80, 0.3); --p-ripple-background: rgba(75, 175, 80, 0.3)"
                     >
                         <span class="font-bold">{{ ratio.ratio }}</span>
                     </div>

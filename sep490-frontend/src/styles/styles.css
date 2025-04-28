@@ -1,4 +1,4 @@
-@import "primeicons/primeicons.css";
+@import 'primeicons/primeicons.css';
 
 @layer tailwind-base, primeng, tailwind-utilities;
 

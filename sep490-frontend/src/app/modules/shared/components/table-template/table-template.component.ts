@@ -1,12 +1,4 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-  TemplateRef,
-  ViewChild
-} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {SortEvent} from 'primeng/api';
 import {PaginatorState} from 'primeng/paginator';
@@ -31,11 +23,7 @@ export interface TableTemplateColumn {
   templateUrl: './table-template.component.html',
   styleUrl: './table-template.component.scss'
 })
-export class TableTemplateComponent<
-    C,
-    R,
-    W extends SearchResultDto<R> = SearchResultDto<R>
-  >
+export class TableTemplateComponent<C, R, W extends SearchResultDto<R> = SearchResultDto<R>>
   extends AbstractSearchComponent<C, R, W>
   implements OnInit
 {
@@ -60,9 +48,7 @@ export class TableTemplateComponent<
     private readonly applicationService: ApplicationService
   ) {
     super(translate, messageService);
-    this.paginatorTemplateString = this.translate.instant(
-      'table.paginatorString'
-    );
+    this.paginatorTemplateString = this.translate.instant('table.paginatorString');
   }
 
   override ngOnInit(): void {
@@ -71,22 +57,16 @@ export class TableTemplateComponent<
       this.submit();
     }
     if (this.triggerSearch) {
-      this.triggerSearch
-        .pipe(takeUntil(this.destroy$))
-        .subscribe((): void => this.submit());
+      this.triggerSearch.pipe(takeUntil(this.destroy$)).subscribe((): void => this.submit());
     }
     if (this.triggerClearSelected) {
-      this.triggerClearSelected
-        .pipe(takeUntil(this.destroy$))
-        .subscribe((): void => {
-          this.selected = [];
-        });
+      this.triggerClearSelected.pipe(takeUntil(this.destroy$)).subscribe((): void => {
+        this.selected = [];
+      });
     }
     this.registerSubscription(
       this.translate.onLangChange.subscribe((): void => {
-        this.paginatorTemplateString = this.translate.instant(
-          'table.paginatorString'
-        );
+        this.paginatorTemplateString = this.translate.instant('table.paginatorString');
       })
     );
   }

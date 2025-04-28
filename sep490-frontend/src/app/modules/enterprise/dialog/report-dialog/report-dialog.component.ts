@@ -1,11 +1,6 @@
 import {HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
 import {Component} from '@angular/core';
-import {
-  AbstractControl,
-  FormBuilder,
-  FormControl,
-  Validators
-} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormControl, Validators} from '@angular/forms';
 import {TranslateService} from '@ngx-translate/core';
 import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
 import {take} from 'rxjs';
@@ -52,11 +47,9 @@ export class ReportDialogComponent extends AbstractFormComponent<DownloadReport>
 
   protected initializeData(): void {
     this.formStructure.buildingID.setValue(this.config.data!.toString());
-    this.emissionActivityService
-      .getAllActivitiesByBuildingId(this.config.data!)
-      .subscribe(activities => {
-        this.activities = activities;
-      });
+    this.emissionActivityService.getAllActivitiesByBuildingId(this.config.data!).subscribe(activities => {
+      this.activities = activities;
+    });
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars,@typescript-eslint/explicit-function-return-type,max-lines-per-function
@@ -83,12 +76,8 @@ export class ReportDialogComponent extends AbstractFormComponent<DownloadReport>
             const downloadLink = document.createElement('a');
             downloadLink.href = URL.createObjectURL(blob);
 
-            const contentDisposition = result.headers.get(
-              'content-disposition'
-            );
-            downloadLink.download = // fileName
-              contentDisposition?.split('filename=')[1]?.trim() ||
-              'report.xlsx';
+            const contentDisposition = result.headers.get('content-disposition');
+            downloadLink.download = contentDisposition?.split('filename=')[1]?.trim() || 'report.xlsx'; // fileName
             downloadLink.click();
             this.showSaveSuccessNotification(result);
             this.onSubmitFormDataSuccess(result);
@@ -103,30 +92,19 @@ export class ReportDialogComponent extends AbstractFormComponent<DownloadReport>
   }
 
   protected override prepareDataBeforeSubmit(): void {
-    if (
-      this.formStructure.rangeDates.value!.length !== 2 &&
-      this.formStructure.rangeDates.value!.length !== 1
-    ) {
+    if (this.formStructure.rangeDates.value!.length !== 2 && this.formStructure.rangeDates.value!.length !== 1) {
       this.formStructure.rangeDates.setErrors({
         invalid: true
       });
       return;
     }
-    this.formStructure.startDate.setValue(
-      this.formStructure.rangeDates.value![0]
-    );
+    this.formStructure.startDate.setValue(this.formStructure.rangeDates.value![0]);
     if (this.formStructure.rangeDates.value![1]) {
-      this.formStructure.endDate.setValue(
-        this.formStructure.rangeDates.value![1]
-      );
+      this.formStructure.endDate.setValue(this.formStructure.rangeDates.value![1]);
     } else {
-      this.formStructure.endDate.setValue(
-        this.formStructure.rangeDates.value![0]
-      );
+      this.formStructure.endDate.setValue(this.formStructure.rangeDates.value![0]);
     }
-    if (
-      this.formStructure.startDate.value! > this.formStructure.endDate.value!
-    ) {
+    if (this.formStructure.startDate.value! > this.formStructure.endDate.value!) {
       const temp = this.formStructure.startDate.value;
       this.formStructure.startDate.setValue(this.formStructure.endDate.value);
       this.formStructure.endDate.setValue(temp);

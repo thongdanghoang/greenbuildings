@@ -1,8 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    "./src/**/*.{html,ts}",
-  ],
+  content: ['./src/**/*.{html,ts}'],
   darkMode: ['selector', '[class~="my-app-dark"]'],
   theme: {
     extend: {
@@ -59,12 +57,12 @@ module.exports = {
           900: '#3a5458',
           950: '#243437'
         },
-        black: "#2A2A2A"
+        black: '#2A2A2A'
       },
       fontFamily: {
         sans: ['HeraclitoRegular', 'sans-serif']
-      },
-    },
+      }
+    }
   },
   plugins: [require('tailwindcss-primeui')]
-}
+};

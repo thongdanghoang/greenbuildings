@@ -14,25 +14,30 @@
         style="min-height: 42px"
     >
         <div class="text-lg font-bold text-primary">
-            {{ "enterprise.building-group.create.title" | translate }}
+            {{ 'enterprise.building-group.create.title' | translate }}
         </div>
     </div>
-    <form [formGroup]="formGroup" class="py-5 sm:mt-5 sm:px-5">
+    <form
+        [formGroup]="formGroup"
+        class="py-5 sm:mt-5 sm:px-5"
+    >
         <div class="my-3 mb-8 grid grid-cols-12 items-center gap-2 sm:gap-4">
-            <label class="col-span-12 font-normal sm:col-span-3" for="name">{{
-                "enterprise.building-group.create.name" | translate
-            }}</label>
-            <div class="col-span-12 *:w-full sm:col-span-9" errorMessages>
+            <label
+                class="col-span-12 font-normal sm:col-span-3"
+                for="name"
+                >{{ 'enterprise.building-group.create.name' | translate }}</label
+            >
+            <div
+                class="col-span-12 *:w-full sm:col-span-9"
+                errorMessages
+            >
                 <input
                     class="w-full"
                     pInputText
                     formControlName="name"
                     id="name"
                     type="text"
-                    [placeholder]="
-                        'enterprise.building-group.create.placeholders.name'
-                            | translate
-                    "
+                    [placeholder]="'enterprise.building-group.create.placeholders.name' | translate"
                 />
                 <form-field-error></form-field-error>
             </div>
@@ -41,21 +46,19 @@
                 class="col-span-12 font-normal sm:col-span-3"
                 for="description"
             >
-                {{
-                    "enterprise.building-group.create.description" | translate
-                }}</label
+                {{ 'enterprise.building-group.create.description' | translate }}</label
             >
-            <div class="col-span-12 *:w-full sm:col-span-9" errorMessages>
+            <div
+                class="col-span-12 *:w-full sm:col-span-9"
+                errorMessages
+            >
                 <input
                     class="w-full"
                     pInputText
                     formControlName="description"
                     id="description"
                     type="text"
-                    [placeholder]="
-                        'enterprise.building-group.create.placeholders.description'
-                            | translate
-                    "
+                    [placeholder]="'enterprise.building-group.create.placeholders.description' | translate"
                 />
                 <form-field-error></form-field-error>
             </div>

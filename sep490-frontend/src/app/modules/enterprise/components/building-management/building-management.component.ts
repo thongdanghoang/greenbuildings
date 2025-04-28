@@ -1,10 +1,4 @@
-import {
-  Component,
-  EventEmitter,
-  OnInit,
-  TemplateRef,
-  ViewChild
-} from '@angular/core';
+import {Component, EventEmitter, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {BuildingGroupCriteria} from '@models/building-group';
 import {TranslateService} from '@ngx-translate/core';
@@ -13,11 +7,7 @@ import {Observable, filter, map, switchMap, takeUntil} from 'rxjs';
 import {validate} from 'uuid';
 import {UUID} from '../../../../../types/uuid';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
-import {
-  BuildingDetails,
-  BuildingGroup,
-  OverviewBuildingDTO
-} from '@models/enterprise';
+import {BuildingDetails, BuildingGroup, OverviewBuildingDTO} from '@models/enterprise';
 import {BuildingGroupService} from '@services/building-group.service';
 import {BuildingService} from '@services/building.service';
 import {TenantService} from '@services/tenant.service';
@@ -33,10 +23,7 @@ import {ToastProvider} from '@shared/services/toast-provider';
   templateUrl: './building-management.component.html',
   styleUrl: './building-management.component.css'
 })
-export class BuildingManagementComponent
-  extends SubscriptionAwareComponent
-  implements OnInit
-{
+export class BuildingManagementComponent extends SubscriptionAwareComponent implements OnInit {
   @ViewChild('actionsTemplate', {static: true})
   actionsTemplate!: TemplateRef<any>;
   buildingDetails!: BuildingDetails;
@@ -46,8 +33,7 @@ export class BuildingManagementComponent
   protected searchCriteria!: BuildingGroupCriteria;
   protected cols: TableTemplateColumn[] = [];
   protected readonly searchEvent: EventEmitter<void> = new EventEmitter();
-  protected readonly clearSelectedEvent: EventEmitter<void> =
-    new EventEmitter();
+  protected readonly clearSelectedEvent: EventEmitter<void> = new EventEmitter();
   protected overviewBuilding?: OverviewBuildingDTO;
   protected selected: BuildingGroup[] = [];
 
@@ -67,9 +53,7 @@ export class BuildingManagementComponent
 
   ngOnInit(): void {
     this.fetchBuildingDetails();
-    this.fetchGroups = this.buildingGroupService.search.bind(
-      this.buildingGroupService
-    );
+    this.fetchGroups = this.buildingGroupService.search.bind(this.buildingGroupService);
     this.searchCriteria = {buildingId: '' as UUID};
   }
 
@@ -92,18 +76,11 @@ export class BuildingManagementComponent
   }
 
   goBack(): void {
-    void this.router.navigate([
-      AppRoutingConstants.ENTERPRISE_PATH,
-      AppRoutingConstants.BUILDING_PATH
-    ]);
+    void this.router.navigate([AppRoutingConstants.ENTERPRISE_PATH, AppRoutingConstants.BUILDING_PATH]);
   }
 
   navigateToBuildingGroupDetail(group: BuildingGroup): void {
-    void this.router.navigate([
-      AppRoutingConstants.ENTERPRISE_PATH,
-      AppRoutingConstants.BUILDING_GROUP_PATH,
-      group.id
-    ]);
+    void this.router.navigate([AppRoutingConstants.ENTERPRISE_PATH, AppRoutingConstants.BUILDING_GROUP_PATH, group.id]);
   }
 
   generateReport(): void {}

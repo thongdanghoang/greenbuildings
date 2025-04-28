@@ -19,10 +19,7 @@ import {UUID} from '../../../../../types/uuid';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
 import {BuildingPermissionRole} from '@models/building-permission-role';
 import {Building} from '@models/enterprise';
-import {
-  BuildingPermission,
-  EnterpriseUserDetails
-} from '@models/enterprise-user';
+import {BuildingPermission, EnterpriseUserDetails} from '@models/enterprise-user';
 import {UserRole} from '@models/role-names';
 import {UserScope} from '@models/user-scope';
 import {BuildingService} from '@services/building.service';
@@ -59,19 +56,14 @@ export class UserProfileComponent extends AbstractFormComponent<EnterpriseUserDe
     role: new FormControl(UserRole[UserRole.ENTERPRISE_OWNER]),
     scope: new FormControl<string>(''),
     buildingPermissions: new FormArray([]),
-    selectedBuildingIds: new FormControl<UUID[]>(
-      [],
-      [this.selectedBuildingIdsValidator().bind(this)]
-    ),
+    selectedBuildingIds: new FormControl<UUID[]>([], [this.selectedBuildingIdsValidator().bind(this)]),
     enterprisePermission: new FormControl<BuildingPermissionRole | null>(null)
   };
-  protected selectableBuildings: SelectableItem<any>[] = this.buildings.map(
-    building => ({
-      disabled: false,
-      value: building.id,
-      label: building.name
-    })
-  );
+  protected selectableBuildings: SelectableItem<any>[] = this.buildings.map(building => ({
+    disabled: false,
+    value: building.id,
+    label: building.name
+  }));
 
   constructor(
     httpClient: HttpClient,
@@ -115,19 +107,11 @@ export class UserProfileComponent extends AbstractFormComponent<EnterpriseUserDe
 
   onBuildingSelect(event: MultiSelectChangeEvent): void {
     const selectedBuildingIds = event.value;
-    const currentBuildingIds = this.buildingPermissions.controls.map(
-      control => control.value.buildingId
-    );
-    const buildingIdsToAdd = selectedBuildingIds.filter(
-      (id: UUID): boolean => !currentBuildingIds.includes(id)
-    );
-    const buildingIdsToRemove = currentBuildingIds.filter(
-      (id: UUID): boolean => !selectedBuildingIds.includes(id)
-    );
+    const currentBuildingIds = this.buildingPermissions.controls.map(control => control.value.buildingId);
+    const buildingIdsToAdd = selectedBuildingIds.filter((id: UUID): boolean => !currentBuildingIds.includes(id));
+    const buildingIdsToRemove = currentBuildingIds.filter((id: UUID): boolean => !selectedBuildingIds.includes(id));
     buildingIdsToRemove.forEach(buildingId => {
-      const index = this.buildingPermissions.controls.findIndex(
-        control => control.value.buildingId === buildingId
-      );
+      const index = this.buildingPermissions.controls.findIndex(control => control.value.buildingId === buildingId);
       if (index !== -1) {
         this.removeBuildingPermission(index);
       }
@@ -153,16 +137,11 @@ export class UserProfileComponent extends AbstractFormComponent<EnterpriseUserDe
   }
 
   get scopeBuildings(): boolean {
-    return (
-      this.enterpriseUserStructure.scope.value === UserScope[UserScope.BUILDING]
-    );
+    return this.enterpriseUserStructure.scope.value === UserScope[UserScope.BUILDING];
   }
 
   get scopeEnterprise(): boolean {
-    return (
-      this.enterpriseUserStructure.scope.value ===
-      UserScope[UserScope.ENTERPRISE]
-    );
+    return this.enterpriseUserStructure.scope.value === UserScope[UserScope.ENTERPRISE];
   }
 
   get buildingPermissions(): FormArray {
@@ -170,16 +149,11 @@ export class UserProfileComponent extends AbstractFormComponent<EnterpriseUserDe
   }
 
   getBuildingName(control: AbstractControl): string {
-    const building = this.buildings.find(
-      b => b.id === control.value.buildingId
-    );
+    const building = this.buildings.find(b => b.id === control.value.buildingId);
     return building?.name ?? '';
   }
 
-  addBuildingPermission(
-    buildingId: UUID | null,
-    role?: keyof typeof BuildingPermissionRole
-  ): void {
+  addBuildingPermission(buildingId: UUID | null, role?: keyof typeof BuildingPermissionRole): void {
     this.buildingPermissions.controls.push(
       this.formBuilder.group({
         buildingId: new FormControl(buildingId),
@@ -208,9 +182,7 @@ export class UserProfileComponent extends AbstractFormComponent<EnterpriseUserDe
       .subscribe(user => {
         this.formGroup.patchValue(user);
         // js didn't parse the date correctly from LocalDateTime to js Date
-        this.enterpriseUserStructure.createdDate.setValue(
-          new Date(user.createdDate)
-        );
+        this.enterpriseUserStructure.createdDate.setValue(new Date(user.createdDate));
         this.initializeBuildingPermissions(user.buildingPermissions);
         this.initializeSelectedBuildingIds();
         this.initializeEnterprisePermission();
@@ -228,16 +200,10 @@ export class UserProfileComponent extends AbstractFormComponent<EnterpriseUserDe
   }
 
   protected onSubmitFormDataSuccess(): void {
-    void this.router.navigate([
-      '/',
-      AppRoutingConstants.AUTH_PATH,
-      AppRoutingConstants.USER_PROFILE
-    ]);
+    void this.router.navigate(['/', AppRoutingConstants.AUTH_PATH, AppRoutingConstants.USER_PROFILE]);
   }
 
-  private initializeBuildingPermissions(
-    buildingPermissions: BuildingPermission[]
-  ): void {
+  private initializeBuildingPermissions(buildingPermissions: BuildingPermission[]): void {
     // Clear the existing FormArray
     this.buildingPermissions.clear();
 
@@ -255,18 +221,14 @@ export class UserProfileComponent extends AbstractFormComponent<EnterpriseUserDe
   private initializeSelectedBuildingIds(): void {
     if (this.scopeBuildings) {
       this.enterpriseUserStructure.selectedBuildingIds.setValue(
-        this.buildingPermissions.controls.map(
-          control => control.value.buildingId
-        )
+        this.buildingPermissions.controls.map(control => control.value.buildingId)
       );
     }
   }
 
   private initializeEnterprisePermission(): void {
     if (this.scopeEnterprise && this.buildingPermissions.controls.length > 0) {
-      this.enterpriseUserStructure.enterprisePermission.setValue(
-        this.buildingPermissions.controls[0].value.role
-      );
+      this.enterpriseUserStructure.enterprisePermission.setValue(this.buildingPermissions.controls[0].value.role);
     }
   }
 

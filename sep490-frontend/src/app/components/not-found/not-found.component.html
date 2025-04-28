@@ -1,22 +1,18 @@
-<main
-    class="grid min-h-full place-items-center bg-transparent px-6 py-24 sm:py-32 lg:px-8"
->
+<main class="grid min-h-full place-items-center bg-transparent px-6 py-24 sm:py-32 lg:px-8">
     <div class="text-center">
         <p class="text-base font-semibold text-primary-600">404</p>
-        <h1
-            class="mt-4 text-balance text-5xl font-semibold tracking-tight text-black sm:text-7xl"
-        >
-            {{ "notFound.title" | translate }}
+        <h1 class="mt-4 text-balance text-5xl font-semibold tracking-tight text-black sm:text-7xl">
+            {{ 'notFound.title' | translate }}
         </h1>
-        <p
-            class="mt-6 text-pretty text-lg font-medium text-gray-500 sm:text-xl/8"
-        >
-            {{ "notFound.description" | translate }}
+        <p class="mt-6 text-pretty text-lg font-medium text-gray-500 sm:text-xl/8">
+            {{ 'notFound.description' | translate }}
         </p>
         <div class="mt-10 flex items-center justify-center gap-x-6">
-            <a routerLink="/" class="p-button font-bold">{{
-                "notFound.backHome" | translate
-            }}</a>
+            <a
+                routerLink="/"
+                class="p-button font-bold"
+                >{{ 'notFound.backHome' | translate }}</a
+            >
         </div>
     </div>
 </main>

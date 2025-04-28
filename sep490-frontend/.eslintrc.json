@@ -5,9 +5,7 @@
       "files": ["*.ts"],
       "parser": "@typescript-eslint/parser",
       "parserOptions": {
-        "project": [
-          "tsconfig.json"
-        ],
+        "project": ["tsconfig.json"],
         "createDefaultProgram": true
       },
       "extends": [
@@ -40,7 +38,7 @@
             ]
           }
         ],
-        "@angular-eslint/no-host-metadata-property": ["error", { "allowStatic": true }],
+        "@angular-eslint/no-host-metadata-property": ["error", {"allowStatic": true}],
         "@angular-eslint/no-pipe-impure": "error",
         "@angular-eslint/prefer-output-readonly": "error",
         "@angular-eslint/relative-url-prefix": "error",
@@ -59,29 +57,31 @@
         "@typescript-eslint/prefer-regexp-exec": "error",
         "@typescript-eslint/prefer-string-starts-ends-with": "error",
         "@typescript-eslint/unified-signatures": "error",
-        "@typescript-eslint/explicit-function-return-type": ["error", { "allowTypedFunctionExpressions": true }],
+        "@typescript-eslint/explicit-function-return-type": ["error", {"allowTypedFunctionExpressions": true}],
         "@typescript-eslint/no-explicit-any": "off",
         "@typescript-eslint/no-namespace": "off",
         "no-duplicate-imports": "error",
         "dot-notation": "error",
         "eqeqeq": ["error", "smart"],
         "guard-for-in": "error",
-        "max-lines": ["error", {
-          "max": 1000
-        }],
-        "max-lines-per-function": ["error", {
-          "max": 35
-        }],
+        "max-lines": [
+          "error",
+          {
+            "max": 1000
+          }
+        ],
+        "max-lines-per-function": [
+          "error",
+          {
+            "max": 35
+          }
+        ],
         "no-bitwise": "error",
         "no-caller": "error",
         "no-console": [
           "error",
           {
-            "allow": [
-              "info",
-              "warn",
-              "error"
-            ]
+            "allow": ["info", "warn", "error"]
           }
         ],
         "no-else-return": "error",
@@ -99,9 +99,12 @@
         "prefer-regex-literals": "error",
         "prefer-template": "error",
         "radix": "error",
-        "sort-imports": ["error", {
-          "ignoreDeclarationSort": true
-        }],
+        "sort-imports": [
+          "error",
+          {
+            "ignoreDeclarationSort": true
+          }
+        ],
         "spaced-comment": "error",
         "prettier/prettier": [
           "error",
@@ -143,7 +146,8 @@
       "extends": ["plugin:prettier/recommended"],
       "rules": {
         "prettier/prettier": [
-          "error", {
+          "error",
+          {
             "parser": "angular",
             "endOfLine": "auto",
             "tabWidth": 4,

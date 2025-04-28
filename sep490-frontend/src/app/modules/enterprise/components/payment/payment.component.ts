@@ -1,30 +1,16 @@
-import {
-  Component,
-  EventEmitter,
-  OnInit,
-  TemplateRef,
-  ViewChild
-} from '@angular/core';
+import {Component, EventEmitter, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
 import {SubscriptionAwareComponent} from '@shared/directives/subscription-aware.component';
 import {TableTemplateColumn} from '@shared/components/table-template/table-template.component';
-import {
-  SearchCriteriaDto,
-  SearchResultDto,
-  SortDto
-} from '@shared/models/base-models';
+import {SearchCriteriaDto, SearchResultDto, SortDto} from '@shared/models/base-models';
 import {Observable} from 'rxjs';
 import {ApplicationService} from '@services/application.service';
 import {PaymentStatus} from '@models/payment-status';
 import {PaymentDTO} from '@models/payment';
 import {PaymentService} from '@services/payment.service';
 import {WalletService} from '@services/wallet.service';
-import {
-  DialogService,
-  DynamicDialogConfig,
-  DynamicDialogRef
-} from 'primeng/dynamicdialog';
+import {DialogService, DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
 import {UUID} from '../../../../../types/uuid';
 import {PaymentDetailDialogComponent} from '../../dialog/payment-detail-dialog/payment-detail-dialog.component';
 
@@ -38,10 +24,7 @@ export interface PaymentCriteria {
   templateUrl: './payment.component.html',
   styleUrl: './payment.component.css'
 })
-export class PaymentComponent
-  extends SubscriptionAwareComponent
-  implements OnInit
-{
+export class PaymentComponent extends SubscriptionAwareComponent implements OnInit {
   @ViewChild('statusTemplate', {static: true})
   statusTemplate!: TemplateRef<any>;
   @ViewChild('amountTemplate', {static: true})
@@ -55,9 +38,7 @@ export class PaymentComponent
   balance: number = 0;
   triggerSearch: EventEmitter<void> = new EventEmitter();
 
-  protected fetchData!: (
-    criteria: SearchCriteriaDto<PaymentCriteria>
-  ) => Observable<SearchResultDto<PaymentDTO>>;
+  protected fetchData!: (criteria: SearchCriteriaDto<PaymentCriteria>) => Observable<SearchResultDto<PaymentDTO>>;
   protected selected: PaymentDTO[] = [];
   private readonly payOsOrderCodeField = 'orderCode';
 
@@ -180,10 +161,6 @@ export class PaymentComponent
   }
 
   navigateToSubscription(): void {
-    void this.router.navigate([
-      '/',
-      AppRoutingConstants.ENTERPRISE_PATH,
-      AppRoutingConstants.PLAN_PATH
-    ]);
+    void this.router.navigate(['/', AppRoutingConstants.ENTERPRISE_PATH, AppRoutingConstants.PLAN_PATH]);
   }
 }

@@ -31,8 +31,7 @@ export class AppRoutingConstants {
   public static readonly TENANT_MANAGEMENT_PATH = 'manage-building';
   public static readonly BUILDING_MANAGEMENT_PATH = 'manage-building';
   public static readonly EMISSION_ACTIVITY_PATH = 'emission-activity';
-  public static readonly EMISSION_ACTIVITY_DETAIL_PATH =
-    'emission-activity-detail';
+  public static readonly EMISSION_ACTIVITY_DETAIL_PATH = 'emission-activity-detail';
   public static readonly PLAN_PATH = 'plan';
   public static readonly PAYMENT_PATH = 'payment';
   public static readonly SENT_INVITATION_PATH = 'sent-invitation';
@@ -47,8 +46,7 @@ export class AppRoutingConstants {
   public static readonly PACKAGE_CREDIT_PATH = 'package-credit';
   public static readonly PACKAGE_CREDIT_DETAILS_PATH = 'package-credit-details';
   public static readonly CREDIT_CONVERT_RATIO = 'credit-convert-ratio';
-  public static readonly CREDIT_CONVERT_RATIO_DETAILS =
-    'credit-convert-ratio-detail';
+  public static readonly CREDIT_CONVERT_RATIO_DETAILS = 'credit-convert-ratio-detail';
   public static readonly EMISSION_SOURCE = 'emission-resource';
   public static readonly FUEL_CONVERSION = 'fuel-conversion';
   public static readonly EMISSION_FACTOR = 'emission-factor';

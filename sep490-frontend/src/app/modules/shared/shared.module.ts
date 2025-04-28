@@ -1,10 +1,4 @@
-import {
-  CommonModule,
-  CurrencyPipe,
-  DatePipe,
-  DecimalPipe,
-  NgOptimizedImage
-} from '@angular/common';
+import {CommonModule, CurrencyPipe, DatePipe, DecimalPipe, NgOptimizedImage} from '@angular/common';
 import {HttpClientModule} from '@angular/common/http';
 import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -170,14 +164,6 @@ const commons = [
     FormFieldErrorComponent,
     UnsavedChangesDirective
   ],
-  providers: [
-    DatePipe,
-    DecimalPipe,
-    CurrencyPipe,
-    ModalProvider,
-    ToastProvider,
-    DialogService,
-    DynamicDialog
-  ]
+  providers: [DatePipe, DecimalPipe, CurrencyPipe, ModalProvider, ToastProvider, DialogService, DynamicDialog]
 })
 export class SharedModule {}

@@ -14,7 +14,7 @@
         style="min-height: 42px"
     >
         <div class="text-lg font-bold text-primary">
-            {{ "enterprise.emission.activity.title" | translate }}
+            {{ 'enterprise.emission.activity.title' | translate }}
         </div>
     </div>
     <p-card
@@ -23,17 +23,12 @@
     >
         <ng-template pTemplate="subtitle">
             <i class="pi pi-info-circle"></i>
-            {{ "enterprise.emission.activity.details.subtitle" | translate }}
+            {{ 'enterprise.emission.activity.details.subtitle' | translate }}
         </ng-template>
 
         <div class="grid">
             <div class="col-12">
-                <p-fieldset
-                    [legend]="
-                        'enterprise.emission.activity.details.basicInfo'
-                            | translate
-                    "
-                >
+                <p-fieldset [legend]="'enterprise.emission.activity.details.basicInfo' | translate">
                     <form
                         unsavedChanges
                         id="emissionActivityDetailForm"
@@ -48,10 +43,7 @@
                                 class="w-full"
                                 autocomplete="off"
                             />
-                            <label>{{
-                                "enterprise.emission.activity.table.name"
-                                    | translate
-                            }}</label>
+                            <label>{{ 'enterprise.emission.activity.table.name' | translate }}</label>
                         </p-iftalabel>
 
                         <!-- Type -->
@@ -65,21 +57,24 @@
                                 formControlName="type"
                                 class="w-full"
                             >
-                                <ng-template pTemplate="selectedItem" let-type>
+                                <ng-template
+                                    pTemplate="selectedItem"
+                                    let-type
+                                >
                                     <div class="align-items-center flex gap-2">
                                         <div>{{ type.name }}</div>
                                     </div>
                                 </ng-template>
-                                <ng-template let-type pTemplate="item">
+                                <ng-template
+                                    let-type
+                                    pTemplate="item"
+                                >
                                     <div class="align-items-center flex gap-2">
                                         <div>{{ type.name }}</div>
                                     </div>
                                 </ng-template>
                             </p-select>
-                            <label>{{
-                                "enterprise.emission.activity.dialog.Type"
-                                    | translate
-                            }}</label>
+                            <label>{{ 'enterprise.emission.activity.dialog.Type' | translate }}</label>
                         </p-iftalabel>
 
                         <p-iftalabel class="col-span-2 my-2 md:col-span-1">
@@ -91,8 +86,7 @@
                                 disabled
                             />
                             <label for="factorName">{{
-                                "enterprise.emission.activity.record.table.factor"
-                                    | translate
+                                'enterprise.emission.activity.record.table.factor' | translate
                             }}</label>
                         </p-iftalabel>
 
@@ -105,8 +99,7 @@
                                 disabled
                             />
                             <label for="sourceName">{{
-                                "enterprise.emission.activity.record.table.source"
-                                    | translate
+                                'enterprise.emission.activity.record.table.source' | translate
                             }}</label>
                         </p-iftalabel>
 
@@ -117,10 +110,7 @@
                                 class="w-full"
                                 autocomplete="off"
                             />
-                            <label>{{
-                                "enterprise.emission.activity.table.category"
-                                    | translate
-                            }}</label>
+                            <label>{{ 'enterprise.emission.activity.table.category' | translate }}</label>
                         </p-iftalabel>
 
                         <p-iftalabel class="col-span-2 my-2">
@@ -129,15 +119,10 @@
                                 formControlName="description"
                                 class="w-full"
                             />
-                            <label>{{
-                                "enterprise.emission.activity.dialog.Description"
-                                    | translate
-                            }}</label>
+                            <label>{{ 'enterprise.emission.activity.dialog.Description' | translate }}</label>
                         </p-iftalabel>
 
-                        <div
-                            class="mt-4 flex flex-row-reverse justify-between gap-2 md:col-span-2"
-                        >
+                        <div class="mt-4 flex flex-row-reverse justify-between gap-2 md:col-span-2">
                             <p-button
                                 type="submit"
                                 [label]="'common.update' | translate"
@@ -152,9 +137,7 @@
     </p-card>
 
     <div class="mt-4">
-        <p-card
-            [header]="'enterprise.emission.activity.record.title' | translate"
-        >
+        <p-card [header]="'enterprise.emission.activity.record.title' | translate">
             <table-template
                 [fetch]="fetchRecords"
                 [columns]="cols"
@@ -176,7 +159,7 @@
                             [label]="
                                 selected.length
                                     ? ('enterprise.emission.activity.record.deleteWithCount'
-                                      | translate: { count: selected.length })
+                                      | translate: {count: selected.length})
                                     : ('enterprise.Users.delete' | translate)
                             "
                             icon="pi pi-trash"
@@ -186,10 +169,7 @@
                             size="small"
                         />
                         <p-button
-                            [label]="
-                                'enterprise.emission.activity.record.new'
-                                    | translate
-                            "
+                            [label]="'enterprise.emission.activity.record.new' | translate"
                             [severity]="'primary'"
                             (onClick)="onNewRecord()"
                             size="small"
@@ -198,7 +178,10 @@
                 </div>
             </ng-template>
 
-            <ng-template #actionsTemplate let-record>
+            <ng-template
+                #actionsTemplate
+                let-record
+            >
                 <p-button
                     icon="pi pi-file-edit"
                     [rounded]="true"
@@ -209,13 +192,16 @@
                 />
             </ng-template>
 
-            <ng-template #fileTemplate let-rowData>
+            <ng-template
+                #fileTemplate
+                let-rowData
+            >
                 <div *ngIf="rowData.file">
                     <p-button
                         [pTooltip]="rowData.file.fileName"
                         icon="pi pi-download"
                         class="w-full"
-                        [style]="{ maxWidth: '200px' }"
+                        [style]="{maxWidth: '200px'}"
                         [styleClass]="'p-button-text p-button-sm'"
                         (onClick)="onDownloadFile(rowData)"
                         size="small"
@@ -230,8 +216,11 @@
                     />
                 </div>
             </ng-template>
-            <ng-template #ghgTemplate let-rowData>
-                {{ rowData.ghg | number: "1.0-0" }}
+            <ng-template
+                #ghgTemplate
+                let-rowData
+            >
+                {{ rowData.ghg | number: '1.0-0' }}
             </ng-template>
         </p-card>
     </div>

@@ -12,9 +12,7 @@ import {SearchCriteriaDto, SearchResultDto} from '@shared/models/base-models';
 export class PackageCreditService {
   private readonly CREDIT_PACKAGE_ENDPOINT: string = 'credit-package';
   constructor(private readonly httpClient: HttpClient) {}
-  public getCreditPackages(
-    criteria: SearchCriteriaDto<void>
-  ): Observable<SearchResultDto<CreditPackageAdmin>> {
+  public getCreditPackages(criteria: SearchCriteriaDto<void>): Observable<SearchResultDto<CreditPackageAdmin>> {
     return this.httpClient.post<SearchResultDto<CreditPackageAdmin>>(
       `${AppRoutingConstants.ENTERPRISE_API_URL}/${this.CREDIT_PACKAGE_ENDPOINT}/search`,
       criteria
@@ -32,11 +30,8 @@ export class PackageCreditService {
   }
 
   public deletePackages(pkgIds: UUID[]): Observable<void> {
-    return this.httpClient.delete<void>(
-      `${AppRoutingConstants.ENTERPRISE_API_URL}/${this.CREDIT_PACKAGE_ENDPOINT}`,
-      {
-        body: pkgIds
-      }
-    );
+    return this.httpClient.delete<void>(`${AppRoutingConstants.ENTERPRISE_API_URL}/${this.CREDIT_PACKAGE_ENDPOINT}`, {
+      body: pkgIds
+    });
   }
 }

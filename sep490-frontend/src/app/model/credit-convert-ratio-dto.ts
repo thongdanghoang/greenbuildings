@@ -19,6 +19,5 @@ export namespace CreditConvertRatioDTO {
     MONTH: 'MONTH',
     DEVICE: 'DEVICE'
   } as const;
-  export type ConvertTypeEnum =
-    (typeof ConvertTypeEnum)[keyof typeof ConvertTypeEnum];
+  export type ConvertTypeEnum = (typeof ConvertTypeEnum)[keyof typeof ConvertTypeEnum];
 }

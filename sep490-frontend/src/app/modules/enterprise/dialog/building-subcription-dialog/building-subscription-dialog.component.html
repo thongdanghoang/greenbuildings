@@ -7,46 +7,35 @@
         />
         <span class="whitespace-nowrap font-bold">{{
             data.type === TransactionType.NEW_PURCHASE
-                ? ("dialog.subscription.header.title" | translate)
-                : ("dialog.subscription.header.titleUpdate" | translate)
+                ? ('dialog.subscription.header.title' | translate)
+                : ('dialog.subscription.header.titleUpdate' | translate)
         }}</span>
     </div>
 </div>
 <div class="p-dialog-content">
-    <div
-        class="mb-4 flex flex-col justify-between border border-primary px-4 lg:flex-row"
-    >
+    <div class="mb-4 flex flex-col justify-between border border-primary px-4 lg:flex-row">
         <div class="flex flex-col items-center gap-5 p-5 lg:items-start">
             <span class="block text-surface-500 dark:text-surface-400"
-                >{{ "dialog.subscription.body.name" | translate }}:
-                {{ data.selectedBuildingDetails.name }}</span
+                >{{ 'dialog.subscription.body.name' | translate }}: {{ data.selectedBuildingDetails.name }}</span
             >
             <span *ngIf="data.type === TransactionType.UPGRADE">
                 <span class="block text-surface-500 dark:text-surface-400"
-                    >{{
-                        "enterprise.buildings.details.labels.validFromInclusive"
-                            | translate
-                    }}: {{ data.building.subscriptionDTO?.startDate }}</span
+                    >{{ 'enterprise.buildings.details.labels.validFromInclusive' | translate }}:
+                    {{ data.building.subscriptionDTO?.startDate }}</span
                 >
                 <span class="block text-surface-500 dark:text-surface-400"
-                    >{{
-                        "enterprise.buildings.details.labels.validToInclusive"
-                            | translate
-                    }}: {{ data.building.subscriptionDTO?.endDate }}</span
+                    >{{ 'enterprise.buildings.details.labels.validToInclusive' | translate }}:
+                    {{ data.building.subscriptionDTO?.endDate }}</span
                 >
                 <span class="block text-surface-500 dark:text-surface-400">
-                    {{
-                        "enterprise.buildings.details.labels.currentMaxNumberOfDevices"
-                            | translate
-                    }}:
+                    {{ 'enterprise.buildings.details.labels.currentMaxNumberOfDevices' | translate }}:
                     {{ data.building.subscriptionDTO?.maxNumberOfDevices }}
                 </span>
             </span>
         </div>
         <div class="h-full gap-2 p-5">
             <span class="lg:0 mb-8 block text-primary lg:pr-12"
-                >{{ "purchaseCredit.currentBalance" | translate }}:
-                {{ data.balance | number }}</span
+                >{{ 'purchaseCredit.currentBalance' | translate }}: {{ data.balance | number }}</span
             >
         </div>
     </div>
@@ -55,11 +44,12 @@
         [formGroup]="formGroup"
         class="mt-2 grid justify-between gap-4 px-4 pt-4 lg:grid-cols-2"
     >
-        <div class="mb-4 block" errorMessages>
+        <div
+            class="mb-4 block"
+            errorMessages
+        >
             <div class="mb-4 flex items-center justify-evenly gap-2">
-                <label class="w-40 font-semibold">{{
-                    "dialog.subscription.body.numberMonth" | translate
-                }}</label>
+                <label class="w-40 font-semibold">{{ 'dialog.subscription.body.numberMonth' | translate }}</label>
                 <p-inputnumber
                     id="numberOfMonths"
                     type="number"
@@ -69,7 +59,7 @@
                     buttonLayout="horizontal"
                     spinnerMode="horizontal"
                     inputId="horizontal"
-                    [inputStyle]="{ width: '4rem' }"
+                    [inputStyle]="{width: '4rem'}"
                     [inputStyleClass]="'text-center'"
                     (onInput)="calculateTotalToPay()"
                 >
@@ -85,14 +75,15 @@
                 <form-field-error></form-field-error>
             </div>
         </div>
-        <div class="mb-2 block" errorMessages>
+        <div
+            class="mb-2 block"
+            errorMessages
+        >
             <div class="mb-4 flex items-center justify-evenly gap-2">
                 <label class="w-44 font-semibold">{{
                     data.type === TransactionType.NEW_PURCHASE
-                        ? ("dialog.subscription.body.numberMaxDevice"
-                          | translate)
-                        : ("dialog.subscription.body.numberMaxDeviceUpgrade"
-                          | translate)
+                        ? ('dialog.subscription.body.numberMaxDevice' | translate)
+                        : ('dialog.subscription.body.numberMaxDeviceUpgrade' | translate)
                 }}</label>
                 <p-inputnumber
                     id="numberOfDevices"
@@ -103,7 +94,7 @@
                     buttonLayout="horizontal"
                     spinnerMode="horizontal"
                     inputId="horizontal"
-                    [inputStyle]="{ width: '4rem' }"
+                    [inputStyle]="{width: '4rem'}"
                     [inputStyleClass]="'text-center'"
                     [allowEmpty]="false"
                     (onInput)="calculateTotalToPay()"
@@ -122,19 +113,15 @@
         </div>
     </form>
     <div class="flex flex-col gap-8 p-4">
-        <div
-            class="flex flex-col-reverse items-center justify-between gap-2 lg:flex-row"
-        >
+        <div class="flex flex-col-reverse items-center justify-between gap-2 lg:flex-row">
             <span class="block text-surface-500 dark:text-surface-400"
-                >{{ "dialog.subscription.body.totalCredit" | translate }}:
-                {{ totalToPay }}</span
+                >{{ 'dialog.subscription.body.totalCredit' | translate }}: {{ totalToPay }}</span
             >
         </div>
         @if (
             formGroup.valid &&
             this.sufficientBalance &&
-            (this.formStructure.months.value > 0 ||
-                this.formStructure.numberOfDevices.value > 0)
+            (this.formStructure.months.value > 0 || this.formStructure.numberOfDevices.value > 0)
         ) {
             <div class="flex flex-row items-center gap-1">
                 <p-checkbox
@@ -142,35 +129,30 @@
                     [(ngModel)]="checked"
                     [binary]="true"
                 />
-                <label class="ml-2" for="confirm_ckb">{{
-                    "dialog.subscription.body.confirm"
-                        | translate
-                            : {
-                                  numberOfMonths:
-                                      formGroup.get("months")?.value,
-                                  numberOfDevices:
-                                      formGroup.get("numberOfDevices")?.value,
-                              }
-                }}</label>
+                <label
+                    class="ml-2"
+                    for="confirm_ckb"
+                    >{{
+                        'dialog.subscription.body.confirm'
+                            | translate
+                                : {
+                                      numberOfMonths: formGroup.get('months')?.value,
+                                      numberOfDevices: formGroup.get('numberOfDevices')?.value
+                                  }
+                    }}</label
+                >
             </div>
         } @else if (!this.sufficientBalance) {
             <div class="flex flex-row items-center justify-between">
                 <p-message severity="warn">
-                    {{
-                        "validation.business.buildings.notEnoughCredit"
-                            | translate
-                    }}
+                    {{ 'validation.business.buildings.notEnoughCredit' | translate }}
                 </p-message>
                 <a
-                    [routerLink]="[
-                        '/',
-                        AppRoutingConstants.ENTERPRISE_PATH,
-                        AppRoutingConstants.PLAN_PATH,
-                    ]"
+                    [routerLink]="['/', AppRoutingConstants.ENTERPRISE_PATH, AppRoutingConstants.PLAN_PATH]"
                     (click)="closeDialog()"
                     class="text-primary hover:underline"
                 >
-                    {{ "common.rechargeNow" | translate }}
+                    {{ 'common.rechargeNow' | translate }}
                 </a>
             </div>
         }

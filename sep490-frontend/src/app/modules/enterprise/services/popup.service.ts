@@ -24,12 +24,8 @@ export class PopupService {
    * @param onAttach A function that allows you to assign the component
    * @returns The compiled component
    */
-  public compilePopup<T>(
-    component: Type<T>,
-    onAttach: (componentRef: ComponentRef<T>) => void
-  ): HTMLDivElement {
-    const compFactory: ComponentFactory<T> =
-      this.resolver.resolveComponentFactory(component);
+  public compilePopup<T>(component: Type<T>, onAttach: (componentRef: ComponentRef<T>) => void): HTMLDivElement {
+    const compFactory: ComponentFactory<T> = this.resolver.resolveComponentFactory(component);
     const compRef: ComponentRef<T> = compFactory.create(this.injector);
 
     if (onAttach) onAttach(compRef);

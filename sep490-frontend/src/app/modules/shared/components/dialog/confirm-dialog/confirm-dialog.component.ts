@@ -26,8 +26,7 @@ export class ConfirmDialogComponent {
    * @param {ConfirmEventType} enum - Custom confirm event.
    * @group Emits
    */
-  @Output() readonly hide: EventEmitter<ConfirmEventType> =
-    new EventEmitter<ConfirmEventType>();
+  @Output() readonly hide: EventEmitter<ConfirmEventType> = new EventEmitter<ConfirmEventType>();
 
   constructor(
     private readonly configs: DynamicDialogConfig,

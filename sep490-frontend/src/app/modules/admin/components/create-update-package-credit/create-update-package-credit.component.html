@@ -10,11 +10,11 @@
 <div class="mt-4 px-5">
     @if (isEdit) {
         <h1 class="text-lg font-bold">
-            {{ "enterprise.buildings.details.edit" | translate }}
+            {{ 'enterprise.buildings.details.edit' | translate }}
         </h1>
     } @else {
         <h1 class="text-lg font-bold">
-            {{ "enterprise.buildings.details.create" | translate }}
+            {{ 'enterprise.buildings.details.create' | translate }}
         </h1>
     }
 </div>
@@ -25,11 +25,14 @@
     id="creditBundleForm"
 >
     <!-- number of credit -->
-    <div class="my-3 grid grid-cols-12 items-baseline gap-4" errorMessages>
+    <div
+        class="my-3 grid grid-cols-12 items-baseline gap-4"
+        errorMessages
+    >
         <label
             for="numberOfCredits"
             class="col-span-12 font-normal md:col-span-3"
-            >{{ "admin.packageCredit.table.numberCredit" | translate }}</label
+            >{{ 'admin.packageCredit.table.numberCredit' | translate }}</label
         >
         <div class="col-span-12 md:col-span-6">
             <input
@@ -38,19 +41,22 @@
                 type="number"
                 id="numberOfCredits"
                 pInputText
-                [placeholder]="
-                    'admin.packageCredit.input.enterNumberCredit' | translate
-                "
+                [placeholder]="'admin.packageCredit.input.enterNumberCredit' | translate"
             />
             <form-field-error></form-field-error>
         </div>
     </div>
 
     <!-- price -->
-    <div class="my-3 grid grid-cols-12 items-baseline gap-4" errorMessages>
-        <label for="price" class="col-span-12 font-normal md:col-span-3">{{
-            "admin.packageCredit.table.price" | translate
-        }}</label>
+    <div
+        class="my-3 grid grid-cols-12 items-baseline gap-4"
+        errorMessages
+    >
+        <label
+            for="price"
+            class="col-span-12 font-normal md:col-span-3"
+            >{{ 'admin.packageCredit.table.price' | translate }}</label
+        >
         <div class="col-span-12 md:col-span-6">
             <input
                 formControlName="price"
@@ -58,19 +64,22 @@
                 type="number"
                 id="price"
                 pInputText
-                [placeholder]="
-                    'admin.packageCredit.input.enterPrice' | translate
-                "
+                [placeholder]="'admin.packageCredit.input.enterPrice' | translate"
             />
             <form-field-error></form-field-error>
         </div>
     </div>
 
     <!-- discount -->
-    <div class="my-3 grid grid-cols-12 items-baseline gap-4" errorMessages>
-        <label for="discount" class="col-span-12 font-normal md:col-span-3">{{
-            "admin.packageCredit.table.discount" | translate
-        }}</label>
+    <div
+        class="my-3 grid grid-cols-12 items-baseline gap-4"
+        errorMessages
+    >
+        <label
+            for="discount"
+            class="col-span-12 font-normal md:col-span-3"
+            >{{ 'admin.packageCredit.table.discount' | translate }}</label
+        >
         <div class="col-span-12 md:col-span-6">
             <input
                 formControlName="discount"

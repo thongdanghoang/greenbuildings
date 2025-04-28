@@ -26,10 +26,7 @@ export interface CreateEnterpriseDashboardDTO {
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
-export class DashboardComponent
-  extends SubscriptionAwareComponent
-  implements OnInit, OnDestroy
-{
+export class DashboardComponent extends SubscriptionAwareComponent implements OnInit, OnDestroy {
   safeUrl!: SafeResourceUrl;
   selectableDashboards: SelectableItem<EnterpriseDashboardDTO>[] | undefined;
   selectedDashboard: SelectableItem<EnterpriseDashboardDTO> | undefined;
@@ -52,9 +49,7 @@ export class DashboardComponent
         takeUntil(this.destroy$),
         tap(dashboards => {
           this.selectableDashboards = dashboards.map(
-            (
-              dashboard: EnterpriseDashboardDTO
-            ): SelectableItem<EnterpriseDashboardDTO> => ({
+            (dashboard: EnterpriseDashboardDTO): SelectableItem<EnterpriseDashboardDTO> => ({
               label: dashboard.title,
               value: dashboard
             })
@@ -66,9 +61,7 @@ export class DashboardComponent
               label: dashboards[0].title,
               value: dashboards[0]
             };
-            this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
-              dashboards[0].source
-            );
+            this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(dashboards[0].source);
           }
         })
       )
@@ -83,9 +76,7 @@ export class DashboardComponent
   }
 
   onChange(event: SelectChangeEvent): void {
-    this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
-      event.value.value.source
-    );
+    this.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(event.value.value.source);
   }
 
   openCreateDashboardModal(): void {
@@ -119,14 +110,10 @@ export class DashboardComponent
   }
 
   private getDashboardData(): Observable<EnterpriseDashboardDTO[]> {
-    return this.httpClient.get<EnterpriseDashboardDTO[]>(
-      `${AppRoutingConstants.ENTERPRISE_API_URL}/dashboards`
-    );
+    return this.httpClient.get<EnterpriseDashboardDTO[]>(`${AppRoutingConstants.ENTERPRISE_API_URL}/dashboards`);
   }
 
-  private createDashboardData(
-    payload: CreateEnterpriseDashboardDTO
-  ): Observable<EnterpriseDashboardDTO> {
+  private createDashboardData(payload: CreateEnterpriseDashboardDTO): Observable<EnterpriseDashboardDTO> {
     return this.httpClient.post<EnterpriseDashboardDTO>(
       `${AppRoutingConstants.ENTERPRISE_API_URL}/dashboards`,
       payload

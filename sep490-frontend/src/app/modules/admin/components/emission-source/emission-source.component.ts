@@ -1,15 +1,5 @@
-import {
-  Component,
-  EventEmitter,
-  OnInit,
-  TemplateRef,
-  ViewChild
-} from '@angular/core';
-import {
-  DialogService,
-  DynamicDialogConfig,
-  DynamicDialogRef
-} from 'primeng/dynamicdialog';
+import {Component, EventEmitter, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {DialogService, DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
 import {Observable} from 'rxjs';
 import {UUID} from '../../../../../types/uuid';
 import {EmissionSource} from '@models/enterprise';
@@ -29,10 +19,7 @@ export interface EmissionSourceCriteria {
   templateUrl: './emission-source.component.html',
   styleUrl: './emission-source.component.css'
 })
-export class EmissionSourceComponent
-  extends SubscriptionAwareComponent
-  implements OnInit
-{
+export class EmissionSourceComponent extends SubscriptionAwareComponent implements OnInit {
   @ViewChild('actionsTemplate', {static: true})
   actionsTemplate!: TemplateRef<any>;
   ref: DynamicDialogRef | undefined;
@@ -55,10 +42,7 @@ export class EmissionSourceComponent
 
   ngOnInit(): void {
     this.buildCols();
-    this.fetchEmissionSource =
-      this.emissionSourceService.getEmissionSource.bind(
-        this.emissionSourceService
-      );
+    this.fetchEmissionSource = this.emissionSourceService.getEmissionSource.bind(this.emissionSourceService);
   }
 
   uploadExcel(event: any): void {

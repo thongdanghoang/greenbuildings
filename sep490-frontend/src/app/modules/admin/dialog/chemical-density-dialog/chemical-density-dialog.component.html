@@ -3,7 +3,7 @@
     <!-- Dialog Header -->
     <div class="p-dialog-header border-b p-0">
         <span class="text-xl font-semibold">
-            {{ "sidebar.admin.chemicalDensity" | translate }}
+            {{ 'sidebar.admin.chemicalDensity' | translate }}
         </span>
         <button
             pButton
@@ -15,10 +15,11 @@
     </div>
 
     <!-- Form Content -->
-    <div
-        class="p-dialog-content flex min-h-[400px] flex-col overflow-hidden p-0"
-    >
-        <form [formGroup]="formGroup" class="p-4">
+    <div class="p-dialog-content flex min-h-[400px] flex-col overflow-hidden p-0">
+        <form
+            [formGroup]="formGroup"
+            class="p-4"
+        >
             <p-iftalabel class="my-2">
                 <input
                     pInputText
@@ -26,7 +27,7 @@
                     class="w-full"
                     autocomplete="off"
                 />
-                <label>{{ "admin.chemicalDensity.formal" | translate }}</label>
+                <label>{{ 'admin.chemicalDensity.formal' | translate }}</label>
             </p-iftalabel>
 
             <p-iftalabel class="my-2">
@@ -37,7 +38,7 @@
                     class="w-full"
                     autocomplete="off"
                 />
-                <label>{{ "admin.chemicalDensity.value" | translate }}</label>
+                <label>{{ 'admin.chemicalDensity.value' | translate }}</label>
             </p-iftalabel>
 
             <p-iftalabel class="my-2">
@@ -47,9 +48,7 @@
                     class="w-full"
                     [showClear]="true"
                 ></p-dropdown>
-                <label>{{
-                    "admin.chemicalDensity.unitNumerator" | translate
-                }}</label>
+                <label>{{ 'admin.chemicalDensity.unitNumerator' | translate }}</label>
             </p-iftalabel>
 
             <p-iftalabel class="my-2">
@@ -59,9 +58,7 @@
                     class="w-full"
                     [showClear]="true"
                 ></p-dropdown>
-                <label>{{
-                    "admin.chemicalDensity.unitDenominator" | translate
-                }}</label>
+                <label>{{ 'admin.chemicalDensity.unitDenominator' | translate }}</label>
             </p-iftalabel>
         </form>
 

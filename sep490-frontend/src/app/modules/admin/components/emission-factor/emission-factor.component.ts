@@ -1,27 +1,13 @@
-import {
-  Component,
-  EventEmitter,
-  OnInit,
-  TemplateRef,
-  ViewChild
-} from '@angular/core';
+import {Component, EventEmitter, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
-import {
-  DialogService,
-  DynamicDialogConfig,
-  DynamicDialogRef
-} from 'primeng/dynamicdialog';
+import {DialogService, DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
 import {Observable} from 'rxjs';
 import {UUID} from '../../../../../types/uuid';
 import {ApplicationService} from '@services/application.service';
 import {SubscriptionAwareComponent} from '@shared/directives/subscription-aware.component';
 import {TableTemplateColumn} from '@shared/components/table-template/table-template.component';
 import {SearchCriteriaDto, SearchResultDto} from '@shared/models/base-models';
-import {
-  EmissionFactorDTO,
-  EmissionSourceDTO,
-  FuelDTO
-} from '@models/shared-models';
+import {EmissionFactorDTO, EmissionSourceDTO, FuelDTO} from '@models/shared-models';
 import {ToastProvider} from '@shared/services/toast-provider';
 import {EmissionFactorDialogComponent} from '../../dialog/emission-factor-dialog/emission-factor-dialog.component';
 import {EmissionFactorService} from '@services/emission_factor.service';
@@ -34,10 +20,7 @@ export interface EmissionFactorCriteria {
   templateUrl: './emission-factor.component.html',
   styleUrl: './emission-factor.component.css'
 })
-export class EmissionFactorComponent
-  extends SubscriptionAwareComponent
-  implements OnInit
-{
+export class EmissionFactorComponent extends SubscriptionAwareComponent implements OnInit {
   @ViewChild('endDateTemplate', {static: true})
   endDateTemplate!: TemplateRef<any>;
   @ViewChild('startDateTemplate', {static: true})
@@ -72,15 +55,10 @@ export class EmissionFactorComponent
 
   ngOnInit(): void {
     this.buildCols();
-    this.fetchEmissionFactor =
-      this.emissionFactorService.getEmissionFactor.bind(
-        this.emissionFactorService
-      );
+    this.fetchEmissionFactor = this.emissionFactorService.getEmissionFactor.bind(this.emissionFactorService);
   }
 
-  getLocalizedEmissionSourceName(
-    source: EmissionSourceDTO | undefined
-  ): string {
+  getLocalizedEmissionSourceName(source: EmissionSourceDTO | undefined): string {
     if (!source) return '';
 
     let lang = this.translate.currentLang.toUpperCase(); // Changed from const to let
@@ -88,10 +66,7 @@ export class EmissionFactorComponent
       lang = 'VN'; // Now this works because lang is mutable
     }
 
-    return (
-      (source[`name${lang}` as keyof EmissionSourceDTO] as string) ||
-      source.nameEN
-    );
+    return (source[`name${lang}` as keyof EmissionSourceDTO] as string) || source.nameEN;
   }
 
   getLocalizedFuelName(source: FuelDTO | undefined): string {
@@ -115,8 +90,7 @@ export class EmissionFactorComponent
     }
 
     return (
-      (emissionFactor[`name${lang}` as keyof EmissionFactorDTO] as string) ||
-      emissionFactor.nameEN // Mặc định trả về tên tiếng Anh
+      (emissionFactor[`name${lang}` as keyof EmissionFactorDTO] as string) || emissionFactor.nameEN // Mặc định trả về tên tiếng Anh
     );
   }
   // eslint-disable-next-line max-lines-per-function
@@ -212,31 +186,21 @@ export class EmissionFactorComponent
   }
 
   private deleteFactor(factor: EmissionFactorDTO): void {
-    this.emissionFactorService
-      .deleteEmissionFactor(factor.id.toString())
-      .subscribe({
-        next: () => {
-          this.messageService.success({
-            summary: this.translate.instant(
-              'admin.packageCredit.message.success.summary'
-            ),
-            detail: this.translate.instant(
-              'admin.packageCredit.message.success.detail'
-            )
-          });
-          this.selected = []; // Clear local selection
-        },
-        error: () => {
-          this.messageService.businessError({
-            summary: this.translate.instant(
-              'admin.packageCredit.message.error.summary'
-            ),
-            detail: this.translate.instant(
-              'admin.packageCredit.message.error.detail'
-            )
-          });
-          this.searchEvent.emit(); // Refresh table
-        }
-      });
+    this.emissionFactorService.deleteEmissionFactor(factor.id.toString()).subscribe({
+      next: () => {
+        this.messageService.success({
+          summary: this.translate.instant('admin.packageCredit.message.success.summary'),
+          detail: this.translate.instant('admin.packageCredit.message.success.detail')
+        });
+        this.selected = []; // Clear local selection
+      },
+      error: () => {
+        this.messageService.businessError({
+          summary: this.translate.instant('admin.packageCredit.message.error.summary'),
+          detail: this.translate.instant('admin.packageCredit.message.error.detail')
+        });
+        this.searchEvent.emit(); // Refresh table
+      }
+    });
   }
 }

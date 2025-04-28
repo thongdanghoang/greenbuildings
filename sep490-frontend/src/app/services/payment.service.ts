@@ -14,18 +14,14 @@ export class PaymentService {
   private readonly PAYMENT_ENDPOINT: string = 'payment';
   constructor(private readonly httpClient: HttpClient) {}
 
-  public getPayments(
-    criteria: SearchCriteriaDto<PaymentCriteria>
-  ): Observable<SearchResultDto<PaymentDTO>> {
+  public getPayments(criteria: SearchCriteriaDto<PaymentCriteria>): Observable<SearchResultDto<PaymentDTO>> {
     return this.httpClient.post<SearchResultDto<PaymentDTO>>(
       `${AppRoutingConstants.ENTERPRISE_API_URL}/${this.PAYMENT_ENDPOINT}/search`,
       criteria
     );
   }
 
-  public getPaymentDetail(
-    paymentDetailId: string
-  ): Observable<PaymentDetailDTO> {
+  public getPaymentDetail(paymentDetailId: string): Observable<PaymentDetailDTO> {
     return this.httpClient.get<PaymentDetailDTO>(
       `${AppRoutingConstants.ENTERPRISE_API_URL}/${this.PAYMENT_ENDPOINT}/${paymentDetailId}`
     );

@@ -73,7 +73,7 @@
         "permissionWarning": "请选择一栋建筑物来为该用户分配角色",
         "notEnoughCredit": "企业没有足够的积分",
         "ratioNotMatch": "比率不匹配，请重试",
-        "group":{
+        "group": {
           "nameExists": "群组名称已存在"
         }
       },
@@ -160,7 +160,7 @@
     }
   },
   "header": {
-    "nav" : {
+    "nav": {
       "Account": "账户"
     }
   },
@@ -921,7 +921,7 @@
       "group": "群组",
       "email": "租户邮箱",
       "status": "邀请状态"
-      }
+    }
   },
   "overview": {
     "title": "概览",

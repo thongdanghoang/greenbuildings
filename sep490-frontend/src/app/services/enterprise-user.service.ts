@@ -19,9 +19,7 @@ export class EnterpriseUserService {
     return `${AppRoutingConstants.IDP_API_URL}/${EnterpriseUserService.ENTERPRISE_USER_API_URL}/new-enterprise`;
   }
 
-  public getUsers(
-    criteria: SearchCriteriaDto<UserCriteria>
-  ): Observable<SearchResultDto<EnterpriseUser>> {
+  public getUsers(criteria: SearchCriteriaDto<UserCriteria>): Observable<SearchResultDto<EnterpriseUser>> {
     return this.httpClient.post<SearchResultDto<EnterpriseUser>>(
       `${AppRoutingConstants.IDP_API_URL}/${EnterpriseUserService.ENTERPRISE_USER_API_URL}/search`,
       criteria

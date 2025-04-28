@@ -1,11 +1,6 @@
 import {HttpClient} from '@angular/common/http';
 import {Component} from '@angular/core';
-import {
-  AbstractControl,
-  FormBuilder,
-  FormControl,
-  Validators
-} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormControl, Validators} from '@angular/forms';
 import {TranslateService} from '@ngx-translate/core';
 import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
 import {UUID} from '../../../../../types/uuid';
@@ -46,11 +41,9 @@ export class EmissionSourceDialogComponent extends AbstractFormComponent<Emissio
 
   protected initializeData(): void {
     if (this.config.data) {
-      this.sourceService
-        .getEmissionSourceById(this.config.data.toString())
-        .subscribe(emission => {
-          this.formGroup.patchValue(emission);
-        });
+      this.sourceService.getEmissionSourceById(this.config.data.toString()).subscribe(emission => {
+        this.formGroup.patchValue(emission);
+      });
     }
   }
 

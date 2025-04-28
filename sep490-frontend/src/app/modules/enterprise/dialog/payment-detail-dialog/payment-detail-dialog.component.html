@@ -1,12 +1,8 @@
 <!-- Dialog Header -->
 <div class="flex items-center justify-between rounded-t-2xl py-4">
-    <span
-        class="flex items-center gap-3 text-xl font-bold text-primary-600 dark:text-primary-400"
-    >
-        <i
-            class="pi pi-wallet text-2xl text-primary-600 dark:text-primary-400"
-        ></i>
-        {{ "paymentDetail.header" | translate }}
+    <span class="flex items-center gap-3 text-xl font-bold text-primary-600 dark:text-primary-400">
+        <i class="pi pi-wallet text-2xl text-primary-600 dark:text-primary-400"></i>
+        {{ 'paymentDetail.header' | translate }}
     </span>
     <button
         pButton
@@ -22,128 +18,77 @@
 <ng-container *ngIf="paymentDetail">
     <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <!-- Created Date -->
-        <div
-            class="rounded-xl bg-gray-50 p-4 transition-shadow hover:shadow-md dark:bg-gray-700"
-        >
-            <label
-                class="flex items-center gap-2 text-sm font-semibold text-gray-700 dark:text-gray-300"
-            >
-                <i
-                    class="pi pi-calendar text-primary-600 dark:text-primary-400"
-                ></i>
-                {{ "paymentDetail.labels.createdDate" | translate }}
+        <div class="rounded-xl bg-gray-50 p-4 transition-shadow hover:shadow-md dark:bg-gray-700">
+            <label class="flex items-center gap-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
+                <i class="pi pi-calendar text-primary-600 dark:text-primary-400"></i>
+                {{ 'paymentDetail.labels.createdDate' | translate }}
             </label>
             <p class="mt-2 text-base text-gray-900 dark:text-gray-100">
-                {{
-                    paymentDetail.createdDate ||
-                        ("paymentDetail.fallback.na" | translate)
-                }}
+                {{ paymentDetail.createdDate || ('paymentDetail.fallback.na' | translate) }}
             </p>
         </div>
 
         <!-- Status -->
-        <div
-            class="rounded-xl bg-gray-50 p-4 transition-shadow hover:shadow-md dark:bg-gray-700"
-        >
-            <label
-                class="flex items-center gap-2 text-sm font-semibold text-gray-700 dark:text-gray-300"
-            >
-                <i
-                    class="pi pi-check-circle text-primary-600 dark:text-primary-400"
-                ></i>
-                {{ "paymentDetail.labels.status" | translate }}
+        <div class="rounded-xl bg-gray-50 p-4 transition-shadow hover:shadow-md dark:bg-gray-700">
+            <label class="flex items-center gap-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
+                <i class="pi pi-check-circle text-primary-600 dark:text-primary-400"></i>
+                {{ 'paymentDetail.labels.status' | translate }}
             </label>
             <p class="mt-2 text-base">
                 <span
                     [ngClass]="getStatusClass(paymentDetail.status)"
                     class="inline-block rounded-full bg-primary-100 px-3 py-1 text-sm font-medium text-primary-800 dark:bg-primary-900 dark:text-primary-200"
                 >
-                    {{
-                        "enum.status.payment." + paymentDetail.status
-                            | translate
-                    }}
+                    {{ 'enum.status.payment.' + paymentDetail.status | translate }}
                 </span>
             </p>
         </div>
 
         <!-- Amount -->
-        <div
-            class="rounded-xl bg-gray-50 p-4 transition-shadow hover:shadow-md dark:bg-gray-700"
-        >
-            <label
-                class="flex items-center gap-2 text-sm font-semibold text-gray-700 dark:text-gray-300"
-            >
-                <i
-                    class="pi pi-dollar text-primary-600 dark:text-primary-400"
-                ></i>
-                {{ "paymentDetail.labels.amount" | translate }}
+        <div class="rounded-xl bg-gray-50 p-4 transition-shadow hover:shadow-md dark:bg-gray-700">
+            <label class="flex items-center gap-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
+                <i class="pi pi-dollar text-primary-600 dark:text-primary-400"></i>
+                {{ 'paymentDetail.labels.amount' | translate }}
             </label>
-            <p
-                class="mt-2 text-base font-semibold text-gray-900 dark:text-gray-100"
-            >
+            <p class="mt-2 text-base font-semibold text-gray-900 dark:text-gray-100">
                 {{ formatAmount(paymentDetail.amount) }}
                 {{ paymentDetail.currency }}
             </p>
         </div>
 
         <!-- Number of Credits -->
-        <div
-            class="rounded-xl bg-gray-50 p-4 transition-shadow hover:shadow-md dark:bg-gray-700"
-        >
-            <label
-                class="flex items-center gap-2 text-sm font-semibold text-gray-700 dark:text-gray-300"
-            >
-                <i
-                    class="pi pi-star text-primary-600 dark:text-primary-400"
-                ></i>
-                {{ "paymentDetail.labels.credits" | translate }}
+        <div class="rounded-xl bg-gray-50 p-4 transition-shadow hover:shadow-md dark:bg-gray-700">
+            <label class="flex items-center gap-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
+                <i class="pi pi-star text-primary-600 dark:text-primary-400"></i>
+                {{ 'paymentDetail.labels.credits' | translate }}
             </label>
             <p class="mt-2 text-base text-gray-900 dark:text-gray-100">
-                {{
-                    paymentDetail.numberOfCredits ||
-                        ("paymentDetail.fallback.na" | translate)
-                }}
+                {{ paymentDetail.numberOfCredits || ('paymentDetail.fallback.na' | translate) }}
             </p>
         </div>
 
         <!-- Account Name -->
-        <div
-            class="rounded-xl bg-gray-50 p-4 transition-shadow hover:shadow-md dark:bg-gray-700"
-        >
-            <label
-                class="flex items-center gap-2 text-sm font-semibold text-gray-700 dark:text-gray-300"
-            >
-                <i
-                    class="pi pi-user text-primary-600 dark:text-primary-400"
-                ></i>
-                {{ "paymentDetail.labels.accountName" | translate }}
+        <div class="rounded-xl bg-gray-50 p-4 transition-shadow hover:shadow-md dark:bg-gray-700">
+            <label class="flex items-center gap-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
+                <i class="pi pi-user text-primary-600 dark:text-primary-400"></i>
+                {{ 'paymentDetail.labels.accountName' | translate }}
             </label>
             <p class="mt-2 text-base text-gray-900 dark:text-gray-100">
-                {{
-                    paymentDetail.accountName ||
-                        ("paymentDetail.fallback.na" | translate)
-                }}
+                {{ paymentDetail.accountName || ('paymentDetail.fallback.na' | translate) }}
             </p>
         </div>
 
         <!-- Account Number -->
-        <div
-            class="rounded-xl bg-gray-50 p-4 transition-shadow hover:shadow-md dark:bg-gray-700"
-        >
-            <label
-                class="flex items-center gap-2 text-sm font-semibold text-gray-700 dark:text-gray-300"
-            >
-                <i
-                    class="pi pi-id-card text-primary-600 dark:text-primary-400"
-                ></i>
-                {{ "paymentDetail.labels.accountNumber" | translate }}
+        <div class="rounded-xl bg-gray-50 p-4 transition-shadow hover:shadow-md dark:bg-gray-700">
+            <label class="flex items-center gap-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
+                <i class="pi pi-id-card text-primary-600 dark:text-primary-400"></i>
+                {{ 'paymentDetail.labels.accountNumber' | translate }}
             </label>
             <p class="mt-2 text-base text-gray-900 dark:text-gray-100">
                 {{
                     paymentDetail.accountNumber
-                        ? "**** **** **** " +
-                          paymentDetail.accountNumber.slice(-4)
-                        : ("paymentDetail.fallback.na" | translate)
+                        ? '**** **** **** ' + paymentDetail.accountNumber.slice(-4)
+                        : ('paymentDetail.fallback.na' | translate)
                 }}
             </p>
         </div>
@@ -152,53 +97,32 @@
         <div
             class="col-span-1 rounded-xl bg-gray-50 p-4 transition-shadow hover:shadow-md sm:col-span-2 dark:bg-gray-700"
         >
-            <label
-                class="flex items-center gap-2 text-sm font-semibold text-gray-700 dark:text-gray-300"
-            >
-                <i
-                    class="pi pi-building text-primary-600 dark:text-primary-400"
-                ></i>
-                {{ "paymentDetail.labels.enterprise" | translate }}
+            <label class="flex items-center gap-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
+                <i class="pi pi-building text-primary-600 dark:text-primary-400"></i>
+                {{ 'paymentDetail.labels.enterprise' | translate }}
             </label>
             <p class="mt-2 text-base text-gray-900 dark:text-gray-100">
-                <ng-container
-                    *ngIf="paymentDetail.enterpriseDTO; else noEnterprise"
-                >
+                <ng-container *ngIf="paymentDetail.enterpriseDTO; else noEnterprise">
                     <span class="flex items-center gap-2">
-                        <i
-                            class="pi pi-tag text-sm text-primary-500 dark:text-primary-300"
-                        ></i>
-                        {{ "paymentDetail.labels.name" | translate }}:
-                        {{
-                            paymentDetail.enterpriseDTO.name ||
-                                ("paymentDetail.fallback.na" | translate)
-                        }}
+                        <i class="pi pi-tag text-sm text-primary-500 dark:text-primary-300"></i>
+                        {{ 'paymentDetail.labels.name' | translate }}:
+                        {{ paymentDetail.enterpriseDTO.name || ('paymentDetail.fallback.na' | translate) }}
                     </span>
                     <br />
                     <span class="flex items-center gap-2">
-                        <i
-                            class="pi pi-envelope text-sm text-primary-500 dark:text-primary-300"
-                        ></i>
+                        <i class="pi pi-envelope text-sm text-primary-500 dark:text-primary-300"></i>
                         Email:
-                        {{
-                            paymentDetail.enterpriseDTO.email ||
-                                ("paymentDetail.fallback.na" | translate)
-                        }}
+                        {{ paymentDetail.enterpriseDTO.email || ('paymentDetail.fallback.na' | translate) }}
                     </span>
                     <br />
                     <span class="flex items-center gap-2">
-                        <i
-                            class="pi pi-phone text-sm text-primary-500 dark:text-primary-300"
-                        ></i>
-                        {{ "paymentDetail.labels.hotline" | translate }}:
-                        {{
-                            paymentDetail.enterpriseDTO.hotline ||
-                                ("paymentDetail.fallback.na" | translate)
-                        }}
+                        <i class="pi pi-phone text-sm text-primary-500 dark:text-primary-300"></i>
+                        {{ 'paymentDetail.labels.hotline' | translate }}:
+                        {{ paymentDetail.enterpriseDTO.hotline || ('paymentDetail.fallback.na' | translate) }}
                     </span>
                 </ng-container>
                 <ng-template #noEnterprise>
-                    {{ "paymentDetail.fallback.na" | translate }}
+                    {{ 'paymentDetail.fallback.na' | translate }}
                 </ng-template>
             </p>
         </div>

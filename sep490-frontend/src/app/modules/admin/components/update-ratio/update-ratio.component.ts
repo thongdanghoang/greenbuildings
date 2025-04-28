@@ -1,11 +1,6 @@
 import {HttpClient} from '@angular/common/http';
 import {Component} from '@angular/core';
-import {
-  AbstractControl,
-  FormBuilder,
-  FormControl,
-  Validators
-} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormControl, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
 import {filter, map, switchMap, takeUntil} from 'rxjs';
@@ -48,9 +43,7 @@ export class UpdateRatioComponent extends AbstractFormComponent<CreditConvertRat
         takeUntil(this.destroy$),
         map(params => params.get('id')),
         filter((idParam): idParam is string => !!idParam),
-        switchMap(id =>
-          this.creditConvertRatioService.getCreditConvertRatio(id as UUID)
-        )
+        switchMap(id => this.creditConvertRatioService.getCreditConvertRatio(id as UUID))
       )
       .subscribe(ratio => {
         this.formGroup.patchValue(ratio);
@@ -59,11 +52,7 @@ export class UpdateRatioComponent extends AbstractFormComponent<CreditConvertRat
   }
 
   return(): void {
-    void this.router.navigate([
-      '/',
-      AppRoutingConstants.ADMIN_PATH,
-      AppRoutingConstants.CREDIT_CONVERT_RATIO
-    ]);
+    void this.router.navigate(['/', AppRoutingConstants.ADMIN_PATH, AppRoutingConstants.CREDIT_CONVERT_RATIO]);
   }
 
   protected initializeData(): void {
@@ -75,11 +64,7 @@ export class UpdateRatioComponent extends AbstractFormComponent<CreditConvertRat
   }
 
   protected onSubmitFormDataSuccess(): void {
-    void this.router.navigate([
-      '/',
-      AppRoutingConstants.ADMIN_PATH,
-      AppRoutingConstants.CREDIT_CONVERT_RATIO
-    ]);
+    void this.router.navigate(['/', AppRoutingConstants.ADMIN_PATH, AppRoutingConstants.CREDIT_CONVERT_RATIO]);
   }
 
   protected submitFormDataUrl(): string {

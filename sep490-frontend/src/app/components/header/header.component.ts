@@ -23,10 +23,7 @@ interface Language {
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
-export class HeaderComponent
-  extends SubscriptionAwareComponent
-  implements OnInit
-{
+export class HeaderComponent extends SubscriptionAwareComponent implements OnInit {
   menuItems: MenuItem[] = [];
   userMenuMobileItems: MenuItem[] | undefined;
   @ViewChild('drawerRef') drawerRef!: Drawer;
@@ -64,9 +61,7 @@ export class HeaderComponent
         map(event => event.lang)
       )
       .subscribe(lang => {
-        this.selectedLanguage = this.languages?.find(
-          language => language.key.split('-')[0] === lang
-        );
+        this.selectedLanguage = this.languages?.find(language => language.key.split('-')[0] === lang);
       });
   }
 
@@ -138,17 +133,10 @@ export class HeaderComponent
   }
 
   protected userProfile(roles: UserRole[]): void {
-    if (
-      roles.includes(UserRole.BASIC_USER) ||
-      roles.includes(UserRole.TENANT)
-    ) {
-      void this.router.navigate([
-        `/${AppRoutingConstants.ENTERPRISE_PATH}/${AppRoutingConstants.ACCOUNT_INFO_PATH}`
-      ]);
+    if (roles.includes(UserRole.BASIC_USER) || roles.includes(UserRole.TENANT)) {
+      void this.router.navigate([`/${AppRoutingConstants.ENTERPRISE_PATH}/${AppRoutingConstants.ACCOUNT_INFO_PATH}`]);
     } else {
-      void this.router.navigate([
-        `/${AppRoutingConstants.AUTH_PATH}/${AppRoutingConstants.USER_PROFILE}`
-      ]);
+      void this.router.navigate([`/${AppRoutingConstants.AUTH_PATH}/${AppRoutingConstants.USER_PROFILE}`]);
     }
   }
 

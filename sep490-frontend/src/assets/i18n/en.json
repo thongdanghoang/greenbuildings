@@ -74,7 +74,7 @@
         "permissionWarning": "Please select a building to assign a role to this user",
         "notEnoughCredit": "Enterprise do not have enough credits",
         "ratioNotMatch": "The ratio is not match, please try again",
-        "group":{
+        "group": {
           "nameExists": "Group name already exists"
         }
       },
@@ -937,7 +937,7 @@
     "numberOfItems": "Number of items in all building:",
     "numberOfActivities": "Number of emission activities:",
     "numberOfCommonActivities": "Number of common activities in building"
-},
+  },
   "tenant": {
     "building": "This group of buildings is for tenants:",
     "email": "Tenant's email:",

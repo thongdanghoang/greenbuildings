@@ -3,5 +3,5 @@ export const environment = {
   oidcAuthority: 'https://greenbuildings.cloud/idp',
   idpApiUrl: 'https://greenbuildings.cloud/idp/api',
   enterpriseUrl: 'https://greenbuildings.cloud/enterprise/api',
-  oidcClientId: 'greenbuildings',
+  oidcClientId: 'greenbuildings'
 };

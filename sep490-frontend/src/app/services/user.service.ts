@@ -15,9 +15,7 @@ export class UserService {
   constructor(private readonly httpClient: HttpClient) {}
 
   get userConfigs(): Observable<UserConfigs> {
-    return this.httpClient.get<UserConfigs>(
-      `${AppRoutingConstants.IDP_API_URL}/${UserService.USER_API_URL}/locale`
-    );
+    return this.httpClient.get<UserConfigs>(`${AppRoutingConstants.IDP_API_URL}/${UserService.USER_API_URL}/locale`);
   }
 
   changeLanguage(locale: UserLocale): Observable<void> {
@@ -28,8 +26,6 @@ export class UserService {
   }
 
   public getUserInfo(): Observable<EnterpriseUserDetails> {
-    return this.httpClient.get<EnterpriseUserDetails>(
-      `${AppRoutingConstants.IDP_API_URL}/${UserService.USER_API_URL}`
-    );
+    return this.httpClient.get<EnterpriseUserDetails>(`${AppRoutingConstants.IDP_API_URL}/${UserService.USER_API_URL}`);
   }
 }

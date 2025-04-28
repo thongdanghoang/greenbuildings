@@ -3,23 +3,21 @@
         <ng-template #header>
             <div class="mt-2 flex items-center justify-center">
                 <h2 class="text-xl font-semibold">
-                    {{ "admin.ratio.updateRatio" | translate }}
+                    {{ 'admin.ratio.updateRatio' | translate }}
                 </h2>
             </div>
         </ng-template>
         <ng-template #title>
             <div class="flex items-center justify-center text-primary-emphasis">
                 <p>
-                    {{ "admin.ratio.adjustRatio" | translate }}:
-                    {{ "admin.ratio.type." + selectedConvertType | translate }}
+                    {{ 'admin.ratio.adjustRatio' | translate }}:
+                    {{ 'admin.ratio.type.' + selectedConvertType | translate }}
                 </p>
             </div>
         </ng-template>
         <ng-template #subtitle>
             <div class="flex items-center justify-center">
-                <div
-                    class="flex flex-col items-center justify-center gap-2 pt-6"
-                >
+                <div class="flex flex-col items-center justify-center gap-2 pt-6">
                     <form
                         [formGroup]="formGroup"
                         class="py-5 sm:mt-5"
@@ -39,7 +37,7 @@
                                 inputId="horizontal"
                                 [minFractionDigits]="1"
                                 [maxFractionDigits]="2"
-                                [inputStyle]="{ width: '5rem' }"
+                                [inputStyle]="{width: '5rem'}"
                             >
                                 <ng-template #incrementbuttonicon>
                                     <span class="pi pi-plus"></span>
@@ -55,13 +53,9 @@
             </div>
         </ng-template>
         <ng-template #footer>
-            <div
-                class="mt-4 flex flex-col-reverse items-center justify-center gap-4 lg:flex-row"
-            >
+            <div class="mt-4 flex flex-col-reverse items-center justify-center gap-4 lg:flex-row">
                 <p-button
-                    label="{{
-                        'dialog.subscription.footer.button.cancel' | translate
-                    }}"
+                    label="{{ 'dialog.subscription.footer.button.cancel' | translate }}"
                     [text]="true"
                     severity="primary"
                     [outlined]="true"

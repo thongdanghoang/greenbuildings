@@ -18,21 +18,13 @@ export class InvitationService {
     return this.http.get<InvitationDTO[]>(`${this.baseUrl}/find-by-email`);
   }
 
-  public updateStatus(
-    invitationResponse: InvitationResponse
-  ): Observable<void> {
-    return this.http.put<void>(
-      `${this.baseUrl}/update-status`,
-      invitationResponse
-    );
+  public updateStatus(invitationResponse: InvitationResponse): Observable<void> {
+    return this.http.put<void>(`${this.baseUrl}/update-status`, invitationResponse);
   }
 
   public fetchInvitations(
     criteria: SearchCriteriaDto<InvitationSearchCriteria>
   ): Observable<SearchResultDto<InvitationDTO>> {
-    return this.http.post<SearchResultDto<InvitationDTO>>(
-      `${this.baseUrl}/search`,
-      criteria
-    );
+    return this.http.post<SearchResultDto<InvitationDTO>>(`${this.baseUrl}/search`, criteria);
   }
 }

@@ -1,11 +1,6 @@
 import {HttpClient} from '@angular/common/http';
 import {Component} from '@angular/core';
-import {
-  AbstractControl,
-  FormBuilder,
-  FormControl,
-  Validators
-} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormControl, Validators} from '@angular/forms';
 import {TranslateService} from '@ngx-translate/core';
 import {takeUntil} from 'rxjs';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
@@ -29,10 +24,7 @@ export class AccountInformationComponent extends AbstractFormComponent<Enterpris
     email: new FormControl('', [Validators.required, Validators.email]),
     firstName: new FormControl('', [Validators.required]),
     lastName: new FormControl('', [Validators.required]),
-    phone: new FormControl('', [
-      Validators.required,
-      Validators.pattern(ApplicationConstant.PHONE_PATTERN)
-    ]),
+    phone: new FormControl('', [Validators.required, Validators.pattern(ApplicationConstant.PHONE_PATTERN)]),
     role: new FormControl('', [Validators.required]),
     scope: new FormControl('', [Validators.required])
   };

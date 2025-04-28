@@ -16,22 +16,15 @@ export class ActivityTypeService {
   constructor(private readonly http: HttpClient) {}
 
   getByEnterpriseId(enterpriseId: UUID): Observable<ActivityType[]> {
-    return this.http.get<ActivityType[]>(
-      `${this.baseUrl}?enterpriseId=${enterpriseId}`
-    );
+    return this.http.get<ActivityType[]>(`${this.baseUrl}?enterpriseId=${enterpriseId}`);
   }
 
   get createNewURL(): string {
     return `${this.baseUrl}/create`;
   }
 
-  public getActivityType(
-    criteria: SearchCriteriaDto<ActivityTypeCriteria>
-  ): Observable<SearchResultDto<ActivityType>> {
-    return this.http.post<SearchResultDto<ActivityType>>(
-      `${this.baseUrl}/search`,
-      criteria
-    );
+  public getActivityType(criteria: SearchCriteriaDto<ActivityTypeCriteria>): Observable<SearchResultDto<ActivityType>> {
+    return this.http.post<SearchResultDto<ActivityType>>(`${this.baseUrl}/search`, criteria);
   }
 
   public getActivityTypeById(typeId: string): Observable<ActivityType> {

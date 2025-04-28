@@ -22,6 +22,5 @@ export namespace TransactionDTO {
     NEW_PURCHASE: 'NEW_PURCHASE',
     UPGRADE: 'UPGRADE'
   } as const;
-  export type TransactionTypeEnum =
-    (typeof TransactionTypeEnum)[keyof typeof TransactionTypeEnum];
+  export type TransactionTypeEnum = (typeof TransactionTypeEnum)[keyof typeof TransactionTypeEnum];
 }

@@ -1,11 +1,6 @@
 import {HttpClient} from '@angular/common/http';
 import {Component, Injector} from '@angular/core';
-import {
-  AbstractControl,
-  FormBuilder,
-  FormControl,
-  Validators
-} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormControl, Validators} from '@angular/forms';
 import {ValidateOTPRequest} from '@models/enterprise-user';
 import {TranslateService} from '@ngx-translate/core';
 import {OidcSecurityService} from 'angular-auth-oidc-client';
@@ -26,10 +21,7 @@ export class EmailVerifyOTPComponent extends AbstractFormComponent<ValidateOTPRe
   firstSent = false;
 
   form = {
-    otpCode: new FormControl('', [
-      Validators.required,
-      Validators.pattern(/^\d{6}$/)
-    ])
+    otpCode: new FormControl('', [Validators.required, Validators.pattern(/^\d{6}$/)])
   };
 
   constructor(
@@ -67,9 +59,7 @@ export class EmailVerifyOTPComponent extends AbstractFormComponent<ValidateOTPRe
 
     const countdown = 5;
     const message = this.translate.instant('account.validateOTP.success');
-    const redirectMessage = this.translate.instant(
-      'account.validateOTP.redirect'
-    );
+    const redirectMessage = this.translate.instant('account.validateOTP.redirect');
 
     messageService.clear();
     messageService.add({
@@ -79,8 +69,7 @@ export class EmailVerifyOTPComponent extends AbstractFormComponent<ValidateOTPRe
       sticky: true,
       closable: false,
       key: 'center',
-      styleClass:
-        'text-xl p-6 min-w-[400px] max-w-[600px] bg-white dark:bg-gray-800 shadow-lg rounded-lg'
+      styleClass: 'text-xl p-6 min-w-[400px] max-w-[600px] bg-white dark:bg-gray-800 shadow-lg rounded-lg'
     });
 
     // After 5 seconds, trigger logoff and login

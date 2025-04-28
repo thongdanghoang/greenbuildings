@@ -1,25 +1,17 @@
 <div class="mb-4 flex items-center justify-start border-b pb-1">
     <p class="text-lg font-bold text-primary">
-        {{ "payment.history.credit.title" | translate }}
+        {{ 'payment.history.credit.title' | translate }}
     </p>
 </div>
-<div
-    class="mb-20 flex flex-col items-center justify-center gap-2.5 pl-0 lg:flex-row lg:justify-between lg:px-10"
->
+<div class="mb-20 flex flex-col items-center justify-center gap-2.5 pl-0 lg:flex-row lg:justify-between lg:px-10">
     <div class="flex flex-col items-center gap-6 lg:items-start">
-        <div
-            class="flex flex-col items-center gap-2.5 text-center lg:flex-row lg:items-end lg:text-left"
-        >
+        <div class="flex flex-col items-center gap-2.5 text-center lg:flex-row lg:items-end lg:text-left">
             <p>
-                {{ "payment.history.balance" | translate }}
+                {{ 'payment.history.balance' | translate }}
             </p>
-            <span class="text-3xl text-primary">{{
-                balance | number: "1.0-0"
-            }}</span>
+            <span class="text-3xl text-primary">{{ balance | number: '1.0-0' }}</span>
         </div>
-        <span class="flex items-center text-center">{{
-            "payment.history.credit.label" | translate
-        }}</span>
+        <span class="flex items-center text-center">{{ 'payment.history.credit.label' | translate }}</span>
     </div>
     <div class="flex flex-col gap-2.5">
         <div class="flex items-center justify-between gap-2.5 lg:flex-row">
@@ -48,12 +40,13 @@
 </table-template>
 <ng-template #captionTemplateRef>
     <div class="flex items-center justify-start">
-        <span class="font-bold text-primary">{{
-            "payment.history.title" | translate
-        }}</span>
+        <span class="font-bold text-primary">{{ 'payment.history.title' | translate }}</span>
     </div>
 </ng-template>
-<ng-template #actionsTemplate let-product>
+<ng-template
+    #actionsTemplate
+    let-product
+>
     <p-button
         icon="pi pi-eye"
         [rounded]="true"
@@ -63,13 +56,19 @@
     />
 </ng-template>
 
-<ng-template #statusTemplate let-rowData>
+<ng-template
+    #statusTemplate
+    let-rowData
+>
     <p-tag
         [ngClass]="getStatusClass(rowData.status)"
         [value]="'enum.status.payment.' + rowData.status | translate"
     />
 </ng-template>
 
-<ng-template #amountTemplate let-rowData>
+<ng-template
+    #amountTemplate
+    let-rowData
+>
     <p>+{{ rowData.numberOfCredits }}</p>
 </ng-template>

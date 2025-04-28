@@ -11,10 +11,7 @@ import {AppRoutingConstants} from '../../app-routing.constant';
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.css'
 })
-export class SidebarComponent
-  extends SubscriptionAwareComponent
-  implements OnInit
-{
+export class SidebarComponent extends SubscriptionAwareComponent implements OnInit {
   items: MenuItem[] | undefined;
 
   private readonly POWER_BI_ACCESS_TOKEN_PATH = `${AppRoutingConstants.AUTH_PATH}/${AppRoutingConstants.SETTINGS}/${AppRoutingConstants.POWER_BI_ACCESS_TOKEN}`;
@@ -35,28 +32,16 @@ export class SidebarComponent
       )
       .subscribe((userData: UserData): void => {
         switch (true) {
-          case this.applicationService.includeRole(
-            userData.authorities,
-            UserRole.ENTERPRISE_OWNER
-          ):
+          case this.applicationService.includeRole(userData.authorities, UserRole.ENTERPRISE_OWNER):
             this.items = this.buildEnterpriseOwnerMenu();
             break;
-          case this.applicationService.includeRole(
-            userData.authorities,
-            UserRole.TENANT
-          ):
+          case this.applicationService.includeRole(userData.authorities, UserRole.TENANT):
             this.items = this.buildTenantMenu();
             break;
-          case this.applicationService.includeRole(
-            userData.authorities,
-            UserRole.SYSTEM_ADMIN
-          ):
+          case this.applicationService.includeRole(userData.authorities, UserRole.SYSTEM_ADMIN):
             this.items = this.buildAdminMenu();
             break;
-          case this.applicationService.includeRole(
-            userData.authorities,
-            UserRole.BASIC_USER
-          ):
+          case this.applicationService.includeRole(userData.authorities, UserRole.BASIC_USER):
             this.items = this.buildBasicUserMenu();
             break;
         }

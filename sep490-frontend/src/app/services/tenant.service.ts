@@ -18,14 +18,8 @@ export class TenantService {
     return this.http.get<TenantDetailDTO>(`${this.baseUrl}/${id}/detail`);
   }
 
-  updateTenantDetail(
-    id: UUID,
-    tenantDetail: TenantDetailDTO
-  ): Observable<TenantDetailDTO> {
-    return this.http.put<TenantDetailDTO>(
-      `${this.baseUrl}/${id}/detail`,
-      tenantDetail
-    );
+  updateTenantDetail(id: UUID, tenantDetail: TenantDetailDTO): Observable<TenantDetailDTO> {
+    return this.http.put<TenantDetailDTO>(`${this.baseUrl}/${id}/detail`, tenantDetail);
   }
 
   create(tenant: Tenant): Observable<Tenant> {
@@ -40,12 +34,7 @@ export class TenantService {
     return this.http.delete<void>(`${this.baseUrl}/${id}`);
   }
 
-  search(
-    criteria: SearchCriteriaDto<void>
-  ): Observable<SearchResultDto<Tenant>> {
-    return this.http.post<SearchResultDto<Tenant>>(
-      `${this.baseUrl}/search`,
-      criteria
-    );
+  search(criteria: SearchCriteriaDto<void>): Observable<SearchResultDto<Tenant>> {
+    return this.http.post<SearchResultDto<Tenant>>(`${this.baseUrl}/search`, criteria);
   }
 }

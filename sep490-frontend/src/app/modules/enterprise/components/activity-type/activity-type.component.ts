@@ -1,17 +1,7 @@
-import {
-  Component,
-  EventEmitter,
-  OnInit,
-  TemplateRef,
-  ViewChild
-} from '@angular/core';
+import {Component, EventEmitter, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {ActivityTypeCriteria} from '@models/emission-activity';
 import {TranslateService} from '@ngx-translate/core';
-import {
-  DialogService,
-  DynamicDialogConfig,
-  DynamicDialogRef
-} from 'primeng/dynamicdialog';
+import {DialogService, DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
 import {Observable, takeUntil} from 'rxjs';
 import {UUID} from '../../../../../types/uuid';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
@@ -30,10 +20,7 @@ import {ActivityTypeDialogComponent} from '../../dialog/activity-type-dialog/act
   templateUrl: './activity-type.component.html',
   styleUrl: './activity-type.component.css'
 })
-export class ActivityTypeComponent
-  extends SubscriptionAwareComponent
-  implements OnInit
-{
+export class ActivityTypeComponent extends SubscriptionAwareComponent implements OnInit {
   @ViewChild('scopeTemplate', {static: true})
   scopeTemplate!: TemplateRef<any>;
   @ViewChild('actionsTemplate', {static: true})
@@ -45,8 +32,7 @@ export class ActivityTypeComponent
   ) => Observable<SearchResultDto<ActivityType>>;
   protected cols: TableTemplateColumn[] = [];
   protected readonly searchEvent: EventEmitter<void> = new EventEmitter();
-  protected readonly clearSelectedEvent: EventEmitter<void> =
-    new EventEmitter();
+  protected readonly clearSelectedEvent: EventEmitter<void> = new EventEmitter();
   protected selected: ActivityType[] = [];
   protected searchCriteria: ActivityTypeCriteria = {criteria: ''};
 
@@ -63,9 +49,7 @@ export class ActivityTypeComponent
 
   ngOnInit(): void {
     this.buildCols();
-    this.fetchActivityTypes = this.activityTypeService.getActivityType.bind(
-      this.activityTypeService
-    );
+    this.fetchActivityTypes = this.activityTypeService.getActivityType.bind(this.activityTypeService);
   }
 
   buildCols(): void {
@@ -160,12 +144,8 @@ export class ActivityTypeComponent
     this.activityTypeService.deleteActivityType(userIds).subscribe({
       next: () => {
         this.messageService.success({
-          summary: this.translate.instant(
-            'enterprise.type.message.success.summary'
-          ),
-          detail: this.translate.instant(
-            'enterprise.type.message.success.detail'
-          )
+          summary: this.translate.instant('enterprise.type.message.success.summary'),
+          detail: this.translate.instant('enterprise.type.message.success.detail')
         });
         this.selected = []; // Clear local selection
         this.searchEvent.emit(); // Refresh table
@@ -173,12 +153,8 @@ export class ActivityTypeComponent
       },
       error: () => {
         this.messageService.businessError({
-          summary: this.translate.instant(
-            'enterprise.Users.message.error.summary'
-          ),
-          detail: this.translate.instant(
-            'enterprise.Users.message.error.detail'
-          )
+          summary: this.translate.instant('enterprise.Users.message.error.summary'),
+          detail: this.translate.instant('enterprise.Users.message.error.detail')
         });
       }
     });
