@@ -80,9 +80,9 @@ payment:
     cancelPath: /enterprise/payment
 
 exchangerate-api:
-  key: 80a3459aa627df3e98af22e1
+  key: secret_key_to_prevent_null
   url: https://v6.exchangerate-api.com/v6/
 
 geocoding:
-  key: 67bf29d839123857967394ilhe81a49
+  key: secret_key_to_prevent_null
   url: https://geocode.maps.co/reverse
