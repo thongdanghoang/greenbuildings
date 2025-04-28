@@ -935,7 +935,8 @@
     "numberOfGroups": "Number of groups:",
     "numberOfCorporationTenant": "Number of corporation tenant:",
     "numberOfItems": "Number of items in all building:",
-    "numberOfActivities": "Number of emission activities:"
+    "numberOfActivities": "Number of emission activities:",
+    "numberOfCommonActivities": "Number of common activities in building"
 },
   "tenant": {
     "building": "This group of buildings is for tenants:",
