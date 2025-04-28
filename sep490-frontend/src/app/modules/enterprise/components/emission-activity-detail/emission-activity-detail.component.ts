@@ -171,6 +171,11 @@ export class EmissionActivityDetailComponent
         sortable: true
       },
       {
+        field: 'quantity',
+        header: 'enterprise.emission.activity.record.table.quantity',
+        sortable: true
+      },
+      {
         field: 'ghg',
         header: 'enterprise.emission.activity.record.table.ghg',
         sortable: true,
