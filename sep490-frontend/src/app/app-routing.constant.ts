@@ -1,4 +1,4 @@
-import {environment} from '../environments/environment';
+import {environment} from '@environment';
 
 export class AppRoutingConstants {
   public static readonly IDP_API_URL = environment.idpApiUrl;

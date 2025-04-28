@@ -28,6 +28,7 @@ public class ResourceServerConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .oauth2ResourceServer(c -> c.jwt(j -> j.jwtAuthenticationConverter(converter)))
                 .authorizeHttpRequests(c -> c
+                        .requestMatchers("/v3/api-docs/**").permitAll()
                         .requestMatchers("/power-bi/**").permitAll()
                         .requestMatchers("/actuator/health/**").permitAll()
                         .anyRequest().authenticated())

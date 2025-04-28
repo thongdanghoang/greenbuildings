@@ -57,10 +57,11 @@ public class EmissionActivityRecordController {
         return ResponseEntity.noContent().build();
     }
     
-    @PostMapping("/{recordId}/file")
-    public ResponseEntity<RecordFileEntity> uploadFile(@PathVariable UUID recordId, @RequestParam("file") MultipartFile file) {
-        return ResponseEntity.ok(recordService.uploadFile(recordId, file));
-    }
+//    @PostMapping("/{recordId}/file")
+//    public ResponseEntity<RecordFileEntity> uploadFile(@PathVariable UUID recordId, @RequestParam("file") MultipartFile file) {
+//        // TODO: return ENTITY ???
+//        return ResponseEntity.ok(recordService.uploadFile(recordId, file));
+//    }
     
     @DeleteMapping("/{recordId}/file/{fileId}")
     public ResponseEntity<Void> deleteFile(@PathVariable UUID recordId, @PathVariable UUID fileId) {
@@ -74,8 +75,9 @@ public class EmissionActivityRecordController {
         return ResponseEntity.ok(Map.of("url", fileUrl));
     }
     
-    @GetMapping("/{recordId}/file")
-    public ResponseEntity<List<RecordFileEntity>> getRecordFiles(@PathVariable UUID recordId) {
-        return ResponseEntity.ok(recordService.getRecordFiles(recordId));
-    }
-} 
+//    @GetMapping("/{recordId}/file")
+//    public ResponseEntity<List<RecordFileEntity>> getRecordFiles(@PathVariable UUID recordId) {
+//        // TODO: return ENTITY ???
+//        return ResponseEntity.ok(recordService.getRecordFiles(recordId));
+//    }
+}
