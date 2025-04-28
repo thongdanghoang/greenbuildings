@@ -5,6 +5,7 @@ import {
   TemplateRef,
   ViewChild
 } from '@angular/core';
+import {TransactionCriteria} from '@models/transactions';
 import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
 import {Observable} from 'rxjs';
 import {UUID} from '../../../../../types/uuid';
@@ -16,10 +17,6 @@ import {SubscriptionAwareComponent} from '../../../core/subscription-aware.compo
 import {TableTemplateColumn} from '@shared/components/table-template/table-template.component';
 import {SearchCriteriaDto, SearchResultDto} from '@shared/models/base-models';
 
-export interface TransactionCriteria {
-  criteria: string;
-  // specific criteria such as name, category, etc.
-}
 @Component({
   selector: 'app-credit-deduction-history-dialog',
   templateUrl: './credit-deduction-history-dialog.component.html',

@@ -11,10 +11,10 @@ import {TranslateService} from '@ngx-translate/core';
 import {filter, map, switchMap, takeUntil} from 'rxjs';
 import {UUID} from '../../../../../types/uuid';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
-import {CreditConvertRatio} from '../../../../models/enterprise';
-import {AbstractFormComponent} from '../../../shared/components/form/abstract-form-component';
-import {ToastProvider} from '../../../shared/services/toast-provider';
-import {CreditConvertRatioService} from '../../../../services/credit-convert-ratio.service';
+import {CreditConvertRatio} from '@models/enterprise';
+import {AbstractFormComponent} from '@shared/components/form/abstract-form-component';
+import {ToastProvider} from '@shared/services/toast-provider';
+import {CreditConvertRatioService} from '@services/credit-convert-ratio.service';
 
 @Component({
   selector: 'app-update-ratio',

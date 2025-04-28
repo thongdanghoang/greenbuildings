@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import {ChemicalDensityCriteria} from '@models/emissions';
 import {SearchCriteriaDto, SearchResultDto} from '@shared/models/base-models';
 import {Observable} from 'rxjs';
 import {AppRoutingConstants} from '../app-routing.constant';
-import {ChemicalDensityCriteria} from '../modules/admin/components/chemical-density/chemical-density.component';
 import {ChemicalDensityDTO} from '@models/shared-models';
 import {UUID} from '../../types/uuid';
 

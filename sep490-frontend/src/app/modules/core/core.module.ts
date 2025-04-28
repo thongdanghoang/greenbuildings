@@ -1,9 +1,9 @@
-import {NgModule, Optional, SkipSelf} from '@angular/core';
-import {throwIfAlreadyLoaded} from './module-import-guard';
 import {CommonModule} from '@angular/common';
-import {ThemeService} from './services/theme.service';
-import {ApplicationService} from './services/application.service';
+import {NgModule, Optional, SkipSelf} from '@angular/core';
 import {MessageService} from 'primeng/api';
+import {throwIfAlreadyLoaded} from './module-import-guard';
+import {ApplicationService} from './services/application.service';
+import {ThemeService} from './services/theme.service';
 
 @NgModule({
   declarations: [],
