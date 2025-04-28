@@ -13,7 +13,7 @@ import {PaginatorState} from 'primeng/paginator';
 import {Table} from 'primeng/table';
 import {takeUntil} from 'rxjs';
 import {ApplicationConstant} from '../../../../application.constant';
-import {ApplicationService} from '../../../core/services/application.service';
+import {ApplicationService} from '@services/application.service';
 import {SearchResultDto, SortDto} from '../../models/base-models';
 import {ToastProvider} from '../../services/toast-provider';
 import {AbstractSearchComponent} from '../abstract-search';

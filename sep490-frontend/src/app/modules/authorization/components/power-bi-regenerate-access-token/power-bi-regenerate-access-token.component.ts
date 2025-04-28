@@ -5,10 +5,10 @@ import {validate} from 'uuid';
 import {UUID} from '../../../../../types/uuid';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
 import {ApplicationConstant} from '../../../../application.constant';
-import {SubscriptionAwareComponent} from '../../../core/subscription-aware.component';
-import {SelectableItem} from '../../../shared/models/base-models';
-import {ToastProvider} from '../../../shared/services/toast-provider';
-import {PowerBiAccessTokenService} from '../../services/power-bi-access-token.service';
+import {SubscriptionAwareComponent} from '@shared/directives/subscription-aware.component';
+import {SelectableItem} from '@shared/models/base-models';
+import {ToastProvider} from '@shared/services/toast-provider';
+import {PowerBiAccessTokenService} from '@services/power-bi-access-token.service';
 import {PowerBiAccessTokenExpirationOptions} from '../power-bi-access-token-expiration-options';
 
 @Component({

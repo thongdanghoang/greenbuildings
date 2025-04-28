@@ -1,4 +1,3 @@
-import {Location} from '@angular/common';
 import {HttpClient} from '@angular/common/http';
 import {Component, EventEmitter, TemplateRef, ViewChild} from '@angular/core';
 import {
@@ -23,17 +22,14 @@ import {
 import {validate} from 'uuid';
 import {UUID} from '../../../../../types/uuid';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
-import {BuildingService} from '../../../../services/building.service';
-import {GeocodingService} from '../../../../services/geocoding.service';
-import {ApplicationService} from '../../../core/services/application.service';
-import {AbstractFormComponent} from '../../../shared/components/form/abstract-form-component';
-import {TableTemplateColumn} from '../../../shared/components/table-template/table-template.component';
-import {
-  SearchCriteriaDto,
-  SearchResultDto
-} from '../../../shared/models/base-models';
-import {ToastProvider} from '../../../shared/services/toast-provider';
-import {BuildingDetails, UserByBuilding} from '../../models/enterprise.dto';
+import {BuildingDetails, UserByBuilding} from '@models/enterprise';
+import {BuildingService} from '@services/building.service';
+import {GeocodingService} from '@services/geocoding.service';
+import {ApplicationService} from '@services/application.service';
+import {AbstractFormComponent} from '@shared/components/form/abstract-form-component';
+import {TableTemplateColumn} from '@shared/components/table-template/table-template.component';
+import {SearchCriteriaDto, SearchResultDto} from '@shared/models/base-models';
+import {ToastProvider} from '@shared/services/toast-provider';
 
 @Component({
   selector: 'app-building-detail',
@@ -42,7 +38,6 @@ import {BuildingDetails, UserByBuilding} from '../../models/enterprise.dto';
 })
 export class BuildingDetailsComponent extends AbstractFormComponent<BuildingDetails> {
   addressSuggestions: any[] = [];
-  showSuggestions: boolean = false;
   showMap: boolean = false;
   @ViewChild('permissionTemplate', {static: true})
   permissionTemplate!: TemplateRef<any>;
@@ -77,7 +72,6 @@ export class BuildingDetailsComponent extends AbstractFormComponent<BuildingDeta
     private readonly activatedRoute: ActivatedRoute,
     private readonly buildingService: BuildingService,
     private readonly geocodingService: GeocodingService,
-    private readonly location: Location,
     private readonly router: Router,
     protected readonly applicationService: ApplicationService
   ) {

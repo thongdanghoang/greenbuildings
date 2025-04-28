@@ -5,30 +5,24 @@ import {
   TemplateRef,
   ViewChild
 } from '@angular/core';
+import {InvitationResponse, InvitationSearchCriteria} from '@models/tenant';
 import {TranslateService} from '@ngx-translate/core';
 import {Observable, takeUntil} from 'rxjs';
 import {UUID} from '../../../../../types/uuid';
-import {BuildingService} from '../../../../services/building.service';
-import {ApplicationService} from '../../../core/services/application.service';
-import {SubscriptionAwareComponent} from '../../../core/subscription-aware.component';
-import {TableTemplateColumn} from '../../../shared/components/table-template/table-template.component';
-import {
-  SearchCriteriaDto,
-  SearchResultDto
-} from '../../../shared/models/base-models';
-import {ToastProvider} from '../../../shared/services/toast-provider';
 import {
   Building,
   BuildingGroup,
   InvitationDTO,
   InvitationStatus
-} from '../../models/enterprise.dto';
-import {BuildingGroupService} from '../../services/building-group.service';
-import {
-  InvitationResponse,
-  InvitationSearchCriteria,
-  InvitationService
-} from '../../services/invitation.service';
+} from '@models/enterprise';
+import {BuildingGroupService} from '@services/building-group.service';
+import {BuildingService} from '@services/building.service';
+import {InvitationService} from '@services/invitation.service';
+import {ApplicationService} from '@services/application.service';
+import {SubscriptionAwareComponent} from '@shared/directives/subscription-aware.component';
+import {TableTemplateColumn} from '@shared/components/table-template/table-template.component';
+import {SearchCriteriaDto, SearchResultDto} from '@shared/models/base-models';
+import {ToastProvider} from '@shared/services/toast-provider';
 
 @Component({
   selector: 'app-sent-invitation',

@@ -1,7 +1,7 @@
 import {Directive, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {Observable, of, takeUntil} from 'rxjs';
-import {SubscriptionAwareComponent} from '../../core/subscription-aware.component';
+import {SubscriptionAwareComponent} from '@shared/directives/subscription-aware.component';
 import {SearchCriteriaDto, SearchResultDto} from '../models/base-models';
 import {TranslateParamsPipe} from '../pipes/translate-params.pipe';
 import {ToastProvider} from '../services/toast-provider';

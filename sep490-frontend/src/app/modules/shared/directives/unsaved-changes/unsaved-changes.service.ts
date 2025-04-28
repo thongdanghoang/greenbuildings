@@ -2,7 +2,7 @@ import {Injectable, inject} from '@angular/core';
 import {ControlContainer} from '@angular/forms';
 import {TranslateService} from '@ngx-translate/core';
 import {Observable, of} from 'rxjs';
-import {SubscriptionAwareComponent} from '../../../core/subscription-aware.component';
+import {SubscriptionAwareComponent} from '@shared/directives/subscription-aware.component';
 import {ModalProvider} from '../../services/modal-provider';
 import {GlobalEventsService, WINDOW} from './global-events.service';
 

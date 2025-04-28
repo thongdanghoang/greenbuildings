@@ -10,9 +10,9 @@ import {TranslateService} from '@ngx-translate/core';
 import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
 import {UUID} from '../../../../../types/uuid';
 import {AbstractFormComponent} from '../../../shared/components/form/abstract-form-component';
-import {EmissionFactorDTO} from '../../../shared/models/shared-models';
+import {EmissionFactorDTO} from '../../../../models/shared-models';
 import {ToastProvider} from '../../../shared/services/toast-provider';
-import {EmissionFactorService} from '../../services/emission_factor.service';
+import {EmissionFactorService} from '../../../../services/emission_factor.service';
 
 @Component({
   selector: 'app-emission-factor-dialog',

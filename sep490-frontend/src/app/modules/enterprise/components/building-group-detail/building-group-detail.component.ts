@@ -6,8 +6,8 @@ import {
   ViewChild
 } from '@angular/core';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
+import {ActivitySearchCriteria} from '@models/emission-activity';
 import {TranslateService} from '@ngx-translate/core';
-import moment from 'moment/moment';
 import {
   DialogService,
   DynamicDialogConfig,
@@ -17,23 +17,17 @@ import {Observable} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {UUID} from '../../../../../types/uuid';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
-import {UserRole} from '../../../authorization/enums/role-names';
-import {ApplicationService} from '../../../core/services/application.service';
-import {SubscriptionAwareComponent} from '../../../core/subscription-aware.component';
-import {TableTemplateColumn} from '../../../shared/components/table-template/table-template.component';
-import {
-  SearchCriteriaDto,
-  SearchResultDto
-} from '../../../shared/models/base-models';
-import {ModalProvider} from '../../../shared/services/modal-provider';
-import {ToastProvider} from '../../../shared/services/toast-provider';
+import {BuildingGroup, EmissionActivity} from '@models/enterprise';
+import {UserRole} from '@models/role-names';
+import {BuildingGroupService} from '@services/building-group.service';
+import {EmissionActivityService} from '@services/emission-activity.service';
+import {ApplicationService} from '@services/application.service';
+import {SubscriptionAwareComponent} from '@shared/directives/subscription-aware.component';
+import {TableTemplateColumn} from '@shared/components/table-template/table-template.component';
+import {SearchCriteriaDto, SearchResultDto} from '@shared/models/base-models';
+import {ModalProvider} from '@shared/services/modal-provider';
+import {ToastProvider} from '@shared/services/toast-provider';
 import {NewActivityDialogComponent} from '../../dialog/new-activity-dialog/new-activity-dialog.component';
-import {BuildingGroup, EmissionActivity} from '../../models/enterprise.dto';
-import {BuildingGroupService} from '../../services/building-group.service';
-import {
-  ActivitySearchCriteria,
-  EmissionActivityService
-} from '../../services/emission-activity.service';
 
 @Component({
   selector: 'app-building-group-detail',
@@ -161,16 +155,6 @@ export class BuildingGroupDetailComponent
     ]);
   }
 
-  getRemainingDays(): number | string {
-    if (!this.buildingGroup.building?.subscriptionDTO?.endDate) {
-      return 'N/A'; // Handle missing date
-    }
-    const endDate = moment(this.buildingGroup.building.subscriptionDTO.endDate);
-    const today = moment();
-    const diff = endDate.diff(today, 'days'); // Difference in days
-    return diff >= 0 ? diff : 'Expired';
-  }
-
   openNewActivityDialog(): void {
     const config: DynamicDialogConfig = {
       data: {
@@ -247,14 +231,6 @@ export class BuildingGroupDetailComponent
       AppRoutingConstants.ENTERPRISE_PATH,
       AppRoutingConstants.EMISSION_ACTIVITY_DETAIL_PATH,
       activity.id
-    ]);
-  }
-
-  navigateToManageActivityType(): void {
-    void this.router.navigate([
-      AppRoutingConstants.ENTERPRISE_PATH,
-      AppRoutingConstants.ACTIVITY_TYPE,
-      this.buildingGroup.id
     ]);
   }
 }

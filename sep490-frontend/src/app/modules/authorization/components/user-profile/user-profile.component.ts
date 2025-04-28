@@ -1,3 +1,4 @@
+import {Location} from '@angular/common';
 import {HttpClient} from '@angular/common/http';
 import {Component} from '@angular/core';
 import {
@@ -16,20 +17,19 @@ import {SelectChangeEvent} from 'primeng/select';
 import {takeUntil} from 'rxjs';
 import {UUID} from '../../../../../types/uuid';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
-import {BuildingService} from '../../../../services/building.service';
-import {Building} from '../../../enterprise/models/enterprise.dto';
-import {AbstractFormComponent} from '../../../shared/components/form/abstract-form-component';
-import {SelectableItem} from '../../../shared/models/base-models';
-import {ToastProvider} from '../../../shared/services/toast-provider';
-import {BuildingPermissionRole} from '../../enums/building-permission-role';
-import {UserRole} from '../../enums/role-names';
-import {UserScope} from '../../enums/user-scope';
+import {BuildingPermissionRole} from '@models/building-permission-role';
+import {Building} from '@models/enterprise';
 import {
   BuildingPermission,
   EnterpriseUserDetails
-} from '../../models/enterprise-user';
-import {EnterpriseUserService} from '../../services/enterprise-user.service';
-import {Location} from '@angular/common';
+} from '@models/enterprise-user';
+import {UserRole} from '@models/role-names';
+import {UserScope} from '@models/user-scope';
+import {BuildingService} from '@services/building.service';
+import {EnterpriseUserService} from '@services/enterprise-user.service';
+import {AbstractFormComponent} from '@shared/components/form/abstract-form-component';
+import {SelectableItem} from '@shared/models/base-models';
+import {ToastProvider} from '@shared/services/toast-provider';
 
 @Component({
   selector: 'app-user-profile',
@@ -65,58 +65,6 @@ export class UserProfileComponent extends AbstractFormComponent<EnterpriseUserDe
     ),
     enterprisePermission: new FormControl<BuildingPermissionRole | null>(null)
   };
-  protected permissionRoleOptions: SelectableItem<string>[] = [
-    {
-      disabled: false,
-      value: BuildingPermissionRole[BuildingPermissionRole.MANAGER],
-      label: 'enum.permissionRole.MANAGER'
-    },
-    {
-      disabled: false,
-      value: BuildingPermissionRole[BuildingPermissionRole.STAFF],
-      label: 'enum.permissionRole.STAFF'
-    },
-    {
-      disabled: false,
-      value: BuildingPermissionRole[BuildingPermissionRole.AUDITOR],
-      label: 'enum.permissionRole.AUDITOR'
-    }
-  ];
-  protected buildingPermissionScopeEnterprise: SelectableItem<string>[] = [
-    {
-      disabled: false,
-      value: BuildingPermissionRole[
-        BuildingPermissionRole.MANAGER
-      ] as keyof typeof BuildingPermissionRole,
-      label: 'enum.permissionRole.MANAGER'
-    },
-    {
-      disabled: false,
-      value: BuildingPermissionRole[
-        BuildingPermissionRole.STAFF
-      ] as keyof typeof BuildingPermissionRole,
-      label: 'enum.permissionRole.STAFF'
-    },
-    {
-      disabled: false,
-      value: BuildingPermissionRole[
-        BuildingPermissionRole.AUDITOR
-      ] as keyof typeof BuildingPermissionRole,
-      label: 'enum.permissionRole.AUDITOR'
-    }
-  ];
-  protected scopeOptions: SelectableItem<keyof typeof UserScope>[] = [
-    {
-      disabled: false,
-      value: UserScope[UserScope.ENTERPRISE] as keyof typeof UserScope,
-      label: 'enum.scope.ENTERPRISE'
-    },
-    {
-      disabled: false,
-      value: UserScope[UserScope.BUILDING] as keyof typeof UserScope,
-      label: 'enum.scope.BUILDING'
-    }
-  ];
   protected selectableBuildings: SelectableItem<any>[] = this.buildings.map(
     building => ({
       disabled: false,

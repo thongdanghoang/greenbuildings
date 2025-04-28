@@ -13,21 +13,18 @@ import {
 } from 'primeng/dynamicdialog';
 import {Observable} from 'rxjs';
 import {UUID} from '../../../../../types/uuid';
-import {ApplicationService} from '../../../core/services/application.service';
-import {SubscriptionAwareComponent} from '../../../core/subscription-aware.component';
-import {TableTemplateColumn} from '../../../shared/components/table-template/table-template.component';
-import {
-  SearchCriteriaDto,
-  SearchResultDto
-} from '../../../shared/models/base-models';
+import {ApplicationService} from '@services/application.service';
+import {SubscriptionAwareComponent} from '@shared/directives/subscription-aware.component';
+import {TableTemplateColumn} from '@shared/components/table-template/table-template.component';
+import {SearchCriteriaDto, SearchResultDto} from '@shared/models/base-models';
 import {
   EmissionFactorDTO,
   EmissionSourceDTO,
   FuelDTO
-} from '../../../shared/models/shared-models';
-import {ToastProvider} from '../../../shared/services/toast-provider';
+} from '@models/shared-models';
+import {ToastProvider} from '@shared/services/toast-provider';
 import {EmissionFactorDialogComponent} from '../../dialog/emission-factor-dialog/emission-factor-dialog.component';
-import {EmissionFactorService} from '../../services/emission_factor.service';
+import {EmissionFactorService} from '@services/emission_factor.service';
 
 export interface EmissionFactorCriteria {
   criteria: string;
@@ -106,20 +103,6 @@ export class EmissionFactorComponent
     }
 
     return (source[`name${lang}` as keyof FuelDTO] as string) || source.nameEN;
-  }
-  getLocalizedHeader(): string {
-    const lang = this.translate.currentLang.toUpperCase();
-    switch (lang) {
-      case 'VI':
-      case 'VN':
-        return 'Hệ số phát thải';
-      case 'EN':
-        return 'Emission factor';
-      case 'ZH':
-        return '排放因子';
-      default:
-        return 'Emission factor'; // Mặc định là tiếng Anh
-    }
   }
 
   // Lấy tên hệ số phát thải theo ngôn ngữ hiện tại

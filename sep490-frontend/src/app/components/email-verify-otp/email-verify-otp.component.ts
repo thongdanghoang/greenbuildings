@@ -6,17 +6,15 @@ import {
   FormControl,
   Validators
 } from '@angular/forms';
+import {ValidateOTPRequest} from '@models/enterprise-user';
 import {TranslateService} from '@ngx-translate/core';
 import {OidcSecurityService} from 'angular-auth-oidc-client';
 import {MessageService} from 'primeng/api';
 import {delay, take, tap} from 'rxjs';
-import {
-  EnterpriseUserService,
-  ValidateOTPRequest
-} from '../../modules/authorization/services/enterprise-user.service';
-import {ApplicationService} from '../../modules/core/services/application.service';
-import {AbstractFormComponent} from '../../modules/shared/components/form/abstract-form-component';
-import {ToastProvider} from '../../modules/shared/services/toast-provider';
+import {EnterpriseUserService} from '@services/enterprise-user.service';
+import {ApplicationService} from '@services/application.service';
+import {AbstractFormComponent} from '@shared/components/form/abstract-form-component';
+import {ToastProvider} from '@shared/services/toast-provider';
 
 @Component({
   selector: 'app-email-verify-otp',

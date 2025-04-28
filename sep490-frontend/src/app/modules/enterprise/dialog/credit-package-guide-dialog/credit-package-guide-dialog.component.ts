@@ -1,16 +1,16 @@
+import {DecimalPipe} from '@angular/common';
 import {Component, OnInit} from '@angular/core';
-import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
-import {TranslateService} from '@ngx-translate/core';
-import {WalletService} from '../../services/wallet.service';
-import {ApplicationService} from '../../../core/services/application.service';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {SubscriptionService} from '../../services/subscription.service';
+import {TranslateService} from '@ngx-translate/core';
+import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
 import {
   CreditConvertRatio,
   CreditConvertType,
   CreditPackage
-} from '../../models/enterprise.dto';
-import {DecimalPipe} from '@angular/common';
+} from '@models/enterprise';
+import {SubscriptionService} from '@services/subscription.service';
+import {WalletService} from '@services/wallet.service';
+import {ApplicationService} from '@services/application.service';
 
 @Component({
   selector: 'app-credit-package-guide-dialog',

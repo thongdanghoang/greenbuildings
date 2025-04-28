@@ -3,10 +3,9 @@ import {
   EventEmitter,
   OnInit,
   TemplateRef,
-  ViewChild,
-  inject
+  ViewChild
 } from '@angular/core';
-import {Router} from '@angular/router';
+import {ActivityTypeCriteria} from '@models/emission-activity';
 import {TranslateService} from '@ngx-translate/core';
 import {
   DialogService,
@@ -16,21 +15,15 @@ import {
 import {Observable, takeUntil} from 'rxjs';
 import {UUID} from '../../../../../types/uuid';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
-import {ApplicationService} from '../../../core/services/application.service';
-import {SubscriptionAwareComponent} from '../../../core/subscription-aware.component';
-import {TableTemplateColumn} from '../../../shared/components/table-template/table-template.component';
-import {
-  SearchCriteriaDto,
-  SearchResultDto
-} from '../../../shared/models/base-models';
-import {ModalProvider} from '../../../shared/services/modal-provider';
-import {ToastProvider} from '../../../shared/services/toast-provider';
+import {ActivityType} from '@models/enterprise';
+import {ActivityTypeService} from '@services/activity-type.service';
+import {ApplicationService} from '@services/application.service';
+import {SubscriptionAwareComponent} from '@shared/directives/subscription-aware.component';
+import {TableTemplateColumn} from '@shared/components/table-template/table-template.component';
+import {SearchCriteriaDto, SearchResultDto} from '@shared/models/base-models';
+import {ModalProvider} from '@shared/services/modal-provider';
+import {ToastProvider} from '@shared/services/toast-provider';
 import {ActivityTypeDialogComponent} from '../../dialog/activity-type-dialog/activity-type-dialog.component';
-import {ActivityType} from '../../models/enterprise.dto';
-import {
-  ActivityTypeCriteria,
-  ActivityTypeService
-} from '../../services/activity-type.service';
 
 @Component({
   selector: 'app-activity-type',
@@ -56,7 +49,6 @@ export class ActivityTypeComponent
     new EventEmitter();
   protected selected: ActivityType[] = [];
   protected searchCriteria: ActivityTypeCriteria = {criteria: ''};
-  private readonly router = inject(Router);
 
   constructor(
     protected readonly applicationService: ApplicationService,

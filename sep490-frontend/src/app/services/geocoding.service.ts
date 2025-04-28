@@ -1,18 +1,8 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
+import {AddressSuggestion} from '@models/geocoding';
 import {Observable} from 'rxjs';
 import {AppRoutingConstants} from '../app-routing.constant';
-
-export interface AddressSuggestion {
-  displayName: string;
-  road: string;
-  quarter: string;
-  suburb: string;
-  city: string;
-  postcode: string;
-  country: string;
-  countryCode: string;
-}
 
 @Injectable({
   providedIn: 'root'

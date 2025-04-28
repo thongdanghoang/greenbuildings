@@ -11,12 +11,12 @@ import {TranslateService} from '@ngx-translate/core';
 import {takeUntil} from 'rxjs';
 import {UUID} from '../../../../../types/uuid';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
-import {AbstractFormComponent} from '../../../shared/components/form/abstract-form-component';
-import {ToastProvider} from '../../../shared/services/toast-provider';
-import {TenantDetailDTO} from '../../models/enterprise.dto';
-import {TenantService} from '../../services/tenant.service';
+import {TenantDetailDTO} from '@models/enterprise';
+import {AbstractFormComponent} from '@shared/components/form/abstract-form-component';
+import {ToastProvider} from '@shared/services/toast-provider';
+import {TenantService} from '@services/tenant.service';
 import {Location} from '@angular/common';
-import {ApplicationService} from '../../../core/services/application.service';
+import {ApplicationService} from '@services/application.service';
 
 @Component({
   selector: 'app-tenant-profile',

@@ -11,10 +11,10 @@ import {TranslateService} from '@ngx-translate/core';
 import {filter, map, switchMap, takeUntil, tap} from 'rxjs';
 
 import {AppRoutingConstants} from '../../../../app-routing.constant';
-import {CreditPackage} from '../../../enterprise/models/enterprise.dto';
+import {CreditPackage} from '../../../../models/enterprise';
 import {AbstractFormComponent} from '../../../shared/components/form/abstract-form-component';
 import {ToastProvider} from '../../../shared/services/toast-provider';
-import {PackageCreditService} from '../../services/package-credit.service';
+import {PackageCreditService} from '../../../../services/package-credit.service';
 
 @Component({
   selector: 'app-create-update-package-credit',

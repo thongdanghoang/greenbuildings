@@ -11,6 +11,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
 import {TranslateModule} from '@ngx-translate/core';
 import {AccordionModule} from 'primeng/accordion';
+import {MessageService} from 'primeng/api';
 import {AutoCompleteModule} from 'primeng/autocomplete';
 import {AutoFocusModule} from 'primeng/autofocus';
 import {AvatarModule} from 'primeng/avatar';
@@ -53,6 +54,7 @@ import {PanelModule} from 'primeng/panel';
 import {PasswordModule} from 'primeng/password';
 import {PopoverModule} from 'primeng/popover';
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
+import {RadioButtonModule} from 'primeng/radiobutton';
 import {RippleModule} from 'primeng/ripple';
 import {SelectModule} from 'primeng/select';
 import {SelectButtonModule} from 'primeng/selectbutton';
@@ -68,20 +70,13 @@ import {ToggleSwitchModule} from 'primeng/toggleswitch';
 import {TooltipModule} from 'primeng/tooltip';
 import {ConfirmDialogComponent} from './components/dialog/confirm-dialog/confirm-dialog.component';
 import {FormFieldErrorComponent} from './components/form/form-field-error/form-field-error.component';
-import {PaymentStatusComponent} from './components/payment-status/payment-status.component';
 import {TableTemplateComponent} from './components/table-template/table-template.component';
 import {ErrorMessagesDirective} from './directives/error-messages.directive';
 import {FormFieldErrorDirective} from './directives/form-field-error.directive';
 import {UnsavedChangesDirective} from './directives/unsaved-changes/unsaved-changes.directive';
 import {TranslateParamsPipe} from './pipes/translate-params.pipe';
-import {EmissionFactorService} from './services/emission-factor.service';
-import {EmissionSourceService} from './services/emission-source.service';
-import {EnergyConversionService} from './services/energy-conversion.service';
-import {FuelService} from './services/fuel.service';
 import {ModalProvider} from './services/modal-provider';
 import {ToastProvider} from './services/toast-provider';
-import {UnitService} from './services/unit.service';
-import {RadioButtonModule} from 'primeng/radiobutton';
 
 const primeNgModules = [
   AccordionModule,
@@ -162,7 +157,6 @@ const commons = [
     ErrorMessagesDirective,
     FormFieldErrorDirective,
     FormFieldErrorComponent,
-    PaymentStatusComponent,
     UnsavedChangesDirective
   ],
   imports: [...commons, ...primeNgModules],
@@ -175,22 +169,17 @@ const commons = [
     ErrorMessagesDirective,
     FormFieldErrorDirective,
     FormFieldErrorComponent,
-    PaymentStatusComponent,
     UnsavedChangesDirective
   ],
   providers: [
+    MessageService,
     DatePipe,
     DecimalPipe,
     CurrencyPipe,
     ModalProvider,
     ToastProvider,
     DialogService,
-    DynamicDialog,
-    EmissionFactorService,
-    EmissionSourceService,
-    FuelService,
-    EnergyConversionService,
-    UnitService
+    DynamicDialog
   ]
 })
 export class SharedModule {}

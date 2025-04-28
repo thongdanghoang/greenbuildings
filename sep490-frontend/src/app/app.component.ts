@@ -1,9 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {Observable, Subject, filter, map, switchMap, take} from 'rxjs';
-import {ApplicationService} from './modules/core/services/application.service';
+import {ApplicationService} from '@services/application.service';
 import {ThemeService} from './modules/core/services/theme.service';
-import {UserService} from './services/user.service';
+import {UserService} from '@services/user.service';
 
 @Component({
   selector: 'app-root',

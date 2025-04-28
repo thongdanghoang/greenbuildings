@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ApplicationService} from '../../modules/core/services/application.service';
+import {ApplicationService} from '@services/application.service';
 
 interface CarouselItem {
   image: string;

@@ -11,23 +11,19 @@ import {
 import {forkJoin, takeUntil} from 'rxjs';
 import {UUID} from '../../../../../types/uuid';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
-import {BuildingService} from '../../../../services/building.service';
-import {SubscriptionAwareComponent} from '../../../core/subscription-aware.component';
-import {ModalProvider} from '../../../shared/services/modal-provider';
-import {ToastProvider} from '../../../shared/services/toast-provider';
+import {Building, BuildingDetails, TransactionType} from '@models/enterprise';
+import {BuildingService} from '@services/building.service';
+import {WalletService} from '@services/wallet.service';
+import {SubscriptionAwareComponent} from '@shared/directives/subscription-aware.component';
+import {ModalProvider} from '@shared/services/modal-provider';
+import {ToastProvider} from '@shared/services/toast-provider';
 import {
   BuildingSubscriptionDialogComponent,
   SubscriptionDialogOptions
 } from '../../dialog/building-subcription-dialog/building-subscription-dialog.component';
-import {
-  Building,
-  BuildingDetails,
-  TransactionType
-} from '../../models/enterprise.dto';
-import {PopupService} from '../../services/popup.service';
-import {WalletService} from '../../services/wallet.service';
-import {BuildingPopupMarkerComponent} from '../building-popup-marker/building-popup-marker.component';
 import {CreditDeductionHistoryDialogComponent} from '../../dialog/credit-deduction-history-dialog/credit-deduction-history-dialog.component';
+import {PopupService} from '../../services/popup.service';
+import {BuildingPopupMarkerComponent} from '../building-popup-marker/building-popup-marker.component';
 
 const iconRetinaUrl = 'assets/marker-icon-2x.png';
 const iconUrl = 'assets/marker-icon.png';
@@ -160,11 +156,6 @@ export class BuildingsComponent
 
   onViewModeChanged(): void {
     this.fetchBuilding();
-  }
-
-  turnOnSelectBuildingLocation(): void {
-    this.viewMode = ViewMode.MAP;
-    this.addBuildingLocation = true;
   }
 
   navigateToCreateBuilding(): void {

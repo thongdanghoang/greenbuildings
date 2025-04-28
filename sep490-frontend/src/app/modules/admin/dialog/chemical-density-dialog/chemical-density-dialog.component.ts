@@ -13,9 +13,9 @@ import {AbstractFormComponent} from '../../../shared/components/form/abstract-fo
 import {
   ChemicalDensityDTO,
   EmissionUnit
-} from '../../../shared/models/shared-models';
+} from '../../../../models/shared-models';
 import {ToastProvider} from '../../../shared/services/toast-provider';
-import {ChemicalDensityService} from '../../services/chemical-density.service';
+import {ChemicalDensityService} from '../../../../services/chemical-density.service';
 
 @Component({
   selector: 'app-chemical-density-dialog',

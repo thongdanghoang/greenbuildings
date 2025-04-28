@@ -7,19 +7,19 @@ import {
 } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
-import {SubscriptionAwareComponent} from '../../../core/subscription-aware.component';
-import {TableTemplateColumn} from '../../../shared/components/table-template/table-template.component';
+import {SubscriptionAwareComponent} from '@shared/directives/subscription-aware.component';
+import {TableTemplateColumn} from '@shared/components/table-template/table-template.component';
 import {
   SearchCriteriaDto,
   SearchResultDto,
   SortDto
-} from '../../../shared/models/base-models';
+} from '@shared/models/base-models';
 import {Observable} from 'rxjs';
-import {ApplicationService} from '../../../core/services/application.service';
-import {PaymentStatus} from '../../enums/payment-status';
-import {PaymentDTO} from '../../models/payment';
-import {PaymentService} from '../../services/payment.service';
-import {WalletService} from '../../services/wallet.service';
+import {ApplicationService} from '@services/application.service';
+import {PaymentStatus} from '@models/payment-status';
+import {PaymentDTO} from '@models/payment';
+import {PaymentService} from '@services/payment.service';
+import {WalletService} from '@services/wallet.service';
 import {
   DialogService,
   DynamicDialogConfig,

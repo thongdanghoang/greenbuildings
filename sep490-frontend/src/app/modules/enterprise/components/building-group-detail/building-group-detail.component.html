@@ -61,16 +61,14 @@
                         <span class="font-medium">
                             {{ "buildingGroup.building.name" | translate }}:
                         </span>
-                        <span>{{ buildingGroup.building?.name || "-" }}</span>
+                        <span>{{ buildingGroup.building.name || "-" }}</span>
                     </div>
                     <div class="flex items-center gap-3">
                         <i class="pi pi-map-marker text-lg text-blue-500"></i>
                         <span class="font-medium">
                             {{ "buildingGroup.building.address" | translate }}:
                         </span>
-                        <span>{{
-                            buildingGroup.building?.address || "-"
-                        }}</span>
+                        <span>{{ buildingGroup.building.address || "-" }}</span>
                     </div>
                 </div>
 

@@ -6,18 +6,16 @@ import {
   FormControl,
   Validators
 } from '@angular/forms';
+import {NewEnterpriseDTO} from '@models/enterprise-user';
 import {TranslateService} from '@ngx-translate/core';
 import {OidcSecurityService} from 'angular-auth-oidc-client';
 import {MessageService} from 'primeng/api';
 import {delay, take, tap} from 'rxjs';
-import {UserRole} from '../../../authorization/enums/role-names';
-import {
-  EnterpriseUserService,
-  NewEnterpriseDTO
-} from '../../../authorization/services/enterprise-user.service';
-import {ApplicationService} from '../../../core/services/application.service';
-import {AbstractFormComponent} from '../../../shared/components/form/abstract-form-component';
-import {ToastProvider} from '../../../shared/services/toast-provider';
+import {UserRole} from '@models/role-names';
+import {EnterpriseUserService} from '@services/enterprise-user.service';
+import {ApplicationService} from '@services/application.service';
+import {AbstractFormComponent} from '@shared/components/form/abstract-form-component';
+import {ToastProvider} from '@shared/services/toast-provider';
 
 @Component({
   selector: 'app-create-enterprise',
@@ -59,7 +57,7 @@ export class CreateEnterpriseComponent extends AbstractFormComponent<NewEnterpri
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars,max-lines-per-function
-  protected override onSubmitFormDataSuccess(result: any): void {
+  protected override onSubmitFormDataSuccess(_result: any): void {
     const oidcSecurityService = this.injector.get(OidcSecurityService);
     const messageService = this.injector.get(MessageService);
 

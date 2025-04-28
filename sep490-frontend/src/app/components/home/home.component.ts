@@ -1,14 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {AppRoutingConstants} from '../../app-routing.constant';
-import {UserRole} from '../../modules/authorization/enums/role-names';
-import {EnterpriseUserDetails} from '../../modules/authorization/models/enterprise-user';
-import {
-  ApplicationService,
-  UserData
-} from '../../modules/core/services/application.service';
-import {UserService} from '../../services/user.service';
+import {UserRole} from '@models/role-names';
+import {EnterpriseUserDetails} from '@models/enterprise-user';
+import {ApplicationService, UserData} from '@services/application.service';
+import {UserService} from '@services/user.service';
 import {switchMap, takeUntil} from 'rxjs';
-import {SubscriptionAwareComponent} from '../../modules/core/subscription-aware.component';
+import {SubscriptionAwareComponent} from '@shared/directives/subscription-aware.component';
 
 @Component({
   selector: 'app-home',

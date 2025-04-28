@@ -14,9 +14,9 @@ import {AbstractFormComponent} from '../../../shared/components/form/abstract-fo
 import {
   EmissionUnit,
   EnergyConversionDTO
-} from '../../../shared/models/shared-models';
+} from '../../../../models/shared-models';
 import {ToastProvider} from '../../../shared/services/toast-provider';
-import {FuelConversionService} from '../../services/fuel-conversion.service';
+import {FuelConversionService} from '../../../../services/fuel-conversion.service';
 
 @Component({
   selector: 'app-fuel-dialog',

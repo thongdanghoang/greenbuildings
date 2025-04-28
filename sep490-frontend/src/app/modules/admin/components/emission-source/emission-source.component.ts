@@ -12,17 +12,14 @@ import {
 } from 'primeng/dynamicdialog';
 import {Observable} from 'rxjs';
 import {UUID} from '../../../../../types/uuid';
-import {ApplicationService} from '../../../core/services/application.service';
-import {SubscriptionAwareComponent} from '../../../core/subscription-aware.component';
-import {EmissionSource} from '../../../enterprise/models/enterprise.dto';
-import {TableTemplateColumn} from '../../../shared/components/table-template/table-template.component';
-import {
-  SearchCriteriaDto,
-  SearchResultDto
-} from '../../../shared/models/base-models';
+import {EmissionSource} from '@models/enterprise';
+import {ApplicationService} from '@services/application.service';
+import {SubscriptionAwareComponent} from '@shared/directives/subscription-aware.component';
+import {TableTemplateColumn} from '@shared/components/table-template/table-template.component';
+import {SearchCriteriaDto, SearchResultDto} from '@shared/models/base-models';
 import {EmissionSourceDialogComponent} from '../../dialog/emission-source-dialog/emission-source-dialog.component';
-import {EmissionSourceService} from '../../services/emission-source.service';
-import {ToastProvider} from '../../../shared/services/toast-provider';
+import {EmissionSourceService} from '@services/emission-source.service';
+import {ToastProvider} from '@shared/services/toast-provider';
 
 export interface EmissionSourceCriteria {
   criteria: string;

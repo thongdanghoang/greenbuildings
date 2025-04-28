@@ -7,20 +7,17 @@ import {
   Validators
 } from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
+import {InviteTenantToBuildingGroup} from '@models/building-group';
 import {TranslateService} from '@ngx-translate/core';
 import {filter, map, switchMap, takeUntil} from 'rxjs';
 import {validate} from 'uuid';
 import {UUID} from '../../../../../types/uuid';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
-import {BuildingService} from '../../../../services/building.service';
-import {AbstractFormComponent} from '../../../shared/components/form/abstract-form-component';
-import {ToastProvider} from '../../../shared/services/toast-provider';
-import {BuildingDetails, BuildingGroup} from '../../models/enterprise.dto';
-import {TenantService} from '../../services/tenant.service';
-import {
-  BuildingGroupService,
-  InviteTenantToBuildingGroup
-} from '../../services/building-group.service';
+import {BuildingDetails, BuildingGroup} from '@models/enterprise';
+import {BuildingGroupService} from '@services/building-group.service';
+import {BuildingService} from '@services/building.service';
+import {AbstractFormComponent} from '@shared/components/form/abstract-form-component';
+import {ToastProvider} from '@shared/services/toast-provider';
 
 @Component({
   selector: 'app-new-tenant',
@@ -48,9 +45,7 @@ export class NewTenantComponent
     private readonly router: Router,
     private readonly activatedRoute: ActivatedRoute,
     private readonly buildingService: BuildingService,
-    private readonly tenantService: TenantService,
-    private readonly buildingGroupService: BuildingGroupService,
-    private readonly msgService: ToastProvider
+    private readonly buildingGroupService: BuildingGroupService
   ) {
     super(httpClient, formBuilder, notificationService, translate);
   }
@@ -109,7 +104,7 @@ export class NewTenantComponent
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  protected override onSubmitFormDataSuccess(result: any): void {
+  protected override onSubmitFormDataSuccess(_result: any): void {
     void this.router.navigate([
       AppRoutingConstants.ENTERPRISE_PATH,
       AppRoutingConstants.BUILDING_MANAGEMENT_PATH,
