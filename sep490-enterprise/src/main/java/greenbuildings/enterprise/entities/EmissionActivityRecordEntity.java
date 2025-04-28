@@ -34,6 +34,10 @@ public class EmissionActivityRecordEntity extends AbstractAuditableEntity {
     @Column(name = "value")
     private BigDecimal value;
     
+    @Min(0)
+    @Column(name = "quantity")
+    private int quantity;
+    
     @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "unit")

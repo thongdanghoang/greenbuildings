@@ -105,6 +105,7 @@ export interface EmissionActivityDetails extends BaseDTO {
 
 export interface EmissionActivityRecord extends BaseDTO {
   value: number;
+  quantity: number;
   unit: keyof typeof EmissionUnit;
   startDate: Date;
   endDate: Date;
