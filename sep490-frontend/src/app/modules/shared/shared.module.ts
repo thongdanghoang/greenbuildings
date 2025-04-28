@@ -11,7 +11,6 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
 import {TranslateModule} from '@ngx-translate/core';
 import {AccordionModule} from 'primeng/accordion';
-import {MessageService} from 'primeng/api';
 import {AutoCompleteModule} from 'primeng/autocomplete';
 import {AutoFocusModule} from 'primeng/autofocus';
 import {AvatarModule} from 'primeng/avatar';
@@ -172,7 +171,6 @@ const commons = [
     UnsavedChangesDirective
   ],
   providers: [
-    MessageService,
     DatePipe,
     DecimalPipe,
     CurrencyPipe,
