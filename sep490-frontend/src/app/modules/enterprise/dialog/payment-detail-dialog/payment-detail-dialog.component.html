@@ -140,8 +140,10 @@
             </label>
             <p class="mt-2 text-base text-gray-900 dark:text-gray-100">
                 {{
-                    paymentDetail.accountNumber ||
-                        ("paymentDetail.fallback.na" | translate)
+                    paymentDetail.accountNumber
+                        ? "**** **** **** " +
+                          paymentDetail.accountNumber.slice(-4)
+                        : ("paymentDetail.fallback.na" | translate)
                 }}
             </p>
         </div>
