@@ -1,19 +1,9 @@
-import {
-  Component,
-  EventEmitter,
-  OnInit,
-  TemplateRef,
-  ViewChild
-} from '@angular/core';
+import {Component, EventEmitter, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ActivitySearchCriteria} from '@models/emission-activity';
 import {TranslateService} from '@ngx-translate/core';
 import moment from 'moment';
-import {
-  DialogService,
-  DynamicDialogConfig,
-  DynamicDialogRef
-} from 'primeng/dynamicdialog';
+import {DialogService, DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
 import {Observable, Observer, filter, map, switchMap, takeUntil} from 'rxjs';
 import {validate} from 'uuid';
 import {UUID} from '../../../../../types/uuid';
@@ -35,10 +25,7 @@ import {ReportDialogComponent} from '../../dialog/report-dialog/report-dialog.co
   templateUrl: './emission-activity.component.html',
   styleUrl: './emission-activity.component.css'
 })
-export class EmissionActivityComponent
-  extends SubscriptionAwareComponent
-  implements OnInit
-{
+export class EmissionActivityComponent extends SubscriptionAwareComponent implements OnInit {
   ref: DynamicDialogRef | undefined;
   @ViewChild('actionsTemplate', {static: true})
   actionsTemplate!: TemplateRef<any>;
@@ -50,8 +37,7 @@ export class EmissionActivityComponent
   protected searchCriteria!: ActivitySearchCriteria;
   protected cols: TableTemplateColumn[] = [];
   protected readonly searchEvent: EventEmitter<void> = new EventEmitter();
-  protected readonly clearSelectedEvent: EventEmitter<void> =
-    new EventEmitter();
+  protected readonly clearSelectedEvent: EventEmitter<void> = new EventEmitter();
 
   protected buildingDetail!: BuildingDetails;
   protected selected: EmissionActivity[] = [];
@@ -61,19 +47,13 @@ export class EmissionActivityComponent
         this.msgService.businessError({
           summary: this.translate.instant('http.error.status.403.title')
         });
-        void this.router.navigate([
-          AppRoutingConstants.ENTERPRISE_PATH,
-          AppRoutingConstants.BUILDING_PATH
-        ]);
+        void this.router.navigate([AppRoutingConstants.ENTERPRISE_PATH, AppRoutingConstants.BUILDING_PATH]);
       } else {
         this.handleAfterSuccessValidation(building);
       }
     },
     error: () => {
-      void this.router.navigate([
-        AppRoutingConstants.ENTERPRISE_PATH,
-        AppRoutingConstants.BUILDING_PATH
-      ]);
+      void this.router.navigate([AppRoutingConstants.ENTERPRISE_PATH, AppRoutingConstants.BUILDING_PATH]);
     },
     complete: () => {}
   };
@@ -94,9 +74,7 @@ export class EmissionActivityComponent
 
   ngOnInit(): void {
     this.fetchAndValidateBuilding();
-    this.fetchActivity = this.activityService.fetchActivityOfBuilding.bind(
-      this.activityService
-    );
+    this.fetchActivity = this.activityService.fetchActivityOfBuilding.bind(this.activityService);
     this.searchCriteria = {buildingGroupId: '' as UUID};
   }
 
@@ -112,10 +90,7 @@ export class EmissionActivityComponent
   }
 
   goBack(): void {
-    void this.router.navigate([
-      AppRoutingConstants.ENTERPRISE_PATH,
-      AppRoutingConstants.BUILDING_PATH
-    ]);
+    void this.router.navigate([AppRoutingConstants.ENTERPRISE_PATH, AppRoutingConstants.BUILDING_PATH]);
   }
 
   buildCols(): void {
@@ -191,9 +166,7 @@ export class EmissionActivityComponent
       closable: true,
       dismissableMask: true,
       showHeader: true,
-      header: this.translate.instant(
-        'enterprise.emission.activity.generateReport'
-      )
+      header: this.translate.instant('enterprise.emission.activity.generateReport')
     };
     this.ref = this.dialogService.open(ReportDialogComponent, config);
     this.ref.onClose.subscribe(rs => {

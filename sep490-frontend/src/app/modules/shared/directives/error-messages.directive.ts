@@ -1,28 +1,12 @@
-import {
-  AfterViewInit,
-  ContentChild,
-  Directive,
-  ElementRef,
-  OnDestroy,
-  Optional,
-  Renderer2
-} from '@angular/core';
-import {
-  FormGroupDirective,
-  NgControl,
-  NgForm,
-  ValidationErrors
-} from '@angular/forms';
+import {AfterViewInit, ContentChild, Directive, ElementRef, OnDestroy, Optional, Renderer2} from '@angular/core';
+import {FormGroupDirective, NgControl, NgForm, ValidationErrors} from '@angular/forms';
 import {Observable, Subject, merge, takeUntil} from 'rxjs';
 import {SubscriptionAwareComponent} from '@shared/directives/subscription-aware.component';
 
 @Directive({
   selector: '[errorMessages]'
 })
-export class ErrorMessagesDirective
-  extends SubscriptionAwareComponent
-  implements OnDestroy, AfterViewInit
-{
+export class ErrorMessagesDirective extends SubscriptionAwareComponent implements OnDestroy, AfterViewInit {
   @ContentChild(NgControl) ngControl?: NgControl;
   readonly errors$: Observable<ValidationErrors | null>;
   private readonly errors = new Subject<ValidationErrors | null>();
@@ -42,9 +26,7 @@ export class ErrorMessagesDirective
     this.form = ngForm || formGroupDirective;
 
     if (!this.form) {
-      throw new Error(
-        'The ErrorMessagesDirective needs to be either within a NgForm or a FormGroupDirective!'
-      );
+      throw new Error('The ErrorMessagesDirective needs to be either within a NgForm or a FormGroupDirective!');
     }
   }
 

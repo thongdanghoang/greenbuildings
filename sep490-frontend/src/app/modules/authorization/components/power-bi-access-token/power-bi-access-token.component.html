@@ -1,13 +1,13 @@
 <ng-container *ngIf="accessTokens.length > 0; else noTokens">
     <div class="flex items-center justify-between border-b pb-1">
         <p class="text-lg font-bold text-primary">
-            {{ "sidebar.owner.settings.items.powerBiAccessToken" | translate }}
+            {{ 'sidebar.owner.settings.items.powerBiAccessToken' | translate }}
         </p>
         <ng-container *ngTemplateOutlet="generateNewToken"></ng-container>
     </div>
 
     <p>
-        {{ "powerBi.tokenGenerated" | translate }}
+        {{ 'powerBi.tokenGenerated' | translate }}
     </p>
 
     @if (newestCreatedTokenId && newestCreatedTokenKey) {
@@ -26,31 +26,18 @@
                     (click)="copyToClipboard(newestCreatedTokenKey)"
                 ></i>
             </div>
-            <ng-container
-                *ngTemplateOutlet="
-                    tokenRowTemplate;
-                    context: { $implicit: newestCreatedToken }
-                "
-            ></ng-container>
+            <ng-container *ngTemplateOutlet="tokenRowTemplate; context: {$implicit: newestCreatedToken}"></ng-container>
         </div>
     }
 
     <div
-        *ngIf="
-            accessTokens.length > 0 &&
-            accessTokens[0].id !== newestCreatedTokenId
-        "
+        *ngIf="accessTokens.length > 0 && accessTokens[0].id !== newestCreatedTokenId"
         class="rounded-lg border"
     >
         @for (token of accessTokens; track token.id) {
             @if (token.id !== newestCreatedTokenId) {
                 <div class="border-b last:border-b-0">
-                    <ng-container
-                        *ngTemplateOutlet="
-                            tokenRowTemplate;
-                            context: { $implicit: token }
-                        "
-                    ></ng-container>
+                    <ng-container *ngTemplateOutlet="tokenRowTemplate; context: {$implicit: token}"></ng-container>
                 </div>
             }
         }
@@ -78,26 +65,27 @@
 <ng-template #noTokens>
     <div class="flex items-center justify-between border-b py-2">
         <p class="text-lg font-bold text-primary">
-            {{ "sidebar.owner.settings.items.powerBiAccessToken" | translate }}
+            {{ 'sidebar.owner.settings.items.powerBiAccessToken' | translate }}
         </p>
     </div>
     <div class="flex h-96 flex-col items-center justify-center gap-4">
         <i class="pi pi-key text-2xl"></i>
         <h3 class="text-xl font-semibold">
-            {{ "powerBi.noAccessToken" | translate }}
+            {{ 'powerBi.noAccessToken' | translate }}
         </h3>
         <p class="text-base">
-            {{ "powerBi.description" | translate }}
+            {{ 'powerBi.description' | translate }}
         </p>
         <ng-container *ngTemplateOutlet="generateNewToken"></ng-container>
     </div>
 </ng-template>
 
-<ng-template #tokenRowTemplate let-token>
+<ng-template
+    #tokenRowTemplate
+    let-token
+>
     <div class="p-3">
-        <div
-            class="flex flex-col items-baseline justify-between lg:flex-row lg:gap-4"
-        >
+        <div class="flex flex-col items-baseline justify-between lg:flex-row lg:gap-4">
             <div>
                 <strong
                     class="text-primary hover:cursor-pointer"
@@ -109,20 +97,16 @@
                     {{ token.scope }}
                 </span>
             </div>
-            <div
-                class="flex w-full items-center justify-between gap-3 lg:w-fit"
-            >
+            <div class="flex w-full items-center justify-between gap-3 lg:w-fit">
                 <div class="min-w-fit text-xs">
                     {{
                         token.lastUsed
-                            ? ("powerBi.lastUsed"
+                            ? ('powerBi.lastUsed'
                               | appTranslateParam
                                   : {
-                                        lastUsed:
-                                            (token.lastUsed
-                                            | date: "EEE, MMM dd yyyy"),
+                                        lastUsed: (token.lastUsed | date: 'EEE, MMM dd yyyy')
                                     })
-                            : ("powerBi.neverUsed" | translate)
+                            : ('powerBi.neverUsed' | translate)
                     }}
                 </div>
                 <p-button
@@ -135,8 +119,8 @@
             </div>
         </div>
         <p class="mt-1 text-sm italic">
-            {{ "powerBi.expirationOn" | translate }}
-            {{ token.expirationTime | date: "EEE, MMM dd yyyy" }}.
+            {{ 'powerBi.expirationOn' | translate }}
+            {{ token.expirationTime | date: 'EEE, MMM dd yyyy' }}.
         </p>
     </div>
 </ng-template>

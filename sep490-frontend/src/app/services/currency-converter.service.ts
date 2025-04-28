@@ -11,12 +11,7 @@ export class CurrencyConverterService {
 
   constructor(private readonly httpClient: HttpClient) {}
 
-  convertToVndCurrency(
-    amount: number,
-    currency: 'VND' | 'USD' | 'CNY'
-  ): Observable<number> {
-    return this.httpClient.get<number>(
-      `${this.apiUrl}/VND/${amount}/${currency}`
-    );
+  convertToVndCurrency(amount: number, currency: 'VND' | 'USD' | 'CNY'): Observable<number> {
+    return this.httpClient.get<number>(`${this.apiUrl}/VND/${amount}/${currency}`);
   }
 }

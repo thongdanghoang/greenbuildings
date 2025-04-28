@@ -1,11 +1,6 @@
 import {HttpClient} from '@angular/common/http';
 import {Component} from '@angular/core';
-import {
-  AbstractControl,
-  FormBuilder,
-  FormControl,
-  Validators
-} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormControl, Validators} from '@angular/forms';
 import {TranslateService} from '@ngx-translate/core';
 import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
 import {takeUntil} from 'rxjs';
@@ -49,11 +44,9 @@ export class ActivityTypeDialogComponent extends AbstractFormComponent<ActivityT
 
   protected initializeData(): void {
     if (this.config.data) {
-      this.activityTypeService
-        .getActivityTypeById(this.config.data.toString())
-        .subscribe(activityType => {
-          this.formGroup.patchValue(activityType);
-        });
+      this.activityTypeService.getActivityTypeById(this.config.data.toString()).subscribe(activityType => {
+        this.formGroup.patchValue(activityType);
+      });
     }
     this.loadActivityTypes(); // Call the method during construction
   }
@@ -75,13 +68,11 @@ export class ActivityTypeDialogComponent extends AbstractFormComponent<ActivityT
   }
 
   private loadActivityTypes(): void {
-    this.applicationService.UserData.pipe(takeUntil(this.destroy$)).subscribe(
-      u => {
-        if (u?.enterpriseId) {
-          this.formGroup.get('tenantID')?.setValue(u.enterpriseId);
-          // or alternatively: this.formStructure.enterpriseId.setValue(u.enterpriseId);
-        }
+    this.applicationService.UserData.pipe(takeUntil(this.destroy$)).subscribe(u => {
+      if (u?.enterpriseId) {
+        this.formGroup.get('tenantID')?.setValue(u.enterpriseId);
+        // or alternatively: this.formStructure.enterpriseId.setValue(u.enterpriseId);
       }
-    );
+    });
   }
 }

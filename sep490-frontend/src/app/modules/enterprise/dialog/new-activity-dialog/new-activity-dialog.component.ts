@@ -1,11 +1,6 @@
 import {HttpClient} from '@angular/common/http';
 import {Component} from '@angular/core';
-import {
-  AbstractControl,
-  FormBuilder,
-  FormControl,
-  Validators
-} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormControl, Validators} from '@angular/forms';
 import {TranslateService} from '@ngx-translate/core';
 import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
 import {takeUntil} from 'rxjs';
@@ -71,12 +66,7 @@ export class NewActivityDialogComponent extends AbstractFormComponent<CreateNewA
     this.factorService.findAll().subscribe((rs: EmissionFactorDTO[]) => {
       this.emissionFactors = rs;
       this.emissionSources = Array.from(
-        new Map(
-          this.emissionFactors.map(f => [
-            f.emissionSourceDTO.id,
-            f.emissionSourceDTO
-          ])
-        ).values()
+        new Map(this.emissionFactors.map(f => [f.emissionSourceDTO.id, f.emissionSourceDTO])).values()
       );
     });
   }
@@ -91,9 +81,7 @@ export class NewActivityDialogComponent extends AbstractFormComponent<CreateNewA
 
   protected onSourceChange(): void {
     this.availableEmissionFactors = this.emissionFactors.filter(
-      f =>
-        f.emissionSourceDTO.id.toString() ===
-        this.formStructure.emissionSourceID.value
+      f => f.emissionSourceDTO.id.toString() === this.formStructure.emissionSourceID.value
     );
     this.formStructure.emissionFactorID.enable();
     this.formStructure.emissionFactorID.reset();
@@ -119,21 +107,15 @@ export class NewActivityDialogComponent extends AbstractFormComponent<CreateNewA
 
   private initializeFormData(): void {
     this.formStructure.buildingId.setValue(this.config.data?.buildingId);
-    this.formStructure.buildingGroupID.setValue(
-      this.config.data?.buildingGroupId
-    );
+    this.formStructure.buildingGroupID.setValue(this.config.data?.buildingGroupId);
     this.loadActivityTypes();
   }
 
   private loadActivityTypes(): void {
-    this.applicationService.UserData.pipe(takeUntil(this.destroy$)).subscribe(
-      u => {
-        this.activityTypeService
-          .getByEnterpriseId(u.enterpriseId)
-          .subscribe(types => {
-            this.activityTypes = types;
-          });
-      }
-    );
+    this.applicationService.UserData.pipe(takeUntil(this.destroy$)).subscribe(u => {
+      this.activityTypeService.getByEnterpriseId(u.enterpriseId).subscribe(types => {
+        this.activityTypes = types;
+      });
+    });
   }
 }

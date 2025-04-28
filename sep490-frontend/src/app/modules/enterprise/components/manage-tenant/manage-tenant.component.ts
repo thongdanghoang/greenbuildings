@@ -12,10 +12,7 @@ import {BuildingGroupService} from '@services/building-group.service';
   templateUrl: './manage-tenant.component.html',
   styleUrl: './manage-tenant.component.css'
 })
-export class ManageTenantComponent
-  extends SubscriptionAwareComponent
-  implements OnInit
-{
+export class ManageTenantComponent extends SubscriptionAwareComponent implements OnInit {
   buildingGroups: BuildingGroup[] = [];
 
   constructor(
@@ -37,10 +34,6 @@ export class ManageTenantComponent
   }
 
   goToDetails(groupId: UUID): void {
-    void this.router.navigate([
-      AppRoutingConstants.ENTERPRISE_PATH,
-      AppRoutingConstants.BUILDING_GROUP_PATH,
-      groupId
-    ]);
+    void this.router.navigate([AppRoutingConstants.ENTERPRISE_PATH, AppRoutingConstants.BUILDING_GROUP_PATH, groupId]);
   }
 }

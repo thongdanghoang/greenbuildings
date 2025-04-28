@@ -32,11 +32,8 @@ export class ChemicalDensityService {
   }
 
   public deleteChemicalDensity(chemicalIds: UUID[]): Observable<void> {
-    return this.httpClient.delete<void>(
-      `${AppRoutingConstants.ENTERPRISE_API_URL}/chemical-density`,
-      {
-        body: chemicalIds
-      }
-    );
+    return this.httpClient.delete<void>(`${AppRoutingConstants.ENTERPRISE_API_URL}/chemical-density`, {
+      body: chemicalIds
+    });
   }
 }

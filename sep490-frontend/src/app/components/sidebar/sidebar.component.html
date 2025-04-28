@@ -2,12 +2,16 @@
     [model]="items"
     class="bg-transparent *:h-full *:border-none *:bg-transparent"
 >
-    <ng-template #submenuheader let-item>
-        <span class="-ml-3 font-bold text-primary">{{
-            item.label | translate
-        }}</span>
+    <ng-template
+        #submenuheader
+        let-item
+    >
+        <span class="-ml-3 font-bold text-primary">{{ item.label | translate }}</span>
     </ng-template>
-    <ng-template #item let-item>
+    <ng-template
+        #item
+        let-item
+    >
         <a
             pRipple
             [routerLink]="item.route"
@@ -15,7 +19,11 @@
         >
             <span [class]="item.icon"></span>
             <span class="ml-2">{{ item.label | translate }}</span>
-            <p-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />
+            <p-badge
+                *ngIf="item.badge"
+                class="ml-auto"
+                [value]="item.badge"
+            />
             <span
                 *ngIf="item.shortcut"
                 class="ml-auto rounded border p-1 text-xs border-surface bg-emphasis text-muted-color"

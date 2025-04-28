@@ -17,8 +17,7 @@ import {PowerBiAccessTokenExpirationOptions} from '../power-bi-access-token-expi
   styleUrl: './power-bi-regenerate-access-token.component.css'
 })
 export class PowerBiRegenerateAccessTokenComponent extends SubscriptionAwareComponent {
-  protected expirationTime: Date | null =
-    PowerBiAccessTokenExpirationOptions.defaultExpirationTimeOption.value;
+  protected expirationTime: Date | null = PowerBiAccessTokenExpirationOptions.defaultExpirationTimeOption.value;
   protected selectableExpirationTimes: SelectableItem<Date | null>[] =
     PowerBiAccessTokenExpirationOptions.selectableExpirationTimes;
 
@@ -42,23 +41,15 @@ export class PowerBiRegenerateAccessTokenComponent extends SubscriptionAwareComp
         map(id => id as UUID),
         switchMap(id => {
           if (this.expirationTime === null) {
-            throw new Error(
-              'Expiration time cannot be null. Please select a valid expiration time.'
-            );
+            throw new Error('Expiration time cannot be null. Please select a valid expiration time.');
           }
-          return this.powerBiAccessTokenService.regenerateAccessToken(
-            id,
-            this.expirationTime
-          );
+          return this.powerBiAccessTokenService.regenerateAccessToken(id, this.expirationTime);
         })
       )
       .subscribe({
         next: result => {
           if (result.apiKey) {
-            sessionStorage.setItem(
-              ApplicationConstant.NEWEST_POWER_BI_ACCESS_TOKEN_KEY,
-              JSON.stringify(result)
-            );
+            sessionStorage.setItem(ApplicationConstant.NEWEST_POWER_BI_ACCESS_TOKEN_KEY, JSON.stringify(result));
             this.navigateToPowerBiAccessTokens();
             this.notification.success({
               summary: 'Regenerated',

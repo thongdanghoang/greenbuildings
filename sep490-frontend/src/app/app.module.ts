@@ -45,9 +45,7 @@ enum OidcScopes {
   ADDRESS = 'address'
 }
 
-function initAuth(
-  oidcSecurityService: OidcSecurityService
-): () => Promise<LoginResponse> {
+function initAuth(oidcSecurityService: OidcSecurityService): () => Promise<LoginResponse> {
   return () =>
     new Promise<LoginResponse>(resolve => {
       oidcSecurityService.checkAuth().subscribe(data => {
@@ -61,9 +59,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http);
 }
 
-export const httpLoaderFactory = (
-  httpClient: HttpClient
-): StsConfigHttpLoader => {
+export const httpLoaderFactory = (httpClient: HttpClient): StsConfigHttpLoader => {
   const config$ = httpClient.get<any>(`assets/config/config.json`).pipe(
     map((customConfig: any) => {
       return {

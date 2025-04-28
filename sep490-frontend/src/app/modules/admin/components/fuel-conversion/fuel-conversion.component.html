@@ -1,6 +1,6 @@
 <div class="mb-4 flex items-center justify-start border-b pb-1">
     <h1 class="text-lg font-bold text-primary">
-        {{ "sidebar.admin.fuel" | translate }}
+        {{ 'sidebar.admin.fuel' | translate }}
     </h1>
 </div>
 <table-template
@@ -47,7 +47,10 @@
         </div>
     </div>
 </ng-template>
-<ng-template #actionsTemplate let-rowData>
+<ng-template
+    #actionsTemplate
+    let-rowData
+>
     <div class="flex">
         <p-button
             icon="pi pi-pencil"
@@ -59,6 +62,9 @@
     </div>
 </ng-template>
 
-<ng-template #fuelTemplate let-data>
+<ng-template
+    #fuelTemplate
+    let-data
+>
     {{ getLocalizedFuelName(data.fuel) }}
 </ng-template>

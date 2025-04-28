@@ -1,17 +1,6 @@
 import {HttpClient} from '@angular/common/http';
-import {
-  Component,
-  EventEmitter,
-  OnInit,
-  TemplateRef,
-  ViewChild
-} from '@angular/core';
-import {
-  AbstractControl,
-  FormBuilder,
-  FormControl,
-  Validators
-} from '@angular/forms';
+import {Component, EventEmitter, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {AbstractControl, FormBuilder, FormControl, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {EmissionActivityRecordCriteria} from '@models/emission-activity-record';
 import {TranslateService} from '@ngx-translate/core';
@@ -20,11 +9,7 @@ import {Observable, Observer, filter, map, switchMap, takeUntil} from 'rxjs';
 import {validate} from 'uuid';
 import {UUID} from '../../../../../types/uuid';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
-import {
-  ActivityType,
-  EmissionActivityDetails,
-  EmissionActivityRecord
-} from '@models/enterprise';
+import {ActivityType, EmissionActivityDetails, EmissionActivityRecord} from '@models/enterprise';
 import {ApplicationService} from '@services/application.service';
 import {AbstractFormComponent} from '@shared/components/form/abstract-form-component';
 import {TableTemplateColumn} from '@shared/components/table-template/table-template.component';
@@ -43,10 +28,7 @@ import {EmissionActivityService} from '@services/emission-activity.service';
   templateUrl: './emission-activity-detail.component.html',
   styleUrls: ['./emission-activity-detail.component.scss']
 })
-export class EmissionActivityDetailComponent
-  extends AbstractFormComponent<EmissionActivityDetails>
-  implements OnInit
-{
+export class EmissionActivityDetailComponent extends AbstractFormComponent<EmissionActivityDetails> implements OnInit {
   formStructure = {
     id: new FormControl('', Validators.required),
     version: new FormControl(0, Validators.required),
@@ -89,19 +71,13 @@ export class EmissionActivityDetailComponent
         this.notificationService.businessError({
           summary: this.translate.instant('http.error.status.403.title')
         });
-        void this.router.navigate([
-          AppRoutingConstants.ENTERPRISE_PATH,
-          AppRoutingConstants.BUILDING_PATH
-        ]);
+        void this.router.navigate([AppRoutingConstants.ENTERPRISE_PATH, AppRoutingConstants.BUILDING_PATH]);
       } else {
         this.handleAfterSuccessValidation(activity);
       }
     },
     error: () => {
-      void this.router.navigate([
-        AppRoutingConstants.ENTERPRISE_PATH,
-        AppRoutingConstants.BUILDING_PATH
-      ]);
+      void this.router.navigate([AppRoutingConstants.ENTERPRISE_PATH, AppRoutingConstants.BUILDING_PATH]);
     },
     complete: () => {}
   };
@@ -123,9 +99,7 @@ export class EmissionActivityDetailComponent
   }
 
   override ngOnInit(): void {
-    this.fetchRecords = this.emissionActivityRecordService.search.bind(
-      this.emissionActivityRecordService
-    );
+    this.fetchRecords = this.emissionActivityRecordService.search.bind(this.emissionActivityRecordService);
     this.validateAndFetchDetail();
     super.ngOnInit();
   }
@@ -134,12 +108,8 @@ export class EmissionActivityDetailComponent
     this.formStructure.id.setValue(this.activity.id.toString());
     this.formStructure.version.setValue(this.activity.version);
     this.formStructure.buildingId.setValue(this.activity.buildingId);
-    this.formStructure.buildingGroupId.setValue(
-      this.activity.buildingGroup?.id
-    );
-    this.formStructure.emissionFactorID.setValue(
-      this.activity.emissionFactor.id
-    );
+    this.formStructure.buildingGroupId.setValue(this.activity.buildingGroup?.id);
+    this.formStructure.emissionFactorID.setValue(this.activity.emissionFactor.id);
     this.formStructure.name.setValue(this.activity.name);
     if (this.activity.type) {
       this.formStructure.type.setValue(this.activity?.type.id);
@@ -243,16 +213,14 @@ export class EmissionActivityDetailComponent
   }
 
   removeFile(record: EmissionActivityRecord): void {
-    this.emissionActivityRecordService
-      .deleteRecordFile(record.id, record.file.id)
-      .subscribe({
-        next: () => {
-          this.notificationService.success({
-            summary: this.translate.instant('common.success')
-          });
-          this.searchEvent.emit();
-        }
-      });
+    this.emissionActivityRecordService.deleteRecordFile(record.id, record.file.id).subscribe({
+      next: () => {
+        this.notificationService.success({
+          summary: this.translate.instant('common.success')
+        });
+        this.searchEvent.emit();
+      }
+    });
   }
 
   onNewRecord(): void {
@@ -265,10 +233,7 @@ export class EmissionActivityDetailComponent
       dismissableMask: true,
       showHeader: false
     };
-    const ref = this.dialogService.open(
-      NewActivityRecordDialogComponent,
-      config
-    );
+    const ref = this.dialogService.open(NewActivityRecordDialogComponent, config);
     ref.onClose.subscribe(result => {
       if (result) {
         this.searchEvent.emit();
@@ -287,10 +252,7 @@ export class EmissionActivityDetailComponent
       dismissableMask: true,
       showHeader: false
     };
-    const ref = this.dialogService.open(
-      NewActivityRecordDialogComponent,
-      config
-    );
+    const ref = this.dialogService.open(NewActivityRecordDialogComponent, config);
     ref.onClose.subscribe(result => {
       if (result) {
         this.searchEvent.emit();
@@ -305,9 +267,7 @@ export class EmissionActivityDetailComponent
         map(params => params.get('emissionId')),
         filter((idParam): idParam is string => !!idParam),
         filter(id => validate(id)),
-        switchMap(id =>
-          this.emissionActivityService.getActivityDetails(id as UUID)
-        )
+        switchMap(id => this.emissionActivityService.getActivityDetails(id as UUID))
       )
       .subscribe(this.fetchActivityObserver);
   }
@@ -350,23 +310,17 @@ export class EmissionActivityDetailComponent
     return this.emissionActivityService.getCreateNewActivityURL();
   }
 
-  protected override onSubmitFormDataSuccess(
-    result: EmissionActivityDetails
-  ): void {
+  protected override onSubmitFormDataSuccess(result: EmissionActivityDetails): void {
     this.activity = result;
     this.loadActivityTypes();
     this.updateFormStructureData();
   }
 
   private loadActivityTypes(): void {
-    this.applicationService.UserData.pipe(takeUntil(this.destroy$)).subscribe(
-      u => {
-        this.activityTypeService
-          .getByEnterpriseId(u.enterpriseId)
-          .subscribe(types => {
-            this.activityTypes = types;
-          });
-      }
-    );
+    this.applicationService.UserData.pipe(takeUntil(this.destroy$)).subscribe(u => {
+      this.activityTypeService.getByEnterpriseId(u.enterpriseId).subscribe(types => {
+        this.activityTypes = types;
+      });
+    });
   }
 }

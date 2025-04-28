@@ -7,11 +7,9 @@
             <div class="text-center">
                 <div class="mb-8">
                     <h1 class="mb-4 text-3xl font-bold text-primary">
-                        {{ "home.welcome" | translate }}
+                        {{ 'home.welcome' | translate }}
                     </h1>
-                    <h2 class="text-2xl">
-                        {{ userInfo!.firstName }} {{ userInfo!.lastName }}
-                    </h2>
+                    <h2 class="text-2xl">{{ userInfo!.firstName }} {{ userInfo!.lastName }}</h2>
                 </div>
 
                 <div class="mb-8 rounded-lg p-6">
@@ -22,22 +20,16 @@
                     @if (userInfo!.emailVerified) {
                         <div class="flex items-center justify-center gap-2">
                             <i class="pi pi-check-circle"></i>
-                            <span>{{ "home.emailVerified" | translate }}</span>
+                            <span>{{ 'home.emailVerified' | translate }}</span>
                         </div>
                     }
                 </div>
 
-                <div
-                    class="flex flex-col items-center justify-center gap-4 sm:flex-row"
-                >
+                <div class="flex flex-col items-center justify-center gap-4 sm:flex-row">
                     <p-button
                         [label]="'home.viewProfile' | translate"
                         icon="pi pi-user"
-                        [routerLink]="[
-                            '/',
-                            AppRoutingConstants.ENTERPRISE_PATH,
-                            AppRoutingConstants.ACCOUNT_INFO_PATH,
-                        ]"
+                        [routerLink]="['/', AppRoutingConstants.ENTERPRISE_PATH, AppRoutingConstants.ACCOUNT_INFO_PATH]"
                         styleClass="p-button-secondary"
                     ></p-button>
                     <p-button
@@ -46,7 +38,7 @@
                         [routerLink]="[
                             '/',
                             AppRoutingConstants.ENTERPRISE_PATH,
-                            AppRoutingConstants.CREATE_ENTERPRISE_PATH,
+                            AppRoutingConstants.CREATE_ENTERPRISE_PATH
                         ]"
                         styleClass="p-button-primary"
                     ></p-button>
@@ -55,10 +47,10 @@
         } @else if (userRoles.includes(UserRole.ENTERPRISE_OWNER) && userData) {
             <div class="text-center">
                 <h1 class="mb-4 text-3xl font-bold text-primary">
-                    {{ "home.welcomeEnterprise" | translate }}
+                    {{ 'home.welcomeEnterprise' | translate }}
                 </h1>
                 <p class="mb-8 text-lg">
-                    {{ "home.enterpriseDescription" | translate }}
+                    {{ 'home.enterpriseDescription' | translate }}
                 </p>
                 <div class="flex justify-center">
                     <p-button
@@ -72,32 +64,23 @@
         } @else if (userRoles.includes(UserRole.TENANT) && userData) {
             <div class="text-center">
                 <h1 class="mb-4 text-3xl font-bold text-primary">
-                    {{ "home.welcomeTenant" | translate }}
+                    {{ 'home.welcomeTenant' | translate }}
                 </h1>
                 <p class="mb-8 text-lg">
-                    {{ "home.enterpriseDescription" | translate }}
+                    {{ 'home.enterpriseDescription' | translate }}
                 </p>
-                <div
-                    class="flex flex-col items-center justify-center gap-4 sm:flex-row"
-                >
+                <div class="flex flex-col items-center justify-center gap-4 sm:flex-row">
                     <p-button
                         [label]="'home.viewProfile' | translate"
                         icon="pi pi-user"
-                        [routerLink]="[
-                            '/',
-                            AppRoutingConstants.ENTERPRISE_PATH,
-                            AppRoutingConstants.ACCOUNT_INFO_PATH,
-                        ]"
+                        [routerLink]="['/', AppRoutingConstants.ENTERPRISE_PATH, AppRoutingConstants.ACCOUNT_INFO_PATH]"
                         styleClass="p-button-secondary"
                     ></p-button>
 
                     <p-button
                         [label]="'home.viewInvitation' | translate"
                         icon="pi pi-envelope"
-                        [routerLink]="[
-                            AppRoutingConstants.ENTERPRISE_PATH,
-                            AppRoutingConstants.INVITATION_PATH,
-                        ]"
+                        [routerLink]="[AppRoutingConstants.ENTERPRISE_PATH, AppRoutingConstants.INVITATION_PATH]"
                         styleClass="p-button-primary"
                     ></p-button>
                 </div>

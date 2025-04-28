@@ -3,12 +3,7 @@ import {Injectable} from '@angular/core';
 import {Observable, map} from 'rxjs';
 import {UUID} from '../../types/uuid';
 import {AppRoutingConstants} from '../app-routing.constant';
-import {
-  Building,
-  BuildingDetails,
-  OverviewBuildingDTO,
-  UserByBuilding
-} from '@models/enterprise';
+import {Building, BuildingDetails, OverviewBuildingDTO, UserByBuilding} from '@models/enterprise';
 import {SearchCriteriaDto, SearchResultDto} from '@shared/models/base-models';
 
 @Injectable({
@@ -37,9 +32,7 @@ export class BuildingService {
     );
   }
 
-  searchBuildings(
-    searchCriteria: SearchCriteriaDto<void>
-  ): Observable<SearchResultDto<Building>> {
+  searchBuildings(searchCriteria: SearchCriteriaDto<void>): Observable<SearchResultDto<Building>> {
     return this.httpClient
       .post<
         SearchResultDto<Building>

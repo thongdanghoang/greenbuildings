@@ -10,13 +10,10 @@
         ></p-button>
     </div>
     <h1 class="text-lg font-bold text-primary">
-        {{
-            (isEdit ? "enterprise.Users.detail" : "enterprise.Users.create")
-                | translate
-        }}
+        {{ (isEdit ? 'enterprise.Users.detail' : 'enterprise.Users.create') | translate }}
     </h1>
     <p class="font-light">
-        {{ "enterprise.Users.description" | translate }}
+        {{ 'enterprise.Users.description' | translate }}
     </p>
 </div>
 <form
@@ -28,19 +25,27 @@
     @if (isEdit) {
         <!-- ID -->
         <div class="my-3 mb-8 grid grid-cols-12 items-center gap-2 sm:gap-4">
-            <label for="email" class="col-span-12 font-normal sm:col-span-3">{{
-                "enterprise.Users.id" | translate
-            }}</label>
+            <label
+                for="email"
+                class="col-span-12 font-normal sm:col-span-3"
+                >{{ 'enterprise.Users.id' | translate }}</label
+            >
             <div class="col-span-12 *:w-full sm:col-span-6">
-                <input type="text" pInputText formControlName="id" />
+                <input
+                    type="text"
+                    pInputText
+                    formControlName="id"
+                />
             </div>
         </div>
 
         <!--   createdDate   -->
         <div class="my-3 mb-8 grid grid-cols-12 items-center gap-2 sm:gap-4">
-            <label for="email" class="col-span-12 font-normal sm:col-span-3">{{
-                "enterprise.Users.createdDate" | translate
-            }}</label>
+            <label
+                for="email"
+                class="col-span-12 font-normal sm:col-span-3"
+                >{{ 'enterprise.Users.createdDate' | translate }}</label
+            >
             <p-fluid class="col-span-12 *:w-full sm:col-span-6">
                 <p-datepicker
                     formControlName="createdDate"
@@ -55,9 +60,11 @@
         class="my-3 grid grid-cols-12 items-center gap-2 sm:gap-4"
         errorMessages
     >
-        <label for="email" class="col-span-12 font-normal sm:col-span-3">{{
-            "enterprise.Users.email" | translate
-        }}</label>
+        <label
+            for="email"
+            class="col-span-12 font-normal sm:col-span-3"
+            >{{ 'enterprise.Users.email' | translate }}</label
+        >
         <div class="col-span-12 sm:col-span-6">
             <input
                 formControlName="email"
@@ -65,9 +72,7 @@
                 type="text"
                 id="email"
                 pInputText
-                [placeholder]="
-                    'enterprise.Users.placeholders.enterEmail' | translate
-                "
+                [placeholder]="'enterprise.Users.placeholders.enterEmail' | translate"
             />
             <form-field-error></form-field-error>
         </div>
@@ -75,14 +80,17 @@
 
     @if (isEdit) {
         <!-- Email Verified -->
-        <div
-            class="my-3 mb-6 flex items-center justify-between gap-2 sm:grid sm:grid-cols-12 sm:gap-4"
-        >
-            <label for="email" class="font-normal sm:col-span-3">{{
-                "enterprise.Users.emailVerified" | translate
-            }}</label>
+        <div class="my-3 mb-6 flex items-center justify-between gap-2 sm:grid sm:grid-cols-12 sm:gap-4">
+            <label
+                for="email"
+                class="font-normal sm:col-span-3"
+                >{{ 'enterprise.Users.emailVerified' | translate }}</label
+            >
             <div class="sm:col-span-6">
-                <p-checkbox formControlName="emailVerified" [binary]="true" />
+                <p-checkbox
+                    formControlName="emailVerified"
+                    [binary]="true"
+                />
             </div>
         </div>
     }
@@ -92,9 +100,11 @@
         class="my-3 grid grid-cols-12 items-center gap-2 sm:gap-4"
         errorMessages
     >
-        <label for="firstName" class="col-span-12 font-normal sm:col-span-3">{{
-            "enterprise.Users.firstName" | translate
-        }}</label>
+        <label
+            for="firstName"
+            class="col-span-12 font-normal sm:col-span-3"
+            >{{ 'enterprise.Users.firstName' | translate }}</label
+        >
         <div class="col-span-12 sm:col-span-6">
             <input
                 formControlName="firstName"
@@ -102,9 +112,7 @@
                 type="text"
                 id="firstName"
                 pInputText
-                [placeholder]="
-                    'enterprise.Users.placeholders.enterFirstName' | translate
-                "
+                [placeholder]="'enterprise.Users.placeholders.enterFirstName' | translate"
             />
             <form-field-error></form-field-error>
         </div>
@@ -115,9 +123,11 @@
         class="my-3 grid grid-cols-12 items-center gap-2 sm:gap-4"
         errorMessages
     >
-        <label for="lastName" class="col-span-12 font-normal sm:col-span-3">{{
-            "enterprise.Users.lastName" | translate
-        }}</label>
+        <label
+            for="lastName"
+            class="col-span-12 font-normal sm:col-span-3"
+            >{{ 'enterprise.Users.lastName' | translate }}</label
+        >
         <div class="col-span-12 sm:col-span-6">
             <input
                 formControlName="lastName"
@@ -125,9 +135,7 @@
                 type="text"
                 id="lastName"
                 pInputText
-                [placeholder]="
-                    'enterprise.Users.placeholders.enterLastName' | translate
-                "
+                [placeholder]="'enterprise.Users.placeholders.enterLastName' | translate"
             />
             <form-field-error></form-field-error>
         </div>

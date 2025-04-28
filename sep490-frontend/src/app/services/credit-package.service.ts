@@ -11,8 +11,6 @@ export class CreditPackageService {
   constructor(private readonly httpClient: HttpClient) {}
 
   public getAllCreditPackages(): Observable<CreditPackage[]> {
-    return this.httpClient.get<CreditPackage[]>(
-      `${AppRoutingConstants.ENTERPRISE_API_URL}/credit-package`
-    );
+    return this.httpClient.get<CreditPackage[]>(`${AppRoutingConstants.ENTERPRISE_API_URL}/credit-package`);
   }
 }

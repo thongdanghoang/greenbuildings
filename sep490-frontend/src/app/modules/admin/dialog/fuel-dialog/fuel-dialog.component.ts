@@ -1,20 +1,11 @@
 import {HttpClient} from '@angular/common/http';
 import {Component} from '@angular/core';
-import {
-  AbstractControl,
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators
-} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {TranslateService} from '@ngx-translate/core';
 import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
 import {UUID} from '../../../../../types/uuid';
 import {AbstractFormComponent} from '../../../shared/components/form/abstract-form-component';
-import {
-  EmissionUnit,
-  EnergyConversionDTO
-} from '../../../../models/shared-models';
+import {EmissionUnit, EnergyConversionDTO} from '../../../../models/shared-models';
 import {ToastProvider} from '../../../shared/services/toast-provider';
 import {FuelConversionService} from '../../../../services/fuel-conversion.service';
 
@@ -24,9 +15,7 @@ import {FuelConversionService} from '../../../../services/fuel-conversion.servic
   styleUrl: './fuel-dialog.component.css'
 })
 export class FuelDialogComponent extends AbstractFormComponent<EnergyConversionDTO> {
-  emissionUnits: {label: string; value: EmissionUnit}[] = Object.keys(
-    EmissionUnit
-  ).map(key => ({
+  emissionUnits: {label: string; value: EmissionUnit}[] = Object.keys(EmissionUnit).map(key => ({
     label: this.translate.instant(`unit.${key}`),
     value: EmissionUnit[key as keyof typeof EmissionUnit]
   }));
@@ -49,11 +38,9 @@ export class FuelDialogComponent extends AbstractFormComponent<EnergyConversionD
 
   protected initializeData(): void {
     if (this.config.data) {
-      this.fuelService
-        .getFuelConversionById(this.config.data.toString())
-        .subscribe(fuel => {
-          this.formGroup.patchValue(fuel);
-        });
+      this.fuelService.getFuelConversionById(this.config.data.toString()).subscribe(fuel => {
+        this.formGroup.patchValue(fuel);
+      });
     }
   }
 

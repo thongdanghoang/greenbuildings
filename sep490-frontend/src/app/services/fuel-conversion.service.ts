@@ -21,9 +21,7 @@ export class FuelConversionService {
     );
   }
 
-  public getFuelConversionById(
-    fuelId: string
-  ): Observable<EnergyConversionDTO> {
+  public getFuelConversionById(fuelId: string): Observable<EnergyConversionDTO> {
     return this.httpClient.get<EnergyConversionDTO>(
       `${AppRoutingConstants.ENTERPRISE_API_URL}/energy-conversion/${fuelId}`
     );

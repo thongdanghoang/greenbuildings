@@ -1,17 +1,7 @@
-import {
-  Component,
-  EventEmitter,
-  OnInit,
-  TemplateRef,
-  ViewChild
-} from '@angular/core';
+import {Component, EventEmitter, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {ChemicalDensityCriteria} from '@models/emissions';
 import {TranslateService} from '@ngx-translate/core';
-import {
-  DialogService,
-  DynamicDialogConfig,
-  DynamicDialogRef
-} from 'primeng/dynamicdialog';
+import {DialogService, DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
 import {Observable, takeUntil} from 'rxjs';
 import {UUID} from '../../../../../types/uuid';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
@@ -30,10 +20,7 @@ import {ChemicalDensityService} from '@services/chemical-density.service';
   templateUrl: './chemical-density.component.html',
   styleUrl: './chemical-density.component.css'
 })
-export class ChemicalDensityComponent
-  extends SubscriptionAwareComponent
-  implements OnInit
-{
+export class ChemicalDensityComponent extends SubscriptionAwareComponent implements OnInit {
   @ViewChild('actionsTemplate', {static: true})
   actionsTemplate!: TemplateRef<any>;
   ref: DynamicDialogRef | undefined;
@@ -43,8 +30,7 @@ export class ChemicalDensityComponent
   ) => Observable<SearchResultDto<ChemicalDensityDTO>>;
   protected cols: TableTemplateColumn[] = [];
   protected readonly searchEvent: EventEmitter<void> = new EventEmitter();
-  protected readonly clearSelectedEvent: EventEmitter<void> =
-    new EventEmitter();
+  protected readonly clearSelectedEvent: EventEmitter<void> = new EventEmitter();
   protected selected: ChemicalDensityDTO[] = [];
   protected searchCriteria: ChemicalDensityCriteria = {criteria: ''};
 
@@ -61,9 +47,7 @@ export class ChemicalDensityComponent
 
   ngOnInit(): void {
     this.buildCols();
-    this.fetchUsers = this.userService.getChemicalDensity.bind(
-      this.userService
-    );
+    this.fetchUsers = this.userService.getChemicalDensity.bind(this.userService);
   }
 
   buildCols(): void {
@@ -169,12 +153,8 @@ export class ChemicalDensityComponent
     this.userService.deleteChemicalDensity(userIds).subscribe({
       next: () => {
         this.messageService.success({
-          summary: this.translate.instant(
-            'enterprise.type.message.success.summary'
-          ),
-          detail: this.translate.instant(
-            'enterprise.type.message.success.detail'
-          )
+          summary: this.translate.instant('enterprise.type.message.success.summary'),
+          detail: this.translate.instant('enterprise.type.message.success.detail')
         });
         this.selected = []; // Clear local selection
         this.searchEvent.emit(); // Refresh table
@@ -182,12 +162,8 @@ export class ChemicalDensityComponent
       },
       error: () => {
         this.messageService.success({
-          summary: this.translate.instant(
-            'enterprise.Users.message.error.summary'
-          ),
-          detail: this.translate.instant(
-            'enterprise.Users.message.error.detail'
-          )
+          summary: this.translate.instant('enterprise.Users.message.error.summary'),
+          detail: this.translate.instant('enterprise.Users.message.error.detail')
         });
       }
     });

@@ -118,9 +118,7 @@ export class ThemeService extends SubscriptionAwareComponent {
 
   isDarkMode(): Observable<boolean> {
     if (this.isThemeConfigured()) {
-      return of(
-        localStorage.getItem(this.LOCAL_STORAGE_KEY) === Theme[Theme.DARK]
-      );
+      return of(localStorage.getItem(this.LOCAL_STORAGE_KEY) === Theme[Theme.DARK]);
     }
     return this.systemPreferredColorThemeChanged;
   }

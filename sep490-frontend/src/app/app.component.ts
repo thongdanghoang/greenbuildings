@@ -25,13 +25,8 @@ export class AppComponent implements OnInit, OnDestroy {
     this.translate.setDefaultLang('vi');
     this.themeService.initTheme();
     // Listen for system theme changes
-    this.systemThemeMediaQuery = window.matchMedia(
-      this.themeService.SYSTEM_COLOR_SCHEME_QUERY
-    );
-    this.systemThemeMediaQuery.addEventListener(
-      'change',
-      this.handleThemeChange
-    );
+    this.systemThemeMediaQuery = window.matchMedia(this.themeService.SYSTEM_COLOR_SCHEME_QUERY);
+    this.systemThemeMediaQuery.addEventListener('change', this.handleThemeChange);
     this.authenticated
       .pipe(
         filter(auth => auth),
@@ -46,10 +41,7 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
-    this.systemThemeMediaQuery?.removeEventListener(
-      'change',
-      this.handleThemeChange
-    );
+    this.systemThemeMediaQuery?.removeEventListener('change', this.handleThemeChange);
   }
 
   get emailVerified(): Observable<boolean> {

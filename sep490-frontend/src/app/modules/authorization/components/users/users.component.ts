@@ -1,11 +1,4 @@
-import {
-  Component,
-  EventEmitter,
-  OnInit,
-  TemplateRef,
-  ViewChild,
-  inject
-} from '@angular/core';
+import {Component, EventEmitter, OnInit, TemplateRef, ViewChild, inject} from '@angular/core';
 import {Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
 import {Observable, takeUntil} from 'rxjs';
@@ -29,22 +22,16 @@ export interface UserCriteria {
   templateUrl: './users.component.html',
   styleUrl: './users.component.css'
 })
-export class UsersComponent
-  extends SubscriptionAwareComponent
-  implements OnInit
-{
+export class UsersComponent extends SubscriptionAwareComponent implements OnInit {
   @ViewChild('scopeTemplate', {static: true})
   scopeTemplate!: TemplateRef<any>;
   @ViewChild('actionsTemplate', {static: true})
   actionsTemplate!: TemplateRef<any>;
   protected readonly AppRoutingConstants = AppRoutingConstants;
-  protected fetchUsers!: (
-    criteria: SearchCriteriaDto<UserCriteria>
-  ) => Observable<SearchResultDto<EnterpriseUser>>;
+  protected fetchUsers!: (criteria: SearchCriteriaDto<UserCriteria>) => Observable<SearchResultDto<EnterpriseUser>>;
   protected cols: TableTemplateColumn[] = [];
   protected readonly searchEvent: EventEmitter<void> = new EventEmitter();
-  protected readonly clearSelectedEvent: EventEmitter<void> =
-    new EventEmitter();
+  protected readonly clearSelectedEvent: EventEmitter<void> = new EventEmitter();
   protected selected: EnterpriseUser[] = [];
   protected searchCriteria: UserCriteria = {criteria: ''};
   private readonly router = inject(Router);
@@ -96,10 +83,7 @@ export class UsersComponent
   onEdit(rowData: EnterpriseUser): void {
     this.selected = [rowData];
     const userId = this.selected[0].id; // Retrieve the selected user's ID.
-    void this.router.navigate([
-      `/${AppRoutingConstants.AUTH_PATH}/${AppRoutingConstants.USER_DETAILS}`,
-      userId
-    ]);
+    void this.router.navigate([`/${AppRoutingConstants.AUTH_PATH}/${AppRoutingConstants.USER_DETAILS}`, userId]);
   }
 
   onSelectionChange(selectedUsers: EnterpriseUser[]): void {
@@ -137,12 +121,8 @@ export class UsersComponent
     this.userService.deleteUsers(userIds).subscribe({
       next: () => {
         this.messageService.success({
-          summary: this.translate.instant(
-            'enterprise.Users.message.success.summary'
-          ),
-          detail: this.translate.instant(
-            'enterprise.Users.message.success.detail'
-          )
+          summary: this.translate.instant('enterprise.Users.message.success.summary'),
+          detail: this.translate.instant('enterprise.Users.message.success.detail')
         });
         this.selected = []; // Clear local selection
         this.searchEvent.emit(); // Refresh table
@@ -150,12 +130,8 @@ export class UsersComponent
       },
       error: () => {
         this.messageService.businessError({
-          summary: this.translate.instant(
-            'enterprise.Users.message.error.summary'
-          ),
-          detail: this.translate.instant(
-            'enterprise.Users.message.error.detail'
-          )
+          summary: this.translate.instant('enterprise.Users.message.error.summary'),
+          detail: this.translate.instant('enterprise.Users.message.error.detail')
         });
       }
     });

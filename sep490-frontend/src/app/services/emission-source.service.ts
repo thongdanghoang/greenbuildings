@@ -21,9 +21,7 @@ export class EmissionSourceService {
     );
   }
 
-  public getEmissionSourceById(
-    emssionSourceId: string
-  ): Observable<EmissionSource> {
+  public getEmissionSourceById(emssionSourceId: string): Observable<EmissionSource> {
     return this.httpClient.get<EmissionSource>(
       `${AppRoutingConstants.ENTERPRISE_API_URL}/emission-source/${emssionSourceId}`
     );
@@ -36,9 +34,6 @@ export class EmissionSourceService {
     const formData = new FormData();
     formData.append('file', file);
 
-    return this.httpClient.post<void>(
-      `${AppRoutingConstants.ENTERPRISE_API_URL}/emission-source/excel`,
-      formData
-    );
+    return this.httpClient.post<void>(`${AppRoutingConstants.ENTERPRISE_API_URL}/emission-source/excel`, formData);
   }
 }

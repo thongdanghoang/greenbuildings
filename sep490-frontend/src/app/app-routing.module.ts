@@ -1,10 +1,6 @@
 import {NgModule, inject} from '@angular/core';
 import {Router, RouterModule, Routes} from '@angular/router';
-import {
-  AutoLoginPartialRoutesGuard,
-  LoginResponse,
-  OidcSecurityService
-} from 'angular-auth-oidc-client';
+import {AutoLoginPartialRoutesGuard, LoginResponse, OidcSecurityService} from 'angular-auth-oidc-client';
 import {Observable, of, switchMap, tap} from 'rxjs';
 import {AppRoutingConstants} from './app-routing.constant';
 import {DashboardComponent} from './components/dashboard/dashboard.component';
@@ -49,32 +45,22 @@ const routes: Routes = [
   },
   {
     path: AppRoutingConstants.AUTH_PATH,
-    loadChildren: () =>
-      import('./modules/authorization/authorization.module').then(
-        m => m.AuthorizationModule
-      ),
+    loadChildren: () => import('./modules/authorization/authorization.module').then(m => m.AuthorizationModule),
     canActivate: [AutoLoginPartialRoutesGuard, authGuard]
   },
   {
     path: AppRoutingConstants.ADMIN_PATH,
-    loadChildren: () =>
-      import('./modules/admin/admin.module').then(m => m.AdminModule),
+    loadChildren: () => import('./modules/admin/admin.module').then(m => m.AdminModule),
     canActivate: [AutoLoginPartialRoutesGuard, authGuard]
   },
   {
     path: AppRoutingConstants.ENTERPRISE_PATH,
-    loadChildren: () =>
-      import('./modules/enterprise/enterprise.module').then(
-        m => m.EnterpriseModule
-      ),
+    loadChildren: () => import('./modules/enterprise/enterprise.module').then(m => m.EnterpriseModule),
     canActivate: [AutoLoginPartialRoutesGuard, authGuard]
   },
   {
     path: AppRoutingConstants.EMISSIONS_PATH,
-    loadChildren: () =>
-      import('./modules/emissions/emissions.module').then(
-        m => m.EmissionsModule
-      ),
+    loadChildren: () => import('./modules/emissions/emissions.module').then(m => m.EmissionsModule),
     canActivate: [AutoLoginPartialRoutesGuard, authGuard]
   },
   {
@@ -87,8 +73,7 @@ const routes: Routes = [
   },
   {
     path: AppRoutingConstants.DEV_PATH,
-    loadChildren: () =>
-      import('./modules/dev/dev.module').then(m => m.DevModule)
+    loadChildren: () => import('./modules/dev/dev.module').then(m => m.DevModule)
   },
   {
     path: '**',

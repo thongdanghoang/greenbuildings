@@ -1,24 +1,10 @@
 import {HttpClient} from '@angular/common/http';
 import {Component, EventEmitter, TemplateRef, ViewChild} from '@angular/core';
-import {
-  AbstractControl,
-  FormBuilder,
-  FormControl,
-  Validators
-} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormControl, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
 import L from 'leaflet';
-import {
-  Observable,
-  debounceTime,
-  distinctUntilChanged,
-  filter,
-  map,
-  switchMap,
-  takeUntil,
-  tap
-} from 'rxjs';
+import {Observable, debounceTime, distinctUntilChanged, filter, map, switchMap, takeUntil, tap} from 'rxjs';
 import {validate} from 'uuid';
 import {UUID} from '../../../../../types/uuid';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
@@ -44,9 +30,7 @@ export class BuildingDetailsComponent extends AbstractFormComponent<BuildingDeta
   cols: TableTemplateColumn[] = [];
   triggerSearch: EventEmitter<void> = new EventEmitter();
   protected buildingId!: UUID;
-  protected fetchData!: (
-    criteria: SearchCriteriaDto<void>
-  ) => Observable<SearchResultDto<UserByBuilding>>;
+  protected fetchData!: (criteria: SearchCriteriaDto<void>) => Observable<SearchResultDto<UserByBuilding>>;
   protected readonly buildingDetailsStructure = {
     id: new FormControl(''),
     version: new FormControl(null),
@@ -101,11 +85,7 @@ export class BuildingDetailsComponent extends AbstractFormComponent<BuildingDeta
       }
     }
     setTimeout(() => {
-      void this.router.navigate([
-        '/',
-        AppRoutingConstants.ENTERPRISE_PATH,
-        AppRoutingConstants.BUILDING_PATH
-      ]);
+      void this.router.navigate(['/', AppRoutingConstants.ENTERPRISE_PATH, AppRoutingConstants.BUILDING_PATH]);
     }, 0); // Delay navigation để đảm bảo logic chạy xong
   }
 
@@ -122,9 +102,7 @@ export class BuildingDetailsComponent extends AbstractFormComponent<BuildingDeta
   }
 
   get maxNumberOfDevicesControl(): FormControl {
-    return this.formGroup.get(
-      'subscriptionDTO.maxNumberOfDevices'
-    ) as FormControl;
+    return this.formGroup.get('subscriptionDTO.maxNumberOfDevices') as FormControl;
   }
 
   get hasSubscription(): boolean {
@@ -132,9 +110,7 @@ export class BuildingDetailsComponent extends AbstractFormComponent<BuildingDeta
     const endDate = this.endDateControl.value;
     const maxNumberOfDevices = this.maxNumberOfDevicesControl.value;
 
-    return (
-      startDate !== null || endDate !== null || maxNumberOfDevices !== null
-    );
+    return startDate !== null || endDate !== null || maxNumberOfDevices !== null;
   }
 
   override reset(): void {
@@ -200,25 +176,18 @@ export class BuildingDetailsComponent extends AbstractFormComponent<BuildingDeta
     const suggestion = event.value;
     this.formGroup.patchValue({address: suggestion.description});
     // Gọi API chi tiết để lấy tọa độ
-    this.geocodingService
-      .getPlaceDetail(suggestion.place_id)
-      .subscribe(detail => {
-        this.formGroup.patchValue({
-          latitude: detail.result.geometry.location.lat,
-          longitude: detail.result.geometry.location.lng
-        });
+    this.geocodingService.getPlaceDetail(suggestion.place_id).subscribe(detail => {
+      this.formGroup.patchValue({
+        latitude: detail.result.geometry.location.lat,
+        longitude: detail.result.geometry.location.lng
       });
+    });
   }
 
   protected initializeData(): void {
     this.fetchBuildingDetails();
-    this.fetchData = (
-      criteria: SearchCriteriaDto<void>
-    ): Observable<SearchResultDto<UserByBuilding>> => {
-      return this.buildingService.searchUserByBuilding(
-        criteria,
-        this.buildingId
-      );
+    this.fetchData = (criteria: SearchCriteriaDto<void>): Observable<SearchResultDto<UserByBuilding>> => {
+      return this.buildingService.searchUserByBuilding(criteria, this.buildingId);
     };
     this.buildCols();
   }
@@ -228,11 +197,7 @@ export class BuildingDetailsComponent extends AbstractFormComponent<BuildingDeta
   }
 
   protected onSubmitFormDataSuccess(): void {
-    void this.router.navigate([
-      '/',
-      AppRoutingConstants.ENTERPRISE_PATH,
-      AppRoutingConstants.BUILDING_PATH
-    ]);
+    void this.router.navigate(['/', AppRoutingConstants.ENTERPRISE_PATH, AppRoutingConstants.BUILDING_PATH]);
   }
 
   protected submitFormDataUrl(): string {
@@ -264,14 +229,11 @@ export class BuildingDetailsComponent extends AbstractFormComponent<BuildingDeta
         zoom: 16
       });
 
-      const tiles = L.tileLayer(
-        'https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',
-        {
-          maxZoom: 18,
-          minZoom: 2,
-          subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
-        }
-      );
+      const tiles = L.tileLayer('https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
+        maxZoom: 18,
+        minZoom: 2,
+        subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+      });
       tiles.addTo(this.map);
 
       // Thêm sự kiện click để chọn vị trí
@@ -287,9 +249,7 @@ export class BuildingDetailsComponent extends AbstractFormComponent<BuildingDeta
         this.updateAddressFromCoordinates(e.latlng.lat, e.latlng.lng);
       });
     } else {
-      throw new Error(
-        'Map element not found, should set id="map" to the map element'
-      );
+      throw new Error('Map element not found, should set id="map" to the map element');
     }
   }
 
@@ -332,22 +292,11 @@ export class BuildingDetailsComponent extends AbstractFormComponent<BuildingDeta
         }
 
         // Nếu đang edit, hiển thị marker của building hiện tại
-        if (
-          this.isEdit &&
-          this.formGroup.get('latitude')?.value &&
-          this.formGroup.get('longitude')?.value
-        ) {
-          this.marker = L.marker([
-            this.formGroup.get('latitude')?.value,
-            this.formGroup.get('longitude')?.value
-          ]).addTo(this.map);
-          this.map.setView(
-            [
-              this.formGroup.get('latitude')?.value,
-              this.formGroup.get('longitude')?.value
-            ],
-            16
+        if (this.isEdit && this.formGroup.get('latitude')?.value && this.formGroup.get('longitude')?.value) {
+          this.marker = L.marker([this.formGroup.get('latitude')?.value, this.formGroup.get('longitude')?.value]).addTo(
+            this.map
           );
+          this.map.setView([this.formGroup.get('latitude')?.value, this.formGroup.get('longitude')?.value], 16);
         }
       });
   }

@@ -29,25 +29,18 @@ export class EmissionActivityService {
   }
 
   public deleteActivities(ids: UUID[]): Observable<void> {
-    return this.httpClient.delete<void>(
-      `${AppRoutingConstants.ENTERPRISE_API_URL}/${this.EMISSION_ACTIVITY_PATH}`,
-      {
-        body: ids
-      }
-    );
+    return this.httpClient.delete<void>(`${AppRoutingConstants.ENTERPRISE_API_URL}/${this.EMISSION_ACTIVITY_PATH}`, {
+      body: ids
+    });
   }
 
-  public getActivityDetails(
-    activityId: UUID
-  ): Observable<EmissionActivityDetails> {
+  public getActivityDetails(activityId: UUID): Observable<EmissionActivityDetails> {
     return this.httpClient.get<EmissionActivityDetails>(
       `${AppRoutingConstants.ENTERPRISE_API_URL}/${this.EMISSION_ACTIVITY_PATH}/${activityId}`
     );
   }
 
-  public getAllActivitiesByBuildingId(
-    buildingId: UUID
-  ): Observable<EmissionActivity[]> {
+  public getAllActivitiesByBuildingId(buildingId: UUID): Observable<EmissionActivity[]> {
     return this.httpClient.get<EmissionActivity[]>(
       `${AppRoutingConstants.ENTERPRISE_API_URL}/${this.EMISSION_ACTIVITY_PATH}/building/${buildingId}`
     );

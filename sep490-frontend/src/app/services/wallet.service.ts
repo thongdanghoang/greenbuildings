@@ -10,8 +10,6 @@ export class WalletService {
   constructor(private readonly httpClient: HttpClient) {}
 
   public getWalletBalance(): Observable<number> {
-    return this.httpClient.get<number>(
-      `${AppRoutingConstants.ENTERPRISE_API_URL}/wallet/balance`
-    );
+    return this.httpClient.get<number>(`${AppRoutingConstants.ENTERPRISE_API_URL}/wallet/balance`);
   }
 }

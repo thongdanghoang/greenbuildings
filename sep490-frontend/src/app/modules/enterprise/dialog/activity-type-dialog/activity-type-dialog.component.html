@@ -3,7 +3,7 @@
     <!-- Dialog Header -->
     <div class="p-dialog-header border-b p-0">
         <span class="text-xl font-semibold">
-            {{ "enterprise.type.name" | translate }}
+            {{ 'enterprise.type.name' | translate }}
         </span>
         <button
             pButton
@@ -15,30 +15,32 @@
     </div>
 
     <!-- Form Content -->
-    <div
-        class="p-dialog-content flex min-h-[150px] flex-col overflow-hidden p-0"
-    >
+    <div class="p-dialog-content flex min-h-[150px] flex-col overflow-hidden p-0">
         <form [formGroup]="formGroup">
-            <p-iftalabel class="my-2" errorMessages>
+            <p-iftalabel
+                class="my-2"
+                errorMessages
+            >
                 <input
                     pInputText
                     formControlName="name"
                     class="w-full"
                     autocomplete="off"
                 />
-                <label>{{ "common.name" | translate }}</label>
+                <label>{{ 'common.name' | translate }}</label>
                 <form-field-error></form-field-error>
             </p-iftalabel>
-            <p-iftalabel class="my-2" errorMessages>
+            <p-iftalabel
+                class="my-2"
+                errorMessages
+            >
                 <input
                     pInputText
                     formControlName="description"
                     class="w-full"
                     autocomplete="off"
                 />
-                <label>{{
-                    "admin.emissionFactor.description" | translate
-                }}</label>
+                <label>{{ 'admin.emissionFactor.description' | translate }}</label>
                 <form-field-error></form-field-error>
             </p-iftalabel>
         </form>

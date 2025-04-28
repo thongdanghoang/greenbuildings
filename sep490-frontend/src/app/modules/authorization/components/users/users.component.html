@@ -1,9 +1,9 @@
 <div class="mb-4 flex items-center justify-between border-b pb-1">
     <h1 class="text-lg font-bold text-primary">
-        {{ "enterprise.Users.title" | translate }}
+        {{ 'enterprise.Users.title' | translate }}
     </h1>
 </div>
-<p class="mb-4">{{ "enterprise.Users.description" | translate }}</p>
+<p class="mb-4">{{ 'enterprise.Users.description' | translate }}</p>
 <table-template
     [fetch]="fetchUsers"
     [columns]="cols"
@@ -42,8 +42,7 @@
                 severity="danger"
                 [label]="
                     selected.length
-                        ? ('enterprise.Users.deleteWithCount'
-                          | translate: { count: selected.length })
+                        ? ('enterprise.Users.deleteWithCount' | translate: {count: selected.length})
                         : ('enterprise.Users.delete' | translate)
                 "
                 icon="pi pi-trash"
@@ -53,11 +52,7 @@
                 size="small"
             />
             <p-button
-                [routerLink]="[
-                    '/',
-                    AppRoutingConstants.AUTH_PATH,
-                    AppRoutingConstants.USER_DETAILS,
-                ]"
+                [routerLink]="['/', AppRoutingConstants.AUTH_PATH, AppRoutingConstants.USER_DETAILS]"
                 [label]="'enterprise.Users.add' | translate"
                 size="small"
                 ><i class="pi pi-user-plus"></i
@@ -65,7 +60,10 @@
         </div>
     </div>
 </ng-template>
-<ng-template #actionsTemplate let-rowData>
+<ng-template
+    #actionsTemplate
+    let-rowData
+>
     <div class="flex">
         <p-button
             icon="pi pi-pencil"
@@ -83,6 +81,9 @@
         />
     </div>
 </ng-template>
-<ng-template #scopeTemplate let-rowData>
-    <p>{{ "enum.scope." + rowData.scope | translate }}</p>
+<ng-template
+    #scopeTemplate
+    let-rowData
+>
+    <p>{{ 'enum.scope.' + rowData.scope | translate }}</p>
 </ng-template>

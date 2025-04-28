@@ -7,18 +7,12 @@ import {TranslateParamsPipe} from '../pipes/translate-params.pipe';
 import {ToastProvider} from '../services/toast-provider';
 
 @Directive()
-export abstract class AbstractSearchComponent<
-    C,
-    R,
-    W extends SearchResultDto<R> = SearchResultDto<R>
-  >
+export abstract class AbstractSearchComponent<C, R, W extends SearchResultDto<R> = SearchResultDto<R>>
   extends SubscriptionAwareComponent
   implements OnInit
 {
   @Input() criteria: C | undefined;
-  @Input({required: true}) fetch!: (
-    criteria: SearchCriteriaDto<C>
-  ) => Observable<W>;
+  @Input({required: true}) fetch!: (criteria: SearchCriteriaDto<C>) => Observable<W>;
   @Input() filterValidator: ((criteria: C) => Observable<string[]>) | undefined;
   @Output() readonly searchCompleted: EventEmitter<W> = new EventEmitter<W>();
 
@@ -74,9 +68,7 @@ export abstract class AbstractSearchComponent<
         },
         error: error => {
           if (error.error?.i18nKey) {
-            const title = this.pipe.transform(
-              `http.error.status.${error?.status}.title`
-            );
+            const title = this.pipe.transform(`http.error.status.${error?.status}.title`);
             const message = this.pipe.transform(error.error.i18nKey);
             this.messageService.businessError({
               summary: title,

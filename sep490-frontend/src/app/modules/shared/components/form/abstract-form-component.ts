@@ -1,11 +1,6 @@
 import {HttpClient} from '@angular/common/http';
 import {Directive, OnInit} from '@angular/core';
-import {
-  AbstractControl,
-  FormArray,
-  FormBuilder,
-  FormGroup
-} from '@angular/forms';
+import {AbstractControl, FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {TranslateService} from '@ngx-translate/core';
 import {of, take, takeUntil} from 'rxjs';
 import {SubscriptionAwareComponent} from '@shared/directives/subscription-aware.component';
@@ -13,10 +8,7 @@ import {BusinessErrorParam} from '../../models/base-models';
 import {ToastProvider} from '../../services/toast-provider';
 
 @Directive()
-export abstract class AbstractFormComponent<T>
-  extends SubscriptionAwareComponent
-  implements OnInit
-{
+export abstract class AbstractFormComponent<T> extends SubscriptionAwareComponent implements OnInit {
   /**
    * the root form group of the form.
    */
@@ -112,21 +104,12 @@ export abstract class AbstractFormComponent<T>
    */
   protected abstract initializeData(): void;
 
-  protected updateFormControlsState(
-    formGroup: FormGroup,
-    functions: ((formControl: AbstractControl) => void)[]
-  ): void {
+  protected updateFormControlsState(formGroup: FormGroup, functions: ((formControl: AbstractControl) => void)[]): void {
     for (const control in formGroup.controls) {
       if (formGroup.controls[control]) {
         functions.forEach(fn => fn(formGroup.controls[control]));
-        if (
-          formGroup.get(control) instanceof FormGroup ||
-          formGroup.get(control) instanceof FormArray
-        ) {
-          this.updateFormControlsState(
-            formGroup.get(control) as FormGroup,
-            functions
-          );
+        if (formGroup.get(control) instanceof FormGroup || formGroup.get(control) instanceof FormArray) {
+          this.updateFormControlsState(formGroup.get(control) as FormGroup, functions);
         }
       }
     }

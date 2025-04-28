@@ -1,10 +1,4 @@
-import {
-  Directive,
-  ElementRef,
-  OnDestroy,
-  OnInit,
-  Optional
-} from '@angular/core';
+import {Directive, ElementRef, OnDestroy, OnInit, Optional} from '@angular/core';
 import {ValidationErrors} from '@angular/forms';
 import {TranslateService} from '@ngx-translate/core';
 import {takeUntil, tap} from 'rxjs';
@@ -15,10 +9,7 @@ import {ErrorMessagesDirective} from './error-messages.directive';
 @Directive({
   selector: '[formFieldError]'
 })
-export class FormFieldErrorDirective
-  extends SubscriptionAwareComponent
-  implements OnInit, OnDestroy
-{
+export class FormFieldErrorDirective extends SubscriptionAwareComponent implements OnInit, OnDestroy {
   private readonly pipe: TranslateParamsPipe;
   private errors: ValidationErrors | null = null;
 
@@ -30,9 +21,7 @@ export class FormFieldErrorDirective
     super();
     this.pipe = new TranslateParamsPipe(translate);
     if (this.control) {
-      translate.onLangChange
-        .pipe(takeUntil(this.destroy$))
-        .subscribe((): void => this.showErrors(this.errors || {}));
+      translate.onLangChange.pipe(takeUntil(this.destroy$)).subscribe((): void => this.showErrors(this.errors || {}));
     }
   }
 
@@ -44,13 +33,7 @@ export class FormFieldErrorDirective
           takeUntil(this.destroy$)
         )
         .subscribe(errors => {
-          if (
-            errors &&
-            !(
-              this.control.ngControl?.untouched &&
-              this.control.ngControl?.pristine
-            )
-          ) {
+          if (errors && !(this.control.ngControl?.untouched && this.control.ngControl?.pristine)) {
             this.showErrors(errors);
           } else {
             this.showErrors({});

@@ -9,80 +9,58 @@
         ></p-button>
     </div>
     <h1 class="text-lg font-bold">
-        {{ "enterprise.create.title" | translate }}
+        {{ 'enterprise.create.title' | translate }}
     </h1>
     <p class="text-sm text-gray-500">
-        {{ "enterprise.create.description" | translate }}
+        {{ 'enterprise.create.description' | translate }}
     </p>
 </div>
 
 <div class="card flex justify-center">
-    <p-stepper [value]="1" class="w-full" [linear]="true">
+    <p-stepper
+        [value]="1"
+        class="w-full"
+        [linear]="true"
+    >
         <p-step-list>
-            <p-step [value]="1">{{
-                "enterprise.create.header1" | translate
-            }}</p-step>
-            <p-step [value]="2">{{
-                "enterprise.create.header2" | translate
-            }}</p-step>
-            <p-step [value]="3">{{
-                "enterprise.create.header3" | translate
-            }}</p-step>
+            <p-step [value]="1">{{ 'enterprise.create.header1' | translate }}</p-step>
+            <p-step [value]="2">{{ 'enterprise.create.header2' | translate }}</p-step>
+            <p-step [value]="3">{{ 'enterprise.create.header3' | translate }}</p-step>
         </p-step-list>
         <p-step-panels>
             <p-step-panel [value]="1">
-                <ng-template #content let-activateCallback="activateCallback">
+                <ng-template
+                    #content
+                    let-activateCallback="activateCallback"
+                >
                     <div class="flex h-48 flex-col">
                         <div
                             class="rounded-xl border-2 border-dashed border-surface-200 bg-surface-50 p-5 dark:border-surface-700 dark:bg-surface-950"
                         >
-                            <h2
-                                class="mb-3 text-2xl font-semibold text-gray-800 dark:text-gray-200"
-                            >
+                            <h2 class="mb-3 text-2xl font-semibold text-gray-800 dark:text-gray-200">
                                 👋
-                                {{
-                                    "enterprise.create.welcomeTitle" | translate
-                                }}
+                                {{ 'enterprise.create.welcomeTitle' | translate }}
                             </h2>
                             <p class="mb-3 text-gray-700 dark:text-gray-300">
-                                {{ "enterprise.create.intro" | translate }}
+                                {{ 'enterprise.create.intro' | translate }}
                             </p>
                             <p class="mb-3 text-gray-700 dark:text-gray-300">
-                                {{
-                                    "enterprise.create.roleInstruction"
-                                        | translate
-                                }}
+                                {{ 'enterprise.create.roleInstruction' | translate }}
                             </p>
-                            <ul
-                                class="mb-3 list-inside list-disc text-gray-700 dark:text-gray-300"
-                            >
+                            <ul class="mb-3 list-inside list-disc text-gray-700 dark:text-gray-300">
                                 <li>
-                                    <strong>{{
-                                        "enterprise.create.role.buildingOwner"
-                                            | translate
-                                    }}</strong
+                                    <strong>{{ 'enterprise.create.role.buildingOwner' | translate }}</strong
                                     >:
-                                    {{
-                                        "enterprise.create.role.buildingOwnerDesc"
-                                            | translate
-                                    }}
+                                    {{ 'enterprise.create.role.buildingOwnerDesc' | translate }}
                                 </li>
                                 <li>
-                                    <strong>{{
-                                        "enterprise.create.role.tenant"
-                                            | translate
-                                    }}</strong
+                                    <strong>{{ 'enterprise.create.role.tenant' | translate }}</strong
                                     >:
-                                    {{
-                                        "enterprise.create.role.tenantDesc"
-                                            | translate
-                                    }}
+                                    {{ 'enterprise.create.role.tenantDesc' | translate }}
                                 </li>
                             </ul>
                             <p class="text-gray-700 dark:text-gray-300">
-                                {{
-                                    "enterprise.create.callToAction" | translate
-                                }}
+                                {{ 'enterprise.create.callToAction' | translate }}
                             </p>
                         </div>
                         <div class="flex justify-end pt-6">
@@ -98,7 +76,10 @@
             </p-step-panel>
 
             <p-step-panel [value]="2">
-                <ng-template #content let-activateCallback="activateCallback">
+                <ng-template
+                    #content
+                    let-activateCallback="activateCallback"
+                >
                     <div class="flex flex-col gap-6">
                         <form
                             [formGroup]="formGroup"
@@ -116,16 +97,10 @@
                                         for="tenant"
                                         class="text-sm font-semibold"
                                     >
-                                        {{
-                                            "enterprise.create.role.tenantLabel"
-                                                | translate
-                                        }}
+                                        {{ 'enterprise.create.role.tenantLabel' | translate }}
                                     </label>
                                     <p class="mt-1 text-xs">
-                                        {{
-                                            "enterprise.create.role.tenantDescription"
-                                                | translate
-                                        }}
+                                        {{ 'enterprise.create.role.tenantDescription' | translate }}
                                     </p>
                                 </div>
                             </div>
@@ -135,25 +110,17 @@
                                     inputId="owner"
                                     size="large"
                                     formControlName="role"
-                                    [value]="
-                                        UserRole[UserRole.ENTERPRISE_OWNER]
-                                    "
+                                    [value]="UserRole[UserRole.ENTERPRISE_OWNER]"
                                 ></p-radiobutton>
                                 <div>
                                     <label
                                         for="owner"
                                         class="text-sm font-semibold"
                                     >
-                                        {{
-                                            "enterprise.create.role.buildingOwnerLabel"
-                                                | translate
-                                        }}
+                                        {{ 'enterprise.create.role.buildingOwnerLabel' | translate }}
                                     </label>
                                     <p class="mt-1 text-xs">
-                                        {{
-                                            "enterprise.create.role.buildingOwnerDescription"
-                                                | translate
-                                        }}
+                                        {{ 'enterprise.create.role.buildingOwnerDescription' | translate }}
                                     </p>
                                 </div>
                             </div>
@@ -179,7 +146,10 @@
             </p-step-panel>
 
             <p-step-panel [value]="3">
-                <ng-template #content let-activateCallback="activateCallback">
+                <ng-template
+                    #content
+                    let-activateCallback="activateCallback"
+                >
                     <div>
                         <form
                             [formGroup]="formGroup"
@@ -193,9 +163,7 @@
                                 <label
                                     for="name"
                                     class="col-span-12 font-normal sm:col-span-3"
-                                    >{{
-                                        "enterprise.create.name" | translate
-                                    }}</label
+                                    >{{ 'enterprise.create.name' | translate }}</label
                                 >
                                 <div class="col-span-12 sm:col-span-9">
                                     <input
@@ -204,10 +172,7 @@
                                         type="text"
                                         id="name"
                                         pInputText
-                                        [placeholder]="
-                                            'enterprise.create.placeholders.enterName'
-                                                | translate
-                                        "
+                                        [placeholder]="'enterprise.create.placeholders.enterName' | translate"
                                     />
                                     <form-field-error></form-field-error>
                                 </div>
@@ -221,9 +186,7 @@
                                 <label
                                     for="email"
                                     class="col-span-12 font-normal sm:col-span-3"
-                                    >{{
-                                        "enterprise.create.email" | translate
-                                    }}</label
+                                    >{{ 'enterprise.create.email' | translate }}</label
                                 >
                                 <div class="col-span-12 sm:col-span-9">
                                     <input
@@ -232,10 +195,7 @@
                                         type="text"
                                         id="email"
                                         pInputText
-                                        [placeholder]="
-                                            'enterprise.create.placeholders.enterEmail'
-                                                | translate
-                                        "
+                                        [placeholder]="'enterprise.create.placeholders.enterEmail' | translate"
                                     />
                                     <form-field-error></form-field-error>
                                 </div>
@@ -249,9 +209,7 @@
                                 <label
                                     for="hotline"
                                     class="col-span-12 font-normal sm:col-span-3"
-                                    >{{
-                                        "enterprise.create.hotline" | translate
-                                    }}</label
+                                    >{{ 'enterprise.create.hotline' | translate }}</label
                                 >
                                 <div class="col-span-12 sm:col-span-9">
                                     <input
@@ -260,10 +218,7 @@
                                         type="text"
                                         id="hotline"
                                         pInputText
-                                        [placeholder]="
-                                            'enterprise.create.placeholders.enterHotline'
-                                                | translate
-                                        "
+                                        [placeholder]="'enterprise.create.placeholders.enterHotline' | translate"
                                     />
                                     <form-field-error></form-field-error>
                                 </div>
@@ -292,5 +247,8 @@
 </div>
 
 <div>
-    <p-toast key="center" position="top-center" />
+    <p-toast
+        key="center"
+        position="top-center"
+    />
 </div>

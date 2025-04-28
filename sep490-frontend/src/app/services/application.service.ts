@@ -1,17 +1,7 @@
 import {Injectable, OnDestroy} from '@angular/core';
-import {
-  AuthenticatedResult,
-  OidcSecurityService
-} from 'angular-auth-oidc-client';
+import {AuthenticatedResult, OidcSecurityService} from 'angular-auth-oidc-client';
 import {JwtPayload} from 'jwt-decode';
-import {
-  BehaviorSubject,
-  Observable,
-  filter,
-  map,
-  switchMap,
-  takeUntil
-} from 'rxjs';
+import {BehaviorSubject, Observable, filter, map, switchMap, takeUntil} from 'rxjs';
 import {UUID} from '../../types/uuid';
 import {UserRole} from '@models/role-names';
 import {SubscriptionAwareComponent} from '@shared/directives/subscription-aware.component';
@@ -64,10 +54,7 @@ interface UserInfoProfileScope {
 @Injectable({
   providedIn: 'root'
 })
-export class ApplicationService
-  extends SubscriptionAwareComponent
-  implements OnDestroy
-{
+export class ApplicationService extends SubscriptionAwareComponent implements OnDestroy {
   private readonly userInfoSubject;
   private readonly userDataSubject;
 
@@ -81,9 +68,7 @@ export class ApplicationService
           filter((auth: AuthenticatedResult): boolean => auth.isAuthenticated),
           switchMap(() => this.oidcSecurityService.getPayloadFromAccessToken())
         )
-        .subscribe((userData: UserData): void =>
-          this.userDataSubject.next(userData)
-        )
+        .subscribe((userData: UserData): void => this.userDataSubject.next(userData))
     );
   }
 
@@ -93,15 +78,11 @@ export class ApplicationService
   }
 
   get UserData(): Observable<UserData> {
-    return this.userDataSubject
-      .asObservable()
-      .pipe(filter((user): user is UserData => user !== null));
+    return this.userDataSubject.asObservable().pipe(filter((user): user is UserData => user !== null));
   }
 
   get UserInfoData(): Observable<UserInfoData> {
-    return this.userInfoSubject
-      .asObservable()
-      .pipe(filter((user): user is UserInfoData => user !== null));
+    return this.userInfoSubject.asObservable().pipe(filter((user): user is UserInfoData => user !== null));
   }
 
   isEmailVerified(): Observable<boolean> {

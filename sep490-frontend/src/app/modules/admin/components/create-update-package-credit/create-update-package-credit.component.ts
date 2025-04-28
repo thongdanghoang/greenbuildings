@@ -1,11 +1,6 @@
 import {HttpClient} from '@angular/common/http';
 import {Component} from '@angular/core';
-import {
-  AbstractControl,
-  FormBuilder,
-  FormControl,
-  Validators
-} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormControl, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
 import {filter, map, switchMap, takeUntil, tap} from 'rxjs';
@@ -25,10 +20,7 @@ export class CreateUpdatePackageCreditComponent extends AbstractFormComponent<Cr
   protected readonly packageCreditStructure = {
     id: new FormControl(''),
     version: new FormControl(null),
-    numberOfCredits: new FormControl(null, [
-      Validators.required,
-      Validators.min(1)
-    ]),
+    numberOfCredits: new FormControl(null, [Validators.required, Validators.min(1)]),
     price: new FormControl(null, [Validators.required, Validators.min(1)]),
     discount: new FormControl(0, {
       nonNullable: true,
@@ -48,11 +40,7 @@ export class CreateUpdatePackageCreditComponent extends AbstractFormComponent<Cr
   }
 
   back(): void {
-    void this.router.navigate([
-      '/',
-      AppRoutingConstants.ADMIN_PATH,
-      AppRoutingConstants.PACKAGE_CREDIT_PATH
-    ]);
+    void this.router.navigate(['/', AppRoutingConstants.ADMIN_PATH, AppRoutingConstants.PACKAGE_CREDIT_PATH]);
   }
 
   get isEdit(): boolean {
@@ -83,11 +71,7 @@ export class CreateUpdatePackageCreditComponent extends AbstractFormComponent<Cr
   }
 
   protected onSubmitFormDataSuccess(): void {
-    void this.router.navigate([
-      '/',
-      AppRoutingConstants.ADMIN_PATH,
-      AppRoutingConstants.PACKAGE_CREDIT_PATH
-    ]);
+    void this.router.navigate(['/', AppRoutingConstants.ADMIN_PATH, AppRoutingConstants.PACKAGE_CREDIT_PATH]);
   }
 
   protected submitFormDataUrl(): string {

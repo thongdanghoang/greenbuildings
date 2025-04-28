@@ -1,12 +1,10 @@
 <div class="mb-4 flex items-center justify-start border-b pb-1">
     <p class="text-lg font-bold text-primary">
-        {{ "purchaseCredit.title" | translate }}
+        {{ 'purchaseCredit.title' | translate }}
     </p>
 </div>
-<div
-    class="flex flex-col items-center justify-center gap-2.5 pl-0 lg:flex-row lg:justify-start"
->
-    <p>{{ "purchaseCredit.introduceMethod" | translate }}</p>
+<div class="flex flex-col items-center justify-center gap-2.5 pl-0 lg:flex-row lg:justify-start">
+    <p>{{ 'purchaseCredit.introduceMethod' | translate }}</p>
     <div class="flex flex-row gap-1.5">
         <img
             ngSrc="assets/images/payment-method/momo.svg"
@@ -48,19 +46,15 @@
 <div
     class="my-8 block items-center justify-center rounded-md border border-gray-50 bg-primary-50 py-24 dark:border-gray-950 dark:bg-primary-950"
 >
-    <div
-        class="relative flex flex-col items-center justify-stretch gap-2.5 text-black lg:flex-row dark:text-white/80"
-    >
+    <div class="relative flex flex-col items-center justify-stretch gap-2.5 text-black lg:flex-row dark:text-white/80">
         <p class="ml-0 h-full font-bold lg:absolute lg:ml-20">
-            {{ "purchaseCredit.currentBalance" | translate }}
+            {{ 'purchaseCredit.currentBalance' | translate }}
         </p>
-        <div
-            class="mr-0 flex w-full flex-col items-center justify-center gap-2.5 lg:mr-10 lg:flex-row lg:items-end"
-        >
+        <div class="mr-0 flex w-full flex-col items-center justify-center gap-2.5 lg:mr-10 lg:flex-row lg:items-end">
             <p class="text-5xl font-medium text-primary">
-                {{ balance | number: "1.0-0" }}
+                {{ balance | number: '1.0-0' }}
             </p>
-            <span>{{ "payment.history.credit.title" | translate }}</span>
+            <span>{{ 'payment.history.credit.title' | translate }}</span>
         </div>
     </div>
 </div>
@@ -72,18 +66,11 @@
         <div
             class="mx-6 mt-8 flex items-center justify-center rounded-md border border-gray-50 bg-white px-4 py-2 lg:justify-start dark:border-zinc-900 dark:bg-zinc-900"
         >
-            <p>{{ "purchaseCredit.selectCreditPackage" | translate }}</p>
+            <p>{{ 'purchaseCredit.selectCreditPackage' | translate }}</p>
         </div>
-        <div
-            class="mx-6 flex flex-col items-center justify-center gap-16 lg:flex-row"
-        >
+        <div class="mx-6 flex flex-col items-center justify-center gap-16 lg:flex-row">
             @for (pkg of creditPackages; track pkg.id) {
-                <ng-container
-                    *ngTemplateOutlet="
-                        creditBundleTemplate;
-                        context: { $implicit: pkg }
-                    "
-                ></ng-container>
+                <ng-container *ngTemplateOutlet="creditBundleTemplate; context: {$implicit: pkg}"></ng-container>
             }
         </div>
         <div class="mb-8 flex items-center justify-center gap-4">
@@ -102,19 +89,18 @@
     </div>
 </div>
 
-<div
-    class="my-8 block items-center justify-center rounded-md border border-gray-50 dark:border-gray-950"
->
-    <p-accordion [value]="0" [multiple]="true">
+<div class="my-8 block items-center justify-center rounded-md border border-gray-50 dark:border-gray-950">
+    <p-accordion
+        [value]="0"
+        [multiple]="true"
+    >
         @for (tab of tabs; track tab.title) {
             <p-accordion-panel [value]="tab.value">
                 <p-accordion-header class="bg-primary-50 dark:bg-primary-950">{{
                     tab.title | translate
                 }}</p-accordion-header>
                 <p-accordion-content>
-                    <ng-container
-                        *ngTemplateOutlet="getContentTemplate(tab.content)"
-                    ></ng-container>
+                    <ng-container *ngTemplateOutlet="getContentTemplate(tab.content)"></ng-container>
                 </p-accordion-content>
             </p-accordion-panel>
         }
@@ -123,13 +109,11 @@
 
 <ng-template #aboutContent>
     <div class="mt-2.5">
-        <h2
-            class="mb-2 text-xl font-semibold text-primary dark:text-primary-400"
-        >
-            {{ "creditTerms.aboutContentTitle" | translate }}
+        <h2 class="mb-2 text-xl font-semibold text-primary dark:text-primary-400">
+            {{ 'creditTerms.aboutContentTitle' | translate }}
         </h2>
         <p class="text-gray-700 dark:text-gray-300">
-            {{ "creditTerms.aboutContent" | translate }}
+            {{ 'creditTerms.aboutContent' | translate }}
         </p>
     </div>
 </ng-template>
@@ -137,32 +121,32 @@
 <ng-template #termContent>
     <div class="mt-2.5">
         <h2 class="mb-4 text-2xl font-bold text-primary dark:text-primary-400">
-            {{ "creditTerms.termServiceTitle" | translate }}
+            {{ 'creditTerms.termServiceTitle' | translate }}
         </h2>
         <p class="mb-3 text-gray-700 dark:text-gray-300">
-            {{ "creditTerms.term1" | translate }}
+            {{ 'creditTerms.term1' | translate }}
         </p>
-        <ul
-            class="mb-4 list-disc space-y-2 pl-6 text-gray-700 dark:text-gray-300"
-        >
-            <li>{{ "creditTerms.term2" | translate }}</li>
-            <li>{{ "creditTerms.term3" | translate }}</li>
-            <li>{{ "creditTerms.term4" | translate }}</li>
+        <ul class="mb-4 list-disc space-y-2 pl-6 text-gray-700 dark:text-gray-300">
+            <li>{{ 'creditTerms.term2' | translate }}</li>
+            <li>{{ 'creditTerms.term3' | translate }}</li>
+            <li>{{ 'creditTerms.term4' | translate }}</li>
         </ul>
         <p class="text-sm italic text-gray-500 dark:text-gray-400">
-            {{ "creditTerms.termNotice" | translate }}
+            {{ 'creditTerms.termNotice' | translate }}
         </p>
     </div>
 </ng-template>
 
-<ng-template #creditBundleTemplate let-creditBundle>
+<ng-template
+    #creditBundleTemplate
+    let-creditBundle
+>
     <div
         class="box-shadow relative w-full max-w-40 cursor-pointer rounded-lg border border-t-2 border-gray-50 bg-white text-center transition-all duration-300 *:w-full dark:border-gray-950 dark:bg-zinc-900"
         [ngClass]="{
             'border-2 border-primary shadow-lg shadow-primary/20 dark:border-primary':
                 selectedPackage?.id === creditBundle.id,
-            'border-gray-50 hover:border-primary/50 hover:shadow-md':
-                selectedPackage?.id !== creditBundle.id,
+            'border-gray-50 hover:border-primary/50 hover:shadow-md': selectedPackage?.id !== creditBundle.id
         }"
         (click)="selectPackage(creditBundle)"
     >
@@ -180,12 +164,10 @@
             />
         </div>
         <div class="border-b p-4 text-lg font-semibold">
-            {{ creditBundle.numberOfCredits | number: "1.0-0" }}
-            {{ "payment.history.credit.title" | translate }}
+            {{ creditBundle.numberOfCredits | number: '1.0-0' }}
+            {{ 'payment.history.credit.title' | translate }}
         </div>
-        <div
-            class="p-2 text-center text-base font-medium text-gray-600 dark:text-gray-400"
-        >
+        <div class="p-2 text-center text-base font-medium text-gray-600 dark:text-gray-400">
             {{ formatedCurrency(creditBundle.convertedPriceCurrency) }}
         </div>
     </div>

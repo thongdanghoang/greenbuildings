@@ -1,6 +1,6 @@
 <div class="mb-4 flex items-center justify-between border-b pb-1">
     <h1 class="text-lg font-bold text-primary">
-        {{ "sidebar.admin.chemicalDensity" | translate }}
+        {{ 'sidebar.admin.chemicalDensity' | translate }}
     </h1>
 </div>
 <table-template
@@ -41,8 +41,7 @@
                 severity="danger"
                 [label]="
                     selected.length
-                        ? ('enterprise.type.deleteWithCount'
-                          | translate: { count: selected.length })
+                        ? ('enterprise.type.deleteWithCount' | translate: {count: selected.length})
                         : ('enterprise.Users.delete' | translate)
                 "
                 icon="pi pi-trash"
@@ -62,7 +61,10 @@
         </div>
     </div>
 </ng-template>
-<ng-template #actionsTemplate let-rowData>
+<ng-template
+    #actionsTemplate
+    let-rowData
+>
     <div class="flex">
         <p-button
             icon="pi pi-pencil"

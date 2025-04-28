@@ -1,11 +1,6 @@
 import {HttpClient} from '@angular/common/http';
 import {Component} from '@angular/core';
-import {
-  AbstractControl,
-  FormBuilder,
-  FormControl,
-  Validators
-} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormControl, Validators} from '@angular/forms';
 import {TranslateService} from '@ngx-translate/core';
 import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
 import {UUID} from '../../../../../types/uuid';
@@ -54,17 +49,15 @@ export class EmissionFactorDialogComponent extends AbstractFormComponent<Emissio
 
   protected initializeData(): void {
     if (this.config.data) {
-      this.emissionFactorService
-        .getEmissionFactorById(this.config.data.toString())
-        .subscribe(emission => {
-          // Convert validFrom and validTo to Date objects if they are strings
-          const patchedEmission = {
-            ...emission,
-            validFrom: emission.validFrom ? new Date(emission.validFrom) : null,
-            validTo: emission.validTo ? new Date(emission.validTo) : null
-          };
-          this.formGroup.patchValue(patchedEmission);
-        });
+      this.emissionFactorService.getEmissionFactorById(this.config.data.toString()).subscribe(emission => {
+        // Convert validFrom and validTo to Date objects if they are strings
+        const patchedEmission = {
+          ...emission,
+          validFrom: emission.validFrom ? new Date(emission.validFrom) : null,
+          validTo: emission.validTo ? new Date(emission.validTo) : null
+        };
+        this.formGroup.patchValue(patchedEmission);
+      });
     }
   }
 

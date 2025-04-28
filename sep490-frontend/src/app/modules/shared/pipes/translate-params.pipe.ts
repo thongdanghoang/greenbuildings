@@ -9,10 +9,7 @@ import {TranslateService} from '@ngx-translate/core';
 export class TranslateParamsPipe implements PipeTransform {
   constructor(private readonly translate: TranslateService) {}
   transform(value: string, params?: any): string {
-    return this.translate.instant(
-      value,
-      typeof params === 'object' ? this.translateParams(params) : undefined
-    );
+    return this.translate.instant(value, typeof params === 'object' ? this.translateParams(params) : undefined);
   }
 
   private translateParams(
@@ -21,10 +18,7 @@ export class TranslateParamsPipe implements PipeTransform {
     return Object.keys(params).reduce(
       (parameters, key) => ({
         ...parameters,
-        [key]:
-          typeof params[key] === 'string'
-            ? this.translate.instant(params[key])
-            : params[key]
+        [key]: typeof params[key] === 'string' ? this.translate.instant(params[key]) : params[key]
       }),
       {}
     );

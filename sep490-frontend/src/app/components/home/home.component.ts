@@ -12,10 +12,7 @@ import {SubscriptionAwareComponent} from '@shared/directives/subscription-aware.
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
-export class HomeComponent
-  extends SubscriptionAwareComponent
-  implements OnInit
-{
+export class HomeComponent extends SubscriptionAwareComponent implements OnInit {
   userData?: UserData;
   userRoles: UserRole[] = [];
   userInfo?: EnterpriseUserDetails;

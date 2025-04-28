@@ -14,40 +14,28 @@
         style="min-height: 42px"
     >
         <div class="text-lg font-bold text-primary">
-            {{ "enterprise.buildings.group.title" | translate }}
+            {{ 'enterprise.buildings.group.title' | translate }}
         </div>
     </div>
     <div class="my-2 flex flex-col lg:flex-row">
         <div class="m-2 md:w-1/2">
-            <p-card
-                styleClass="shadow-lg rounded-xl overflow-hidden h-full w-full"
-            >
+            <p-card styleClass="shadow-lg rounded-xl overflow-hidden h-full w-full">
                 <!-- Header -->
                 <ng-template pTemplate="header">
                     <div
                         class="bg-gradient-to-r from-blue-50 to-blue-100 p-6 dark:bg-gradient-to-r dark:from-gray-800 dark:to-blue-900"
                     >
                         <div class="mb-3 flex items-center gap-3">
-                            <i
-                                class="pi pi-home text-2xl text-blue-600 dark:text-blue-300"
-                            ></i>
-                            <h2
-                                class="text-2xl font-bold text-blue-900 dark:text-white"
-                            >
+                            <i class="pi pi-home text-2xl text-blue-600 dark:text-blue-300"></i>
+                            <h2 class="text-2xl font-bold text-blue-900 dark:text-white">
                                 {{ buildingGroup.name }}
                             </h2>
                         </div>
                         <div class="flex items-start gap-2">
-                            <i
-                                class="pi pi-info-circle mt-1 text-gray-600 dark:text-gray-300"
-                            ></i>
+                            <i class="pi pi-info-circle mt-1 text-gray-600 dark:text-gray-300"></i>
                             <p class="text-sm text-gray-600 dark:text-gray-300">
-                                <span class="font-medium"
-                                    >{{
-                                        "buildingGroup.description" | translate
-                                    }}:</span
-                                >
-                                {{ buildingGroup.description || "-" }}
+                                <span class="font-medium">{{ 'buildingGroup.description' | translate }}:</span>
+                                {{ buildingGroup.description || '-' }}
                             </p>
                         </div>
                     </div>
@@ -58,17 +46,13 @@
                     <!-- Building Information in Fieldset -->
                     <div class="flex items-center gap-3">
                         <i class="pi pi-building text-lg text-blue-500"></i>
-                        <span class="font-medium">
-                            {{ "buildingGroup.building.name" | translate }}:
-                        </span>
-                        <span>{{ buildingGroup.building.name || "-" }}</span>
+                        <span class="font-medium"> {{ 'buildingGroup.building.name' | translate }}: </span>
+                        <span>{{ buildingGroup.building.name || '-' }}</span>
                     </div>
                     <div class="flex items-center gap-3">
                         <i class="pi pi-map-marker text-lg text-blue-500"></i>
-                        <span class="font-medium">
-                            {{ "buildingGroup.building.address" | translate }}:
-                        </span>
-                        <span>{{ buildingGroup.building.address || "-" }}</span>
+                        <span class="font-medium"> {{ 'buildingGroup.building.address' | translate }}: </span>
+                        <span>{{ buildingGroup.building.address || '-' }}</span>
                     </div>
                 </div>
 
@@ -76,10 +60,7 @@
                 <ng-template pTemplate="footer">
                     <div class="flex gap-4 border-t border-gray-200 p-6">
                         <p-button
-                            label="{{
-                                'buildingGroup.enterprise.emission.activity.new'
-                                    | translate
-                            }}"
+                            label="{{ 'buildingGroup.enterprise.emission.activity.new' | translate }}"
                             icon="pi pi-plus"
                             severity="primary"
                             styleClass="w-full transition-colors duration-200"
@@ -91,9 +72,7 @@
             </p-card>
         </div>
         <div class="m-2 md:w-1/2">
-            <p-card
-                styleClass="shadow-lg rounded-xl overflow-hidden h-full w-full"
-            >
+            <p-card styleClass="shadow-lg rounded-xl overflow-hidden h-full w-full">
                 <!-- Header -->
                 <ng-template pTemplate="header">
                     <div
@@ -106,10 +85,8 @@
                             height="32"
                             styleClass="rounded-full"
                         />
-                        <h2
-                            class="text-xl font-bold text-blue-900 dark:text-white"
-                        >
-                            {{ "tenant.information" | translate }}
+                        <h2 class="text-xl font-bold text-blue-900 dark:text-white">
+                            {{ 'tenant.information' | translate }}
                         </h2>
                     </div>
                 </ng-template>
@@ -121,40 +98,30 @@
                             <div class="flex items-center gap-3">
                                 <i class="pi pi-home text-lg text-blue-500"></i>
                                 <span class="font-medium">
-                                    {{ "tenant.building" | translate }}
+                                    {{ 'tenant.building' | translate }}
                                 </span>
-                                <span class="text-primary">{{
-                                    buildingGroup.tenant.name || "-"
-                                }}</span>
+                                <span class="text-primary">{{ buildingGroup.tenant.name || '-' }}</span>
                             </div>
                             <div class="flex items-center gap-3">
-                                <i
-                                    class="pi pi-envelope text-lg text-blue-500"
-                                ></i>
+                                <i class="pi pi-envelope text-lg text-blue-500"></i>
                                 <span class="font-medium">
-                                    {{ "tenant.email" | translate }}
+                                    {{ 'tenant.email' | translate }}
                                 </span>
-                                <span class="text-primary">{{
-                                    buildingGroup.tenant.email || "-"
-                                }}</span>
+                                <span class="text-primary">{{ buildingGroup.tenant.email || '-' }}</span>
                             </div>
                             <div class="flex items-center gap-3">
-                                <i
-                                    class="pi pi-phone text-lg text-blue-500"
-                                ></i>
+                                <i class="pi pi-phone text-lg text-blue-500"></i>
                                 <span class="font-medium">
-                                    {{ "tenant.hotline" | translate }}
+                                    {{ 'tenant.hotline' | translate }}
                                 </span>
-                                <span class="text-primary">{{
-                                    buildingGroup.tenant.hotline || "-"
-                                }}</span>
+                                <span class="text-primary">{{ buildingGroup.tenant.hotline || '-' }}</span>
                             </div>
                         </div>
                     </ng-container>
                     <ng-template #noTenant>
                         <div class="flex items-center justify-center py-3">
                             <i class="pi pi-exclamation-circle mr-2"></i>
-                            <span>{{ "tenant.noTenant" | translate }}</span>
+                            <span>{{ 'tenant.noTenant' | translate }}</span>
                         </div>
                     </ng-template>
                 </div>
@@ -229,8 +196,7 @@
                 severity="danger"
                 [label]="
                     selected.length
-                        ? ('enterprise.emission.activity.deleteWithCount'
-                          | translate: { count: selected.length })
+                        ? ('enterprise.emission.activity.deleteWithCount' | translate: {count: selected.length})
                         : ('enterprise.Users.delete' | translate)
                 "
                 icon="pi pi-trash"
@@ -242,7 +208,10 @@
         </div>
     </div>
 </ng-template>
-<ng-template #actionsTemplate let-activity>
+<ng-template
+    #actionsTemplate
+    let-activity
+>
     <p-button
         icon="pi pi-file-edit"
         [rounded]="true"
@@ -251,6 +220,9 @@
         (onClick)="openActivityDetailsDialog(activity)"
     />
 </ng-template>
-<ng-template #typeTemplate let-activity>
+<ng-template
+    #typeTemplate
+    let-activity
+>
     <span *ngIf="activity.type">{{ activity?.type.name }}</span>
 </ng-template>

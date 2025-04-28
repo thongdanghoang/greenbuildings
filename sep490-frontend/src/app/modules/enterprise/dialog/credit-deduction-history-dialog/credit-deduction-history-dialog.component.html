@@ -2,7 +2,7 @@
     <!-- Dialog Header -->
     <div class="p-dialog-header border-b p-4">
         <span class="text-xl font-semibold text-primary">
-            {{ "useCreditHistory.title" | translate }}
+            {{ 'useCreditHistory.title' | translate }}
         </span>
         <button
             pButton
@@ -14,9 +14,7 @@
     </div>
 
     <!-- Dialog Content -->
-    <div
-        class="p-dialog-content flex min-h-[400px] flex-col overflow-hidden p-0"
-    >
+    <div class="p-dialog-content flex min-h-[400px] flex-col overflow-hidden p-0">
         <!-- Table -->
         <table-template
             [fetch]="fetchTransaction"
@@ -28,11 +26,12 @@
             (selectionChange)="onSelectionChange($event)"
         ></table-template>
     </div>
-    <ng-template #typeTemplate let-rowData>
+    <ng-template
+        #typeTemplate
+        let-rowData
+    >
         <p>
-            {{
-                "useCreditHistory.table." + rowData.transactionType | translate
-            }}
+            {{ 'useCreditHistory.table.' + rowData.transactionType | translate }}
         </p>
     </ng-template>
 </div>

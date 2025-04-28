@@ -1,11 +1,4 @@
-import {
-  Component,
-  EventEmitter,
-  OnInit,
-  TemplateRef,
-  ViewChild,
-  inject
-} from '@angular/core';
+import {Component, EventEmitter, OnInit, TemplateRef, ViewChild, inject} from '@angular/core';
 import {Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
 import {Observable} from 'rxjs';
@@ -15,11 +8,7 @@ import {CreditPackageAdmin, CreditPackageVersion} from '@models/enterprise';
 import {ApplicationService} from '@services/application.service';
 import {SubscriptionAwareComponent} from '@shared/directives/subscription-aware.component';
 import {TableTemplateColumn} from '@shared/components/table-template/table-template.component';
-import {
-  SearchCriteriaDto,
-  SearchResultDto,
-  SortDto
-} from '@shared/models/base-models';
+import {SearchCriteriaDto, SearchResultDto, SortDto} from '@shared/models/base-models';
 import {ToastProvider} from '@shared/services/toast-provider';
 import {PackageCreditService} from '@services/package-credit.service';
 
@@ -28,10 +17,7 @@ import {PackageCreditService} from '@services/package-credit.service';
   templateUrl: './package-credit.component.html',
   styleUrl: './package-credit.component.css'
 })
-export class PackageCreditComponent
-  extends SubscriptionAwareComponent
-  implements OnInit
-{
+export class PackageCreditComponent extends SubscriptionAwareComponent implements OnInit {
   @ViewChild('priceTemplate', {static: true})
   priceTemplate!: TemplateRef<any>;
   @ViewChild('actionsTemplate', {static: true})
@@ -45,9 +31,7 @@ export class PackageCreditComponent
   sort!: SortDto;
   selectedPackageVersions: CreditPackageVersion[] = [];
   isDialogVisible = false;
-  protected fetchData!: (
-    criteria: SearchCriteriaDto<void>
-  ) => Observable<SearchResultDto<CreditPackageAdmin>>;
+  protected fetchData!: (criteria: SearchCriteriaDto<void>) => Observable<SearchResultDto<CreditPackageAdmin>>;
   protected readonly AppRoutingConstants = AppRoutingConstants;
   protected selected: CreditPackageAdmin[] = [];
   private readonly router = inject(Router);
@@ -66,9 +50,7 @@ export class PackageCreditComponent
       direction: 'DESC'
     };
     this.buildCols();
-    this.fetchData = this.packageCreditService.getCreditPackages.bind(
-      this.packageCreditService
-    );
+    this.fetchData = this.packageCreditService.getCreditPackages.bind(this.packageCreditService);
   }
 
   buildCols(): void {
@@ -129,24 +111,16 @@ export class PackageCreditComponent
     this.packageCreditService.deletePackages(pkgIds).subscribe({
       next: (): void => {
         this.messageService.success({
-          summary: this.translate.instant(
-            'admin.packageCredit.message.success.summary'
-          ),
-          detail: this.translate.instant(
-            'admin.packageCredit.message.success.detail'
-          )
+          summary: this.translate.instant('admin.packageCredit.message.success.summary'),
+          detail: this.translate.instant('admin.packageCredit.message.success.detail')
         });
         this.selected = []; // Clear local selection
         this.triggerSearch.emit(); // Refresh table
       },
       error: (): void => {
         this.messageService.businessError({
-          summary: this.translate.instant(
-            'admin.packageCredit.message.error.summary'
-          ),
-          detail: this.translate.instant(
-            'admin.packageCredit.message.error.detail'
-          )
+          summary: this.translate.instant('admin.packageCredit.message.error.summary'),
+          detail: this.translate.instant('admin.packageCredit.message.error.detail')
         });
       }
     });

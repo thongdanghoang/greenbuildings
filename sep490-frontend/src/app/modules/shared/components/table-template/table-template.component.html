@@ -2,7 +2,7 @@
     #tableTemplateComponent
     *ngIf="searchResult"
     [value]="searchResult.results"
-    [tableStyle]="isMobile ? {} : { 'min-width': '60rem' }"
+    [tableStyle]="isMobile ? {} : {'min-width': '60rem'}"
     (sortFunction)="onSortChange($event)"
     [customSort]="true"
     [columns]="columns"
@@ -17,10 +17,16 @@
             <ng-container *ngTemplateOutlet="captionTemplateRef"></ng-container>
         </ng-template>
     }
-    <ng-template pTemplate="header" let-columns>
+    <ng-template
+        pTemplate="header"
+        let-columns
+    >
         <tr *ngIf="!isMobile">
             @if (checkbox) {
-                <th style="width: 3rem" id="checkbox">
+                <th
+                    style="width: 3rem"
+                    id="checkbox"
+                >
                     <p-tableHeaderCheckbox />
                 </th>
             }
@@ -40,19 +46,24 @@
                         </th>
                     }
                 } @else {
-                    <th [id]="col.field" style="width: 5rem"></th>
+                    <th
+                        [id]="col.field"
+                        style="width: 5rem"
+                    ></th>
                 }
             }
         </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-rowData let-columns="columns">
+    <ng-template
+        pTemplate="body"
+        let-rowData
+        let-columns="columns"
+    >
         @if (isMobile) {
             <tr>
                 <table class="w-full">
                     @if (checkbox) {
-                        <tr
-                            class="grid grid-cols-2 *:truncate *:border *:p-2 *:text-left"
-                        >
+                        <tr class="grid grid-cols-2 *:truncate *:border *:p-2 *:text-left">
                             <td>
                                 <p-tableCheckbox [value]="rowData" />
                             </td>
@@ -73,10 +84,7 @@
                         <td>
                             @if (col.templateRef) {
                                 <ng-container
-                                    *ngTemplateOutlet="
-                                        col.templateRef;
-                                        context: { $implicit: rowData }
-                                    "
+                                    *ngTemplateOutlet="col.templateRef; context: {$implicit: rowData}"
                                 ></ng-container>
                             } @else {
                                 {{ rowData[col.field] }}
@@ -94,12 +102,7 @@
                 }
                 <td *ngFor="let col of columns">
                     @if (col.templateRef) {
-                        <ng-container
-                            *ngTemplateOutlet="
-                                col.templateRef;
-                                context: { $implicit: rowData }
-                            "
-                        ></ng-container>
+                        <ng-container *ngTemplateOutlet="col.templateRef; context: {$implicit: rowData}"></ng-container>
                     } @else {
                         {{ rowData[col.field] }}
                     }
@@ -112,7 +115,7 @@
             [attr.colspan]="columns.length + (checkbox ? 1 : 0)"
             class="px-3 py-4"
         >
-            {{ "common.noRow" | translate }}
+            {{ 'common.noRow' | translate }}
         </td>
     </ng-template>
 </p-table>

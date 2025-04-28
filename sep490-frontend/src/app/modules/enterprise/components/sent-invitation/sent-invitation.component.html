@@ -1,10 +1,10 @@
 <div class="mb-4 flex items-center justify-start border-b pb-1">
     <p class="text-lg font-bold text-primary">
-        {{ "sentInvitation.title" | translate }}
+        {{ 'sentInvitation.title' | translate }}
     </p>
 </div>
 <div class="">
-    <p>{{ "sentInvitation.description" | translate }}</p>
+    <p>{{ 'sentInvitation.description' | translate }}</p>
 </div>
 <table-template
     [fetch]="fetchInvitations"
@@ -48,9 +48,7 @@
             [(ngModel)]="searchCriteria.buildingGroupId"
             optionLabel="name"
             optionValue="id"
-            [placeholder]="
-                'sentInvitation.table.selectBuildingGroup' | translate
-            "
+            [placeholder]="'sentInvitation.table.selectBuildingGroup' | translate"
         />
         <div class="col-span-3 flex w-full justify-end gap-2.5">
             <p-button
@@ -73,19 +71,31 @@
     </div>
 </ng-template>
 
-<ng-template #buildingNameTemplate let-invitation>
+<ng-template
+    #buildingNameTemplate
+    let-invitation
+>
     <span>{{ invitation?.buildingGroup.building.name }}</span>
 </ng-template>
-<ng-template #buildingGroupNameTemplate let-invitation>
+<ng-template
+    #buildingGroupNameTemplate
+    let-invitation
+>
     <span>{{ invitation?.buildingGroup.name }}</span>
 </ng-template>
-<ng-template #invitationStatusTemplate let-rowData>
+<ng-template
+    #invitationStatusTemplate
+    let-rowData
+>
     <p-tag
         [ngClass]="getStatusClass(rowData.status)"
         [value]="'enum.invitation.status.' + rowData.status | translate"
     />
 </ng-template>
-<ng-template #actionsTemplate let-rowData>
+<ng-template
+    #actionsTemplate
+    let-rowData
+>
     <p-button
         *ngIf="rowData.status === InvitationStatus.PENDING"
         icon="pi pi-times"

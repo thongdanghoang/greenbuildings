@@ -10,11 +10,11 @@
 <!--    </div>-->
 <div class="mb-4 flex items-center justify-between border-b pb-1">
     <h1 class="text-lg font-bold text-primary">
-        {{ "enterprise.type.name" | translate }}
+        {{ 'enterprise.type.name' | translate }}
     </h1>
 </div>
 <p>
-    {{ "enterprise.type.description" | translate }}
+    {{ 'enterprise.type.description' | translate }}
 </p>
 
 <table-template
@@ -55,8 +55,7 @@
                 severity="danger"
                 [label]="
                     selected.length
-                        ? ('enterprise.type.deleteWithCount'
-                          | translate: { count: selected.length })
+                        ? ('enterprise.type.deleteWithCount' | translate: {count: selected.length})
                         : ('enterprise.Users.delete' | translate)
                 "
                 icon="pi pi-trash"
@@ -74,7 +73,10 @@
         </div>
     </div>
 </ng-template>
-<ng-template #actionsTemplate let-rowData>
+<ng-template
+    #actionsTemplate
+    let-rowData
+>
     <div class="flex">
         <p-button
             icon="pi pi-pencil"

@@ -1,9 +1,4 @@
-import {
-  HttpEvent,
-  HttpHandler,
-  HttpInterceptor,
-  HttpRequest
-} from '@angular/common/http';
+import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {Observable, catchError, throwError} from 'rxjs';
@@ -17,10 +12,7 @@ export class HttpErrorHandlerInterceptor implements HttpInterceptor {
     private readonly translateService: TranslateService
   ) {}
 
-  intercept(
-    req: HttpRequest<any>,
-    next: HttpHandler
-  ): Observable<HttpEvent<any>> {
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(req).pipe(
       catchError((error: any) => {
         if (error.error && error.error.errorType === 'TECHNICAL') {
@@ -35,10 +27,9 @@ export class HttpErrorHandlerInterceptor implements HttpInterceptor {
   }
 
   private handleTechnicalErrorException(error: any): void {
-    const message = this.translateService.instant(
-      'common.error.technicalServerError',
-      {correlationId: error.error.correlationId}
-    );
+    const message = this.translateService.instant('common.error.technicalServerError', {
+      correlationId: error.error.correlationId
+    });
     this.messageService.technicalError({
       summary: this.translateService.instant('common.error.unexpectedError'),
       detail: message

@@ -1,4 +1,7 @@
-<div *ngIf="buildingDetails" class="flex flex-col gap-4">
+<div
+    *ngIf="buildingDetails"
+    class="flex flex-col gap-4"
+>
     <div>
         <p-button
             icon="pi pi-arrow-left"
@@ -14,7 +17,7 @@
         style="min-height: 42px"
     >
         <div class="text-lg font-bold text-primary">
-            {{ "enterprise.buildings.management.title" | translate }}
+            {{ 'enterprise.buildings.management.title' | translate }}
         </div>
     </div>
     <div class="my-2 flex flex-col lg:flex-row">
@@ -28,54 +31,32 @@
                     {{ buildingDetails.address }}
                 </ng-template>
                 <p-fieldset
-                    legend="{{
-                        'enterprise.emission.activity.subscriptionDetail'
-                            | translate
-                    }}"
+                    legend="{{ 'enterprise.emission.activity.subscriptionDetail' | translate }}"
                     collapsed="false"
                 >
                     <p>
                         <i class="pi pi-star"></i>
-                        {{
-                            "enterprise.emission.activity.maxNoActivities"
-                                | translate
-                        }}
-                        {{
-                            buildingDetails.subscriptionDTO?.maxNumberOfDevices
-                        }}
+                        {{ 'enterprise.emission.activity.maxNoActivities' | translate }}
+                        {{ buildingDetails.subscriptionDTO?.maxNumberOfDevices }}
                     </p>
                     <p>
                         <i class="pi pi-calendar"></i>
-                        {{
-                            "enterprise.emission.activity.subscriptionDuration"
-                                | translate
-                        }}
+                        {{ 'enterprise.emission.activity.subscriptionDuration' | translate }}
 
-                        {{
-                            buildingDetails.subscriptionDTO?.startDate
-                                | date: "dd/MM/yyyy"
-                        }}
+                        {{ buildingDetails.subscriptionDTO?.startDate | date: 'dd/MM/yyyy' }}
                         -
-                        {{
-                            buildingDetails.subscriptionDTO?.endDate
-                                | date: "dd/MM/yyyy"
-                        }}
+                        {{ buildingDetails.subscriptionDTO?.endDate | date: 'dd/MM/yyyy' }}
                     </p>
                     <p>
                         <i class="pi pi-hourglass"></i>
-                        {{
-                            "enterprise.emission.activity.remainingDays"
-                                | translate
-                        }}
+                        {{ 'enterprise.emission.activity.remainingDays' | translate }}
                         {{ getRemainingDays() }}
                     </p>
                 </p-fieldset>
                 <ng-template pTemplate="footer">
                     <div class="mt-1 flex gap-4">
                         <p-button
-                            label="{{
-                                'enterprise.buildings.tenant.new' | translate
-                            }}"
+                            label="{{ 'enterprise.buildings.tenant.new' | translate }}"
                             class="flex-1"
                             severity="primary"
                             outlined
@@ -85,9 +66,7 @@
                         ></p-button>
 
                         <p-button
-                            label="{{
-                                'enterprise.buildings.group.new' | translate
-                            }}"
+                            label="{{ 'enterprise.buildings.group.new' | translate }}"
                             class="flex-1"
                             (onClick)="onNewGroup()"
                             severity="primary"
@@ -105,49 +84,33 @@
                 *ngIf="overviewBuilding"
             >
                 <div class="space-y-4">
-                    <div
-                        class="flex items-center gap-3 rounded-lg py-2 transition-colors duration-200"
-                    >
+                    <div class="flex items-center gap-3 rounded-lg py-2 transition-colors duration-200">
                         <i class="pi pi-users text-xl text-blue-500"></i>
                         <span class="font-medium text-gray-600">
-                            {{ "overview.numberOfGroups" | translate }}
+                            {{ 'overview.numberOfGroups' | translate }}
                         </span>
-                        <span class="ml-auto font-bold text-blue-600">{{
-                            overviewBuilding.numberOfGroups
-                        }}</span>
+                        <span class="ml-auto font-bold text-blue-600">{{ overviewBuilding.numberOfGroups }}</span>
                     </div>
-                    <div
-                        class="flex items-center gap-3 rounded-lg py-2 transition-colors duration-200"
-                    >
+                    <div class="flex items-center gap-3 rounded-lg py-2 transition-colors duration-200">
                         <i class="pi pi-building text-xl text-green-500"></i>
                         <span class="font-medium text-gray-600">
-                            {{
-                                "overview.numberOfCorporationTenant" | translate
-                            }}
+                            {{ 'overview.numberOfCorporationTenant' | translate }}
                         </span>
                         <span class="ml-auto font-bold text-green-600">{{
                             overviewBuilding.numberOfCorporationTenant
                         }}</span>
                     </div>
-                    <div
-                        class="flex items-center gap-3 rounded-lg py-2 transition-colors duration-200"
-                    >
+                    <div class="flex items-center gap-3 rounded-lg py-2 transition-colors duration-200">
                         <i class="pi pi-chart-line text-xl text-orange-500"></i>
                         <span class="font-medium text-gray-600">
-                            {{ "overview.numberOfActivities" | translate }}
+                            {{ 'overview.numberOfActivities' | translate }}
                         </span>
-                        <span class="ml-auto font-bold text-orange-600">{{
-                            overviewBuilding.numberOfActivities
-                        }}</span>
+                        <span class="ml-auto font-bold text-orange-600">{{ overviewBuilding.numberOfActivities }}</span>
                     </div>
-                    <div
-                        class="flex items-center gap-3 rounded-lg py-2 transition-colors duration-200"
-                    >
+                    <div class="flex items-center gap-3 rounded-lg py-2 transition-colors duration-200">
                         <i class="pi pi-box text-xl text-purple-500"></i>
                         <span class="font-medium text-gray-600">
-                            {{
-                                "overview.numberOfCommonActivities" | translate
-                            }}
+                            {{ 'overview.numberOfCommonActivities' | translate }}
                         </span>
                         <span class="ml-auto font-bold text-purple-600">{{
                             overviewBuilding.numberOfCommonActivities
@@ -196,8 +159,7 @@
                 severity="danger"
                 [label]="
                     selected.length
-                        ? ('enterprise.emission.activity.deleteWithCount'
-                          | translate: { count: selected.length })
+                        ? ('enterprise.emission.activity.deleteWithCount' | translate: {count: selected.length})
                         : ('enterprise.Users.delete' | translate)
                 "
                 icon="pi pi-trash"
@@ -209,7 +171,10 @@
         </div>
     </div>
 </ng-template>
-<ng-template #actionsTemplate let-group>
+<ng-template
+    #actionsTemplate
+    let-group
+>
     <p-button
         icon="pi pi-file-edit"
         (onClick)="navigateToBuildingGroupDetail(group)"
@@ -218,6 +183,9 @@
         severity="contrast"
     />
 </ng-template>
-<ng-template #typeTemplate let-activity>
+<ng-template
+    #typeTemplate
+    let-activity
+>
     <span *ngIf="activity.type">{{ activity?.type.name }}</span>
 </ng-template>

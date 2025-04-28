@@ -1,20 +1,9 @@
-import {
-  Component,
-  EventEmitter,
-  OnInit,
-  TemplateRef,
-  ViewChild
-} from '@angular/core';
+import {Component, EventEmitter, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {InvitationResponse, InvitationSearchCriteria} from '@models/tenant';
 import {TranslateService} from '@ngx-translate/core';
 import {Observable, takeUntil} from 'rxjs';
 import {UUID} from '../../../../../types/uuid';
-import {
-  Building,
-  BuildingGroup,
-  InvitationDTO,
-  InvitationStatus
-} from '@models/enterprise';
+import {Building, BuildingGroup, InvitationDTO, InvitationStatus} from '@models/enterprise';
 import {BuildingGroupService} from '@services/building-group.service';
 import {BuildingService} from '@services/building.service';
 import {InvitationService} from '@services/invitation.service';
@@ -29,10 +18,7 @@ import {ToastProvider} from '@shared/services/toast-provider';
   templateUrl: './sent-invitation.component.html',
   styleUrl: './sent-invitation.component.css'
 })
-export class SentInvitationComponent
-  extends SubscriptionAwareComponent
-  implements OnInit
-{
+export class SentInvitationComponent extends SubscriptionAwareComponent implements OnInit {
   @ViewChild('buildingNameTemplate', {static: true})
   buildingNameTemplate!: TemplateRef<any>;
   @ViewChild('buildingGroupNameTemplate', {static: true})
@@ -71,16 +57,12 @@ export class SentInvitationComponent
 
   ngOnInit(): void {
     this.buildCols();
-    this.fetchInvitations = this.invitationService.fetchInvitations.bind(
-      this.invitationService
-    );
+    this.fetchInvitations = this.invitationService.fetchInvitations.bind(this.invitationService);
     this.fetchBuildings();
     this.fetchBuildingGroups();
-    this.applicationService.UserData.pipe(takeUntil(this.destroy$)).subscribe(
-      user => {
-        this.searchCriteria.enterpriseId = user.enterpriseId;
-      }
-    );
+    this.applicationService.UserData.pipe(takeUntil(this.destroy$)).subscribe(user => {
+      this.searchCriteria.enterpriseId = user.enterpriseId;
+    });
   }
 
   getStatusClass(status: string): string {
@@ -120,9 +102,7 @@ export class SentInvitationComponent
 
   onSelectBuilding(event: any): void {
     if (event.value) {
-      this.matchingGroups = this.allAvailableGroups.filter(
-        group => group.building.id === event.value
-      );
+      this.matchingGroups = this.allAvailableGroups.filter(group => group.building.id === event.value);
     } else {
       this.matchingGroups = [];
       this.searchCriteria.buildingGroupId = '' as UUID;

@@ -1,6 +1,6 @@
 <div class="mb-4 flex items-center justify-start border-b pb-1">
     <h1 class="text-lg font-bold text-primary">
-        {{ "admin.emissionSource.name" | translate }}
+        {{ 'admin.emissionSource.name' | translate }}
     </h1>
 </div>
 <table-template
@@ -46,7 +46,10 @@
         </div>
     </div>
 </ng-template>
-<ng-template #actionsTemplate let-rowData>
+<ng-template
+    #actionsTemplate
+    let-rowData
+>
     <div class="flex">
         <p-button
             icon="pi pi-pencil"
@@ -58,7 +61,7 @@
     </div>
 </ng-template>
 <h3 class="my-2 font-semibold text-primary">
-    {{ "admin.emissionSource.upload.title" | translate }}
+    {{ 'admin.emissionSource.upload.title' | translate }}
 </h3>
 <!-- import.component.html -->
 <p-progressSpinner

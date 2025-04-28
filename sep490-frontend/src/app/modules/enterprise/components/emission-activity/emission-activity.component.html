@@ -14,7 +14,7 @@
         style="min-height: 42px"
     >
         <div class="text-lg font-bold text-primary">
-            {{ "enterprise.emission.activity.title" | translate }}
+            {{ 'enterprise.emission.activity.title' | translate }}
         </div>
     </div>
     <div class="mb-2 mt-2 md:w-1/2">
@@ -24,53 +24,33 @@
                 {{ buildingDetail.address }}
             </ng-template>
             <p-fieldset
-                legend="{{
-                    'enterprise.emission.activity.subscriptionDetail'
-                        | translate
-                }}"
+                legend="{{ 'enterprise.emission.activity.subscriptionDetail' | translate }}"
                 collapsed="true"
                 [toggleable]="true"
             >
                 <p>
                     <i class="pi pi-star"></i>
-                    {{
-                        "enterprise.emission.activity.maxNoActivities"
-                            | translate
-                    }}
+                    {{ 'enterprise.emission.activity.maxNoActivities' | translate }}
                     {{ buildingDetail.subscriptionDTO?.maxNumberOfDevices }}
                 </p>
                 <p>
                     <i class="pi pi-calendar"></i>
-                    {{
-                        "enterprise.emission.activity.subscriptionDuration"
-                            | translate
-                    }}
+                    {{ 'enterprise.emission.activity.subscriptionDuration' | translate }}
 
-                    {{
-                        buildingDetail.subscriptionDTO?.startDate
-                            | date: "dd/MM/yyyy"
-                    }}
+                    {{ buildingDetail.subscriptionDTO?.startDate | date: 'dd/MM/yyyy' }}
                     -
-                    {{
-                        buildingDetail.subscriptionDTO?.endDate
-                            | date: "dd/MM/yyyy"
-                    }}
+                    {{ buildingDetail.subscriptionDTO?.endDate | date: 'dd/MM/yyyy' }}
                 </p>
                 <p>
                     <i class="pi pi-hourglass"></i>
-                    {{
-                        "enterprise.emission.activity.remainingDays" | translate
-                    }}
+                    {{ 'enterprise.emission.activity.remainingDays' | translate }}
                     {{ getRemainingDays() }}
                 </p>
             </p-fieldset>
             <ng-template pTemplate="footer">
                 <div class="mt-1 flex gap-4">
                     <p-button
-                        label="{{
-                            'enterprise.emission.activity.generateReport'
-                                | translate
-                        }}"
+                        label="{{ 'enterprise.emission.activity.generateReport' | translate }}"
                         class="flex-1"
                         severity="primary"
                         outlined
@@ -80,9 +60,7 @@
                     ></p-button>
 
                     <p-button
-                        label="{{
-                            'enterprise.emission.activity.new' | translate
-                        }}"
+                        label="{{ 'enterprise.emission.activity.new' | translate }}"
                         class="flex-1"
                         (onClick)="openNewActivityDialog()"
                         severity="primary"
@@ -132,8 +110,7 @@
                 severity="danger"
                 [label]="
                     selected.length
-                        ? ('enterprise.emission.activity.deleteWithCount'
-                          | translate: { count: selected.length })
+                        ? ('enterprise.emission.activity.deleteWithCount' | translate: {count: selected.length})
                         : ('enterprise.Users.delete' | translate)
                 "
                 icon="pi pi-trash"
@@ -145,7 +122,10 @@
         </div>
     </div>
 </ng-template>
-<ng-template #actionsTemplate let-activity>
+<ng-template
+    #actionsTemplate
+    let-activity
+>
     <p-button
         icon="pi pi-file-edit"
         [rounded]="true"
@@ -154,6 +134,9 @@
         (onClick)="openActivityDetailsDialog(activity)"
     />
 </ng-template>
-<ng-template #typeTemplate let-activity>
+<ng-template
+    #typeTemplate
+    let-activity
+>
     <span *ngIf="activity.type">{{ activity?.type.name }}</span>
 </ng-template>

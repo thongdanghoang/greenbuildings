@@ -1,11 +1,6 @@
 import {HttpClient} from '@angular/common/http';
 import {Component, OnInit} from '@angular/core';
-import {
-  AbstractControl,
-  FormBuilder,
-  FormControl,
-  Validators
-} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormControl, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {InviteTenantToBuildingGroup} from '@models/building-group';
 import {TranslateService} from '@ngx-translate/core';
@@ -24,10 +19,7 @@ import {ToastProvider} from '@shared/services/toast-provider';
   templateUrl: './new-tenant.component.html',
   styleUrl: './new-tenant.component.css'
 })
-export class NewTenantComponent
-  extends AbstractFormComponent<InviteTenantToBuildingGroup>
-  implements OnInit
-{
+export class NewTenantComponent extends AbstractFormComponent<InviteTenantToBuildingGroup> implements OnInit {
   buildingDetails!: BuildingDetails;
   availableGroups: BuildingGroup[] = [];
 

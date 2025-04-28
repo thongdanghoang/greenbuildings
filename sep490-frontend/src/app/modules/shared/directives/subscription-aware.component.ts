@@ -13,21 +13,15 @@ export abstract class SubscriptionAwareComponent implements OnDestroy {
     this.destroy$.complete();
   }
 
-  protected registerSubscription(
-    subscription: Subscription | null | undefined
-  ): void {
+  protected registerSubscription(subscription: Subscription | null | undefined): void {
     if (subscription) {
       this.subscriptions.push(subscription);
     }
   }
 
-  protected registerSubscriptions(
-    subscriptions: (Subscription | null | undefined)[]
-  ): void {
+  protected registerSubscriptions(subscriptions: (Subscription | null | undefined)[]): void {
     if (subscriptions) {
-      this.subscriptions.push(
-        ...subscriptions.filter((s): s is Subscription => !!s)
-      );
+      this.subscriptions.push(...subscriptions.filter((s): s is Subscription => !!s));
     }
   }
 

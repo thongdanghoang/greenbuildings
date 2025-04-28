@@ -24,10 +24,7 @@ import {ToastProvider} from '@shared/services/toast-provider';
 import {BuildingPermissionRole} from '@models/building-permission-role';
 import {UserRole} from '@models/role-names';
 import {UserScope} from '@models/user-scope';
-import {
-  BuildingPermission,
-  EnterpriseUserDetails
-} from '@models/enterprise-user';
+import {BuildingPermission, EnterpriseUserDetails} from '@models/enterprise-user';
 import {EnterpriseUserService} from '@services/enterprise-user.service';
 
 @Component({
@@ -62,10 +59,7 @@ export class EnterpriseUserDetailsComponent extends AbstractFormComponent<Enterp
       validators: [Validators.required]
     }),
     buildingPermissions: new FormArray([]),
-    selectedBuildingIds: new FormControl<UUID[]>(
-      [],
-      [this.selectedBuildingIdsValidator().bind(this)]
-    ),
+    selectedBuildingIds: new FormControl<UUID[]>([], [this.selectedBuildingIdsValidator().bind(this)]),
     enterprisePermission: new FormControl<BuildingPermissionRole | null>(null, [
       this.enterprisePermissionValidator().bind(this)
     ])
@@ -90,23 +84,17 @@ export class EnterpriseUserDetailsComponent extends AbstractFormComponent<Enterp
   protected buildingPermissionScopeEnterprise: SelectableItem<string>[] = [
     {
       disabled: false,
-      value: BuildingPermissionRole[
-        BuildingPermissionRole.MANAGER
-      ] as keyof typeof BuildingPermissionRole,
+      value: BuildingPermissionRole[BuildingPermissionRole.MANAGER] as keyof typeof BuildingPermissionRole,
       label: 'enum.permissionRole.MANAGER'
     },
     {
       disabled: false,
-      value: BuildingPermissionRole[
-        BuildingPermissionRole.STAFF
-      ] as keyof typeof BuildingPermissionRole,
+      value: BuildingPermissionRole[BuildingPermissionRole.STAFF] as keyof typeof BuildingPermissionRole,
       label: 'enum.permissionRole.STAFF'
     },
     {
       disabled: false,
-      value: BuildingPermissionRole[
-        BuildingPermissionRole.AUDITOR
-      ] as keyof typeof BuildingPermissionRole,
+      value: BuildingPermissionRole[BuildingPermissionRole.AUDITOR] as keyof typeof BuildingPermissionRole,
       label: 'enum.permissionRole.AUDITOR'
     }
   ];
@@ -122,13 +110,11 @@ export class EnterpriseUserDetailsComponent extends AbstractFormComponent<Enterp
       label: 'enum.scope.BUILDING'
     }
   ];
-  protected selectableBuildings: SelectableItem<UUID>[] = this.buildings.map(
-    building => ({
-      disabled: false,
-      value: building.id,
-      label: building.name
-    })
-  );
+  protected selectableBuildings: SelectableItem<UUID>[] = this.buildings.map(building => ({
+    disabled: false,
+    value: building.id,
+    label: building.name
+  }));
 
   constructor(
     httpClient: HttpClient,
@@ -168,19 +154,11 @@ export class EnterpriseUserDetailsComponent extends AbstractFormComponent<Enterp
 
   onBuildingSelect(event: MultiSelectChangeEvent): void {
     const selectedBuildingIds = event.value;
-    const currentBuildingIds = this.buildingPermissions.controls.map(
-      control => control.value.buildingId
-    );
-    const buildingIdsToAdd = selectedBuildingIds.filter(
-      (id: UUID): boolean => !currentBuildingIds.includes(id)
-    );
-    const buildingIdsToRemove = currentBuildingIds.filter(
-      (id: UUID): boolean => !selectedBuildingIds.includes(id)
-    );
+    const currentBuildingIds = this.buildingPermissions.controls.map(control => control.value.buildingId);
+    const buildingIdsToAdd = selectedBuildingIds.filter((id: UUID): boolean => !currentBuildingIds.includes(id));
+    const buildingIdsToRemove = currentBuildingIds.filter((id: UUID): boolean => !selectedBuildingIds.includes(id));
     buildingIdsToRemove.forEach(buildingId => {
-      const index = this.buildingPermissions.controls.findIndex(
-        control => control.value.buildingId === buildingId
-      );
+      const index = this.buildingPermissions.controls.findIndex(control => control.value.buildingId === buildingId);
       if (index !== -1) {
         this.removeBuildingPermission(index);
       }
@@ -206,16 +184,11 @@ export class EnterpriseUserDetailsComponent extends AbstractFormComponent<Enterp
   }
 
   get scopeBuildings(): boolean {
-    return (
-      this.enterpriseUserStructure.scope.value === UserScope[UserScope.BUILDING]
-    );
+    return this.enterpriseUserStructure.scope.value === UserScope[UserScope.BUILDING];
   }
 
   get scopeEnterprise(): boolean {
-    return (
-      this.enterpriseUserStructure.scope.value ===
-      UserScope[UserScope.ENTERPRISE]
-    );
+    return this.enterpriseUserStructure.scope.value === UserScope[UserScope.ENTERPRISE];
   }
 
   get buildingPermissions(): FormArray {
@@ -223,16 +196,11 @@ export class EnterpriseUserDetailsComponent extends AbstractFormComponent<Enterp
   }
 
   getBuildingName(control: AbstractControl): string {
-    const building = this.buildings.find(
-      b => b.id === control.value.buildingId
-    );
+    const building = this.buildings.find(b => b.id === control.value.buildingId);
     return building?.name ?? '';
   }
 
-  addBuildingPermission(
-    buildingId: UUID | null,
-    role?: keyof typeof BuildingPermissionRole
-  ): void {
+  addBuildingPermission(buildingId: UUID | null, role?: keyof typeof BuildingPermissionRole): void {
     this.buildingPermissions.controls.push(
       this.formBuilder.group({
         buildingId: new FormControl(buildingId),
@@ -242,11 +210,7 @@ export class EnterpriseUserDetailsComponent extends AbstractFormComponent<Enterp
   }
 
   onBack(): void {
-    void this.router.navigate([
-      '/',
-      AppRoutingConstants.AUTH_PATH,
-      AppRoutingConstants.USERS_PATH
-    ]);
+    void this.router.navigate(['/', AppRoutingConstants.AUTH_PATH, AppRoutingConstants.USERS_PATH]);
   }
 
   removeBuildingPermission(index: number): void {
@@ -274,9 +238,7 @@ export class EnterpriseUserDetailsComponent extends AbstractFormComponent<Enterp
       .subscribe(user => {
         this.formGroup.patchValue(user);
         // js didn't parse the date correctly from LocalDateTime to js Date
-        this.enterpriseUserStructure.createdDate.setValue(
-          new Date(user.createdDate)
-        );
+        this.enterpriseUserStructure.createdDate.setValue(new Date(user.createdDate));
         this.initializeBuildingPermissions(user.buildingPermissions);
         this.initializeSelectedBuildingIds();
         this.initializeEnterprisePermission();
@@ -294,16 +256,10 @@ export class EnterpriseUserDetailsComponent extends AbstractFormComponent<Enterp
   }
 
   protected onSubmitFormDataSuccess(): void {
-    void this.router.navigate([
-      '/',
-      AppRoutingConstants.AUTH_PATH,
-      AppRoutingConstants.USERS_PATH
-    ]);
+    void this.router.navigate(['/', AppRoutingConstants.AUTH_PATH, AppRoutingConstants.USERS_PATH]);
   }
 
-  private initializeBuildingPermissions(
-    buildingPermissions: BuildingPermission[]
-  ): void {
+  private initializeBuildingPermissions(buildingPermissions: BuildingPermission[]): void {
     // Clear the existing FormArray
     this.buildingPermissions.clear();
 
@@ -321,18 +277,14 @@ export class EnterpriseUserDetailsComponent extends AbstractFormComponent<Enterp
   private initializeSelectedBuildingIds(): void {
     if (this.scopeBuildings) {
       this.enterpriseUserStructure.selectedBuildingIds.setValue(
-        this.buildingPermissions.controls.map(
-          control => control.value.buildingId
-        )
+        this.buildingPermissions.controls.map(control => control.value.buildingId)
       );
     }
   }
 
   private initializeEnterprisePermission(): void {
     if (this.scopeEnterprise && this.buildingPermissions.controls.length > 0) {
-      this.enterpriseUserStructure.enterprisePermission.setValue(
-        this.buildingPermissions.controls[0].value.role
-      );
+      this.enterpriseUserStructure.enterprisePermission.setValue(this.buildingPermissions.controls[0].value.role);
     }
   }
 

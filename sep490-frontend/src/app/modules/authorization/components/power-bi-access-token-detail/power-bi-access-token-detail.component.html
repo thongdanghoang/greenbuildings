@@ -1,23 +1,17 @@
 <div class="flex items-center justify-between border-b py-2">
     <p class="text-lg font-bold text-primary">
-        {{
-            isEdit
-                ? ("powerBi.editAccessToken" | translate)
-                : ("powerBi.newAccessToken" | translate)
-        }}
+        {{ isEdit ? ('powerBi.editAccessToken' | translate) : ('powerBi.newAccessToken' | translate) }}
     </p>
 </div>
 
 @if (isEdit) {
-    <div
-        class="rounded-lg border border-yellow-200 bg-yellow-50 dark:border-yellow-800 dark:bg-yellow-950"
-    >
+    <div class="rounded-lg border border-yellow-200 bg-yellow-50 dark:border-yellow-800 dark:bg-yellow-950">
         <div
             class="flex flex-col items-center justify-between gap-5 p-5 lg:flex-row"
             *ngIf="isEdit"
         >
             <div>
-                {{ "powerBi.msgForgotToken" | translate }}
+                {{ 'powerBi.msgForgotToken' | translate }}
             </div>
             <p-button
                 class="self-end lg:self-start lg:*:min-w-[134px]"
@@ -30,18 +24,35 @@
     </div>
 }
 
-<form [formGroup]="formGroup" unsavedChanges id="powerBiAccessTokenForm">
-    <div class="flex flex-col *:max-w-96" errorMessages>
-        <label for="name" class="font-semibold">{{
-            "powerBi.tokenName" | translate
-        }}</label>
-        <input id="name" type="text" pInputText formControlName="note" />
-        <small>{{ "powerBi.whatToken" | translate }}</small>
+<form
+    [formGroup]="formGroup"
+    unsavedChanges
+    id="powerBiAccessTokenForm"
+>
+    <div
+        class="flex flex-col *:max-w-96"
+        errorMessages
+    >
+        <label
+            for="name"
+            class="font-semibold"
+            >{{ 'powerBi.tokenName' | translate }}</label
+        >
+        <input
+            id="name"
+            type="text"
+            pInputText
+            formControlName="note"
+        />
+        <small>{{ 'powerBi.whatToken' | translate }}</small>
         <form-field-error></form-field-error>
     </div>
 
     <label class="font-semibold">Expiration</label>
-    <div errorMessages *ngIf="!isEdit; else regenerateTokenLinkTemplate">
+    <div
+        errorMessages
+        *ngIf="!isEdit; else regenerateTokenLinkTemplate"
+    >
         <div class="flex gap-2">
             <p-select
                 formControlName="expirationTime"
@@ -49,23 +60,25 @@
                 scrollHeight="300px"
                 class="min-w-64"
             >
-                <ng-template #selectedItem let-selectedOption>
-                    <div class="flex items-center gap-2" *ngIf="selectedOption">
+                <ng-template
+                    #selectedItem
+                    let-selectedOption
+                >
+                    <div
+                        class="flex items-center gap-2"
+                        *ngIf="selectedOption"
+                    >
                         <i class="pi pi-calendar"></i>
                         <div>{{ selectedOption.label | translate }}</div>
-                        @if (
-                            powerBiAuthorityFormStructure.expirationTime.value
-                        ) {
-                            <div>
-                                ({{
-                                    powerBiAuthorityFormStructure.expirationTime
-                                        .value | date: "MMM d, yyyy"
-                                }})
-                            </div>
+                        @if (powerBiAuthorityFormStructure.expirationTime.value) {
+                            <div>({{ powerBiAuthorityFormStructure.expirationTime.value | date: 'MMM d, yyyy' }})</div>
                         }
                     </div>
                 </ng-template>
-                <ng-template let-selectedOption #item>
+                <ng-template
+                    let-selectedOption
+                    #item
+                >
                     <div class="flex items-center gap-2">
                         <div>{{ selectedOption.label | translate }}</div>
                     </div>
@@ -79,46 +92,52 @@
                 ></p-datepicker>
             }
         </div>
-        <small>{{ "powerBi.small" | translate }}</small>
+        <small>{{ 'powerBi.small' | translate }}</small>
         <form-field-error></form-field-error>
     </div>
 
     <label class="font-semibold">Scope</label>
     <div class="flex flex-col *:w-full *:max-w-96 lg:flex-row lg:gap-8">
-        <div class="flex flex-col" errorMessages>
+        <div
+            class="flex flex-col"
+            errorMessages
+        >
             <p-select
                 formControlName="scope"
                 optionLabel="label"
                 [options]="scopeOptions"
-                [placeholder]="
-                    'enterprise.Users.placeholders.selectScope' | translate
-                "
+                [placeholder]="'enterprise.Users.placeholders.selectScope' | translate"
                 optionValue="value"
                 optionDisabled="disabled"
                 class="w-full"
             >
-                <ng-template #selectedItem let-selectedOption>
+                <ng-template
+                    #selectedItem
+                    let-selectedOption
+                >
                     <div>
                         {{ selectedOption.label | translate }}
                     </div></ng-template
                 >
-                <ng-template #item let-item
+                <ng-template
+                    #item
+                    let-item
                     ><div>{{ item.label | translate }}</div></ng-template
                 >
             </p-select>
             <form-field-error></form-field-error>
         </div>
         @if (scopeBuilding) {
-            <div class="flex flex-col" errorMessages>
+            <div
+                class="flex flex-col"
+                errorMessages
+            >
                 <p-multiselect
                     [options]="selectablePowerBiScopes"
                     formControlName="buildings"
                     optionLabel="label"
                     optionValue="value"
-                    [placeholder]="
-                        'enterprise.Users.placeholders.selectBuildings'
-                            | translate
-                    "
+                    [placeholder]="'enterprise.Users.placeholders.selectBuildings' | translate"
                     lazy="true"
                 ></p-multiselect>
                 <form-field-error></form-field-error>
@@ -132,10 +151,7 @@
         size="small"
         (onClick)="submit()"
         class="*:min-w-16"
-        label="{{
-            (isEdit ? 'powerBi.accessToken.save' : 'powerBi.accessToken.create')
-                | translate
-        }}"
+        label="{{ (isEdit ? 'powerBi.accessToken.save' : 'powerBi.accessToken.create') | translate }}"
     />
     <p-button
         size="small"
@@ -148,15 +164,13 @@
 
 <ng-template #regenerateTokenLinkTemplate>
     <div class="mb-6">
-        {{ "powerBi.thisTokenExpireOn" | translate }}
-        <strong>{{
-            powerBiAuthorityFormStructure.expirationTime.value
-                | date: "MMM d, yyyy"
-        }}</strong
-        >{{ "powerBi.toSetNewExpireDate" | translate }}
-        <a class="text-primary" [routerLink]="regenerateTokenLink">{{
-            "powerBi.regenerateToken" | translate
-        }}</a
+        {{ 'powerBi.thisTokenExpireOn' | translate }}
+        <strong>{{ powerBiAuthorityFormStructure.expirationTime.value | date: 'MMM d, yyyy' }}</strong
+        >{{ 'powerBi.toSetNewExpireDate' | translate }}
+        <a
+            class="text-primary"
+            [routerLink]="regenerateTokenLink"
+            >{{ 'powerBi.regenerateToken' | translate }}</a
         >.
     </div>
 </ng-template>

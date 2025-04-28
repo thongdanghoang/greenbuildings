@@ -9,19 +9,24 @@
         ></p-button>
     </div>
     <h1 class="text-lg font-bold">
-        {{ "account.title" | translate }}
+        {{ 'account.title' | translate }}
     </h1>
 </div>
 
-<form [formGroup]="formGroup" class="py-5 sm:mt-5 sm:px-5">
+<form
+    [formGroup]="formGroup"
+    class="py-5 sm:mt-5 sm:px-5"
+>
     <!-- Email -->
     <div
         class="my-3 grid grid-cols-12 items-center gap-2 sm:gap-4"
         errorMessages
     >
-        <label for="email" class="col-span-12 font-normal sm:col-span-3">{{
-            "account.email" | translate
-        }}</label>
+        <label
+            for="email"
+            class="col-span-12 font-normal sm:col-span-3"
+            >{{ 'account.email' | translate }}</label
+        >
         <div class="col-span-12 sm:col-span-6">
             <input
                 formControlName="email"
@@ -40,9 +45,11 @@
         class="my-3 grid grid-cols-12 items-center gap-2 sm:gap-4"
         errorMessages
     >
-        <label for="firstName" class="col-span-12 font-normal sm:col-span-3">{{
-            "account.firstName" | translate
-        }}</label>
+        <label
+            for="firstName"
+            class="col-span-12 font-normal sm:col-span-3"
+            >{{ 'account.firstName' | translate }}</label
+        >
         <div class="col-span-12 sm:col-span-6">
             <input
                 formControlName="firstName"
@@ -50,9 +57,7 @@
                 type="text"
                 id="firstName"
                 pInputText
-                [placeholder]="
-                    'account.placeholders.enterFirstName' | translate
-                "
+                [placeholder]="'account.placeholders.enterFirstName' | translate"
             />
             <form-field-error></form-field-error>
         </div>
@@ -63,9 +68,11 @@
         class="my-3 grid grid-cols-12 items-center gap-2 sm:gap-4"
         errorMessages
     >
-        <label for="lastName" class="col-span-12 font-normal sm:col-span-3">{{
-            "account.lastName" | translate
-        }}</label>
+        <label
+            for="lastName"
+            class="col-span-12 font-normal sm:col-span-3"
+            >{{ 'account.lastName' | translate }}</label
+        >
         <div class="col-span-12 sm:col-span-6">
             <input
                 formControlName="lastName"
@@ -84,9 +91,11 @@
         class="my-3 grid grid-cols-12 items-center gap-2 sm:gap-4"
         errorMessages
     >
-        <label for="phone" class="col-span-12 font-normal sm:col-span-3">{{
-            "account.phone" | translate
-        }}</label>
+        <label
+            for="phone"
+            class="col-span-12 font-normal sm:col-span-3"
+            >{{ 'account.phone' | translate }}</label
+        >
         <div class="col-span-12 sm:col-span-6">
             <input
                 formControlName="phone"

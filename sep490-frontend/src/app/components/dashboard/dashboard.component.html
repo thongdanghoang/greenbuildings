@@ -1,15 +1,11 @@
 <ng-container *ngIf="dashboards.length > 0; else noDashboards">
-    <div
-        class="mb-4 flex flex-col justify-between gap-2.5 border-b pb-1 lg:flex-row lg:items-center"
-    >
+    <div class="mb-4 flex flex-col justify-between gap-2.5 border-b pb-1 lg:flex-row lg:items-center">
         <div class="flex w-full justify-between">
             <p class="text-lg font-bold text-primary">
-                {{ "powerBi.dashboard" | translate }}
+                {{ 'powerBi.dashboard' | translate }}
             </p>
             <div class="flex gap-4">
-                <ng-container
-                    *ngTemplateOutlet="addNewDashboard"
-                ></ng-container>
+                <ng-container *ngTemplateOutlet="addNewDashboard"></ng-container>
             </div>
         </div>
         <p-select
@@ -43,16 +39,16 @@
 <ng-template #noDashboards>
     <div class="flex items-center justify-between border-b py-2">
         <p class="text-xl text-primary">
-            {{ "powerBi.dashboard" | translate }}
+            {{ 'powerBi.dashboard' | translate }}
         </p>
     </div>
     <div class="flex h-96 flex-col items-center justify-center gap-4">
         <i class="pi pi-chart-bar text-2xl"></i>
         <h3 class="text-xl font-semibold">
-            {{ "powerBi.noPowerBi" | translate }}
+            {{ 'powerBi.noPowerBi' | translate }}
         </h3>
         <p class="text-base">
-            {{ "powerBi.needPowerBi" | translate }}
+            {{ 'powerBi.needPowerBi' | translate }}
         </p>
         <ng-container *ngTemplateOutlet="addNewDashboard"></ng-container>
     </div>

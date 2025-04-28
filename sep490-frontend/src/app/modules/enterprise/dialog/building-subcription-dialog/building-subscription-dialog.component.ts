@@ -1,22 +1,11 @@
 import {HttpClient} from '@angular/common/http';
 import {Component} from '@angular/core';
-import {
-  AbstractControl,
-  FormBuilder,
-  FormControl,
-  Validators
-} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormControl, Validators} from '@angular/forms';
 import {TranslateService} from '@ngx-translate/core';
 import moment from 'moment';
 import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
-import {
-  Building,
-  BuildingDetails,
-  CreditConvertRatio,
-  CreditConvertType,
-  TransactionType
-} from '@models/enterprise';
+import {Building, BuildingDetails, CreditConvertRatio, CreditConvertType, TransactionType} from '@models/enterprise';
 import {AbstractFormComponent} from '@shared/components/form/abstract-form-component';
 import {ToastProvider} from '@shared/services/toast-provider';
 import {SubscriptionService} from '@services/subscription.service';
@@ -96,65 +85,34 @@ export class BuildingSubscriptionDialogComponent extends AbstractFormComponent<v
     if (months === 0 && numberOfDevices === 0) {
       return 0;
     } else if (months > 0 && numberOfDevices === 0) {
-      return (
-        months *
-        monthRatio *
-        this.data.building.subscriptionDTO!.maxNumberOfDevices! *
-        deviceRatio
-      );
+      return months * monthRatio * this.data.building.subscriptionDTO!.maxNumberOfDevices! * deviceRatio;
     } else if (numberOfDevices > 0 && months === 0) {
-      const numberOfLeftDays = this.data.selectedBuildingDetails
-        ?.subscriptionDTO?.endDate
-        ? moment(
-            this.data.selectedBuildingDetails.subscriptionDTO.endDate
-          ).diff(moment(), 'days')
+      const numberOfLeftDays = this.data.selectedBuildingDetails?.subscriptionDTO?.endDate
+        ? moment(this.data.selectedBuildingDetails.subscriptionDTO.endDate).diff(moment(), 'days')
         : 0;
-      return (
-        numberOfDevices * deviceRatio * numberOfLeftDays * (monthRatio / 30)
-      );
+      return numberOfDevices * deviceRatio * numberOfLeftDays * (monthRatio / 30);
     }
-    const numberOfLeftDays = this.data.selectedBuildingDetails?.subscriptionDTO
-      ?.endDate
-      ? moment(this.data.selectedBuildingDetails.subscriptionDTO.endDate).diff(
-          moment(),
-          'days'
-        )
+    const numberOfLeftDays = this.data.selectedBuildingDetails?.subscriptionDTO?.endDate
+      ? moment(this.data.selectedBuildingDetails.subscriptionDTO.endDate).diff(moment(), 'days')
       : 0;
-    const oldTotal =
-      numberOfDevices * deviceRatio * numberOfLeftDays * (monthRatio / 30);
+    const oldTotal = numberOfDevices * deviceRatio * numberOfLeftDays * (monthRatio / 30);
     const newTotal =
-      (numberOfDevices +
-        this.data.building.subscriptionDTO!.maxNumberOfDevices!) *
-      deviceRatio *
-      months *
-      monthRatio;
+      (numberOfDevices + this.data.building.subscriptionDTO!.maxNumberOfDevices!) * deviceRatio * months * monthRatio;
     return oldTotal + newTotal;
   }
 
   populateHiddenFields(): void {
-    this.formStructure.buildingId.setValue(
-      this.data.selectedBuildingDetails.id.toString()
-    );
+    this.formStructure.buildingId.setValue(this.data.selectedBuildingDetails.id.toString());
     this.formStructure.type.setValue(this.data.type.toString());
   }
 
   setValidators(): void {
     if (this.data.type === TransactionType.NEW_PURCHASE) {
-      this.formStructure.numberOfDevices.setValidators([
-        Validators.min(1),
-        Validators.required
-      ]);
-      this.formStructure.months.setValidators([
-        Validators.min(1),
-        Validators.max(100),
-        Validators.required
-      ]);
+      this.formStructure.numberOfDevices.setValidators([Validators.min(1), Validators.required]);
+      this.formStructure.months.setValidators([Validators.min(1), Validators.max(100), Validators.required]);
     } else {
       this.formStructure.numberOfDevices.setValidators([Validators.min(1)]);
-      this.formStructure.months.setValidators([
-        Validators.min(0),
-        Validators.max(100)
-      ]);
+      this.formStructure.months.setValidators([Validators.min(0), Validators.max(100)]);
     }
   }
 
@@ -177,18 +135,14 @@ export class BuildingSubscriptionDialogComponent extends AbstractFormComponent<v
   }
 
   private fetchConversionRate(): void {
-    this.subscribeService
-      .getCreditConvertRatio()
-      .subscribe((rs: CreditConvertRatio[]) => {
-        rs.forEach(x => {
-          if (x.convertType === CreditConvertType[CreditConvertType.MONTH]) {
-            this.formStructure.monthRatio.setValue(x.ratio);
-          } else if (
-            x.convertType === CreditConvertType[CreditConvertType.DEVICE]
-          ) {
-            this.formStructure.deviceRatio.setValue(x.ratio);
-          }
-        });
+    this.subscribeService.getCreditConvertRatio().subscribe((rs: CreditConvertRatio[]) => {
+      rs.forEach(x => {
+        if (x.convertType === CreditConvertType[CreditConvertType.MONTH]) {
+          this.formStructure.monthRatio.setValue(x.ratio);
+        } else if (x.convertType === CreditConvertType[CreditConvertType.DEVICE]) {
+          this.formStructure.deviceRatio.setValue(x.ratio);
+        }
       });
+    });
   }
 }

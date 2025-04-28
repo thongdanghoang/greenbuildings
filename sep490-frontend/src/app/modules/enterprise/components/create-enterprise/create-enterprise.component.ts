@@ -1,11 +1,6 @@
 import {HttpClient} from '@angular/common/http';
 import {Component, Injector} from '@angular/core';
-import {
-  AbstractControl,
-  FormBuilder,
-  FormControl,
-  Validators
-} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormControl, Validators} from '@angular/forms';
 import {NewEnterpriseDTO} from '@models/enterprise-user';
 import {TranslateService} from '@ngx-translate/core';
 import {OidcSecurityService} from 'angular-auth-oidc-client';
@@ -26,10 +21,7 @@ export class CreateEnterpriseComponent extends AbstractFormComponent<NewEnterpri
   protected readonly UserRole = UserRole;
   protected readonly formStructure = {
     name: new FormControl('', [Validators.required]),
-    enterpriseEmail: new FormControl('', [
-      Validators.required,
-      Validators.email
-    ]),
+    enterpriseEmail: new FormControl('', [Validators.required, Validators.email]),
     hotline: new FormControl('', [Validators.required]),
     role: new FormControl('', [Validators.required])
   };
@@ -63,9 +55,7 @@ export class CreateEnterpriseComponent extends AbstractFormComponent<NewEnterpri
 
     const countdown = 5;
     const message = this.translate.instant('enterprise.create.success');
-    const redirectMessage = this.translate.instant(
-      'enterprise.create.redirect'
-    );
+    const redirectMessage = this.translate.instant('enterprise.create.redirect');
 
     messageService.clear();
     messageService.add({
@@ -75,8 +65,7 @@ export class CreateEnterpriseComponent extends AbstractFormComponent<NewEnterpri
       sticky: true,
       closable: false,
       key: 'center',
-      styleClass:
-        'text-xl p-6 min-w-[400px] max-w-[600px] bg-white dark:bg-gray-800 shadow-lg rounded-lg'
+      styleClass: 'text-xl p-6 min-w-[400px] max-w-[600px] bg-white dark:bg-gray-800 shadow-lg rounded-lg'
     });
 
     // After 5 seconds, trigger logoff and login

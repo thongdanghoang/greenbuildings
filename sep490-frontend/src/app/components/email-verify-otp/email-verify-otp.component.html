@@ -1,24 +1,24 @@
-<div
-    class="mx-auto mt-12 w-full max-w-md rounded-xl bg-white p-6 shadow-lg dark:bg-slate-800"
->
-    <h2
-        class="text-center text-2xl font-semibold text-slate-800 dark:text-white"
-    >
-        {{ "mailOTP.title" | translate }}
+<div class="mx-auto mt-12 w-full max-w-md rounded-xl bg-white p-6 shadow-lg dark:bg-slate-800">
+    <h2 class="text-center text-2xl font-semibold text-slate-800 dark:text-white">
+        {{ 'mailOTP.title' | translate }}
     </h2>
 
     <p class="mt-2 text-center text-sm text-slate-500 dark:text-slate-300">
         <span *ngIf="!firstSent">
-            {{ "mailOTP.description" | translate: { email: userEmail } }}
+            {{ 'mailOTP.description' | translate: {email: userEmail} }}
         </span>
     </p>
 
-    <form [formGroup]="formGroup" class="mt-6 space-y-4">
-        <div *ngIf="firstSent" errorMessages>
-            <label
-                class="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-300"
-            >
-                {{ "mailOTP.label" | translate }}
+    <form
+        [formGroup]="formGroup"
+        class="mt-6 space-y-4"
+    >
+        <div
+            *ngIf="firstSent"
+            errorMessages
+        >
+            <label class="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-300">
+                {{ 'mailOTP.label' | translate }}
             </label>
             <p-inputotp
                 [class]="'my-4 justify-center'"
@@ -57,7 +57,7 @@
         *ngIf="firstSent"
         class="mt-4 flex items-center justify-between text-sm text-slate-500 dark:text-slate-400"
     >
-        <span>{{ "mailOTP.notReceived" | translate }}</span>
+        <span>{{ 'mailOTP.notReceived' | translate }}</span>
         <button
             type="button"
             pButton
@@ -69,5 +69,8 @@
 </div>
 
 <div>
-    <p-toast key="center" position="top-center"></p-toast>
+    <p-toast
+        key="center"
+        position="top-center"
+    ></p-toast>
 </div>

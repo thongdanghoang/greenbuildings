@@ -1,12 +1,15 @@
-<p-stepper [value]="1" class="block max-w-sm sm:max-w-md md:min-w-[500px]">
+<p-stepper
+    [value]="1"
+    class="block max-w-sm sm:max-w-md md:min-w-[500px]"
+>
     <p-step-panels class="block h-full">
         <p-step-panel [value]="1">
-            <ng-template #content let-activateCallback="activateCallback">
+            <ng-template
+                #content
+                let-activateCallback="activateCallback"
+            >
                 <p>
-                    {{
-                        "enterprise.emission.activity.selectActivities"
-                            | translate
-                    }}
+                    {{ 'enterprise.emission.activity.selectActivities' | translate }}
                 </p>
                 <form [formGroup]="formGroup">
                     <div class="my-4 grid grid-cols-2 gap-4">
@@ -40,20 +43,20 @@
         </p-step-panel>
 
         <p-step-panel [value]="2">
-            <ng-template #content let-activateCallback="activateCallback">
+            <ng-template
+                #content
+                let-activateCallback="activateCallback"
+            >
                 <form [formGroup]="formGroup">
                     <p-iftalabel class="my-2">
                         <p-date-picker
                             formControlName="rangeDates"
                             class="w-full"
                             selectionMode="range"
-                            [style]="{ width: '100%' }"
+                            [style]="{width: '100%'}"
                             [inline]="true"
                         ></p-date-picker>
-                        <label>{{
-                            "enterprise.emission.activity.record.table.dateRange"
-                                | translate
-                        }}</label>
+                        <label>{{ 'enterprise.emission.activity.record.table.dateRange' | translate }}</label>
                     </p-iftalabel>
                     <div class="flex justify-between">
                         <p-button

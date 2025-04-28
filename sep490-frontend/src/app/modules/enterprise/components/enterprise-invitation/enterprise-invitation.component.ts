@@ -24,16 +24,14 @@ export class EnterpriseInvitationComponent implements OnInit {
   }
 
   handleFetchInvitations(showSuccessMessage: boolean = false): void {
-    this.invitationService
-      .findAllPendingByEmail()
-      .subscribe((invitations: InvitationDTO[]) => {
-        this.invitations = invitations;
-        if (showSuccessMessage) {
-          this.messageService.success({
-            summary: this.translate.instant('common.success')
-          });
-        }
-      });
+    this.invitationService.findAllPendingByEmail().subscribe((invitations: InvitationDTO[]) => {
+      this.invitations = invitations;
+      if (showSuccessMessage) {
+        this.messageService.success({
+          summary: this.translate.instant('common.success')
+        });
+      }
+    });
   }
 
   fetchPendingInvitation(): void {

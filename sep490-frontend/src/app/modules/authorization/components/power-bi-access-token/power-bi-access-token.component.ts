@@ -17,10 +17,7 @@ import {ToastProvider} from '@shared/services/toast-provider';
   templateUrl: './power-bi-access-token.component.html',
   styleUrl: './power-bi-access-token.component.css'
 })
-export class PowerBiAccessTokenComponent
-  extends SubscriptionAwareComponent
-  implements OnInit
-{
+export class PowerBiAccessTokenComponent extends SubscriptionAwareComponent implements OnInit {
   protected accessTokens: PowerBiAuthority[] = [];
   protected newestCreatedTokenId: UUID | null = null;
   protected newestCreatedTokenKey: string | null = null;
@@ -45,16 +42,11 @@ export class PowerBiAccessTokenComponent
   }
 
   get newestPowerBiAccessToken(): string | null {
-    return sessionStorage.getItem(
-      ApplicationConstant.NEWEST_POWER_BI_ACCESS_TOKEN_KEY
-    );
+    return sessionStorage.getItem(ApplicationConstant.NEWEST_POWER_BI_ACCESS_TOKEN_KEY);
   }
 
   get newestCreatedToken(): PowerBiAuthority | null {
-    return (
-      this.accessTokens.find(token => token.id === this.newestCreatedTokenId) ||
-      null
-    );
+    return this.accessTokens.find(token => token.id === this.newestCreatedTokenId) || null;
   }
 
   initializeData(): void {
@@ -63,9 +55,7 @@ export class PowerBiAccessTokenComponent
       const token = JSON.parse(newestPowerBiAccessToken);
       this.newestCreatedTokenKey = token.apiKey;
       this.newestCreatedTokenId = token.id;
-      sessionStorage.removeItem(
-        ApplicationConstant.NEWEST_POWER_BI_ACCESS_TOKEN_KEY
-      );
+      sessionStorage.removeItem(ApplicationConstant.NEWEST_POWER_BI_ACCESS_TOKEN_KEY);
     }
     this.powerBiService
       .getMyAccessToken()
@@ -129,24 +119,16 @@ export class PowerBiAccessTokenComponent
       .subscribe({
         next: (): void => {
           this.messageService.success({
-            summary: this.translate.instant(
-              'powerBi.messageService.success.summary'
-            ),
-            detail: this.translate.instant(
-              'powerBi.messageService.success.detail'
-            )
+            summary: this.translate.instant('powerBi.messageService.success.summary'),
+            detail: this.translate.instant('powerBi.messageService.success.detail')
           });
           this.initializeData();
           this.clearNewestPowerBiAccessToken();
         },
         error: (): void => {
           this.messageService.success({
-            summary: this.translate.instant(
-              'powerBi.messageService.error.summary'
-            ),
-            detail: this.translate.instant(
-              'powerBi.messageService.error.detail'
-            )
+            summary: this.translate.instant('powerBi.messageService.error.summary'),
+            detail: this.translate.instant('powerBi.messageService.error.detail')
           });
         }
       });

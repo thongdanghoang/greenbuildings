@@ -10,10 +10,7 @@ import {CreditConvertRatioService} from '@services/credit-convert-ratio.service'
   templateUrl: './credit-convert-ratio.component.html',
   styleUrl: './credit-convert-ratio.component.css'
 })
-export class CreditConvertRatioComponent
-  extends SubscriptionAwareComponent
-  implements OnInit
-{
+export class CreditConvertRatioComponent extends SubscriptionAwareComponent implements OnInit {
   creditConvertRatios: CreditConvertRatio[] = [];
   constructor(
     private readonly creditConvertRatioService: CreditConvertRatioService,
@@ -27,11 +24,9 @@ export class CreditConvertRatioComponent
 
   getCreditConvertRatios(): void {
     this.registerSubscription(
-      this.creditConvertRatioService
-        .getAllCreditConvertRatio()
-        .subscribe(rs => {
-          this.creditConvertRatios = rs;
-        })
+      this.creditConvertRatioService.getAllCreditConvertRatio().subscribe(rs => {
+        this.creditConvertRatios = rs;
+      })
     );
   }
 

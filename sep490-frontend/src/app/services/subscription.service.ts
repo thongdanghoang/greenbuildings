@@ -19,9 +19,6 @@ export class SubscriptionService {
   }
 
   public subscribe(body: SubscribeRequest): Observable<void> {
-    return this.httpClient.post<void>(
-      `${AppRoutingConstants.ENTERPRISE_API_URL}/subscription`,
-      body
-    );
+    return this.httpClient.post<void>(`${AppRoutingConstants.ENTERPRISE_API_URL}/subscription`, body);
   }
 }

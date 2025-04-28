@@ -4,5 +4,5 @@ export const environment = {
   oidcAuthority: 'http://localhost:8180/idp',
   idpApiUrl: 'http://localhost:8180/idp/api',
   enterpriseUrl: 'http://localhost:8080/enterprise',
-  oidcClientId: 'oidc-client',
+  oidcClientId: 'oidc-client'
 };

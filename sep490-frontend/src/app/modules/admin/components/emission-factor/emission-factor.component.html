@@ -1,6 +1,6 @@
 <div class="mb-4 flex items-center justify-start border-b pb-1">
     <h1 class="text-lg font-bold text-primary">
-        {{ "enterprise.emission.activity.dialog.EmissionFactor" | translate }}
+        {{ 'enterprise.emission.activity.dialog.EmissionFactor' | translate }}
     </h1>
 </div>
 <table-template
@@ -37,7 +37,10 @@
         <div class="flex gap-2.5"></div>
     </div>
 </ng-template>
-<ng-template #actionsTemplate let-rowData>
+<ng-template
+    #actionsTemplate
+    let-rowData
+>
     <div class="flex items-center gap-2">
         <p-button
             icon="pi pi-pencil"
@@ -52,29 +55,47 @@
         ></p-inputSwitch>
     </div>
 </ng-template>
-<ng-template #emissionSourceTemplate let-data>
+<ng-template
+    #emissionSourceTemplate
+    let-data
+>
     {{ getLocalizedEmissionSourceName(data.emissionSourceDTO) }}
 </ng-template>
 
-<ng-template #energyConversionTemplate let-data>
+<ng-template
+    #energyConversionTemplate
+    let-data
+>
     <span *ngIf="data.energyConversionDTO">
         {{ getLocalizedFuelName(data.energyConversionDTO.fuel) }}
     </span>
 </ng-template>
 
-<ng-template #isDirectEmissionTemplate let-data>
+<ng-template
+    #isDirectEmissionTemplate
+    let-data
+>
     <p-checkbox
         [binary]="true"
         [ngModel]="data.directEmission"
         [disabled]="true"
     ></p-checkbox>
 </ng-template>
-<ng-template #nameTemplate let-data>
+<ng-template
+    #nameTemplate
+    let-data
+>
     {{ getLocalizedEmissionFactorName(data) }}
 </ng-template>
-<ng-template #startDateTemplate let-data>
-    <p>{{ data.validFrom | date: "dd.MM.yyyy" }}</p>
+<ng-template
+    #startDateTemplate
+    let-data
+>
+    <p>{{ data.validFrom | date: 'dd.MM.yyyy' }}</p>
 </ng-template>
-<ng-template #endDateTemplate let-data>
-    <p>{{ data.validTo | date: "dd.MM.yyyy" }}</p>
+<ng-template
+    #endDateTemplate
+    let-data
+>
+    <p>{{ data.validTo | date: 'dd.MM.yyyy' }}</p>
 </ng-template>

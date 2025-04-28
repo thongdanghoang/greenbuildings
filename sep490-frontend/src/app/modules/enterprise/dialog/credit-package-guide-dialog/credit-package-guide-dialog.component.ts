@@ -3,11 +3,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {TranslateService} from '@ngx-translate/core';
 import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
-import {
-  CreditConvertRatio,
-  CreditConvertType,
-  CreditPackage
-} from '@models/enterprise';
+import {CreditConvertRatio, CreditConvertType, CreditPackage} from '@models/enterprise';
 import {SubscriptionService} from '@services/subscription.service';
 import {WalletService} from '@services/wallet.service';
 import {ApplicationService} from '@services/application.service';
@@ -37,15 +33,8 @@ export class CreditPackageGuideDialogComponent implements OnInit {
     private readonly decimalPipe: DecimalPipe
   ) {
     this.formGroup = this.formBuilder.group({
-      months: new FormControl(0, [
-        Validators.required,
-        Validators.min(1),
-        Validators.max(100)
-      ]),
-      numberOfDevices: new FormControl(0, [
-        Validators.required,
-        Validators.min(1)
-      ]),
+      months: new FormControl(0, [Validators.required, Validators.min(1), Validators.max(100)]),
+      numberOfDevices: new FormControl(0, [Validators.required, Validators.min(1)]),
       monthRatio: new FormControl(0, [Validators.required]),
       deviceRatio: new FormControl(0, [Validators.required])
     });
@@ -59,21 +48,17 @@ export class CreditPackageGuideDialogComponent implements OnInit {
     });
 
     // Fetch conversion ratios
-    this.subscriptionService
-      .getCreditConvertRatio()
-      .subscribe((ratios: CreditConvertRatio[]) => {
-        this.creditConvertRatios = ratios;
-        ratios.forEach(x => {
-          if (x.convertType === CreditConvertType[CreditConvertType.MONTH]) {
-            this.formGroup.get('monthRatio')?.setValue(x.ratio);
-          } else if (
-            x.convertType === CreditConvertType[CreditConvertType.DEVICE]
-          ) {
-            this.formGroup.get('deviceRatio')?.setValue(x.ratio);
-          }
-        });
-        this.calculateTotalToPay();
+    this.subscriptionService.getCreditConvertRatio().subscribe((ratios: CreditConvertRatio[]) => {
+      this.creditConvertRatios = ratios;
+      ratios.forEach(x => {
+        if (x.convertType === CreditConvertType[CreditConvertType.MONTH]) {
+          this.formGroup.get('monthRatio')?.setValue(x.ratio);
+        } else if (x.convertType === CreditConvertType[CreditConvertType.DEVICE]) {
+          this.formGroup.get('deviceRatio')?.setValue(x.ratio);
+        }
       });
+      this.calculateTotalToPay();
+    });
 
     // Get creditPackages from dialog config
     this.creditPackages = this.config.data?.creditPackages || [];
@@ -103,8 +88,7 @@ export class CreditPackageGuideDialogComponent implements OnInit {
       .sort((a, b) => a.numberOfCredits - b.numberOfCredits); // Sort by numberOfCredits ascending
 
     // Select the package with the smallest numberOfCredits that is still >= totalToPay
-    this.recommendedPackage =
-      qualifyingPackages.length > 0 ? qualifyingPackages[0] : null;
+    this.recommendedPackage = qualifyingPackages.length > 0 ? qualifyingPackages[0] : null;
   }
 
   proceedToStep3(activateCallback: (step: number) => void): void {

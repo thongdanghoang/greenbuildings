@@ -24,9 +24,7 @@ export class BuildingGroupService {
   }
 
   getAllWithBuilding(): Observable<BuildingGroup[]> {
-    return this.http.get<BuildingGroup[]>(
-      `${this.baseUrl}/search/with-buildings`
-    );
+    return this.http.get<BuildingGroup[]>(`${this.baseUrl}/search/with-buildings`);
   }
 
   getById(id: UUID): Observable<BuildingGroup> {
@@ -41,13 +39,8 @@ export class BuildingGroupService {
     return this.http.post<BuildingGroup>(this.baseUrl, buildingGroup);
   }
 
-  search(
-    criteria: SearchCriteriaDto<BuildingGroupCriteria>
-  ): Observable<SearchResultDto<BuildingGroup>> {
-    return this.http.post<SearchResultDto<BuildingGroup>>(
-      `${this.baseUrl}/search`,
-      criteria
-    );
+  search(criteria: SearchCriteriaDto<BuildingGroupCriteria>): Observable<SearchResultDto<BuildingGroup>> {
+    return this.http.post<SearchResultDto<BuildingGroup>>(`${this.baseUrl}/search`, criteria);
   }
 
   deleteGroups(ids: UUID[]): Observable<void> {
@@ -57,8 +50,6 @@ export class BuildingGroupService {
   }
 
   getAvailableBuildingGroups(buildingId: UUID): Observable<BuildingGroup[]> {
-    return this.http.get<BuildingGroup[]>(
-      `${this.baseUrl}/building/${buildingId}/available`
-    );
+    return this.http.get<BuildingGroup[]>(`${this.baseUrl}/building/${buildingId}/available`);
   }
 }

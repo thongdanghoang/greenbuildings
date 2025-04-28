@@ -2,11 +2,7 @@ import {Component, ComponentRef, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
 import * as L from 'leaflet';
-import {
-  DialogService,
-  DynamicDialogConfig,
-  DynamicDialogRef
-} from 'primeng/dynamicdialog';
+import {DialogService, DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
 
 import {forkJoin, takeUntil} from 'rxjs';
 import {UUID} from '../../../../../types/uuid';
@@ -55,10 +51,7 @@ export interface MapLocation {
   templateUrl: './buildings.component.html',
   styleUrl: './buildings.component.css'
 })
-export class BuildingsComponent
-  extends SubscriptionAwareComponent
-  implements OnInit
-{
+export class BuildingsComponent extends SubscriptionAwareComponent implements OnInit {
   balance: number = 0;
   selectedBuildingDetails: BuildingDetails | null = null;
   ref: DynamicDialogRef | undefined;
@@ -128,9 +121,7 @@ export class BuildingsComponent
       // Update your component properties with the fetched data
       this.selectedBuildingDetails = details;
       this.balance = balance;
-      const transactionType = building.subscriptionDTO
-        ? TransactionType.UPGRADE
-        : TransactionType.NEW_PURCHASE;
+      const transactionType = building.subscriptionDTO ? TransactionType.UPGRADE : TransactionType.NEW_PURCHASE;
       const dialogConfig: DynamicDialogConfig<SubscriptionDialogOptions> = {
         width: '50rem',
         modal: true,
@@ -141,10 +132,7 @@ export class BuildingsComponent
           building
         }
       };
-      this.ref = this.dialogService.open(
-        BuildingSubscriptionDialogComponent,
-        dialogConfig
-      );
+      this.ref = this.dialogService.open(BuildingSubscriptionDialogComponent, dialogConfig);
 
       this.ref.onClose.subscribe(result => {
         if (result === 'buy') {
@@ -159,23 +147,13 @@ export class BuildingsComponent
   }
 
   navigateToCreateBuilding(): void {
-    void this.router.navigate([
-      '/',
-      AppRoutingConstants.ENTERPRISE_PATH,
-      AppRoutingConstants.BUILDING_PATH,
-      'create'
-    ]);
+    void this.router.navigate(['/', AppRoutingConstants.ENTERPRISE_PATH, AppRoutingConstants.BUILDING_PATH, 'create']);
   }
 
   addBuilding(): void {
     if (this.buildingLocation) {
       void this.router.navigate(
-        [
-          '/',
-          AppRoutingConstants.ENTERPRISE_PATH,
-          AppRoutingConstants.BUILDING_PATH,
-          'create'
-        ],
+        ['/', AppRoutingConstants.ENTERPRISE_PATH, AppRoutingConstants.BUILDING_PATH, 'create'],
         {
           queryParams: this.buildingLocation
         }
@@ -219,12 +197,7 @@ export class BuildingsComponent
   }
 
   viewBuildingDetails(id: UUID): void {
-    void this.router.navigate([
-      '/',
-      AppRoutingConstants.ENTERPRISE_PATH,
-      AppRoutingConstants.BUILDING_PATH,
-      id
-    ]);
+    void this.router.navigate(['/', AppRoutingConstants.ENTERPRISE_PATH, AppRoutingConstants.BUILDING_PATH, id]);
   }
 
   fetchBuilding(): void {
@@ -250,9 +223,7 @@ export class BuildingsComponent
           marker.bindPopup(markerPopup);
         });
         if (this.buildings.length > 0) {
-          const latLngs = buildings.results.map(building =>
-            L.latLng(building.latitude, building.longitude)
-          );
+          const latLngs = buildings.results.map(building => L.latLng(building.latitude, building.longitude));
           const bounds = L.latLngBounds(latLngs);
           this.map.fitBounds(bounds);
         }
@@ -273,19 +244,14 @@ export class BuildingsComponent
         zoom: 16
       });
     } else {
-      throw new Error(
-        'Map element not found, should set id="map" to the map element'
-      );
+      throw new Error('Map element not found, should set id="map" to the map element');
     }
 
-    const tiles = L.tileLayer(
-      'https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',
-      {
-        maxZoom: 18,
-        minZoom: 2,
-        subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
-      }
-    );
+    const tiles = L.tileLayer('https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
+      maxZoom: 18,
+      minZoom: 2,
+      subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+    });
 
     tiles.addTo(this.map);
   }
@@ -299,33 +265,22 @@ export class BuildingsComponent
       data: buildingId // Truyền buildingId vào data
     };
 
-    this.ref = this.dialogService.open(
-      CreditDeductionHistoryDialogComponent,
-      dialogConfig
-    );
+    this.ref = this.dialogService.open(CreditDeductionHistoryDialogComponent, dialogConfig);
   }
 
   private deleteBuilding(buildingId: UUID): void {
     this.buildingService.deleteBuildingById(buildingId).subscribe({
       next: () => {
         this.messageService.success({
-          summary: this.translate.instant(
-            'enterprise.buildings.message.success.summary'
-          ),
-          detail: this.translate.instant(
-            'enterprise.buildings.message.success.detail'
-          )
+          summary: this.translate.instant('enterprise.buildings.message.success.summary'),
+          detail: this.translate.instant('enterprise.buildings.message.success.detail')
         });
         this.fetchBuilding(); // Refresh the buildings list
       },
       error: () => {
         this.messageService.businessError({
-          summary: this.translate.instant(
-            'enterprise.buildings.message.error.summary'
-          ),
-          detail: this.translate.instant(
-            'enterprise.buildings.message.error.detail'
-          )
+          summary: this.translate.instant('enterprise.buildings.message.error.summary'),
+          detail: this.translate.instant('enterprise.buildings.message.error.detail')
         });
       }
     });

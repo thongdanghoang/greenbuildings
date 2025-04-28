@@ -1,13 +1,6 @@
 import {HttpClient} from '@angular/common/http';
 import {Component} from '@angular/core';
-import {
-  AbstractControl,
-  FormBuilder,
-  FormControl,
-  ValidationErrors,
-  ValidatorFn,
-  Validators
-} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormControl, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
 import {filter, map, switchMap, takeUntil, tap} from 'rxjs';
@@ -33,21 +26,15 @@ export class PowerBiAccessTokenDetailComponent extends AbstractFormComponent<Pow
     id: new FormControl<UUID | null>({value: null, disabled: true}),
     version: new FormControl(null),
     note: new FormControl(null, [Validators.required]),
-    expirationTime: new FormControl<Date>(
-      PowerBiAccessTokenExpirationOptions.defaultExpirationTimeOption.value,
-      {
-        nonNullable: true,
-        validators: [Validators.required]
-      }
-    ),
+    expirationTime: new FormControl<Date>(PowerBiAccessTokenExpirationOptions.defaultExpirationTimeOption.value, {
+      nonNullable: true,
+      validators: [Validators.required]
+    }),
     scope: new FormControl<string>('', {
       nonNullable: true,
       validators: [Validators.required]
     }),
-    buildings: new FormControl<UUID[]>(
-      [],
-      [this.selectedBuildingIdsValidator().bind(this)]
-    )
+    buildings: new FormControl<UUID[]>([], [this.selectedBuildingIdsValidator().bind(this)])
   };
 
   protected selectableExpirationTimes: SelectableItem<Date | null>[] =
@@ -79,10 +66,7 @@ export class PowerBiAccessTokenDetailComponent extends AbstractFormComponent<Pow
   }
 
   get scopeBuilding(): boolean {
-    return (
-      this.powerBiAuthorityFormStructure.scope.value ===
-      PowerBiScope[PowerBiScope.BUILDING]
-    );
+    return this.powerBiAuthorityFormStructure.scope.value === PowerBiScope[PowerBiScope.BUILDING];
   }
 
   get regenerateTokenLink(): string {
@@ -155,9 +139,7 @@ export class PowerBiAccessTokenDetailComponent extends AbstractFormComponent<Pow
       )
       .subscribe(accessToken => {
         this.formGroup.patchValue(accessToken);
-        this.powerBiAuthorityFormStructure.expirationTime.setValue(
-          new Date(accessToken.expirationTime)
-        );
+        this.powerBiAuthorityFormStructure.expirationTime.setValue(new Date(accessToken.expirationTime));
       });
     this.fetchBuilding();
   }
@@ -169,10 +151,7 @@ export class PowerBiAccessTokenDetailComponent extends AbstractFormComponent<Pow
   protected override onSubmitFormDataSuccess(result: any): void {
     if (result) {
       if (result.apiKey) {
-        sessionStorage.setItem(
-          ApplicationConstant.NEWEST_POWER_BI_ACCESS_TOKEN_KEY,
-          JSON.stringify(result)
-        );
+        sessionStorage.setItem(ApplicationConstant.NEWEST_POWER_BI_ACCESS_TOKEN_KEY, JSON.stringify(result));
       }
       void this.router.navigate([
         '/',

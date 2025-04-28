@@ -2,7 +2,7 @@
     <!-- Dialog Header -->
     <div class="p-dialog-header border-b p-0">
         <span class="text-xl font-semibold">
-            {{ "enterprise.emission.activity.record.table.factor" | translate }}
+            {{ 'enterprise.emission.activity.record.table.factor' | translate }}
         </span>
         <button
             pButton
@@ -14,14 +14,18 @@
     </div>
 
     <!-- Stepper with Three Steps -->
-    <p-stepper [value]="1" class="block">
+    <p-stepper
+        [value]="1"
+        class="block"
+    >
         <p-step-panels class="block h-full">
             <!-- Step 1: Names and Description -->
             <p-step-panel [value]="1">
-                <ng-template #content let-activateCallback="activateCallback">
-                    <div
-                        class="p-dialog-content flex min-h-[400px] flex-col overflow-hidden p-0"
-                    >
+                <ng-template
+                    #content
+                    let-activateCallback="activateCallback"
+                >
+                    <div class="p-dialog-content flex min-h-[400px] flex-col overflow-hidden p-0">
                         <div [formGroup]="formGroup">
                             <p-iftalabel class="my-2">
                                 <input
@@ -30,9 +34,7 @@
                                     class="w-full"
                                     autocomplete="off"
                                 />
-                                <label
-                                    >{{ "common.name" | translate }} (VN)</label
-                                >
+                                <label>{{ 'common.name' | translate }} (VN)</label>
                             </p-iftalabel>
                             <p-iftalabel class="my-2">
                                 <input
@@ -41,9 +43,7 @@
                                     class="w-full"
                                     autocomplete="off"
                                 />
-                                <label
-                                    >{{ "common.name" | translate }} (EN)</label
-                                >
+                                <label>{{ 'common.name' | translate }} (EN)</label>
                             </p-iftalabel>
                             <p-iftalabel class="my-2">
                                 <input
@@ -52,9 +52,7 @@
                                     class="w-full"
                                     autocomplete="off"
                                 />
-                                <label
-                                    >{{ "common.name" | translate }} (ZH)</label
-                                >
+                                <label>{{ 'common.name' | translate }} (ZH)</label>
                             </p-iftalabel>
                             <p-iftalabel class="my-2">
                                 <input
@@ -63,10 +61,7 @@
                                     class="w-full"
                                     autocomplete="off"
                                 />
-                                <label>{{
-                                    "admin.emissionFactor.description"
-                                        | translate
-                                }}</label>
+                                <label>{{ 'admin.emissionFactor.description' | translate }}</label>
                             </p-iftalabel>
                         </div>
                         <div class="mt-2 flex justify-end">
@@ -83,10 +78,11 @@
 
             <!-- Step 2: Emission Values (CO2, CH4, N2O) -->
             <p-step-panel [value]="2">
-                <ng-template #content let-activateCallback="activateCallback">
-                    <div
-                        class="p-dialog-content flex min-h-[400px] flex-col overflow-hidden p-0"
-                    >
+                <ng-template
+                    #content
+                    let-activateCallback="activateCallback"
+                >
+                    <div class="p-dialog-content flex min-h-[400px] flex-col overflow-hidden p-0">
                         <div [formGroup]="formGroup">
                             <p-iftalabel class="my-2">
                                 <input
@@ -96,7 +92,7 @@
                                     autocomplete="off"
                                     type="number"
                                 />
-                                <label>{{ "CO2" | translate }}</label>
+                                <label>{{ 'CO2' | translate }}</label>
                             </p-iftalabel>
                             <p-iftalabel class="my-2">
                                 <input
@@ -106,7 +102,7 @@
                                     autocomplete="off"
                                     type="number"
                                 />
-                                <label>{{ "CH4" | translate }}</label>
+                                <label>{{ 'CH4' | translate }}</label>
                             </p-iftalabel>
                             <p-iftalabel class="my-2">
                                 <input
@@ -116,7 +112,7 @@
                                     autocomplete="off"
                                     type="number"
                                 />
-                                <label>{{ "N2O" | translate }}</label>
+                                <label>{{ 'N2O' | translate }}</label>
                             </p-iftalabel>
                         </div>
                         <div class="mt-2 flex justify-between">
@@ -139,10 +135,11 @@
 
             <!-- Step 3: Validity Dates -->
             <p-step-panel [value]="3">
-                <ng-template #content let-activateCallback="activateCallback">
-                    <div
-                        class="p-dialog-content flex min-h-[400px] flex-col overflow-hidden p-0"
-                    >
+                <ng-template
+                    #content
+                    let-activateCallback="activateCallback"
+                >
+                    <div class="p-dialog-content flex min-h-[400px] flex-col overflow-hidden p-0">
                         <div [formGroup]="formGroup">
                             <p-iftalabel class="my-2">
                                 <p-calendar
@@ -150,12 +147,9 @@
                                     [showIcon]="true"
                                     inputId="validFrom"
                                     dateFormat="dd/mm/yy"
-                                    [style]="{ width: '100%' }"
+                                    [style]="{width: '100%'}"
                                 ></p-calendar>
-                                <label>{{
-                                    "enterprise.emission.activity.record.table.startDate"
-                                        | translate
-                                }}</label>
+                                <label>{{ 'enterprise.emission.activity.record.table.startDate' | translate }}</label>
                             </p-iftalabel>
                             <p-iftalabel class="my-2">
                                 <p-calendar
@@ -163,12 +157,9 @@
                                     [showIcon]="true"
                                     inputId="validTo"
                                     dateFormat="dd/mm/yy"
-                                    [style]="{ width: '100%' }"
+                                    [style]="{width: '100%'}"
                                 ></p-calendar>
-                                <label>{{
-                                    "enterprise.emission.activity.record.table.endDate"
-                                        | translate
-                                }}</label>
+                                <label>{{ 'enterprise.emission.activity.record.table.endDate' | translate }}</label>
                             </p-iftalabel>
                         </div>
                         <div class="mt-2 flex justify-between">
