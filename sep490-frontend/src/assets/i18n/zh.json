@@ -928,7 +928,8 @@
     "numberOfGroups": "组数：",
     "numberOfCorporationTenant": "企业租户数量：",
     "numberOfItems": "所有建筑中的项目数：",
-    "numberOfActivities": "排放活动数："
+    "numberOfActivities": "排放活动数：",
+    "numberOfCommonActivities": "建筑物内的公共活动数量"
   },
   "tenant": {
     "building": "这组建筑供租户使用:",

@@ -165,8 +165,9 @@ public class BuildingServiceImpl implements BuildingService {
         .stream()
         .mapToLong(group -> group.getEmissionActivities().size())
         .sum();
+    long numberOfCommonActivities = activityRepo.countByBuildingIdAndBuildingGroupIsNull(id);
 
-    return new OverviewBuildingDTO(numberOfGroups, numberOfCorporationTenant, numberOfActivities);
+    return new OverviewBuildingDTO(numberOfGroups, numberOfCorporationTenant, numberOfActivities, numberOfCommonActivities);
 }
     
 }

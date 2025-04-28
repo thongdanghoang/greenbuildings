@@ -928,7 +928,8 @@
     "numberOfGroups": "Số nhóm:",
     "numberOfCorporationTenant": "Số lượng khách thuê doanh nghiệp:",
     "numberOfItems": "Số lượng thiết bị trong toàn bộ tòa nhà:",
-    "numberOfActivities": "Số hoạt động phát thải:"
+    "numberOfActivities": "Số hoạt động phát thải:",
+    "numberOfCommonActivities": "Số hoạt động chung trong tòa nhà"
   },
   "tenant": {
     "building": "Nhóm tòa này là của người thuê:",

@@ -16,6 +16,7 @@ export interface OverviewBuildingDTO {
   numberOfGroups: number;
   numberOfCorporationTenant: number;
   numberOfActivities: number;
+  numberOfCommonActivities: number;
 }
 
 export interface BuildingDetails extends BaseDTO {
