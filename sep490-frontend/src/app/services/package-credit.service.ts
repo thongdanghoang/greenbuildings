@@ -3,11 +3,8 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {UUID} from '../../types/uuid';
 import {AppRoutingConstants} from '../app-routing.constant';
-import {CreditPackage, CreditPackageAdmin} from '../models/enterprise';
-import {
-  SearchCriteriaDto,
-  SearchResultDto
-} from '../modules/shared/models/base-models';
+import {CreditPackage, CreditPackageAdmin} from '@models/enterprise';
+import {SearchCriteriaDto, SearchResultDto} from '@shared/models/base-models';
 
 @Injectable({
   providedIn: 'root'

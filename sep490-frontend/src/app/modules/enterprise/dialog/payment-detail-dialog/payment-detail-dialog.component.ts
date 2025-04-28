@@ -2,9 +2,9 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
 import {Subscription} from 'rxjs';
 import {formatCurrency} from '@angular/common';
-import {PaymentDetailDTO} from '../../../../models/payment';
-import {PaymentStatus} from '../../../../models/payment-status';
-import {PaymentService} from '../../../../services/payment.service';
+import {PaymentDetailDTO} from '@models/payment';
+import {PaymentStatus} from '@models/payment-status';
+import {PaymentService} from '@services/payment.service';
 
 @Component({
   selector: 'app-payment-detail-dialog',

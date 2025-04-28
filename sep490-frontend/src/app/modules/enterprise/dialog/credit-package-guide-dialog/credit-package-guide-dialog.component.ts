@@ -7,9 +7,9 @@ import {
   CreditConvertRatio,
   CreditConvertType,
   CreditPackage
-} from '../../../../models/enterprise';
-import {SubscriptionService} from '../../../../services/subscription.service';
-import {WalletService} from '../../../../services/wallet.service';
+} from '@models/enterprise';
+import {SubscriptionService} from '@services/subscription.service';
+import {WalletService} from '@services/wallet.service';
 import {ApplicationService} from '../../../core/services/application.service';
 
 @Component({

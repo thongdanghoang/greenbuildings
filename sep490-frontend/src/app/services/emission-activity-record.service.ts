@@ -1,17 +1,11 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
+import {EmissionActivityRecordCriteria} from '@models/emission-activity-record';
 import {Observable} from 'rxjs';
 import {UUID} from '../../types/uuid';
 import {AppRoutingConstants} from '../app-routing.constant';
-import {EmissionActivityRecord} from '../models/enterprise';
-import {
-  SearchCriteriaDto,
-  SearchResultDto
-} from '../modules/shared/models/base-models';
-
-export interface EmissionActivityRecordCriteria {
-  emissionActivityId: UUID;
-}
+import {EmissionActivityRecord} from '@models/enterprise';
+import {SearchCriteriaDto, SearchResultDto} from '@shared/models/base-models';
 
 @Injectable({
   providedIn: 'root'

@@ -1,21 +1,10 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
+import {Tenant, TenantDetailDTO} from '@models/enterprise';
+import {SearchCriteriaDto, SearchResultDto} from '@shared/models/base-models';
 import {Observable} from 'rxjs';
 import {UUID} from '../../types/uuid';
 import {AppRoutingConstants} from '../app-routing.constant';
-import {Tenant, TenantDetailDTO} from '../models/enterprise';
-import {
-  SearchCriteriaDto,
-  SearchResultDto
-} from '../modules/shared/models/base-models';
-
-export interface NewTenantDTO {
-  id: UUID;
-  version: number;
-  name: string;
-  description: string;
-  buildingGroupId: UUID;
-}
 
 @Injectable({
   providedIn: 'root'
@@ -24,14 +13,6 @@ export class TenantService {
   private readonly baseUrl = `${AppRoutingConstants.ENTERPRISE_API_URL}/tenants`;
 
   constructor(private readonly http: HttpClient) {}
-
-  getAll(): Observable<Tenant[]> {
-    return this.http.get<Tenant[]>(this.baseUrl);
-  }
-
-  getById(id: UUID): Observable<Tenant> {
-    return this.http.get<Tenant>(`${this.baseUrl}/${id}`);
-  }
 
   getTenantDetail(id: UUID): Observable<TenantDetailDTO> {
     return this.http.get<TenantDetailDTO>(`${this.baseUrl}/${id}/detail`);

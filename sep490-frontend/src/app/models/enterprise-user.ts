@@ -27,3 +27,14 @@ export interface BuildingPermission {
   buildingId?: UUID;
   role: keyof typeof BuildingPermissionRole;
 }
+
+export interface NewEnterpriseDTO {
+  name: string;
+  enterpriseEmail: string;
+  hotline: string;
+  role: keyof typeof UserRole;
+}
+
+export interface ValidateOTPRequest {
+  otpCode: string;
+}

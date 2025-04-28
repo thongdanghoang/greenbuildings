@@ -10,11 +10,11 @@ import {TranslateService} from '@ngx-translate/core';
 import {takeUntil} from 'rxjs';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
 import {ApplicationConstant} from '../../../../application.constant';
-import {UserService} from '../../../../services/user.service';
-import {EnterpriseUserDetails} from '../../../../models/enterprise-user';
-import {EnterpriseUserService} from '../../../../services/enterprise-user.service';
-import {AbstractFormComponent} from '../../../shared/components/form/abstract-form-component';
-import {ToastProvider} from '../../../shared/services/toast-provider';
+import {UserService} from '@services/user.service';
+import {EnterpriseUserDetails} from '@models/enterprise-user';
+import {EnterpriseUserService} from '@services/enterprise-user.service';
+import {AbstractFormComponent} from '@shared/components/form/abstract-form-component';
+import {ToastProvider} from '@shared/services/toast-provider';
 
 @Component({
   selector: 'app-account-information',

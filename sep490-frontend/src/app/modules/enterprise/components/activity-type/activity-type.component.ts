@@ -5,6 +5,7 @@ import {
   TemplateRef,
   ViewChild
 } from '@angular/core';
+import {ActivityTypeCriteria} from '@models/emission-activity';
 import {TranslateService} from '@ngx-translate/core';
 import {
   DialogService,
@@ -14,20 +15,14 @@ import {
 import {Observable, takeUntil} from 'rxjs';
 import {UUID} from '../../../../../types/uuid';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
-import {ActivityType} from '../../../../models/enterprise';
-import {
-  ActivityTypeCriteria,
-  ActivityTypeService
-} from '../../../../services/activity-type.service';
+import {ActivityType} from '@models/enterprise';
+import {ActivityTypeService} from '@services/activity-type.service';
 import {ApplicationService} from '../../../core/services/application.service';
 import {SubscriptionAwareComponent} from '../../../core/subscription-aware.component';
-import {TableTemplateColumn} from '../../../shared/components/table-template/table-template.component';
-import {
-  SearchCriteriaDto,
-  SearchResultDto
-} from '../../../shared/models/base-models';
-import {ModalProvider} from '../../../shared/services/modal-provider';
-import {ToastProvider} from '../../../shared/services/toast-provider';
+import {TableTemplateColumn} from '@shared/components/table-template/table-template.component';
+import {SearchCriteriaDto, SearchResultDto} from '@shared/models/base-models';
+import {ModalProvider} from '@shared/services/modal-provider';
+import {ToastProvider} from '@shared/services/toast-provider';
 import {ActivityTypeDialogComponent} from '../../dialog/activity-type-dialog/activity-type-dialog.component';
 
 @Component({

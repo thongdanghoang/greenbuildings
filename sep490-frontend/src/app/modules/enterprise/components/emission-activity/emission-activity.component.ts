@@ -6,6 +6,7 @@ import {
   ViewChild
 } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
+import {ActivitySearchCriteria} from '@models/emission-activity';
 import {TranslateService} from '@ngx-translate/core';
 import moment from 'moment';
 import {
@@ -17,21 +18,15 @@ import {Observable, Observer, filter, map, switchMap, takeUntil} from 'rxjs';
 import {validate} from 'uuid';
 import {UUID} from '../../../../../types/uuid';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
-import {BuildingDetails, EmissionActivity} from '../../../../models/enterprise';
-import {BuildingService} from '../../../../services/building.service';
-import {
-  ActivitySearchCriteria,
-  EmissionActivityService
-} from '../../../../services/emission-activity.service';
+import {BuildingDetails, EmissionActivity} from '@models/enterprise';
+import {BuildingService} from '@services/building.service';
+import {EmissionActivityService} from '@services/emission-activity.service';
 import {ApplicationService} from '../../../core/services/application.service';
 import {SubscriptionAwareComponent} from '../../../core/subscription-aware.component';
-import {TableTemplateColumn} from '../../../shared/components/table-template/table-template.component';
-import {
-  SearchCriteriaDto,
-  SearchResultDto
-} from '../../../shared/models/base-models';
-import {ModalProvider} from '../../../shared/services/modal-provider';
-import {ToastProvider} from '../../../shared/services/toast-provider';
+import {TableTemplateColumn} from '@shared/components/table-template/table-template.component';
+import {SearchCriteriaDto, SearchResultDto} from '@shared/models/base-models';
+import {ModalProvider} from '@shared/services/modal-provider';
+import {ToastProvider} from '@shared/services/toast-provider';
 import {NewActivityDialogComponent} from '../../dialog/new-activity-dialog/new-activity-dialog.component';
 import {ReportDialogComponent} from '../../dialog/report-dialog/report-dialog.component';
 

@@ -1,19 +1,11 @@
 import {Injectable} from '@angular/core';
-import {EmissionUnit, UnitCategory} from '../models/shared-models';
+import {EmissionUnit} from '@models/shared-models';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UnitService {
   constructor() {}
-
-  getAllUnit(): EmissionUnit[] {
-    return Object.values(EmissionUnit);
-  }
-
-  getAllUnitCategory(): UnitCategory[] {
-    return Object.values(UnitCategory);
-  }
 
   // eslint-disable-next-line max-lines-per-function
   getSameUnitType(unit: EmissionUnit): EmissionUnit[] {
@@ -82,52 +74,6 @@ export class UnitService {
 
       default:
         return [];
-    }
-  }
-
-  // eslint-disable-next-line max-lines-per-function
-  getUnitType(unit: EmissionUnit): string {
-    switch (unit) {
-      // Mass units
-      case EmissionUnit.GRAM:
-      case EmissionUnit.KILOGRAM:
-      case EmissionUnit.MEGAGRAM:
-      case EmissionUnit.GIGAGRAM:
-      case EmissionUnit.TERAGRAM:
-        return UnitCategory.MASS;
-
-      // Volume units
-      case EmissionUnit.MILLILITER:
-      case EmissionUnit.CENTILITER:
-      case EmissionUnit.DECILITER:
-      case EmissionUnit.LITER:
-      case EmissionUnit.CUBIC_METER:
-      case EmissionUnit.UK_GALLON:
-      case EmissionUnit.US_GALLON:
-      case EmissionUnit.BARREL:
-      case EmissionUnit.PECK:
-      case EmissionUnit.THOUSAND_CUBIC_METER:
-      case EmissionUnit.MILLION_CUBIC_METER:
-        return UnitCategory.VOLUME;
-
-      // Electric units
-      case EmissionUnit.WH:
-      case EmissionUnit.KWH:
-        return UnitCategory.ELECTRIC;
-
-      // Energy units
-      case EmissionUnit.TERAJOULE:
-      case EmissionUnit.GIGAJOULE:
-      case EmissionUnit.MEGAJOULE:
-        return UnitCategory.ENERGY;
-
-      // Other units
-      case EmissionUnit.PERCENT:
-      case EmissionUnit.PIECES:
-        return UnitCategory.PIECES;
-
-      default:
-        return UnitCategory.UNKNOWN;
     }
   }
 }

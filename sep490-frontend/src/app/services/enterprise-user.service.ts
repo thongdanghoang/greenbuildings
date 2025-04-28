@@ -1,26 +1,11 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
+import {EnterpriseUser, EnterpriseUserDetails} from '@models/enterprise-user';
+import {SearchCriteriaDto, SearchResultDto} from '@shared/models/base-models';
 import {Observable} from 'rxjs';
 import {UUID} from '../../types/uuid';
 import {AppRoutingConstants} from '../app-routing.constant';
-import {
-  SearchCriteriaDto,
-  SearchResultDto
-} from '../modules/shared/models/base-models';
-import {UserRole} from '../models/role-names';
-import {EnterpriseUser, EnterpriseUserDetails} from '../models/enterprise-user';
 import {UserCriteria} from '../modules/authorization/components/users/users.component';
-
-export interface NewEnterpriseDTO {
-  name: string;
-  enterpriseEmail: string;
-  hotline: string;
-  role: keyof typeof UserRole;
-}
-
-export interface ValidateOTPRequest {
-  otpCode: string;
-}
 
 @Injectable({
   providedIn: 'root'
@@ -80,12 +65,5 @@ export class EnterpriseUserService {
 
   public get getValidateOTPURL(): string {
     return `${AppRoutingConstants.IDP_API_URL}/${EnterpriseUserService.ENTERPRISE_USER_API_URL}/validateOTP`;
-  }
-
-  public validateOTP(request: ValidateOTPRequest): Observable<void> {
-    return this.httpClient.post<void>(
-      `${AppRoutingConstants.IDP_API_URL}/${EnterpriseUserService.ENTERPRISE_USER_API_URL}/validateOTP`,
-      request
-    );
   }
 }

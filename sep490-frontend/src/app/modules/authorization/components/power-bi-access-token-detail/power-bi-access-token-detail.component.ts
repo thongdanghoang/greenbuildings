@@ -15,15 +15,12 @@ import {validate} from 'uuid';
 import {UUID} from '../../../../../types/uuid';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
 import {ApplicationConstant} from '../../../../application.constant';
-import {
-  PowerBiAuthority,
-  PowerBiScope
-} from '../../../../models/power-bi-access-token';
+import {PowerBiAuthority, PowerBiScope} from '@models/power-bi-access-token';
 
-import {PowerBiAccessTokenService} from '../../../../services/power-bi-access-token.service';
-import {AbstractFormComponent} from '../../../shared/components/form/abstract-form-component';
-import {SelectableItem} from '../../../shared/models/base-models';
-import {ToastProvider} from '../../../shared/services/toast-provider';
+import {PowerBiAccessTokenService} from '@services/power-bi-access-token.service';
+import {AbstractFormComponent} from '@shared/components/form/abstract-form-component';
+import {SelectableItem} from '@shared/models/base-models';
+import {ToastProvider} from '@shared/services/toast-provider';
 import {PowerBiAccessTokenExpirationOptions} from '../power-bi-access-token-expiration-options';
 
 @Component({

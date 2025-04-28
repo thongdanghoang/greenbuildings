@@ -6,8 +6,8 @@ import {SelectChangeEvent} from 'primeng/select';
 import {Observable, filter, switchMap, take, takeUntil, tap} from 'rxjs';
 import {AppRoutingConstants} from '../../app-routing.constant';
 import {SubscriptionAwareComponent} from '../../modules/core/subscription-aware.component';
-import {BaseDTO, SelectableItem} from '../../modules/shared/models/base-models';
-import {ToastProvider} from '../../modules/shared/services/toast-provider';
+import {BaseDTO, SelectableItem} from '@shared/models/base-models';
+import {ToastProvider} from '@shared/services/toast-provider';
 import {CreateDashboardComponent} from './create-dashboard/create-dashboard.component';
 import {TranslateService} from '@ngx-translate/core';
 

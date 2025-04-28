@@ -1,13 +1,10 @@
-import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {
-  SearchCriteriaDto,
-  SearchResultDto
-} from '../modules/shared/models/base-models';
+import {Injectable} from '@angular/core';
+import {EnergyConversionDTO} from '@models/shared-models';
+import {SearchCriteriaDto, SearchResultDto} from '@shared/models/base-models';
 import {Observable} from 'rxjs';
 import {AppRoutingConstants} from '../app-routing.constant';
 import {FuelConversionCriteria} from '../modules/admin/components/fuel-conversion/fuel-conversion.component';
-import {EnergyConversionDTO} from '../models/shared-models';
 
 @Injectable({
   providedIn: 'root'

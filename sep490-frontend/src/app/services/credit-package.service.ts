@@ -2,7 +2,7 @@ import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {AppRoutingConstants} from '../app-routing.constant';
-import {CreditPackage} from '../models/enterprise';
+import {CreditPackage} from '@models/enterprise';
 
 @Injectable({
   providedIn: 'root'

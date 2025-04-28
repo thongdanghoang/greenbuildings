@@ -7,7 +7,7 @@ import {
   PowerBiAuthority,
   PowerBiAuthorityGenerateResponse,
   PowerBiBuilding
-} from '../models/power-bi-access-token';
+} from '@models/power-bi-access-token';
 
 @Injectable({
   providedIn: 'root'

@@ -7,19 +7,17 @@ import {
   Validators
 } from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
+import {CreateBuildingGroupDTO} from '@models/building-group';
 import {TranslateService} from '@ngx-translate/core';
 import {filter, map, switchMap, takeUntil} from 'rxjs';
 import {validate} from 'uuid';
 import {UUID} from '../../../../../types/uuid';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
-import {BuildingDetails} from '../../../../models/enterprise';
-import {BuildingService} from '../../../../services/building.service';
-import {AbstractFormComponent} from '../../../shared/components/form/abstract-form-component';
-import {ToastProvider} from '../../../shared/services/toast-provider';
-import {
-  BuildingGroupService,
-  CreateBuildingGroupDTO
-} from '../../../../services/building-group.service';
+import {BuildingDetails} from '@models/enterprise';
+import {BuildingService} from '@services/building.service';
+import {AbstractFormComponent} from '@shared/components/form/abstract-form-component';
+import {ToastProvider} from '@shared/services/toast-provider';
+import {BuildingGroupService} from '@services/building-group.service';
 
 @Component({
   selector: 'app-new-building-group',

@@ -22,17 +22,14 @@ import {
 import {validate} from 'uuid';
 import {UUID} from '../../../../../types/uuid';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
-import {BuildingDetails, UserByBuilding} from '../../../../models/enterprise';
-import {BuildingService} from '../../../../services/building.service';
-import {GeocodingService} from '../../../../services/geocoding.service';
+import {BuildingDetails, UserByBuilding} from '@models/enterprise';
+import {BuildingService} from '@services/building.service';
+import {GeocodingService} from '@services/geocoding.service';
 import {ApplicationService} from '../../../core/services/application.service';
-import {AbstractFormComponent} from '../../../shared/components/form/abstract-form-component';
-import {TableTemplateColumn} from '../../../shared/components/table-template/table-template.component';
-import {
-  SearchCriteriaDto,
-  SearchResultDto
-} from '../../../shared/models/base-models';
-import {ToastProvider} from '../../../shared/services/toast-provider';
+import {AbstractFormComponent} from '@shared/components/form/abstract-form-component';
+import {TableTemplateColumn} from '@shared/components/table-template/table-template.component';
+import {SearchCriteriaDto, SearchResultDto} from '@shared/models/base-models';
+import {ToastProvider} from '@shared/services/toast-provider';
 
 @Component({
   selector: 'app-building-detail',

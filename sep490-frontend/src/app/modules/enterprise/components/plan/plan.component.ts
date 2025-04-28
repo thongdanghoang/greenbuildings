@@ -13,13 +13,13 @@ import {
   switchMap,
   takeUntil
 } from 'rxjs';
-import {CreditPackage} from '../../../../models/enterprise';
-import {CreditPackageService} from '../../../../services/credit-package.service';
-import {CurrencyConverterService} from '../../../../services/currency-converter.service';
-import {PaymentService} from '../../../../services/payment.service';
-import {WalletService} from '../../../../services/wallet.service';
+import {CreditPackage} from '@models/enterprise';
+import {CreditPackageService} from '@services/credit-package.service';
+import {CurrencyConverterService} from '@services/currency-converter.service';
+import {PaymentService} from '@services/payment.service';
+import {WalletService} from '@services/wallet.service';
 import {SubscriptionAwareComponent} from '../../../core/subscription-aware.component';
-import {ModalProvider} from '../../../shared/services/modal-provider';
+import {ModalProvider} from '@shared/services/modal-provider';
 import {CreditPackageGuideDialogComponent} from '../../dialog/credit-package-guide-dialog/credit-package-guide-dialog.component';
 
 @Component({

@@ -9,7 +9,7 @@ import {UserRole} from '../../models/role-names';
 import {ApplicationService} from '../../modules/core/services/application.service';
 import {ThemeService} from '../../modules/core/services/theme.service';
 import {SubscriptionAwareComponent} from '../../modules/core/subscription-aware.component';
-import {UserLocale} from '../../modules/shared/enums/user-language.enum';
+import {UserLocale} from '@shared/enums/user-language.enum';
 import {UserService} from '../../services/user.service';
 
 interface Language {

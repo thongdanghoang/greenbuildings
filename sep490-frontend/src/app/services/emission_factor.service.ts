@@ -1,13 +1,10 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {
-  SearchCriteriaDto,
-  SearchResultDto
-} from '../modules/shared/models/base-models';
+import {SearchCriteriaDto, SearchResultDto} from '@shared/models/base-models';
 import {Observable} from 'rxjs';
 import {AppRoutingConstants} from '../app-routing.constant';
 import {EmissionFactorCriteria} from '../modules/admin/components/emission-factor/emission-factor.component';
-import {EmissionFactorDTO} from '../models/shared-models';
+import {EmissionFactorDTO} from '@models/shared-models';
 
 @Injectable({
   providedIn: 'root'

@@ -16,10 +16,10 @@ import {
   CreditConvertRatio,
   CreditConvertType,
   TransactionType
-} from '../../../../models/enterprise';
-import {AbstractFormComponent} from '../../../shared/components/form/abstract-form-component';
-import {ToastProvider} from '../../../shared/services/toast-provider';
-import {SubscriptionService} from '../../../../services/subscription.service';
+} from '@models/enterprise';
+import {AbstractFormComponent} from '@shared/components/form/abstract-form-component';
+import {ToastProvider} from '@shared/services/toast-provider';
+import {SubscriptionService} from '@services/subscription.service';
 
 export interface SubscriptionDialogOptions {
   selectedBuildingDetails: BuildingDetails;

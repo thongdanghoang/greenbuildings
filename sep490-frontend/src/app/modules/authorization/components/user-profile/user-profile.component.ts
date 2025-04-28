@@ -17,19 +17,19 @@ import {SelectChangeEvent} from 'primeng/select';
 import {takeUntil} from 'rxjs';
 import {UUID} from '../../../../../types/uuid';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
-import {BuildingPermissionRole} from '../../../../models/building-permission-role';
-import {Building} from '../../../../models/enterprise';
+import {BuildingPermissionRole} from '@models/building-permission-role';
+import {Building} from '@models/enterprise';
 import {
   BuildingPermission,
   EnterpriseUserDetails
-} from '../../../../models/enterprise-user';
-import {UserRole} from '../../../../models/role-names';
-import {UserScope} from '../../../../models/user-scope';
-import {BuildingService} from '../../../../services/building.service';
-import {EnterpriseUserService} from '../../../../services/enterprise-user.service';
-import {AbstractFormComponent} from '../../../shared/components/form/abstract-form-component';
-import {SelectableItem} from '../../../shared/models/base-models';
-import {ToastProvider} from '../../../shared/services/toast-provider';
+} from '@models/enterprise-user';
+import {UserRole} from '@models/role-names';
+import {UserScope} from '@models/user-scope';
+import {BuildingService} from '@services/building.service';
+import {EnterpriseUserService} from '@services/enterprise-user.service';
+import {AbstractFormComponent} from '@shared/components/form/abstract-form-component';
+import {SelectableItem} from '@shared/models/base-models';
+import {ToastProvider} from '@shared/services/toast-provider';
 
 @Component({
   selector: 'app-user-profile',

@@ -7,8 +7,8 @@ import {
 import {Injectable} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {Observable, catchError, throwError} from 'rxjs';
-import {BusinessErrorParam} from '../../shared/models/base-models';
-import {ToastProvider} from '../../shared/services/toast-provider';
+import {BusinessErrorParam} from '@shared/models/base-models';
+import {ToastProvider} from '@shared/services/toast-provider';
 
 @Injectable()
 export class HttpErrorHandlerInterceptor implements HttpInterceptor {

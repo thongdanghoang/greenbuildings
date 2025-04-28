@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {SharedModule} from '../shared/shared.module';
+import {SharedModule} from '@shared/shared.module';
 import {AccountInformationComponent} from './components/account-information/account-information.component';
 import {ActivityTypeComponent} from './components/activity-type/activity-type.component';
 import {BuildingDetailsComponent} from './components/building-details/building-details.component';

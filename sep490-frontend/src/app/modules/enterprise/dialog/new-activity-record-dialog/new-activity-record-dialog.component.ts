@@ -9,15 +9,12 @@ import {
 import {TranslateService} from '@ngx-translate/core';
 import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
 import {takeUntil} from 'rxjs';
-import {EmissionActivityRecord} from '../../../../models/enterprise';
-import {AbstractFormComponent} from '../../../shared/components/form/abstract-form-component';
-import {
-  EmissionFactorDTO,
-  EmissionUnit
-} from '../../../../models/shared-models';
-import {ToastProvider} from '../../../shared/services/toast-provider';
-import {UnitService} from '../../../../services/unit.service';
-import {EmissionActivityRecordService} from '../../../../services/emission-activity-record.service';
+import {EmissionActivityRecord} from '@models/enterprise';
+import {AbstractFormComponent} from '@shared/components/form/abstract-form-component';
+import {EmissionFactorDTO, EmissionUnit} from '@models/shared-models';
+import {ToastProvider} from '@shared/services/toast-provider';
+import {UnitService} from '@services/unit.service';
+import {EmissionActivityRecordService} from '@services/emission-activity-record.service';
 
 export interface NewActivityRecordDialogConfig {
   activityId: string;

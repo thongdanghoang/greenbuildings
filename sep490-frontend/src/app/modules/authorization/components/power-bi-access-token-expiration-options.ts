@@ -1,4 +1,4 @@
-import {SelectableItem} from '../../shared/models/base-models';
+import {SelectableItem} from '@shared/models/base-models';
 
 export class PowerBiAccessTokenExpirationOptions {
   public static defaultExpirationTimeOption: SelectableItem<Date> = {

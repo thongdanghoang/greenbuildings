@@ -1,11 +1,9 @@
 import {Component, OnInit} from '@angular/core';
+import {InvitationResponse} from '@models/tenant';
 import {TranslateService} from '@ngx-translate/core';
-import {InvitationDTO, InvitationStatus} from '../../../../models/enterprise';
-import {
-  InvitationResponse,
-  InvitationService
-} from '../../../../services/invitation.service';
-import {ToastProvider} from '../../../shared/services/toast-provider';
+import {InvitationDTO, InvitationStatus} from '@models/enterprise';
+import {InvitationService} from '@services/invitation.service';
+import {ToastProvider} from '@shared/services/toast-provider';
 
 @Component({
   selector: 'app-enterprise-invitation',

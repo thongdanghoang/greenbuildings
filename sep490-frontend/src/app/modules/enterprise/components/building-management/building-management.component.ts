@@ -6,6 +6,7 @@ import {
   ViewChild
 } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
+import {BuildingGroupCriteria} from '@models/building-group';
 import {TranslateService} from '@ngx-translate/core';
 import moment from 'moment/moment';
 import {Observable, filter, map, switchMap, takeUntil} from 'rxjs';
@@ -16,22 +17,16 @@ import {
   BuildingDetails,
   BuildingGroup,
   OverviewBuildingDTO
-} from '../../../../models/enterprise';
-import {
-  BuildingGroupCriteria,
-  BuildingGroupService
-} from '../../../../services/building-group.service';
-import {BuildingService} from '../../../../services/building.service';
-import {TenantService} from '../../../../services/tenant.service';
+} from '@models/enterprise';
+import {BuildingGroupService} from '@services/building-group.service';
+import {BuildingService} from '@services/building.service';
+import {TenantService} from '@services/tenant.service';
 import {ApplicationService} from '../../../core/services/application.service';
 import {SubscriptionAwareComponent} from '../../../core/subscription-aware.component';
-import {TableTemplateColumn} from '../../../shared/components/table-template/table-template.component';
-import {
-  SearchCriteriaDto,
-  SearchResultDto
-} from '../../../shared/models/base-models';
-import {ModalProvider} from '../../../shared/services/modal-provider';
-import {ToastProvider} from '../../../shared/services/toast-provider';
+import {TableTemplateColumn} from '@shared/components/table-template/table-template.component';
+import {SearchCriteriaDto, SearchResultDto} from '@shared/models/base-models';
+import {ModalProvider} from '@shared/services/modal-provider';
+import {ToastProvider} from '@shared/services/toast-provider';
 
 @Component({
   selector: 'app-building-management',

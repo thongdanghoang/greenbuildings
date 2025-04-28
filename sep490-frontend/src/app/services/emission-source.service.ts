@@ -2,12 +2,9 @@ import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {AppRoutingConstants} from '../app-routing.constant';
-import {EmissionSource} from '../models/enterprise';
+import {EmissionSource} from '@models/enterprise';
 import {EmissionSourceCriteria} from '../modules/admin/components/emission-source/emission-source.component';
-import {
-  SearchCriteriaDto,
-  SearchResultDto
-} from '../modules/shared/models/base-models';
+import {SearchCriteriaDto, SearchResultDto} from '@shared/models/base-models';
 
 @Injectable({
   providedIn: 'root'

@@ -3,6 +3,25 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "@services/*": [
+        "./src/app/services/*"
+      ],
+      "@models/*": [
+        "./src/app/models/*"
+      ],
+      "@shared/*": [
+        "./src/app/modules/shared/*"
+      ],
+      "@assets/*": [
+        "./src/assets/*"
+      ],
+      "@environment": [
+        "./src/environments/environment.ts"
+      ]
+    },
+    "forceConsistentCasingInFileNames": true,
     "outDir": "./dist/out-tsc",
     "strict": true,
     "noImplicitOverride": true,

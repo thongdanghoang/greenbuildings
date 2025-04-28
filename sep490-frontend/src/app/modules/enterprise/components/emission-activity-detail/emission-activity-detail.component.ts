@@ -13,6 +13,7 @@ import {
   Validators
 } from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
+import {EmissionActivityRecordCriteria} from '@models/emission-activity-record';
 import {TranslateService} from '@ngx-translate/core';
 import {DialogService, DynamicDialogConfig} from 'primeng/dynamicdialog';
 import {Observable, Observer, filter, map, switchMap, takeUntil} from 'rxjs';
@@ -23,25 +24,19 @@ import {
   ActivityType,
   EmissionActivityDetails,
   EmissionActivityRecord
-} from '../../../../models/enterprise';
+} from '@models/enterprise';
 import {ApplicationService} from '../../../core/services/application.service';
-import {AbstractFormComponent} from '../../../shared/components/form/abstract-form-component';
-import {TableTemplateColumn} from '../../../shared/components/table-template/table-template.component';
-import {
-  SearchCriteriaDto,
-  SearchResultDto
-} from '../../../shared/models/base-models';
-import {ToastProvider} from '../../../shared/services/toast-provider';
+import {AbstractFormComponent} from '@shared/components/form/abstract-form-component';
+import {TableTemplateColumn} from '@shared/components/table-template/table-template.component';
+import {SearchCriteriaDto, SearchResultDto} from '@shared/models/base-models';
+import {ToastProvider} from '@shared/services/toast-provider';
 import {
   NewActivityRecordDialogComponent,
   NewActivityRecordDialogConfig
 } from '../../dialog/new-activity-record-dialog/new-activity-record-dialog.component';
-import {ActivityTypeService} from '../../../../services/activity-type.service';
-import {
-  EmissionActivityRecordCriteria,
-  EmissionActivityRecordService
-} from '../../../../services/emission-activity-record.service';
-import {EmissionActivityService} from '../../../../services/emission-activity.service';
+import {ActivityTypeService} from '@services/activity-type.service';
+import {EmissionActivityRecordService} from '@services/emission-activity-record.service';
+import {EmissionActivityService} from '@services/emission-activity.service';
 
 @Component({
   selector: 'app-emission-activity-detail',

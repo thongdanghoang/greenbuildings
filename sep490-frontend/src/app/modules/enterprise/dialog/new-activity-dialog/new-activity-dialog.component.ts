@@ -10,20 +10,14 @@ import {TranslateService} from '@ngx-translate/core';
 import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
 import {takeUntil} from 'rxjs';
 import {UUID} from '../../../../../types/uuid';
-import {
-  ActivityType,
-  CreateNewActivityDTO
-} from '../../../../models/enterprise';
-import {
-  EmissionFactorDTO,
-  EmissionSourceDTO
-} from '../../../../models/shared-models';
-import {ActivityTypeService} from '../../../../services/activity-type.service';
-import {EmissionActivityService} from '../../../../services/emission-activity.service';
-import {EmissionFactorService} from '../../../../services/emission-factor.service';
+import {ActivityType, CreateNewActivityDTO} from '@models/enterprise';
+import {EmissionFactorDTO, EmissionSourceDTO} from '@models/shared-models';
+import {ActivityTypeService} from '@services/activity-type.service';
+import {EmissionActivityService} from '@services/emission-activity.service';
+import {EmissionFactorService} from '@services/emission-factor.service';
 import {ApplicationService} from '../../../core/services/application.service';
-import {AbstractFormComponent} from '../../../shared/components/form/abstract-form-component';
-import {ToastProvider} from '../../../shared/services/toast-provider';
+import {AbstractFormComponent} from '@shared/components/form/abstract-form-component';
+import {ToastProvider} from '@shared/services/toast-provider';
 
 @Component({
   selector: 'app-new-activity-dialog',

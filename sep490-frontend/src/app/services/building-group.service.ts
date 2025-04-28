@@ -1,30 +1,11 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
+import {BuildingGroupCriteria} from '@models/building-group';
 import {Observable} from 'rxjs';
 import {UUID} from '../../types/uuid';
 import {AppRoutingConstants} from '../app-routing.constant';
-import {BuildingGroup} from '../models/enterprise';
-import {
-  SearchCriteriaDto,
-  SearchResultDto
-} from '../modules/shared/models/base-models';
-
-export interface BuildingGroupCriteria {
-  buildingId: UUID;
-  name?: string;
-}
-
-export interface CreateBuildingGroupDTO {
-  name: string;
-  description: string;
-  buildingId: UUID;
-}
-
-export interface InviteTenantToBuildingGroup {
-  buildingId: UUID;
-  email: string;
-  selectedGroupId: UUID;
-}
+import {BuildingGroup} from '@models/enterprise';
+import {SearchCriteriaDto, SearchResultDto} from '@shared/models/base-models';
 
 @Injectable({
   providedIn: 'root'

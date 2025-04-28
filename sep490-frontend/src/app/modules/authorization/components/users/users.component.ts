@@ -13,15 +13,12 @@ import {UUID} from '../../../../../types/uuid';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
 import {ApplicationService} from '../../../core/services/application.service';
 import {SubscriptionAwareComponent} from '../../../core/subscription-aware.component';
-import {TableTemplateColumn} from '../../../shared/components/table-template/table-template.component';
-import {
-  SearchCriteriaDto,
-  SearchResultDto
-} from '../../../shared/models/base-models';
-import {ModalProvider} from '../../../shared/services/modal-provider';
-import {ToastProvider} from '../../../shared/services/toast-provider';
-import {EnterpriseUser} from '../../../../models/enterprise-user';
-import {EnterpriseUserService} from '../../../../services/enterprise-user.service';
+import {TableTemplateColumn} from '@shared/components/table-template/table-template.component';
+import {SearchCriteriaDto, SearchResultDto} from '@shared/models/base-models';
+import {ModalProvider} from '@shared/services/modal-provider';
+import {ToastProvider} from '@shared/services/toast-provider';
+import {EnterpriseUser} from '@models/enterprise-user';
+import {EnterpriseUserService} from '@services/enterprise-user.service';
 
 export interface UserCriteria {
   criteria: string;

@@ -13,7 +13,7 @@ import {
   takeUntil
 } from 'rxjs';
 import {UUID} from '../../../../types/uuid';
-import {UserRole} from '../../../models/role-names';
+import {UserRole} from '@models/role-names';
 import {SubscriptionAwareComponent} from '../subscription-aware.component';
 
 interface UserInfoEmailScope {

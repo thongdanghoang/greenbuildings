@@ -3,7 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {AppRoutingConstants} from '../app-routing.constant';
 import {UUID} from '../../types/uuid';
-import {CreditConvertRatio} from '../models/enterprise';
+import {CreditConvertRatio} from '@models/enterprise';
 
 @Injectable({
   providedIn: 'root'

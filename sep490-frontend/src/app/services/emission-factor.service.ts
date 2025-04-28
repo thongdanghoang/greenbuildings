@@ -2,7 +2,7 @@ import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {AppRoutingConstants} from '../app-routing.constant';
-import {EmissionFactorDTO} from '../models/shared-models';
+import {EmissionFactorDTO} from '@models/shared-models';
 
 @Injectable({
   providedIn: 'root'

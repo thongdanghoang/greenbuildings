@@ -1,26 +1,10 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
+import {InvitationDTO} from '@models/enterprise';
+import {InvitationResponse, InvitationSearchCriteria} from '@models/tenant';
+import {SearchCriteriaDto, SearchResultDto} from '@shared/models/base-models';
 import {Observable} from 'rxjs';
-import {UUID} from '../../types/uuid';
 import {AppRoutingConstants} from '../app-routing.constant';
-import {InvitationDTO, InvitationStatus} from '../models/enterprise';
-import {
-  SearchCriteriaDto,
-  SearchResultDto
-} from '../modules/shared/models/base-models';
-
-export interface InvitationResponse {
-  id: UUID;
-  status: InvitationStatus;
-}
-
-export interface InvitationSearchCriteria {
-  enterpriseId: UUID;
-  buildingId?: UUID;
-  buildingGroupId?: UUID;
-  tenantEmail: string;
-  status?: InvitationStatus;
-}
 
 @Injectable({
   providedIn: 'root'

@@ -8,11 +8,8 @@ import {
   BuildingDetails,
   OverviewBuildingDTO,
   UserByBuilding
-} from '../models/enterprise';
-import {
-  SearchCriteriaDto,
-  SearchResultDto
-} from '../modules/shared/models/base-models';
+} from '@models/enterprise';
+import {SearchCriteriaDto, SearchResultDto} from '@shared/models/base-models';
 
 @Injectable({
   providedIn: 'root'
