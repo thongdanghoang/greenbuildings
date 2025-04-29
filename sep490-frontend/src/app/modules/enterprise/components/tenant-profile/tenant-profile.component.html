@@ -1,129 +1,95 @@
-<div class="card overflow-hidden rounded-xl bg-white shadow-xl dark:bg-gray-800">
-    <div class="card-header bg-gradient-to-r from-blue-400 to-indigo-400 p-6 dark:from-blue-700 dark:to-indigo-600">
-        <div class="flex items-center justify-between">
-            <h3 class="text-2xl font-bold text-white">
-                {{ 'tenant.profile.title' | translate }}
-            </h3>
-            <button
-                pButton
-                type="button"
-                icon="pi pi-arrow-left"
-                label="{{ 'common.back' | translate }}"
-                (click)="back()"
-                class="p-button-outlined p-button-rounded border-white text-white transition-colors hover:bg-white hover:text-blue-600 dark:hover:bg-gray-700 dark:hover:text-blue-400"
-            ></button>
-        </div>
-    </div>
+<button
+    pButton
+    type="button"
+    icon="pi pi-arrow-left"
+    label="{{ 'common.back' | translate }}"
+    (click)="back()"
+    outlined
+    size="small"
+></button>
 
-    <div class="card-body bg-gray-50 p-8 dark:bg-gray-900">
-        <form
-            [formGroup]="formGroup"
-            class="space-y-6"
+<div class="my-4 flex items-center justify-between">
+    <h3 class="text-2xl font-bold text-primary">
+        {{ 'tenant.profile.title' | translate }}
+    </h3>
+</div>
+
+<form [formGroup]="formGroup">
+    <!-- Name -->
+    <div errorMessages>
+        <label
+            for="name"
+            class="block text-sm font-semibold"
         >
-            <!-- Name -->
-            <div class="field">
-                <label
-                    for="name"
-                    class="mb-2 block text-sm font-semibold text-gray-800 dark:text-gray-200"
-                >
-                    {{ 'tenant.profile.name' | translate }} *
-                </label>
-                <div class="p-inputgroup relative w-full">
-                    <input
-                        pInputText
-                        id="name"
-                        formControlName="name"
-                        class="p-inputtext w-full rounded-r-md border-gray-300 bg-white text-gray-900 transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100 dark:focus:border-blue-400 dark:focus:ring-blue-400"
-                    />
-                </div>
-                <small
-                    *ngIf="formGroup.get('name')?.invalid && formGroup.get('name')?.touched"
-                    class="mt-1 block text-xs font-medium text-red-600 dark:text-red-400"
-                >
-                    {{ 'validation.required' | translate }}
-                </small>
-            </div>
-
-            <!-- Email -->
-            <div class="field">
-                <label
-                    for="email"
-                    class="mb-2 block text-sm font-semibold text-gray-800 dark:text-gray-200"
-                >
-                    {{ 'tenant.profile.email' | translate }} *
-                </label>
-                <div class="p-inputgroup relative w-full">
-                    <input
-                        pInputText
-                        type="email"
-                        id="email"
-                        formControlName="email"
-                        class="p-inputtext w-full rounded-r-md border-gray-300 bg-white text-gray-900 transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100 dark:focus:border-blue-400 dark:focus:ring-blue-400"
-                    />
-                </div>
-                <small
-                    *ngIf="formGroup.get('email')?.hasError('required') && formGroup.get('email')?.touched"
-                    class="mt-1 block text-xs font-medium text-red-600 dark:text-red-400"
-                >
-                    {{ 'validation.required' | translate }}
-                </small>
-                <small
-                    *ngIf="formGroup.get('email')?.hasError('email') && formGroup.get('email')?.touched"
-                    class="mt-1 block text-xs font-medium text-red-600 dark:text-red-400"
-                >
-                    {{ 'validation.email' | translate }}
-                </small>
-            </div>
-
-            <!-- Hotline -->
-            <div class="field">
-                <label
-                    for="hotline"
-                    class="mb-2 block text-sm font-semibold text-gray-800 dark:text-gray-200"
-                >
-                    {{ 'tenant.profile.hotline' | translate }} *
-                </label>
-                <div class="p-inputgroup relative w-full">
-                    <input
-                        pInputText
-                        id="hotline"
-                        formControlName="hotline"
-                        class="p-inputtext w-full rounded-r-md border-gray-300 bg-white text-gray-900 transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100 dark:focus:border-blue-400 dark:focus:ring-blue-400"
-                    />
-                </div>
-                <small
-                    *ngIf="formGroup.get('hotline')?.hasError('required') && formGroup.get('hotline')?.touched"
-                    class="mt-1 block text-xs font-medium text-red-600 dark:text-red-400"
-                >
-                    {{ 'validation.required' | translate }}
-                </small>
-                <small
-                    *ngIf="formGroup.get('hotline')?.hasError('pattern') && formGroup.get('hotline')?.touched"
-                    class="mt-1 block text-xs font-medium text-red-600 dark:text-red-400"
-                >
-                    {{ 'validation.phoneNumber' | translate }}
-                </small>
-            </div>
-
-            <!-- Action Buttons -->
-            <div class="mt-8 flex justify-end space-x-4 border-t border-gray-200 pt-6 dark:border-gray-700">
-                <button
-                    pButton
-                    type="button"
-                    icon="pi pi-refresh"
-                    (click)="reset()"
-                    label="{{ 'common.revert' | translate }}"
-                    class="p-button-outlined p-button-rounded p-button-secondary border-gray-300 text-gray-700 transition-colors hover:bg-gray-100 dark:border-gray-600 dark:text-gray-200 dark:hover:bg-gray-700"
-                ></button>
-                <p-button
-                    type="submit"
-                    icon="pi pi-save"
-                    [label]="'common.save' | translate"
-                    [disabled]="formGroup.invalid"
-                    styleClass="p-button-rounded p-button-primary bg-blue-600 dark:bg-blue-700 hover:bg-blue-700 dark:hover:bg-blue-600 transition-colors"
-                    (onClick)="submit()"
-                ></p-button>
-            </div>
-        </form>
+            {{ 'tenant.profile.name' | translate }} *
+        </label>
+        <div class="p-inputgroup relative w-full">
+            <input
+                pInputText
+                id="name"
+                formControlName="name"
+                class="p-inputtext w-full rounded-r-md"
+            />
+        </div>
+        <form-field-error></form-field-error>
     </div>
+
+    <!-- Email -->
+    <div errorMessages>
+        <label
+            for="email"
+            class="block text-sm font-semibold"
+        >
+            {{ 'tenant.profile.email' | translate }} *
+        </label>
+        <div class="p-inputgroup relative w-full">
+            <input
+                pInputText
+                type="email"
+                id="email"
+                formControlName="email"
+                class="p-inputtext w-full rounded-r-md"
+            />
+        </div>
+        <form-field-error></form-field-error>
+    </div>
+
+    <!-- Hotline -->
+    <div errorMessages>
+        <label
+            for="hotline"
+            class="block text-sm font-semibold"
+        >
+            {{ 'tenant.profile.hotline' | translate }} *
+        </label>
+        <div class="p-inputgroup relative w-full">
+            <input
+                pInputText
+                id="hotline"
+                formControlName="hotline"
+                class="p-inputtext w-full rounded-r-md"
+            />
+        </div>
+        <form-field-error></form-field-error>
+    </div>
+</form>
+
+<!-- Action Buttons -->
+<div class="mt-4 flex justify-end gap-4">
+    <button
+        pButton
+        type="button"
+        icon="pi pi-refresh"
+        (click)="reset()"
+        label="{{ 'common.revert' | translate }}"
+        outlined
+        size="small"
+    ></button>
+    <p-button
+        type="submit"
+        icon="pi pi-save"
+        [label]="'common.save' | translate"
+        (onClick)="submit()"
+        size="small"
+    ></p-button>
 </div>

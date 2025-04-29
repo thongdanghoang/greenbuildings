@@ -964,6 +964,7 @@
       },
       "emission": {
         "activity": {
+          "title": "Hoạt động phát thải",
           "new": "Thêm hoạt động mới"
         }
       }
