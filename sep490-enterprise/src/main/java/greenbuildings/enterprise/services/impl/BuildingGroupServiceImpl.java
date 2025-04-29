@@ -111,7 +111,7 @@ public class BuildingGroupServiceImpl implements BuildingGroupService {
     public void inviteTenant(InviteTenantToBuildingGroup dto) {
         BuildingGroupEntity group = buildingGroupRepository.findById(dto.selectedGroupId()).orElseThrow();
         // TODO: what about email belong to registered user?
-        if (enterpriseRepository.findByEmail(dto.tenantEmail()).isPresent()) {
+        if (enterpriseRepository.findByEnterpriseEmail(dto.tenantEmail()).isPresent()) {
             throw new BusinessException("tenantEmail", "business.groups.tenantEmail");
         }
         InvitationEntity invitation = InvitationEntity.builder()

@@ -34,7 +34,6 @@ import java.util.UUID;
 @NamedEntityGraph(
         name = UserEntity.WITH_ENTERPRISE_PERMISSIONS_ENTITY_GRAPH,
         attributeNodes = {
-                @NamedAttributeNode("enterprise"),
                 @NamedAttributeNode("buildingPermissions")
         }
 )
@@ -53,9 +52,6 @@ public class UserEntity extends AbstractAuditableEntity {
     public static final String WITH_ENTERPRISE_PERMISSIONS_ENTITY_GRAPH = "user-permissions-entity-graph";
     public static final String BELONG_ENTERPRISE_FILTER = "belongEnterpriseFilter";
     public static final String BELONG_ENTERPRISE_PARAM = "enterpriseId";
-    
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    private UserEnterpriseEntity enterprise;
     
     @OneToMany(mappedBy = "user",
                cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH},
@@ -101,6 +97,13 @@ public class UserEntity extends AbstractAuditableEntity {
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private UserOTP otp;
     
+    @Column(name = "enterprise_id")
+    private UUID enterpriseId;
+    
+    @Enumerated(EnumType.STRING)
+    @Column(name = "user_scope")
+    private UserScope scope;
+    
     public static UserEntity register(
             String email,
             boolean emailVerified,
@@ -119,13 +122,6 @@ public class UserEntity extends AbstractAuditableEntity {
         user.setPhone(phone);
         user.setPhoneVerified(phoneVerified);
         user.setPassword(password);
-        user.setEnterprise(UserEnterpriseEntity.of(user, UserScope.ENTERPRISE));
         return user;
     }
-
-    public void addBuildingPermission(BuildingPermissionEntity buildingPermission) {
-        buildingPermissions.add(buildingPermission);
-        buildingPermission.setUser(this);
-    }
-    
 }

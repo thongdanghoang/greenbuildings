@@ -5,7 +5,6 @@ import commons.springfw.impl.securities.UserContextData;
 import commons.springfw.impl.utils.SecurityUtils;
 import greenbuildings.commons.api.SagaManager;
 import greenbuildings.commons.api.dto.SearchCriteriaDTO;
-import greenbuildings.commons.api.events.PendingEnterpriseRegisterEvent;
 import greenbuildings.commons.api.exceptions.BusinessErrorParam;
 import greenbuildings.commons.api.exceptions.BusinessErrorResponse;
 import greenbuildings.commons.api.exceptions.BusinessException;
@@ -13,7 +12,7 @@ import greenbuildings.commons.api.exceptions.TechnicalException;
 import greenbuildings.commons.api.security.UserRole;
 import greenbuildings.commons.api.security.UserScope;
 import greenbuildings.commons.api.utils.CommonUtils;
-import greenbuildings.idp.dto.NewEnterpriseDTO;
+import greenbuildings.idp.dto.RegisterEnterpriseDTO;
 import greenbuildings.idp.dto.SignupDTO;
 import greenbuildings.idp.dto.SignupResult;
 import greenbuildings.idp.dto.UserCriteriaDTO;
@@ -150,19 +149,18 @@ public class UserServiceImpl extends SagaManager implements UserService {
     }
     
     @Override
-    public Page<UserEntity> getUserByBuilding(UUID buldingId, Pageable pageable) {
+    public Page<UserEntity> getUserByBuilding(UUID buildingId, Pageable pageable) {
         //UUID enterpriseId = SecurityUtils.getCurrentUserEnterpriseId().orElseThrow();
-        return userRepo.findUserAndBuilding(buldingId, pageable);
+        return userRepo.findUserAndBuilding(buildingId, pageable);
     }
     
     @Override
-    public void createNewEnterprise(UserContextData userContextData, NewEnterpriseDTO enterpriseDTO) {
-        UserEntity user = userRepo.findById(userContextData.getId()).orElseThrow();
-        // TODO: validate email, taxcode, hotline ...
-        if (user.getRole() != UserRole.BASIC_USER || user.getEnterprise().getEnterprise() != null) {
+    public void createNewEnterprise(UserContextData userContextData, RegisterEnterpriseDTO registerEnterprise) {
+        var user = userRepo.findById(userContextData.getId()).orElseThrow();
+        if (user.getRole() != UserRole.BASIC_USER || user.getEnterpriseId() != null) {
             throw new BusinessException("user", "validation.business.createEnterprise.alreadyExists");
         }
-        if (enterpriseDTO.getRole() != UserRole.ENTERPRISE_OWNER && enterpriseDTO.getRole() != UserRole.TENANT) {
+        if (registerEnterprise.role() != UserRole.ENTERPRISE_OWNER && registerEnterprise.role() != UserRole.TENANT) {
             throw new TechnicalException("Invalid role for enterprise owner");
         }
         var future = new CompletableFuture<>();
@@ -170,20 +168,12 @@ public class UserServiceImpl extends SagaManager implements UserService {
         getPendingSagaResponses().put(correlationId, future);
         
         // PENDING
-        kafkaAdapter.publishEnterpriseOwnerRegisterEvent(correlationId,
-                                                         PendingEnterpriseRegisterEvent
-                                                                 .builder()
-                                                                 .email(enterpriseDTO.getEnterpriseEmail())
-                                                                 .name(enterpriseDTO.getName())
-                                                                 .role(enterpriseDTO.getRole())
-                                                                 .hotline(enterpriseDTO.getHotline())
-                                                                 .build());
+        kafkaAdapter.publishEnterpriseOwnerRegisterEvent(correlationId, registerEnterprise);
         try { // Wait synchronously for response
             var enterpriseId = UUID.fromString(future.get(TRANSACTION_TIMEOUT, TimeUnit.SECONDS).toString());// Timeout in case response is lost
-            user.getEnterprise().setEnterprise(enterpriseId);
-            user.getEnterprise().setUser(user);
-            user.setRole(enterpriseDTO.getRole());
-            user.getEnterprise().setScope(UserScope.ENTERPRISE);
+            user.setEnterpriseId(enterpriseId);
+            user.setRole(registerEnterprise.role());
+            user.setScope(UserScope.ENTERPRISE);
             userRepo.save(user); // COMPLETE
         } catch (TimeoutException e) {
             throw new TechnicalException("Request timeout", e);
@@ -286,8 +276,8 @@ public class UserServiceImpl extends SagaManager implements UserService {
     
     @Transactional(readOnly = true)
     @Override
-    public Optional<UserEntity> findById(UUID id) {
-        return userRepo.findById(id);
+    public Optional<UserEntity> findById(UUID enterpriseId) {
+        return userRepo.findById(enterpriseId);
     }
     
     @Override

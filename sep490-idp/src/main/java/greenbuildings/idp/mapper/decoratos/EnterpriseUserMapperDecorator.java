@@ -32,7 +32,7 @@ public abstract class EnterpriseUserMapperDecorator implements EnterpriseUserMap
     @Override
     public UserEntity createNewEnterpriseUser(EnterpriseUserDetailsDTO dto) {
         UserEntity user = delegate.createNewEnterpriseUser(dto);
-        user.getEnterprise().setEnterprise(SecurityUtils.getCurrentUserEnterpriseId().orElseThrow());
+        user.setEnterpriseId(SecurityUtils.getCurrentUserEnterpriseId().orElseThrow());
         return user;
     }
     

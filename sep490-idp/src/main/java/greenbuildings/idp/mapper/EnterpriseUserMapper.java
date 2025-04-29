@@ -23,7 +23,6 @@ import java.util.UUID;
 @DecoratedWith(EnterpriseUserMapperDecorator.class)
 public interface EnterpriseUserMapper {
     
-    @Mapping(target = "scope", source = "enterprise.scope")
     @Mapping(target = "name", source = ".", qualifiedByName = "toFullName")
     EnterpriseUserDTO userEntityToEnterpriseUserDTO(UserEntity user);
 
@@ -37,13 +36,10 @@ public interface EnterpriseUserMapper {
     @Mapping(target = "emailVerified", ignore = true)
     @Mapping(target = "phone", ignore = true)
     @Mapping(target = "phoneVerified", ignore = true)
-    @Mapping(target = "enterprise.scope", source = "scope")
     UserEntity createNewEnterpriseUser(EnterpriseUserDetailsDTO dto);
     
-    @Mapping(target = "scope", source = "enterprise.scope")
     EnterpriseUserDetailsDTO userEntityToEnterpriseUserDetailDTO(UserEntity user);
     
-    @Mapping(target = "scope", source = "enterprise.scope")
     @Mapping(target = "buildingPermissions", ignore = true)
     EnterpriseUserDetailsDTO userEntityToBasicEnterpriseUserDetailDTO(UserEntity user);
     
@@ -51,13 +47,11 @@ public interface EnterpriseUserMapper {
     @Mapping(target = "password", ignore = true)
     @Mapping(target = "phone", ignore = true)
     @Mapping(target = "phoneVerified", ignore = true)
-    @Mapping(target = "enterprise.scope", source = "scope")
     void updateEnterpriseUser(@MappingTarget UserEntity user, EnterpriseUserDetailsDTO dto);
     
     @Mapping(target = "emailVerified", ignore = true)
     @Mapping(target = "password", ignore = true)
     @Mapping(target = "phoneVerified", ignore = true)
-    @Mapping(target = "enterprise", ignore = true)
     @Mapping(target = "buildingPermissions", ignore = true)
     @Mapping(target = "powerBiApiKeys", ignore = true)
     @Mapping(target = "email", ignore = true)

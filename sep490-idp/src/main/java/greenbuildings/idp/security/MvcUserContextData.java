@@ -1,6 +1,5 @@
 package greenbuildings.idp.security;
 
-import commons.springfw.impl.entities.AbstractBaseEntity;
 import commons.springfw.impl.securities.UserContextData;
 import greenbuildings.commons.api.dto.auth.BuildingPermissionDTO;
 import greenbuildings.idp.entity.UserEntity;
@@ -20,7 +19,7 @@ public class MvcUserContextData extends UserContextData {
                               List<BuildingPermissionDTO> permissions) {
         super(userEntity.getEmail(),
               userEntity.getId(),
-              Optional.ofNullable(userEntity.getEnterprise()).map(AbstractBaseEntity::getId).orElse(null),
+              Optional.ofNullable(userEntity.getEnterpriseId()).orElse(null),
               userEntity.getPassword(),
               List.copyOf(authorities),
               List.copyOf(permissions));
