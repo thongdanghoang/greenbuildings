@@ -10,29 +10,29 @@ import {
   Validators
 } from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
+import {BuildingPermissionRole} from '@models/building-permission-role';
+import {Building} from '@models/enterprise';
+import {BuildingPermission, EnterpriseUserDetails} from '@models/enterprise-user';
+import {UserRole} from '@models/role-names';
+import {UserScope} from '@models/user-scope';
 import {TranslateService} from '@ngx-translate/core';
+import {BuildingService} from '@services/building.service';
+import {EnterpriseUserService} from '@services/enterprise-user.service';
+import {AbstractFormComponent} from '@shared/components/form/abstract-form-component';
+import {SelectableItem} from '@shared/models/base-models';
+import {ToastProvider} from '@shared/services/toast-provider';
 import {MultiSelectChangeEvent} from 'primeng/multiselect';
 import {SelectChangeEvent} from 'primeng/select';
 import {filter, map, switchMap, takeUntil, tap} from 'rxjs';
 import {UUID} from '../../../../../types/uuid';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
-import {Building} from '@models/enterprise';
-import {BuildingService} from '@services/building.service';
-import {AbstractFormComponent} from '@shared/components/form/abstract-form-component';
-import {SelectableItem} from '@shared/models/base-models';
-import {ToastProvider} from '@shared/services/toast-provider';
-import {BuildingPermissionRole} from '@models/building-permission-role';
-import {UserRole} from '@models/role-names';
-import {UserScope} from '@models/user-scope';
-import {BuildingPermission, EnterpriseUserDetails} from '@models/enterprise-user';
-import {EnterpriseUserService} from '@services/enterprise-user.service';
 
 @Component({
   selector: 'app-create-user',
-  templateUrl: './enterprise-user-details.component.html',
-  styleUrl: './enterprise-user-details.component.css'
+  templateUrl: './user-details.component.html',
+  styleUrl: './user-details.component.css'
 })
-export class EnterpriseUserDetailsComponent extends AbstractFormComponent<EnterpriseUserDetails> {
+export class UserDetailsComponent extends AbstractFormComponent<EnterpriseUserDetails> {
   buildings: Building[] = [];
   protected readonly enterpriseUserStructure = {
     id: new FormControl<UUID | null>({value: null, disabled: true}),

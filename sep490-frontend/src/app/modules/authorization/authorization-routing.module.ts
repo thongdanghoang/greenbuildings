@@ -1,14 +1,13 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {AppRoutingConstants} from '../../app-routing.constant';
 import {UnsavedChangesGuard} from '@shared/directives/unsaved-changes/unsaved-changes-guard.service';
+import {AppRoutingConstants} from '../../app-routing.constant';
 import {AuthorizationComponent} from './authorization.component';
-import {EnterpriseUserDetailsComponent} from './components/create-user/enterprise-user-details.component';
 import {PowerBiAccessTokenDetailComponent} from './components/power-bi-access-token-detail/power-bi-access-token-detail.component';
 import {PowerBiAccessTokenComponent} from './components/power-bi-access-token/power-bi-access-token.component';
 import {PowerBiRegenerateAccessTokenComponent} from './components/power-bi-regenerate-access-token/power-bi-regenerate-access-token.component';
-import {UsersComponent} from './components/users/users.component';
 import {UserProfileComponent} from './components/user-profile/user-profile.component';
+import {UsersComponent} from './components/users-management/users.component';
 
 const routes: Routes = [
   {
@@ -33,15 +32,6 @@ const routes: Routes = [
             component: PowerBiRegenerateAccessTokenComponent
           }
         ]
-      },
-      {
-        path: `${AppRoutingConstants.USER_DETAILS}`,
-        component: EnterpriseUserDetailsComponent
-      },
-      {
-        path: `${AppRoutingConstants.USER_DETAILS}/:id`,
-        component: EnterpriseUserDetailsComponent,
-        canDeactivate: [UnsavedChangesGuard]
       },
       {
         path: `${AppRoutingConstants.USER_PROFILE}`,

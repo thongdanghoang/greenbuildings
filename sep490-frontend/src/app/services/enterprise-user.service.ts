@@ -5,7 +5,7 @@ import {SearchCriteriaDto, SearchResultDto} from '@shared/models/base-models';
 import {Observable} from 'rxjs';
 import {UUID} from '../../types/uuid';
 import {AppRoutingConstants} from '../app-routing.constant';
-import {UserCriteria} from '../modules/authorization/components/users/users.component';
+import {UserCriteria} from '../modules/authorization/components/users-management/users.component';
 
 @Injectable({
   providedIn: 'root'

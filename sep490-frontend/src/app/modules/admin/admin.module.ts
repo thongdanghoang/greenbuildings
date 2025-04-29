@@ -11,6 +11,7 @@ import {EmissionSourceComponent} from './components/emission-source/emission-sou
 import {FuelConversionComponent} from './components/fuel-conversion/fuel-conversion.component';
 import {PackageCreditComponent} from './components/package-credit/package-credit.component';
 import {UpdateRatioComponent} from './components/update-ratio/update-ratio.component';
+import {UserDetailsComponent} from './components/user-details/user-details.component';
 import {ChemicalDensityDialogComponent} from './dialog/chemical-density-dialog/chemical-density-dialog.component';
 import {EmissionFactorDialogComponent} from './dialog/emission-factor-dialog/emission-factor-dialog.component';
 import {EmissionSourceDialogComponent} from './dialog/emission-source-dialog/emission-source-dialog.component';
@@ -30,7 +31,8 @@ import {FuelDialogComponent} from './dialog/fuel-dialog/fuel-dialog.component';
     EmissionFactorComponent,
     EmissionFactorDialogComponent,
     ChemicalDensityComponent,
-    ChemicalDensityDialogComponent
+    ChemicalDensityDialogComponent,
+    UserDetailsComponent
   ],
   imports: [SharedModule, AdminRoutingModule],
   providers: []
