@@ -88,7 +88,7 @@ public class AuthorizationServerConfig {
     @Order(3)
     public SecurityFilterChain openapiSecurityFilterChain(HttpSecurity http) throws Exception {
         http
-                .securityMatcher("/v3/api-docs/**")
+                .securityMatcher("/v3/**", "/swagger-ui/**")
                 .authorizeHttpRequests(authorize -> authorize.anyRequest().permitAll())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         return http.build();
