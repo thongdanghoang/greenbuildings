@@ -20,10 +20,10 @@ import greenbuildings.idp.dto.UserCriteriaDTO;
 import greenbuildings.idp.dto.ValidateOTPRequest;
 import greenbuildings.idp.entity.UserEntity;
 import greenbuildings.idp.entity.UserOTP;
+import greenbuildings.idp.interceptors.EnableHibernateFilter;
 import greenbuildings.idp.producers.IdPEventProducer;
 import greenbuildings.idp.repository.UserOTPRepository;
 import greenbuildings.idp.repository.UserRepository;
-import greenbuildings.idp.repository.UserRepositoryAdapter;
 import greenbuildings.idp.service.UserService;
 import greenbuildings.idp.utils.IEmailUtil;
 import greenbuildings.idp.utils.IMessageUtil;
@@ -63,7 +63,6 @@ import java.util.stream.Collectors;
 public class UserServiceImpl extends SagaManager implements UserService {
     
     private final UserRepository userRepo;
-    private final UserRepositoryAdapter userRepositoryAdapter;
     private final UserValidator userValidator;
     private final PasswordEncoder passwordEncoder;
     @Qualifier("signupValidator")
@@ -208,11 +207,17 @@ public class UserServiceImpl extends SagaManager implements UserService {
     }
     
     @Override
-    public void deleteUsers(Set<UUID> userIds) {
+    @EnableHibernateFilter(
+            filterName = UserEntity.BELONG_ENTERPRISE_FILTER,
+            params = {
+                    @EnableHibernateFilter.Param(name = UserEntity.BELONG_ENTERPRISE_PARAM, value = "${enterpriseId}")
+            }
+    )
+    public void deleteUsers(Set<UUID> userIds, UUID enterpriseId) {
         if (CollectionUtils.isEmpty(userIds)) {
             throw new BusinessException("userIds", "user.delete.no.ids", Collections.emptyList());
         }
-        var users = userRepositoryAdapter.findByIDs(userIds);
+        var users = userRepo.findByIDs(userIds);
         if (users.size() != userIds.size()) {
             userIds.removeAll(users.stream().map(UserEntity::getId).collect(Collectors.toSet()));
             throw new BusinessException("userIds", "user.delete.not.found",
