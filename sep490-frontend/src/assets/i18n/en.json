@@ -971,6 +971,7 @@
       },
       "emission": {
         "activity": {
+          "title": "Emission Activity",
           "new": "New Activity"
         }
       }

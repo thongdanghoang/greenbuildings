@@ -964,6 +964,7 @@
       },
       "emission": {
         "activity": {
+          "title": "排放活动",
           "new": "新建活动"
         }
       }

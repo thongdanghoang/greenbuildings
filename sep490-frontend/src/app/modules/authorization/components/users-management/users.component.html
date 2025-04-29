@@ -37,27 +37,7 @@
                 (onClick)="search()"
             />
         </div>
-        <div class="flex gap-2.5">
-            <p-button
-                severity="danger"
-                [label]="
-                    selected.length
-                        ? ('enterprise.Users.deleteWithCount' | translate: {count: selected.length})
-                        : ('enterprise.Users.delete' | translate)
-                "
-                icon="pi pi-trash"
-                outlined
-                [disabled]="!selected || !selected.length"
-                (onClick)="confirmDelete()"
-                size="small"
-            />
-            <p-button
-                [routerLink]="['/', AppRoutingConstants.AUTH_PATH, AppRoutingConstants.USER_DETAILS]"
-                [label]="'enterprise.Users.add' | translate"
-                size="small"
-                ><i class="pi pi-user-plus"></i
-            ></p-button>
-        </div>
+        <div class="flex gap-2.5"></div>
     </div>
 </ng-template>
 <ng-template
