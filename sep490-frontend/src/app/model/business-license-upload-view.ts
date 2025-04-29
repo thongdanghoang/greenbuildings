@@ -8,9 +8,6 @@
  * Do not edit the class manually.
  */
 
-export interface OverviewBuildingDTO {
-  numberOfGroups?: number;
-  numberOfCorporationTenant?: number;
-  numberOfActivities?: number;
-  numberOfCommonActivities?: number;
+export interface BusinessLicenseUploadView {
+  path?: string;
 }

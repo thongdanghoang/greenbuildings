@@ -1,29 +1,38 @@
 import {HttpClient} from '@angular/common/http';
 import {Component, Injector} from '@angular/core';
 import {AbstractControl, FormBuilder, FormControl, Validators} from '@angular/forms';
-import {NewEnterpriseDTO} from '@models/enterprise-user';
-import {TranslateService} from '@ngx-translate/core';
-import {OidcSecurityService} from 'angular-auth-oidc-client';
-import {MessageService} from 'primeng/api';
-import {delay, take, tap} from 'rxjs';
+import {RegisterEnterpriseDTO} from '@generated/models/register-enterprise-dto';
 import {UserRole} from '@models/role-names';
-import {EnterpriseUserService} from '@services/enterprise-user.service';
+import {TranslateService} from '@ngx-translate/core';
 import {ApplicationService} from '@services/application.service';
+import {EnterpriseUserService} from '@services/enterprise-user.service';
+import {StorageService} from '@services/storage.service';
 import {AbstractFormComponent} from '@shared/components/form/abstract-form-component';
 import {ToastProvider} from '@shared/services/toast-provider';
+import {OidcSecurityService} from 'angular-auth-oidc-client';
+import {MessageService} from 'primeng/api';
+import {delay, take, takeUntil, tap} from 'rxjs';
 
 @Component({
   selector: 'app-create-enterprise',
   templateUrl: './create-enterprise.component.html',
   styleUrl: './create-enterprise.component.css'
 })
-export class CreateEnterpriseComponent extends AbstractFormComponent<NewEnterpriseDTO> {
+export class CreateEnterpriseComponent extends AbstractFormComponent<RegisterEnterpriseDTO> {
   protected readonly UserRole = UserRole;
   protected readonly formStructure = {
-    name: new FormControl('', [Validators.required]),
-    enterpriseEmail: new FormControl('', [Validators.required, Validators.email]),
-    hotline: new FormControl('', [Validators.required]),
-    role: new FormControl('', [Validators.required])
+    name: new FormControl<string | null>(null, [Validators.required]),
+    taxCode: new FormControl<string | null>(null, [Validators.required]),
+    hotline: new FormControl<string | null>(null, [Validators.required]),
+    role: new FormControl('', [Validators.required]),
+    address: new FormControl<string | null>(null, [Validators.required]),
+    businessLicenseImageUrl: new FormControl<string | null>(null, {
+      nonNullable: true,
+      validators: [Validators.required]
+    }),
+    representativeName: new FormControl<string | null>(null),
+    representativePosition: new FormControl<string | null>(null),
+    representativeContact: new FormControl<string | null>(null)
   };
 
   constructor(
@@ -33,9 +42,24 @@ export class CreateEnterpriseComponent extends AbstractFormComponent<NewEnterpri
     translate: TranslateService,
     private readonly enterpriseUserService: EnterpriseUserService,
     private readonly injector: Injector,
-    private readonly applicationService: ApplicationService
+    private readonly applicationService: ApplicationService,
+    private readonly storageService: StorageService
   ) {
     super(httpClient, formBuilder, notificationService, translate);
+  }
+
+  protected uploadBusinessLicense(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.storageService
+        .uploadBusinessLicense(input.files[0])
+        .pipe(takeUntil(this.destroy$))
+        .subscribe(view => {
+          if (view.path) {
+            this.formStructure.businessLicenseImageUrl.setValue(view.path);
+          }
+        });
+    }
   }
 
   protected initializeFormControls(): {[p: string]: AbstractControl} {

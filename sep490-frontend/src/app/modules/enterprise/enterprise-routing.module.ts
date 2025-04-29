@@ -1,14 +1,17 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {AppRoutingConstants} from '../../app-routing.constant';
+import {UnsavedChangesGuard} from '../shared/directives/unsaved-changes/unsaved-changes-guard.service';
 import {AccountInformationComponent} from './components/account-information/account-information.component';
+import {ActivityTypeComponent} from './components/activity-type/activity-type.component';
 import {BuildingDetailsComponent} from './components/building-details/building-details.component';
+import {BuildingGroupDetailComponent} from './components/building-group-detail/building-group-detail.component';
 import {BuildingManagementComponent} from './components/building-management/building-management.component';
 import {BuildingsComponent} from './components/buildings/buildings.component';
 import {CreateEnterpriseComponent} from './components/create-enterprise/create-enterprise.component';
 import {CreateTenantComponent} from './components/create-tenant/create-tenant.component';
-import {EmissionActivityComponent} from './components/emission-activity/emission-activity.component';
 import {EmissionActivityDetailComponent} from './components/emission-activity-detail/emission-activity-detail.component';
+import {EmissionActivityComponent} from './components/emission-activity/emission-activity.component';
 import {EnterpriseInvitationComponent} from './components/enterprise-invitation/enterprise-invitation.component';
 import {ManageTenantComponent} from './components/manage-tenant/manage-tenant.component';
 import {NewBuildingGroupComponent} from './components/new-building-group/new-building-group.component';
@@ -16,12 +19,8 @@ import {NewTenantComponent} from './components/new-tenant/new-tenant.component';
 import {PaymentComponent} from './components/payment/payment.component';
 import {PlanComponent} from './components/plan/plan.component';
 import {SentInvitationComponent} from './components/sent-invitation/sent-invitation.component';
-import {UnsavedChangesGuard} from '../shared/directives/unsaved-changes/unsaved-changes-guard.service';
-import {EnterpriseComponent} from './enterprise.component';
-import {ActivityTypeComponent} from './components/activity-type/activity-type.component';
-import {BuildingGroupDetailComponent} from './components/building-group-detail/building-group-detail.component';
 import {TenantProfileComponent} from './components/tenant-profile/tenant-profile.component';
-import {EnterpriseProfileComponent} from './components/enterprise-profile/enterprise-profile.component';
+import {EnterpriseComponent} from './enterprise.component';
 
 const routes: Routes = [
   {
@@ -98,10 +97,6 @@ const routes: Routes = [
       {
         path: `${AppRoutingConstants.TENANT_PROFILE}`,
         component: TenantProfileComponent
-      },
-      {
-        path: `${AppRoutingConstants.ENTERPRISE_PROFILE}`,
-        component: EnterpriseProfileComponent
       }
     ]
   }
