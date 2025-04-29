@@ -1,6 +1,7 @@
 import {Component, EventEmitter, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {InvitationResponse, InvitationSearchCriteria} from '@models/tenant';
 import {TranslateService} from '@ngx-translate/core';
+import {ModalProvider} from '@shared/services/modal-provider';
 import {Observable, takeUntil} from 'rxjs';
 import {UUID} from '../../../../../types/uuid';
 import {Building, BuildingGroup, InvitationDTO, InvitationStatus} from '@models/enterprise';
@@ -45,6 +46,7 @@ export class SentInvitationComponent extends SubscriptionAwareComponent implemen
   protected readonly searchEvent: EventEmitter<void> = new EventEmitter();
 
   constructor(
+    private readonly modalProvider: ModalProvider,
     private readonly msgService: ToastProvider,
     private readonly translate: TranslateService,
     private readonly buildingService: BuildingService,
@@ -79,17 +81,34 @@ export class SentInvitationComponent extends SubscriptionAwareComponent implemen
   }
 
   onRejectInvitation(invitation: InvitationDTO): void {
-    const data: InvitationResponse = {
-      id: invitation.id,
-      status: InvitationStatus.REJECTED
-    };
-    this.invitationService.updateStatus(data).subscribe(() => {
-      this.searchEvent.emit();
-      this.msgService.success({
-        summary: this.translate.instant('common.success'),
-        detail: this.translate.instant('sentInvitation.reject')
+    this.modalProvider
+      .showConfirm({
+        message: this.translate.instant('sentInvitation.rejectConfirm'),
+        header: this.translate.instant('common.confirmHeader'),
+        icon: 'pi pi-info-circle',
+        acceptButtonStyleClass: 'p-button-danger p-button-text min-w-20',
+        rejectButtonStyleClass: 'p-button-contrast p-button-text min-w-20',
+        acceptIcon: 'none',
+        acceptLabel: this.translate.instant('common.accept'),
+        rejectIcon: 'none',
+        rejectLabel: this.translate.instant('common.reject')
+      })
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((result: boolean): void => {
+        if (result) {
+          const data: InvitationResponse = {
+            id: invitation.id,
+            status: InvitationStatus.REJECTED
+          };
+          this.invitationService.updateStatus(data).subscribe(() => {
+            this.searchEvent.emit();
+            this.msgService.success({
+              summary: this.translate.instant('common.success'),
+              detail: this.translate.instant('sentInvitation.reject')
+            });
+          });
+        }
       });
-    });
   }
 
   clearCriteria(): void {

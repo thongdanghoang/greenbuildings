@@ -14,10 +14,13 @@ import greenbuildings.enterprise.services.InvitationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -38,7 +41,9 @@ public class InvitationServiceImpl implements InvitationService {
         if (username == null) {
             throw new TechnicalException("Username cannot be null");
         }
-        return invitationRepository.findByEmailAndStatusOrderByCreatedByDesc(username, InvitationStatus.PENDING);
+        List<InvitationEntity> rs = invitationRepository.findByEmailOrderByCreatedByDesc(username);
+        rs.sort(Comparator.comparingInt(i -> i.getStatus().ordinal()));
+        return rs;
     }
     
     @Override
@@ -57,9 +62,13 @@ public class InvitationServiceImpl implements InvitationService {
     @Override
     public Page<InvitationEntity> search(SearchCriteriaDTO<InvitationSearchCriteria> searchCriteria, Pageable pageable) {
         InvitationSearchCriteria criteria = searchCriteria.criteria();
+        Sort sortByLastModifiedDate = Sort.by(Sort.Direction.DESC, "lastModifiedDate");
+        Pageable pageableWithSort = pageable.getSort().isSorted()
+            ? PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), pageable.getSort().and(sortByLastModifiedDate))
+            : PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), sortByLastModifiedDate);
         Page<UUID> ids = invitationRepository.search(criteria.enterpriseId(), criteria.buildingId(),
                                                      criteria.buildingGroupId(), criteria.status(),
-                                                     criteria.tenantEmail(), pageable);
+                                                     criteria.tenantEmail(), pageableWithSort);
         Map<UUID, InvitationEntity> entityMap = invitationRepository.findAllById(ids).stream()
                                                                     .collect(Collectors.toMap(InvitationEntity::getId, Function.identity()));
         

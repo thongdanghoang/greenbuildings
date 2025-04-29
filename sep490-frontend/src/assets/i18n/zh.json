@@ -58,6 +58,8 @@
       },
       "groups": {
         "tenantEmail": "电子邮件不适合此任务",
+        "tenantEmailLinked": "该租户已经与当前建筑中的另一个群组关联",
+        "tenantEmailPending": "该租户已经有待处理的邀请加入当前建筑中的另一个群组",
         "notFound": "未找到建筑群组"
       },
       "activityType": {
@@ -921,6 +923,7 @@
     "description": "查看和管理发送给租户的所有企业合作邀请",
     "reject": "邀请已成功拒绝！",
     "noInvitationsTitle": "暂无邀请",
+    "rejectConfirm": "您确定要拒绝此邀请吗？",
     "noInvitationsDescription": "目前您没有任何可用的邀请。",
     "table": {
       "selectBuilding": "选择建筑",

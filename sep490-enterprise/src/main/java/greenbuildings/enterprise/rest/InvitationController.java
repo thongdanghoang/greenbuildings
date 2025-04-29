@@ -39,6 +39,7 @@ public class InvitationController {
     
     @GetMapping("/find-by-email")
     public ResponseEntity<List<InvitationDTO>> findAllByEmail(@AuthenticationPrincipal UserContextData userContextData) {
+        // TODO: this email is user email, not tenant email
         List<InvitationEntity> rs = invitationService.findAllByEmail(userContextData.getUsername());
         return ResponseEntity.ok(rs.stream().map(invitationMapper::toDTO).toList());
     }

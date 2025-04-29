@@ -59,6 +59,8 @@
       },
       "groups": {
         "tenantEmail": "This email cannot be assigned as a tenant",
+        "tenantEmailLinked": "This tenant has already been linked with another group in current building",
+        "tenantEmailPending": "This tenant already has pending invitation for another group in current building",
         "notFound": "Building groups not found"
       },
       "activityType": {
@@ -929,6 +931,7 @@
     "noInvitationsDescription": "You currently have no invitations available.",
     "description": "View and manage all invitations sent to tenants for collaboration with your enterprise",
     "reject": "Rejected invitation successfully !",
+    "rejectConfirm": "Are you sure you want to reject this invitation?",
     "table": {
       "selectBuilding": "Select building",
       "selectBuildingGroup": "Select building groups",

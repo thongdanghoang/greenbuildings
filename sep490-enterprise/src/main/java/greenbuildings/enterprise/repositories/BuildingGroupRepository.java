@@ -20,6 +20,8 @@ public interface BuildingGroupRepository extends AbstractBaseRepository<Building
     
     List<BuildingGroupEntity> findByTenantId(UUID tenantId);
     
+    boolean existsByBuildingIdAndTenantEmail(UUID id, String tenantEmail);
+    
     @Query(value = """
             SELECT g
             FROM BuildingGroupEntity g

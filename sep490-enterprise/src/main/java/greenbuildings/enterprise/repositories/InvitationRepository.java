@@ -15,7 +15,7 @@ import java.util.UUID;
 @Repository
 public interface InvitationRepository extends JpaRepository<InvitationEntity, UUID> {
     
-    List<InvitationEntity> findByEmailAndStatusOrderByCreatedByDesc(String email, InvitationStatus status);
+    List<InvitationEntity> findByEmailOrderByCreatedByDesc(String email);
     
     @Query("""
             SELECT i.id
@@ -32,5 +32,7 @@ public interface InvitationRepository extends JpaRepository<InvitationEntity, UU
                       @Param("status") InvitationStatus status,
                       @Param("tenantEmail") String tenantEmail,
                       Pageable pageable);
+    
+    boolean existsByBuildingGroupBuildingIdAndEmailAndStatus(UUID buildingId, String email, InvitationStatus status);
     
 }

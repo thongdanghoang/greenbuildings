@@ -33,9 +33,6 @@ public class BuildingGroupServiceImpl implements BuildingGroupService {
     
     private final BuildingGroupRepository buildingGroupRepository;
     private final BuildingGroupMapper buildingGroupMapper;
-    private final TenantServiceImpl tenantService;
-    private final IdpClientService idpClientService;
-    private final TenantRepository tenantRepository;
     private final EnterpriseRepository enterpriseRepository;
     private final InvitationRepository invitationRepository;
     
@@ -113,6 +110,12 @@ public class BuildingGroupServiceImpl implements BuildingGroupService {
         // TODO: what about email belong to registered user?
         if (enterpriseRepository.findByEnterpriseEmail(dto.tenantEmail()).isPresent()) {
             throw new BusinessException("tenantEmail", "business.groups.tenantEmail");
+        }
+        if (buildingGroupRepository.existsByBuildingIdAndTenantEmail(dto.buildingId(), dto.tenantEmail())) {
+            throw new BusinessException("tenantEmail", "business.groups.tenantEmailLinked");
+        }
+        if (invitationRepository.existsByBuildingGroupBuildingIdAndEmailAndStatus(dto.buildingId(), dto.tenantEmail(), InvitationStatus.PENDING)) {
+            throw new BusinessException("tenantEmail", "business.groups.tenantEmailPending");
         }
         InvitationEntity invitation = InvitationEntity.builder()
                                                       .buildingGroup(group)
