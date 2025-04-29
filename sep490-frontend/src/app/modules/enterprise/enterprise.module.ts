@@ -12,7 +12,6 @@ import {CreateTenantComponent} from './components/create-tenant/create-tenant.co
 import {EmissionActivityDetailComponent} from './components/emission-activity-detail/emission-activity-detail.component';
 import {EmissionActivityComponent} from './components/emission-activity/emission-activity.component';
 import {EnterpriseInvitationComponent} from './components/enterprise-invitation/enterprise-invitation.component';
-import {EnterpriseProfileComponent} from './components/enterprise-profile/enterprise-profile.component';
 import {ManageTenantComponent} from './components/manage-tenant/manage-tenant.component';
 import {NewBuildingGroupComponent} from './components/new-building-group/new-building-group.component';
 import {NewTenantComponent} from './components/new-tenant/new-tenant.component';
@@ -63,8 +62,7 @@ import {RegionService} from './services/region.service';
     CreateTenantComponent,
     ManageTenantComponent,
     SentInvitationComponent,
-    TenantProfileComponent,
-    EnterpriseProfileComponent
+    TenantProfileComponent
   ],
   imports: [SharedModule, EnterpriseRoutingModule],
   providers: [MarkerService, PopupService, RegionService]

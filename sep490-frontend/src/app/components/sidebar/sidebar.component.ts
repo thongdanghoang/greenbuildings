@@ -91,11 +91,6 @@ export class SidebarComponent extends SubscriptionAwareComponent implements OnIn
         label: 'enterprise.title',
         items: [
           {
-            label: 'sidebar.owner.profile',
-            icon: 'pi pi-user-edit',
-            route: `/${AppRoutingConstants.ENTERPRISE_PATH}/${AppRoutingConstants.ENTERPRISE_PROFILE}`
-          },
-          {
             label: 'sidebar.owner.dashboard',
             icon: 'pi pi-chart-line',
             route: `/${AppRoutingConstants.DASHBOARD_PATH}`

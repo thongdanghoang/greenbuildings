@@ -18,7 +18,7 @@ public class UserValidator {
     private final UserRepository userRepository;
     
     public void validateEnterpriseOwnerManageEmployees(UserEntity employee) {
-        if (employee.getEnterprise().getScope() == UserScope.BUILDING) {
+        if (employee.getScope() == UserScope.BUILDING) {
             if (employee.getBuildingPermissions().stream()
                         .map(BuildingPermissionEntity::getBuilding)
                         .anyMatch(Objects::isNull)) {

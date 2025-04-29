@@ -166,6 +166,14 @@
     }
   },
   "enterprise": {
+    "upload": {
+      "businessLicenseImageUrl": "Upload"
+    },
+    "address": "Address",
+    "businessLicenseImageUrl": "Business License",
+    "representativeName": "Representative",
+    "representativePosition": "Title",
+    "representativeContact": "Contact",
     "title": "Enterprise",
     "create": {
       "title": "Create Enterprise",

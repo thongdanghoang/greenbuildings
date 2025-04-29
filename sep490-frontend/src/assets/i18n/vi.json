@@ -167,6 +167,14 @@
   "enterprise": {
     "title": "Doanh nghiệp",
     "create": {
+      "upload": {
+        "businessLicenseImageUrl": "Tải lên"
+      },
+      "address": "Địa chỉ",
+      "businessLicenseImageUrl": "Giấy phép kinh doanh",
+      "representativeName": "Người đại diện",
+      "representativePosition": "Chức danh",
+      "representativeContact": "Liên hệ",
       "title": "Tạo doanh nghiệp",
       "description": "Tạo doanh nghiệp mới để quản lý doanh nghiệp của bạn",
       "name": "Tên doanh nghiệp",

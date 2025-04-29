@@ -7,6 +7,7 @@
     "paths": {
       "@services/*": ["./src/app/services/*"],
       "@models/*": ["./src/app/models/*"],
+      "@generated/models/*": ["./src/app/model/*"],
       "@shared/*": ["./src/app/modules/shared/*"],
       "@assets/*": ["./src/assets/*"],
       "@environment": ["./src/environments/environment.ts"]

@@ -1,7 +1,6 @@
 package greenbuildings.idp.service.impl;
 
 import greenbuildings.commons.api.dto.auth.BuildingPermissionDTO;
-import greenbuildings.idp.entity.UserEnterpriseEntity;
 import greenbuildings.idp.entity.UserEntity;
 import greenbuildings.idp.repository.BuildingPermissionRepository;
 import greenbuildings.idp.repository.UserRepository;
@@ -59,8 +58,7 @@ public class UserInfoService {
                         buildingPermission.getRole()
                 ))
                 .toList();
-        claims.put("enterpriseId", Optional.ofNullable(user.getEnterprise())
-                                           .map(UserEnterpriseEntity::getEnterprise)
+        claims.put("enterpriseId", Optional.ofNullable(user.getEnterpriseId())
                                            .map(UUID::toString)
                                            .orElse(null));
         claims.put("permissions", buildingPermissions);

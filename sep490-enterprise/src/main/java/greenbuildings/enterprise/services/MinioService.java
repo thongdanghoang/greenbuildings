@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.InputStream;
+import java.util.Objects;
 import java.util.UUID;
 
 @Service
@@ -29,6 +30,36 @@ public class MinioService {
     
     @Value("${minio.bucket.name}")
     private String bucketName;
+    
+    public String upload(MultipartFile file, String bucketName) throws Exception {
+        if (!minioClient.bucketExists(BucketExistsArgs.builder().bucket(bucketName).build())) {
+            minioClient.makeBucket(MakeBucketArgs.builder().bucket(bucketName).build());
+        }
+        var originalFilename = file.getOriginalFilename();
+        var extension = Objects.requireNonNull(originalFilename).substring(originalFilename.lastIndexOf("."));
+        var fileName = UUID.randomUUID() + extension;
+        minioClient.putObject(
+                PutObjectArgs.builder()
+                             .bucket(bucketName)
+                             .object(fileName)
+                             .stream(file.getInputStream(), file.getSize(), -1)
+                             .contentType(file.getContentType())
+                             .build()
+                             );
+        return fileName;
+    }
+    
+    public InputStream getFile(String bucketName, String objectName) {
+        try {
+            return minioClient.getObject(
+                    GetObjectArgs.builder()
+                                 .bucket(bucketName)
+                                 .object(objectName)
+                                 .build());
+        } catch (Exception e) {
+            throw new TechnicalException("Failed to get file", e);
+        }
+    }
     
     public String uploadFile(MultipartFile file, String recordId) {
         try {
@@ -44,49 +75,35 @@ public class MinioService {
             String fileName = UUID.randomUUID().toString() + extension;
             
             // Create path in MinIO
-            String objectName = String.format("records/%s/%s", recordId, fileName);
+            String minioPath = String.format("records/%s/%s", recordId, fileName);
             
             // Upload file
             minioClient.putObject(
-                PutObjectArgs.builder()
-                    .bucket(bucketName)
-                    .object(objectName)
-                    .stream(file.getInputStream(), file.getSize(), -1)
-                    .contentType(file.getContentType())
-                    .build()
-            );
+                    PutObjectArgs.builder()
+                                 .bucket(bucketName)
+                                 .object(minioPath)
+                                 .stream(file.getInputStream(), file.getSize(), -1)
+                                 .contentType(file.getContentType())
+                                 .build()
+                                 );
             
-            return objectName;
+            return minioPath;
         } catch (Exception e) {
             log.error("Error uploading file to MinIO", e);
             throw new TechnicalException("Failed to upload file", e);
         }
     }
     
-    public InputStream getFile(String objectName) {
-        try {
-            return minioClient.getObject(
-                GetObjectArgs.builder()
-                    .bucket(bucketName)
-                    .object(objectName)
-                    .build()
-            );
-        } catch (Exception e) {
-            log.error("Error getting file from MinIO", e);
-            throw new TechnicalException("Failed to get file", e);
-        }
-    }
-    
-    public String getFileUrl(String objectName) {
+    public String getFileUrl(String minioPath) {
         try {
             return minioClient.getPresignedObjectUrl(
-                GetPresignedObjectUrlArgs.builder()
-                    .bucket(bucketName)
-                    .object(objectName)
-                    .method(Method.GET)
-                    .expiry(60 * 60 * 24) // 24 hours
-                    .build()
-            );
+                    GetPresignedObjectUrlArgs.builder()
+                                             .bucket(bucketName)
+                                             .object(minioPath)
+                                             .method(Method.GET)
+                                             .expiry(60 * 60 * 24) // 24 hours
+                                             .build()
+                                                    );
         } catch (Exception e) {
             log.error("Error generating file URL from MinIO", e);
             throw new TechnicalException("Failed to generate file URL", e);
@@ -96,11 +113,11 @@ public class MinioService {
     public void deleteFile(String objectName) {
         try {
             minioClient.removeObject(
-                RemoveObjectArgs.builder()
-                    .bucket(bucketName)
-                    .object(objectName)
-                    .build()
-            );
+                    RemoveObjectArgs.builder()
+                                    .bucket(bucketName)
+                                    .object(objectName)
+                                    .build()
+                                    );
         } catch (Exception e) {
             log.error("Error deleting file from MinIO", e);
             throw new TechnicalException("Failed to delete file", e);

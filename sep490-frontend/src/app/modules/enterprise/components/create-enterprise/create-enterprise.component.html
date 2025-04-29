@@ -6,6 +6,7 @@
             severity="primary"
             outlined="true"
             [routerLink]="['/']"
+            size="small"
         ></p-button>
     </div>
     <h1 class="text-lg font-bold">
@@ -178,24 +179,23 @@
                                 </div>
                             </div>
 
-                            <!-- Email -->
                             <div
                                 class="my-3 grid grid-cols-12 items-center gap-2 sm:gap-4"
                                 errorMessages
                             >
                                 <label
-                                    for="email"
+                                    for="taxCode"
                                     class="col-span-12 font-normal sm:col-span-3"
-                                    >{{ 'enterprise.create.email' | translate }}</label
+                                    >{{ 'enterprise.create.taxCode' | translate }}</label
                                 >
                                 <div class="col-span-12 sm:col-span-9">
                                     <input
-                                        formControlName="enterpriseEmail"
+                                        formControlName="taxCode"
                                         class="w-full"
                                         type="text"
-                                        id="email"
+                                        id="taxCode"
                                         pInputText
-                                        [placeholder]="'enterprise.create.placeholders.enterEmail' | translate"
+                                        [placeholder]="'enterprise.create.placeholders.enterTaxCode' | translate"
                                     />
                                     <form-field-error></form-field-error>
                                 </div>
@@ -219,6 +219,129 @@
                                         id="hotline"
                                         pInputText
                                         [placeholder]="'enterprise.create.placeholders.enterHotline' | translate"
+                                    />
+                                    <form-field-error></form-field-error>
+                                </div>
+                            </div>
+
+                            <!-- Address -->
+                            <div
+                                class="my-3 grid grid-cols-12 items-center gap-2 sm:gap-4"
+                                errorMessages
+                            >
+                                <label
+                                    for="address"
+                                    class="col-span-12 font-normal sm:col-span-3"
+                                    >{{ 'enterprise.create.address' | translate }}</label
+                                >
+                                <div class="col-span-12 sm:col-span-9">
+                                    <input
+                                        formControlName="address"
+                                        class="w-full"
+                                        type="text"
+                                        id="address"
+                                        pInputText
+                                    />
+                                    <form-field-error></form-field-error>
+                                </div>
+                            </div>
+
+                            <div class="my-3 grid grid-cols-12 items-center gap-2 sm:gap-4">
+                                <label
+                                    for="businessLicenseImageUrl"
+                                    class="col-span-12 font-normal sm:col-span-3"
+                                    >{{ 'enterprise.create.businessLicenseImageUrl' | translate }}</label
+                                >
+                                <div class="col-span-12 flex items-center gap-2.5 sm:col-span-9">
+                                    <p-button
+                                        icon="pi pi-upload"
+                                        [label]="'enterprise.create.upload.businessLicenseImageUrl' | translate"
+                                        severity="primary"
+                                        outlined="true"
+                                        (click)="fileInput.click()"
+                                        size="small"
+                                    >
+                                        <input
+                                            #fileInput
+                                            class="hidden"
+                                            type="file"
+                                            accept="image/*,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                                            (change)="uploadBusinessLicense($event)"
+                                        />
+                                    </p-button>
+                                    <small
+                                        *ngIf="
+                                            formStructure.businessLicenseImageUrl.invalid &&
+                                            formStructure.businessLicenseImageUrl.touched
+                                        "
+                                        class="mt-1 block text-xs font-medium text-red-600 dark:text-red-400"
+                                    >
+                                        {{ 'validation.required' | translate }}
+                                    </small>
+                                </div>
+                            </div>
+
+                            <!-- representativeName -->
+                            <div
+                                class="my-3 grid grid-cols-12 items-center gap-2 sm:gap-4"
+                                errorMessages
+                            >
+                                <label
+                                    for="representativeName"
+                                    class="col-span-12 font-normal sm:col-span-3"
+                                    >{{ 'enterprise.create.representativeName' | translate }}</label
+                                >
+                                <div class="col-span-12 sm:col-span-9">
+                                    <input
+                                        formControlName="representativeName"
+                                        class="w-full"
+                                        type="text"
+                                        id="representativeName"
+                                        pInputText
+                                    />
+                                    <form-field-error></form-field-error>
+                                </div>
+                            </div>
+
+                            <!-- representativePosition -->
+                            <div
+                                class="my-3 grid grid-cols-12 items-center gap-2 sm:gap-4"
+                                errorMessages
+                            >
+                                <label
+                                    for="representativePosition"
+                                    class="col-span-12 font-normal sm:col-span-3"
+                                    >{{ 'enterprise.create.representativePosition' | translate }}</label
+                                >
+                                <div class="col-span-12 sm:col-span-9">
+                                    <input
+                                        formControlName="representativePosition"
+                                        class="w-full"
+                                        type="text"
+                                        id="representativePosition"
+                                        pInputText
+                                    />
+                                    <form-field-error></form-field-error>
+                                </div>
+                            </div>
+
+                            <!-- representativeContact -->
+                            <div
+                                class="my-3 grid grid-cols-12 items-center gap-2 sm:gap-4"
+                                errorMessages
+                            >
+                                <label
+                                    for="representativeContact"
+                                    class="col-span-12 font-normal sm:col-span-3"
+                                    >{{ 'enterprise.create.representativeContact' | translate }}</label
+                                >
+                                <div class="col-span-12 sm:col-span-9">
+                                    <input
+                                        formControlName="representativeContact"
+                                        class="w-full"
+                                        type="text"
+                                        id="representativeContact"
+                                        pInputText
                                     />
                                     <form-field-error></form-field-error>
                                 </div>

@@ -16,6 +16,7 @@ export interface EmissionActivityRecordDTO {
   unit?: EmissionActivityRecordDTO.UnitEnum;
   startDate?: string;
   endDate?: string;
+  quantity?: number;
   file?: RecordFileDTO;
   ghg?: number;
 }

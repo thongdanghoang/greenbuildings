@@ -167,6 +167,14 @@
   "enterprise": {
     "title": "企业",
     "create": {
+      "upload": {
+        "businessLicenseImageUrl": "上传"
+      },
+      "address": "地址",
+      "businessLicenseImageUrl": "营业执照",
+      "representativeName": "代表",
+      "representativePosition": "职称",
+      "representativeContact": "联系方式",
       "title": "创建企业",
       "description": "创建新企业以管理您的业务",
       "name": "名称",

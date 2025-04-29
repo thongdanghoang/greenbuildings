@@ -9,6 +9,6 @@ import java.util.Optional;
 @Repository
 public interface EnterpriseRepository extends AbstractBaseRepository<EnterpriseEntity> {
     
-    Optional<EnterpriseEntity> findByEmail(String email);
+    Optional<EnterpriseEntity> findByEnterpriseEmail(String email);
     
 }

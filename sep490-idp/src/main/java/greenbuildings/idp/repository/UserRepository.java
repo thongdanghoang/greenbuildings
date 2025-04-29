@@ -40,7 +40,7 @@ public interface UserRepository extends AbstractBaseRepository<UserEntity> {
             SELECT u.id
             FROM UserEntity u
             WHERE u.role <> greenbuildings.commons.api.security.UserRole.ENTERPRISE_OWNER
-            AND u.enterprise.enterprise = :enterpriseId
+            AND u.enterpriseId = :enterpriseId
             AND (LOWER(u.firstName) LIKE LOWER(CONCAT('%', :name, '%')) OR LOWER(u.lastName) LIKE LOWER(CONCAT('%', :name, '%')))
             """
     )
@@ -62,4 +62,6 @@ public interface UserRepository extends AbstractBaseRepository<UserEntity> {
     )
 """)
     Page<UserEntity> findUserAndBuilding(UUID buildingId, Pageable pageable);
+    
+    
 }

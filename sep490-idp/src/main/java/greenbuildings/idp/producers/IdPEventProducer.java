@@ -3,6 +3,8 @@ package greenbuildings.idp.producers;
 import commons.springfw.impl.securities.KafkaSecurityConfig;
 import greenbuildings.commons.api.events.PendingEnterpriseRegisterEvent;
 import greenbuildings.commons.api.utils.MDCContext;
+import greenbuildings.idp.dto.RegisterEnterpriseDTO;
+import greenbuildings.idp.mapper.UserEventMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -21,17 +23,21 @@ import java.nio.charset.StandardCharsets;
 @Slf4j
 public class IdPEventProducer extends KafkaSecurityConfig {
     private final KafkaTemplate<String, Object> kafkaTemplate;
+    private final UserEventMapper userEventMapper;
     
     public IdPEventProducer(HttpServletRequest request,
                             HttpServletResponse response,
                             JwtDecoder jwtDecoder,
                             Converter<Jwt, ? extends AbstractAuthenticationToken> jwtAuthenticationConverter,
-                            KafkaTemplate<String, Object> kafkaTemplate) {
+                            KafkaTemplate<String, Object> kafkaTemplate,
+                            UserEventMapper userEventMapper) {
         super(request, response, jwtDecoder, jwtAuthenticationConverter);
         this.kafkaTemplate = kafkaTemplate;
+        this.userEventMapper = userEventMapper;
     }
     
-    public void publishEnterpriseOwnerRegisterEvent(String correlationId, PendingEnterpriseRegisterEvent payload) {
+    public void publishEnterpriseOwnerRegisterEvent(String correlationId, RegisterEnterpriseDTO registerEnterprise) {
+        var payload = userEventMapper.toPendingEnterpriseRegisterEvent(registerEnterprise);
         var msg = new ProducerRecord<String, Object>(PendingEnterpriseRegisterEvent.TOPIC, payload);
         msg.headers().add(MDCContext.CORRELATION_ID, correlationId.getBytes(StandardCharsets.UTF_8));
         kafkaTemplate.send(msg);

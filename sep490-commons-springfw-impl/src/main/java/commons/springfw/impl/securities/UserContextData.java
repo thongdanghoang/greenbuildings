@@ -18,4 +18,8 @@ public class UserContextData implements UserDetails {
     private final String password;
     private final List<GrantedAuthority> authorities;
     private final transient List<BuildingPermissionDTO> permissions;
+    
+    public String getEmail() {
+        return username;
+    }
 }

@@ -101,7 +101,7 @@ public class PayOSAdapterImpl implements PayOSAdapter {
                           .amount((int) creditPackageVersionEntity.getPrice())
                           .description("Credit purchase") // max 25 chars
                           .buyerName(enterpriseEntity.getName())
-                          .buyerEmail(enterpriseEntity.getEmail())
+                          .buyerEmail(enterpriseEntity.getEnterpriseEmail())
                           .buyerPhone(enterpriseEntity.getHotline())
                           .item(itemData)
                           .returnUrl(returnUrl)
