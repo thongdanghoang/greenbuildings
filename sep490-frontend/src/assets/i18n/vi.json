@@ -58,6 +58,8 @@
       },
       "groups": {
         "tenantEmail": "Email không phù hợp cho tác vụ này",
+        "tenantEmailLinked": "Người thuê này đã được liên kết với một nhóm khác trong tòa nhà hiện tại",
+        "tenantEmailPending": "Người thuê này đã có lời mời đang chờ xử lý cho một nhóm khác trong tòa nhà hiện tại",
         "notFound": "Không tìm thấy nhóm tòa nhà"
       },
       "activityType": {
@@ -921,6 +923,7 @@
     "description": "Xem và quản lý tất cả các lời mời đã gửi cho người thuê để hợp tác với doanh nghiệp của bạn",
     "reject": "Đã từ chối lời mời thành công!",
     "noInvitationsTitle": "Không có lời mời",
+    "rejectConfirm": "Bạn có chắc chắn muốn từ chối lời mời này?",
     "noInvitationsDescription": "Hiện tại bạn không có lời mời nào.",
     "table": {
       "selectBuilding": "Chọn tòa nhà",
