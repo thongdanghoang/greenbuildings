@@ -11,7 +11,8 @@
     "prettier": "npx prettier --write .",
     "prettier:check": "npx prettier --check .",
     "format": "npm run lint -- --fix",
-    "enterprise": "openapi-generator-cli generate -i http://localhost:8080/enterprise/v3/api-docs -g typescript-angular -o src/app --global-property models --additional-properties=enumPropertyNaming=original,fileNaming=kebab-case && npm run lint -- --fix"
+    "enterprise": "openapi-generator-cli generate -i http://localhost:8080/enterprise/v3/api-docs -g typescript-angular -o src/app --global-property models --additional-properties=enumPropertyNaming=original,fileNaming=kebab-case && npm run lint -- --fix",
+    "iam": "openapi-generator-cli generate -i http://localhost:8180/idp/v3/api-docs -g typescript-angular -o src/app --global-property models --additional-properties=enumPropertyNaming=original,fileNaming=kebab-case && npm run lint -- --fix"
   },
   "private": true,
   "dependencies": {

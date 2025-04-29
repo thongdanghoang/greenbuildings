@@ -1,5 +1,6 @@
 package greenbuildings.idp.controller;
 
+import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.constraints.NotNull;
@@ -30,6 +31,7 @@ public class PasskeyController {
     private final AuthenticatorService authenticatorService;
     private final LoginService loginService;
     
+    @Hidden
     @PostMapping(value = "/passkey/login")
     @ResponseBody
     public Map<String, String> login(@RequestBody CredentialsVerification verification, SessionStatus sessionStatus, HttpServletRequest request) {
