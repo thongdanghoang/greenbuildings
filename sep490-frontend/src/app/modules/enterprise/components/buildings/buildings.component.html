@@ -99,6 +99,7 @@
                     (onClick)="zoomTo(building.latitude, building.longitude)"
                 />
                 <p-button
+                    *ngIf="!building.subscriptionDTO"
                     icon="pi pi-trash"
                     severity="danger"
                     text
