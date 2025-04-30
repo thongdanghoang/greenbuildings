@@ -3,6 +3,7 @@ package greenbuildings.enterprise.rest;
 import greenbuildings.commons.api.dto.PageDTO;
 import greenbuildings.commons.api.dto.SearchCriteriaDTO;
 import greenbuildings.enterprise.TestcontainersConfigs;
+import greenbuildings.enterprise.dtos.SearchTenantCriteria;
 import greenbuildings.enterprise.dtos.TenantDTO;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
@@ -41,7 +42,7 @@ public class TenantControllerTest extends TestcontainersConfigs {
         var criteria = SearchCriteriaDTO.of(
                 PageDTO.of(10, 0),
                 null,
-                null);
+                new SearchTenantCriteria(""));
         asEnterpriseOwner()
                 .contentType(ContentType.JSON)
                 .when()
