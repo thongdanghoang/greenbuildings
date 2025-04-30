@@ -4,11 +4,13 @@ import commons.springfw.impl.mappers.CommonMapper;
 import commons.springfw.impl.securities.UserContextData;
 import greenbuildings.commons.api.dto.SearchCriteriaDTO;
 import greenbuildings.commons.api.dto.SearchResultDTO;
+import greenbuildings.commons.api.security.UserRole;
 import greenbuildings.enterprise.dtos.InvitationDTO;
 import greenbuildings.enterprise.dtos.InvitationResponseDTO;
 import greenbuildings.enterprise.dtos.InvitationSearchCriteria;
 import greenbuildings.enterprise.mappers.InvitationMapper;
 import greenbuildings.enterprise.services.InvitationService;
+import jakarta.annotation.security.RolesAllowed;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -32,9 +34,13 @@ public class InvitationController {
     private final InvitationMapper invitationMapper;
     
     @PostMapping("/search")
-    public ResponseEntity<SearchResultDTO<InvitationDTO>> searchActivityType(@RequestBody SearchCriteriaDTO<InvitationSearchCriteria> searchCriteria) {
+    @RolesAllowed({UserRole.RoleNameConstant.ENTERPRISE_OWNER})
+    public ResponseEntity<SearchResultDTO<InvitationDTO>> searchInvitation(
+            @RequestBody SearchCriteriaDTO<InvitationSearchCriteria> searchCriteria,
+            @AuthenticationPrincipal UserContextData userContextData) {
         var pageable = CommonMapper.toPageable(searchCriteria.page(), searchCriteria.sort());
-        var searchResults = invitationService.search(searchCriteria, pageable);
+        var criteria = searchCriteria.criteria().toBuilder().enterpriseId(userContextData.getEnterpriseId()).build();
+        var searchResults = invitationService.search(criteria, pageable);
         return ResponseEntity.ok(CommonMapper.toSearchResultDTO(searchResults, invitationMapper::toDTO));
     }
     

@@ -1,10 +1,9 @@
 import {Injectable, OnDestroy} from '@angular/core';
+import {UserRole} from '@models/role-names';
+import {SubscriptionAwareComponent} from '@shared/directives/subscription-aware.component';
 import {AuthenticatedResult, OidcSecurityService} from 'angular-auth-oidc-client';
 import {JwtPayload} from 'jwt-decode';
 import {BehaviorSubject, Observable, filter, map, switchMap, takeUntil} from 'rxjs';
-import {UUID} from '../../types/uuid';
-import {UserRole} from '@models/role-names';
-import {SubscriptionAwareComponent} from '@shared/directives/subscription-aware.component';
 
 interface UserInfoEmailScope {
   email: string;
@@ -23,7 +22,6 @@ interface UserInfoData extends UserInfoEmailScope, UserInfoPhoneScope {
 export interface UserData extends JwtPayload {
   authorities: string[];
   permissions: string[];
-  enterpriseId: UUID;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars

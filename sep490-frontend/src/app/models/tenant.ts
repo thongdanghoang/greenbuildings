@@ -7,9 +7,8 @@ export interface InvitationResponse {
 }
 
 export interface InvitationSearchCriteria {
-  enterpriseId: UUID;
   buildingId?: UUID;
   buildingGroupId?: UUID;
-  tenantEmail: string;
+  tenantEmail?: string;
   status?: InvitationStatus;
 }

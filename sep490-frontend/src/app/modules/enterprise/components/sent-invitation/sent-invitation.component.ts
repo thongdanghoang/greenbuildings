@@ -1,18 +1,17 @@
 import {Component, EventEmitter, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {Building, BuildingGroup, InvitationDTO, InvitationStatus} from '@models/enterprise';
 import {InvitationResponse, InvitationSearchCriteria} from '@models/tenant';
 import {TranslateService} from '@ngx-translate/core';
-import {ModalProvider} from '@shared/services/modal-provider';
-import {Observable, takeUntil} from 'rxjs';
-import {UUID} from '../../../../../types/uuid';
-import {Building, BuildingGroup, InvitationDTO, InvitationStatus} from '@models/enterprise';
+import {ApplicationService} from '@services/application.service';
 import {BuildingGroupService} from '@services/building-group.service';
 import {BuildingService} from '@services/building.service';
 import {InvitationService} from '@services/invitation.service';
-import {ApplicationService} from '@services/application.service';
-import {SubscriptionAwareComponent} from '@shared/directives/subscription-aware.component';
 import {TableTemplateColumn} from '@shared/components/table-template/table-template.component';
+import {SubscriptionAwareComponent} from '@shared/directives/subscription-aware.component';
 import {SearchCriteriaDto, SearchResultDto} from '@shared/models/base-models';
+import {ModalProvider} from '@shared/services/modal-provider';
 import {ToastProvider} from '@shared/services/toast-provider';
+import {Observable, takeUntil} from 'rxjs';
 
 @Component({
   selector: 'app-sent-invitation',
@@ -38,10 +37,7 @@ export class SentInvitationComponent extends SubscriptionAwareComponent implemen
   ) => Observable<SearchResultDto<InvitationDTO>>;
 
   protected cols: TableTemplateColumn[] = [];
-  protected searchCriteria: InvitationSearchCriteria = {
-    enterpriseId: '' as UUID,
-    tenantEmail: ''
-  };
+  protected searchCriteria: InvitationSearchCriteria = {} as InvitationSearchCriteria;
   protected readonly InvitationStatus = InvitationStatus;
   protected readonly searchEvent: EventEmitter<void> = new EventEmitter();
 
@@ -62,9 +58,6 @@ export class SentInvitationComponent extends SubscriptionAwareComponent implemen
     this.fetchInvitations = this.invitationService.fetchInvitations.bind(this.invitationService);
     this.fetchBuildings();
     this.fetchBuildingGroups();
-    this.applicationService.UserData.pipe(takeUntil(this.destroy$)).subscribe(user => {
-      this.searchCriteria.enterpriseId = user.enterpriseId;
-    });
   }
 
   getStatusClass(status: string): string {
@@ -112,10 +105,10 @@ export class SentInvitationComponent extends SubscriptionAwareComponent implemen
   }
 
   clearCriteria(): void {
-    this.searchCriteria.tenantEmail = '';
+    this.searchCriteria.tenantEmail = undefined;
     this.matchingGroups = [];
-    this.searchCriteria.buildingId = '' as UUID;
-    this.searchCriteria.buildingGroupId = '' as UUID;
+    this.searchCriteria.buildingId = undefined;
+    this.searchCriteria.buildingGroupId = undefined;
     this.searchEvent.emit();
   }
 
@@ -124,7 +117,7 @@ export class SentInvitationComponent extends SubscriptionAwareComponent implemen
       this.matchingGroups = this.allAvailableGroups.filter(group => group.building.id === event.value);
     } else {
       this.matchingGroups = [];
-      this.searchCriteria.buildingGroupId = '' as UUID;
+      this.searchCriteria.buildingGroupId = undefined;
     }
   }
 
