@@ -22,7 +22,6 @@ public class Sep490IdentityProviderTokenMapper extends AbstractOIDCProtocolMappe
     private static final String LABEL = "Testcontainer mapper";
     
     private static final String AUTHORITIES_CLAIM = "authorities";
-    private static final String ENTERPRISE_ID_CLAIM = "enterpriseId";
     private static final String PERMISSIONS_CLAIM = "permissions";
     
     private final List<ProviderConfigProperty> configProperties = new ArrayList<>();
@@ -42,19 +41,25 @@ public class Sep490IdentityProviderTokenMapper extends AbstractOIDCProtocolMappe
         registerClaim(token, PERMISSIONS_CLAIM, Collections.emptyList()); // TODO: put mock permissions here
         if (email.startsWith("system.admin")) {
             registerClaim(token, AUTHORITIES_CLAIM, List.of("ROLE_SYSTEM_ADMIN"));
+            registerClaim(token, PERMISSIONS_CLAIM, List.of());
+            return token;
+        }
+        if (email.startsWith("core")) {
+            registerClaim(token, AUTHORITIES_CLAIM, List.of("ROLE_BASIC_USER"));
+            registerClaim(token, PERMISSIONS_CLAIM, List.of());
             return token;
         }
         if (email.startsWith("enterprise.owner")) {
             registerClaim(token, AUTHORITIES_CLAIM, List.of("ROLE_ENTERPRISE_OWNER"));
-            registerClaim(token, ENTERPRISE_ID_CLAIM, "664748fa-1312-4456-a88c-1ef187ec9510");
+            registerClaim(token, PERMISSIONS_CLAIM, List.of("ENTERPRISE_OWNER:664748fa-1312-4456-a88c-1ef187ec9510"));
             return token;
         }
-        if (email.startsWith("enterprise.employee")) {
-            registerClaim(token, AUTHORITIES_CLAIM, List.of("ROLE_ENTERPRISE_EMPLOYEE"));
-            registerClaim(token, ENTERPRISE_ID_CLAIM, "664748fa-1312-4456-a88c-1ef187ec9510");
+        if (email.startsWith("tenant")) {
+            registerClaim(token, AUTHORITIES_CLAIM, List.of("ROLE_TENANT"));
+            registerClaim(token, PERMISSIONS_CLAIM, "TENANT:5ad9bee9-1281-46d7-984f-8ab33ee8d12a");
             return token;
         }
-        registerClaim(token, ENTERPRISE_ID_CLAIM, UUID.randomUUID().toString());
+        registerClaim(token, PERMISSIONS_CLAIM, UUID.randomUUID().toString());
         return token;
     }
     

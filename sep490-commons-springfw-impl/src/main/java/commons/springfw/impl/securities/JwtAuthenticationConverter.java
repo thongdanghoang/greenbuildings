@@ -1,8 +1,6 @@
 package commons.springfw.impl.securities;
 
-import com.nimbusds.jose.shaded.gson.internal.LinkedTreeMap;
-import greenbuildings.commons.api.dto.auth.BuildingPermissionDTO;
-import greenbuildings.commons.api.security.BuildingPermissionRole;
+import greenbuildings.commons.api.security.UserRole;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -11,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
@@ -35,40 +34,28 @@ public class JwtAuthenticationConverter
                     .collect(Collectors.toUnmodifiableSet());
         }
         
-        var buildingPermissionsClaim = Optional.ofNullable(source.getClaims().get("permissions")).orElse(Collections.emptyList());
-        List<BuildingPermissionDTO> buildingPermissions = Collections.emptyList();
-        if (buildingPermissionsClaim instanceof List<?> buildingPermissionsList) {
-            buildingPermissions = buildingPermissionsList
+        var permissionsClaim = Optional.ofNullable(source.getClaims().get("permissions")).orElse(Collections.emptyList());
+        Map<UserRole, UUID> permissions = Collections.emptyMap();
+        if (permissionsClaim instanceof List<?> permissionsList) {
+            permissions = permissionsList
                     .stream()
-                    .filter(LinkedTreeMap.class::isInstance)
-                    .map(permission -> {
-                        var permissionMap = (LinkedTreeMap) permission;
-                        UUID uuid = Optional.ofNullable(permissionMap.get(BuildingPermissionDTO.Fields.buildingId))
-                                            .map(String.class::cast)
-                                            .map(UUID::fromString)
-                                            .orElse(null);
-                        return new BuildingPermissionDTO(
-                                uuid,
-                                BuildingPermissionRole.valueOf((String) permissionMap.get(BuildingPermissionDTO.Fields.role))
-                        );
-                    })
-                    .toList();
+                    .filter(String.class::isInstance)
+                    .map(String.class::cast) // UUID:String
+                    .collect(Collectors.toMap(
+                            permission -> UserRole.valueOf(permission.split(":")[0]), // UserRole
+                            permission -> UUID.fromString(permission.split(":")[1]), // UserRole
+                            (existing, replacement) -> existing));
         }
-        var enterpriseId = Optional
-                .ofNullable(source.getClaims().get("enterpriseId"))
-                .map(Object::toString)
-                .map(UUID::fromString)
-                .orElse(null);
+        
         
         return new JwtAuthenticationTokenDecorator(
                 source,
                 new UserContextData(
                         email,
                         userId,
-                        enterpriseId,
                         StringUtils.EMPTY,
                         List.copyOf(authorities),
-                        List.copyOf(buildingPermissions)
+                        Map.copyOf(permissions)
                 )
         );
     }

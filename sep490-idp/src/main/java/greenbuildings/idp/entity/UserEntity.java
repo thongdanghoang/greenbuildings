@@ -2,13 +2,11 @@ package greenbuildings.idp.entity;
 
 import commons.springfw.impl.entities.AbstractAuditableEntity;
 import greenbuildings.commons.api.security.UserRole;
-import greenbuildings.commons.api.security.UserScope;
 import greenbuildings.commons.api.utils.CommonConstant;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.NamedAttributeNode;
 import jakarta.persistence.NamedEntityGraph;
 import jakarta.persistence.OneToMany;
@@ -34,7 +32,7 @@ import java.util.UUID;
 @NamedEntityGraph(
         name = UserEntity.WITH_ENTERPRISE_PERMISSIONS_ENTITY_GRAPH,
         attributeNodes = {
-                @NamedAttributeNode("buildingPermissions")
+                @NamedAttributeNode("authorities")
         }
 )
 @FilterDef(name = UserEntity.BELONG_ENTERPRISE_FILTER, parameters = @ParamDef(name = UserEntity.BELONG_ENTERPRISE_PARAM, type = UUID.class))
@@ -54,19 +52,15 @@ public class UserEntity extends AbstractAuditableEntity {
     public static final String BELONG_ENTERPRISE_PARAM = "enterpriseId";
     
     @OneToMany(mappedBy = "user",
-               cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH},
+               cascade = CascadeType.ALL,
+               fetch = FetchType.EAGER,
                orphanRemoval = true)
-    private Set<BuildingPermissionEntity> buildingPermissions = new LinkedHashSet<>();
+    private Set<UserPermissionEntity> authorities = new LinkedHashSet<>();
     
     @OneToMany(mappedBy = "user",
                cascade = CascadeType.ALL,
                orphanRemoval = true)
     private List<PowerBiAuthority> powerBiApiKeys = new ArrayList<>();
-    
-    @NotNull
-    @Enumerated(EnumType.STRING)
-    @Column(name = "user_role")
-    private UserRole role;
     
     @NotNull
     @Pattern(regexp = CommonConstant.EMAIL_PATTERN)
@@ -97,13 +91,6 @@ public class UserEntity extends AbstractAuditableEntity {
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private UserOTP otp;
     
-    @Column(name = "enterprise_id")
-    private UUID enterpriseId;
-    
-    @Enumerated(EnumType.STRING)
-    @Column(name = "user_scope")
-    private UserScope scope;
-    
     public static UserEntity register(
             String email,
             boolean emailVerified,
@@ -113,15 +100,15 @@ public class UserEntity extends AbstractAuditableEntity {
             String phone,
             boolean phoneVerified,
             String password) {
-        UserEntity user = new UserEntity();
+        var user = new UserEntity();
         user.setEmail(email);
         user.setEmailVerified(emailVerified);
-        user.setRole(role);
         user.setFirstName(firstName);
         user.setLastName(lastName);
         user.setPhone(phone);
         user.setPhoneVerified(phoneVerified);
         user.setPassword(password);
+        user.getAuthorities().add(UserPermissionEntity.of(user, role, null));
         return user;
     }
 }

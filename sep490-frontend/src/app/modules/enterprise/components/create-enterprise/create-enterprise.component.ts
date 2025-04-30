@@ -60,15 +60,16 @@ export class CreateEnterpriseComponent extends AbstractFormComponent<RegisterEnt
             maxSize: maxSize / 1024 / 1024
           })
         });
+      } else {
+        this.storageService
+          .uploadBusinessLicense(file)
+          .pipe(takeUntil(this.destroy$))
+          .subscribe(view => {
+            if (view.path) {
+              this.formStructure.businessLicenseImageUrl.setValue(view.path);
+            }
+          });
       }
-      this.storageService
-        .uploadBusinessLicense(file)
-        .pipe(takeUntil(this.destroy$))
-        .subscribe(view => {
-          if (view.path) {
-            this.formStructure.businessLicenseImageUrl.setValue(view.path);
-          }
-        });
     }
   }
 

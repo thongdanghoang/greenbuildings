@@ -9,7 +9,6 @@ import greenbuildings.commons.api.security.UserRole;
 import greenbuildings.idp.dto.EnterpriseUserDTO;
 import greenbuildings.idp.dto.EnterpriseUserDetailsDTO;
 import greenbuildings.idp.dto.RegisterEnterpriseDTO;
-import greenbuildings.idp.dto.UserByBuildingDTO;
 import greenbuildings.idp.dto.UserCriteriaDTO;
 import greenbuildings.idp.dto.ValidateOTPRequest;
 import greenbuildings.idp.entity.UserEntity;
@@ -17,7 +16,6 @@ import greenbuildings.idp.mapper.EnterpriseUserMapper;
 import greenbuildings.idp.service.UserService;
 import jakarta.annotation.security.RolesAllowed;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -38,7 +36,9 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/enterprise-user")
 @RequiredArgsConstructor
-@RolesAllowed({UserRole.RoleNameConstant.ENTERPRISE_OWNER, UserRole.RoleNameConstant.SYSTEM_ADMIN, UserRole.RoleNameConstant.BASIC_USER,
+@RolesAllowed({UserRole.RoleNameConstant.ENTERPRISE_OWNER,
+               UserRole.RoleNameConstant.SYSTEM_ADMIN,
+               UserRole.RoleNameConstant.BASIC_USER,
                UserRole.RoleNameConstant.TENANT})
 public class EnterpriseUserRestController {
     
@@ -67,6 +67,8 @@ public class EnterpriseUserRestController {
     }
     
     @PostMapping("/search")
+    @RolesAllowed({UserRole.RoleNameConstant.ENTERPRISE_OWNER,
+                   UserRole.RoleNameConstant.SYSTEM_ADMIN})
     public ResponseEntity<SearchResultDTO<EnterpriseUserDTO>> searchEnterpriseUser(
             @RequestBody SearchCriteriaDTO<UserCriteriaDTO> searchCriteria) {
         
@@ -76,17 +78,6 @@ public class EnterpriseUserRestController {
                 CommonMapper.toSearchResultDTO(
                         searchResults,
                         userMapper::userEntityToEnterpriseUserDTO));
-    }
-    
-    @PostMapping("/search/{buildingId}")
-    public ResponseEntity<SearchResultDTO<UserByBuildingDTO>> searchUserByBuildings(@RequestBody SearchCriteriaDTO<Void> searchCriteria,
-                                                                                    @PathVariable UUID buildingId) {
-        var pageable = CommonMapper.toPageable(searchCriteria.page(), searchCriteria.sort());
-        Page<UserEntity> searchResults = userService.getUserByBuilding(buildingId, pageable);
-        var searchResultDTO = CommonMapper.toSearchResultDTO(
-                searchResults,
-                userEntity -> userMapper.userEntityToUserByBuildingDTO(userEntity, buildingId));
-        return ResponseEntity.ok(searchResultDTO);
     }
     
     @PostMapping()
@@ -112,17 +103,17 @@ public class EnterpriseUserRestController {
     
     private ResponseEntity<Void> saveUserAndReturnResponse(UserEntity user, HttpStatus status) {
         associateUserWithEntities(user);
-        userService.createOrUpdateEnterpriseUser(user);
+        userService.createOrUpdateUser(user);
         return ResponseEntity.status(status).build();
     }
     
     private void associateUserWithEntities(UserEntity user) {
-        user.getBuildingPermissions().forEach(bp -> bp.setUser(user));
+        user.getAuthorities().forEach(bp -> bp.setUser(user));
     }
     
     @DeleteMapping
-    public ResponseEntity<Void> deleteUsers(@RequestBody Set<UUID> userIds, @AuthenticationPrincipal UserContextData userContextData) {
-        userService.deleteUsers(userIds, userContextData.getEnterpriseId());
+    public ResponseEntity<Void> deleteUsers(@RequestBody Set<UUID> userIds) {
+        userService.deleteUsers(userIds);
         return ResponseEntity.noContent().build();
     }
     

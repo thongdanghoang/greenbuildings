@@ -1,7 +1,6 @@
 package greenbuildings.idp.service.impl;
 
-import greenbuildings.commons.api.dto.auth.BuildingPermissionDTO;
-import greenbuildings.idp.repository.BuildingPermissionRepository;
+import greenbuildings.idp.entity.UserPermissionEntity;
 import greenbuildings.idp.repository.UserRepository;
 import greenbuildings.idp.security.MvcUserContextData;
 import greenbuildings.idp.utils.IdpSecurityUtils;
@@ -12,13 +11,14 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
 public class UserDetailsServiceImpl implements UserDetailsService {
     
     private final UserRepository userRepository;
-    private final BuildingPermissionRepository buildingPermissionRepository;
     
     @Override
     public UserDetails loadUserByUsername(String email) {
@@ -26,11 +26,14 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException("User not found: " + email);
         }
-        var permissions = buildingPermissionRepository.findAllByUserId(user.getId());
-        var buildingPermissions = permissions
+        var permissions = user
+                .getAuthorities()
                 .stream()
-                .map(e -> new BuildingPermissionDTO(e.getBuilding(), e.getRole()))
-                .toList();
-        return new MvcUserContextData(user, IdpSecurityUtils.getAuthoritiesFromUserRole(user), buildingPermissions);
+                .collect(Collectors.toMap(
+                        UserPermissionEntity::getRole,
+                        UserPermissionEntity::getReferenceId,
+                        (existing, replacement) -> existing
+                                         ));
+        return new MvcUserContextData(user, IdpSecurityUtils.getAuthoritiesFromUserRole(user), permissions);
     }
 }
