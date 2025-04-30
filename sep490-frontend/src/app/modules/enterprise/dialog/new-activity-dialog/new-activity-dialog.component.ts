@@ -1,18 +1,16 @@
 import {HttpClient} from '@angular/common/http';
 import {Component} from '@angular/core';
 import {AbstractControl, FormBuilder, FormControl, Validators} from '@angular/forms';
-import {TranslateService} from '@ngx-translate/core';
-import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
-import {takeUntil} from 'rxjs';
-import {UUID} from '../../../../../types/uuid';
 import {ActivityType, CreateNewActivityDTO} from '@models/enterprise';
 import {EmissionFactorDTO, EmissionSourceDTO} from '@models/shared-models';
+import {TranslateService} from '@ngx-translate/core';
 import {ActivityTypeService} from '@services/activity-type.service';
 import {EmissionActivityService} from '@services/emission-activity.service';
 import {EmissionFactorService} from '@services/emission-factor.service';
-import {ApplicationService} from '@services/application.service';
 import {AbstractFormComponent} from '@shared/components/form/abstract-form-component';
 import {ToastProvider} from '@shared/services/toast-provider';
+import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
+import {UUID} from '../../../../../types/uuid';
 
 @Component({
   selector: 'app-new-activity-dialog',
@@ -48,8 +46,7 @@ export class NewActivityDialogComponent extends AbstractFormComponent<CreateNewA
     private readonly activityService: EmissionActivityService,
     private readonly ref: DynamicDialogRef,
     public config: DynamicDialogConfig,
-    private readonly activityTypeService: ActivityTypeService,
-    private readonly applicationService: ApplicationService
+    private readonly activityTypeService: ActivityTypeService
   ) {
     super(httpClient, formBuilder, notificationService, translate);
   }
@@ -112,10 +109,8 @@ export class NewActivityDialogComponent extends AbstractFormComponent<CreateNewA
   }
 
   private loadActivityTypes(): void {
-    this.applicationService.UserData.pipe(takeUntil(this.destroy$)).subscribe(u => {
-      this.activityTypeService.getByEnterpriseId(u.enterpriseId).subscribe(types => {
-        this.activityTypes = types;
-      });
+    this.activityTypeService.getByBuildingId(this.config.data?.buildingId).subscribe(types => {
+      this.activityTypes = types;
     });
   }
 }

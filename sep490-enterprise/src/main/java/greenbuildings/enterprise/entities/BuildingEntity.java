@@ -14,7 +14,6 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldNameConstants;
 import org.hibernate.annotations.SoftDelete;
@@ -54,10 +53,10 @@ public class BuildingEntity extends AbstractAuditableEntity {
     @Column(name = "longitude")
     private double longitude;
     
-    @OneToMany(mappedBy = "building", orphanRemoval = true)
+    @OneToMany(mappedBy = "building")
     private Set<SubscriptionEntity> subscriptions = new HashSet<>();
     
-    @OneToMany(mappedBy = "building", orphanRemoval = true)
+    @OneToMany(mappedBy = "building")
     private Set<BuildingGroupEntity> buildingGroups = new HashSet<>();
     
     @OneToMany(mappedBy = "building")

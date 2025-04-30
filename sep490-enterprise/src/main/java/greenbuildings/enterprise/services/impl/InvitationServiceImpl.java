@@ -1,7 +1,6 @@
 package greenbuildings.enterprise.services.impl;
 
 import commons.springfw.impl.utils.SecurityUtils;
-import greenbuildings.commons.api.dto.SearchCriteriaDTO;
 import greenbuildings.commons.api.exceptions.TechnicalException;
 import greenbuildings.enterprise.dtos.InvitationResponseDTO;
 import greenbuildings.enterprise.dtos.InvitationSearchCriteria;
@@ -22,7 +21,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 import java.util.function.Function;
@@ -60,25 +58,26 @@ public class InvitationServiceImpl implements InvitationService {
     }
     
     @Override
-    public Page<InvitationEntity> search(SearchCriteriaDTO<InvitationSearchCriteria> searchCriteria, Pageable pageable) {
-        InvitationSearchCriteria criteria = searchCriteria.criteria();
-        Sort sortByLastModifiedDate = Sort.by(Sort.Direction.DESC, "lastModifiedDate");
-        Pageable pageableWithSort = pageable.getSort().isSorted()
-            ? PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), pageable.getSort().and(sortByLastModifiedDate))
-            : PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), sortByLastModifiedDate);
-        Page<UUID> ids = invitationRepository.search(criteria.enterpriseId(), criteria.buildingId(),
-                                                     criteria.buildingGroupId(), criteria.status(),
-                                                     criteria.tenantEmail(), pageableWithSort);
-        Map<UUID, InvitationEntity> entityMap = invitationRepository.findAllById(ids).stream()
-                                                                    .collect(Collectors.toMap(InvitationEntity::getId, Function.identity()));
+    public Page<InvitationEntity> search(InvitationSearchCriteria criteria, Pageable pageable) {
+        var sortByLastModifiedDate = Sort.by(Sort.Direction.DESC, "lastModifiedDate");
+        var pageableWithSort = pageable.getSort().isSorted()
+                               ? PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), pageable.getSort().and(sortByLastModifiedDate))
+                               : PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), sortByLastModifiedDate);
+        var invitationIDs = invitationRepository
+                .search(criteria.enterpriseId(), criteria.buildingId(),
+                        criteria.buildingGroupId(), criteria.status(),
+                        criteria.tenantEmail(), pageableWithSort);
+        var entityMap = invitationRepository
+                .findAllById(invitationIDs).stream()
+                .collect(Collectors.toMap(InvitationEntity::getId, Function.identity()));
         
         // Preserve original order
-        List<InvitationEntity> orderedResults = ids.stream()
-                                                   .map(entityMap::get)
-                                                   .filter(Objects::nonNull) // safeguard in case of missing entity
-                                                   .toList();
+        var orderedResults = invitationIDs.stream()
+                                .map(entityMap::get)
+                                .filter(Objects::nonNull) // safeguard in case of missing entity
+                                .toList();
         
-        return new PageImpl<>(orderedResults, pageable, ids.getTotalElements());
+        return new PageImpl<>(orderedResults, pageable, invitationIDs.getTotalElements());
     }
     
     @Override

@@ -64,9 +64,11 @@ export class TenantProfileComponent extends AbstractFormComponent<TenantDetailDT
   }
 
   protected initializeData(): void {
-    this.applicationService.UserData.pipe(takeUntil(this.destroy$)).subscribe(userData => {
-      this.enterpriseId = userData.enterpriseId;
-      this.loadTenantDetail();
+    this.applicationService.TenantId.pipe(takeUntil(this.destroy$)).subscribe(tenantId => {
+      if (tenantId) {
+        this.enterpriseId = tenantId;
+        this.loadTenantDetail();
+      }
     });
   }
 

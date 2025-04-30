@@ -1,6 +1,5 @@
 package greenbuildings.enterprise.services;
 
-import greenbuildings.commons.api.dto.SearchCriteriaDTO;
 import greenbuildings.enterprise.dtos.InvitationResponseDTO;
 import greenbuildings.enterprise.dtos.InvitationSearchCriteria;
 import greenbuildings.enterprise.entities.InvitationEntity;
@@ -15,7 +14,7 @@ public interface InvitationService {
     
     void updateStatus(InvitationResponseDTO invitationDTO);
     
-    Page<InvitationEntity> search(SearchCriteriaDTO<InvitationSearchCriteria> searchCriteria, Pageable pageable);
+    Page<InvitationEntity> search(InvitationSearchCriteria criteria, Pageable pageable);
     
     InvitationEntity findPendingInvitationByBuildingGroupId(UUID id);
 }

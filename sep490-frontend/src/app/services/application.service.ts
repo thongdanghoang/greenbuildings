@@ -1,10 +1,10 @@
 import {Injectable, OnDestroy} from '@angular/core';
-import {AuthenticatedResult, OidcSecurityService} from 'angular-auth-oidc-client';
-import {JwtPayload} from 'jwt-decode';
-import {BehaviorSubject, Observable, filter, map, switchMap, takeUntil} from 'rxjs';
-import {UUID} from '../../types/uuid';
 import {UserRole} from '@models/role-names';
 import {SubscriptionAwareComponent} from '@shared/directives/subscription-aware.component';
+import {AuthenticatedResult, OidcSecurityService} from 'angular-auth-oidc-client';
+import {JwtPayload} from 'jwt-decode';
+import {BehaviorSubject, Observable, filter, map, switchMap, takeUntil, tap} from 'rxjs';
+import {UUID} from '../../types/uuid';
 
 interface UserInfoEmailScope {
   email: string;
@@ -23,7 +23,6 @@ interface UserInfoData extends UserInfoEmailScope, UserInfoPhoneScope {
 export interface UserData extends JwtPayload {
   authorities: string[];
   permissions: string[];
-  enterpriseId: UUID;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -79,6 +78,20 @@ export class ApplicationService extends SubscriptionAwareComponent implements On
 
   get UserData(): Observable<UserData> {
     return this.userDataSubject.asObservable().pipe(filter((user): user is UserData => user !== null));
+  }
+
+  get TenantId(): Observable<UUID | null> {
+    return this.userDataSubject.asObservable().pipe(
+      filter((user): user is UserData => user !== null),
+      tap((userData: UserData) => console.warn(userData)),
+      map((userData: UserData) => {
+        const tenantPermission = userData.permissions.find(permission => permission.startsWith('TENANT'));
+        if (tenantPermission) {
+          return tenantPermission.split(':')[1] as UUID;
+        }
+        return null;
+      })
+    );
   }
 
   get UserInfoData(): Observable<UserInfoData> {

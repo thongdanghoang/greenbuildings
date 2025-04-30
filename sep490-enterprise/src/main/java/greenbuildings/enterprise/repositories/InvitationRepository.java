@@ -21,10 +21,10 @@ public interface InvitationRepository extends JpaRepository<InvitationEntity, UU
             SELECT i.id
             FROM InvitationEntity i
             WHERE i.buildingGroup.building.enterprise.id = :enterpriseId
-              AND (:buildingId IS NULL OR i.buildingGroup.building.id = :buildingId)
-              AND (:buildingGroupId IS NULL OR i.buildingGroup.id = :buildingGroupId)
-              AND (:status IS NULL OR i.status = :status)
-              AND (:tenantEmail IS NULL OR :tenantEmail = '' OR i.email ILIKE '%' || :tenantEmail || '%')
+            AND (:buildingId IS NULL OR i.buildingGroup.building.id = :buildingId)
+            AND (:buildingGroupId IS NULL OR i.buildingGroup.id = :buildingGroupId)
+            AND (:status IS NULL OR i.status = :status)
+            AND (:tenantEmail IS NULL OR :tenantEmail = '' OR i.email ILIKE '%' || :tenantEmail || '%')
             """)
     Page<UUID> search(@Param("enterpriseId") UUID enterpriseId,
                       @Param("buildingId") UUID buildingId,

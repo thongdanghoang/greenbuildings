@@ -28,6 +28,8 @@ public interface BuildingGroupService {
     
     List<BuildingGroupEntity> findByBuildingId(UUID buildingId);
     
+    Page<BuildingGroupEntity> searchByBuildingIdWithTenant(UUID buildingId, Pageable pageable);
+    
     List<BuildingGroupEntity> findByTenantId(UUID tenantId);
     
     Page<BuildingGroupEntity> search(SearchCriteriaDTO<BuildingGroupCriteria> searchCriteria);

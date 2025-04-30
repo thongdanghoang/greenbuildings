@@ -147,9 +147,7 @@
         ></div>
     </div>
 }
-
-<!-- Các phần khác giữ nguyên -->
-<div *ngIf="isEdit">
+<div *ngIf="isEdit && activated">
     <div class="mb-1 mt-2 flex items-center justify-start">
         <p class="font-bold text-primary">
             {{ 'enterprise.userInBuildings' | translate }}
@@ -162,9 +160,3 @@
     >
     </table-template>
 </div>
-<ng-template
-    #permissionTemplate
-    let-rowData
->
-    <p>{{ 'enum.permissionRole.' + rowData.role | translate }}</p>
-</ng-template>

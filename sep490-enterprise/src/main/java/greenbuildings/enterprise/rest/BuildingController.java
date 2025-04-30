@@ -10,9 +10,12 @@ import greenbuildings.enterprise.dtos.BuildingDTO;
 import greenbuildings.enterprise.dtos.DownloadReportDTO;
 import greenbuildings.enterprise.dtos.OverviewBuildingDTO;
 import greenbuildings.enterprise.dtos.dashboard.SelectableBuildingDTO;
+import greenbuildings.enterprise.mappers.BuildingGroupMapper;
 import greenbuildings.enterprise.mappers.BuildingMapper;
+import greenbuildings.enterprise.services.BuildingGroupService;
 import greenbuildings.enterprise.services.BuildingService;
 import greenbuildings.enterprise.services.EnterpriseService;
+import greenbuildings.enterprise.views.buildings.details.TenantView;
 import jakarta.annotation.security.RolesAllowed;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.ByteArrayResource;
@@ -42,6 +45,8 @@ public class BuildingController extends AbstractRestController {
     private final BuildingMapper buildingMapper;
     private final BuildingService buildingService;
     private final EnterpriseService enterpriseService;
+    private final BuildingGroupService buildingGroupService;
+    private final BuildingGroupMapper buildingGroupMapper;
     
     @GetMapping("/{id}")
     public ResponseEntity<BuildingDTO> getBuildingById(@PathVariable UUID id) {
@@ -63,6 +68,17 @@ public class BuildingController extends AbstractRestController {
         var pageable = CommonMapper.toPageable(searchCriteria.page(), searchCriteria.sort());
         var searchResults = buildingService.getEnterpriseBuildings(enterpriseIdFromContext, pageable);
         var searchResultDTO = CommonMapper.toSearchResultDTO(searchResults, buildingMapper::toDto);
+        return ResponseEntity.ok(searchResultDTO);
+    }
+    
+    @PostMapping("/{buildingId}/tenants/search")
+    public ResponseEntity<SearchResultDTO<TenantView>> searchUserByBuildings(@RequestBody SearchCriteriaDTO<Void> searchCriteria,
+                                                                             @PathVariable UUID buildingId) {
+        var pageable = CommonMapper.toPageable(searchCriteria.page(), searchCriteria.sort());
+        var searchResults = buildingGroupService.searchByBuildingIdWithTenant(buildingId, pageable);
+        var searchResultDTO = CommonMapper.toSearchResultDTO(
+                searchResults,
+                buildingGroupMapper::toTenantView);
         return ResponseEntity.ok(searchResultDTO);
     }
     
