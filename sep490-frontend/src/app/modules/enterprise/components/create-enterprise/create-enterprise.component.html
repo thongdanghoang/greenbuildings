@@ -269,7 +269,7 @@
                                             (change)="uploadBusinessLicense($event)"
                                         />
                                     </p-button>
-                                    <small
+                                    <div
                                         *ngIf="
                                             formStructure.businessLicenseImageUrl.invalid &&
                                             formStructure.businessLicenseImageUrl.touched
@@ -277,7 +277,26 @@
                                         class="mt-1 block text-xs font-medium text-red-600 dark:text-red-400"
                                     >
                                         {{ 'validation.required' | translate }}
-                                    </small>
+                                    </div>
+                                    <div
+                                        *ngIf="formStructure.businessLicenseImageUrl.value"
+                                        class="flex items-center"
+                                    >
+                                        <p-tag
+                                            [value]="formStructure.businessLicenseImageUrl.value"
+                                            severity="success"
+                                            [rounded]="true"
+                                        ></p-tag>
+                                        <button
+                                            pButton
+                                            icon="pi pi-times"
+                                            size="small"
+                                            severity="danger"
+                                            text
+                                            rounded
+                                            (click)="formStructure.businessLicenseImageUrl.setValue(null)"
+                                        ></button>
+                                    </div>
                                 </div>
                             </div>
 

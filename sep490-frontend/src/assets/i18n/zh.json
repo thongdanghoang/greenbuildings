@@ -169,6 +169,10 @@
   "enterprise": {
     "title": "企业",
     "create": {
+      "error": {
+        "fileSizeExceeded": "文件大小超过限制",
+        "fileSizeExceededDetail": "文件大小必须小于 {{maxSize}} MB"
+      },
       "upload": {
         "businessLicenseImageUrl": "上传"
       },

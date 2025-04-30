@@ -168,16 +168,21 @@
     }
   },
   "enterprise": {
-    "upload": {
-      "businessLicenseImageUrl": "Upload"
-    },
-    "address": "Address",
-    "businessLicenseImageUrl": "Business License",
-    "representativeName": "Representative",
-    "representativePosition": "Title",
-    "representativeContact": "Contact",
+
     "title": "Enterprise",
     "create": {
+      "error": {
+        "fileSizeExceeded": "File size exceeded",
+        "fileSizeExceededDetail": "File size must be less than {{maxSize}} MB"
+      },
+      "upload": {
+        "businessLicenseImageUrl": "Upload"
+      },
+      "address": "Address",
+      "businessLicenseImageUrl": "Business License",
+      "representativeName": "Representative",
+      "representativePosition": "Title",
+      "representativeContact": "Contact",
       "title": "Create Enterprise",
       "description": "Create a new enterprise to manage your business",
       "name": "Enterprise Name",
