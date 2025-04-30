@@ -13,9 +13,7 @@ import greenbuildings.enterprise.mappers.BuildingGroupMapper;
 import greenbuildings.enterprise.repositories.BuildingGroupRepository;
 import greenbuildings.enterprise.repositories.EnterpriseRepository;
 import greenbuildings.enterprise.repositories.InvitationRepository;
-import greenbuildings.enterprise.repositories.TenantRepository;
 import greenbuildings.enterprise.services.BuildingGroupService;
-import greenbuildings.enterprise.services.IdpClientService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 
 @Service
@@ -68,8 +67,8 @@ public class BuildingGroupServiceImpl implements BuildingGroupService {
     }
     
     @Override
-    public void delete(UUID id) {
-        buildingGroupRepository.deleteById(id);
+    public void delete(Set<UUID> buildingGroupIDs) {
+        buildingGroupRepository.deleteAllById(buildingGroupIDs);
     }
     
     @Override

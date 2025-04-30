@@ -6,9 +6,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.NamedAttributeNode;
-import jakarta.persistence.NamedEntityGraph;
-import jakarta.persistence.NamedSubgraph;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.DecimalMax;
@@ -17,28 +14,22 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.FieldNameConstants;
 import org.hibernate.annotations.SoftDelete;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@NamedEntityGraph(
-        name = BuildingEntity.WITH_ACTIVITIES_ENTITY_GRAPH,
-        attributeNodes = {
-                @NamedAttributeNode(value = "buildingGroups")
-        }
-)
 @Table(name = "buildings")
+@SoftDelete
 @Getter
 @Setter
+@FieldNameConstants
 @NoArgsConstructor
-@SoftDelete
 public class BuildingEntity extends AbstractAuditableEntity {
-    
-    public static final String WITH_ACTIVITIES_ENTITY_GRAPH = "building-activites-entity-graph";
-    public static final String WITH_ACTIVITIES_RECORDS_SUB_GRAPH = "building-activites-records-sub-graph";
     
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
