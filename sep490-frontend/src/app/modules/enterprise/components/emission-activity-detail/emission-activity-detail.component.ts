@@ -25,8 +25,7 @@ import {EmissionActivityService} from '@services/emission-activity.service';
 
 @Component({
   selector: 'app-emission-activity-detail',
-  templateUrl: './emission-activity-detail.component.html',
-  styleUrls: ['./emission-activity-detail.component.scss']
+  templateUrl: './emission-activity-detail.component.html'
 })
 export class EmissionActivityDetailComponent extends AbstractFormComponent<EmissionActivityDetails> implements OnInit {
   formStructure = {
@@ -205,10 +204,13 @@ export class EmissionActivityDetailComponent extends AbstractFormComponent<Emiss
 
   onDownloadFile(record: EmissionActivityRecord): void {
     this.emissionActivityRecordService
-      .getFileUrl(record.id as string, record.file.id as string)
-      .subscribe((result: any) => {
-        const url = result.url;
-        window.open(url, '_blank'); // Open in a new tab
+      .getFile(record.id as string, record.file.id as string)
+      .subscribe((fileData: Blob) => {
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(fileData);
+        link.download = record.file.fileName;
+        link.click();
+        URL.revokeObjectURL(link.href);
       });
   }
 

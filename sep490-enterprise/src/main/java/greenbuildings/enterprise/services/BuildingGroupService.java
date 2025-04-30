@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 
 public interface BuildingGroupService {
@@ -23,7 +24,7 @@ public interface BuildingGroupService {
     
     BuildingGroupEntity update(UUID id, BuildingGroupDTO dto);
     
-    void delete(UUID id);
+    void delete(Set<UUID> buildingGroupIDs);
     
     List<BuildingGroupEntity> findByBuildingId(UUID buildingId);
     

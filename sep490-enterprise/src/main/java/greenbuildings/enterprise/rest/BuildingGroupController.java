@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @RestController
@@ -95,9 +96,9 @@ public class BuildingGroupController extends AbstractRestController {
         return ResponseEntity.ok(buildingGroupMapper.toDTO(buildingGroupService.update(id, dto)));
     }
     
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable UUID id) {
-        buildingGroupService.delete(id);
+    @DeleteMapping()
+    public ResponseEntity<Void> delete(@RequestBody Set<UUID> buildingGroupIds) {
+        buildingGroupService.delete(buildingGroupIds);
         return ResponseEntity.ok().build();
     }
     

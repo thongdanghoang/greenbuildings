@@ -7,11 +7,12 @@ import greenbuildings.enterprise.dtos.EmissionActivityRecordCriteria;
 import greenbuildings.enterprise.dtos.EmissionActivityRecordDTO;
 import greenbuildings.enterprise.dtos.NewEmissionActivityRecordDTO;
 import greenbuildings.enterprise.entities.EmissionActivityRecordEntity;
-import greenbuildings.enterprise.entities.RecordFileEntity;
 import greenbuildings.enterprise.mappers.EmissionActivityRecordMapper;
 import greenbuildings.enterprise.services.EmissionActivityRecordService;
+import greenbuildings.enterprise.services.MinioService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,13 +20,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
@@ -36,6 +34,7 @@ public class EmissionActivityRecordController {
     
     private final EmissionActivityRecordService recordService;
     private final EmissionActivityRecordMapper recordMapper;
+    private final MinioService minioService;
     
     @PostMapping("/search")
     public ResponseEntity<SearchResultDTO<EmissionActivityRecordDTO>> findAllByCriteria(
@@ -56,7 +55,7 @@ public class EmissionActivityRecordController {
         recordService.deleteRecords(ids);
         return ResponseEntity.noContent().build();
     }
-    
+
 //    @PostMapping("/{recordId}/file")
 //    public ResponseEntity<RecordFileEntity> uploadFile(@PathVariable UUID recordId, @RequestParam("file") MultipartFile file) {
 //        // TODO: return ENTITY ???
@@ -69,12 +68,13 @@ public class EmissionActivityRecordController {
         return ResponseEntity.ok().build();
     }
     
-    @GetMapping("/{recordId}/file/{fileId}/url")
-    public ResponseEntity<Map<String, String>> getFileUrl(@PathVariable UUID recordId, @PathVariable UUID fileId) {
-        String fileUrl = recordService.getFileUrl(recordId, fileId);
-        return ResponseEntity.ok(Map.of("url", fileUrl));
+    @GetMapping("/{recordId}/file/{fileId}")
+    public ResponseEntity<byte[]> getFileUrl(@PathVariable UUID recordId, @PathVariable UUID fileId) throws Exception {
+        var file = recordService.getFile(recordId, fileId);
+        var inputStream = minioService.getFile(file.getMinioPath());
+        return ResponseEntity.ok().contentType(MediaType.valueOf(file.getContentType())).body(inputStream.readAllBytes());
     }
-    
+
 //    @GetMapping("/{recordId}/file")
 //    public ResponseEntity<List<RecordFileEntity>> getRecordFiles(@PathVariable UUID recordId) {
 //        // TODO: return ENTITY ???

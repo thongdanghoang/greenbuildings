@@ -21,7 +21,7 @@ public interface BuildingRepository extends AbstractBaseRepository<BuildingEntit
     
     Optional<BuildingEntity> findByIdAndEnterpriseId(UUID id, UUID enterpriseId);
     
-    @EntityGraph(BuildingEntity.WITH_ACTIVITIES_ENTITY_GRAPH)
+    @EntityGraph(attributePaths = BuildingEntity.Fields.buildingGroups)
     @Query(value = "SELECT b FROM BuildingEntity b where b.id=:id")
     Optional<BuildingEntity> findByIdWithGraph(@NotNull UUID id);
 

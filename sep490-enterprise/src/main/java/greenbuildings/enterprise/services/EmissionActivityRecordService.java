@@ -7,6 +7,7 @@ import greenbuildings.enterprise.entities.RecordFileEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.InputStream;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -21,7 +22,7 @@ public interface EmissionActivityRecordService {
     
     void deleteFile(UUID recordId, UUID fileId);
     
-    String getFileUrl(UUID recordId, UUID fileId);
+    RecordFileEntity getFile(UUID recordId, UUID fileId);
     
     List<RecordFileEntity> getRecordFiles(UUID recordId);
     
