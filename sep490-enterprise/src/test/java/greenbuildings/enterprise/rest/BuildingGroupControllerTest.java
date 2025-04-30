@@ -9,7 +9,7 @@ import greenbuildings.enterprise.dtos.InviteTenantToBuildingGroup;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
+import java.util.Set;
 
 public class BuildingGroupControllerTest extends TestcontainersConfigs {
     
@@ -119,7 +119,8 @@ public class BuildingGroupControllerTest extends TestcontainersConfigs {
         asEnterpriseOwner()
                 .contentType(ContentType.JSON)
                 .when()
-                .delete(getBaseUrl() + "/{id}", insertBuildingGroupEntity(insertBuildingEntity()).getId())
+                .body(Set.of(insertBuildingGroupEntity(insertBuildingEntity()).getId()))
+                .delete(getBaseUrl())
                 .then()
                 .log().all()
                 .statusCode(200);
