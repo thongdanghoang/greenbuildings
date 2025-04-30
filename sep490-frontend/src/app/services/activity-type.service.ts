@@ -15,8 +15,8 @@ export class ActivityTypeService {
 
   constructor(private readonly http: HttpClient) {}
 
-  getByEnterpriseId(enterpriseId: UUID): Observable<ActivityType[]> {
-    return this.http.get<ActivityType[]>(`${this.baseUrl}?enterpriseId=${enterpriseId}`);
+  getByBuildingId(buildingId: UUID): Observable<ActivityType[]> {
+    return this.http.get<ActivityType[]>(`${this.baseUrl}?buildingId=${buildingId}`);
   }
 
   get createNewURL(): string {

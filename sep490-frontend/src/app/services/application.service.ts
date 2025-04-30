@@ -3,7 +3,8 @@ import {UserRole} from '@models/role-names';
 import {SubscriptionAwareComponent} from '@shared/directives/subscription-aware.component';
 import {AuthenticatedResult, OidcSecurityService} from 'angular-auth-oidc-client';
 import {JwtPayload} from 'jwt-decode';
-import {BehaviorSubject, Observable, filter, map, switchMap, takeUntil} from 'rxjs';
+import {BehaviorSubject, Observable, filter, map, switchMap, takeUntil, tap} from 'rxjs';
+import {UUID} from '../../types/uuid';
 
 interface UserInfoEmailScope {
   email: string;
@@ -77,6 +78,20 @@ export class ApplicationService extends SubscriptionAwareComponent implements On
 
   get UserData(): Observable<UserData> {
     return this.userDataSubject.asObservable().pipe(filter((user): user is UserData => user !== null));
+  }
+
+  get TenantId(): Observable<UUID | null> {
+    return this.userDataSubject.asObservable().pipe(
+      filter((user): user is UserData => user !== null),
+      tap((userData: UserData) => console.warn(userData)),
+      map((userData: UserData) => {
+        const tenantPermission = userData.permissions.find(permission => permission.startsWith('TENANT'));
+        if (tenantPermission) {
+          return tenantPermission.split(':')[1] as UUID;
+        }
+        return null;
+      })
+    );
   }
 
   get UserInfoData(): Observable<UserInfoData> {

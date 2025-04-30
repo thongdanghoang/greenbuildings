@@ -3,25 +3,25 @@ import {Component, EventEmitter, OnInit, TemplateRef, ViewChild} from '@angular/
 import {AbstractControl, FormBuilder, FormControl, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {EmissionActivityRecordCriteria} from '@models/emission-activity-record';
+import {ActivityType, EmissionActivityDetails, EmissionActivityRecord} from '@models/enterprise';
 import {TranslateService} from '@ngx-translate/core';
+import {ActivityTypeService} from '@services/activity-type.service';
+import {ApplicationService} from '@services/application.service';
+import {EmissionActivityRecordService} from '@services/emission-activity-record.service';
+import {EmissionActivityService} from '@services/emission-activity.service';
+import {AbstractFormComponent} from '@shared/components/form/abstract-form-component';
+import {TableTemplateColumn} from '@shared/components/table-template/table-template.component';
+import {SearchCriteriaDto, SearchResultDto} from '@shared/models/base-models';
+import {ToastProvider} from '@shared/services/toast-provider';
 import {DialogService, DynamicDialogConfig} from 'primeng/dynamicdialog';
 import {Observable, Observer, filter, map, switchMap, takeUntil} from 'rxjs';
 import {validate} from 'uuid';
 import {UUID} from '../../../../../types/uuid';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
-import {ActivityType, EmissionActivityDetails, EmissionActivityRecord} from '@models/enterprise';
-import {ApplicationService} from '@services/application.service';
-import {AbstractFormComponent} from '@shared/components/form/abstract-form-component';
-import {TableTemplateColumn} from '@shared/components/table-template/table-template.component';
-import {SearchCriteriaDto, SearchResultDto} from '@shared/models/base-models';
-import {ToastProvider} from '@shared/services/toast-provider';
 import {
   NewActivityRecordDialogComponent,
   NewActivityRecordDialogConfig
 } from '../../dialog/new-activity-record-dialog/new-activity-record-dialog.component';
-import {ActivityTypeService} from '@services/activity-type.service';
-import {EmissionActivityRecordService} from '@services/emission-activity-record.service';
-import {EmissionActivityService} from '@services/emission-activity.service';
 
 @Component({
   selector: 'app-emission-activity-detail',
@@ -319,10 +319,8 @@ export class EmissionActivityDetailComponent extends AbstractFormComponent<Emiss
   }
 
   private loadActivityTypes(): void {
-    this.applicationService.UserData.pipe(takeUntil(this.destroy$)).subscribe(u => {
-      this.activityTypeService.getByEnterpriseId(u.enterpriseId).subscribe(types => {
-        this.activityTypes = types;
-      });
+    this.activityTypeService.getByBuildingId(this.activity.buildingId).subscribe(types => {
+      this.activityTypes = types;
     });
   }
 }
