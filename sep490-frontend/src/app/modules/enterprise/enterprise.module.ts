@@ -32,7 +32,7 @@ import {EnterpriseComponent} from './enterprise.component';
 import {MarkerService} from './services/marker.service';
 import {PopupService} from './services/popup.service';
 import {RegionService} from './services/region.service';
-import { LinkedTenantComponent } from './components/linked-tenant/linked-tenant.component';
+import {LinkedTenantComponent} from './components/linked-tenant/linked-tenant.component';
 
 @NgModule({
   declarations: [

@@ -53,5 +53,4 @@ export class LinkedTenantComponent extends SubscriptionAwareComponent implements
       }
     ];
   }
-
 }
