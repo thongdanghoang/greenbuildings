@@ -12,7 +12,6 @@ import greenbuildings.enterprise.services.EmissionActivityRecordService;
 import greenbuildings.enterprise.services.MinioService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -70,13 +69,10 @@ public class EmissionActivityRecordController {
     }
     
     @GetMapping("/{recordId}/file/{fileId}")
-    public ResponseEntity<byte[]> getFileUrl(@PathVariable UUID recordId, @PathVariable UUID fileId) {
+    public ResponseEntity<byte[]> getFileUrl(@PathVariable UUID recordId, @PathVariable UUID fileId) throws Exception {
         var file = recordService.getFile(recordId, fileId);
-        try (var inputStream = minioService.getFile(file.getMinioPath())) {
-            return ResponseEntity.ok().contentType(MediaType.valueOf(file.getContentType())).body(inputStream.readAllBytes());
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        var inputStream = minioService.getFile(file.getMinioPath());
+        return ResponseEntity.ok().contentType(MediaType.valueOf(file.getContentType())).body(inputStream.readAllBytes());
     }
 
 //    @GetMapping("/{recordId}/file")
