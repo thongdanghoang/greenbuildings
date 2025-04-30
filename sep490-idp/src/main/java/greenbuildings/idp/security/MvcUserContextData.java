@@ -9,6 +9,7 @@ import org.springframework.security.core.GrantedAuthority;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 
 @Getter
@@ -17,7 +18,7 @@ public class MvcUserContextData extends UserContextData {
     
     public MvcUserContextData(@NotNull UserEntity userEntity,
                               List<GrantedAuthority> authorities,
-                              Map<UserRole, UUID> permissions) {
+                              Map<UserRole, Optional<UUID>> permissions) {
         super(userEntity.getEmail(),
               userEntity.getId(),
               userEntity.getPassword(),

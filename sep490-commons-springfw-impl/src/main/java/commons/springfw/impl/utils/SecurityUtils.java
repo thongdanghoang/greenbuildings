@@ -21,7 +21,8 @@ public final class SecurityUtils {
         return getUserContextData()
                 .map(UserContextData::getPermissions)
                 .filter(p -> p.keySet().stream().anyMatch(k -> k == UserRole.ENTERPRISE_OWNER))
-                .map(p -> p.get(UserRole.ENTERPRISE_OWNER));
+                .map(p -> p.get(UserRole.ENTERPRISE_OWNER))
+                .flatMap(uuid -> uuid);
     }
     
     public static Optional<UserContextData> getUserContextData() {

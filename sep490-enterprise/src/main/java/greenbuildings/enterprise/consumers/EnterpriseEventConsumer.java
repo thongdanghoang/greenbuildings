@@ -68,8 +68,10 @@ public class EnterpriseEventConsumer extends KafkaSecurityConfig {
                 if (exception instanceof BusinessException businessException) {
                     enterpriseEventProducer.publishEnterpriseCreationFailedEvent(correlationId, businessException);
                 }
-                enterpriseEventProducer.publishEnterpriseCreationFailedEvent(correlationId,
-                                                                             new BusinessException("enterprise", "UserRegister.UnexpectedError", List.of()));
+                enterpriseEventProducer.publishEnterpriseCreationFailedEvent(
+                        correlationId,
+                        new BusinessException("enterprise", "UserRegister.UnexpectedError", List.of())
+                                                                            );
             }
         }
     }

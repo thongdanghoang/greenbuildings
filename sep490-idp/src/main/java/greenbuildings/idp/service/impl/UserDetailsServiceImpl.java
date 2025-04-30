@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -31,7 +32,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 .stream()
                 .collect(Collectors.toMap(
                         UserPermissionEntity::getRole,
-                        UserPermissionEntity::getReferenceId,
+                        permission -> Optional.ofNullable(permission.getReferenceId()),
                         (existing, replacement) -> existing
                                          ));
         return new MvcUserContextData(user, IdpSecurityUtils.getAuthoritiesFromUserRole(user), permissions);

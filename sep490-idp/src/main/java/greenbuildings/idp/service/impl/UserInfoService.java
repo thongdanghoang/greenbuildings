@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -50,7 +51,9 @@ public class UserInfoService {
         var permissions = user
                 .getAuthorities()
                 .stream()
-                .map(a -> "%s:%s".formatted(a.getRole().getCode(), a.getReferenceId()))
+                .map(a -> Objects.nonNull(a.getReferenceId())
+                          ? "%s:%s".formatted(a.getRole().getCode(), a.getReferenceId())
+                          : a.getRole().getCode())
                 .toList();
         claims.put("sub", user.getId().toString());
         claims.put("email", user.getEmail());

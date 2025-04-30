@@ -35,18 +35,20 @@ public class JwtAuthenticationConverter
         }
         
         var permissionsClaim = Optional.ofNullable(source.getClaims().get("permissions")).orElse(Collections.emptyList());
-        Map<UserRole, UUID> permissions = Collections.emptyMap();
+        Map<UserRole, Optional<UUID>> permissions = Collections.emptyMap();
         if (permissionsClaim instanceof List<?> permissionsList) {
             permissions = permissionsList
                     .stream()
                     .filter(String.class::isInstance)
                     .map(String.class::cast) // UUID:String
                     .collect(Collectors.toMap(
-                            permission -> UserRole.valueOf(permission.split(":")[0]), // UserRole
-                            permission -> UUID.fromString(permission.split(":")[1]), // UserRole
-                            (existing, replacement) -> existing));
+                            permission -> UserRole.valueOf(permission.split(":")[0]), // Extract UserRole
+                            permission -> isReferenceId(permission)
+                                          ? Optional.of(UUID.fromString(permission.split(":")[1]))
+                                          : Optional.empty(), // Extract or set empty Optional
+                            (existing, replacement) -> existing // Keep the first value in case of conflict
+                                             ));
         }
-        
         
         return new JwtAuthenticationTokenDecorator(
                 source,
@@ -58,5 +60,9 @@ public class JwtAuthenticationConverter
                         Map.copyOf(permissions)
                 )
         );
+    }
+    
+    private boolean isReferenceId(String permission) {
+        return permission.matches("^[^:]+:[^:]+$");
     }
 }

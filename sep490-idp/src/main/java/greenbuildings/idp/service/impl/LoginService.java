@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
@@ -27,7 +28,7 @@ public class LoginService {
                 .stream()
                 .collect(Collectors.toMap(
                         UserPermissionEntity::getRole,
-                        UserPermissionEntity::getReferenceId,
+                        permission -> Optional.ofNullable(permission.getReferenceId()),
                         (existing, replacement) -> existing
                                          ));
         var userContextData = new MvcUserContextData(user, IdpSecurityUtils.getAuthoritiesFromUserRole(user), permissions);

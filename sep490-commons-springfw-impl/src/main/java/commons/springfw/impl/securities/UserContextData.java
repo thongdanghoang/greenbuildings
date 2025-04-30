@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 
 @Getter
@@ -17,7 +18,7 @@ public class UserContextData implements UserDetails {
     private final UUID id;
     private final String password;
     private final List<GrantedAuthority> authorities;
-    private final Map<UserRole, UUID> permissions; // UserRole:ReferenceId
+    private final Map<UserRole, Optional<UUID>> permissions; // UserRole:ReferenceId
     
     @Deprecated
     @Override
@@ -26,6 +27,6 @@ public class UserContextData implements UserDetails {
     }
     
     public UUID getEnterpriseId() {
-        return permissions.get(UserRole.ENTERPRISE_OWNER);
+        return permissions.get(UserRole.ENTERPRISE_OWNER).orElseThrow();
     }
 }
