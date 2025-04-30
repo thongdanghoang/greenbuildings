@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/invitation")
@@ -48,5 +50,11 @@ public class InvitationController {
     public ResponseEntity<?> updateStatus(@RequestBody InvitationResponseDTO invitationDTO) {
          invitationService.updateStatus(invitationDTO);
         return ResponseEntity.noContent().build();
+    }
+    
+    @GetMapping("/pending/building-group/{id}")
+    public ResponseEntity<InvitationDTO> fetchPendingInvitation(@PathVariable UUID id) {
+        InvitationEntity invitation = invitationService.findPendingInvitationByBuildingGroupId(id);
+        return ResponseEntity.ok(invitationMapper.toDTO(invitation));
     }
 }

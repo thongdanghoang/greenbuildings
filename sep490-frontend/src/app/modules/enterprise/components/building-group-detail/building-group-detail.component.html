@@ -121,9 +121,16 @@
                         </div>
                     </ng-container>
                     <ng-template #noTenant>
-                        <div class="flex items-center justify-center py-3">
+                        <div
+                            *ngIf="!pendingInvitation"
+                            class="flex items-center justify-center py-3"
+                        >
                             <i class="pi pi-exclamation-circle mr-2"></i>
                             <span>{{ 'tenant.noTenant' | translate }}</span>
+                        </div>
+                        <div *ngIf="pendingInvitation">
+                            {{ 'tenant.pendingInvitation' | translate }}
+                            <span class="font-semibold">{{ pendingInvitation.email }}</span>
                         </div>
                     </ng-template>
                 </ng-container>
@@ -145,7 +152,7 @@
                             size="small"
                         ></p-button>
                         <p-button
-                            *ngIf="!buildingGroup.tenant"
+                            *ngIf="!buildingGroup.tenant && !pendingInvitation"
                             label="{{ 'tenant.assign' | translate }}"
                             icon="pi pi-user-plus"
                             severity="primary"

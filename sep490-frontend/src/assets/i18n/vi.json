@@ -265,6 +265,7 @@
       },
       "management": {
         "title": "Quản lý tòa nhà",
+        "list": "Danh sách nhóm tòa nhà",
         "title1": "Quản lý Doanh nghiệp",
         "description": "Quản lý các doanh nghiệp của bạn một cách hiệu quả với công cụ này."
       },
@@ -950,6 +951,7 @@
     "detail": "Chi tiết người thuê nhà",
     "assign": "Chỉ định người thuê",
     "noTenant": "Chưa có người thuê",
+    "pendingInvitation": "Một lời mời đang chờ xử lý đã được gửi đến: ",
     "profile": {
       "title": "Hồ sơ người thuê",
       "description": "Xem và quản lý thông tin người thuê",

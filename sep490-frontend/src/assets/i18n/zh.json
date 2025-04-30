@@ -265,6 +265,7 @@
       },
       "management": {
         "title": "建筑管理",
+        "list": "建筑群组列表",
         "title1": "企业管理",
         "description": "使用此工具高效管理您的企业。"
       },
@@ -950,6 +951,7 @@
     "detail": "租户详情",
     "assign": "分配租户",
     "noTenant": "无租户",
+    "pendingInvitation": "待处理邀请已发送至：",
     "profile": {
       "title": "租户资料",
       "description": "查看和管理租户信息",

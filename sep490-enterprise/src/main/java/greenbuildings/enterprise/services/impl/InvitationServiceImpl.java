@@ -80,4 +80,9 @@ public class InvitationServiceImpl implements InvitationService {
         
         return new PageImpl<>(orderedResults, pageable, ids.getTotalElements());
     }
+    
+    @Override
+    public InvitationEntity findPendingInvitationByBuildingGroupId(UUID id) {
+        return this.invitationRepository.findFirstByBuildingGroupIdAndStatus(id, InvitationStatus.PENDING);
+    }
 }
