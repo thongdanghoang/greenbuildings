@@ -1,7 +1,10 @@
 package greenbuildings.enterprise.services;
 
+import greenbuildings.commons.api.dto.SearchCriteriaDTO;
+import greenbuildings.enterprise.dtos.SearchTenantCriteria;
 import greenbuildings.enterprise.dtos.TenantDTO;
 import greenbuildings.enterprise.dtos.TenantDetailDTO;
+import greenbuildings.enterprise.dtos.TenantTableView;
 import greenbuildings.enterprise.entities.TenantEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,4 +29,6 @@ public interface TenantService {
     TenantEntity update(UUID id, TenantDTO dto);
     
     void delete(UUID id);
+    
+    Page<TenantTableView> search(SearchCriteriaDTO<SearchTenantCriteria> searchCriteria, Pageable pageable);
 }

@@ -19,6 +19,8 @@ public interface TenantMapper {
     
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "version", ignore = true)
+    @Mapping(target = "buildingGroups", ignore = true)
+    @Mapping(target = "email", source = "enterpriseEmail")
     TenantEntity createTenant(PendingEnterpriseRegisterEvent enterpriseCreateEvent);
     
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
