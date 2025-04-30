@@ -1,11 +1,11 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {EmissionActivityRecordCriteria} from '@models/emission-activity-record';
+import {EmissionActivityRecord} from '@models/enterprise';
+import {SearchCriteriaDto, SearchResultDto} from '@shared/models/base-models';
 import {Observable} from 'rxjs';
 import {UUID} from '../../types/uuid';
 import {AppRoutingConstants} from '../app-routing.constant';
-import {EmissionActivityRecord} from '@models/enterprise';
-import {SearchCriteriaDto, SearchResultDto} from '@shared/models/base-models';
 
 @Injectable({
   providedIn: 'root'
@@ -38,9 +38,10 @@ export class EmissionActivityRecordService {
     );
   }
 
-  getFileUrl(recordId: string, fileId: string): Observable<any> {
-    return this.http.get<any>(
-      `${AppRoutingConstants.ENTERPRISE_API_URL}/${this.EMISSION_ACTIVITY_RECORD_PATH}/${recordId}/file/${fileId}/url`
+  getFile(recordId: string, fileId: string): Observable<Blob> {
+    return this.http.get(
+      `${AppRoutingConstants.ENTERPRISE_API_URL}/${this.EMISSION_ACTIVITY_RECORD_PATH}/${recordId}/file/${fileId}`,
+      {responseType: 'blob'}
     );
   }
 }

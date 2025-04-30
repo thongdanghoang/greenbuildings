@@ -168,10 +168,13 @@ export class NewActivityRecordDialogComponent extends AbstractFormComponent<Emis
 
   onDownloadFile(): void {
     this.emissionActivityRecordService
-      .getFileUrl(this.data?.editRecord!.id as string, this.data?.editRecord!.file.id as string)
-      .subscribe((result: any) => {
-        const url = result.url;
-        window.open(url, '_blank'); // Open in a new tab
+      .getFile(this.data?.editRecord!.id as string, this.data?.editRecord!.file.id as string)
+      .subscribe((fileData: Blob) => {
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(fileData);
+        link.download = this.data?.editRecord!.file.fileName as string;
+        link.click();
+        URL.revokeObjectURL(link.href);
       });
   }
 

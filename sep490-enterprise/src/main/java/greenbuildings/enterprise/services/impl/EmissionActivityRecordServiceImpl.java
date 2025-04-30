@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.InputStream;
 import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.Collections;
@@ -74,18 +75,7 @@ public class EmissionActivityRecordServiceImpl implements EmissionActivityRecord
     private void newRecord(EmissionActivityRecordEntity entity, MultipartFile file) {
         entity = recordRepository.save(entity);
         if (file != null) {
-            String minioPath = minioService.uploadFile(file, entity.getId().toString());
-            
-            RecordFileEntity fileEntity = new RecordFileEntity();
-            fileEntity.setFileName(file.getOriginalFilename());
-            fileEntity.setContentType(file.getContentType());
-            fileEntity.setFileSize(file.getSize());
-            fileEntity.setMinioPath(minioPath);
-            fileEntity.setUploadDate(LocalDateTime.now());
-            fileEntity.setRecord(entity);
-            entity.setFile(fileEntity);
-            
-            recordRepository.save(entity);
+            toRecordFileEntity(entity, file);
         }
     }
     
@@ -101,23 +91,23 @@ public class EmissionActivityRecordServiceImpl implements EmissionActivityRecord
                     minioService.deleteFile(existing.getFile().getMinioPath());
                     fileRepository.delete(existing.getFile());
                 }
-                
-                String minioPath = minioService.uploadFile(file, entity.getId().toString());
-                
-                RecordFileEntity fileEntity = new RecordFileEntity();
-                fileEntity.setFileName(file.getOriginalFilename());
-                fileEntity.setContentType(file.getContentType());
-                fileEntity.setFileSize(file.getSize());
-                fileEntity.setMinioPath(minioPath);
-                fileEntity.setUploadDate(LocalDateTime.now());
-                fileEntity.setRecord(entity);
-                entity.setFile(fileEntity);
-                
-                recordRepository.save(entity);
+                toRecordFileEntity(entity, file);
             } catch (Exception e) {
                 throw new TechnicalException(e);
             }
         }
+    }
+    
+    private void toRecordFileEntity(EmissionActivityRecordEntity entity, MultipartFile file) {
+        RecordFileEntity fileEntity = new RecordFileEntity();
+        fileEntity.setFileName(file.getOriginalFilename());
+        fileEntity.setContentType(file.getContentType());
+        fileEntity.setFileSize(file.getSize());
+        fileEntity.setMinioPath(minioService.uploadFile(file, entity.getId().toString()));
+        fileEntity.setUploadDate(LocalDateTime.now());
+        fileEntity.setRecord(entity);
+        entity.setFile(fileEntity);
+        recordRepository.save(entity);
     }
     
     @Override
@@ -162,15 +152,14 @@ public class EmissionActivityRecordServiceImpl implements EmissionActivityRecord
     }
     
     @Override
-    public String getFileUrl(UUID recordId, UUID fileId) {
-        RecordFileEntity file = fileRepository.findById(fileId)
+    public RecordFileEntity getFile(UUID recordId, UUID fileId) {
+        var file = fileRepository.findById(fileId)
                                               .orElseThrow(() -> new BusinessException(null, "File not found"));
         
         if (!file.getRecord().getId().equals(recordId)) {
             throw new BusinessException(null, "File does not belong to this record");
         }
-        
-        return minioService.getFileUrl(file.getMinioPath());
+        return file;
     }
     
     @Override
