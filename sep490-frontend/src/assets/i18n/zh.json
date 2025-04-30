@@ -512,6 +512,7 @@
       "invitation": "已发送邀请",
       "building": "建筑",
       "manage": "管理",
+      "tenant": "租户",
       "users": "用户",
       "subscription": "订阅",
       "activityType": "活动类型",
@@ -917,6 +918,15 @@
       "title": "推荐的信用包",
       "description": "根据您输入的信息，我们推荐以下信用包：",
       "noSuitablePackage": "未找到适合您需求的信用包。"
+    }
+  },
+  "linkedTenant": {
+    "title": "关联租户",
+    "description": "查看和管理与您的建筑物合作的企业中所有关联租户",
+    "table": {
+      "name": "名称",
+      "email": "电子邮件",
+      "building": "建筑 - 群组"
     }
   },
   "sentInvitation": {

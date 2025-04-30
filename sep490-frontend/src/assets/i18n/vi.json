@@ -511,6 +511,7 @@
       "emission": "Hoạt động phát thải",
       "invitation": "Lời mời đã gửi",
       "building": "Tòa nhà",
+      "tenant": "Người thuê",
       "manage": "Quản lý",
       "users": "Người dùng",
       "activityType": "Loại hoạt động",
@@ -917,6 +918,15 @@
       "title": "Gói Tín Dụng Đề Xuất",
       "description": "Dựa trên thông tin bạn cung cấp, chúng tôi đề xuất gói tín dụng sau:",
       "noSuitablePackage": "Không tìm thấy gói tín dụng phù hợp với yêu cầu của bạn."
+    }
+  },
+  "linkedTenant": {
+    "title": "Người thuê đã liên kết",
+    "description": "Xem và quản lý tất cả người thuê đã kết nối trong doanh nghiệp của bạn đang hợp tác với các tòa nhà của bạn",
+    "table": {
+      "name": "Tên",
+      "email": "Email",
+      "building": "Tòa nhà - Nhóm"
     }
   },
   "sentInvitation": {

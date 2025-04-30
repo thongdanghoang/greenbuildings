@@ -519,6 +519,7 @@
       "invitation": "Sent Invitation",
       "building": "Building",
       "manage": "Manage",
+      "tenant": "Tenant",
       "users": "Users",
       "activityType": "Activity Type",
       "subscription": "Subscription",
@@ -924,6 +925,15 @@
       "title": "Recommended Credit Package",
       "description": "Based on your input, we recommend the following credit package:",
       "noSuitablePackage": "No suitable credit package found for your requirements."
+    }
+  },
+  "linkedTenant": {
+    "title": "Linked Tenant",
+    "description": "View and manage all connected tenants in your enterprise who collaborate with your buildings",
+    "table": {
+      "name": "Name",
+      "email": "Email",
+      "building": "Building - Group"
     }
   },
   "sentInvitation": {

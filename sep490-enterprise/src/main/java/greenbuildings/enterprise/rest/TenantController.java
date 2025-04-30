@@ -5,12 +5,15 @@ import commons.springfw.impl.mappers.CommonMapper;
 import greenbuildings.commons.api.dto.SearchCriteriaDTO;
 import greenbuildings.commons.api.dto.SearchResultDTO;
 import greenbuildings.commons.api.security.UserRole;
+import greenbuildings.enterprise.dtos.SearchTenantCriteria;
 import greenbuildings.enterprise.dtos.TenantDTO;
 import greenbuildings.enterprise.dtos.TenantDetailDTO;
+import greenbuildings.enterprise.dtos.TenantTableView;
 import greenbuildings.enterprise.mappers.TenantMapper;
 import greenbuildings.enterprise.services.TenantService;
 import jakarta.annotation.security.RolesAllowed;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -56,10 +59,10 @@ public class TenantController extends AbstractRestController {
     }
     
     @PostMapping("/search")
-    public ResponseEntity<SearchResultDTO<TenantDTO>> search(@RequestBody SearchCriteriaDTO<Void> searchCriteria) {
+    public ResponseEntity<SearchResultDTO<TenantTableView>> search(@RequestBody SearchCriteriaDTO<SearchTenantCriteria> searchCriteria) {
         var pageable = CommonMapper.toPageable(searchCriteria.page(), searchCriteria.sort());
-        var searchResults = tenantService.findAll(pageable);
-        return ResponseEntity.ok(CommonMapper.toSearchResultDTO(searchResults, tenantMapper::toDTO));
+        Page<TenantTableView> rs = tenantService.search(searchCriteria, pageable);
+        return ResponseEntity.ok(SearchResultDTO.of(rs.getContent(), rs.getTotalElements()));
     }
     
     @PutMapping("/{id}")

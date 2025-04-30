@@ -13,6 +13,7 @@ import {CreateTenantComponent} from './components/create-tenant/create-tenant.co
 import {EmissionActivityDetailComponent} from './components/emission-activity-detail/emission-activity-detail.component';
 import {EmissionActivityComponent} from './components/emission-activity/emission-activity.component';
 import {EnterpriseInvitationComponent} from './components/enterprise-invitation/enterprise-invitation.component';
+import {LinkedTenantComponent} from './components/linked-tenant/linked-tenant.component';
 import {ManageTenantComponent} from './components/manage-tenant/manage-tenant.component';
 import {NewBuildingGroupComponent} from './components/new-building-group/new-building-group.component';
 import {NewTenantComponent} from './components/new-tenant/new-tenant.component';
@@ -63,6 +64,10 @@ const routes: Routes = [
       {
         path: AppRoutingConstants.PLAN_PATH,
         component: PlanComponent
+      },
+      {
+        path: AppRoutingConstants.LINKED_TENANT_PATH,
+        component: LinkedTenantComponent
       },
       {path: AppRoutingConstants.PAYMENT_PATH, component: PaymentComponent},
       {

@@ -6,6 +6,25 @@ import {Observable} from 'rxjs';
 import {UUID} from '../../types/uuid';
 import {AppRoutingConstants} from '../app-routing.constant';
 
+export interface SearchTenantCriteria {
+  email: string;
+}
+
+export interface TenantTableView {
+  id: UUID;
+  name: string;
+  email: string;
+  hotline: string;
+  buildings: {
+    id: UUID;
+    name: string;
+    buildingGroup: {
+      id: UUID;
+      name: string;
+    };
+  }[];
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -34,7 +53,7 @@ export class TenantService {
     return this.http.delete<void>(`${this.baseUrl}/${id}`);
   }
 
-  search(criteria: SearchCriteriaDto<void>): Observable<SearchResultDto<Tenant>> {
-    return this.http.post<SearchResultDto<Tenant>>(`${this.baseUrl}/search`, criteria);
+  search(criteria: SearchCriteriaDto<SearchTenantCriteria>): Observable<SearchResultDto<TenantTableView>> {
+    return this.http.post<SearchResultDto<TenantTableView>>(`${this.baseUrl}/search`, criteria);
   }
 }

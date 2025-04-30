@@ -1,7 +1,11 @@
 package greenbuildings.enterprise.services.impl;
 
+import commons.springfw.impl.utils.SecurityUtils;
+import greenbuildings.commons.api.dto.SearchCriteriaDTO;
+import greenbuildings.enterprise.dtos.SearchTenantCriteria;
 import greenbuildings.enterprise.dtos.TenantDTO;
 import greenbuildings.enterprise.dtos.TenantDetailDTO;
+import greenbuildings.enterprise.dtos.TenantTableView;
 import greenbuildings.enterprise.entities.TenantEntity;
 import greenbuildings.enterprise.mappers.TenantMapper;
 import greenbuildings.enterprise.repositories.TenantRepository;
@@ -85,5 +89,11 @@ public class TenantServiceImpl implements TenantService {
     @Override
     public void delete(UUID id) {
         tenantRepository.deleteById(id);
+    }
+    
+    @Override
+    public Page<TenantTableView> search(SearchCriteriaDTO<SearchTenantCriteria> searchCriteria, Pageable pageable) {
+        UUID enterpriseID = SecurityUtils.getCurrentUserEnterpriseId().orElseThrow();
+        return tenantRepository.findByEnterpriseId(enterpriseID, searchCriteria.criteria().email(), pageable).map(TenantTableView::fromEntity);
     }
 }

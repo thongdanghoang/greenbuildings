@@ -22,7 +22,7 @@
                     [(ngModel)]="searchCriteria.criteria"
                     type="text"
                     pInputText
-                    placeholder="Search"
+                    placeholder="{{ 'common.search' | translate }}"
                     (keydown.enter)="search()"
                 />
             </p-iconfield>
