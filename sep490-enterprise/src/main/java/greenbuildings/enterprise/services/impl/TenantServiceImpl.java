@@ -96,4 +96,9 @@ public class TenantServiceImpl implements TenantService {
         UUID enterpriseID = SecurityUtils.getCurrentUserEnterpriseId().orElseThrow();
         return tenantRepository.findByEnterpriseId(enterpriseID, searchCriteria.criteria().email(), pageable).map(TenantTableView::fromEntity);
     }
+    
+    @Override
+    public List<TenantEntity> findByBuildingId(UUID buildingId) {
+        return List.of();
+    }
 }

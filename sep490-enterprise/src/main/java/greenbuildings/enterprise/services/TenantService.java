@@ -31,4 +31,6 @@ public interface TenantService {
     void delete(UUID id);
     
     Page<TenantTableView> search(SearchCriteriaDTO<SearchTenantCriteria> searchCriteria, Pageable pageable);
+    
+    List<TenantEntity> findByBuildingId(UUID buildingId);
 }

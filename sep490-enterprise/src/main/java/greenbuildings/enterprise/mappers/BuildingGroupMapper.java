@@ -4,7 +4,15 @@ import greenbuildings.enterprise.dtos.BuildingGroupDTO;
 import greenbuildings.enterprise.dtos.CreateBuildingGroupDTO;
 import greenbuildings.enterprise.entities.BuildingGroupEntity;
 import greenbuildings.enterprise.mappers.decorators.BuildingGroupMapperDecorator;
-import org.mapstruct.*;
+import greenbuildings.enterprise.views.buildings.details.TenantView;
+import org.mapstruct.BeanMapping;
+import org.mapstruct.DecoratedWith;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingConstants;
+import org.mapstruct.MappingTarget;
+import org.mapstruct.NullValuePropertyMappingStrategy;
+import org.mapstruct.ReportingPolicy;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)
 @DecoratedWith(BuildingGroupMapperDecorator.class)
@@ -31,4 +39,11 @@ public interface BuildingGroupMapper {
     BuildingGroupEntity partialUpdate(BuildingGroupDTO dto, @MappingTarget BuildingGroupEntity entity);
 
     BuildingGroupEntity toEntity(CreateBuildingGroupDTO dto);
+    
+    @Mapping(target ="id", source = "tenant.id")
+    @Mapping(target ="name", source = "tenant.name")
+    @Mapping(target ="buildingId", source = "building.id")
+    @Mapping(target ="buildingGroupId", source = "id")
+    @Mapping(target ="buildingGroupName", source = "name")
+    TenantView toTenantView(BuildingGroupEntity source);
 } 

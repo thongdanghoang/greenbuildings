@@ -15,6 +15,7 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.FieldNameConstants;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -25,6 +26,7 @@ import java.util.Set;
 @Setter
 @RequiredArgsConstructor
 @NoArgsConstructor
+@FieldNameConstants
 public class BuildingGroupEntity extends AbstractAuditableEntity {
     
     @Column(name = "building_group_name")
