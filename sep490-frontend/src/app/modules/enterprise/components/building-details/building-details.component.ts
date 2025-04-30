@@ -1,21 +1,23 @@
 import {HttpClient} from '@angular/common/http';
-import {Component, EventEmitter, TemplateRef, ViewChild} from '@angular/core';
+import {Component, EventEmitter} from '@angular/core';
 import {AbstractControl, FormBuilder, FormControl, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
+import {SearchCriteriaDTOSearchTenantCriteria} from '@generated/models/search-criteria-dto-search-tenant-criteria';
+import {TenantView} from '@generated/models/tenant-view';
+import {BuildingDetails} from '@models/enterprise';
 import {TranslateService} from '@ngx-translate/core';
+import {ApplicationService} from '@services/application.service';
+import {BuildingService} from '@services/building.service';
+import {GeocodingService} from '@services/geocoding.service';
+import {AbstractFormComponent} from '@shared/components/form/abstract-form-component';
+import {TableTemplateColumn} from '@shared/components/table-template/table-template.component';
+import {SearchResultDto} from '@shared/models/base-models';
+import {ToastProvider} from '@shared/services/toast-provider';
 import L from 'leaflet';
 import {Observable, debounceTime, distinctUntilChanged, filter, map, switchMap, takeUntil, tap} from 'rxjs';
 import {validate} from 'uuid';
 import {UUID} from '../../../../../types/uuid';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
-import {BuildingDetails, UserByBuilding} from '@models/enterprise';
-import {BuildingService} from '@services/building.service';
-import {GeocodingService} from '@services/geocoding.service';
-import {ApplicationService} from '@services/application.service';
-import {AbstractFormComponent} from '@shared/components/form/abstract-form-component';
-import {TableTemplateColumn} from '@shared/components/table-template/table-template.component';
-import {SearchCriteriaDto, SearchResultDto} from '@shared/models/base-models';
-import {ToastProvider} from '@shared/services/toast-provider';
 
 @Component({
   selector: 'app-building-detail',
@@ -23,14 +25,13 @@ import {ToastProvider} from '@shared/services/toast-provider';
   styleUrl: './building-details.component.css'
 })
 export class BuildingDetailsComponent extends AbstractFormComponent<BuildingDetails> {
+  activated: boolean = false;
   addressSuggestions: any[] = [];
   showMap: boolean = false;
-  @ViewChild('permissionTemplate', {static: true})
-  permissionTemplate!: TemplateRef<any>;
   cols: TableTemplateColumn[] = [];
   triggerSearch: EventEmitter<void> = new EventEmitter();
   protected buildingId!: UUID;
-  protected fetchData!: (criteria: SearchCriteriaDto<void>) => Observable<SearchResultDto<UserByBuilding>>;
+  protected fetchData!: (criteria: SearchCriteriaDTOSearchTenantCriteria) => Observable<SearchResultDto<TenantView>>;
   protected readonly buildingDetailsStructure = {
     id: new FormControl(''),
     version: new FormControl(null),
@@ -65,12 +66,11 @@ export class BuildingDetailsComponent extends AbstractFormComponent<BuildingDeta
   buildCols(): void {
     this.cols.push({
       field: 'name',
-      header: 'enterprise.Users.table.name'
+      header: 'enterprise.buildings.details.tenant.name'
     });
     this.cols.push({
-      field: 'role',
-      header: 'enterprise.permissionInBuilding',
-      templateRef: this.permissionTemplate
+      field: 'buildingGroupName',
+      header: 'enterprise.buildings.details.groups.name'
     });
   }
 
@@ -186,7 +186,7 @@ export class BuildingDetailsComponent extends AbstractFormComponent<BuildingDeta
 
   protected initializeData(): void {
     this.fetchBuildingDetails();
-    this.fetchData = (criteria: SearchCriteriaDto<void>): Observable<SearchResultDto<UserByBuilding>> => {
+    this.fetchData = (criteria: SearchCriteriaDTOSearchTenantCriteria): Observable<SearchResultDto<TenantView>> => {
       return this.buildingService.searchUserByBuilding(criteria, this.buildingId);
     };
     this.buildCols();
@@ -218,6 +218,9 @@ export class BuildingDetailsComponent extends AbstractFormComponent<BuildingDeta
         switchMap(id => this.buildingService.getBuildingDetails(id as UUID))
       )
       .subscribe(building => {
+        if (building.subscriptionDTO) {
+          this.activated = true;
+        }
         this.formGroup.patchValue(building);
       });
   }
