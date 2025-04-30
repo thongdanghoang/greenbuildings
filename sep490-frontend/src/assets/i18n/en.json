@@ -278,6 +278,7 @@
       },
       "management": {
         "title": "Building Management",
+        "list": "Building group list",
         "title1": "Enterprise Manager",
         "description": "Manage your business enterprises efficiently with this tool."
       },
@@ -956,6 +957,7 @@
     "information": "Tenant information",
     "detail": "Tenant Details",
     "assign": "Assign Tenant",
+    "pendingInvitation": "A pending invitation has been sent to: ",
     "noTenant": "No tenant",
     "profile": {
       "title": "Tenant Profile",

@@ -35,4 +35,6 @@ public interface InvitationRepository extends JpaRepository<InvitationEntity, UU
     
     boolean existsByBuildingGroupBuildingIdAndEmailAndStatus(UUID buildingId, String email, InvitationStatus status);
     
+    InvitationEntity findFirstByBuildingGroupIdAndStatus(UUID buildingGroupId, InvitationStatus status);
+    
 }

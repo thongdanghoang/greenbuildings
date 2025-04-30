@@ -2,12 +2,13 @@ import {Component, EventEmitter, OnInit, TemplateRef, ViewChild} from '@angular/
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {ActivitySearchCriteria} from '@models/emission-activity';
 import {TranslateService} from '@ngx-translate/core';
+import {InvitationService} from '@services/invitation.service';
 import {DialogService, DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
 import {Observable} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {UUID} from '../../../../../types/uuid';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
-import {BuildingGroup, EmissionActivity} from '@models/enterprise';
+import {BuildingGroup, EmissionActivity, InvitationDTO} from '@models/enterprise';
 import {UserRole} from '@models/role-names';
 import {BuildingGroupService} from '@services/building-group.service';
 import {EmissionActivityService} from '@services/emission-activity.service';
@@ -26,6 +27,7 @@ import {NewActivityDialogComponent} from '../../dialog/new-activity-dialog/new-a
 export class BuildingGroupDetailComponent extends SubscriptionAwareComponent implements OnInit {
   userRole!: UserRole;
   buildingGroup!: BuildingGroup;
+  pendingInvitation: InvitationDTO | undefined;
   ref: DynamicDialogRef | undefined;
   @ViewChild('typeTemplate', {static: true})
   typeTemplate!: TemplateRef<any>;
@@ -50,6 +52,7 @@ export class BuildingGroupDetailComponent extends SubscriptionAwareComponent imp
     private readonly translate: TranslateService,
     private readonly modalProvider: ModalProvider,
     private readonly msgService: ToastProvider,
+    private readonly invitationService: InvitationService,
     protected readonly applicationService: ApplicationService
   ) {
     super();
@@ -160,6 +163,9 @@ export class BuildingGroupDetailComponent extends SubscriptionAwareComponent imp
       if (groupId) {
         this.buildingGroupService.getById(groupId as UUID).subscribe((group: BuildingGroup) => {
           this.buildingGroup = group;
+          if (!this.buildingGroup.tenant) {
+            this.fetchPendingInvitation();
+          }
           this.searchCriteria.buildingGroupId = group.id;
           this.searchEvent.emit();
         });
@@ -209,5 +215,11 @@ export class BuildingGroupDetailComponent extends SubscriptionAwareComponent imp
       AppRoutingConstants.EMISSION_ACTIVITY_DETAIL_PATH,
       activity.id
     ]);
+  }
+
+  fetchPendingInvitation(): void {
+    this.invitationService.fetchPendingInvitation(this.buildingGroup.id).subscribe(rs => {
+      this.pendingInvitation = rs;
+    });
   }
 }

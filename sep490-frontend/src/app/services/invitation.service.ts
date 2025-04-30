@@ -4,6 +4,7 @@ import {InvitationDTO} from '@models/enterprise';
 import {InvitationResponse, InvitationSearchCriteria} from '@models/tenant';
 import {SearchCriteriaDto, SearchResultDto} from '@shared/models/base-models';
 import {Observable} from 'rxjs';
+import {UUID} from '../../types/uuid';
 import {AppRoutingConstants} from '../app-routing.constant';
 
 @Injectable({
@@ -26,5 +27,9 @@ export class InvitationService {
     criteria: SearchCriteriaDto<InvitationSearchCriteria>
   ): Observable<SearchResultDto<InvitationDTO>> {
     return this.http.post<SearchResultDto<InvitationDTO>>(`${this.baseUrl}/search`, criteria);
+  }
+
+  fetchPendingInvitation(id: UUID): Observable<InvitationDTO> {
+    return this.http.get<InvitationDTO>(`${this.baseUrl}/pending/building-group/${id}`);
   }
 }
