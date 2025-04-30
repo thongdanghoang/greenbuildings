@@ -1,4 +1,4 @@
-<div class="mt-4 w-[600px] sm:w-[700px] md:w-[800px]">
+<div class="mt-4">
     <!-- Header -->
     <div class="p-dialog-header border-b p-0">
         <span class="text-xl font-semibold">
@@ -25,12 +25,12 @@
                     #content
                     let-activateCallback="activateCallback"
                 >
-                    <div class="p-dialog-content flex min-h-[150px] flex-col overflow-hidden p-0">
-                        <div class="my-4 px-4">
+                    <div class="p-dialog-content flex flex-col overflow-hidden p-0">
+                        <ng-container>
                             <p>
                                 {{ 'creditPackageGuide.confirmationMessage' | translate }}
                             </p>
-                        </div>
+                        </ng-container>
                         <div class="mt-4 flex items-center justify-end px-2">
                             <div class="flex items-center">
                                 <p-button
@@ -39,6 +39,7 @@
                                     iconPos="right"
                                     class="ml-2"
                                     (onClick)="activateCallback(2)"
+                                    size="small"
                                 ></p-button>
                             </div>
                         </div>
@@ -52,8 +53,8 @@
                     #content
                     let-activateCallback="activateCallback"
                 >
-                    <div class="p-dialog-content flex min-h-[500px] flex-col overflow-hidden p-0">
-                        <div class="my-4 px-4">
+                    <div class="p-dialog-content flex flex-col overflow-hidden p-0">
+                        <ng-container>
                             <!-- Balance and Info -->
                             <div class="mb-4 flex flex-col justify-center gap-2 border border-primary px-4 lg:flex-row">
                                 <div class="h-full gap-2 p-5">
@@ -183,19 +184,21 @@
                                     </span>
                                 </div>
                             </div>
-                        </div>
-                        <div class="mt-2 flex justify-between px-4">
+                        </ng-container>
+                        <div class="mt-2 flex justify-between">
                             <p-button
                                 label="{{ 'creditPackageGuide.back' | translate }}"
                                 severity="secondary"
                                 icon="pi pi-arrow-left"
                                 (onClick)="activateCallback(1)"
+                                size="small"
                             ></p-button>
                             <p-button
                                 label="{{ 'creditPackageGuide.proceed' | translate }}"
                                 icon="pi pi-arrow-right"
                                 severity="primary"
                                 (onClick)="proceedToStep3(activateCallback)"
+                                size="small"
                             ></p-button>
                         </div>
                     </div>
@@ -208,8 +211,8 @@
                     #content
                     let-activateCallback="activateCallback"
                 >
-                    <div class="p-dialog-content flex min-h-[300px] flex-col overflow-hidden p-0">
-                        <div class="my-4 px-4">
+                    <div class="p-dialog-content flex flex-col overflow-hidden p-0">
+                        <ng-container>
                             <h3 class="text-lg font-semibold">
                                 {{ 'creditPackageGuide.stepThree.title' | translate }}
                             </h3>
@@ -252,12 +255,13 @@
                                     </p>
                                 </ng-template>
                             </div>
-                        </div>
-                        <div class="mt-2 flex justify-between px-4">
+                        </ng-container>
+                        <div class="mt-2 flex justify-between">
                             <p-button
                                 label="{{ 'creditPackageGuide.back' | translate }}"
                                 severity="secondary"
                                 icon="pi pi-arrow-left"
+                                size="small"
                                 (onClick)="activateCallback(2)"
                             ></p-button>
                             <p-button
@@ -265,6 +269,7 @@
                                 icon="pi pi-check"
                                 severity="primary"
                                 (onClick)="closeDialog()"
+                                size="small"
                             ></p-button>
                         </div>
                     </div>

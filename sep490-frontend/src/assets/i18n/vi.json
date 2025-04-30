@@ -169,6 +169,10 @@
   "enterprise": {
     "title": "Doanh nghiệp",
     "create": {
+      "error": {
+        "fileSizeExceeded": "Tệp tin quá lớn",
+        "fileSizeExceededDetail": "Kích thước tệp tin không được vượt quá {{maxSize}} MB"
+      },
       "upload": {
         "businessLicenseImageUrl": "Tải lên"
       },

@@ -34,7 +34,7 @@ public class UserResource {
     
     @GetMapping("/locale")
     public ResponseEntity<UserConfigs> getLanguage(@AuthenticationPrincipal UserContextData userContextData) {
-        var userEntity = userService.findByEmail(userContextData.getUsername()).orElseThrow();
+        var userEntity = userService.findById(userContextData.getId()).orElseThrow();
         var userLocaleResponse = UserConfigs
                 .builder()
                 .language(UserLocale.fromCode(userEntity.getLocale()).getCode())
@@ -62,7 +62,7 @@ public class UserResource {
     
     @GetMapping
     public ResponseEntity<EnterpriseUserDetailsDTO> getEnterpriseUserDetail(@AuthenticationPrincipal UserContextData userContextData) {
-        var userDetailsEntity = userService.getUserDetail(userContextData.getUsername());
+        var userDetailsEntity = userService.getUserDetail(userContextData.getId());
         var userDetails = userMapper.userEntityToBasicEnterpriseUserDetailDTO(userDetailsEntity);
         return ResponseEntity.ok(userDetails);
     }

@@ -1,12 +1,12 @@
 package greenbuildings.enterprise.adapters.payos.payos;
 
+import greenbuildings.commons.api.enums.PaymentStatus;
+import greenbuildings.commons.api.exceptions.TechnicalException;
+import greenbuildings.commons.api.utils.EnumUtil;
 import greenbuildings.enterprise.entities.CreditPackageVersionEntity;
 import greenbuildings.enterprise.entities.EnterpriseEntity;
 import greenbuildings.enterprise.entities.PaymentEntity;
 import greenbuildings.enterprise.mappers.PaymentMapper;
-import greenbuildings.commons.api.enums.PaymentStatus;
-import greenbuildings.commons.api.exceptions.TechnicalException;
-import greenbuildings.commons.api.utils.EnumUtil;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -43,14 +43,15 @@ public class PayOSAdapterImpl implements PayOSAdapter {
     
     
     @Override
-    public PaymentEntity newPayment(@NotNull CreditPackageVersionEntity creditPackageVersionEntity, @NotNull EnterpriseEntity enterpriseEntity, @NotNull String requestOrigin) {
+    public PaymentEntity newPayment(@NotNull CreditPackageVersionEntity creditPackageVersionEntity, @NotNull EnterpriseEntity enterpriseEntity,
+                                    @NotNull String requestOrigin) {
         try {
             this.setUrls(requestOrigin);
             log.info("Creating payment link for enterprise: {}", enterpriseEntity.getId());
             
-            ItemData itemData = buildItemData(creditPackageVersionEntity);
-            PaymentData paymentData = getPaymentData(creditPackageVersionEntity, enterpriseEntity, itemData);
-            CheckoutResponseData payOSResult = payOS.createPaymentLink(paymentData);
+            var itemData = buildItemData(creditPackageVersionEntity);
+            var paymentData = getPaymentData(creditPackageVersionEntity, enterpriseEntity, itemData);
+            var payOSResult = payOS.createPaymentLink(paymentData);
             
             log.info("Payment link created successfully for order code: {}", payOSResult.getOrderCode());
             return preparePaymentEntity(enterpriseEntity, payOSResult, creditPackageVersionEntity);
@@ -96,9 +97,10 @@ public class PayOSAdapterImpl implements PayOSAdapter {
     private PaymentData getPaymentData(CreditPackageVersionEntity creditPackageVersionEntity,
                                        EnterpriseEntity enterpriseEntity,
                                        ItemData itemData) {
+        long discountedAmount = creditPackageVersionEntity.getPrice() * (100 - creditPackageVersionEntity.getDiscount()) / 100;
         return PaymentData.builder()
                           .orderCode(System.currentTimeMillis())
-                          .amount((int) creditPackageVersionEntity.getPrice())
+                          .amount((int) discountedAmount)
                           .description("Credit purchase") // max 25 chars
                           .buyerName(enterpriseEntity.getName())
                           .buyerEmail(enterpriseEntity.getEnterpriseEmail())

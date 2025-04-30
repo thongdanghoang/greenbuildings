@@ -4,7 +4,7 @@ import {SubscriptionAwareComponent} from '@shared/directives/subscription-aware.
 
 @Injectable()
 export class ToastProvider extends SubscriptionAwareComponent {
-  private readonly defaultLife = 1000;
+  private readonly defaultLife: number = 2000;
 
   constructor(private readonly messageService: MessageService) {
     super();
@@ -14,7 +14,7 @@ export class ToastProvider extends SubscriptionAwareComponent {
     return this.messageService.add({
       ...message,
       severity: 'error',
-      life: this.defaultLife
+      life: 3000
     });
   }
 

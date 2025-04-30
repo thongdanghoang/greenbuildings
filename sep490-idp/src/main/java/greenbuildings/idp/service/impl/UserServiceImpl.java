@@ -10,7 +10,6 @@ import greenbuildings.commons.api.exceptions.BusinessErrorResponse;
 import greenbuildings.commons.api.exceptions.BusinessException;
 import greenbuildings.commons.api.exceptions.TechnicalException;
 import greenbuildings.commons.api.security.UserRole;
-import greenbuildings.commons.api.security.UserScope;
 import greenbuildings.commons.api.utils.CommonUtils;
 import greenbuildings.idp.dto.RegisterEnterpriseDTO;
 import greenbuildings.idp.dto.SignupDTO;
@@ -19,7 +18,7 @@ import greenbuildings.idp.dto.UserCriteriaDTO;
 import greenbuildings.idp.dto.ValidateOTPRequest;
 import greenbuildings.idp.entity.UserEntity;
 import greenbuildings.idp.entity.UserOTP;
-import greenbuildings.idp.interceptors.EnableHibernateFilter;
+import greenbuildings.idp.entity.UserPermissionEntity;
 import greenbuildings.idp.producers.IdPEventProducer;
 import greenbuildings.idp.repository.UserOTPRepository;
 import greenbuildings.idp.repository.UserRepository;
@@ -27,14 +26,12 @@ import greenbuildings.idp.service.UserService;
 import greenbuildings.idp.utils.IEmailUtil;
 import greenbuildings.idp.utils.IMessageUtil;
 import greenbuildings.idp.utils.SEPMailMessage;
-import greenbuildings.idp.validators.UserValidator;
 import greenbuildings.idp.validators.Validator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -61,8 +58,7 @@ import java.util.stream.Collectors;
 @Transactional(rollbackFor = Throwable.class)
 public class UserServiceImpl extends SagaManager implements UserService {
     
-    private final UserRepository userRepo;
-    private final UserValidator userValidator;
+    private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     @Qualifier("signupValidator")
     private final Validator<SignupDTO> validator;
@@ -81,7 +77,7 @@ public class UserServiceImpl extends SagaManager implements UserService {
             return result;
         }
         var user = createBasicUser(signupDTO);
-        userRepo.save(user);
+        userRepository.save(user);
         
         result.setSuccess(true);
         result.setSuccessMessage("signup.notification");
@@ -137,11 +133,11 @@ public class UserServiceImpl extends SagaManager implements UserService {
     @Override
     public Page<UserEntity> search(SearchCriteriaDTO<UserCriteriaDTO> searchCriteria) {
         UUID enterpriseId = SecurityUtils.getCurrentUserEnterpriseId().orElseThrow();
-        var userIDs = userRepo.findByName(
+        var userIDs = userRepository.findByName(
                 searchCriteria.criteria().criteria(),
                 enterpriseId,
                 CommonMapper.toPageable(searchCriteria.page(), searchCriteria.sort()));
-        var results = userRepo
+        var results = userRepository
                 .findByIDsWithPermissions(userIDs.toSet())
                 .stream()
                 .collect(Collectors.toMap(UserEntity::getId, Function.identity()));
@@ -149,15 +145,10 @@ public class UserServiceImpl extends SagaManager implements UserService {
     }
     
     @Override
-    public Page<UserEntity> getUserByBuilding(UUID buildingId, Pageable pageable) {
-        //UUID enterpriseId = SecurityUtils.getCurrentUserEnterpriseId().orElseThrow();
-        return userRepo.findUserAndBuilding(buildingId, pageable);
-    }
-    
-    @Override
     public void createNewEnterprise(UserContextData userContextData, RegisterEnterpriseDTO registerEnterprise) {
-        var user = userRepo.findById(userContextData.getId()).orElseThrow();
-        if (user.getRole() != UserRole.BASIC_USER || user.getEnterpriseId() != null) {
+        var user = userRepository.findById(userContextData.getId()).orElseThrow();
+        if (user.getAuthorities().stream().map(UserPermissionEntity::getRole).noneMatch(permission -> permission == UserRole.BASIC_USER)
+            || user.getAuthorities().stream().map(UserPermissionEntity::getRole).anyMatch(permission -> permission == UserRole.ENTERPRISE_OWNER)) {
             throw new BusinessException("user", "validation.business.createEnterprise.alreadyExists");
         }
         if (registerEnterprise.role() != UserRole.ENTERPRISE_OWNER && registerEnterprise.role() != UserRole.TENANT) {
@@ -171,10 +162,8 @@ public class UserServiceImpl extends SagaManager implements UserService {
         kafkaAdapter.publishEnterpriseOwnerRegisterEvent(correlationId, registerEnterprise);
         try { // Wait synchronously for response
             var enterpriseId = UUID.fromString(future.get(TRANSACTION_TIMEOUT, TimeUnit.SECONDS).toString());// Timeout in case response is lost
-            user.setEnterpriseId(enterpriseId);
-            user.setRole(registerEnterprise.role());
-            user.setScope(UserScope.ENTERPRISE);
-            userRepo.save(user); // COMPLETE
+            user.getAuthorities().add(UserPermissionEntity.of(user, registerEnterprise.role(), enterpriseId));
+            userRepository.save(user); // COMPLETE
         } catch (TimeoutException e) {
             throw new TechnicalException("Request timeout", e);
         } catch (ExecutionException e) {
@@ -193,38 +182,35 @@ public class UserServiceImpl extends SagaManager implements UserService {
     
     @Override
     public UserEntity updateBasicUser(UserEntity user) {
-        return userRepo.save(user);
+        return userRepository.save(user);
     }
     
     @Override
-    @EnableHibernateFilter(
-            filterName = UserEntity.BELONG_ENTERPRISE_FILTER,
-            params = {
-                    @EnableHibernateFilter.Param(name = UserEntity.BELONG_ENTERPRISE_PARAM, value = "${enterpriseId}")
-            }
-    )
-    public void deleteUsers(Set<UUID> userIds, UUID enterpriseId) {
+    public void deleteUsers(Set<UUID> userIds) {
         if (CollectionUtils.isEmpty(userIds)) {
             throw new BusinessException("userIds", "user.delete.no.ids", Collections.emptyList());
         }
-        var users = userRepo.findByIDs(userIds);
+        var users = userRepository.findByIDs(userIds);
         if (users.size() != userIds.size()) {
             userIds.removeAll(users.stream().map(UserEntity::getId).collect(Collectors.toSet()));
             throw new BusinessException("userIds", "user.delete.not.found",
                                         List.of(new BusinessErrorParam("ids", userIds)));
         }
-        // Stream approach to check if any user has the ENTERPRISE_OWNER role
-        if (users.stream().anyMatch(user -> user.getRole() == UserRole.ENTERPRISE_OWNER)) {
+        var hasEnterpriseOwner = users
+                .stream()
+                .flatMap(u -> u.getAuthorities().stream())
+                .map(UserPermissionEntity::getRole)
+                .anyMatch(role -> role == UserRole.ENTERPRISE_OWNER);
+        if (hasEnterpriseOwner) {
             throw new BusinessException("userIds", "user.cannot.delete.owner");
         }
-        userRepo.deleteAll(users);
+        userRepository.deleteAll(users);
     }
     
     @Override
-    public void createOrUpdateEnterpriseUser(UserEntity user) {
-        userValidator.validateEnterpriseOwnerManageEmployees(user);
+    public void createOrUpdateUser(UserEntity user) {
         this.performCreateUserAction(user);
-        userRepo.save(user);
+        userRepository.save(user);
     }
     
     private void performCreateUserAction(UserEntity user) {
@@ -266,33 +252,33 @@ public class UserServiceImpl extends SagaManager implements UserService {
     
     @Override
     public UserEntity getEnterpriseUserDetail(UUID id) {
-        return userRepo.findByIdWithBuildingPermissions(id).orElseThrow();
+        return userRepository.findByIdWithBuildingPermissions(id).orElseThrow();
     }
     
     @Override
-    public UserEntity getUserDetail(String email) {
-        return userRepo.findByEmail(email).orElseThrow();
+    public UserEntity getUserDetail(UUID id) {
+        return userRepository.findById(id).orElseThrow();
     }
     
     @Transactional(readOnly = true)
     @Override
     public Optional<UserEntity> findById(UUID enterpriseId) {
-        return userRepo.findById(enterpriseId);
+        return userRepository.findById(enterpriseId);
     }
     
     @Override
     public Optional<UserEntity> findByEmail(String email) {
-        return userRepo.findByEmail(email);
+        return userRepository.findByEmail(email);
     }
     
     @Override
     public void update(UserEntity user) {
-        userRepo.save(user);
+        userRepository.save(user);
     }
     
     @Override
     public void sendOtp() {
-        UserEntity userEntity = userRepo.findByEmail(SecurityUtils.getCurrentUserEmail().orElseThrow()).orElseThrow();
+        UserEntity userEntity = userRepository.findByEmail(SecurityUtils.getCurrentUserEmail().orElseThrow()).orElseThrow();
         
         if (userEntity.isEmailVerified()) {
             return;
@@ -303,7 +289,7 @@ public class UserServiceImpl extends SagaManager implements UserService {
         } else {
             userEntity.setOtp(new UserOTP(userEntity));
         }
-        userEntity = userRepo.save(userEntity);
+        userEntity = userRepository.save(userEntity);
         
         try {
             var message = createMessageForVerifyOTP(userEntity);
@@ -316,7 +302,7 @@ public class UserServiceImpl extends SagaManager implements UserService {
     
     @Override
     public void validateOTP(ValidateOTPRequest request) {
-        UserEntity userEntity = userRepo.findByEmail(SecurityUtils.getCurrentUserEmail().orElseThrow()).orElseThrow();
+        UserEntity userEntity = userRepository.findByEmail(SecurityUtils.getCurrentUserEmail().orElseThrow()).orElseThrow();
         
         var otp = userEntity.getOtp();
         if (!otp.getOtpCode().equals(request.otpCode())) {
@@ -327,7 +313,7 @@ public class UserServiceImpl extends SagaManager implements UserService {
         }
         userEntity.setEmailVerified(true);
         userEntity.setOtp(null);
-        userRepo.saveAndFlush(userEntity);
+        userRepository.saveAndFlush(userEntity);
         otpRepo.delete(otp);
     }
     

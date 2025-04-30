@@ -1,25 +1,32 @@
 package commons.springfw.impl.securities;
 
+import greenbuildings.commons.api.security.UserRole;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import greenbuildings.commons.api.dto.auth.BuildingPermissionDTO;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 
 @Getter
 @RequiredArgsConstructor
 public class UserContextData implements UserDetails {
-    private final String username;
+    private final String email;
     private final UUID id;
-    private final UUID enterpriseId;
     private final String password;
     private final List<GrantedAuthority> authorities;
-    private final transient List<BuildingPermissionDTO> permissions;
+    private final Map<UserRole, Optional<UUID>> permissions; // UserRole:ReferenceId
     
-    public String getEmail() {
-        return username;
+    @Deprecated
+    @Override
+    public String getUsername() {
+        return email;
+    }
+    
+    public UUID getEnterpriseId() {
+        return permissions.get(UserRole.ENTERPRISE_OWNER).orElseThrow();
     }
 }

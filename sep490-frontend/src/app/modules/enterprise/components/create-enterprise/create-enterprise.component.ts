@@ -50,15 +50,26 @@ export class CreateEnterpriseComponent extends AbstractFormComponent<RegisterEnt
 
   protected uploadBusinessLicense(event: Event): void {
     const input = event.target as HTMLInputElement;
+    const maxSize = 10 * 1024 * 1024;
     if (input.files && input.files.length > 0) {
-      this.storageService
-        .uploadBusinessLicense(input.files[0])
-        .pipe(takeUntil(this.destroy$))
-        .subscribe(view => {
-          if (view.path) {
-            this.formStructure.businessLicenseImageUrl.setValue(view.path);
-          }
+      const file = input.files[0];
+      if (file.size > maxSize) {
+        this.notificationService.businessError({
+          summary: this.translate.instant('enterprise.create.error.fileSizeExceeded'),
+          detail: this.translate.instant('enterprise.create.error.fileSizeExceededDetail', {
+            maxSize: maxSize / 1024 / 1024
+          })
         });
+      } else {
+        this.storageService
+          .uploadBusinessLicense(file)
+          .pipe(takeUntil(this.destroy$))
+          .subscribe(view => {
+            if (view.path) {
+              this.formStructure.businessLicenseImageUrl.setValue(view.path);
+            }
+          });
+      }
     }
   }
 

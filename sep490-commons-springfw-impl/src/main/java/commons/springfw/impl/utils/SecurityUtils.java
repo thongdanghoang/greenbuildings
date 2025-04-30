@@ -1,12 +1,9 @@
 package commons.springfw.impl.utils;
 
 import commons.springfw.impl.securities.UserContextData;
-import org.springframework.security.core.Authentication;
+import greenbuildings.commons.api.security.UserRole;
 import org.springframework.security.core.context.SecurityContextHolder;
-import greenbuildings.commons.api.dto.auth.BuildingPermissionDTO;
 
-import java.util.Collections;
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -17,26 +14,23 @@ public final class SecurityUtils {
     }
     
     public static Optional<String> getCurrentUserEmail() {
-        return getUserContextData().map(UserContextData::getUsername);
-    }
-
-    public static Optional<UUID> getCurrentUserEnterpriseId() {
-        return getUserContextData().map(UserContextData::getEnterpriseId);
+        return getUserContextData().map(UserContextData::getEmail);
     }
     
-    public static List<BuildingPermissionDTO> getPermissions() {
-        Optional<UserContextData> currentUser = getUserContextData();
-        return currentUser
+    public static Optional<UUID> getCurrentUserEnterpriseId() {
+        return getUserContextData()
                 .map(UserContextData::getPermissions)
-                .orElse(Collections.emptyList());
+                .filter(p -> p.keySet().stream().anyMatch(k -> k == UserRole.ENTERPRISE_OWNER))
+                .map(p -> p.get(UserRole.ENTERPRISE_OWNER))
+                .flatMap(uuid -> uuid);
     }
     
     public static Optional<UserContextData> getUserContextData() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        var authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null) {
             return Optional.empty();
         }
-        Object principal = authentication.getPrincipal();
+        var principal = authentication.getPrincipal();
         if (principal instanceof UserContextData currentUser) {
             return Optional.of(currentUser);
         }

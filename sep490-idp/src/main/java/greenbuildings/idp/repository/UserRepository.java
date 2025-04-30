@@ -39,9 +39,7 @@ public interface UserRepository extends AbstractBaseRepository<UserEntity> {
     @Query("""
             SELECT u.id
             FROM UserEntity u
-            WHERE u.role <> greenbuildings.commons.api.security.UserRole.ENTERPRISE_OWNER
-            AND u.enterpriseId = :enterpriseId
-            AND (LOWER(u.firstName) LIKE LOWER(CONCAT('%', :name, '%')) OR LOWER(u.lastName) LIKE LOWER(CONCAT('%', :name, '%')))
+            WHERE (LOWER(u.firstName) LIKE LOWER(CONCAT('%', :name, '%')) OR LOWER(u.lastName) LIKE LOWER(CONCAT('%', :name, '%')))
             """
     )
     Page<UUID> findByName(String name, UUID enterpriseId, Pageable pageable);
@@ -53,15 +51,5 @@ public interface UserRepository extends AbstractBaseRepository<UserEntity> {
             """
     )
     List<UserEntity> findByIDs(Set<UUID> ids);
-
-    @Query("""
-    SELECT u FROM UserEntity u
-    WHERE u.id IN (
-        SELECT bp.user.id FROM BuildingPermissionEntity bp
-        WHERE bp.building = :buildingId
-    )
-""")
-    Page<UserEntity> findUserAndBuilding(UUID buildingId, Pageable pageable);
-    
     
 }

@@ -10,7 +10,6 @@ import greenbuildings.idp.dto.UserCriteriaDTO;
 import greenbuildings.idp.dto.ValidateOTPRequest;
 import greenbuildings.idp.entity.UserEntity;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.ui.Model;
 
 import java.util.Optional;
@@ -26,13 +25,13 @@ public interface UserService {
     
     Page<UserEntity> search(SearchCriteriaDTO<UserCriteriaDTO> searchCriteria);
     
-    void deleteUsers(Set<UUID> userIds, UUID enterpriseId);
+    void deleteUsers(Set<UUID> userIds);
     
-    void createOrUpdateEnterpriseUser(UserEntity user);
+    void createOrUpdateUser(UserEntity user);
     
     UserEntity getEnterpriseUserDetail(UUID id);
     
-    UserEntity getUserDetail(String email);
+    UserEntity getUserDetail(UUID id);
     
     Optional<UserEntity> findById(UUID id);
     
@@ -40,8 +39,6 @@ public interface UserService {
     
     void update(UserEntity user);
 
-    Page<UserEntity> getUserByBuilding(UUID buldingId, Pageable pageable);
-    
     void createNewEnterprise(UserContextData userContextData, RegisterEnterpriseDTO enterpriseDTO);
     
     UserEntity updateBasicUser(UserEntity user);

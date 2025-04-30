@@ -168,7 +168,7 @@
             {{ 'payment.history.credit.title' | translate }}
         </div>
         <div class="p-2 text-center text-base font-medium text-gray-600 dark:text-gray-400">
-            {{ formatedCurrency(creditBundle.convertedPriceCurrency) }}
+            {{ formatedCurrencyAfterDiscount(creditBundle.convertedPriceCurrency, creditBundle.discount) }}
         </div>
     </div>
 </ng-template>

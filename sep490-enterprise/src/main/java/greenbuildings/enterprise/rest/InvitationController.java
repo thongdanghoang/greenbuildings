@@ -7,7 +7,6 @@ import greenbuildings.commons.api.dto.SearchResultDTO;
 import greenbuildings.enterprise.dtos.InvitationDTO;
 import greenbuildings.enterprise.dtos.InvitationResponseDTO;
 import greenbuildings.enterprise.dtos.InvitationSearchCriteria;
-import greenbuildings.enterprise.entities.InvitationEntity;
 import greenbuildings.enterprise.mappers.InvitationMapper;
 import greenbuildings.enterprise.services.InvitationService;
 import lombok.RequiredArgsConstructor;
@@ -41,8 +40,7 @@ public class InvitationController {
     
     @GetMapping("/find-by-email")
     public ResponseEntity<List<InvitationDTO>> findAllByEmail(@AuthenticationPrincipal UserContextData userContextData) {
-        // TODO: this email is user email, not tenant email
-        List<InvitationEntity> rs = invitationService.findAllByEmail(userContextData.getUsername());
+        var rs = invitationService.findAllByEmail(userContextData.getEmail());
         return ResponseEntity.ok(rs.stream().map(invitationMapper::toDTO).toList());
     }
     
@@ -54,7 +52,7 @@ public class InvitationController {
     
     @GetMapping("/pending/building-group/{id}")
     public ResponseEntity<InvitationDTO> fetchPendingInvitation(@PathVariable UUID id) {
-        InvitationEntity invitation = invitationService.findPendingInvitationByBuildingGroupId(id);
+        var invitation = invitationService.findPendingInvitationByBuildingGroupId(id);
         return ResponseEntity.ok(invitationMapper.toDTO(invitation));
     }
 }

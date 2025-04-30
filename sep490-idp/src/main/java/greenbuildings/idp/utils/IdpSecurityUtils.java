@@ -1,5 +1,8 @@
 package greenbuildings.idp.utils;
 
+import greenbuildings.idp.entity.UserEntity;
+import greenbuildings.idp.entity.UserPermissionEntity;
+import greenbuildings.idp.security.PasskeyAuthenticationToken;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.constraints.NotNull;
@@ -10,10 +13,9 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.security.web.context.SecurityContextRepository;
-import greenbuildings.idp.entity.UserEntity;
-import greenbuildings.idp.security.PasskeyAuthenticationToken;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 public final class IdpSecurityUtils {
@@ -27,7 +29,12 @@ public final class IdpSecurityUtils {
     }
     
     public static List<GrantedAuthority> getAuthoritiesFromUserRole(UserEntity user) {
-        return List.of(new SimpleGrantedAuthority(ROLE_PREFIX + user.getRole().name()));
+        return user.getAuthorities()
+                   .stream()
+                   .map(UserPermissionEntity::getRole)
+                   .distinct()
+                   .map(role -> new SimpleGrantedAuthority(ROLE_PREFIX.concat(role.getCode())))
+                   .collect(Collectors.toList());
     }
     
     public static void storeAuthenticationToContext(@NotNull PasskeyAuthenticationToken authenticationToken,
