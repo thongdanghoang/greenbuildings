@@ -88,8 +88,8 @@ export class PlanComponent extends SubscriptionAwareComponent implements OnInit 
     });
   }
 
-  formatedCurrency(currency: number): string | null {
-    const converted = this.decimalPipe.transform(currency, this.getDigitsInfo());
+  formatedCurrencyAfterDiscount(currency: number, discount: number): string | null {
+    const converted = this.decimalPipe.transform((currency * (100 - discount)) / 100, this.getDigitsInfo());
     const symbol = this.translate.instant('currency.symbol');
     if (this.translate.currentLang === 'vi') {
       return `${converted} ${symbol}`;
@@ -132,10 +132,11 @@ export class PlanComponent extends SubscriptionAwareComponent implements OnInit 
   }
 
   prepareDialogParams(): Confirmation {
+    const amount = (this.selectedPackage!.price * (100 - this.selectedPackage!.discount)) / 100;
     const formattedPrice = new Intl.NumberFormat('vi-VN', {
       style: 'currency',
       currency: 'VND'
-    }).format(this.selectedPackage!.price);
+    }).format(amount);
 
     return {
       message: this.translate.instant('payment.confirmMessage', {
