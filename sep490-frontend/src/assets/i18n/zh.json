@@ -326,6 +326,7 @@
         "title": "排放活动详情",
         "generateReport": "生成报告",
         "manageActivityType": "管理活动类型",
+        "manageCommonActivity": "管理公共活动",
         "selectActivities": "选择活动",
         "currentNoActivities": "当前活动数量：",
         "maxNoActivities": "最大活动数量：",

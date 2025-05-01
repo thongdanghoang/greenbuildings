@@ -1,0 +1,88 @@
+<div>
+    <p-button
+        icon="pi pi-arrow-left"
+        label="{{ 'common.back' | translate }}"
+        (click)="goBack()"
+        severity="primary"
+        outlined="true"
+        size="small"
+    ></p-button>
+</div>
+<div class="my-4 flex items-center justify-between border-b pb-1">
+    <div class="text-lg font-bold text-primary">
+        {{ 'enterprise.buildings.group.title' | translate }}
+    </div>
+</div>
+<table-template
+    [fetch]="fetchActivity"
+    [columns]="cols"
+    [searchOnInit]="false"
+    [captionTemplateRef]="captionTemplateRef"
+    [criteria]="searchCriteria"
+    [triggerSearch]="searchEvent"
+    [triggerClearSelected]="clearSelectedEvent"
+    (selectionChange)="onSelectionChange($event)"
+    [checkbox]="true"
+>
+</table-template>
+<ng-template #captionTemplateRef>
+    <p-button
+        label="{{ 'buildingGroup.enterprise.emission.activity.new' | translate }}"
+        icon="pi pi-plus"
+        severity="primary"
+        styleClass="w-full transition-colors duration-200 max-w-96 mb-4"
+        (onClick)="openNewActivityDialog()"
+        size="small"
+    ></p-button>
+    <div class="flex flex-col items-end justify-between gap-2 lg:flex-row lg:items-center">
+        <p-inputgroup class="max-w-96">
+            <input
+                type="text"
+                pInputText
+                [(ngModel)]="searchCriteria.name"
+                placeholder="{{ 'common.search' | translate }}"
+                (keydown.enter)="searchEvent.emit()"
+            />
+            <p-inputgroup-addon>
+                <p-button
+                    icon="pi pi-search"
+                    severity="secondary"
+                    variant="text"
+                    (onClick)="searchEvent.emit()"
+                />
+            </p-inputgroup-addon>
+        </p-inputgroup>
+
+        <p-button
+            severity="danger"
+            [label]="
+                selected.length
+                    ? ('enterprise.emission.activity.deleteWithCount' | translate: {count: selected.length})
+                    : ('enterprise.Users.delete' | translate)
+            "
+            icon="pi pi-trash"
+            outlined
+            [disabled]="!selected || !selected.length"
+            (onClick)="confirmDelete()"
+            size="small"
+        />
+    </div>
+</ng-template>
+<ng-template
+    #actionsTemplate
+    let-activity
+>
+    <p-button
+        icon="pi pi-file-edit"
+        [rounded]="true"
+        [text]="true"
+        severity="contrast"
+        (onClick)="openActivityDetailsDialog(activity)"
+    />
+</ng-template>
+<ng-template
+    #typeTemplate
+    let-activity
+>
+    <span *ngIf="activity.type">{{ activity?.type.name }}</span>
+</ng-template>

@@ -37,7 +37,10 @@ public abstract class EmissionActivityMapperDecorator implements EmissionActivit
     @Override
     public EmissionActivityEntity createNewActivity(CreateEmissionActivityDTO dto) {
         EmissionActivityEntity entity = delegate.createNewActivity(dto);
-        entity.setBuildingGroup(buildingGroupRepository.findById(dto.buildingGroupID()).orElseThrow());
+        entity.setBuilding(buildingRepo.findById(dto.buildingId()).orElseThrow());
+        if (dto.buildingGroupID() != null) {
+            entity.setBuildingGroup(buildingGroupRepository.findById(dto.buildingGroupID()).orElseThrow());
+        }
         entity.setEmissionFactorEntity(factorRepo.findById(dto.emissionFactorID()).orElseThrow());
         mapEmissionType(dto, entity);
         return entity;

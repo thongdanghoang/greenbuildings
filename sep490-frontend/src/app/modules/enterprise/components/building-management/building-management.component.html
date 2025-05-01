@@ -117,6 +117,32 @@
                         }}</span>
                     </div>
                 </div>
+                <ng-template pTemplate="footer">
+                    <div class="mt-1 flex gap-4">
+                        <p-button
+                            label="{{ 'enterprise.emission.activity.generateReport' | translate }}"
+                            class="flex-1"
+                            severity="warn"
+                            outlined
+                            styleClass="w-full h-full"
+                            size="small"
+                        ></p-button>
+
+                        <p-button
+                            label="{{ 'enterprise.emission.activity.manageCommonActivity' | translate }}"
+                            class="flex-1"
+                            severity="info"
+                            [routerLink]="[
+                                '/',
+                                AppRoutingConstants.ENTERPRISE_PATH,
+                                AppRoutingConstants.MANAGE_COMMON_ACTIVITY_PATH,
+                                buildingDetails.id
+                            ]"
+                            styleClass="w-full h-full"
+                            size="small"
+                        ></p-button>
+                    </div>
+                </ng-template>
             </p-card>
         </div>
     </div>

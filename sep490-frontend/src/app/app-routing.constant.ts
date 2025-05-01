@@ -33,6 +33,7 @@ export class AppRoutingConstants {
   public static readonly EMISSION_ACTIVITY_PATH = 'emission-activity';
   public static readonly EMISSION_ACTIVITY_DETAIL_PATH = 'emission-activity-detail';
   public static readonly PLAN_PATH = 'plan';
+  public static readonly MANAGE_COMMON_ACTIVITY_PATH = 'manage-common-activity';
   public static readonly LINKED_TENANT_PATH = 'linked-tenant';
   public static readonly PAYMENT_PATH = 'payment';
   public static readonly SENT_INVITATION_PATH = 'sent-invitation';

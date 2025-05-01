@@ -33,6 +33,13 @@ public class EmissionActivityServiceImpl implements EmissionActivityService {
 
     @Override
     public Page<EmissionActivityEntity> search(SearchCriteriaDTO<EmissionActivityCriteria> searchCriteria) {
+        if (searchCriteria.criteria().buildingId() != null) {
+            return emissionActivityRepository
+                    .findAllByBuildingIdAndNameContainingIgnoreCaseAndBuildingGroupIsNull(
+                            searchCriteria.criteria().buildingId(),
+                            Optional.ofNullable(searchCriteria.criteria().name()).orElse(""),
+                            CommonMapper.toPageable(searchCriteria.page(), searchCriteria.sort()));
+        }
         return emissionActivityRepository
                 .findAllByBuildingGroupIdAndNameContainingIgnoreCase(
                         searchCriteria.criteria().buildingGroupId(),

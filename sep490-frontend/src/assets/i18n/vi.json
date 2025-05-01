@@ -327,6 +327,7 @@
         "generateReport": "Tạo báo cáo",
         "manageActivityType": "Quản lý loại hoạt động",
         "selectActivities": "Chọn hoạt động",
+        "manageCommonActivity": "Quản lý hoạt động chung",
         "currentNoActivities": "Số hoạt động hiện tại:",
         "maxNoActivities": "Số hoạt động tối đa:",
         "subscriptionDetail": "Chi tiết đăng ký",

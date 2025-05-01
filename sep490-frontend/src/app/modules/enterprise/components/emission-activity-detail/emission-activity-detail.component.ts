@@ -195,11 +195,19 @@ export class EmissionActivityDetailComponent extends AbstractFormComponent<Emiss
   }
 
   onBack(): void {
-    void this.router.navigate([
-      AppRoutingConstants.ENTERPRISE_PATH,
-      AppRoutingConstants.BUILDING_GROUP_PATH,
-      this.activity.buildingGroup.id
-    ]);
+    if (this.activity.buildingGroup) {
+      void this.router.navigate([
+        AppRoutingConstants.ENTERPRISE_PATH,
+        AppRoutingConstants.BUILDING_GROUP_PATH,
+        this.activity.buildingGroup.id
+      ]);
+    } else {
+      void this.router.navigate([
+        AppRoutingConstants.ENTERPRISE_PATH,
+        AppRoutingConstants.MANAGE_COMMON_ACTIVITY_PATH,
+        this.activity.buildingId
+      ]);
+    }
   }
 
   onDownloadFile(record: EmissionActivityRecord): void {
