@@ -29,4 +29,8 @@ public class UserContextData implements UserDetails {
     public UUID getEnterpriseId() {
         return permissions.get(UserRole.ENTERPRISE_OWNER).orElseThrow();
     }
+    
+    public UUID getTenantId() {
+        return permissions.get(UserRole.TENANT).orElseThrow();
+    }
 }
