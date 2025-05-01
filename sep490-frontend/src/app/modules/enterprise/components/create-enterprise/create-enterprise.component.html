@@ -174,13 +174,13 @@
                                 </div>
                             </div>
 
-                            <div class="my-3 grid grid-cols-12 items-center gap-2 sm:gap-4">
+                            <div class="my-3 grid grid-cols-12 items-start gap-2 sm:gap-4">
                                 <label
                                     for="businessLicenseImageUrl"
                                     class="col-span-12 font-normal sm:col-span-3"
                                     >{{ 'enterprise.create.businessLicenseImageUrl' | translate }}</label
                                 >
-                                <div class="col-span-12 flex items-center gap-2.5 sm:col-span-9">
+                                <div class="col-span-12 sm:col-span-9">
                                     <p-button
                                         icon="pi pi-upload"
                                         [label]="'enterprise.create.upload.businessLicenseImageUrl' | translate"
@@ -197,33 +197,35 @@
                                             (change)="uploadBusinessLicense($event)"
                                         />
                                     </p-button>
-                                    <div
-                                        *ngIf="
-                                            formStructure.businessLicenseImageUrl.invalid &&
-                                            formStructure.businessLicenseImageUrl.touched
-                                        "
-                                        class="mt-1 block text-xs font-medium text-red-600 dark:text-red-400"
-                                    >
-                                        {{ 'validation.required' | translate }}
-                                    </div>
-                                    <div
-                                        *ngIf="formStructure.businessLicenseImageUrl.value"
-                                        class="flex items-center"
-                                    >
-                                        <p-tag
-                                            [value]="formStructure.businessLicenseImageUrl.value"
-                                            severity="success"
-                                            [rounded]="true"
-                                        ></p-tag>
-                                        <button
-                                            pButton
-                                            icon="pi pi-times"
-                                            size="small"
-                                            severity="danger"
-                                            text
-                                            rounded
-                                            (click)="formStructure.businessLicenseImageUrl.setValue(null)"
-                                        ></button>
+                                    <div class="min-h-10">
+                                        <div
+                                            *ngIf="
+                                                formStructure.businessLicenseImageUrl.invalid &&
+                                                formStructure.businessLicenseImageUrl.touched
+                                            "
+                                            class="pt-1 font-medium text-red-600 dark:text-red-400"
+                                        >
+                                            {{ 'validation.required' | translate }}
+                                        </div>
+                                        <div
+                                            *ngIf="formStructure.businessLicenseImageUrl.value"
+                                            class="flex items-center"
+                                        >
+                                            <p-tag
+                                                [value]="formStructure.businessLicenseImageUrl.value"
+                                                severity="success"
+                                                [rounded]="true"
+                                            ></p-tag>
+                                            <button
+                                                pButton
+                                                icon="pi pi-times"
+                                                size="small"
+                                                severity="danger"
+                                                text
+                                                rounded
+                                                (click)="formStructure.businessLicenseImageUrl.setValue(null)"
+                                            ></button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -300,7 +302,7 @@
                             [label]="'common.back' | translate"
                             severity="secondary"
                             icon="pi pi-arrow-left"
-                            (onClick)="activateCallback(2)"
+                            (onClick)="activateCallback(1)"
                         />
                         <p-button
                             [label]="'common.create' | translate"
