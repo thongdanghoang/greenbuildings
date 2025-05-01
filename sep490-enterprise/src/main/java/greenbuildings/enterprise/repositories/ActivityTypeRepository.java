@@ -18,10 +18,11 @@ public interface ActivityTypeRepository extends JpaRepository<ActivityTypeEntity
     @Query("""
             SELECT e.id
             FROM ActivityTypeEntity e
-            WHERE (LOWER(e.name) LIKE LOWER(CONCAT('%', :name, '%')))
+            WHERE e.building.id = :buildingId
+                  AND (LOWER(e.name) LIKE LOWER(CONCAT('%', :name, '%')))
             """
     )
-    Page<UUID> findByName(String name, Pageable pageable);
+    Page<UUID> findByName(UUID buildingId, String name, Pageable pageable);
     
     @Query("SELECT CASE WHEN COUNT(b) > 0 THEN true ELSE false END FROM ActivityTypeEntity b WHERE b.name = :name")
     boolean existsByNameActivityTypeInTenant(@NotBlank String name);

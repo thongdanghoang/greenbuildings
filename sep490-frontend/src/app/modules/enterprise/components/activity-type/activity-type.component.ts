@@ -1,9 +1,11 @@
 import {Component, EventEmitter, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
 import {ActivityTypeCriteria} from '@models/emission-activity';
 import {TranslateService} from '@ngx-translate/core';
 import {DialogService, DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
 import {Observable, takeUntil} from 'rxjs';
 import {UUID} from '../../../../../types/uuid';
+import {Location} from '@angular/common';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
 import {ActivityType} from '@models/enterprise';
 import {ActivityTypeService} from '@services/activity-type.service';
@@ -13,7 +15,10 @@ import {TableTemplateColumn} from '@shared/components/table-template/table-templ
 import {SearchCriteriaDto, SearchResultDto} from '@shared/models/base-models';
 import {ModalProvider} from '@shared/services/modal-provider';
 import {ToastProvider} from '@shared/services/toast-provider';
-import {ActivityTypeDialogComponent} from '../../dialog/activity-type-dialog/activity-type-dialog.component';
+import {
+  ActivityTypeDialogComponent,
+  ActivityTypeDialogData
+} from '../../dialog/activity-type-dialog/activity-type-dialog.component';
 
 @Component({
   selector: 'app-activity-type',
@@ -21,8 +26,6 @@ import {ActivityTypeDialogComponent} from '../../dialog/activity-type-dialog/act
   styleUrl: './activity-type.component.css'
 })
 export class ActivityTypeComponent extends SubscriptionAwareComponent implements OnInit {
-  @ViewChild('scopeTemplate', {static: true})
-  scopeTemplate!: TemplateRef<any>;
   @ViewChild('actionsTemplate', {static: true})
   actionsTemplate!: TemplateRef<any>;
   ref: DynamicDialogRef | undefined;
@@ -34,13 +37,16 @@ export class ActivityTypeComponent extends SubscriptionAwareComponent implements
   protected readonly searchEvent: EventEmitter<void> = new EventEmitter();
   protected readonly clearSelectedEvent: EventEmitter<void> = new EventEmitter();
   protected selected: ActivityType[] = [];
-  protected searchCriteria: ActivityTypeCriteria = {criteria: ''};
+  protected searchCriteria!: ActivityTypeCriteria;
+  protected buildingId!: UUID;
 
   constructor(
     protected readonly applicationService: ApplicationService,
     private readonly activityTypeService: ActivityTypeService,
     private readonly messageService: ToastProvider,
     private readonly modalProvider: ModalProvider,
+    private readonly location: Location,
+    private readonly activatedRoute: ActivatedRoute,
     private readonly translate: TranslateService,
     private readonly dialogService: DialogService
   ) {
@@ -50,6 +56,18 @@ export class ActivityTypeComponent extends SubscriptionAwareComponent implements
   ngOnInit(): void {
     this.buildCols();
     this.fetchActivityTypes = this.activityTypeService.getActivityType.bind(this.activityTypeService);
+    this.getBuildingId();
+  }
+
+  getBuildingId(): void {
+    this.activatedRoute.paramMap.pipe(takeUntil(this.destroy$)).subscribe(params => {
+      const buildingId = params.get('buildingId');
+      if (buildingId) {
+        this.buildingId = buildingId as UUID;
+        this.searchCriteria = {buildingId: buildingId as UUID, name: ''};
+        this.searchEvent.emit();
+      }
+    });
   }
 
   buildCols(): void {
@@ -75,13 +93,12 @@ export class ActivityTypeComponent extends SubscriptionAwareComponent implements
     this.confirmDelete();
   }
 
-  openNewActivityDialog(emissionId?: UUID): void {
-    // Made emissionId optional with ?
-    this.selected = []; // Clear local selection
-    this.clearSelectedEvent.emit();
-    const config: DynamicDialogConfig<UUID | undefined> = {
-      // Allow undefined in config.data
-      data: emissionId, // Will be undefined for add, UUID for edit
+  openNewActivityDialog(typeId?: UUID): void {
+    const config: DynamicDialogConfig<ActivityTypeDialogData> = {
+      data: {
+        buildingId: this.buildingId,
+        activityTypeId: typeId
+      },
       closeOnEscape: true,
       dismissableMask: true,
       showHeader: false
@@ -102,15 +119,17 @@ export class ActivityTypeComponent extends SubscriptionAwareComponent implements
   }
 
   // Add a new emission source
-  addEmissionSource(): void {
+  addActivityType(): void {
     this.openNewActivityDialog(undefined); // Explicitly pass undefined for clarity
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 
   // Edit an existing emission source
   onEdit(rowData: ActivityType): void {
-    this.selected = [rowData];
-    const emissionId = this.selected[0].id; // Fixed typo: emisstionId -> emissionId
-    this.openNewActivityDialog(emissionId);
+    this.openNewActivityDialog(rowData.id);
   }
 
   onSelectionChange(selectedUsers: ActivityType[]): void {

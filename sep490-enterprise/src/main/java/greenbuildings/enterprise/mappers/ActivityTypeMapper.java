@@ -23,8 +23,9 @@ public interface ActivityTypeMapper {
     @Mapping(target = "name", source = "name")
     @Mapping(target = "building.id", source = "buildingId")
     ActivityTypeEntity updateEntity(ActivityTypeDTO dto, @MappingTarget ActivityTypeEntity entity);
-
+    
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "version", ignore = true)
     @Mapping(target = "name", source = "name")
     @Mapping(target = "building.id", source = "buildingId")
     ActivityTypeEntity createEntity(ActivityTypeDTO dto);

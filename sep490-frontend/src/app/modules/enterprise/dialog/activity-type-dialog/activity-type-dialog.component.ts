@@ -8,8 +8,12 @@ import {ApplicationService} from '@services/application.service';
 import {AbstractFormComponent} from '@shared/components/form/abstract-form-component';
 import {ToastProvider} from '@shared/services/toast-provider';
 import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
-import {takeUntil} from 'rxjs';
 import {UUID} from '../../../../../types/uuid';
+
+export interface ActivityTypeDialogData {
+  buildingId: UUID;
+  activityTypeId?: UUID;
+}
 
 @Component({
   selector: 'app-activity-type-dialog',
@@ -22,7 +26,7 @@ export class ActivityTypeDialogComponent extends AbstractFormComponent<ActivityT
     version: new FormControl(0),
     name: new FormControl('', Validators.required),
     description: new FormControl('', Validators.required),
-    tenantID: new FormControl<UUID | null>(null)
+    buildingId: new FormControl<UUID | null>(null)
   };
 
   constructor(
@@ -32,23 +36,21 @@ export class ActivityTypeDialogComponent extends AbstractFormComponent<ActivityT
     translate: TranslateService,
     private readonly activityTypeService: ActivityTypeService,
     private readonly ref: DynamicDialogRef,
-    public config: DynamicDialogConfig<UUID>,
+    public config: DynamicDialogConfig<ActivityTypeDialogData>,
     protected readonly applicationService: ApplicationService
   ) {
     super(httpClient, formBuilder, notificationService, translate);
   }
 
-  get isEdit(): boolean {
-    return !!this.formStructure.id.value;
-  }
-
   protected initializeData(): void {
-    if (this.config.data) {
-      this.activityTypeService.getActivityTypeById(this.config.data.toString()).subscribe(activityType => {
-        this.formGroup.patchValue(activityType);
-      });
+    if (this.config.data?.activityTypeId) {
+      this.activityTypeService
+        .getActivityTypeById(this.config.data.activityTypeId.toString())
+        .subscribe(activityType => {
+          this.formGroup.patchValue(activityType);
+        });
     }
-    this.loadActivityTypes(); // Call the method during construction
+    this.formStructure.buildingId.setValue(this.config.data!.buildingId);
   }
 
   protected closeDialog(): void {
@@ -65,11 +67,5 @@ export class ActivityTypeDialogComponent extends AbstractFormComponent<ActivityT
 
   protected submitFormDataUrl(): string {
     return this.activityTypeService.createNewURL;
-  }
-
-  private loadActivityTypes(): void {
-    this.applicationService.TenantId.pipe(takeUntil(this.destroy$)).subscribe(tenantId => {
-      this.formStructure.tenantID.setValue(tenantId);
-    });
   }
 }

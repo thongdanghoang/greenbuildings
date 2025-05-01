@@ -10,7 +10,6 @@ import {AppRoutingConstants} from '../../../../app-routing.constant';
 import {BuildingDetails, BuildingGroup, OverviewBuildingDTO} from '@models/enterprise';
 import {BuildingGroupService} from '@services/building-group.service';
 import {BuildingService} from '@services/building.service';
-import {TenantService} from '@services/tenant.service';
 import {ApplicationService} from '@services/application.service';
 import {SubscriptionAwareComponent} from '@shared/directives/subscription-aware.component';
 import {TableTemplateColumn} from '@shared/components/table-template/table-template.component';
@@ -46,7 +45,6 @@ export class BuildingManagementComponent extends SubscriptionAwareComponent impl
     private readonly activatedRoute: ActivatedRoute,
     private readonly buildingService: BuildingService,
     private readonly msgService: ToastProvider,
-    private readonly tenantService: TenantService,
     private readonly buildingGroupService: BuildingGroupService
   ) {
     super();

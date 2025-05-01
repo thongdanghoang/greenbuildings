@@ -267,6 +267,10 @@
           "buildingGroup": "Chọn nhóm tòa nhà của bạn để hợp tác"
         }
       },
+      "commonActivity": {
+        "title": "Hoạt động chung của tòa nhà",
+        "description": "Xem và quản lý tất cả các hoạt động chung được chia sẻ trong toàn bộ tòa nhà"
+      },
       "management": {
         "title": "Quản lý tòa nhà",
         "list": "Danh sách nhóm tòa nhà",

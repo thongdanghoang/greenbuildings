@@ -70,11 +70,6 @@ export class SidebarComponent extends SubscriptionAwareComponent implements OnIn
             route: `/${AppRoutingConstants.ENTERPRISE_PATH}/${AppRoutingConstants.TENANT_MANAGEMENT_PATH}`
           },
           {
-            label: 'sidebar.owner.activityType',
-            icon: 'pi pi-sitemap',
-            route: `/${AppRoutingConstants.ENTERPRISE_PATH}/${AppRoutingConstants.ACTIVITY_TYPE}`
-          },
-          {
             label: 'sidebar.basicUser.invitation',
             icon: 'pi pi-envelope',
             route: `/${AppRoutingConstants.ENTERPRISE_PATH}/${AppRoutingConstants.INVITATION_PATH}`
@@ -105,11 +100,6 @@ export class SidebarComponent extends SubscriptionAwareComponent implements OnIn
             icon: 'pi pi-building',
             route: `/${AppRoutingConstants.ENTERPRISE_PATH}/${AppRoutingConstants.BUILDING_PATH}`
           }
-          // {
-          //   label: 'sidebar.owner.activityType',
-          //   icon: 'pi pi-sitemap',
-          //   route: `/${AppRoutingConstants.ENTERPRISE_PATH}/${AppRoutingConstants.ACTIVITY_TYPE}`
-          // }
         ]
       },
       {
