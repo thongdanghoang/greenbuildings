@@ -104,7 +104,7 @@ public class BuildingGroupServiceImpl implements BuildingGroupService {
     
     @Override
     public List<BuildingGroupEntity> getAvailableBuildingGroups(UUID buildingId) {
-        return buildingGroupRepository.findAvailableGroupForInvite(buildingId);
+        return buildingGroupRepository.findByBuildingIdAndTenantIsNull(buildingId);
     }
     
     @Override

@@ -1,12 +1,12 @@
 package greenbuildings.enterprise.services.impl;
 
 import commons.springfw.impl.utils.SecurityUtils;
-import greenbuildings.commons.api.exceptions.TechnicalException;
 import greenbuildings.enterprise.dtos.InvitationResponseDTO;
 import greenbuildings.enterprise.dtos.InvitationSearchCriteria;
 import greenbuildings.enterprise.entities.InvitationEntity;
 import greenbuildings.enterprise.entities.TenantEntity;
 import greenbuildings.enterprise.enums.InvitationStatus;
+import greenbuildings.enterprise.repositories.BuildingGroupRepository;
 import greenbuildings.enterprise.repositories.InvitationRepository;
 import greenbuildings.enterprise.repositories.TenantRepository;
 import greenbuildings.enterprise.services.InvitationService;
@@ -33,28 +33,46 @@ public class InvitationServiceImpl implements InvitationService {
     
     private final InvitationRepository invitationRepository;
     private final TenantRepository tenantRepository;
+    private final BuildingGroupRepository buildingGroupRepository;
     
     @Override
-    public List<InvitationEntity> findAllByEmail(String username) {
-        if (username == null) {
-            throw new TechnicalException("Username cannot be null");
-        }
-        List<InvitationEntity> rs = invitationRepository.findByEmailOrderByCreatedByDesc(username);
-        rs.sort(Comparator.comparingInt(i -> i.getStatus().ordinal()));
-        return rs;
+    public List<InvitationEntity> findAllByEmail(String email) {
+        var invitations = invitationRepository.findByEmailOrderByCreatedByDesc(email);
+        invitations.sort(Comparator.comparingInt(i -> i.getStatus().ordinal()));
+        return invitations;
     }
     
     @Override
     public void updateStatus(InvitationResponseDTO invitationDTO) {
-        InvitationEntity invitation = invitationRepository.findById(invitationDTO.id()).orElseThrow();
+        var invitation = invitationRepository.findById(invitationDTO.id()).orElseThrow();
         invitation.setStatus(invitationDTO.status());
         if (invitationDTO.status() == InvitationStatus.ACCEPTED) {
-            UUID tenantId = SecurityUtils.getCurrentUserEnterpriseId().orElseThrow();
-            TenantEntity tenant = tenantRepository.findById(tenantId).orElseThrow();
+            var tenantOptional = SecurityUtils
+                    .getCurrentUserTenantId()
+                    .flatMap(tenantRepository::findById);
+            var tenant = tenantOptional.orElseGet(this::createTenant);
+            var buildingGroup = buildingGroupRepository
+                    .findById(invitation.getBuildingGroup().getId())
+                    .orElseThrow();
+            buildingGroup.setTenant(tenant);
             invitation.getBuildingGroup().setTenant(tenant);
+            var pendingInvitationsByBuildingGroup = invitationRepository
+                    .findByBuildingGroupIdAndStatusAndIdIsNot(
+                            invitation.getBuildingGroup().getId(),
+                            InvitationStatus.PENDING,
+                            invitation.getId())
+                    .stream()
+                    .peek(invitationEntity -> invitationEntity.setStatus(InvitationStatus.REJECTED))
+                    .toList();
+            invitationRepository.saveAll(pendingInvitationsByBuildingGroup);
         }
         // TODO: send mails
         invitationRepository.save(invitation);
+    }
+    
+    private TenantEntity createTenant() {
+        // TODO: publish event IdP to create tenant, revoke token
+        return null;
     }
     
     @Override
@@ -73,9 +91,9 @@ public class InvitationServiceImpl implements InvitationService {
         
         // Preserve original order
         var orderedResults = invitationIDs.stream()
-                                .map(entityMap::get)
-                                .filter(Objects::nonNull) // safeguard in case of missing entity
-                                .toList();
+                                          .map(entityMap::get)
+                                          .filter(Objects::nonNull) // safeguard in case of missing entity
+                                          .toList();
         
         return new PageImpl<>(orderedResults, pageable, invitationIDs.getTotalElements());
     }

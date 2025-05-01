@@ -46,8 +46,8 @@ public class InvitationController {
     
     @GetMapping("/find-by-email")
     public ResponseEntity<List<InvitationDTO>> findAllByEmail(@AuthenticationPrincipal UserContextData userContextData) {
-        var rs = invitationService.findAllByEmail(userContextData.getEmail());
-        return ResponseEntity.ok(rs.stream().map(invitationMapper::toDTO).toList());
+        var invitations = invitationService.findAllByEmail(userContextData.getEmail());
+        return ResponseEntity.ok(invitations.stream().map(invitationMapper::toDTO).toList());
     }
     
     @PutMapping("/update-status")

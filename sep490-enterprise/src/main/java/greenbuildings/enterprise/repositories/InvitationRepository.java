@@ -37,4 +37,5 @@ public interface InvitationRepository extends JpaRepository<InvitationEntity, UU
     
     InvitationEntity findFirstByBuildingGroupIdAndStatus(UUID buildingGroupId, InvitationStatus status);
     
+    List<InvitationEntity> findByBuildingGroupIdAndStatusAndIdIsNot(UUID buildingGroupId, InvitationStatus status, UUID id);
 }
