@@ -1,7 +1,8 @@
 import {UUID} from '../../types/uuid';
 
 export interface ActivityTypeCriteria {
-  criteria: string;
+  name: string;
+  buildingId: UUID;
 }
 
 export interface ActivitySearchCriteria {

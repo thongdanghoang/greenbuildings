@@ -74,6 +74,16 @@
                             size="small"
                         ></p-button>
                     </div>
+                    <div class="mt-2">
+                        <p-button
+                            label="{{ 'enterprise.emission.activity.generateReport' | translate }}"
+                            class="flex-1"
+                            severity="danger"
+                            outlined
+                            styleClass="w-full h-full"
+                            size="small"
+                        ></p-button>
+                    </div>
                 </ng-template>
             </p-card>
         </div>
@@ -120,10 +130,16 @@
                 <ng-template pTemplate="footer">
                     <div class="mt-1 flex gap-4">
                         <p-button
-                            label="{{ 'enterprise.emission.activity.generateReport' | translate }}"
+                            label="{{ 'enterprise.emission.activity.manageActivityType' | translate }}"
                             class="flex-1"
                             severity="warn"
                             outlined
+                            [routerLink]="[
+                                '/',
+                                AppRoutingConstants.ENTERPRISE_PATH,
+                                AppRoutingConstants.ACTIVITY_TYPE,
+                                buildingDetails.id
+                            ]"
                             styleClass="w-full h-full"
                             size="small"
                         ></p-button>

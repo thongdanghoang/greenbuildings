@@ -269,6 +269,10 @@
           "buildingGroup": "Choose your building group to collab with tenant"
         }
       },
+      "commonActivity": {
+        "title": "Building's Common Activity",
+        "description": "View and manage all common activities shared across the entire building"
+      },
       "group": {
         "new": "New Group",
         "title": "Building Group",

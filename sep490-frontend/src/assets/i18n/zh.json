@@ -273,6 +273,10 @@
         "title1": "企业管理",
         "description": "使用此工具高效管理您的企业。"
       },
+      "commonActivity": {
+        "title": "建筑物的公共活动",
+        "description": "查看和管理整个建筑物共享的所有公共活动"
+      },
       "group": {
         "new": "新组",
         "title": "建筑群",

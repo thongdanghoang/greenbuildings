@@ -1,14 +1,14 @@
-<!--    <div>-->
-<!--        <p-button-->
-<!--            icon="pi pi-arrow-left"-->
-<!--            label="{{ 'common.back' | translate }}"-->
-<!--            (click)="goBack()"-->
-<!--            severity="primary"-->
-<!--            outlined="true"-->
-<!--            size="small"-->
-<!--        ></p-button>-->
-<!--    </div>-->
-<div class="mb-4 flex items-center justify-between border-b pb-1">
+<div>
+    <p-button
+        icon="pi pi-arrow-left"
+        label="{{ 'common.back' | translate }}"
+        (click)="goBack()"
+        severity="primary"
+        outlined="true"
+        size="small"
+    ></p-button>
+</div>
+<div class="my-4 flex items-center justify-between border-b pb-1">
     <h1 class="text-lg font-bold text-primary">
         {{ 'enterprise.type.name' | translate }}
     </h1>
@@ -35,7 +35,7 @@
             <p-iconfield>
                 <p-inputicon styleClass="pi pi-search" />
                 <input
-                    [(ngModel)]="searchCriteria.criteria"
+                    [(ngModel)]="searchCriteria.name"
                     type="text"
                     pInputText
                     placeholder="{{ 'common.search' | translate }}"
@@ -68,7 +68,7 @@
                 [label]="'enterprise.type.add' | translate"
                 icon="pi pi-user-plus"
                 outlined
-                (onClick)="addEmissionSource()"
+                (onClick)="addActivityType()"
             />
         </div>
     </div>
