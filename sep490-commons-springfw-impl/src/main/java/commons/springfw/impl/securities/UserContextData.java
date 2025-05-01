@@ -26,7 +26,11 @@ public class UserContextData implements UserDetails {
         return email;
     }
     
-    public UUID getEnterpriseId() {
-        return permissions.get(UserRole.ENTERPRISE_OWNER).orElseThrow();
+    public Optional<UUID> getEnterpriseId() {
+        return permissions.get(UserRole.ENTERPRISE_OWNER);
+    }
+    
+    public Optional<UUID> getTenantId() {
+        return permissions.get(UserRole.TENANT);
     }
 }

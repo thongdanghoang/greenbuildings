@@ -4,7 +4,6 @@ import commons.springfw.impl.utils.SecurityUtils;
 import greenbuildings.enterprise.dtos.InvitationResponseDTO;
 import greenbuildings.enterprise.dtos.InvitationSearchCriteria;
 import greenbuildings.enterprise.entities.InvitationEntity;
-import greenbuildings.enterprise.entities.TenantEntity;
 import greenbuildings.enterprise.enums.InvitationStatus;
 import greenbuildings.enterprise.repositories.BuildingGroupRepository;
 import greenbuildings.enterprise.repositories.InvitationRepository;
@@ -47,10 +46,10 @@ public class InvitationServiceImpl implements InvitationService {
         var invitation = invitationRepository.findById(invitationDTO.id()).orElseThrow();
         invitation.setStatus(invitationDTO.status());
         if (invitationDTO.status() == InvitationStatus.ACCEPTED) {
-            var tenantOptional = SecurityUtils
+            var tenant = SecurityUtils
                     .getCurrentUserTenantId()
-                    .flatMap(tenantRepository::findById);
-            var tenant = tenantOptional.orElseGet(this::createTenant);
+                    .flatMap(tenantRepository::findById)
+                    .orElseThrow();
             var buildingGroup = buildingGroupRepository
                     .findById(invitation.getBuildingGroup().getId())
                     .orElseThrow();
@@ -68,11 +67,6 @@ public class InvitationServiceImpl implements InvitationService {
         }
         // TODO: send mails
         invitationRepository.save(invitation);
-    }
-    
-    private TenantEntity createTenant() {
-        // TODO: publish event IdP to create tenant, revoke token
-        return null;
     }
     
     @Override

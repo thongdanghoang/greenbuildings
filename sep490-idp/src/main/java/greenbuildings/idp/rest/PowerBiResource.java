@@ -54,7 +54,7 @@ public class PowerBiResource {
             var powerBiAuthorityEntity = service.findById(request.id()).orElseThrow();
             powerBiAuthority = mapper.updateApiKey(request, powerBiAuthorityEntity, userEntity);
         }
-        powerBiAuthority.setEnterpriseId(userContextData.getEnterpriseId());
+        powerBiAuthority.setEnterpriseId(userContextData.getEnterpriseId().orElseThrow());
         var powerBiAuthorityPersisted = service.createOrUpdate(powerBiAuthority);
         var response = ApiKeyResponse.builder()
                                      .apiKey(Objects.nonNull(request.id()) ? null : powerBiAuthorityPersisted.getApiKey())
