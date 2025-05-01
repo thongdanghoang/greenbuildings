@@ -20,7 +20,6 @@ export class SidebarComponent extends SubscriptionAwareComponent implements OnIn
     super();
   }
 
-  // eslint-disable-next-line max-lines-per-function
   ngOnInit(): void {
     this.applicationService
       .isEmailVerified()
@@ -169,6 +168,11 @@ export class SidebarComponent extends SubscriptionAwareComponent implements OnIn
             label: 'sidebar.basicUser.enterprise',
             icon: 'pi pi-building',
             route: `/${AppRoutingConstants.ENTERPRISE_PATH}/${AppRoutingConstants.CREATE_ENTERPRISE_PATH}`
+          },
+          {
+            label: 'sidebar.basicUser.invitation',
+            icon: 'pi pi-envelope',
+            route: `/${AppRoutingConstants.ENTERPRISE_PATH}/${AppRoutingConstants.INVITATION_PATH}`
           }
         ]
       }

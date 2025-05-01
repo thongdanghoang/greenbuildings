@@ -507,7 +507,7 @@
       "welcome": "Chào mừng đến Green Building",
       "info": "Thông tin tài khoản",
       "enterprise": "Mở doanh nghiệp",
-      "invitation": "Lời mời của bạn"
+      "invitation": "Lời mời"
     },
     "owner": {
       "profile": "Hồ sơ doanh nghiệp",
@@ -1018,7 +1018,7 @@
     "resend": "Gửi lại mã OTP"
   },
   "invitation": {
-    "title": "Lời Mời Của Bạn",
+    "title": "Lời Mời",
     "description": "Xem xét và quản lý các lời mời đang chờ để tham gia các nhóm tòa nhà."
   }
 }
