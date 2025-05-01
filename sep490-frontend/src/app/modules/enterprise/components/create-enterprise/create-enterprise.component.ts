@@ -24,7 +24,6 @@ export class CreateEnterpriseComponent extends AbstractFormComponent<RegisterEnt
     name: new FormControl<string | null>(null, [Validators.required]),
     taxCode: new FormControl<string | null>(null, [Validators.required]),
     hotline: new FormControl<string | null>(null, [Validators.required]),
-    role: new FormControl('', [Validators.required]),
     address: new FormControl<string | null>(null, [Validators.required]),
     businessLicenseImageUrl: new FormControl<string | null>(null, {
       nonNullable: true,

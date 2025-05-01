@@ -151,9 +151,6 @@ public class UserServiceImpl extends SagaManager implements UserService {
             || user.getAuthorities().stream().map(UserPermissionEntity::getRole).anyMatch(permission -> permission == UserRole.ENTERPRISE_OWNER)) {
             throw new BusinessException("user", "validation.business.createEnterprise.alreadyExists");
         }
-        if (registerEnterprise.role() != UserRole.ENTERPRISE_OWNER && registerEnterprise.role() != UserRole.TENANT) {
-            throw new TechnicalException("Invalid role for enterprise owner");
-        }
         var future = new CompletableFuture<>();
         var correlationId = UUID.randomUUID().toString();
         getPendingSagaResponses().put(correlationId, future);
@@ -161,8 +158,8 @@ public class UserServiceImpl extends SagaManager implements UserService {
         // PENDING
         kafkaAdapter.publishEnterpriseOwnerRegisterEvent(correlationId, registerEnterprise);
         try { // Wait synchronously for response
-            var enterpriseId = UUID.fromString(future.get(TRANSACTION_TIMEOUT, TimeUnit.SECONDS).toString());// Timeout in case response is lost
-            user.getAuthorities().add(UserPermissionEntity.of(user, registerEnterprise.role(), enterpriseId));
+            var enterpriseId = UUID.fromString(future.get(TRANSACTION_TIMEOUT, TimeUnit.SECONDS).toString());
+            user.getAuthorities().add(UserPermissionEntity.of(user, UserRole.ENTERPRISE_OWNER, enterpriseId));
             userRepository.save(user); // COMPLETE
         } catch (TimeoutException e) {
             throw new TechnicalException("Request timeout", e);

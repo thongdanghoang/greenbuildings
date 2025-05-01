@@ -16,7 +16,7 @@ export class EnterpriseUserService {
   constructor(private readonly httpClient: HttpClient) {}
 
   get createNewEnterpriseURL(): string {
-    return `${AppRoutingConstants.IDP_API_URL}/${EnterpriseUserService.ENTERPRISE_USER_API_URL}/new-enterprise`;
+    return `${AppRoutingConstants.IDP_API_URL}/${EnterpriseUserService.ENTERPRISE_USER_API_URL}/enterprise`;
   }
 
   public getUsers(criteria: SearchCriteriaDto<UserCriteria>): Observable<SearchResultDto<EnterpriseUser>> {
