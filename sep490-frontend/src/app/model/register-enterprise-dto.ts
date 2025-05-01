@@ -13,9 +13,19 @@ export interface RegisterEnterpriseDTO {
   enterpriseEmail?: string;
   taxCode?: string;
   hotline?: string;
+  role: RegisterEnterpriseDTO.RoleEnum;
   address?: string;
   businessLicenseImageUrl?: string;
   representativeName?: string;
   representativePosition?: string;
   representativeContact?: string;
+}
+export namespace RegisterEnterpriseDTO {
+  export const RoleEnum = {
+    BASIC_USER: 'BASIC_USER',
+    TENANT: 'TENANT',
+    ENTERPRISE_OWNER: 'ENTERPRISE_OWNER',
+    SYSTEM_ADMIN: 'SYSTEM_ADMIN'
+  } as const;
+  export type RoleEnum = (typeof RoleEnum)[keyof typeof RoleEnum];
 }

@@ -25,7 +25,8 @@
     >
         <p-step-list>
             <p-step [value]="1">{{ 'enterprise.create.header1' | translate }}</p-step>
-            <p-step [value]="2">{{ 'enterprise.create.header3' | translate }}</p-step>
+            <p-step [value]="2">{{ 'enterprise.create.header2' | translate }}</p-step>
+            <p-step [value]="3">{{ 'enterprise.create.header3' | translate }}</p-step>
         </p-step-list>
         <p-step-panels>
             <p-step-panel [value]="1">
@@ -74,7 +75,78 @@
                     </div>
                 </ng-template>
             </p-step-panel>
+
             <p-step-panel [value]="2">
+                <ng-template
+                    #content
+                    let-activateCallback="activateCallback"
+                >
+                    <div class="flex flex-col gap-6">
+                        <form
+                            [formGroup]="formGroup"
+                            class="rounded-xl border-2 border-dashed border-surface-200 bg-surface-50 p-5 dark:border-surface-700 dark:bg-surface-950"
+                        >
+                            <div class="mb-4 flex items-start gap-3">
+                                <p-radiobutton
+                                    inputId="tenant"
+                                    formControlName="role"
+                                    size="large"
+                                    [value]="UserRole[UserRole.TENANT]"
+                                ></p-radiobutton>
+                                <div>
+                                    <label
+                                        for="tenant"
+                                        class="text-sm font-semibold"
+                                    >
+                                        {{ 'enterprise.create.role.tenantLabel' | translate }}
+                                    </label>
+                                    <p class="mt-1 text-xs">
+                                        {{ 'enterprise.create.role.tenantDescription' | translate }}
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-3">
+                                <p-radiobutton
+                                    inputId="owner"
+                                    size="large"
+                                    formControlName="role"
+                                    [value]="UserRole[UserRole.ENTERPRISE_OWNER]"
+                                ></p-radiobutton>
+                                <div>
+                                    <label
+                                        for="owner"
+                                        class="text-sm font-semibold"
+                                    >
+                                        {{ 'enterprise.create.role.buildingOwnerLabel' | translate }}
+                                    </label>
+                                    <p class="mt-1 text-xs">
+                                        {{ 'enterprise.create.role.buildingOwnerDescription' | translate }}
+                                    </p>
+                                </div>
+                            </div>
+                        </form>
+
+                        <div class="flex justify-between pt-6">
+                            <p-button
+                                [label]="'common.back' | translate"
+                                icon="pi pi-arrow-left"
+                                iconPos="right"
+                                (onClick)="activateCallback(1)"
+                            />
+                            <p-button
+                                [label]="'common.next' | translate"
+                                icon="pi pi-arrow-right"
+                                iconPos="right"
+                                [disabled]="!formStructure.role.value"
+                                (onClick)="activateCallback(3)"
+                            />
+                        </div>
+                    </div>
+                </ng-template>
+            </p-step-panel>
+
+            <p-step-panel [value]="3">
                 <ng-template
                     #content
                     let-activateCallback="activateCallback"

@@ -118,7 +118,7 @@ public class EnterpriseUserRestController {
     }
     
     
-    @PostMapping("/enterprise")
+    @PostMapping("/new-enterprise")
     @RolesAllowed({UserRole.RoleNameConstant.BASIC_USER})
     public ResponseEntity<Void> createNewEnterprise(@AuthenticationPrincipal UserContextData userContextData,
                                                     @RequestBody RegisterEnterpriseDTO enterpriseDTO) {
