@@ -114,7 +114,7 @@ public class ActivityTypeControllerTest extends TestcontainersConfigs {
     void searchActivityType_returns200() {
         asEnterpriseOwner()
                 .contentType(ContentType.JSON)
-                .body(new SearchCriteriaDTO<ActivityTypeCriteriaDTO>(PageDTO.of(10, 0), null, new ActivityTypeCriteriaDTO("Lorem Ipsum")))
+                .body(new SearchCriteriaDTO<ActivityTypeCriteriaDTO>(PageDTO.of(10, 0), null, new ActivityTypeCriteriaDTO("Lorem Ipsum", UUID.randomUUID())))
                 .when()
                 .post(getBaseUrl() + "/search")
                 .then()
