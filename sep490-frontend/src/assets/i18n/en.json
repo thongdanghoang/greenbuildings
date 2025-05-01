@@ -327,6 +327,7 @@
       "activity": {
         "title": "Emission Activity Details",
         "generateReport": "Generate Report",
+        "manageCommonActivity": "Manage common activity",
         "manageActivityType": "Manage Activity Type",
         "selectActivities": "Select Activities",
         "currentNoActivities": "Current number of activities:",

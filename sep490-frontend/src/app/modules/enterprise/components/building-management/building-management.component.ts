@@ -36,6 +36,7 @@ export class BuildingManagementComponent extends SubscriptionAwareComponent impl
   protected readonly clearSelectedEvent: EventEmitter<void> = new EventEmitter();
   protected overviewBuilding?: OverviewBuildingDTO;
   protected selected: BuildingGroup[] = [];
+  protected readonly AppRoutingConstants = AppRoutingConstants;
 
   constructor(
     protected readonly applicationService: ApplicationService,

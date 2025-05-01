@@ -20,6 +20,8 @@ public interface EmissionActivityRepository extends AbstractBaseRepository<Emiss
 
     Page<EmissionActivityEntity> findAllByBuildingGroupIdAndNameContainingIgnoreCase(UUID buildingId, String activityName,Pageable pageable);
     
+    Page<EmissionActivityEntity> findAllByBuildingIdAndNameContainingIgnoreCaseAndBuildingGroupIsNull(UUID buildingId, String activityName,Pageable pageable);
+    
     Integer countAllByIdIn(Set<UUID> ids);
     
     default boolean existsAllById(Set<UUID> ids) {

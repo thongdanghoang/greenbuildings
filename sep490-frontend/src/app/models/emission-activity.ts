@@ -5,6 +5,7 @@ export interface ActivityTypeCriteria {
 }
 
 export interface ActivitySearchCriteria {
-  buildingGroupId: UUID;
+  buildingGroupId?: UUID;
+  buildingId?: UUID;
   name?: string;
 }
