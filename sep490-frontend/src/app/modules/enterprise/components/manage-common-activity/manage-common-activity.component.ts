@@ -1,9 +1,9 @@
+import {Location} from '@angular/common';
 import {Component, EventEmitter, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ActivitySearchCriteria} from '@models/emission-activity';
 import {BuildingDetails, EmissionActivity} from '@models/enterprise';
 import {TranslateService} from '@ngx-translate/core';
-import {ApplicationService} from '@services/application.service';
 import {BuildingService} from '@services/building.service';
 import {EmissionActivityService} from '@services/emission-activity.service';
 import {TableTemplateColumn} from '@shared/components/table-template/table-template.component';
@@ -53,7 +53,7 @@ export class ManageCommonActivityComponent extends SubscriptionAwareComponent im
     private readonly translate: TranslateService,
     private readonly modalProvider: ModalProvider,
     private readonly msgService: ToastProvider,
-    protected readonly applicationService: ApplicationService
+    private readonly location: Location
   ) {
     super();
   }
@@ -168,11 +168,7 @@ export class ManageCommonActivityComponent extends SubscriptionAwareComponent im
   }
 
   goBack(): void {
-    void this.router.navigate([
-      AppRoutingConstants.ENTERPRISE_PATH,
-      AppRoutingConstants.BUILDING_MANAGEMENT_PATH,
-      this.building.id
-    ]);
+    this.location.back();
   }
 
   openActivityDetailsDialog(activity: EmissionActivity): void {

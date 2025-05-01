@@ -36,19 +36,7 @@ public interface BuildingGroupRepository extends AbstractBaseRepository<Building
     
     boolean existsByBuildingIdAndTenantEmail(UUID id, String tenantEmail);
     
-    @Query(value = """
-            SELECT g
-            FROM BuildingGroupEntity g
-            WHERE g.building.id = :buildingId
-              AND g.tenant IS NULL
-              AND NOT EXISTS (
-                SELECT 1
-                FROM InvitationEntity i
-                WHERE i.buildingGroup.id = g.id
-                  AND i.status = 'PENDING'
-            )
-            """)
-    List<BuildingGroupEntity> findAvailableGroupForInvite(UUID buildingId);
+    List<BuildingGroupEntity> findByBuildingIdAndTenantIsNull(UUID buildingId);
     
     Page<BuildingGroupEntity> findAllByBuildingIdAndNameContainingIgnoreCase(@NotNull UUID uuid, String s, Pageable pageable);
 }

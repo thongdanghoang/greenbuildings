@@ -9,7 +9,7 @@
  */
 
 export interface InvitationSearchCriteria {
-  enterpriseId: string;
+  enterpriseId?: string;
   buildingId?: string;
   buildingGroupId?: string;
   tenantEmail?: string;

@@ -26,23 +26,49 @@ import java.util.Set;
 @RequiredArgsConstructor
 @FieldNameConstants
 public class TenantEntity extends AbstractAuditableEntity {
-
-    @Column(name = "name")
-    private String name;
-
+    
+    @OneToMany(mappedBy = "tenant")
+    private Set<BuildingGroupEntity> buildingGroups = new HashSet<>();
+    
     @NonNull
     @NotBlank
+    @Column(name = "name")
+    private String name;
+    
+    @NotBlank
     @Pattern(regexp = CommonConstant.EMAIL_PATTERN)
-    @Column(name = "email", nullable = false, unique = true)
+    @Column(name = "email")
     private String email;
     
     @NonNull
     @NotBlank
-    @Column(name = "hotline")
+    @Column(name = "address")
+    private String address;
+    
+    @NonNull
+    @NotBlank
     @Pattern(regexp = CommonConstant.VIETNAM_PHONE_PATTERN)
+    @Column(name = "hotline")
     private String hotline;
     
-    @OneToMany(mappedBy = "tenant")
-    private Set<BuildingGroupEntity> buildingGroups = new HashSet<>();
+    @NonNull
+    @NotBlank
+    @Column(name = "tax_code")
+    @Pattern(regexp = CommonConstant.VIETNAME_TAX_CODE)
+    private String taxCode;
+    
+    @NonNull
+    @NotBlank
+    @Column(name = "business_license_image_url")
+    private String businessLicenseImageUrl;
+    
+    @Column(name = "representative_name")
+    private String representativeName;
+    
+    @Column(name = "representative_position")
+    private String representativePosition;
+    
+    @Column(name = "representative_contact")
+    private String representativeContact;
 
 }

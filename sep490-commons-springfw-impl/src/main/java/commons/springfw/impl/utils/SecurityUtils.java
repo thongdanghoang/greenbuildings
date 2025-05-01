@@ -25,6 +25,13 @@ public final class SecurityUtils {
                 .flatMap(uuid -> uuid);
     }
     
+    public static Optional<UUID> getCurrentUserTenantId() {
+        return getUserContextData()
+                .map(UserContextData::getPermissions)
+                .map(p -> p.get(UserRole.TENANT))
+                .flatMap(uuid -> uuid);
+    }
+    
     public static Optional<UserContextData> getUserContextData() {
         var authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null) {

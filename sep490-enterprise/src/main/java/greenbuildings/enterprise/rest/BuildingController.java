@@ -31,7 +31,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 
 @RestController
@@ -56,17 +55,18 @@ public class BuildingController extends AbstractRestController {
     
     @GetMapping("/selectable")
     public ResponseEntity<List<SelectableBuildingDTO>> getAllBuildings(@AuthenticationPrincipal UserContextData userContextData) {
-        var enterpriseIdFromContext = Objects.requireNonNull(userContextData.getEnterpriseId());
-        var buildings = buildingService.findBuildingsByEnterpriseId(enterpriseIdFromContext);
+        var enterpriseId = userContextData.getEnterpriseId().orElseThrow();
+        var buildings = buildingService.findBuildingsByEnterpriseId(enterpriseId);
         return ResponseEntity.ok(buildings.stream().map(buildingMapper::toSelectableBuildingDTO).toList());
     }
     
     @PostMapping("/search")
-    public ResponseEntity<SearchResultDTO<BuildingDTO>> searchEnterpriseBuildings(@RequestBody SearchCriteriaDTO<Void> searchCriteria,
-                                                                                  @AuthenticationPrincipal UserContextData userContextData) {
-        var enterpriseIdFromContext = Objects.requireNonNull(userContextData.getEnterpriseId());
+    public ResponseEntity<SearchResultDTO<BuildingDTO>> searchEnterpriseBuildings(
+            @RequestBody SearchCriteriaDTO<Void> searchCriteria,
+            @AuthenticationPrincipal UserContextData userContextData) {
+        var enterpriseId = userContextData.getEnterpriseId().orElseThrow();
         var pageable = CommonMapper.toPageable(searchCriteria.page(), searchCriteria.sort());
-        var searchResults = buildingService.getEnterpriseBuildings(enterpriseIdFromContext, pageable);
+        var searchResults = buildingService.getEnterpriseBuildings(enterpriseId, pageable);
         var searchResultDTO = CommonMapper.toSearchResultDTO(searchResults, buildingMapper::toDto);
         return ResponseEntity.ok(searchResultDTO);
     }
@@ -86,8 +86,8 @@ public class BuildingController extends AbstractRestController {
     @RolesAllowed(UserRole.RoleNameConstant.ENTERPRISE_OWNER)
     public ResponseEntity<BuildingDTO> createBuilding(@RequestBody BuildingDTO buildingDTO,
                                                       @AuthenticationPrincipal UserContextData userContextData) {
-        var enterpriseIdFromContext = Objects.requireNonNull(userContextData.getEnterpriseId());
-        var enterprise = enterpriseService.getById(enterpriseIdFromContext);
+        var enterpriseId = userContextData.getEnterpriseId().orElseThrow();
+        var enterprise = enterpriseService.getById(enterpriseId);
         var building = buildingMapper.toEntity(buildingDTO);
         building.setEnterprise(enterprise);
         var createdBuilding = buildingService.createBuilding(building);
@@ -105,7 +105,7 @@ public class BuildingController extends AbstractRestController {
         byte[] result = buildingService.generateReport(downloadReport);
         return generateFileDownloadResponse(new ByteArrayResource(result));
     }
-
+    
     @GetMapping("/{id}/overview")
     public ResponseEntity<OverviewBuildingDTO> getOverviewBuildingById(@PathVariable UUID id) {
         var overviewBuilding = buildingService.getOverviewBuildingById(id);

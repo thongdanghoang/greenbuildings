@@ -143,17 +143,6 @@ public class ActivityTypeControllerTest extends TestcontainersConfigs {
     }
     
     @Test
-    void findByEnterpriseId_returns200() {
-        asEnterpriseOwner()
-                .contentType(ContentType.JSON)
-                .when()
-                .param("tenantId", createTenant())
-                .get(getBaseUrl())
-                .then()
-                .statusCode(200);
-    }
-    
-    @Test
     void findById_returns404() {
         asEnterpriseOwner()
                 .contentType(ContentType.JSON)

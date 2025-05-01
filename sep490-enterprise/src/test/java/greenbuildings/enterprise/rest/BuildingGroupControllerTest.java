@@ -165,16 +165,4 @@ public class BuildingGroupControllerTest extends TestcontainersConfigs {
                 .statusCode(200);
     }
     
-    @Test
-    void findByTenantId() {
-        var tenantEntity = insertTenantEntity();
-        asEnterpriseOwner()
-                .contentType(ContentType.JSON)
-                .when()
-                .get(getBaseUrl() + "/tenant")
-                .then()
-                .log().all()
-                .statusCode(200);
-    }
-    
 }

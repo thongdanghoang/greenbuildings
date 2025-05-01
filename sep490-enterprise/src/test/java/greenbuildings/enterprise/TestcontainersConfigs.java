@@ -101,6 +101,10 @@ public abstract class TestcontainersConfigs {
         return UUID.fromString("664748fa-1312-4456-a88c-1ef187ec9510");
     }
     
+    protected UUID tenantId() {
+        return UUID.fromString("5ad9bee9-1281-46d7-984f-8ab33ee8d12a");
+    }
+    
     protected RequestSpecification asEnterpriseOwner() {
         return RestAssured.given().auth().oauth2(getToken("enterprise.owner@greenbuildings.com", "enterprise.owner"));
     }
@@ -184,7 +188,13 @@ public abstract class TestcontainersConfigs {
     }
     
     protected TenantEntity insertTenantEntity() {
-        var tenantEntity = new TenantEntity(randomEmail(), randomPhoneNumber());
+        var tenantEntity = new TenantEntity();
+        tenantEntity.setName(randomString());
+        tenantEntity.setEmail(randomEmail());
+        tenantEntity.setAddress(randomString());
+        tenantEntity.setHotline(randomPhoneNumber());
+        tenantEntity.setTaxCode("0301930055");
+        tenantEntity.setBusinessLicenseImageUrl("https://greenbuildings.com.vn");
         return tenantRepository.save(tenantEntity);
     }
     

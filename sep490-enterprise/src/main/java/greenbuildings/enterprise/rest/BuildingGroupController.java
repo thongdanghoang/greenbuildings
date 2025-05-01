@@ -80,7 +80,7 @@ public class BuildingGroupController extends AbstractRestController {
     
     @GetMapping("/tenant")
     public ResponseEntity<List<BuildingGroupDTO>> findByTenant(@AuthenticationPrincipal UserContextData userContextData) {
-        return ResponseEntity.ok(buildingGroupService.findByTenantId(userContextData.getEnterpriseId()).stream()
+        return ResponseEntity.ok(buildingGroupService.findByTenantId(userContextData.getTenantId().orElseThrow()).stream()
                                                      .map(buildingGroupMapper::toDTOWithBuilding)
                                                      .toList());
     }

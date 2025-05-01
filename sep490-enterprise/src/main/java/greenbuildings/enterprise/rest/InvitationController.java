@@ -39,20 +39,21 @@ public class InvitationController {
             @RequestBody SearchCriteriaDTO<InvitationSearchCriteria> searchCriteria,
             @AuthenticationPrincipal UserContextData userContextData) {
         var pageable = CommonMapper.toPageable(searchCriteria.page(), searchCriteria.sort());
-        var criteria = searchCriteria.criteria().toBuilder().enterpriseId(userContextData.getEnterpriseId()).build();
+        var enterpriseId = userContextData.getEnterpriseId().orElseThrow();
+        var criteria = searchCriteria.criteria().toBuilder().enterpriseId(enterpriseId).build();
         var searchResults = invitationService.search(criteria, pageable);
         return ResponseEntity.ok(CommonMapper.toSearchResultDTO(searchResults, invitationMapper::toDTO));
     }
     
     @GetMapping("/find-by-email")
     public ResponseEntity<List<InvitationDTO>> findAllByEmail(@AuthenticationPrincipal UserContextData userContextData) {
-        var rs = invitationService.findAllByEmail(userContextData.getEmail());
-        return ResponseEntity.ok(rs.stream().map(invitationMapper::toDTO).toList());
+        var invitations = invitationService.findAllByEmail(userContextData.getEmail());
+        return ResponseEntity.ok(invitations.stream().map(invitationMapper::toDTO).toList());
     }
     
     @PutMapping("/update-status")
     public ResponseEntity<?> updateStatus(@RequestBody InvitationResponseDTO invitationDTO) {
-         invitationService.updateStatus(invitationDTO);
+        invitationService.updateStatus(invitationDTO);
         return ResponseEntity.noContent().build();
     }
     

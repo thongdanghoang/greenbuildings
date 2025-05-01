@@ -9,7 +9,7 @@
  */
 
 export interface EmissionActivityCriteria {
-  buildingGroupId: string;
-  emissionSourceId?: string;
+  buildingGroupId?: string;
+  buildingId?: string;
   name?: string;
 }
