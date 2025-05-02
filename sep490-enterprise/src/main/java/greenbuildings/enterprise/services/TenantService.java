@@ -30,7 +30,7 @@ public interface TenantService {
     
     void delete(UUID id);
     
-    Page<TenantTableView> search(SearchCriteriaDTO<SearchTenantCriteria> searchCriteria, Pageable pageable);
+    Page<TenantTableView> search(UUID enterpriseID, SearchCriteriaDTO<SearchTenantCriteria> searchCriteria, Pageable pageable);
     
     List<TenantEntity> findByBuildingId(UUID buildingId);
 }

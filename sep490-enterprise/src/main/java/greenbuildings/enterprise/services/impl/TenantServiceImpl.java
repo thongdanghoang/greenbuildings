@@ -1,6 +1,5 @@
 package greenbuildings.enterprise.services.impl;
 
-import commons.springfw.impl.utils.SecurityUtils;
 import greenbuildings.commons.api.dto.SearchCriteriaDTO;
 import greenbuildings.enterprise.dtos.SearchTenantCriteria;
 import greenbuildings.enterprise.dtos.TenantDTO;
@@ -43,24 +42,24 @@ public class TenantServiceImpl implements TenantService {
     @Override
     public Optional<TenantDetailDTO> getTenantDetail(UUID id) {
         return tenantRepository.findById(id)
-                .map(tenantMapper::toDetailDTO);
+                               .map(tenantMapper::toDetailDTO);
     }
-
+    
     @Override
     public TenantDetailDTO updateTenantDetail(UUID id, TenantDetailDTO detailDTO) {
         TenantEntity existingEntity = tenantRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Tenant not found with id: " + id));
-
+                                                      .orElseThrow(() -> new RuntimeException("Tenant not found with id: " + id));
+        
         // Update fields from detailDTO
         existingEntity.setName(detailDTO.name());
         existingEntity.setEmail(detailDTO.email());
         existingEntity.setHotline(detailDTO.hotline());
-
+        
         // Save and return updated entity
         TenantEntity savedEntity = tenantRepository.save(existingEntity);
         return tenantMapper.toDetailDTO(savedEntity);
     }
-
+    
     @Override
     public List<TenantEntity> findAll() {
         return tenantRepository.findAll();
@@ -92,9 +91,10 @@ public class TenantServiceImpl implements TenantService {
     }
     
     @Override
-    public Page<TenantTableView> search(SearchCriteriaDTO<SearchTenantCriteria> searchCriteria, Pageable pageable) {
-        UUID enterpriseID = SecurityUtils.getCurrentUserEnterpriseId().orElseThrow();
-        return tenantRepository.findByEnterpriseId(enterpriseID, searchCriteria.criteria().email(), pageable).map(TenantTableView::fromEntity);
+    public Page<TenantTableView> search(UUID enterpriseID, SearchCriteriaDTO<SearchTenantCriteria> searchCriteria, Pageable pageable) {
+        return tenantRepository
+                .findByEnterpriseId(enterpriseID, searchCriteria.criteria().email(), pageable)
+                .map(TenantTableView::fromEntity);
     }
     
     @Override
