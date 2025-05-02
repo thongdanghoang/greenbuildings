@@ -137,6 +137,8 @@
     "welcome": "Welcome to Green Building",
     "welcomeEnterprise": "Welcome to Enterprise Dashboard",
     "welcomeTenant": "Welcome to Tenant Dashboard",
+    "welcomeAdmin": "Welcome, System Administrator!",
+    "adminDescription": "Access and manage users, system configurations, and application-wide settings.",
     "enterpriseDescription": "Manage buildings, monitor emissions, and track sustainable development goals in one place.",
     "email": "Email",
     "emailVerified": "Email verified",
@@ -550,7 +552,10 @@
       "emissionFactor": "Emission Factor",
       "chemicalDensity": "Chemical Density",
       "credit": "Credit Management",
-      "emission": "Emission Management"
+      "emission": "Emission Management",
+      "accountManagement": "Account",
+      "enterprise": "Enterprise",
+      "tenant": "Tenant"
     }
   },
   "admin": {

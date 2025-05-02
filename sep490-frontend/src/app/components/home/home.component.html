@@ -85,6 +85,15 @@
                     ></p-button>
                 </div>
             </div>
+        } @else if (userRoles.includes(UserRole.SYSTEM_ADMIN) && userData) {
+            <div class="text-center">
+                <h1 class="mb-4 text-3xl font-bold text-primary">
+                    {{ 'home.welcomeAdmin' | translate }}
+                </h1>
+                <p class="mb-8 text-lg">
+                    {{ 'home.adminDescription' | translate }}
+                </p>
+            </div>
         }
     </div>
 </div>
