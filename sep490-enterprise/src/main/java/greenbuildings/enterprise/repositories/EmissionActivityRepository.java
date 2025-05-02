@@ -2,10 +2,11 @@ package greenbuildings.enterprise.repositories;
 
 import commons.springfw.impl.repositories.AbstractBaseRepository;
 import greenbuildings.enterprise.entities.EmissionActivityEntity;
+import greenbuildings.enterprise.models.ActivityRecordDateRange;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -15,6 +16,15 @@ import java.util.UUID;
 
 @Repository
 public interface EmissionActivityRepository extends AbstractBaseRepository<EmissionActivityEntity> {
+    
+    @Query("""
+            SELECT new greenbuildings.enterprise.models.ActivityRecordDateRange(r.startDate, r.endDate)
+            FROM EmissionActivityEntity ea
+            JOIN ea.records r
+            WHERE ea.id = :activityId
+            AND (:excludeRecordId IS NULL OR r.id <> :excludeRecordId)
+            """)
+    List<ActivityRecordDateRange> findRecordedDateRangesById(UUID activityId, UUID excludeRecordId);
     
     List<EmissionActivityEntity> findByBuildingGroupId(UUID id);
     

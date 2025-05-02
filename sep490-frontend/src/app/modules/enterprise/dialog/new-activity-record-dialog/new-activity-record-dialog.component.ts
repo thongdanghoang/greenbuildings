@@ -1,6 +1,7 @@
 import {HttpClient} from '@angular/common/http';
 import {Component} from '@angular/core';
 import {AbstractControl, FormBuilder, FormControl, Validators} from '@angular/forms';
+import {DateRangeView} from '@generated/models/date-range-view';
 import {TranslateService} from '@ngx-translate/core';
 import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
 import {takeUntil} from 'rxjs';
@@ -16,6 +17,7 @@ export interface NewActivityRecordDialogConfig {
   activityId: UUID;
   factor: EmissionFactorDTO;
   editRecord?: EmissionActivityRecord;
+  recordedDateRanges: DateRangeView[];
 }
 
 @Component({
@@ -26,6 +28,7 @@ export class NewActivityRecordDialogComponent extends AbstractFormComponent<Emis
   unitOptions: {label: string; value: EmissionUnit}[] = [];
   selectedFile: File | null = null;
   maxDate: Date = new Date();
+  disabledDates: Date[] = [];
   formStructure = {
     activityId: new FormControl<null | UUID>(null, [Validators.required]),
     id: new FormControl<null | UUID>(null),
@@ -62,6 +65,7 @@ export class NewActivityRecordDialogComponent extends AbstractFormComponent<Emis
     this.initUnits();
     this.handleUpdate();
     this.initFormData();
+    this.disabledDates = this.convertDateRangesToDisabledDates(this.data?.recordedDateRanges ?? []);
   }
 
   override prepareDataBeforeSubmit(): void {
@@ -219,7 +223,7 @@ export class NewActivityRecordDialogComponent extends AbstractFormComponent<Emis
     return this.data.factor.emissionSourceDTO.nameVN;
   }
 
-  initUnits(): void {
+  private initUnits(): void {
     let supportedUnits: EmissionUnit[];
 
     if (this.data!.factor.directEmission) {
@@ -235,10 +239,29 @@ export class NewActivityRecordDialogComponent extends AbstractFormComponent<Emis
     }));
   }
 
-  convertDateToUTC(date: Date): Date {
+  private convertDateToUTC(date: Date): Date {
     const year = date.getFullYear();
     const month = date.getMonth();
     const day = date.getDate();
     return new Date(Date.UTC(year, month, day));
+  }
+
+  private convertDateRangesToDisabledDates(recordedDateRanges: DateRangeView[]): Date[] {
+    const disabledDates: Date[] = [];
+    for (const range of recordedDateRanges) {
+      if (!range.fromInclusive || !range.toInclusive) {
+        continue;
+      }
+
+      const start = new Date(range.fromInclusive);
+      const end = new Date(range.toInclusive);
+
+      const currentDate = new Date(start);
+      while (currentDate <= end) {
+        disabledDates.push(new Date(currentDate.getTime()));
+        currentDate.setDate(currentDate.getDate() + 1);
+      }
+    }
+    return disabledDates;
   }
 }

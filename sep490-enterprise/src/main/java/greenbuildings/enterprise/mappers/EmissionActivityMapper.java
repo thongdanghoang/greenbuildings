@@ -1,14 +1,18 @@
 package greenbuildings.enterprise.mappers;
 
+import greenbuildings.commons.api.views.DateRangeView;
 import greenbuildings.enterprise.dtos.CreateEmissionActivityDTO;
 import greenbuildings.enterprise.dtos.EmissionActivityDTO;
 import greenbuildings.enterprise.dtos.EmissionActivityDetailsDTO;
 import greenbuildings.enterprise.entities.EmissionActivityEntity;
 import greenbuildings.enterprise.mappers.decorators.EmissionActivityMapperDecorator;
+import greenbuildings.enterprise.models.ActivityRecordDateRange;
 import org.mapstruct.DecoratedWith;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
+
+import java.util.List;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 @DecoratedWith(EmissionActivityMapperDecorator.class)
@@ -43,4 +47,10 @@ public interface EmissionActivityMapper {
     @Mapping(target = "buildingGroup", ignore = true)
     @Mapping(target = "type", ignore = true)
     EmissionActivityEntity updateActivity(CreateEmissionActivityDTO dto);
+    
+    @Mapping(target = "fromInclusive", source = "startDate")
+    @Mapping(target = "toInclusive", source = "endDate")
+    DateRangeView toDateRangeView(ActivityRecordDateRange source);
+    
+    List<DateRangeView> toDateRangeView(List<ActivityRecordDateRange> source);
 }

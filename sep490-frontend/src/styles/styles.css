@@ -10,3 +10,11 @@
   @tailwind components;
   @tailwind utilities;
 }
+
+.p-datepicker-day-selected-range {
+    @apply bg-primary-500 text-white dark:bg-primary-400 dark:text-black;
+}
+
+.p-datepicker-day-cell {
+    @apply hover:cursor-not-allowed;
+}

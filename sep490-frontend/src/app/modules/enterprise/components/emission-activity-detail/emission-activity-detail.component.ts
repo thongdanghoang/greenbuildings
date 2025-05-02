@@ -147,8 +147,6 @@ export class EmissionActivityDetailComponent extends AbstractFormComponent<Emiss
       {
         field: 'ghg',
         header: 'enterprise.emission.activity.record.table.ghg',
-        sortable: true,
-        sortField: 'quantity',
         templateRef: this.ghgTemplate
       },
       {
@@ -222,41 +220,47 @@ export class EmissionActivityDetailComponent extends AbstractFormComponent<Emiss
   }
 
   onNewRecord(): void {
-    const config: DynamicDialogConfig<NewActivityRecordDialogConfig> = {
-      data: {
-        activityId: this.activity.id,
-        factor: this.activity.emissionFactor
-      },
-      closeOnEscape: true,
-      dismissableMask: true,
-      showHeader: false,
-      modal: true
-    };
-    const ref = this.dialogService.open(NewActivityRecordDialogComponent, config);
-    ref.onClose.subscribe(result => {
-      if (result) {
-        this.searchEvent.emit();
-      }
+    this.emissionActivityService.getRecordedDateRanges(this.activity.id).subscribe(recordedDateRanges => {
+      const config: DynamicDialogConfig<NewActivityRecordDialogConfig> = {
+        data: {
+          activityId: this.activity.id,
+          factor: this.activity.emissionFactor,
+          recordedDateRanges
+        },
+        closeOnEscape: true,
+        dismissableMask: true,
+        showHeader: false,
+        modal: true
+      };
+      const ref = this.dialogService.open(NewActivityRecordDialogComponent, config);
+      ref.onClose.subscribe(result => {
+        if (result) {
+          this.searchEvent.emit();
+        }
+      });
     });
   }
 
   openEditRecordDialog(record: EmissionActivityRecord): void {
-    const config: DynamicDialogConfig<NewActivityRecordDialogConfig> = {
-      data: {
-        activityId: this.activity.id,
-        factor: this.activity.emissionFactor,
-        editRecord: record
-      },
-      closeOnEscape: true,
-      dismissableMask: true,
-      showHeader: false,
-      modal: true
-    };
-    const ref = this.dialogService.open(NewActivityRecordDialogComponent, config);
-    ref.onClose.subscribe(result => {
-      if (result) {
-        this.searchEvent.emit();
-      }
+    this.emissionActivityService.getRecordedDateRanges(this.activity.id, record.id).subscribe(recordedDateRanges => {
+      const config: DynamicDialogConfig<NewActivityRecordDialogConfig> = {
+        data: {
+          activityId: this.activity.id,
+          factor: this.activity.emissionFactor,
+          editRecord: record,
+          recordedDateRanges
+        },
+        closeOnEscape: true,
+        dismissableMask: true,
+        showHeader: false,
+        modal: true
+      };
+      const ref = this.dialogService.open(NewActivityRecordDialogComponent, config);
+      ref.onClose.subscribe(result => {
+        if (result) {
+          this.searchEvent.emit();
+        }
+      });
     });
   }
 
