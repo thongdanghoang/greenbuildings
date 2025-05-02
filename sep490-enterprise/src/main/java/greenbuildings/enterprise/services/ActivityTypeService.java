@@ -1,6 +1,5 @@
 package greenbuildings.enterprise.services;
 
-import greenbuildings.commons.api.dto.SearchCriteriaDTO;
 import greenbuildings.enterprise.dtos.ActivityTypeCriteriaDTO;
 import greenbuildings.enterprise.dtos.ActivityTypeDTO;
 import greenbuildings.enterprise.entities.ActivityTypeEntity;
@@ -19,7 +18,7 @@ public interface ActivityTypeService {
     
     ActivityTypeEntity create(ActivityTypeDTO dto);
 
-    Page<ActivityTypeEntity> search(SearchCriteriaDTO<ActivityTypeCriteriaDTO> searchCriteria, Pageable pageable);
+    Page<ActivityTypeEntity> search(ActivityTypeCriteriaDTO criteria, Pageable pageable);
 
     Optional<ActivityTypeEntity> findById(UUID id);
 

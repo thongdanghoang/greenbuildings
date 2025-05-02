@@ -1,6 +1,5 @@
 package greenbuildings.enterprise.services.impl;
 
-import greenbuildings.commons.api.dto.SearchCriteriaDTO;
 import greenbuildings.commons.api.exceptions.BusinessException;
 import greenbuildings.enterprise.dtos.ActivityTypeCriteriaDTO;
 import greenbuildings.enterprise.dtos.ActivityTypeDTO;
@@ -63,8 +62,8 @@ public class ActivityTypeServiceImpl implements ActivityTypeService {
     }
     
     @Override
-    public Page<ActivityTypeEntity> search(SearchCriteriaDTO<ActivityTypeCriteriaDTO> searchCriteria, Pageable pageable) {
-        var emissionSourceIDs = repository.findByName(searchCriteria.criteria().buildingId(), searchCriteria.criteria().name(), pageable);
+    public Page<ActivityTypeEntity> search(ActivityTypeCriteriaDTO criteria, Pageable pageable) {
+        var emissionSourceIDs = repository.findByName(criteria.buildingId(), criteria.name(), pageable);
         var results = repository.findAllById(emissionSourceIDs.toSet())
                                 .stream()
                                 .collect(Collectors.toMap(ActivityTypeEntity::getId, Function.identity()));
