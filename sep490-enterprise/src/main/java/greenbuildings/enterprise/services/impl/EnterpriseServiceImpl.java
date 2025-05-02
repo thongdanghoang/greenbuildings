@@ -1,11 +1,15 @@
 package greenbuildings.enterprise.services.impl;
 
+import greenbuildings.commons.api.dto.SearchCriteriaDTO;
 import greenbuildings.enterprise.dtos.EnterpriseDetailDTO;
+import greenbuildings.enterprise.dtos.EnterpriseSearchCriteria;
 import greenbuildings.enterprise.entities.EnterpriseEntity;
 import greenbuildings.enterprise.mappers.EnterpriseMapper;
 import greenbuildings.enterprise.repositories.EnterpriseRepository;
 import greenbuildings.enterprise.services.EnterpriseService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -48,5 +52,10 @@ public class EnterpriseServiceImpl implements EnterpriseService {
 
         mapper.updateEntityFromDetailDTO(dto, entity);
         repository.save(entity);
+    }
+    
+    @Override
+    public Page<EnterpriseEntity> search(SearchCriteriaDTO<EnterpriseSearchCriteria> searchCriteria, Pageable pageable) {
+        return repository.findByCriteria(searchCriteria.criteria().criteria(), pageable);
     }
 }

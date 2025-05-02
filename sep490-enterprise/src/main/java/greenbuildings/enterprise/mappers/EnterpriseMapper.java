@@ -30,4 +30,7 @@ public interface EnterpriseMapper {
 
     // Update entity from detail DTO
     void updateEntityFromDetailDTO(EnterpriseDetailDTO dto, @MappingTarget EnterpriseEntity entity);
+    
+    @Mapping(target = "email", source = "enterpriseEmail")
+    EnterpriseDTO toDTO(EnterpriseEntity entity);
 }
