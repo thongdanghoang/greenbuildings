@@ -11,6 +11,7 @@ import greenbuildings.enterprise.entities.InvitationEntity;
 import greenbuildings.enterprise.enums.InvitationStatus;
 import greenbuildings.enterprise.mappers.BuildingGroupMapper;
 import greenbuildings.enterprise.repositories.BuildingGroupRepository;
+import greenbuildings.enterprise.repositories.EmissionActivityRepository;
 import greenbuildings.enterprise.repositories.EnterpriseRepository;
 import greenbuildings.enterprise.repositories.InvitationRepository;
 import greenbuildings.enterprise.services.BuildingGroupService;
@@ -36,6 +37,7 @@ public class BuildingGroupServiceImpl implements BuildingGroupService {
     private final BuildingGroupMapper buildingGroupMapper;
     private final EnterpriseRepository enterpriseRepository;
     private final InvitationRepository invitationRepository;
+    private final EmissionActivityRepository emissionActivityRepository;
     
     @Override
     public BuildingGroupEntity create(BuildingGroupDTO dto) {
@@ -70,6 +72,12 @@ public class BuildingGroupServiceImpl implements BuildingGroupService {
     
     @Override
     public void delete(Set<UUID> buildingGroupIDs) {
+        var activities = emissionActivityRepository
+                .findByBuildingGroupIdIn(buildingGroupIDs)
+                .stream()
+                .peek(activity -> activity.setBuildingGroup(null))
+                .toList();
+        emissionActivityRepository.saveAll(activities);
         buildingGroupRepository.deleteAllById(buildingGroupIDs);
     }
     

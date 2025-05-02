@@ -48,6 +48,6 @@ public class BuildingGroupEntity extends AbstractAuditableEntity {
     @OneToMany(mappedBy = "buildingGroup", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
     private Set<EmissionActivityEntity> emissionActivities = new HashSet<>();
     
-    @OneToMany(mappedBy = "buildingGroup")
+    @OneToMany(mappedBy = "buildingGroup", orphanRemoval = true)
     private Set<InvitationEntity> invitations = new HashSet<>();
 }
