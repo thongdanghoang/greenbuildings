@@ -53,6 +53,9 @@ export class AppRoutingConstants {
   public static readonly FUEL_CONVERSION = 'fuel-conversion';
   public static readonly EMISSION_FACTOR = 'emission-factor';
   public static readonly CHEMICAL_DENSITY = 'chemical-density';
+  public static readonly ACCOUNT_MANAGEMENT = 'account-management';
+  public static readonly ENTERPRISE_MANAGEMENT = 'enterprise-management';
+  public static readonly TENANT_MANAGEMENT = 'tenant-management';
 
   // App Routing
   public static readonly LANDING_PAGE_PATH = 'landing-page';

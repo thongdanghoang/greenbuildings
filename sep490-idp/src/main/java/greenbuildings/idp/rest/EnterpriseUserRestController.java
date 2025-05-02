@@ -67,8 +67,7 @@ public class EnterpriseUserRestController {
     }
     
     @PostMapping("/search")
-    @RolesAllowed({UserRole.RoleNameConstant.ENTERPRISE_OWNER,
-                   UserRole.RoleNameConstant.SYSTEM_ADMIN})
+    @RolesAllowed({UserRole.RoleNameConstant.SYSTEM_ADMIN})
     public ResponseEntity<SearchResultDTO<EnterpriseUserDTO>> searchEnterpriseUser(
             @RequestBody SearchCriteriaDTO<UserCriteriaDTO> searchCriteria) {
         

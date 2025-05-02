@@ -132,10 +132,8 @@ public class UserServiceImpl extends SagaManager implements UserService {
     
     @Override
     public Page<UserEntity> search(SearchCriteriaDTO<UserCriteriaDTO> searchCriteria) {
-        UUID enterpriseId = SecurityUtils.getCurrentUserEnterpriseId().orElseThrow();
-        var userIDs = userRepository.findByName(
+        var userIDs = userRepository.findByEmail(
                 searchCriteria.criteria().criteria(),
-                enterpriseId,
                 CommonMapper.toPageable(searchCriteria.page(), searchCriteria.sort()));
         var results = userRepository
                 .findByIDsWithPermissions(userIDs.toSet())

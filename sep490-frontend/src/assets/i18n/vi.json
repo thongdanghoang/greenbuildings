@@ -136,6 +136,8 @@
     "welcome": "Chào mừng đến với Green Building",
     "welcomeEnterprise": "Chào mừng đến với Bảng điều khiển Doanh nghiệp",
     "welcomeTenant": "Chào mừng đến với Bảng điều khiển Người thuê",
+    "welcomeAdmin": "Chào mừng Quản trị viên hệ thống!",
+    "adminDescription": "Truy cập và quản lý người dùng, cấu hình hệ thống và các cài đặt của toàn bộ ứng dụng.",
     "enterpriseDescription": "Quản lý tòa nhà, giám sát khí thải và theo dõi mục tiêu phát triển bền vững tại một nơi.",
     "email": "Email",
     "emailVerified": "Email đã xác thực",
@@ -542,7 +544,10 @@
       "emissionFactor": "Hệ số phát thải",
       "chemicalDensity": "Mật độ hóa học",
       "credit": "Quản lý Tín dụng",
-      "emission": "Quản lý Khí thải"
+      "emission": "Quản lý Khí thải",
+      "accountManagement": "Tài khoản",
+      "enterprise": "Doanh nghiệp",
+      "tenant": "Người thuê"
     }
   },
   "admin": {

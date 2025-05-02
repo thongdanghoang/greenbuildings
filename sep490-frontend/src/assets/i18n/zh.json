@@ -138,6 +138,8 @@
     "welcomeTenant": "欢迎来到租户仪表板",
     "enterpriseDescription": "管理建筑物、监控排放并在一个地方跟踪可持续发展的目标。",
     "email": "电子邮件",
+    "welcomeAdmin": "欢迎，系统管理员！",
+    "adminDescription": "访问和管理用户、系统配置和整个应用程序的设置。",
     "emailVerified": "电子邮件已验证",
     "createEnterprise": "创建企业",
     "viewInvitation": "查看企业邀请",
@@ -542,7 +544,10 @@
       "emissionFactor": "排放因子",
       "chemicalDensity": "化學密度",
       "credit": "信用管理",
-      "emission": "排放管理"
+      "emission": "排放管理",
+      "accountManagement": "账户管理",
+      "enterprise": "企业",
+      "tenant": "租户"
     }
   },
   "admin": {

@@ -207,6 +207,26 @@ export class SidebarComponent extends SubscriptionAwareComponent implements OnIn
             route: `/${AppRoutingConstants.ADMIN_PATH}/${AppRoutingConstants.CHEMICAL_DENSITY}`
           }
         ]
+      },
+      {
+        label: 'sidebar.admin.user',
+        items: [
+          {
+            label: 'sidebar.admin.accountManagement',
+            icon: 'pi pi-id-card',
+            route: `/${AppRoutingConstants.ADMIN_PATH}/${AppRoutingConstants.ACCOUNT_MANAGEMENT}`
+          },
+          {
+            label: 'sidebar.admin.enterprise',
+            icon: 'pi pi-building-columns',
+            route: `/${AppRoutingConstants.ADMIN_PATH}/${AppRoutingConstants.ENTERPRISE_MANAGEMENT}`
+          },
+          {
+            label: 'sidebar.admin.tenant',
+            icon: 'pi pi-users',
+            route: `/${AppRoutingConstants.ADMIN_PATH}/${AppRoutingConstants.TENANT_MANAGEMENT}`
+          }
+        ]
       }
     ];
   }

@@ -39,10 +39,10 @@ public interface UserRepository extends AbstractBaseRepository<UserEntity> {
     @Query("""
             SELECT u.id
             FROM UserEntity u
-            WHERE (LOWER(u.firstName) LIKE LOWER(CONCAT('%', :name, '%')) OR LOWER(u.lastName) LIKE LOWER(CONCAT('%', :name, '%')))
+            WHERE (LOWER(u.email) LIKE LOWER(CONCAT('%', :email, '%')))
             """
     )
-    Page<UUID> findByName(String name, UUID enterpriseId, Pageable pageable);
+    Page<UUID> findByEmail(String email, Pageable pageable);
     
     @Query("""
             SELECT u

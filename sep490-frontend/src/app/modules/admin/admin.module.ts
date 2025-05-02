@@ -16,6 +16,9 @@ import {ChemicalDensityDialogComponent} from './dialog/chemical-density-dialog/c
 import {EmissionFactorDialogComponent} from './dialog/emission-factor-dialog/emission-factor-dialog.component';
 import {EmissionSourceDialogComponent} from './dialog/emission-source-dialog/emission-source-dialog.component';
 import {FuelDialogComponent} from './dialog/fuel-dialog/fuel-dialog.component';
+import {AccountManagementComponent} from './components/account-management/account-management.component';
+import {EnterpriseManagementComponent} from './components/enterprise-management/enterprise-management.component';
+import {TenantManagementComponent} from './components/tenant-management/tenant-management.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +35,10 @@ import {FuelDialogComponent} from './dialog/fuel-dialog/fuel-dialog.component';
     EmissionFactorDialogComponent,
     ChemicalDensityComponent,
     ChemicalDensityDialogComponent,
-    UserDetailsComponent
+    UserDetailsComponent,
+    AccountManagementComponent,
+    EnterpriseManagementComponent,
+    TenantManagementComponent
   ],
   imports: [SharedModule, AdminRoutingModule],
   providers: []
