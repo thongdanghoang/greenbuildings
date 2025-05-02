@@ -90,13 +90,14 @@ public class BuildingController extends AbstractRestController {
         var enterprise = enterpriseService.getById(enterpriseId);
         var building = buildingMapper.toEntity(buildingDTO);
         building.setEnterprise(enterprise);
-        var createdBuilding = buildingService.createBuilding(building);
+        var createdBuilding = buildingService.createBuilding(building, enterpriseId);
         return ResponseEntity.status(HttpStatus.CREATED).body(buildingMapper.toDto(createdBuilding));
     }
     
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteBuilding(@PathVariable UUID id) {
-        buildingService.deleteBuilding(id);
+    public ResponseEntity<Void> deleteBuilding(@PathVariable UUID id,
+                                               @AuthenticationPrincipal UserContextData userContextData) {
+        buildingService.deleteBuilding(id, userContextData.getEnterpriseId().orElseThrow());
         return ResponseEntity.noContent().build();
     }
     

@@ -1,7 +1,5 @@
 package greenbuildings.enterprise.services.impl;
 
-import commons.springfw.impl.utils.SecurityUtils;
-import greenbuildings.enterprise.entities.BuildingEntity;
 import greenbuildings.enterprise.entities.TransactionEntity;
 import greenbuildings.enterprise.repositories.TransactionRepository;
 import greenbuildings.enterprise.services.TransactionService;
@@ -21,16 +19,14 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class TransactionServiceImpl implements TransactionService {
     private final TransactionRepository transactionRepository;
-
-@Override
-public List<TransactionEntity> getTransactions(UUID buildingId) {
-    UUID enterpriseId = SecurityUtils.getCurrentUserEnterpriseId().orElseThrow();
-    return transactionRepository.findAllByBuilding_IdAndEnterprise_Id(buildingId, enterpriseId);
-}
-
+    
     @Override
-    public Page<TransactionEntity> search(UUID buildingId, Pageable page) {
-        UUID enterpriseId = SecurityUtils.getCurrentUserEnterpriseId().orElseThrow();
-        return transactionRepository.findAllByBuilding_IdAndEnterprise_Id(buildingId, enterpriseId,page);
+    public List<TransactionEntity> getTransactions(UUID buildingId, UUID enterpriseId) {
+        return transactionRepository.findAllByBuilding_IdAndEnterprise_Id(buildingId, enterpriseId);
+    }
+    
+    @Override
+    public Page<TransactionEntity> search(UUID buildingId, Pageable page, UUID enterpriseId) {
+        return transactionRepository.findAllByBuilding_IdAndEnterprise_Id(buildingId, enterpriseId, page);
     }
 }

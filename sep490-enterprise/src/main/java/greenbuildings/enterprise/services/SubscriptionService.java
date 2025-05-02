@@ -11,7 +11,7 @@ import java.util.UUID;
 public interface SubscriptionService {
     List<CreditConvertRatioEntity> getCreditConvertRatios();
     
-    void subscribe(@Valid SubscribeRequestDTO request);
+    void subscribe(@Valid SubscribeRequestDTO request, UUID enterpriseId);
 
     CreditConvertRatioEntity getCreditConvertRatioDetail(UUID id);
 

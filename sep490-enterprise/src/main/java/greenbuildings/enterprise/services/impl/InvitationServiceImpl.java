@@ -1,6 +1,5 @@
 package greenbuildings.enterprise.services.impl;
 
-import commons.springfw.impl.utils.SecurityUtils;
 import greenbuildings.enterprise.dtos.InvitationResponseDTO;
 import greenbuildings.enterprise.dtos.InvitationSearchCriteria;
 import greenbuildings.enterprise.entities.InvitationEntity;
@@ -21,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -42,12 +42,11 @@ public class InvitationServiceImpl implements InvitationService {
     }
     
     @Override
-    public void updateStatus(InvitationResponseDTO invitationDTO) {
+    public void updateStatus(InvitationResponseDTO invitationDTO, Optional<UUID> tenantId) {
         var invitation = invitationRepository.findById(invitationDTO.id()).orElseThrow();
         invitation.setStatus(invitationDTO.status());
         if (invitationDTO.status() == InvitationStatus.ACCEPTED) {
-            var tenant = SecurityUtils
-                    .getCurrentUserTenantId()
+            var tenant = tenantId
                     .flatMap(tenantRepository::findById)
                     .orElseThrow();
             var buildingGroup = buildingGroupRepository

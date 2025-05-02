@@ -1,7 +1,7 @@
 package greenbuildings.enterprise.rest;
 
 import commons.springfw.impl.mappers.CommonMapper;
-import commons.springfw.impl.utils.SecurityUtils;
+import commons.springfw.impl.securities.UserContextData;
 import greenbuildings.commons.api.dto.SearchCriteriaDTO;
 import greenbuildings.commons.api.dto.SearchResultDTO;
 import greenbuildings.commons.api.security.UserRole;
@@ -14,6 +14,7 @@ import greenbuildings.enterprise.services.PaymentService;
 import jakarta.annotation.security.RolesAllowed;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,16 +29,17 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/payment")
 @RequiredArgsConstructor
+@RolesAllowed({UserRole.RoleNameConstant.ENTERPRISE_OWNER})
 public class PaymentController {
     
     private final PaymentService paymentService;
     private final PaymentMapper paymentMapper;
     
     @PostMapping("/search")
-    @RolesAllowed(UserRole.RoleNameConstant.ENTERPRISE_OWNER)
-    public ResponseEntity<SearchResultDTO<PaymentDTO>> searchPayment(@RequestBody SearchCriteriaDTO<PaymentCriteriaDTO> searchCriteria) {
+    public ResponseEntity<SearchResultDTO<PaymentDTO>> searchPayment(@RequestBody SearchCriteriaDTO<PaymentCriteriaDTO> searchCriteria,
+                                                                     @AuthenticationPrincipal UserContextData userContextData) {
         var pageable = CommonMapper.toPageable(searchCriteria.page(), searchCriteria.sort());
-        var searchResults = paymentService.search(searchCriteria, pageable);
+        var searchResults = paymentService.search(searchCriteria, pageable, userContextData.getEnterpriseId().orElseThrow());
         return ResponseEntity.ok(
                 CommonMapper.toSearchResultDTO(
                         searchResults,
@@ -45,10 +47,11 @@ public class PaymentController {
     }
     
     @PostMapping("/{id}")
-    @RolesAllowed({UserRole.RoleNameConstant.ENTERPRISE_OWNER})
-    public ResponseEntity<PaymentDTO> createPayment(@RequestHeader("Origin") String origin, @PathVariable UUID id) {
+    public ResponseEntity<PaymentDTO> createPayment(@RequestHeader("Origin") String origin,
+                                                    @PathVariable UUID id,
+                                                    @AuthenticationPrincipal UserContextData userContextData) {
         PaymentEntity payment = paymentService.createPayment(
-                SecurityUtils.getCurrentUserEnterpriseId().orElseThrow(),
+                userContextData.getEnterpriseId().orElseThrow(),
                 id,
                 origin);
         return ResponseEntity.ok(paymentMapper.paymentEntityToPaymentDTO(payment));
@@ -64,9 +67,9 @@ public class PaymentController {
     }
     
     @PutMapping("/{orderCode}")
-    @RolesAllowed({UserRole.RoleNameConstant.ENTERPRISE_OWNER})
-    public ResponseEntity<Void> updatePayment(@PathVariable Long orderCode) {
-        paymentService.updatePaymentInfo(SecurityUtils.getCurrentUserEnterpriseId().orElseThrow(), orderCode);
+    public ResponseEntity<Void> updatePayment(@PathVariable Long orderCode,
+                                              @AuthenticationPrincipal UserContextData userContextData) {
+        paymentService.updatePaymentInfo(userContextData.getEnterpriseId().orElseThrow(), orderCode);
         return ResponseEntity.noContent().build();
     }
 }

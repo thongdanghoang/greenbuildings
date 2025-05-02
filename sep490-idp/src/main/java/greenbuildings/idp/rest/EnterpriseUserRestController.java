@@ -2,7 +2,6 @@ package greenbuildings.idp.rest;
 
 import commons.springfw.impl.mappers.CommonMapper;
 import commons.springfw.impl.securities.UserContextData;
-import commons.springfw.impl.utils.SecurityUtils;
 import greenbuildings.commons.api.dto.SearchCriteriaDTO;
 import greenbuildings.commons.api.dto.SearchResultDTO;
 import greenbuildings.commons.api.security.UserRole;
@@ -55,9 +54,8 @@ public class EnterpriseUserRestController {
     @GetMapping("/enterprise-owner")
     @RolesAllowed({UserRole.RoleNameConstant.ENTERPRISE_OWNER,
                    UserRole.RoleNameConstant.SYSTEM_ADMIN})
-    public ResponseEntity<EnterpriseUserDetailsDTO> getEnterpriseOwnerDetail() {
-        String email = SecurityUtils.getCurrentUserEmail().orElseThrow();
-        var enterpriseOwnerDetail = userService.findByEmail(email);
+    public ResponseEntity<EnterpriseUserDetailsDTO> getEnterpriseOwnerDetail(@AuthenticationPrincipal UserContextData userContextData) {
+        var enterpriseOwnerDetail = userService.findById(userContextData.getId());
         if (enterpriseOwnerDetail.isPresent()) {
             var userDetailsEntity = userService.getEnterpriseUserDetail(enterpriseOwnerDetail.get().getId());
             var userDetails = userMapper.userEntityToEnterpriseUserDetailDTO(userDetailsEntity);
@@ -131,14 +129,15 @@ public class EnterpriseUserRestController {
     }
     
     @GetMapping("/requestOTP")
-    public ResponseEntity<?> getOtpByMail() {
-        userService.sendOtp();
+    public ResponseEntity<?> getOtpByMail(@AuthenticationPrincipal UserContextData userContextData) {
+        userService.sendOtp(userContextData.getId());
         return ResponseEntity.noContent().build();
     }
     
     @PostMapping("/validateOTP")
-    public ResponseEntity<?> getOtpByMail(@RequestBody ValidateOTPRequest request) {
-        userService.validateOTP(request);
+    public ResponseEntity<?> getOtpByMail(@RequestBody ValidateOTPRequest request,
+                                          @AuthenticationPrincipal UserContextData userContextData) {
+        userService.validateOTP(request, userContextData.getId());
         return ResponseEntity.noContent().build();
     }
 }

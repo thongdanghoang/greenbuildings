@@ -12,13 +12,13 @@ import java.util.UUID;
 
 public interface BuildingService {
     
-    BuildingEntity createBuilding(BuildingEntity building);
+    BuildingEntity createBuilding(BuildingEntity building, UUID enterpriseId);
     
     Optional<BuildingEntity> findById(UUID id);
     
     Page<BuildingEntity> getEnterpriseBuildings(UUID enterpriseId, Pageable page);
 
-    void deleteBuilding(UUID id);
+    void deleteBuilding(UUID id, UUID enterpriseId);
     
     List<BuildingEntity> findBuildingsByEnterpriseId(UUID enterpriseId);
     

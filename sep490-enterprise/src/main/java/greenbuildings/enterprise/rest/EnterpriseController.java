@@ -1,19 +1,20 @@
 package greenbuildings.enterprise.rest;
 
 import commons.springfw.impl.mappers.CommonMapper;
-import commons.springfw.impl.utils.SecurityUtils;
+import commons.springfw.impl.securities.UserContextData;
 import greenbuildings.commons.api.dto.SearchCriteriaDTO;
 import greenbuildings.commons.api.dto.SearchResultDTO;
 import greenbuildings.commons.api.security.UserRole;
-import greenbuildings.enterprise.dtos.EnterpriseSearchCriteria;
 import greenbuildings.enterprise.dtos.EnterpriseDTO;
 import greenbuildings.enterprise.dtos.EnterpriseDetailDTO;
+import greenbuildings.enterprise.dtos.EnterpriseSearchCriteria;
 import greenbuildings.enterprise.mappers.EnterpriseMapper;
 import greenbuildings.enterprise.services.EnterpriseService;
 import jakarta.annotation.security.RolesAllowed;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -21,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.UUID;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/enterprise")
@@ -35,20 +36,22 @@ public class EnterpriseController {
     private final EnterpriseMapper mapper;
     
     @GetMapping("/profile")
-    public ResponseEntity<EnterpriseDetailDTO> getEnterpriseProfile() {
-        UUID enterpriseId = SecurityUtils.getCurrentUserEnterpriseId().orElseThrow();
-        return ResponseEntity.ok(service.getEnterpriseDetail(enterpriseId));
+    public ResponseEntity<EnterpriseDetailDTO> getEnterpriseProfile(@AuthenticationPrincipal UserContextData userContextData) {
+        var enterpriseId = userContextData.getEnterpriseId().orElseThrow();
+        var enterpriseDetail = service.getEnterpriseDetail(enterpriseId);
+        return ResponseEntity.ok(enterpriseDetail);
     }
-
+    
     @PutMapping("/profile")
     public ResponseEntity<Void> updateEnterpriseProfile(
-            @Valid @RequestBody EnterpriseDetailDTO dto) {
-        UUID enterpriseId = SecurityUtils.getCurrentUserEnterpriseId().orElseThrow();
+            @AuthenticationPrincipal UserContextData userContextData,
+            @RequestBody EnterpriseDetailDTO dto) {
+        var enterpriseId = userContextData.getEnterpriseId().orElseThrow();
         // Ensure the ID in the DTO matches the authenticated enterprise ID
-        if (!dto.id().equals(enterpriseId)) {
-            return ResponseEntity.badRequest().build();
+        if (!Objects.equals(dto.id(), enterpriseId)) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
-
+        
         service.updateEnterpriseDetail(dto);
         return ResponseEntity.ok().build();
     }

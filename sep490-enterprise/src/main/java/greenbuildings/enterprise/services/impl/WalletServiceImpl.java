@@ -1,6 +1,5 @@
 package greenbuildings.enterprise.services.impl;
 
-import commons.springfw.impl.utils.SecurityUtils;
 import greenbuildings.enterprise.repositories.WalletRepository;
 import greenbuildings.enterprise.services.WalletService;
 import lombok.RequiredArgsConstructor;
@@ -18,8 +17,7 @@ public class WalletServiceImpl implements WalletService {
     private final WalletRepository walRepo;
     
     @Override
-    public double getBalance(){
-        UUID enterpriseId = SecurityUtils.getCurrentUserEnterpriseId().orElseThrow();
+    public double getBalance(UUID enterpriseId) {
         return walRepo
                 .findByEnterpriseId(enterpriseId)
                 .getBalance();
