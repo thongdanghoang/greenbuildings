@@ -12,9 +12,21 @@
 }
 
 .p-datepicker-day-selected-range {
-    @apply bg-primary-500 text-white dark:bg-primary-400 dark:text-black;
+  @apply bg-primary-500 text-white dark:bg-primary-400 dark:text-black;
 }
 
 .p-datepicker-day-cell {
-    @apply hover:cursor-not-allowed;
+  @apply hover:cursor-not-allowed;
+}
+
+h6 {
+  @apply text-lg font-medium;
+}
+
+h5 {
+  @apply text-xl font-medium;
+}
+
+.border-b-neutral {
+  @apply  border-b border-b-neutral-200 dark:border-b-neutral-800;
 }

@@ -5,7 +5,6 @@
         severity="primary"
         outlined="true"
         (onClick)="onBack()"
-        size="small"
     ></p-button>
 </div>
 <div
@@ -126,7 +125,6 @@
                             type="submit"
                             [label]="'common.update' | translate"
                             [disabled]="disableUpdateBtn()"
-                            size="small"
                         ></p-button>
                     </div>
                 </form>
@@ -165,13 +163,11 @@
                         outlined
                         [disabled]="!selected || !selected.length"
                         (onClick)="confirmDelete()"
-                        size="small"
                     />
                     <p-button
                         [label]="'enterprise.emission.activity.record.new' | translate"
                         [severity]="'primary'"
                         (onClick)="onNewRecord()"
-                        size="small"
                     ></p-button>
                 </div>
             </div>
@@ -187,7 +183,6 @@
                 [text]="true"
                 severity="contrast"
                 (onClick)="openEditRecordDialog(record)"
-                size="small"
             />
         </ng-template>
 
@@ -203,7 +198,6 @@
                     [style]="{maxWidth: '200px'}"
                     [styleClass]="'p-button-text p-button-sm'"
                     (onClick)="onDownloadFile(rowData)"
-                    size="small"
                 >
                 </p-button>
                 <p-button
@@ -211,7 +205,6 @@
                     severity="danger"
                     [text]="true"
                     (onClick)="removeFile(rowData)"
-                    size="small"
                 />
             </div>
         </ng-template>

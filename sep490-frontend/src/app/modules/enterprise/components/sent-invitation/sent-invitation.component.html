@@ -1,20 +1,16 @@
-<div class="mb-4 flex items-center justify-start border-b pb-1">
-    <p class="text-lg font-bold text-primary">
-        {{ 'sentInvitation.title' | translate }}
-    </p>
-</div>
-<div class="">
-    <p>{{ 'sentInvitation.description' | translate }}</p>
-</div>
-<table-template
-    [fetch]="fetchInvitations"
-    [columns]="cols"
-    [searchOnInit]="true"
-    [captionTemplateRef]="captionTemplateRef"
-    [criteria]="searchCriteria"
-    [triggerSearch]="searchEvent"
->
-</table-template>
+<master-layout title="sentInvitation.title">
+    <p subtitle>{{ 'sentInvitation.description' | translate }}</p>
+
+    <table-template
+        [fetch]="fetchInvitations"
+        [columns]="cols"
+        [searchOnInit]="true"
+        [captionTemplateRef]="captionTemplateRef"
+        [criteria]="searchCriteria"
+        [triggerSearch]="searchEvent"
+    />
+</master-layout>
+
 <ng-template #captionTemplateRef>
     <div class="-mx-4 grid grid-cols-3 gap-2.5 lg:mx-0">
         <p-iconfield class="col-span-3 *:w-full lg:col-span-1">
@@ -57,7 +53,6 @@
                 icon="pi pi-times"
                 outlined
                 (onClick)="clearCriteria()"
-                size="small"
             />
             <p-button
                 severity="primary"
@@ -65,7 +60,6 @@
                 icon="pi pi-search"
                 outlined
                 (onClick)="searchEvent.emit()"
-                size="small"
             />
         </div>
     </div>
@@ -77,18 +71,20 @@
 >
     <span>{{ invitation?.buildingGroup.building.name }}</span>
 </ng-template>
+
 <ng-template
     #buildingGroupNameTemplate
     let-invitation
 >
     <span>{{ invitation?.buildingGroup.name }}</span>
 </ng-template>
+
 <ng-template
     #invitationStatusTemplate
     let-rowData
 >
     <p-tag
-        [ngClass]="getStatusClass(rowData.status)"
+        [ngClass]="'font-medium ' + getStatusClass(rowData.status)"
         [value]="'enum.invitation.status.' + rowData.status | translate"
     />
 </ng-template>

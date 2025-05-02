@@ -1,50 +1,42 @@
-<div class="mb-4 flex items-center justify-start border-b pb-1">
-    <h1 class="text-lg font-bold text-primary">
-        {{ 'sidebar.admin.fuel' | translate }}
-    </h1>
-</div>
-<table-template
-    [fetch]="fetchFuel"
-    [columns]="cols"
-    [sort]="undefined"
-    [criteria]="searchCriteria"
-    [triggerSearch]="searchEvent"
-    [captionTemplateRef]="captionTemplateRef"
-    [checkbox]="true"
-    (selectionChange)="onSelectionChange($event)"
->
-</table-template>
+<master-layout title="sidebar.admin.fuel">
+    <table-template
+        [fetch]="fetchFuel"
+        [columns]="cols"
+        [sort]="undefined"
+        [criteria]="searchCriteria"
+        [triggerSearch]="searchEvent"
+        [captionTemplateRef]="captionTemplateRef"
+        [checkbox]="true"
+        (selectionChange)="onSelectionChange($event)"
+    />
+</master-layout>
+
 <ng-template #captionTemplateRef>
-    <div class="flex items-center justify-between">
-        <div class="flex gap-2.5">
-            <p-iconfield>
-                <p-inputicon styleClass="pi pi-search" />
-                <input
-                    [(ngModel)]="searchCriteria.criteria"
-                    type="text"
-                    pInputText
-                    placeholder="{{ 'common.search' | translate }}"
-                    (keydown.enter)="search()"
+    <div class="flex flex-col items-end justify-between gap-2 lg:flex-row lg:items-center">
+        <p-inputgroup class="max-w-96">
+            <input
+                [(ngModel)]="searchCriteria.criteria"
+                type="text"
+                pInputText
+                placeholder="{{ 'common.search' | translate }}"
+                (keydown.enter)="search()"
+            />
+            <p-inputgroup-addon>
+                <p-button
+                    icon="pi pi-search"
+                    severity="secondary"
+                    text
+                    (onClick)="search()"
                 />
-            </p-iconfield>
-            <p-button
-                severity="primary"
-                [label]="'enterprise.Users.search' | translate"
-                icon="pi pi-search"
-                outlined
-                (onClick)="search()"
-            />
-        </div>
-        <div class="flex gap-2.5">
-            <p-button
-                severity="primary"
-                [label]="'admin.fuel.addFuel' | translate"
-                icon="pi pi-user-plus"
-                outlined
-                (onClick)="addFuel()"
-                size="small"
-            />
-        </div>
+            </p-inputgroup-addon>
+        </p-inputgroup>
+        <p-button
+            severity="primary"
+            [label]="'admin.fuel.addFuel' | translate"
+            icon="pi pi-user-plus"
+            outlined
+            (onClick)="addFuel()"
+        />
     </div>
 </ng-template>
 <ng-template

@@ -1,162 +1,148 @@
-<p-button
-    (onClick)="back()"
-    class="*:min-w-28"
-    label="{{ 'common.back' | translate }}"
-    severity="primary"
-    outlined="true"
-    icon="pi pi-arrow-left"
-    size="small"
-/>
-
-<div class="mb-4 flex items-center justify-between border-b pb-1">
-    <div class="text-lg font-bold text-primary">
-        {{ (isEdit ? 'enterprise.buildings.details.edit' : 'enterprise.buildings.details.create') | translate }}
-    </div>
-</div>
-
-<form
-    unsavedChanges
-    id="buildingDetailsForm"
-    [formGroup]="formGroup"
-    class="flex flex-col gap-2.5 rounded-lg border border-black/20 p-4 dark:border-white/20"
->
-    <div
-        class="flex flex-col gap-2"
-        errorMessages
+<master-layout
+    title="{{ isEdit ? 'enterprise.buildings.details.edit' : 'enterprise.buildings.details.create' }}"
+    [showBack]="true"
+    ><form
+        unsavedChanges
+        id="buildingDetailsForm"
+        [formGroup]="formGroup"
+        class="flex flex-col gap-2.5 rounded-lg border border-black/20 p-4 dark:border-white/20"
     >
-        <label
-            class="text-lg font-medium"
-            for="name"
-            >{{ 'enterprise.buildings.details.labels.name' | translate }}</label
-        >
-        <input
-            pInputText
-            formControlName="name"
-            id="name"
-            type="text"
-        />
-        <form-field-error></form-field-error>
-    </div>
-    <div
-        class="flex flex-col gap-2"
-        errorMessages
-    >
-        <label class="text-lg font-medium">{{ 'enterprise.buildings.details.labels.address' | translate }}</label>
-        <p-inputgroup>
-            <p-autoComplete
-                class="w-full"
-                [style]="{width: '100%'}"
-                [inputStyle]="{width: '100%'}"
-                formControlName="address"
-                [suggestions]="addressSuggestions"
-                (completeMethod)="searchAddress($event)"
-                (onSelect)="onSelectAddress($event)"
-                optionLabel="description"
-                [minLength]="2"
-                [dropdown]="false"
-                [forceSelection]="false"
-            />
-            <p-inputgroup-addon>
-                <p-button
-                    (onClick)="showMapView()"
-                    icon="pi pi-map"
-                    severity="secondary"
-                    text
-                    class="h-full"
-                />
-            </p-inputgroup-addon>
-        </p-inputgroup>
-        <form-field-error></form-field-error>
-    </div>
-    <ng-container *ngIf="hasSubscription">
-        <div class="flex flex-col gap-2">
-            <label
-                class="text-lg font-medium"
-                for="startDate"
-                >{{ 'enterprise.buildings.details.labels.validFromInclusive' | translate }}</label
-            >
-            <input
-                pInputText
-                [formControl]="startDateControl"
-                id="startDate"
-                type="text"
-                [disabled]="false"
-            />
-        </div>
-    </ng-container>
-    <ng-container *ngIf="hasSubscription">
-        <div class="flex flex-col gap-2">
-            <label
-                class="text-lg font-medium"
-                for="endDate"
-                >{{ 'enterprise.buildings.details.labels.validToInclusive' | translate }}</label
-            >
-            <input
-                pInputText
-                [formControl]="endDateControl"
-                id="endDate"
-                type="text"
-                [disabled]="false"
-            />
-        </div>
-    </ng-container>
-    <ng-container *ngIf="!hasSubscription">
-        <span></span>
-    </ng-container>
-    <span></span>
-    <ng-container *ngIf="hasSubscription">
-        <div class="flex flex-col gap-2">
-            <label
-                class="text-lg font-medium"
-                for="maxNumberOfDevices"
-                >{{ 'enterprise.buildings.details.labels.haveSubscriptionOfNumberOfDevices' | translate }}</label
-            >
-            <input
-                pInputText
-                [formControl]="maxNumberOfDevicesControl"
-                id="maxNumberOfDevices"
-                type="text"
-                [disabled]="false"
-            />
-        </div>
-    </ng-container>
-    <span></span>
-    <div class="flex justify-end gap-4">
-        <p-button
-            (onClick)="reset()"
-            class="*:min-w-24"
-            label="{{ 'common.revert' | translate }}"
-            [outlined]="true"
-            size="small"
-        />
-        <p-button
-            (onClick)="onSubmit()"
-            class="*:min-w-16"
-            label="{{ (isEdit ? 'common.save' : 'common.create') | translate }}"
-            size="small"
-        />
-    </div>
-</form>
-
-<!-- Hiển thị bản đồ khi showMap là true -->
-@if (showMap) {
-    <div style="height: 600px; width: 100%">
         <div
-            id="building-details-map"
-            style="height: 100%; width: 100%"
-        ></div>
+            class="flex flex-col gap-2"
+            errorMessages
+        >
+            <label
+                class="text-lg font-medium"
+                for="name"
+                >{{ 'enterprise.buildings.details.labels.name' | translate }}</label
+            >
+            <input
+                pInputText
+                formControlName="name"
+                id="name"
+                type="text"
+            />
+            <form-field-error></form-field-error>
+        </div>
+        <div
+            class="flex flex-col gap-2"
+            errorMessages
+        >
+            <label class="text-lg font-medium">{{ 'enterprise.buildings.details.labels.address' | translate }}</label>
+            <p-inputgroup>
+                <p-autoComplete
+                    class="w-full"
+                    [style]="{width: '100%'}"
+                    [inputStyle]="{width: '100%'}"
+                    formControlName="address"
+                    [suggestions]="addressSuggestions"
+                    (completeMethod)="searchAddress($event)"
+                    (onSelect)="onSelectAddress($event)"
+                    optionLabel="description"
+                    [minLength]="2"
+                    [dropdown]="false"
+                    [forceSelection]="false"
+                />
+                <p-inputgroup-addon>
+                    <p-button
+                        (onClick)="showMapView()"
+                        icon="pi pi-map"
+                        severity="secondary"
+                        text
+                        class="h-full"
+                    />
+                </p-inputgroup-addon>
+            </p-inputgroup>
+            <form-field-error></form-field-error>
+        </div>
+        <ng-container *ngIf="hasSubscription">
+            <div class="flex flex-col gap-2">
+                <label
+                    class="text-lg font-medium"
+                    for="startDate"
+                    >{{ 'enterprise.buildings.details.labels.validFromInclusive' | translate }}</label
+                >
+                <input
+                    pInputText
+                    [formControl]="startDateControl"
+                    id="startDate"
+                    type="text"
+                    [disabled]="false"
+                />
+            </div>
+        </ng-container>
+        <ng-container *ngIf="hasSubscription">
+            <div class="flex flex-col gap-2">
+                <label
+                    class="text-lg font-medium"
+                    for="endDate"
+                    >{{ 'enterprise.buildings.details.labels.validToInclusive' | translate }}</label
+                >
+                <input
+                    pInputText
+                    [formControl]="endDateControl"
+                    id="endDate"
+                    type="text"
+                    [disabled]="false"
+                />
+            </div>
+        </ng-container>
+        <ng-container *ngIf="!hasSubscription">
+            <span></span>
+        </ng-container>
+        <span></span>
+        <ng-container *ngIf="hasSubscription">
+            <div class="flex flex-col gap-2">
+                <label
+                    class="text-lg font-medium"
+                    for="maxNumberOfDevices"
+                    >{{ 'enterprise.buildings.details.labels.haveSubscriptionOfNumberOfDevices' | translate }}</label
+                >
+                <input
+                    pInputText
+                    [formControl]="maxNumberOfDevicesControl"
+                    id="maxNumberOfDevices"
+                    type="text"
+                    [disabled]="false"
+                />
+            </div>
+        </ng-container>
+        <span></span>
+        <div class="flex justify-end gap-4">
+            <p-button
+                (onClick)="reset()"
+                class="*:min-w-24"
+                label="{{ 'common.revert' | translate }}"
+                [outlined]="true"
+            />
+            <p-button
+                (onClick)="onSubmit()"
+                class="*:min-w-16"
+                label="{{ (isEdit ? 'common.save' : 'common.create') | translate }}"
+            />
+        </div>
+    </form>
+
+    @if (showMap) {
+        <div style="height: 600px; width: 100%">
+            <div
+                id="building-details-map"
+                style="height: 100%; width: 100%"
+            ></div>
+        </div>
+    }
+
+    <div *ngIf="isEdit && activated">
+        <div class="mb-1 mt-2 flex items-center justify-start">
+            <p class="font-bold text-primary">
+                {{ 'enterprise.userInBuildings' | translate }}
+            </p>
+        </div>
+        <table-template
+            [fetch]="fetchData"
+            [columns]="cols"
+            [triggerSearch]="triggerSearch"
+        >
+        </table-template>
     </div>
-}
-<div *ngIf="isEdit && activated">
-    <div class="mb-1 mt-2 flex items-center justify-start">
-        <p class="font-bold text-primary">
-            {{ 'enterprise.userInBuildings' | translate }}
-        </p>
-    </div>
-    <table-template
-        [fetch]="fetchData"
-        [columns]="cols"
-        [triggerSearch]="triggerSearch"
-    >
-    </table-template>
-</div>
+</master-layout>

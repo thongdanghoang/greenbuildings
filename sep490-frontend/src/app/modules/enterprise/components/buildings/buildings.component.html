@@ -1,81 +1,52 @@
-<div
-    class="flex items-center justify-between border-b pb-1"
-    style="min-height: 42px"
->
-    <div class="text-lg font-bold text-primary">
-        {{ 'enterprise.buildings.overview.title' | translate }}
+<master-layout title="enterprise.buildings.overview.title">
+    <div actions>
+        <p-button
+            severity="primary"
+            [label]="'enterprise.buildings.overview.btn.add' | translate"
+            icon="pi pi-building"
+            (onClick)="navigateToCreateBuilding()"
+        />
     </div>
-    <p-button
-        *ngIf="!addBuildingLocation"
-        severity="primary"
-        [label]="'enterprise.buildings.overview.btn.add' | translate"
-        icon="pi pi-building"
-        (onClick)="navigateToCreateBuilding()"
-        size="small"
-    />
-</div>
 
-<p-selectbutton
-    (onChange)="onViewModeChanged()"
-    [disabled]="addBuildingLocation"
-    [options]="justifyOptions"
-    [(ngModel)]="viewMode"
-    optionValue="value"
-    size="small"
->
-    <ng-template
-        #item
-        let-item
+    <p-selectbutton
+        (onChange)="onViewModeChanged()"
+        [options]="justifyOptions"
+        [(ngModel)]="viewMode"
+        optionValue="value"
     >
-        <i [class]="item.icon"></i>
-    </ng-template>
-</p-selectbutton>
+        <ng-template
+            #item
+            let-item
+        >
+            <i [class]="item.icon"></i>
+        </ng-template>
+    </p-selectbutton>
 
+    @if (listView) {
+        @if (buildings.length === 0) {
+            <p class="px-3 py-4">
+                {{ 'enterprise.buildings.overview.noRow' | translate }}
+            </p>
+        }
+        @for (building of buildings; track building.id) {
+            <ng-container *ngTemplateOutlet="cardTemplate; context: {$implicit: building}"></ng-container>
+        }
+    }
+</master-layout>
+
+<!-- Don't move this component to master-layout because this especially component need to initialize as soon as possible-->
 <div
     [hidden]="listView"
-    class="h-full"
+    class="mt-4 h-full"
     id="map"
 ></div>
-
-@if (mapView) {
-    <div class="flex justify-end gap-4">
-        <p-button
-            class="mb-4 *:min-w-20"
-            *ngIf="addBuildingLocation"
-            severity="primary"
-            [label]="'common.cancel' | translate"
-            outlined
-            (onClick)="cancelAddBuilding()"
-            size="small"
-        />
-        <p-button
-            class="mb-4 *:min-w-24"
-            *ngIf="addBuildingLocation"
-            severity="primary"
-            [label]="'common.next' | translate"
-            (onClick)="addBuilding()"
-            size="small"
-        />
-    </div>
-}
-
-@if (listView) {
-    @if (buildings.length === 0) {
-        <p class="px-3 py-4">
-            {{ 'enterprise.buildings.overview.noRow' | translate }}
-        </p>
-    }
-    @for (building of buildings; track building.id) {
-        <ng-container *ngTemplateOutlet="cardTemplate; context: {$implicit: building}"></ng-container>
-    }
-}
 
 <ng-template
     #cardTemplate
     let-building
 >
     <div
-        class="box-shadow rounded border-t-2 *:w-full"
+        class="rounded border-t-2 shadow *:w-full"
         [class]="building.subscriptionDTO ? 'border-t-primary' : 'border-t-yellow-500'"
     >
         <div
@@ -165,7 +136,6 @@
                         : ('enterprise.buildings.overview.btn.update' | translate)
                 "
                 [outlined]="building.subscriptionDTO !== null"
-                size="small"
             />
             <p-button
                 *ngIf="hasSubscription(building)"
@@ -174,7 +144,6 @@
                 label="{{ 'enterprise.buildings.overview.btn.manage' | translate }}"
                 [routerLink]="getManageBuildingPath(building)"
                 outlined
-                size="small"
             />
         </div>
     </div>

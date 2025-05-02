@@ -1,73 +1,72 @@
-<ng-container *ngIf="accessTokens.length > 0; else noTokens">
-    <div class="flex items-center justify-between border-b pb-1">
-        <p class="text-lg font-bold text-primary">
-            {{ 'sidebar.owner.settings.items.powerBiAccessToken' | translate }}
-        </p>
+<master-layout title="sidebar.owner.settings.items.powerBiAccessToken">
+    <div
+        *ngIf="accessTokens.length > 0"
+        actions
+    >
         <ng-container *ngTemplateOutlet="generateNewToken"></ng-container>
     </div>
-
-    <p>
-        {{ 'powerBi.tokenGenerated' | translate }}
-    </p>
-
-    @if (newestCreatedTokenId && newestCreatedTokenKey) {
-        <p-message
-            severity="info"
-            icon="pi pi-bell"
-            text="Make sure to copy your access token now. You won’t be able to see it again!"
-            class="h-full"
-        />
-        <div class="rounded-lg border">
-            <div class="rounded-t bg-green-100 p-3 text-black">
-                <i class="pi pi-check text-green-700"></i>
-                {{ newestCreatedTokenKey }}
-                <i
-                    class="pi pi-copy text-primary hover:cursor-pointer"
-                    (click)="copyToClipboard(newestCreatedTokenKey)"
-                ></i>
-            </div>
-            <ng-container *ngTemplateOutlet="tokenRowTemplate; context: {$implicit: newestCreatedToken}"></ng-container>
-        </div>
-    }
-
     <div
-        *ngIf="accessTokens.length > 0 && accessTokens[0].id !== newestCreatedTokenId"
-        class="rounded-lg border"
+        *ngIf="accessTokens.length > 0"
+        subtitle
     >
-        @for (token of accessTokens; track token.id) {
-            @if (token.id !== newestCreatedTokenId) {
-                <div class="border-b last:border-b-0">
-                    <ng-container *ngTemplateOutlet="tokenRowTemplate; context: {$implicit: token}"></ng-container>
-                </div>
-            }
-        }
+        {{ 'powerBi.tokenGenerated' | translate }}
     </div>
-</ng-container>
+
+    <ng-container *ngIf="accessTokens.length > 0; else noTokens">
+        @if (newestCreatedTokenId && newestCreatedTokenKey) {
+            <p-message
+                severity="warn"
+                icon="pi pi-bell"
+                text="Make sure to copy your access token now. You won’t be able to see it again!"
+                class="h-full"
+            />
+            <div class="rounded-lg border">
+                <div class="rounded-t bg-green-100 p-3 text-black">
+                    <i class="pi pi-check text-green-700"></i>
+                    {{ newestCreatedTokenKey }}
+                    <i
+                        class="pi pi-copy text-primary hover:cursor-pointer"
+                        (click)="copyToClipboard(newestCreatedTokenKey)"
+                    ></i>
+                </div>
+                <ng-container
+                    *ngTemplateOutlet="tokenRowTemplate; context: {$implicit: newestCreatedToken}"
+                ></ng-container>
+            </div>
+        }
+
+        <div
+            *ngIf="accessTokens.length > 0 && accessTokens[0].id !== newestCreatedTokenId"
+            class="rounded-lg border"
+        >
+            @for (token of accessTokens; track token.id) {
+                @if (token.id !== newestCreatedTokenId) {
+                    <div class="border-b last:border-b-0">
+                        <ng-container *ngTemplateOutlet="tokenRowTemplate; context: {$implicit: token}"></ng-container>
+                    </div>
+                }
+            }
+        </div>
+    </ng-container>
+</master-layout>
 
 <ng-template #generateNewToken>
     @if (isMobile) {
         <p-button
             icon="pi pi-plus"
             outlined
-            size="small"
             (onClick)="navigateToDetail()"
         />
     } @else {
         <p-button
             [label]="'powerBi.buttonGenerateToken' | translate"
             outlined
-            size="small"
             (onClick)="navigateToDetail()"
         />
     }
 </ng-template>
 
 <ng-template #noTokens>
-    <div class="flex items-center justify-between border-b py-2">
-        <p class="text-lg font-bold text-primary">
-            {{ 'sidebar.owner.settings.items.powerBiAccessToken' | translate }}
-        </p>
-    </div>
     <div class="flex h-96 flex-col items-center justify-center gap-4">
         <i class="pi pi-key text-2xl"></i>
         <h3 class="text-xl font-semibold">
@@ -112,7 +111,6 @@
                 <p-button
                     label="{{ 'powerBi.delete' | translate }}"
                     severity="danger"
-                    size="small"
                     outlined
                     (onClick)="showDeleteConfirmDialog(token.id)"
                 />

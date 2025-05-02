@@ -1,34 +1,24 @@
-<div>
-    <p-button
-        icon="pi pi-arrow-left"
-        label="{{ 'common.back' | translate }}"
-        (click)="goBack()"
-        severity="primary"
-        outlined="true"
-        size="small"
-    ></p-button>
-</div>
-<div class="my-4 flex items-center justify-between border-b pb-1">
-    <h1 class="text-lg font-bold text-primary">
-        {{ 'enterprise.type.name' | translate }}
-    </h1>
-</div>
-<p>
-    {{ 'enterprise.type.description' | translate }}
-</p>
-
-<table-template
-    [fetch]="fetchActivityTypes"
-    [columns]="cols"
-    [criteria]="searchCriteria"
-    [searchOnInit]="true"
-    [triggerSearch]="searchEvent"
-    [triggerClearSelected]="clearSelectedEvent"
-    [captionTemplateRef]="captionTemplateRef"
-    [checkbox]="true"
-    (selectionChange)="onSelectionChange($event)"
+<master-layout
+    title="enterprise.type.name"
+    [showBack]="true"
 >
-</table-template>
+    <div subtitle>
+        {{ 'enterprise.type.description' | translate }}
+    </div>
+
+    <table-template
+        [fetch]="fetchActivityTypes"
+        [columns]="cols"
+        [criteria]="searchCriteria"
+        [searchOnInit]="true"
+        [triggerSearch]="searchEvent"
+        [triggerClearSelected]="clearSelectedEvent"
+        [captionTemplateRef]="captionTemplateRef"
+        [checkbox]="true"
+        (selectionChange)="onSelectionChange($event)"
+    />
+</master-layout>
+
 <ng-template #captionTemplateRef>
     <div class="flex items-center justify-between">
         <div class="flex gap-2.5">

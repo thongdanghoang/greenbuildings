@@ -1,41 +1,34 @@
-<div class="mb-4 flex items-center justify-start border-b pb-1">
-    <p class="text-lg font-bold text-primary">
-        {{ 'sidebar.admin.tenant' | translate }}
-    </p>
-</div>
-<div>
-    <p>{{ 'admin.tenant.description' | translate }}</p>
-</div>
-<table-template
-    [fetch]="fetchTenant"
-    [columns]="cols"
-    [searchOnInit]="true"
-    [captionTemplateRef]="captionTemplateRef"
-    [criteria]="searchCriteria"
-    [triggerSearch]="searchEvent"
->
-</table-template>
+<master-layout title="sidebar.admin.tenant">
+    <div subtitle>{{ 'admin.tenant.description' | translate }}</div>
+    <table-template
+        [fetch]="fetchTenant"
+        [columns]="cols"
+        [searchOnInit]="true"
+        [captionTemplateRef]="captionTemplateRef"
+        [criteria]="searchCriteria"
+        [triggerSearch]="searchEvent"
+    />
+</master-layout>
+
 <ng-template #captionTemplateRef>
-    <div class="flex items-center justify-between">
-        <div class="flex gap-2.5">
-            <p-iconfield>
-                <p-inputicon styleClass="pi pi-search" />
-                <input
-                    [(ngModel)]="searchCriteria.email"
-                    type="text"
-                    pInputText
-                    placeholder="{{ 'common.search' | translate }}"
-                    (keydown.enter)="searchEvent.emit()"
-                />
-            </p-iconfield>
-            <p-button
-                severity="primary"
-                [label]="'enterprise.Users.search' | translate"
-                icon="pi pi-search"
-                outlined
-                (onClick)="searchEvent.emit()"
+    <div class="flex flex-col items-end justify-between gap-2 lg:flex-row lg:items-center">
+        <p-inputgroup class="max-w-96">
+            <input
+                [(ngModel)]="searchCriteria.email"
+                type="text"
+                pInputText
+                placeholder="{{ 'common.search' | translate }}"
+                (keydown.enter)="searchEvent.emit()"
             />
-        </div>
+            <p-inputgroup-addon>
+                <p-button
+                    icon="pi pi-search"
+                    severity="secondary"
+                    text
+                    (onClick)="searchEvent.emit()"
+                />
+            </p-inputgroup-addon>
+        </p-inputgroup>
     </div>
 </ng-template>
 <ng-template

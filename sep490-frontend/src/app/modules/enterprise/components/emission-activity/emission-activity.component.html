@@ -1,23 +1,11 @@
-<div *ngIf="buildingDetail">
-    <div>
-        <p-button
-            icon="pi pi-arrow-left"
-            label="{{ 'common.back' | translate }}"
-            (click)="goBack()"
-            severity="primary"
-            outlined="true"
-            size="small"
-        ></p-button>
-    </div>
+<master-layout
+    title="enterprise.emission.activity.title"
+    [showBack]="true"
+>
     <div
-        class="flex items-center justify-between border-b pb-1"
-        style="min-height: 42px"
+        class="mb-2 mt-2 md:w-1/2"
+        *ngIf="buildingDetail"
     >
-        <div class="text-lg font-bold text-primary">
-            {{ 'enterprise.emission.activity.title' | translate }}
-        </div>
-    </div>
-    <div class="mb-2 mt-2 md:w-1/2">
         <p-card header="{{ buildingDetail.name }}">
             <ng-template pTemplate="subtitle">
                 <i class="pi pi-map-marker"></i>
@@ -56,7 +44,6 @@
                         outlined
                         styleClass="w-full"
                         (onClick)="generateReport()"
-                        size="small"
                     ></p-button>
 
                     <p-button
@@ -65,26 +52,26 @@
                         (onClick)="openNewActivityDialog()"
                         severity="primary"
                         styleClass="w-full"
-                        size="small"
                     ></p-button>
                 </div>
             </ng-template>
         </p-card>
     </div>
-</div>
 
-<table-template
-    [fetch]="fetchActivity"
-    [columns]="cols"
-    [searchOnInit]="false"
-    [captionTemplateRef]="captionTemplateRef"
-    [criteria]="searchCriteria"
-    [triggerSearch]="searchEvent"
-    [triggerClearSelected]="clearSelectedEvent"
-    (selectionChange)="onSelectionChange($event)"
-    [checkbox]="true"
->
-</table-template>
+    <table-template
+        [fetch]="fetchActivity"
+        [columns]="cols"
+        [searchOnInit]="false"
+        [captionTemplateRef]="captionTemplateRef"
+        [criteria]="searchCriteria"
+        [triggerSearch]="searchEvent"
+        [triggerClearSelected]="clearSelectedEvent"
+        (selectionChange)="onSelectionChange($event)"
+        [checkbox]="true"
+    >
+    </table-template
+></master-layout>
+
 <ng-template #captionTemplateRef>
     <div class="flex items-center justify-between">
         <div class="flex gap-2.5">
@@ -117,7 +104,6 @@
                 outlined
                 [disabled]="!selected || !selected.length"
                 (onClick)="confirmDelete()"
-                size="small"
             />
         </div>
     </div>

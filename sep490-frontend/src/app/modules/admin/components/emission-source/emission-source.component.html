@@ -1,75 +1,67 @@
-<div class="mb-4 flex items-center justify-start border-b pb-1">
-    <h1 class="text-lg font-bold text-primary">
-        {{ 'admin.emissionSource.name' | translate }}
-    </h1>
-</div>
-<div class="my-2">
-    <h3 class="mb-2 font-semibold text-primary">
-        {{ 'admin.emissionSource.upload.title' | translate }}
-    </h3>
-    <!-- import.component.html -->
-    <p-progressSpinner
-        *ngIf="isLoading"
-        styleClass="overlay-spinner"
-    ></p-progressSpinner>
+<master-layout title="admin.emissionSource.name">
+    <div class="my-2">
+        <h3 class="mb-2 font-semibold text-primary">
+            {{ 'admin.emissionSource.upload.title' | translate }}
+        </h3>
+        <!-- import.component.html -->
+        <p-progressSpinner
+            *ngIf="isLoading"
+            styleClass="overlay-spinner"
+        ></p-progressSpinner>
 
-    <!-- Drag & Drop upload -->
-    <p-fileUpload
-        name="file"
-        accept=".xlsx"
-        mode="advanced"
-        customUpload="true"
-        [multiple]="false"
-        (uploadHandler)="uploadExcel($event)"
-        [chooseLabel]="'admin.emissionSource.upload.chooseFile' | translate"
-        [uploadLabel]="'admin.emissionSource.upload.import' | translate"
-        [cancelLabel]="'admin.emissionSource.upload.cancel' | translate"
-        [auto]="false"
-        [maxFileSize]="5000000"
-    >
-    </p-fileUpload>
-</div>
-<table-template
-    [fetch]="fetchEmissionSource"
-    [columns]="cols"
-    [criteria]="searchCriteria"
-    [triggerSearch]="searchEvent"
-    [captionTemplateRef]="captionTemplateRef"
-    [checkbox]="true"
-    (selectionChange)="onSelectionChange($event)"
->
-</table-template>
+        <!-- Drag & Drop upload -->
+        <p-fileUpload
+            name="file"
+            accept=".xlsx"
+            mode="advanced"
+            customUpload="true"
+            [multiple]="false"
+            (uploadHandler)="uploadExcel($event)"
+            [chooseLabel]="'admin.emissionSource.upload.chooseFile' | translate"
+            [uploadLabel]="'admin.emissionSource.upload.import' | translate"
+            [cancelLabel]="'admin.emissionSource.upload.cancel' | translate"
+            [auto]="false"
+            [maxFileSize]="5000000"
+        >
+        </p-fileUpload>
+    </div>
+    <table-template
+        [fetch]="fetchEmissionSource"
+        [columns]="cols"
+        [criteria]="searchCriteria"
+        [triggerSearch]="searchEvent"
+        [captionTemplateRef]="captionTemplateRef"
+        [checkbox]="true"
+        (selectionChange)="onSelectionChange($event)"
+    />
+</master-layout>
+
 <ng-template #captionTemplateRef>
-    <div class="flex items-center justify-between">
-        <div class="flex gap-2.5">
-            <p-iconfield>
-                <p-inputicon styleClass="pi pi-search" />
-                <input
-                    [(ngModel)]="searchCriteria.criteria"
-                    type="text"
-                    pInputText
-                    placeholder="{{ 'common.search' | translate }}"
-                    (keydown.enter)="search()"
+    <div class="flex flex-col items-end justify-between gap-2 lg:flex-row lg:items-center">
+        <p-inputgroup class="max-w-96">
+            <input
+                [(ngModel)]="searchCriteria.criteria"
+                type="text"
+                pInputText
+                placeholder="{{ 'common.search' | translate }}"
+                (keydown.enter)="search()"
+            />
+            <p-inputgroup-addon>
+                <p-button
+                    icon="pi pi-search"
+                    severity="secondary"
+                    text
+                    (onClick)="searchEvent.emit()"
                 />
-            </p-iconfield>
-            <p-button
-                severity="primary"
-                [label]="'enterprise.Users.search' | translate"
-                icon="pi pi-search"
-                outlined
-                (onClick)="search()"
-            />
-        </div>
-        <div class="flex gap-2.5">
-            <p-button
-                severity="primary"
-                [label]="'admin.emissionSource.addEmissionSource' | translate"
-                icon="pi pi-user-plus"
-                outlined
-                (onClick)="addEmissionSource()"
-                size="small"
-            />
-        </div>
+            </p-inputgroup-addon>
+        </p-inputgroup>
+        <p-button
+            severity="primary"
+            [label]="'admin.emissionSource.addEmissionSource' | translate"
+            icon="pi pi-user-plus"
+            outlined
+            (onClick)="addEmissionSource()"
+        />
     </div>
 </ng-template>
 <ng-template

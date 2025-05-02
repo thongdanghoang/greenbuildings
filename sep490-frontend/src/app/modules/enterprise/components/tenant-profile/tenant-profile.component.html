@@ -1,95 +1,82 @@
-<button
-    pButton
-    type="button"
-    icon="pi pi-arrow-left"
-    label="{{ 'common.back' | translate }}"
-    (click)="back()"
-    outlined
-    size="small"
-></button>
-
-<div class="my-4 flex items-center justify-between">
-    <h3 class="text-2xl font-bold text-primary">
-        {{ 'tenant.profile.title' | translate }}
-    </h3>
-</div>
-
-<form [formGroup]="formGroup">
-    <!-- Name -->
-    <div errorMessages>
-        <label
-            for="name"
-            class="block text-sm font-semibold"
-        >
-            {{ 'tenant.profile.name' | translate }} *
-        </label>
-        <div class="p-inputgroup relative w-full">
-            <input
-                pInputText
-                id="name"
-                formControlName="name"
-                class="p-inputtext w-full rounded-r-md"
-            />
+<master-layout title="tenant.profile.title">
+    <form
+        [formGroup]="formGroup"
+        unsavedChanges
+        id="tenantProfileForm"
+    >
+        <!-- Name -->
+        <div errorMessages>
+            <label
+                for="name"
+                class="block text-sm font-semibold"
+            >
+                {{ 'tenant.profile.name' | translate }} *
+            </label>
+            <div class="p-inputgroup relative w-full">
+                <input
+                    pInputText
+                    id="name"
+                    formControlName="name"
+                    class="p-inputtext w-full rounded-r-md"
+                />
+            </div>
+            <form-field-error></form-field-error>
         </div>
-        <form-field-error></form-field-error>
-    </div>
 
-    <!-- Email -->
-    <div errorMessages>
-        <label
-            for="email"
-            class="block text-sm font-semibold"
-        >
-            {{ 'tenant.profile.email' | translate }} *
-        </label>
-        <div class="p-inputgroup relative w-full">
-            <input
-                pInputText
-                type="email"
-                id="email"
-                formControlName="email"
-                class="p-inputtext w-full rounded-r-md"
-            />
+        <!-- Email -->
+        <div errorMessages>
+            <label
+                for="email"
+                class="block text-sm font-semibold"
+            >
+                {{ 'tenant.profile.email' | translate }} *
+            </label>
+            <div class="p-inputgroup relative w-full">
+                <input
+                    pInputText
+                    type="email"
+                    id="email"
+                    formControlName="email"
+                    class="p-inputtext w-full rounded-r-md"
+                />
+            </div>
+            <form-field-error></form-field-error>
         </div>
-        <form-field-error></form-field-error>
-    </div>
 
-    <!-- Hotline -->
-    <div errorMessages>
-        <label
-            for="hotline"
-            class="block text-sm font-semibold"
-        >
-            {{ 'tenant.profile.hotline' | translate }} *
-        </label>
-        <div class="p-inputgroup relative w-full">
-            <input
-                pInputText
-                id="hotline"
-                formControlName="hotline"
-                class="p-inputtext w-full rounded-r-md"
-            />
+        <!-- Hotline -->
+        <div errorMessages>
+            <label
+                for="hotline"
+                class="block text-sm font-semibold"
+            >
+                {{ 'tenant.profile.hotline' | translate }} *
+            </label>
+            <div class="p-inputgroup relative w-full">
+                <input
+                    pInputText
+                    id="hotline"
+                    formControlName="hotline"
+                    class="p-inputtext w-full rounded-r-md"
+                />
+            </div>
+            <form-field-error></form-field-error>
         </div>
-        <form-field-error></form-field-error>
-    </div>
-</form>
+    </form>
 
-<!-- Action Buttons -->
-<div class="mt-4 flex justify-end gap-4">
-    <button
-        pButton
-        type="button"
-        icon="pi pi-refresh"
-        (click)="reset()"
-        label="{{ 'common.revert' | translate }}"
-        outlined
-        size="small"
-    ></button>
-    <p-button
-        type="submit"
-        icon="pi pi-save"
-        [label]="'common.save' | translate"
-        (onClick)="submit()"
-        size="small"
-    ></p-button>
-</div>
+    <div class="mt-4 flex justify-end gap-4">
+        <button
+            pButton
+            type="button"
+            icon="pi pi-refresh"
+            (click)="reset()"
+            label="{{ 'common.revert' | translate }}"
+            outlined
+        ></button>
+        <p-button
+            type="submit"
+            icon="pi pi-save"
+            [label]="'common.save' | translate"
+            (onClick)="submit()"
+        ></p-button>
+    </div>
+</master-layout>

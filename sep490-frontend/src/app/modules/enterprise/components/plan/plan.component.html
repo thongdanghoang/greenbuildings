@@ -1,111 +1,112 @@
-<div class="mb-4 flex items-center justify-start border-b pb-1">
-    <p class="text-lg font-bold text-primary">
-        {{ 'purchaseCredit.title' | translate }}
-    </p>
-</div>
-<div class="flex flex-col items-center justify-center gap-2.5 pl-0 lg:flex-row lg:justify-start">
-    <p>{{ 'purchaseCredit.introduceMethod' | translate }}</p>
-    <div class="flex flex-row gap-1.5">
-        <img
-            ngSrc="assets/images/payment-method/momo.svg"
-            alt="Logo"
-            width="20"
-            height="20"
-            priority
-        />
-        <img
-            ngSrc="assets/images/payment-method/vnpay.svg"
-            alt="Logo"
-            width="30"
-            height="30"
-            priority
-        />
-        <img
-            ngSrc="assets/images/payment-method/napas.svg"
-            alt="Logo"
-            width="30"
-            height="30"
-            priority
-        />
-        <img
-            ngSrc="assets/images/payment-method/visa.svg"
-            alt="Logo"
-            width="30"
-            height="30"
-            priority
-        />
-        <img
-            ngSrc="assets/images/payment-method/master-card.svg"
-            alt="Logo"
-            width="30"
-            height="30"
-            priority
-        />
-    </div>
-</div>
-<div
-    class="my-8 block items-center justify-center rounded-md border border-gray-50 bg-primary-50 py-24 dark:border-gray-950 dark:bg-primary-950"
->
-    <div class="relative flex flex-col items-center justify-stretch gap-2.5 text-black lg:flex-row dark:text-white/80">
-        <p class="ml-0 h-full font-bold lg:absolute lg:ml-20">
-            {{ 'purchaseCredit.currentBalance' | translate }}
-        </p>
-        <div class="mr-0 flex w-full flex-col items-center justify-center gap-2.5 lg:mr-10 lg:flex-row lg:items-end">
-            <p class="text-5xl font-medium text-primary">
-                {{ balance | number: '1.0-0' }}
-            </p>
-            <span>{{ 'payment.history.credit.title' | translate }}</span>
-        </div>
-    </div>
-</div>
-
-<div
-    class="my-4 block items-center justify-center rounded-md border border-gray-50 bg-primary-50 dark:border-gray-950 dark:bg-primary-950"
->
-    <div class="flex flex-col gap-16">
-        <div
-            class="mx-6 mt-8 flex items-center justify-center rounded-md border border-gray-50 bg-white px-4 py-2 lg:justify-start dark:border-zinc-900 dark:bg-zinc-900"
-        >
-            <p>{{ 'purchaseCredit.selectCreditPackage' | translate }}</p>
-        </div>
-        <div class="mx-6 flex flex-col items-center justify-center gap-16 lg:flex-row">
-            @for (pkg of creditPackages; track pkg.id) {
-                <ng-container *ngTemplateOutlet="creditBundleTemplate; context: {$implicit: pkg}"></ng-container>
-            }
-        </div>
-        <div class="mb-8 flex items-center justify-center gap-4">
-            <p-button
-                severity="primary"
-                [label]="'payment.history.button.buyCredit' | translate"
-                [disabled]="!selectedPackage"
-                (onClick)="onBuyCredit()"
+<master-layout title="purchaseCredit.title">
+    <div class="flex flex-col items-center justify-center gap-2.5 pl-0 lg:flex-row lg:justify-start">
+        <p>{{ 'purchaseCredit.introduceMethod' | translate }}</p>
+        <div class="flex flex-row gap-1.5">
+            <img
+                ngSrc="assets/images/payment-method/momo.svg"
+                alt="Logo"
+                width="20"
+                height="20"
+                priority
             />
-            <p-button
-                severity="secondary"
-                [label]="'purchaseCredit.guide' | translate"
-                (onClick)="showCreditPackageDialog()"
+            <img
+                ngSrc="assets/images/payment-method/vnpay.svg"
+                alt="Logo"
+                width="30"
+                height="30"
+                priority
+            />
+            <img
+                ngSrc="assets/images/payment-method/napas.svg"
+                alt="Logo"
+                width="30"
+                height="30"
+                priority
+            />
+            <img
+                ngSrc="assets/images/payment-method/visa.svg"
+                alt="Logo"
+                width="30"
+                height="30"
+                priority
+            />
+            <img
+                ngSrc="assets/images/payment-method/master-card.svg"
+                alt="Logo"
+                width="30"
+                height="30"
+                priority
             />
         </div>
     </div>
-</div>
-
-<div class="my-8 block items-center justify-center rounded-md border border-gray-50 dark:border-gray-950">
-    <p-accordion
-        [value]="0"
-        [multiple]="true"
+    <div
+        class="block items-center justify-center rounded-md border border-gray-50 bg-primary-50 py-24 dark:border-gray-950 dark:bg-primary-950"
     >
-        @for (tab of tabs; track tab.title) {
-            <p-accordion-panel [value]="tab.value">
-                <p-accordion-header class="bg-primary-50 dark:bg-primary-950">{{
-                    tab.title | translate
-                }}</p-accordion-header>
-                <p-accordion-content>
-                    <ng-container *ngTemplateOutlet="getContentTemplate(tab.content)"></ng-container>
-                </p-accordion-content>
-            </p-accordion-panel>
-        }
-    </p-accordion>
-</div>
+        <div
+            class="relative flex flex-col items-center justify-stretch gap-2.5 text-black lg:flex-row dark:text-white/80"
+        >
+            <p class="ml-0 h-full font-bold lg:absolute lg:ml-20">
+                {{ 'purchaseCredit.currentBalance' | translate }}
+            </p>
+            <div
+                class="mr-0 flex w-full flex-col items-center justify-center gap-2.5 lg:mr-10 lg:flex-row lg:items-end"
+            >
+                <p class="text-5xl font-medium text-primary">
+                    {{ balance | number: '1.0-0' }}
+                </p>
+                <span>{{ 'payment.history.credit.title' | translate }}</span>
+            </div>
+        </div>
+    </div>
+
+    <div
+        class="block items-center justify-center rounded-md border border-gray-50 bg-primary-50 dark:border-gray-950 dark:bg-primary-950"
+    >
+        <div class="flex flex-col gap-16">
+            <div
+                class="mx-6 mt-8 flex items-center justify-center rounded-md border border-gray-50 bg-white px-4 py-2 lg:justify-start dark:border-zinc-900 dark:bg-zinc-900"
+            >
+                <p>{{ 'purchaseCredit.selectCreditPackage' | translate }}</p>
+            </div>
+            <div class="mx-6 flex flex-col items-center justify-center gap-16 lg:flex-row">
+                @for (pkg of creditPackages; track pkg.id) {
+                    <ng-container *ngTemplateOutlet="creditBundleTemplate; context: {$implicit: pkg}"></ng-container>
+                }
+            </div>
+            <div class="mb-8 flex items-center justify-center gap-4">
+                <p-button
+                    severity="primary"
+                    [label]="'payment.history.button.buyCredit' | translate"
+                    [disabled]="!selectedPackage"
+                    (onClick)="onBuyCredit()"
+                />
+                <p-button
+                    severity="secondary"
+                    [label]="'purchaseCredit.guide' | translate"
+                    (onClick)="showCreditPackageDialog()"
+                />
+            </div>
+        </div>
+    </div>
+
+    <div class="block items-center justify-center rounded-md border border-gray-50 dark:border-gray-950">
+        <p-accordion
+            [value]="0"
+            [multiple]="true"
+        >
+            @for (tab of tabs; track tab.title) {
+                <p-accordion-panel [value]="tab.value">
+                    <p-accordion-header class="bg-primary-50 dark:bg-primary-950">{{
+                        tab.title | translate
+                    }}</p-accordion-header>
+                    <p-accordion-content>
+                        <ng-container *ngTemplateOutlet="getContentTemplate(tab.content)"></ng-container>
+                    </p-accordion-content>
+                </p-accordion-panel>
+            }
+        </p-accordion>
+    </div>
+</master-layout>
 
 <ng-template #aboutContent>
     <div class="mt-2.5">

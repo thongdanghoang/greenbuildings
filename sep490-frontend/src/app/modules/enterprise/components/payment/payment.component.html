@@ -1,43 +1,35 @@
-<div class="mb-4 flex items-center justify-start border-b pb-1">
-    <p class="text-lg font-bold text-primary">
-        {{ 'payment.history.credit.title' | translate }}
-    </p>
-</div>
-<div class="mb-20 flex flex-col items-center justify-center gap-2.5 pl-0 lg:flex-row lg:justify-between lg:px-10">
-    <div class="flex flex-col items-center gap-6 lg:items-start">
-        <div class="flex flex-col items-center gap-2.5 text-center lg:flex-row lg:items-end lg:text-left">
-            <p>
-                {{ 'payment.history.balance' | translate }}
-            </p>
-            <span class="text-3xl text-primary">{{ balance | number: '1.0-0' }}</span>
-        </div>
-        <span class="flex items-center text-center">{{ 'payment.history.credit.label' | translate }}</span>
+<master-layout title="payment.history.credit.title">
+    <div actions>
+        <p-button
+            (onClick)="navigateToSubscription()"
+            severity="primary"
+            [label]="'payment.history.button.buyCredit' | translate"
+            outlined
+        />
     </div>
-    <div class="flex flex-col gap-2.5">
-        <div class="flex items-center justify-between gap-2.5 lg:flex-row">
-            <p-button
-                (onClick)="navigateToSubscription()"
-                severity="primary"
-                [label]="'payment.history.button.buyCredit' | translate"
-                outlined
-                size="small"
-            />
-            <!--            <a class="p-button font-bold">-->
-            <!--                {{ "payment.history.button.setting" | translate }}-->
-            <!--            </a>-->
+
+    <div class="flex flex-col items-center justify-center gap-2.5 pl-0 lg:flex-row lg:justify-between lg:px-10">
+        <div class="my-4 flex flex-col items-center gap-6 lg:items-start">
+            <div class="flex flex-col items-center gap-2.5 text-center lg:flex-row lg:items-end lg:text-left">
+                <p>
+                    {{ 'payment.history.balance' | translate }}
+                </p>
+                <span class="text-3xl text-primary">{{ balance | number: '1.0-0' }}</span>
+            </div>
+            <span class="flex items-center text-center">{{ 'payment.history.credit.label' | translate }}</span>
         </div>
     </div>
-</div>
-<table-template
-    [fetch]="fetchData"
-    [columns]="cols"
-    [criteria]="paymentCriteria"
-    [captionTemplateRef]="captionTemplateRef"
-    [sort]="sort"
-    [triggerSearch]="triggerSearch"
-    (selectionChange)="onSelectionChange($event)"
->
-</table-template>
+    <table-template
+        [fetch]="fetchData"
+        [columns]="cols"
+        [criteria]="paymentCriteria"
+        [captionTemplateRef]="captionTemplateRef"
+        [sort]="sort"
+        [triggerSearch]="triggerSearch"
+        (selectionChange)="onSelectionChange($event)"
+    />
+</master-layout>
+
 <ng-template #captionTemplateRef>
     <div class="flex items-center justify-start">
         <span class="font-bold text-primary">{{ 'payment.history.title' | translate }}</span>
@@ -61,7 +53,7 @@
     let-rowData
 >
     <p-tag
-        [ngClass]="getStatusClass(rowData.status)"
+        [ngClass]="'font-medium ' + getStatusClass(rowData.status)"
         [value]="'enum.status.payment.' + rowData.status | translate"
     />
 </ng-template>

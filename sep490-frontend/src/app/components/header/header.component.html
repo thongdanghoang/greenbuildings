@@ -84,7 +84,6 @@
                         [label]="'common.logout' | translate"
                         (onClick)="logout()"
                         outlined
-                        size="small"
                     />
                 } @else {
                     <p-button
@@ -92,7 +91,6 @@
                         iconPos="right"
                         [label]="'common.login' | translate"
                         (onClick)="login()"
-                        size="small"
                     />
                 }
             </div>
@@ -196,7 +194,6 @@
         [label]="'common.login' | translate"
         variant="text"
         (onClick)="login()"
-        size="small"
     />
 </ng-template>
 
@@ -216,6 +213,5 @@
         [(ngModel)]="selectedLanguage"
         (onChange)="changeLanguage($event.value)"
         optionLabel="display"
-        size="small"
     />
 </ng-template>
