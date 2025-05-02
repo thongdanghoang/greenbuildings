@@ -1,3 +1,4 @@
+import {Location} from '@angular/common';
 import {HttpClient} from '@angular/common/http';
 import {Component, EventEmitter, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {AbstractControl, FormBuilder, FormControl, Validators} from '@angular/forms';
@@ -25,22 +26,20 @@ import {
 
 @Component({
   selector: 'app-emission-activity-detail',
-  templateUrl: './emission-activity-detail.component.html'
+  templateUrl: './emission-activity-detail.component.html',
+  styleUrl: './emission-activity-detail.component.css'
 })
 export class EmissionActivityDetailComponent extends AbstractFormComponent<EmissionActivityDetails> implements OnInit {
   formStructure = {
-    id: new FormControl('', Validators.required),
+    id: new FormControl<null | UUID>(null, Validators.required),
     version: new FormControl(0, Validators.required),
-    name: new FormControl('', [Validators.required]),
+    name: new FormControl<null | string>(null, [Validators.required]),
     buildingId: new FormControl<null | UUID>(null, [Validators.required]),
     buildingGroupId: new FormControl<null | UUID>(null),
     emissionFactorID: new FormControl<null | UUID>(null, [Validators.required]),
     type: new FormControl(),
-    category: new FormControl('', {
-      nonNullable: true,
-      validators: [Validators.required]
-    }),
-    description: new FormControl(''),
+    category: new FormControl<null | string>(null, [Validators.required]),
+    description: new FormControl<null | string>(null),
     records: new FormControl([])
   };
 
@@ -92,7 +91,8 @@ export class EmissionActivityDetailComponent extends AbstractFormComponent<Emiss
     private readonly emissionActivityService: EmissionActivityService,
     private readonly emissionActivityRecordService: EmissionActivityRecordService,
     private readonly dialogService: DialogService,
-    private readonly activityTypeService: ActivityTypeService
+    private readonly activityTypeService: ActivityTypeService,
+    private readonly location: Location
   ) {
     super(httpClient, formBuilder, notificationService, translate);
   }
@@ -104,7 +104,7 @@ export class EmissionActivityDetailComponent extends AbstractFormComponent<Emiss
   }
 
   updateFormStructureData(): void {
-    this.formStructure.id.setValue(this.activity.id.toString());
+    this.formStructure.id.setValue(this.activity.id);
     this.formStructure.version.setValue(this.activity.version);
     this.formStructure.buildingId.setValue(this.activity.buildingId);
     this.formStructure.buildingGroupId.setValue(this.activity.buildingGroup?.id);
@@ -195,19 +195,7 @@ export class EmissionActivityDetailComponent extends AbstractFormComponent<Emiss
   }
 
   onBack(): void {
-    if (this.activity.buildingGroup) {
-      void this.router.navigate([
-        AppRoutingConstants.ENTERPRISE_PATH,
-        AppRoutingConstants.BUILDING_GROUP_PATH,
-        this.activity.buildingGroup.id
-      ]);
-    } else {
-      void this.router.navigate([
-        AppRoutingConstants.ENTERPRISE_PATH,
-        AppRoutingConstants.MANAGE_COMMON_ACTIVITY_PATH,
-        this.activity.buildingId
-      ]);
-    }
+    this.location.back();
   }
 
   onDownloadFile(record: EmissionActivityRecord): void {
@@ -236,12 +224,13 @@ export class EmissionActivityDetailComponent extends AbstractFormComponent<Emiss
   onNewRecord(): void {
     const config: DynamicDialogConfig<NewActivityRecordDialogConfig> = {
       data: {
-        activityId: this.activity.id.toString(),
+        activityId: this.activity.id,
         factor: this.activity.emissionFactor
       },
       closeOnEscape: true,
       dismissableMask: true,
-      showHeader: false
+      showHeader: false,
+      modal: true
     };
     const ref = this.dialogService.open(NewActivityRecordDialogComponent, config);
     ref.onClose.subscribe(result => {
@@ -254,13 +243,14 @@ export class EmissionActivityDetailComponent extends AbstractFormComponent<Emiss
   openEditRecordDialog(record: EmissionActivityRecord): void {
     const config: DynamicDialogConfig<NewActivityRecordDialogConfig> = {
       data: {
-        activityId: this.activity.id.toString(),
+        activityId: this.activity.id,
         factor: this.activity.emissionFactor,
         editRecord: record
       },
       closeOnEscape: true,
       dismissableMask: true,
-      showHeader: false
+      showHeader: false,
+      modal: true
     };
     const ref = this.dialogService.open(NewActivityRecordDialogComponent, config);
     ref.onClose.subscribe(result => {

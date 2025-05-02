@@ -17,6 +17,8 @@ import java.util.UUID;
 public interface EmissionActivityRepository extends AbstractBaseRepository<EmissionActivityEntity> {
     
     List<EmissionActivityEntity> findByBuildingGroupId(UUID id);
+    
+    List<EmissionActivityEntity> findByBuildingGroupIdIn(Set<UUID> ids);
 
     Page<EmissionActivityEntity> findAllByBuildingGroupIdAndNameContainingIgnoreCase(UUID buildingId, String activityName,Pageable pageable);
     

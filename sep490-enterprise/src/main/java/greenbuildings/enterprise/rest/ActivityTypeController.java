@@ -52,7 +52,7 @@ public class ActivityTypeController {
     @PostMapping("/search")
     public ResponseEntity<SearchResultDTO<ActivityTypeDTO>> searchActivityType(@RequestBody SearchCriteriaDTO<ActivityTypeCriteriaDTO> searchCriteria) {
         var pageable = CommonMapper.toPageable(searchCriteria.page(), searchCriteria.sort());
-        var searchResults = service.search(searchCriteria, pageable);
+        var searchResults = service.search(searchCriteria.criteria(), pageable);
         return ResponseEntity.ok(
                 CommonMapper.toSearchResultDTO(
                         searchResults,

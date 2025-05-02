@@ -10,9 +10,10 @@ import {EmissionFactorDTO, EmissionUnit} from '@models/shared-models';
 import {ToastProvider} from '@shared/services/toast-provider';
 import {UnitService} from '@services/unit.service';
 import {EmissionActivityRecordService} from '@services/emission-activity-record.service';
+import {UUID} from '../../../../../types/uuid';
 
 export interface NewActivityRecordDialogConfig {
-  activityId: string;
+  activityId: UUID;
   factor: EmissionFactorDTO;
   editRecord?: EmissionActivityRecord;
 }
@@ -26,11 +27,11 @@ export class NewActivityRecordDialogComponent extends AbstractFormComponent<Emis
   selectedFile: File | null = null;
   maxDate: Date = new Date();
   formStructure = {
-    activityId: new FormControl('', [Validators.required]),
-    id: new FormControl(''),
+    activityId: new FormControl<null | UUID>(null, [Validators.required]),
+    id: new FormControl<null | UUID>(null),
     version: new FormControl(0),
     value: new FormControl(0, [Validators.required, Validators.min(0)]),
-    unit: new FormControl('', [Validators.required]),
+    unit: new FormControl<null | string>(null, [Validators.required]),
     quantity: new FormControl(0, [Validators.required, Validators.min(0)]),
     startDate: new FormControl(new Date()),
     rangeDates: new FormControl([], [Validators.required, Validators.min(2), Validators.max(2)]),

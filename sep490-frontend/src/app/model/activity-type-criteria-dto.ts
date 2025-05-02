@@ -9,5 +9,6 @@
  */
 
 export interface ActivityTypeCriteriaDTO {
-  criteria?: string;
+  name?: string;
+  buildingId: string;
 }

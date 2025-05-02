@@ -86,10 +86,8 @@ export class ApplicationService extends SubscriptionAwareComponent implements On
       tap((userData: UserData) => console.warn(userData)),
       map((userData: UserData) => {
         const tenantPermission = userData.permissions.find(permission => permission.startsWith('TENANT'));
-        if (tenantPermission) {
-          return tenantPermission.split(':')[1] as UUID;
-        }
-        return null;
+        const parts = tenantPermission?.split(':') || [];
+        return parts.length > 1 ? (parts[1] as UUID) : null;
       })
     );
   }

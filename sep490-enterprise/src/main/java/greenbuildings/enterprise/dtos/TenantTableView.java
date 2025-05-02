@@ -46,23 +46,25 @@ public class TenantTableView {
                 .getBuildingGroups()
                 .stream()
                 .map(BuildingGroupEntity::getBuilding)
-                .filter(x -> x.getEnterprise().getId().equals(SecurityUtils.getCurrentUserEnterpriseId().orElseThrow()))
-                .map(x -> {
-                    BuildingGroupEntity buildingGroupEntity = x.getBuildingGroups()
-                                                               .stream()
-                                                               .filter(y -> y.getTenant() != null)
-                                                               .filter(y -> y.getTenant().getId().equals(tenant.getId()))
-                                                               .findFirst()
-                                                               .orElseThrow();
+                .filter(building -> building.getEnterprise().getId().equals(SecurityUtils.getCurrentUserEnterpriseId().orElseThrow()))
+                .map(building -> {
+                    BuildingGroupEntity buildingGroupEntity = building
+                            .getBuildingGroups()
+                            .stream()
+                            .filter(y -> y.getTenant() != null)
+                            .filter(y -> y.getTenant().getId().equals(tenant.getId()))
+                            .findFirst()
+                            .orElseThrow();
                     
-                    BuildingView.BuildingGroupView buildingGroupView = BuildingView.BuildingGroupView.builder()
-                                                                                                     .id(buildingGroupEntity.getId())
-                                                                                                     .name(buildingGroupEntity.getName())
-                                                                                                     .build();
+                    BuildingView.BuildingGroupView buildingGroupView = BuildingView.BuildingGroupView
+                            .builder()
+                            .id(buildingGroupEntity.getId())
+                            .name(buildingGroupEntity.getName())
+                            .build();
                     
                     return BuildingView.builder()
-                                       .id(x.getId())
-                                       .name(x.getName())
+                                       .id(building.getId())
+                                       .name(building.getName())
                                        .buildingGroup(buildingGroupView)
                                        .build();
                 })
