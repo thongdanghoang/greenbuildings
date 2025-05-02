@@ -6,6 +6,7 @@ import greenbuildings.commons.api.exceptions.BusinessException;
 import greenbuildings.enterprise.dtos.EmissionActivityCriteria;
 import greenbuildings.enterprise.entities.ActivityTypeEntity;
 import greenbuildings.enterprise.entities.EmissionActivityEntity;
+import greenbuildings.enterprise.models.ActivityRecordDateRange;
 import greenbuildings.enterprise.repositories.ActivityTypeRepository;
 import greenbuildings.enterprise.repositories.EmissionActivityRepository;
 import greenbuildings.enterprise.services.EmissionActivityService;
@@ -29,7 +30,6 @@ public class EmissionActivityServiceImpl implements EmissionActivityService {
 
     private final EmissionActivityRepository emissionActivityRepository;
     private final ActivityTypeRepository typeRepository;
-
 
     @Override
     public Page<EmissionActivityEntity> search(SearchCriteriaDTO<EmissionActivityCriteria> searchCriteria) {
@@ -96,5 +96,10 @@ public class EmissionActivityServiceImpl implements EmissionActivityService {
     @Override
     public List<EmissionActivityEntity> getAllActivitiesByBuildingId(UUID id) {
         return emissionActivityRepository.findByBuildingGroupId(id);
+    }
+    
+    @Override
+    public List<ActivityRecordDateRange> findRecordedDateRangesById(UUID activityId, UUID excludeRecordId) {
+        return emissionActivityRepository.findRecordedDateRangesById(activityId, excludeRecordId);
     }
 }

@@ -19,7 +19,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.InputStream;
 import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.Collections;
@@ -154,7 +153,7 @@ public class EmissionActivityRecordServiceImpl implements EmissionActivityRecord
     @Override
     public RecordFileEntity getFile(UUID recordId, UUID fileId) {
         var file = fileRepository.findById(fileId)
-                                              .orElseThrow(() -> new BusinessException(null, "File not found"));
+                                 .orElseThrow(() -> new BusinessException(null, "File not found"));
         
         if (!file.getRecord().getId().equals(recordId)) {
             throw new BusinessException(null, "File does not belong to this record");

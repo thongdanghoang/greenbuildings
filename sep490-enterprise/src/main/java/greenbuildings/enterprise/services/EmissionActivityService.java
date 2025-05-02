@@ -3,6 +3,7 @@ package greenbuildings.enterprise.services;
 import greenbuildings.commons.api.dto.SearchCriteriaDTO;
 import greenbuildings.enterprise.dtos.EmissionActivityCriteria;
 import greenbuildings.enterprise.entities.EmissionActivityEntity;
+import greenbuildings.enterprise.models.ActivityRecordDateRange;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
@@ -19,4 +20,6 @@ public interface EmissionActivityService {
     EmissionActivityEntity getEmissionActivityDetails(UUID id);
 
     List<EmissionActivityEntity> getAllActivitiesByBuildingId(UUID id);
+    
+    List<ActivityRecordDateRange> findRecordedDateRangesById(UUID id, UUID excludeRecordId);
 }

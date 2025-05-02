@@ -1,5 +1,6 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
+import {DateRangeView} from '@generated/models/date-range-view';
 import {ActivitySearchCriteria} from '@models/emission-activity';
 import {Observable} from 'rxjs';
 import {UUID} from '../../types/uuid';
@@ -22,6 +23,14 @@ export class EmissionActivityService {
       `${AppRoutingConstants.ENTERPRISE_API_URL}/${this.EMISSION_ACTIVITY_PATH}/building`,
       criteria
     );
+  }
+
+  public getRecordedDateRanges(activityId: UUID, excludeRecordId?: UUID): Observable<DateRangeView[]> {
+    let url = `${AppRoutingConstants.ENTERPRISE_API_URL}/${this.EMISSION_ACTIVITY_PATH}/${activityId}/recorded-date-ranges`;
+    if (excludeRecordId) {
+      url += `?excludeRecordId=${excludeRecordId}`;
+    }
+    return this.httpClient.get<DateRangeView[]>(url);
   }
 
   public getCreateNewActivityURL(): string {
