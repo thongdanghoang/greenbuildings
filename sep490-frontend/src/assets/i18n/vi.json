@@ -621,6 +621,15 @@
       "unitNumerator": "Tử số đơn vị",
       "unitDenominator": "Mẫu số đơn vị",
       "add": "Thêm công thức hóa học"
+    },
+    "account": {
+      "description": "Xem và quản lý tất cả tài khoản người dùng đã đăng ký trong hệ thống, bao gồm vai trò và quyền hạn người dùng"
+    },
+    "enterprise": {
+      "description": "Xem và quản lý tài khoản doanh nghiệp, theo dõi đăng ký tòa nhà và mối quan hệ với người thuê"
+    },
+    "tenant": {
+      "description": "Xem và quản lý hồ sơ người thuê và tư cách thành viên nhóm tòa nhà của họ trong các doanh nghiệp"
     }
   },
   "dialog": {

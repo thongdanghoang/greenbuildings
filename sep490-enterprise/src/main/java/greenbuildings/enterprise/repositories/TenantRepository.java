@@ -31,4 +31,6 @@ public interface TenantRepository extends JpaRepository<TenantEntity, UUID> {
     Page<TenantEntity> findByEnterpriseId(@Param("enterpriseId") UUID enterpriseId,
                                           @Param("tenantEmail") String tenantEmail,
                                           Pageable pageable);
+    
+    Page<TenantEntity> findByEmailContainsIgnoreCase(String email, Pageable pageable);
 }

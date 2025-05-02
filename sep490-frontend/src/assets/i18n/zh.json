@@ -621,6 +621,15 @@
       "unitNumerator": "單位分子",
       "unitDenominator": "單位分母",
       "add": "添加化學式"
+    },
+    "account": {
+      "description": "查看和管理系统中所有已注册用户账户，包括用户角色和权限"
+    },
+    "enterprise": {
+      "description": "查看和管理企业账户，追踪建筑物注册和与租户的关系"
+    },
+    "tenant": {
+      "description": "查看和管理租户个人资料和他们在企业中的建筑群组成员资格"
     }
   },
   "dialog": {

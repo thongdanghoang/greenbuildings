@@ -87,4 +87,13 @@ public class TenantController extends AbstractRestController {
         tenantService.delete(id);
         return ResponseEntity.ok().build();
     }
+    
+    @PostMapping("/admin-search")
+    @RolesAllowed({UserRole.RoleNameConstant.SYSTEM_ADMIN})
+    public ResponseEntity<SearchResultDTO<TenantTableView>> searchForAdmin(
+            @RequestBody SearchCriteriaDTO<SearchTenantCriteria> searchCriteria) {
+        var pageable = CommonMapper.toPageable(searchCriteria.page(), searchCriteria.sort());
+        var searchResults = tenantService.search(searchCriteria, pageable);
+        return ResponseEntity.ok(SearchResultDTO.of(searchResults.getContent(), searchResults.getTotalElements()));
+    }
 }

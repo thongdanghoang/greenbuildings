@@ -1,1 +1,61 @@
-<p>tenant-management works!</p>
+<div class="mb-4 flex items-center justify-start border-b pb-1">
+    <p class="text-lg font-bold text-primary">
+        {{ 'sidebar.admin.tenant' | translate }}
+    </p>
+</div>
+<div>
+    <p>{{ 'admin.tenant.description' | translate }}</p>
+</div>
+<table-template
+    [fetch]="fetchTenant"
+    [columns]="cols"
+    [searchOnInit]="true"
+    [captionTemplateRef]="captionTemplateRef"
+    [criteria]="searchCriteria"
+    [triggerSearch]="searchEvent"
+>
+</table-template>
+<ng-template #captionTemplateRef>
+    <div class="flex items-center justify-between">
+        <div class="flex gap-2.5">
+            <p-iconfield>
+                <p-inputicon styleClass="pi pi-search" />
+                <input
+                    [(ngModel)]="searchCriteria.email"
+                    type="text"
+                    pInputText
+                    placeholder="{{ 'common.search' | translate }}"
+                    (keydown.enter)="searchEvent.emit()"
+                />
+            </p-iconfield>
+            <p-button
+                severity="primary"
+                [label]="'enterprise.Users.search' | translate"
+                icon="pi pi-search"
+                outlined
+                (onClick)="searchEvent.emit()"
+            />
+        </div>
+    </div>
+</ng-template>
+<ng-template
+    #buildingTemplate
+    let-rowData
+>
+    <div class="flex flex-col gap-1">
+        <div
+            *ngFor="let building of rowData.buildings"
+            class="my-1 flex cursor-pointer items-center gap-3 text-sm"
+        >
+            <span class="flex items-center gap-1 text-blue-600 hover:underline">
+                <i class="pi pi-building"></i>
+                <span class="font-semibold">{{ building.name }}</span>
+            </span>
+            <span class="text-gray-400">-</span>
+            <span class="flex items-center gap-1 text-green-600 hover:underline">
+                <i class="pi pi-user"></i>
+                <span class="font-semibold">{{ building.buildingGroup.name }}</span>
+            </span>
+        </div>
+    </div>
+</ng-template>
