@@ -249,10 +249,17 @@ export class NewActivityRecordDialogComponent extends AbstractFormComponent<Emis
   private convertDateRangesToDisabledDates(recordedDateRanges: DateRangeView[]): Date[] {
     const disabledDates: Date[] = [];
     for (const range of recordedDateRanges) {
-      const start = new Date(range.fromInclusive as string);
-      const end = new Date(range.toInclusive as string);
-      for (let d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
-        disabledDates.push(new Date(d));
+      if (!range.fromInclusive || !range.toInclusive) {
+        continue;
+      }
+
+      const start = new Date(range.fromInclusive);
+      const end = new Date(range.toInclusive);
+
+      const currentDate = new Date(start);
+      while (currentDate <= end) {
+        disabledDates.push(new Date(currentDate.getTime()));
+        currentDate.setDate(currentDate.getDate() + 1);
       }
     }
     return disabledDates;
