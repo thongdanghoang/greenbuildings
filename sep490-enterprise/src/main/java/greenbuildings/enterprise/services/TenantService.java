@@ -19,9 +19,9 @@ public interface TenantService {
     Optional<TenantEntity> findById(UUID id);
     
     Optional<TenantDetailDTO> getTenantDetail(UUID id);
-
+    
     TenantDetailDTO updateTenantDetail(UUID id, TenantDetailDTO detailDTO);
-
+    
     List<TenantEntity> findAll();
     
     Page<TenantEntity> findAll(Pageable pageable);
@@ -31,6 +31,4 @@ public interface TenantService {
     void delete(UUID id);
     
     Page<TenantTableView> search(UUID enterpriseID, SearchCriteriaDTO<SearchTenantCriteria> searchCriteria, Pageable pageable);
-    
-    List<TenantEntity> findByBuildingId(UUID buildingId);
 }

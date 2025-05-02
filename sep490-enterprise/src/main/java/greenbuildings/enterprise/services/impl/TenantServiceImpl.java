@@ -96,9 +96,4 @@ public class TenantServiceImpl implements TenantService {
                 .findByEnterpriseId(enterpriseID, searchCriteria.criteria().email(), pageable)
                 .map(TenantTableView::fromEntity);
     }
-    
-    @Override
-    public List<TenantEntity> findByBuildingId(UUID buildingId) {
-        return List.of();
-    }
 }
