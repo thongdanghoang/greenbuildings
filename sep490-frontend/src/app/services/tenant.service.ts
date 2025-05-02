@@ -56,4 +56,8 @@ export class TenantService {
   search(criteria: SearchCriteriaDto<SearchTenantCriteria>): Observable<SearchResultDto<TenantTableView>> {
     return this.http.post<SearchResultDto<TenantTableView>>(`${this.baseUrl}/search`, criteria);
   }
+
+  searchByAdmin(criteria: SearchCriteriaDto<SearchTenantCriteria>): Observable<SearchResultDto<TenantTableView>> {
+    return this.http.post<SearchResultDto<TenantTableView>>(`${this.baseUrl}/admin-search`, criteria);
+  }
 }

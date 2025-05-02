@@ -1,6 +1,7 @@
 package greenbuildings.enterprise.dtos;
 
 import commons.springfw.impl.utils.SecurityUtils;
+import greenbuildings.commons.api.security.UserRole;
 import greenbuildings.enterprise.entities.BuildingGroupEntity;
 import greenbuildings.enterprise.entities.TenantEntity;
 import lombok.AllArgsConstructor;
@@ -46,7 +47,13 @@ public class TenantTableView {
                 .getBuildingGroups()
                 .stream()
                 .map(BuildingGroupEntity::getBuilding)
-                .filter(building -> building.getEnterprise().getId().equals(SecurityUtils.getCurrentUserEnterpriseId().orElseThrow()))
+                .filter(building -> {
+                    if (SecurityUtils.getCurrentUserRole().stream().anyMatch(x -> x.equals(UserRole.SYSTEM_ADMIN))) {
+                       return true;
+                    } else {
+                        return building.getEnterprise().getId().equals(SecurityUtils.getCurrentUserEnterpriseId().orElseThrow());
+                    }
+                })
                 .map(building -> {
                     BuildingGroupEntity buildingGroupEntity = building
                             .getBuildingGroups()

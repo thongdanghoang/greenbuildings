@@ -96,4 +96,11 @@ public class TenantServiceImpl implements TenantService {
                 .findByEnterpriseId(enterpriseID, searchCriteria.criteria().email(), pageable)
                 .map(TenantTableView::fromEntity);
     }
+    
+    @Override
+    public Page<TenantTableView> search(SearchCriteriaDTO<SearchTenantCriteria> searchCriteria, Pageable pageable) {
+        return tenantRepository
+                .findByEmailContainsIgnoreCase(searchCriteria.criteria().email(), pageable)
+                .map(TenantTableView::fromEntity);
+    }
 }

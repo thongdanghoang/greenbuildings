@@ -629,6 +629,15 @@
       "unitNumerator": "Unit Numerator",
       "unitDenominator": "Unit Denominator",
       "add": "Add Chemical Formula"
+    },
+    "account": {
+      "description": "View and manage all registered user accounts in the system, including user roles and permissions"
+    },
+    "enterprise": {
+      "description": "View and manage enterprise accounts, monitor building registrations and tenant relationships"
+    },
+    "tenant": {
+      "description": "View and manage tenant profiles and their building group memberships across enterprises"
     }
   },
   "dialog": {
