@@ -115,4 +115,10 @@ public class BuildingGroupController extends AbstractRestController {
         buildingGroupService.inviteTenant(dto);
         return null;
     }
+    
+    @DeleteMapping("/unlink/{groupId}")
+    public ResponseEntity<?> unlinkTenant(@PathVariable UUID groupId) {
+        buildingGroupService.unlinkTenant(groupId);
+        return ResponseEntity.noContent().build();
+    }
 } 

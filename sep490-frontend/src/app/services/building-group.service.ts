@@ -23,6 +23,10 @@ export class BuildingGroupService {
     return `${this.baseUrl}/invite`;
   }
 
+  unlinkTenant(id: UUID): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/unlink/${id}`);
+  }
+
   getAllWithBuilding(): Observable<BuildingGroup[]> {
     return this.http.get<BuildingGroup[]>(`${this.baseUrl}/search/with-buildings`);
   }

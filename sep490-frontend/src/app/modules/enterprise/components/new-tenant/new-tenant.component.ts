@@ -1,3 +1,4 @@
+import {Location} from '@angular/common';
 import {HttpClient} from '@angular/common/http';
 import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormControl, Validators} from '@angular/forms';
@@ -7,7 +8,6 @@ import {TranslateService} from '@ngx-translate/core';
 import {filter, map, switchMap, takeUntil} from 'rxjs';
 import {validate} from 'uuid';
 import {UUID} from '../../../../../types/uuid';
-import {AppRoutingConstants} from '../../../../app-routing.constant';
 import {BuildingDetails, BuildingGroup} from '@models/enterprise';
 import {BuildingGroupService} from '@services/building-group.service';
 import {BuildingService} from '@services/building.service';
@@ -37,7 +37,8 @@ export class NewTenantComponent extends AbstractFormComponent<InviteTenantToBuil
     private readonly router: Router,
     private readonly activatedRoute: ActivatedRoute,
     private readonly buildingService: BuildingService,
-    private readonly buildingGroupService: BuildingGroupService
+    private readonly buildingGroupService: BuildingGroupService,
+    private readonly location: Location
   ) {
     super(httpClient, formBuilder, notificationService, translate);
   }
@@ -69,14 +70,6 @@ export class NewTenantComponent extends AbstractFormComponent<InviteTenantToBuil
       });
   }
 
-  onCancel(): void {
-    void this.router.navigate([
-      AppRoutingConstants.ENTERPRISE_PATH,
-      AppRoutingConstants.BUILDING_MANAGEMENT_PATH,
-      this.buildingDetails.id
-    ]);
-  }
-
   selectGroup(id: UUID): void {
     this.formStructure.selectedGroupId.setValue(id);
   }
@@ -97,10 +90,6 @@ export class NewTenantComponent extends AbstractFormComponent<InviteTenantToBuil
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected override onSubmitFormDataSuccess(_result: any): void {
-    void this.router.navigate([
-      AppRoutingConstants.ENTERPRISE_PATH,
-      AppRoutingConstants.BUILDING_MANAGEMENT_PATH,
-      this.buildingDetails.id
-    ]);
+    this.location.back();
   }
 }
