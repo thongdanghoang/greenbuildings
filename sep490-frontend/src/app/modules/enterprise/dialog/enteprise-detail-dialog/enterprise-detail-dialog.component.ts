@@ -47,8 +47,12 @@ export class EnterpriseDetailDialogComponent extends SubscriptionAwareComponent 
 
   openLicenseUrl(): void {
     if (this.enterprise.businessLicenseImageUrl) {
-      this.fileService.getBusinessLicenseUrl(this.enterprise.businessLicenseImageUrl).subscribe(rs => {
-        window.open(rs.url, '_blank');
+      this.fileService.downloadBusinessLicense(this.enterprise.businessLicenseImageUrl).subscribe((fileData: Blob) => {
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(fileData);
+        link.download = this.enterprise.businessLicenseImageUrl as string;
+        link.click();
+        URL.revokeObjectURL(link.href);
       });
     }
   }

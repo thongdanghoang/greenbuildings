@@ -20,7 +20,7 @@ export class StorageService {
   }
 
   downloadBusinessLicense(fileName: string): Observable<Blob> {
-    return this.httpClient.get<Blob>(`${this.STORAGE_URL}/business-license/${fileName}`);
+    return this.httpClient.get(`${this.STORAGE_URL}/business-license/${fileName}`, {responseType: 'blob'});
   }
 
   getBusinessLicenseUrl(fileName: string): Observable<FileURLResult> {
