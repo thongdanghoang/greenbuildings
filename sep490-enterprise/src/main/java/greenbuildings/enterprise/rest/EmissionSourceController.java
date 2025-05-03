@@ -6,12 +6,17 @@ import greenbuildings.commons.api.dto.SearchResultDTO;
 import greenbuildings.commons.api.exceptions.BusinessException;
 import greenbuildings.enterprise.dtos.EmissionSourceCriteriaDTO;
 import greenbuildings.enterprise.dtos.EmissionSourceDTO;
+import greenbuildings.enterprise.dtos.ExcelImportDTO;
 import greenbuildings.enterprise.entities.EmissionSourceEntity;
+import greenbuildings.enterprise.entities.ExcelImportFileEntity;
 import greenbuildings.enterprise.mappers.EmissionSourceMapper;
+import greenbuildings.enterprise.mappers.ExcelImportMapper;
 import greenbuildings.enterprise.services.EmissionSourceService;
 
+import greenbuildings.enterprise.services.MinioService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -29,6 +34,8 @@ public class EmissionSourceController {
     
     private final EmissionSourceService emissionSourceService;
     private final EmissionSourceMapper emissionSourceMapper;
+    private final MinioService minioService;
+    private final ExcelImportMapper excelImportMapper;
     
     @GetMapping
     public List<EmissionSourceDTO> findAll() {
@@ -82,10 +89,32 @@ public class EmissionSourceController {
         return ResponseEntity.status(status).build();
     }
 
-
+    // upload data
     @PostMapping("/excel")
     public ResponseEntity<Void> importExcel(@RequestParam("file") MultipartFile file) {
             emissionSourceService.importFromExcel(file);
         return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    //download template excel
+    @GetMapping("/excel")
+    public ResponseEntity<byte[]> getFileUrl() throws IOException {
+        var excelImportFile = emissionSourceService.getExcelImportFile();
+        var inputStream = minioService.getFile(excelImportFile.getMinioPath());
+        return ResponseEntity.ok().contentType(MediaType.valueOf(excelImportFile.getContentType())).body(inputStream.readAllBytes());
+    }
+
+    // get excel import file entity
+    @GetMapping("/excel-import")
+    public ResponseEntity<ExcelImportDTO> getExcelImport(){
+        var excelImportFile = emissionSourceService.getExcelImportFile();
+        return ResponseEntity.ok(excelImportMapper.toDto(excelImportFile));
+    }
+
+    // upload template excel to minio and save to database
+    @PostMapping("/upload-excel")
+    public ResponseEntity<Void> uploadExcelToMinio(@RequestParam("file") MultipartFile file) {
+            emissionSourceService.uploadExcelToMinio(file);
+            return ResponseEntity.status(HttpStatus.OK).build();
     }
 }

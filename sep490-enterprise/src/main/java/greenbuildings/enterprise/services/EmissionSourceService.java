@@ -3,6 +3,7 @@ package greenbuildings.enterprise.services;
 import greenbuildings.commons.api.dto.SearchCriteriaDTO;
 import greenbuildings.enterprise.dtos.EmissionSourceCriteriaDTO;
 import greenbuildings.enterprise.entities.EmissionSourceEntity;
+import greenbuildings.enterprise.entities.ExcelImportFileEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,4 +19,6 @@ public interface EmissionSourceService {
     void createOrUpdate(EmissionSourceEntity emissionSourceEntity);
     Optional<EmissionSourceEntity> findById(UUID id);
     void importFromExcel(MultipartFile file);
+    void uploadExcelToMinio(MultipartFile file);
+    ExcelImportFileEntity getExcelImportFile();
 }

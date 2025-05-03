@@ -119,6 +119,11 @@ export interface EmissionActivityRecordFile extends BaseDTO {
   contentType: string;
 }
 
+export interface ExcelImportDTO extends BaseDTO {
+  fileName: string;
+  contentType: string;
+}
+
 export interface EmissionSource extends BaseDTO {
   nameVN: string;
   nameEN: string;

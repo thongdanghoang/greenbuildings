@@ -612,7 +612,9 @@
         "chooseFile": "Chọn File",
         "import": "Nhập",
         "cancel": "Hủy"
-      }
+      },
+      "uploadToMinio": "Tải lên mẫu",
+      "downloadFile": "Tải xuống mẫu"
     },
     "fuel": {
       "addFuel": "Thêm nhiên liệu"

@@ -1,7 +1,7 @@
 import {Component, EventEmitter, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {DialogService, DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
-import {Observable} from 'rxjs';
+import {Observable, switchMap} from 'rxjs';
 import {UUID} from '../../../../../types/uuid';
 import {EnergyConversionDTO, FuelDTO} from '@models/shared-models';
 import {ApplicationService} from '@services/application.service';
@@ -10,6 +10,8 @@ import {TableTemplateColumn} from '@shared/components/table-template/table-templ
 import {SearchCriteriaDto, SearchResultDto} from '@shared/models/base-models';
 import {FuelDialogComponent} from '../../dialog/fuel-dialog/fuel-dialog.component';
 import {FuelConversionService} from '@services/fuel-conversion.service';
+import {ToastProvider} from '@shared/services/toast-provider';
+import {ExcelImportDTO} from '@models/enterprise';
 
 export interface FuelConversionCriteria {
   criteria: string;
@@ -24,6 +26,8 @@ export class FuelConversionComponent extends SubscriptionAwareComponent implemen
   fuelTemplate!: TemplateRef<any>;
   @ViewChild('actionsTemplate', {static: true})
   actionsTemplate!: TemplateRef<any>;
+  isLoading: boolean = false;
+  importExcelDTO: ExcelImportDTO | undefined;
   ref: DynamicDialogRef | undefined;
   protected fetchFuel!: (
     criteria: SearchCriteriaDto<FuelConversionCriteria>
@@ -36,7 +40,8 @@ export class FuelConversionComponent extends SubscriptionAwareComponent implemen
     protected readonly applicationService: ApplicationService,
     private readonly fuelConversionService: FuelConversionService,
     private readonly translate: TranslateService,
-    private readonly dialogService: DialogService
+    private readonly dialogService: DialogService,
+    private readonly messageService: ToastProvider
   ) {
     super();
   }
@@ -44,6 +49,90 @@ export class FuelConversionComponent extends SubscriptionAwareComponent implemen
   ngOnInit(): void {
     this.buildCols();
     this.fetchFuel = this.fuelConversionService.getFuelConversion.bind(this.fuelConversionService);
+  }
+
+  uploadExcel(event: any): void {
+    const file = event.files[0];
+    if (!file) return;
+
+    this.isLoading = true;
+    this.fuelConversionService.importFuelExcel(file).subscribe({
+      next: () => {
+        this.isLoading = false;
+        this.messageService.success({
+          severity: 'success',
+          summary: 'Thành công',
+          detail: 'Import dữ liệu thành công'
+        });
+        this.search(); // Refresh lại table
+      },
+      error: err => {
+        this.isLoading = false;
+        this.messageService.businessError({
+          severity: 'error',
+          summary: 'Lỗi',
+          detail: `Import thất bại: ${err.message}`
+        });
+      }
+    });
+  }
+
+  uploadExcelToMinio(event: any): void {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    this.isLoading = true;
+    this.fuelConversionService.uploadExcelToMinio(file).subscribe({
+      next: () => {
+        this.isLoading = false;
+        this.messageService.success({
+          severity: 'success',
+          summary: 'Thành công',
+          detail: `Tệp Excel đã được tải lên MinIO`
+        });
+        this.search(); // Refresh lại table
+      },
+      error: err => {
+        this.isLoading = false;
+        this.messageService.businessError({
+          severity: 'error',
+          summary: 'Lỗi',
+          detail: `Tải lên thất bại: ${err.message}`
+        });
+      }
+    });
+  }
+
+  onDownloadFile(): void {
+    this.fuelConversionService
+      .getExcelImportDTO()
+      .pipe(
+        switchMap((data: ExcelImportDTO) => {
+          this.importExcelDTO = data;
+
+          if (!this.importExcelDTO?.fileName) {
+            throw new Error('Không tìm thấy thông tin tệp để tải xuống');
+          }
+
+          return this.fuelConversionService.getFile();
+        })
+      )
+      .subscribe({
+        next: (fileData: Blob) => {
+          const link = document.createElement('a');
+          link.href = URL.createObjectURL(fileData);
+          link.download = this.importExcelDTO!.fileName;
+          link.click();
+          URL.revokeObjectURL(link.href);
+        },
+        error: err => {
+          this.messageService.businessError({
+            severity: 'error',
+            summary: 'Lỗi',
+            detail: err.message || 'Tải tệp thất bại'
+          });
+        }
+      });
   }
 
   getLocalizedFuelName(source: FuelDTO | undefined): string {

@@ -619,7 +619,9 @@
         "chooseFile": "Choose File",
         "import": "Import",
         "cancel": "Cancel"
-      }
+      },
+      "uploadToMinio": "Upload Template",
+      "downloadFile": "Download Template"
     },
     "fuel": {
       "addFuel": "Add Fuel"

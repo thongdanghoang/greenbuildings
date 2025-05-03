@@ -612,7 +612,9 @@
         "chooseFile": "选择文件",
         "import": "导入",
         "cancel": "取消"
-      }
+      },
+      "uploadToMinio": "上传模板",
+      "downloadFile": "下载模板"
     },
     "fuel": {
       "addFuel": "添加燃料"
