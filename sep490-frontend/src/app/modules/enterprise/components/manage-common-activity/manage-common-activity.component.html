@@ -1,40 +1,31 @@
-<div>
-    <p-button
-        icon="pi pi-arrow-left"
-        label="{{ 'common.back' | translate }}"
-        (click)="goBack()"
-        severity="primary"
-        outlined="true"
-        size="small"
-    ></p-button>
-</div>
-<div class="my-4 flex items-center justify-between border-b pb-1">
-    <div class="text-lg font-bold text-primary">
-        {{ 'enterprise.buildings.commonActivity.title' | translate }}
-    </div>
-</div>
-<div class="flex justify-between">
-    <p>{{ 'enterprise.buildings.commonActivity.description' | translate }}</p>
-    <p-button
-        label="{{ 'buildingGroup.enterprise.emission.activity.new' | translate }}"
-        icon="pi pi-plus"
-        severity="primary"
-        (onClick)="openNewActivityDialog()"
-        size="small"
-    ></p-button>
-</div>
-<table-template
-    [fetch]="fetchActivity"
-    [columns]="cols"
-    [searchOnInit]="false"
-    [captionTemplateRef]="captionTemplateRef"
-    [criteria]="searchCriteria"
-    [triggerSearch]="searchEvent"
-    [triggerClearSelected]="clearSelectedEvent"
-    (selectionChange)="onSelectionChange($event)"
-    [checkbox]="true"
+<master-layout
+    title="enterprise.buildings.commonActivity.title"
+    [showBack]="true"
 >
-</table-template>
+    <div subtitle>{{ 'enterprise.buildings.commonActivity.description' | translate }}</div>
+
+    <div actions>
+        <p-button
+            label="{{ 'buildingGroup.enterprise.emission.activity.new' | translate }}"
+            icon="pi pi-plus"
+            severity="primary"
+            (onClick)="openNewActivityDialog()"
+        ></p-button>
+    </div>
+
+    <table-template
+        [fetch]="fetchActivity"
+        [columns]="cols"
+        [searchOnInit]="false"
+        [captionTemplateRef]="captionTemplateRef"
+        [criteria]="searchCriteria"
+        [triggerSearch]="searchEvent"
+        [triggerClearSelected]="clearSelectedEvent"
+        (selectionChange)="onSelectionChange($event)"
+        [checkbox]="true"
+    />
+</master-layout>
+
 <ng-template #captionTemplateRef>
     <div class="flex flex-col items-end justify-between gap-2 lg:flex-row lg:items-center">
         <p-inputgroup class="max-w-96">
@@ -66,7 +57,6 @@
             outlined
             [disabled]="!selected || !selected.length"
             (onClick)="confirmDelete()"
-            size="small"
         />
     </div>
 </ng-template>

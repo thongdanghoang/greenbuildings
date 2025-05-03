@@ -1,16 +1,16 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
+import {PowerBiAuthority} from '@models/power-bi-access-token';
 import {TranslateService} from '@ngx-translate/core';
+import {ApplicationService} from '@services/application.service';
+import {PowerBiAccessTokenService} from '@services/power-bi-access-token.service';
+import {SubscriptionAwareComponent} from '@shared/directives/subscription-aware.component';
+import {ModalProvider} from '@shared/services/modal-provider';
+import {ToastProvider} from '@shared/services/toast-provider';
 import {filter, switchMap, takeUntil, tap} from 'rxjs';
 import {UUID} from '../../../../../types/uuid';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
 import {ApplicationConstant} from '../../../../application.constant';
-import {PowerBiAuthority} from '@models/power-bi-access-token';
-import {PowerBiAccessTokenService} from '@services/power-bi-access-token.service';
-import {ApplicationService} from '@services/application.service';
-import {SubscriptionAwareComponent} from '@shared/directives/subscription-aware.component';
-import {ModalProvider} from '@shared/services/modal-provider';
-import {ToastProvider} from '@shared/services/toast-provider';
 
 @Component({
   selector: 'app-power-bi-access-token',
@@ -80,21 +80,23 @@ export class PowerBiAccessTokenComponent extends SubscriptionAwareComponent impl
     ]);
   }
 
-  copyToClipboard(text: string): void {
-    navigator.clipboard
-      .writeText(text)
-      .then(() => {
-        this.messageService.success({
-          summary: 'Copied',
-          detail: 'Token copied to clipboard'
+  copyToClipboard(text: string | null): void {
+    if (text) {
+      navigator.clipboard
+        .writeText(text)
+        .then(() => {
+          this.messageService.success({
+            summary: 'Copied',
+            detail: 'Token copied to clipboard'
+          });
+        })
+        .catch(() => {
+          this.messageService.businessError({
+            summary: 'Error',
+            detail: 'Failed to copy token'
+          });
         });
-      })
-      .catch(() => {
-        this.messageService.businessError({
-          summary: 'Error',
-          detail: 'Failed to copy token'
-        });
-      });
+    }
   }
 
   // eslint-disable-next-line max-lines-per-function

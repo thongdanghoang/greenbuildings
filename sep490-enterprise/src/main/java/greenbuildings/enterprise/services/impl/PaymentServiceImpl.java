@@ -1,6 +1,5 @@
 package greenbuildings.enterprise.services.impl;
 
-import commons.springfw.impl.utils.SecurityUtils;
 import greenbuildings.commons.api.dto.SearchCriteriaDTO;
 import greenbuildings.commons.api.enums.PaymentStatus;
 import greenbuildings.commons.api.exceptions.TechnicalException;
@@ -39,8 +38,7 @@ public class PaymentServiceImpl implements PaymentService {
     public static final String CREDIT_ITEM = "Credit";
     
     @Override
-    public Page<PaymentEntity> search(SearchCriteriaDTO<PaymentCriteriaDTO> searchCriteria, Pageable pageable) {
-        UUID enterpriseId = SecurityUtils.getCurrentUserEnterpriseId().orElseThrow();
+    public Page<PaymentEntity> search(SearchCriteriaDTO<PaymentCriteriaDTO> searchCriteria, Pageable pageable, UUID enterpriseId) {
         return payRepo.findByEnterpriseId(enterpriseId, pageable);
     }
     

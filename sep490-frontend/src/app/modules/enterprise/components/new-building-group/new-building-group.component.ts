@@ -3,16 +3,16 @@ import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormControl, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CreateBuildingGroupDTO} from '@models/building-group';
+import {BuildingDetails} from '@models/enterprise';
 import {TranslateService} from '@ngx-translate/core';
+import {BuildingGroupService} from '@services/building-group.service';
+import {BuildingService} from '@services/building.service';
+import {AbstractFormComponent} from '@shared/components/form/abstract-form-component';
+import {ToastProvider} from '@shared/services/toast-provider';
 import {filter, map, switchMap, takeUntil} from 'rxjs';
 import {validate} from 'uuid';
 import {UUID} from '../../../../../types/uuid';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
-import {BuildingDetails} from '@models/enterprise';
-import {BuildingService} from '@services/building.service';
-import {AbstractFormComponent} from '@shared/components/form/abstract-form-component';
-import {ToastProvider} from '@shared/services/toast-provider';
-import {BuildingGroupService} from '@services/building-group.service';
 
 @Component({
   selector: 'app-new-building-group',
@@ -58,14 +58,6 @@ export class NewBuildingGroupComponent extends AbstractFormComponent<CreateBuild
         this.formStructure.buildingId.setValue(details.id.toString());
         this.buildingDetails = details;
       });
-  }
-
-  onCancel(): void {
-    void this.router.navigate([
-      AppRoutingConstants.ENTERPRISE_PATH,
-      AppRoutingConstants.BUILDING_MANAGEMENT_PATH,
-      this.buildingDetails.id
-    ]);
   }
 
   protected initializeFormControls(): {[p: string]: AbstractControl} {

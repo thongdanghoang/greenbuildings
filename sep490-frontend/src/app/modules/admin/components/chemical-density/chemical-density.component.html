@@ -1,41 +1,36 @@
-<div class="mb-4 flex items-center justify-between border-b pb-1">
-    <h1 class="text-lg font-bold text-primary">
-        {{ 'sidebar.admin.chemicalDensity' | translate }}
-    </h1>
-</div>
-<table-template
-    [fetch]="fetchUsers"
-    [columns]="cols"
-    [sort]="undefined"
-    [criteria]="searchCriteria"
-    [triggerSearch]="searchEvent"
-    [triggerClearSelected]="clearSelectedEvent"
-    [captionTemplateRef]="captionTemplateRef"
-    [checkbox]="true"
-    (selectionChange)="onSelectionChange($event)"
->
-</table-template>
+<master-layout title="sidebar.admin.chemicalDensity">
+    <table-template
+        [fetch]="fetchUsers"
+        [columns]="cols"
+        [sort]="undefined"
+        [criteria]="searchCriteria"
+        [triggerSearch]="searchEvent"
+        [triggerClearSelected]="clearSelectedEvent"
+        [captionTemplateRef]="captionTemplateRef"
+        [checkbox]="true"
+        (selectionChange)="onSelectionChange($event)"
+    />
+</master-layout>
+
 <ng-template #captionTemplateRef>
-    <div class="flex items-center justify-between">
-        <div class="flex gap-2.5">
-            <p-iconfield>
-                <p-inputicon styleClass="pi pi-search" />
-                <input
-                    [(ngModel)]="searchCriteria.criteria"
-                    type="text"
-                    pInputText
-                    placeholder="{{ 'common.search' | translate }}"
-                    (keydown.enter)="search()"
-                />
-            </p-iconfield>
-            <p-button
-                severity="primary"
-                [label]="'enterprise.Users.search' | translate"
-                icon="pi pi-search"
-                outlined
-                (onClick)="search()"
+    <div class="flex flex-col items-end justify-between gap-2 lg:flex-row lg:items-center">
+        <p-inputgroup class="max-w-96">
+            <input
+                [(ngModel)]="searchCriteria.criteria"
+                type="text"
+                pInputText
+                placeholder="{{ 'common.search' | translate }}"
+                (keydown.enter)="search()"
             />
-        </div>
+            <p-inputgroup-addon>
+                <p-button
+                    icon="pi pi-search"
+                    severity="secondary"
+                    text
+                    (onClick)="search()"
+                />
+            </p-inputgroup-addon>
+        </p-inputgroup>
         <div class="flex gap-2.5">
             <p-button
                 severity="danger"
@@ -48,7 +43,6 @@
                 outlined
                 [disabled]="!selected || !selected.length"
                 (onClick)="confirmDelete()"
-                size="small"
             />
             <p-button
                 severity="primary"
@@ -56,7 +50,6 @@
                 icon="pi pi-user-plus"
                 outlined
                 (onClick)="addEmissionSource()"
-                size="small"
             />
         </div>
     </div>
@@ -72,7 +65,6 @@
             [text]="true"
             severity="info"
             (onClick)="onEdit(rowData)"
-            size="small"
         />
         <p-button
             icon="pi pi-trash"
@@ -80,7 +72,6 @@
             [text]="true"
             severity="danger"
             (onClick)="onDelete(rowData)"
-            size="small"
         />
     </div>
 </ng-template>

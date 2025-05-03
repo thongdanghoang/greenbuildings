@@ -106,7 +106,8 @@ const routes: Routes = [
       },
       {
         path: `${AppRoutingConstants.TENANT_PROFILE}`,
-        component: TenantProfileComponent
+        component: TenantProfileComponent,
+        canDeactivate: [UnsavedChangesGuard]
       }
     ]
   }

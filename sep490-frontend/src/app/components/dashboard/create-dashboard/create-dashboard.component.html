@@ -34,13 +34,11 @@
 
 <div class="flex justify-end gap-4">
     <p-button
-        size="small"
         (onClick)="close()"
         outlined
         >{{ 'powerBi.close' | translate }}</p-button
     >
     <p-button
-        size="small"
         [raised]="true"
         (onClick)="submit()"
         [disabled]="!isValid()"

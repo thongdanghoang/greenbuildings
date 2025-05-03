@@ -1,23 +1,23 @@
 import {Component, EventEmitter, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {ActivitySearchCriteria} from '@models/emission-activity';
+import {BuildingGroup, EmissionActivity, InvitationDTO} from '@models/enterprise';
+import {UserRole} from '@models/role-names';
 import {TranslateService} from '@ngx-translate/core';
+import {ApplicationService} from '@services/application.service';
+import {BuildingGroupService} from '@services/building-group.service';
+import {EmissionActivityService} from '@services/emission-activity.service';
 import {InvitationService} from '@services/invitation.service';
+import {TableTemplateColumn} from '@shared/components/table-template/table-template.component';
+import {SubscriptionAwareComponent} from '@shared/directives/subscription-aware.component';
+import {SearchCriteriaDto, SearchResultDto} from '@shared/models/base-models';
+import {ModalProvider} from '@shared/services/modal-provider';
+import {ToastProvider} from '@shared/services/toast-provider';
 import {DialogService, DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
 import {Observable} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {UUID} from '../../../../../types/uuid';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
-import {BuildingGroup, EmissionActivity, InvitationDTO} from '@models/enterprise';
-import {UserRole} from '@models/role-names';
-import {BuildingGroupService} from '@services/building-group.service';
-import {EmissionActivityService} from '@services/emission-activity.service';
-import {ApplicationService} from '@services/application.service';
-import {SubscriptionAwareComponent} from '@shared/directives/subscription-aware.component';
-import {TableTemplateColumn} from '@shared/components/table-template/table-template.component';
-import {SearchCriteriaDto, SearchResultDto} from '@shared/models/base-models';
-import {ModalProvider} from '@shared/services/modal-provider';
-import {ToastProvider} from '@shared/services/toast-provider';
 import {NewActivityDialogComponent} from '../../dialog/new-activity-dialog/new-activity-dialog.component';
 
 @Component({
@@ -65,18 +65,6 @@ export class BuildingGroupDetailComponent extends SubscriptionAwareComponent imp
     this.fetchActivity = this.activityService.fetchActivityOfBuilding.bind(this.activityService);
 
     this.fetchBuildingGroupDetails();
-  }
-
-  goBack(): void {
-    if (this.userRole === UserRole.TENANT) {
-      void this.router.navigate([AppRoutingConstants.ENTERPRISE_PATH, AppRoutingConstants.TENANT_MANAGEMENT_PATH]);
-    } else {
-      void this.router.navigate([
-        AppRoutingConstants.ENTERPRISE_PATH,
-        AppRoutingConstants.BUILDING_MANAGEMENT_PATH,
-        this.buildingGroup.building.id
-      ]);
-    }
   }
 
   getUserRole(): void {

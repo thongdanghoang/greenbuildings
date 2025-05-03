@@ -1,6 +1,7 @@
 package greenbuildings.enterprise.rest;
 
 
+import commons.springfw.impl.securities.UserContextData;
 import greenbuildings.commons.api.security.UserRole;
 import greenbuildings.enterprise.dtos.CreditConvertRatioDTO;
 import greenbuildings.enterprise.dtos.SubscribeRequestDTO;
@@ -10,6 +11,7 @@ import jakarta.annotation.security.RolesAllowed;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,8 +39,9 @@ public class SubscriptionController {
     
     @PostMapping
     @RolesAllowed(value = {UserRole.RoleNameConstant.ENTERPRISE_OWNER})
-    public ResponseEntity<Void> subscribe(@RequestBody SubscribeRequestDTO request) {
-        subscriptionService.subscribe(request);
+    public ResponseEntity<Void> subscribe(@RequestBody SubscribeRequestDTO request,
+                                          @AuthenticationPrincipal UserContextData userContextData) {
+        subscriptionService.subscribe(request, userContextData.getEnterpriseId().orElseThrow());
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
     

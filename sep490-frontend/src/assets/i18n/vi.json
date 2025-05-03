@@ -542,7 +542,7 @@
       "emissionSource": "Nguồn phát thải",
       "fuel": "Nhiên liệu",
       "emissionFactor": "Hệ số phát thải",
-      "chemicalDensity": "Mật độ hóa học",
+      "chemicalDensity": "Khối lượng riêng",
       "credit": "Quản lý Tín dụng",
       "emission": "Quản lý Khí thải",
       "accountManagement": "Tài khoản",
@@ -620,7 +620,7 @@
       "value": "Giá trị",
       "unitNumerator": "Tử số đơn vị",
       "unitDenominator": "Mẫu số đơn vị",
-      "add": "Thêm công thức hóa học"
+      "add": "Thêm Khối lượng riêng"
     },
     "account": {
       "description": "Xem và quản lý tất cả tài khoản người dùng đã đăng ký trong hệ thống, bao gồm vai trò và quyền hạn người dùng"

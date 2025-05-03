@@ -43,7 +43,7 @@ public interface UserService {
     
     UserEntity updateBasicUser(UserEntity user);
     
-    void sendOtp();
+    void sendOtp(UUID id);
     
-    void validateOTP(ValidateOTPRequest request);
+    void validateOTP(ValidateOTPRequest request, UUID userId);
 }

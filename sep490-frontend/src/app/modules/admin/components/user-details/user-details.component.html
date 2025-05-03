@@ -6,7 +6,6 @@
             severity="primary"
             outlined="true"
             (onClick)="onBack()"
-            size="small"
         ></p-button>
     </div>
     <h1 class="text-lg font-bold text-primary">
@@ -309,7 +308,6 @@
             severity="primary"
             [disabled]="disableSubmitButton"
             (onClick)="submit()"
-            size="small"
         ></p-button>
 
         <!-- Revert Button -->
@@ -318,7 +316,6 @@
             styleClass="w-full"
             severity="secondary"
             (onClick)="reset()"
-            size="small"
         ></p-button>
     </div>
 </form>
@@ -326,7 +323,7 @@
     <!--    <p-button-->
     <!--        [routerLink]="['/', AppRoutingConstants.AUTH_PATH, AppRoutingConstants.USER_DETAILS]"-->
     <!--        [label]="'enterprise.Users.add' | translate"-->
-    <!--        size="small"-->
+    <!--        -->
     <!--        ><i class="pi pi-user-plus"></i-->
     <!--    ></p-button>-->
     <!--  <p-button-->
@@ -340,6 +337,6 @@
     <!--    outlined-->
     <!--    [disabled]="!selected || !selected.length"-->
     <!--    (onClick)="confirmDelete()"-->
-    <!--    size="small"-->
+    <!--    -->
     <!--  />-->
 </ng-template>

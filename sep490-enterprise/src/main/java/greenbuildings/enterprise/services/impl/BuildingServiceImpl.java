@@ -1,6 +1,5 @@
 package greenbuildings.enterprise.services.impl;
 
-import commons.springfw.impl.utils.SecurityUtils;
 import greenbuildings.commons.api.exceptions.BusinessException;
 import greenbuildings.commons.api.exceptions.TechnicalException;
 import greenbuildings.enterprise.dtos.DownloadReportDTO;
@@ -46,8 +45,7 @@ public class BuildingServiceImpl implements BuildingService {
     private final CalculationService calculationService;
     
     @Override
-    public BuildingEntity createBuilding(BuildingEntity building) {
-        UUID enterpriseId = SecurityUtils.getCurrentUserEnterpriseId().orElseThrow();
+    public BuildingEntity createBuilding(BuildingEntity building, UUID enterpriseId) {
         if (building.getId() != null) {
             var oldBuilding = buildingRepository.findById(building.getId()).orElseThrow();
             if (oldBuilding.getName().equals(building.getName())) {
@@ -71,8 +69,7 @@ public class BuildingServiceImpl implements BuildingService {
     }
     
     @Override
-    public void deleteBuilding(UUID id) {
-        UUID enterpriseId = SecurityUtils.getCurrentUserEnterpriseId().orElseThrow();
+    public void deleteBuilding(UUID id, UUID enterpriseId) {
         var optionalBuilding = buildingRepository.findByIdAndEnterpriseId(id, enterpriseId);
         if (optionalBuilding.isPresent()) {
             buildingRepository.deleteById(id);
@@ -152,22 +149,22 @@ public class BuildingServiceImpl implements BuildingService {
     public List<BuildingEntity> findBuildingsByEnterpriseId(UUID enterpriseId) {
         return buildingRepository.findAllByEnterpriseId(enterpriseId);
     }
-
+    
     @Override
     public OverviewBuildingDTO getOverviewBuildingById(UUID id) {
-    var building = buildingRepository.findById(id).orElseThrow();
-    long numberOfGroups = building.getBuildingGroups().size();
-    long numberOfCorporationTenant = building.getBuildingGroups()
-        .stream()
-        .filter(group -> group.getTenant() != null)
-        .count();
-    long numberOfActivities = building.getBuildingGroups()
-        .stream()
-        .mapToLong(group -> group.getEmissionActivities().size())
-        .sum();
-    long numberOfCommonActivities = activityRepo.countByBuildingIdAndBuildingGroupIsNull(id);
-
-    return new OverviewBuildingDTO(numberOfGroups, numberOfCorporationTenant, numberOfActivities, numberOfCommonActivities);
-}
+        var building = buildingRepository.findById(id).orElseThrow();
+        long numberOfGroups = building.getBuildingGroups().size();
+        long numberOfCorporationTenant = building.getBuildingGroups()
+                                                 .stream()
+                                                 .filter(group -> group.getTenant() != null)
+                                                 .count();
+        long numberOfActivities = building.getBuildingGroups()
+                                          .stream()
+                                          .mapToLong(group -> group.getEmissionActivities().size())
+                                          .sum();
+        long numberOfCommonActivities = activityRepo.countByBuildingIdAndBuildingGroupIsNull(id);
+        
+        return new OverviewBuildingDTO(numberOfGroups, numberOfCorporationTenant, numberOfActivities, numberOfCommonActivities);
+    }
     
 }

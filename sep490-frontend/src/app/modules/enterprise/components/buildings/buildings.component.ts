@@ -1,18 +1,18 @@
 import {Component, ComponentRef, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
+import {Building, BuildingDetails, TransactionType} from '@models/enterprise';
 import {TranslateService} from '@ngx-translate/core';
+import {BuildingService} from '@services/building.service';
+import {WalletService} from '@services/wallet.service';
+import {SubscriptionAwareComponent} from '@shared/directives/subscription-aware.component';
+import {ModalProvider} from '@shared/services/modal-provider';
+import {ToastProvider} from '@shared/services/toast-provider';
 import * as L from 'leaflet';
 import {DialogService, DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
 
 import {forkJoin, takeUntil} from 'rxjs';
 import {UUID} from '../../../../../types/uuid';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
-import {Building, BuildingDetails, TransactionType} from '@models/enterprise';
-import {BuildingService} from '@services/building.service';
-import {WalletService} from '@services/wallet.service';
-import {SubscriptionAwareComponent} from '@shared/directives/subscription-aware.component';
-import {ModalProvider} from '@shared/services/modal-provider';
-import {ToastProvider} from '@shared/services/toast-provider';
 import {
   BuildingSubscriptionDialogComponent,
   SubscriptionDialogOptions
@@ -41,11 +41,6 @@ export enum ViewMode {
   MAP = 'map'
 }
 
-export interface MapLocation {
-  latitude: number;
-  longitude: number;
-}
-
 @Component({
   selector: 'app-building',
   templateUrl: './buildings.component.html',
@@ -55,8 +50,6 @@ export class BuildingsComponent extends SubscriptionAwareComponent implements On
   balance: number = 0;
   selectedBuildingDetails: BuildingDetails | null = null;
   ref: DynamicDialogRef | undefined;
-  addBuildingLocation: boolean = false;
-  buildingLocation: MapLocation | null = null;
   viewMode: ViewMode = ViewMode.LIST;
   buildings: Building[] = [];
 
@@ -85,20 +78,6 @@ export class BuildingsComponent extends SubscriptionAwareComponent implements On
   ngOnInit(): void {
     this.initMap();
     this.fetchBuilding();
-    this.map.on('click', e => {
-      const marker = L.marker([e.latlng.lat, e.latlng.lng]);
-      if (this.addBuildingLocation && this.buildingLocation === null) {
-        marker.addTo(this.map);
-        this.buildingLocation = {
-          latitude: e.latlng.lat,
-          longitude: e.latlng.lng
-        };
-      }
-    });
-  }
-
-  get mapView(): boolean {
-    return this.viewMode === ViewMode.MAP;
   }
 
   get listView(): boolean {
@@ -150,17 +129,6 @@ export class BuildingsComponent extends SubscriptionAwareComponent implements On
     void this.router.navigate(['/', AppRoutingConstants.ENTERPRISE_PATH, AppRoutingConstants.BUILDING_PATH, 'create']);
   }
 
-  addBuilding(): void {
-    if (this.buildingLocation) {
-      void this.router.navigate(
-        ['/', AppRoutingConstants.ENTERPRISE_PATH, AppRoutingConstants.BUILDING_PATH, 'create'],
-        {
-          queryParams: this.buildingLocation
-        }
-      );
-    }
-  }
-
   confirmDelete(buildingId: UUID): void {
     this.modalProvider
       .showConfirm({
@@ -180,20 +148,6 @@ export class BuildingsComponent extends SubscriptionAwareComponent implements On
           this.deleteBuilding(buildingId);
         }
       });
-  }
-
-  cancelAddBuilding(): void {
-    this.addBuildingLocation = false;
-    this.map.eachLayer(layer => {
-      if (
-        layer instanceof L.Marker &&
-        layer.getLatLng().lat === this.buildingLocation?.latitude &&
-        layer.getLatLng().lng === this.buildingLocation?.longitude
-      ) {
-        this.map.removeLayer(layer);
-      }
-    });
-    this.buildingLocation = null;
   }
 
   viewBuildingDetails(id: UUID): void {

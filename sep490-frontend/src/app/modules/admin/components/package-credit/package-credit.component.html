@@ -1,17 +1,7 @@
-<table-template
-    [fetch]="fetchData"
-    [columns]="cols"
-    [captionTemplateRef]="captionTemplateRef"
-    [triggerSearch]="triggerSearch"
-    (selectionChange)="onSelectionChange($event)"
->
-</table-template>
-<ng-template #captionTemplateRef>
-    <div class="flex items-center justify-between">
-        <span class="font-bold text-primary">{{ 'admin.packageCredit.title' | translate }}</span>
+<master-layout title="admin.packageCredit.title">
+    <div actions>
         <button
             pButton
-            size="small"
             class="p-button font-bold"
             [routerLink]="['/', AppRoutingConstants.ADMIN_PATH, AppRoutingConstants.PACKAGE_CREDIT_DETAILS_PATH]"
         >
@@ -19,7 +9,14 @@
             {{ 'admin.packageCredit.addPackageCredit' | translate }}
         </button>
     </div>
-</ng-template>
+
+    <table-template
+        [fetch]="fetchData"
+        [columns]="cols"
+        [triggerSearch]="triggerSearch"
+        (selectionChange)="onSelectionChange($event)"
+    />
+</master-layout>
 
 <ng-template
     #priceTemplate

@@ -70,6 +70,7 @@ import {UnsavedChangesDirective} from './directives/unsaved-changes/unsaved-chan
 import {TranslateParamsPipe} from './pipes/translate-params.pipe';
 import {ModalProvider} from './services/modal-provider';
 import {ToastProvider} from './services/toast-provider';
+import {MasterLayoutComponent} from './components/master-layout/master-layout.component';
 
 const primeNgModules = [
   AccordionModule,
@@ -150,7 +151,8 @@ const commons = [
     ErrorMessagesDirective,
     FormFieldErrorDirective,
     FormFieldErrorComponent,
-    UnsavedChangesDirective
+    UnsavedChangesDirective,
+    MasterLayoutComponent
   ],
   imports: [...commons, ...primeNgModules],
   exports: [
@@ -162,7 +164,8 @@ const commons = [
     ErrorMessagesDirective,
     FormFieldErrorDirective,
     FormFieldErrorComponent,
-    UnsavedChangesDirective
+    UnsavedChangesDirective,
+    MasterLayoutComponent
   ],
   providers: [DatePipe, DecimalPipe, CurrencyPipe, ModalProvider, ToastProvider, DialogService, DynamicDialog]
 })

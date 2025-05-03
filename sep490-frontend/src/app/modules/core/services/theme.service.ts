@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 import {definePreset} from '@primeng/themes';
 import Aura from '@primeng/themes/aura';
+import {SubscriptionAwareComponent} from '@shared/directives/subscription-aware.component';
 import {PrimeNG, ThemeType} from 'primeng/config';
 import {BehaviorSubject, Observable, of} from 'rxjs';
-import {SubscriptionAwareComponent} from '@shared/directives/subscription-aware.component';
 
 enum Theme {
   DARK,
@@ -39,7 +39,7 @@ const MyPreset = definePreset(Aura, {
       900: '#665502',
       950: '#403501'
     },
-    blue: {
+    sky: {
       50: '#f9fdfd',
       100: '#e4f4f7',
       200: '#cfebf0',
@@ -66,6 +66,118 @@ const MyPreset = definePreset(Aura, {
       800: '#506e53',
       900: '#3a503c',
       950: '#243226'
+    },
+    formField: {
+      fontSize: '0.875rem',
+      paddingX: '0.625rem',
+      paddingY: '0.375rem',
+      borderRadius: '{border.radius.sm}'
+    },
+    colorScheme: {
+      light: {
+        surface: {
+          50: '#fafafa',
+          100: '#f5f5f5',
+          200: '#e5e5e5',
+          300: '#d4d4d4',
+          400: '#a3a3a3',
+          500: '#737373',
+          600: '#525252',
+          700: '#404040',
+          800: '#262626',
+          900: '#171717',
+          950: '#0a0a0a'
+        }
+      },
+      dark: {
+        surface: {
+          50: '#fafafa',
+          100: '#f5f5f5',
+          200: '#e5e5e5',
+          300: '#d4d4d4',
+          400: '#a3a3a3',
+          500: '#737373',
+          600: '#525252',
+          700: '#404040',
+          800: '#262626',
+          900: '#171717',
+          950: '#0a0a0a'
+        }
+      }
+    }
+  },
+  components: {
+    button: {
+      colorScheme: {
+        light: {
+          root: {
+            warn: {
+              background: '{yellow.500}',
+              hoverBackground: '{yellow.600}',
+              activeBackground: '{yellow.700}',
+              borderColor: '{yellow.500}',
+              hoverBorderColor: '{yellow.600}',
+              activeBorderColor: '{yellow.700}',
+              color: '#ffffff',
+              hoverColor: '#ffffff',
+              activeColor: '#ffffff',
+              focusRing: {
+                color: '{yellow.500}',
+                shadow: 'none'
+              }
+            }
+          },
+          outlined: {
+            warn: {
+              hoverBackground: '{yellow.50}',
+              activeBackground: '{yellow.100}',
+              borderColor: '{yellow.200}',
+              color: '{yellow.500}'
+            }
+          },
+          text: {
+            warn: {
+              hoverBackground: '{yellow.50}',
+              activeBackground: '{yellow.100}',
+              color: '{yellow.500}'
+            }
+          }
+        },
+        dark: {
+          root: {
+            warn: {
+              background: '{yellow.400}',
+              hoverBackground: '{yellow.300}',
+              activeBackground: '{yellow.200}',
+              borderColor: '{yellow.400}',
+              hoverBorderColor: '{yellow.300}',
+              activeBorderColor: '{yellow.200}',
+              color: '{yellow.950}',
+              hoverColor: '{yellow.950}',
+              activeColor: '{yellow.950}',
+              focusRing: {
+                color: '{yellow.400}',
+                shadow: 'none'
+              }
+            }
+          },
+          outlined: {
+            warn: {
+              hoverBackground: 'color-mix(in srgb, {yellow.400}, transparent 96%)',
+              activeBackground: 'color-mix(in srgb, {yellow.400}, transparent 84%)',
+              borderColor: '{yellow.700}',
+              color: '{yellow.400}'
+            }
+          },
+          text: {
+            warn: {
+              hoverBackground: 'color-mix(in srgb, {yellow.400}, transparent 96%)',
+              activeBackground: 'color-mix(in srgb, {yellow.400}, transparent 84%)',
+              color: '{yellow.400}'
+            }
+          }
+        }
+      }
     }
   }
 });

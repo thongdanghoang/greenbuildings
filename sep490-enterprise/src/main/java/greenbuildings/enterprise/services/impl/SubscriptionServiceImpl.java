@@ -1,6 +1,5 @@
 package greenbuildings.enterprise.services.impl;
 
-import commons.springfw.impl.utils.SecurityUtils;
 import greenbuildings.commons.api.exceptions.BusinessException;
 import greenbuildings.commons.api.exceptions.TechnicalException;
 import greenbuildings.enterprise.dtos.CreditConvertRatioDTO;
@@ -44,9 +43,8 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     }
     
     @Override
-    public void subscribe(SubscribeRequestDTO request) {
+    public void subscribe(SubscribeRequestDTO request, UUID enterpriseId) {
         // Prepare building
-        UUID enterpriseId = SecurityUtils.getCurrentUserEnterpriseId().orElseThrow();
         BuildingEntity buildingEntity = buildingRepository.findByIdAndEnterpriseId(request.buildingId(), enterpriseId).orElseThrow();
         
         // Prepare Transaction

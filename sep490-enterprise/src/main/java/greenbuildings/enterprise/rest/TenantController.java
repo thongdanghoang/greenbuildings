@@ -93,7 +93,7 @@ public class TenantController extends AbstractRestController {
     public ResponseEntity<SearchResultDTO<TenantTableView>> searchForAdmin(
             @RequestBody SearchCriteriaDTO<SearchTenantCriteria> searchCriteria) {
         var pageable = CommonMapper.toPageable(searchCriteria.page(), searchCriteria.sort());
-        var searchResults = tenantService.search(searchCriteria, pageable);
+        var searchResults = tenantService.search(searchCriteria.criteria(), pageable);
         return ResponseEntity.ok(SearchResultDTO.of(searchResults.getContent(), searchResults.getTotalElements()));
     }
 }

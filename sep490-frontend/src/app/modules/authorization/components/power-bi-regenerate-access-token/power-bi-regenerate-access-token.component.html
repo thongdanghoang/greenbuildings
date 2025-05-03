@@ -55,13 +55,11 @@
 <div class="flex gap-4">
     <p-button
         (onClick)="regenerateAccessToken()"
-        size="small"
         class="*:min-w-16"
         label="{{ 'powerBi.accessToken.regenerate' | translate }}"
     />
     <p-button
         (onClick)="navigateToPowerBiAccessTokens()"
-        size="small"
         class="*:min-w-24"
         label="{{ 'powerBi.accessToken.cancel' | translate }}"
         [outlined]="true"

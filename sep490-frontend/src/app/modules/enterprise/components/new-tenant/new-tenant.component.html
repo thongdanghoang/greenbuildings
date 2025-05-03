@@ -1,22 +1,7 @@
-<div>
-    <div>
-        <p-button
-            icon="pi pi-arrow-left"
-            [label]="'common.back' | translate"
-            severity="primary"
-            outlined="true"
-            size="small"
-            (onClick)="onCancel()"
-        ></p-button>
-    </div>
-    <div
-        class="flex items-center justify-between border-b pb-1"
-        style="min-height: 42px"
-    >
-        <div class="text-lg font-bold text-primary">
-            {{ 'enterprise.tenant.create.title' | translate }}
-        </div>
-    </div>
+<master-layout
+    title="enterprise.tenant.create.title"
+    [showBack]="true"
+>
     <form
         [formGroup]="formGroup"
         class="py-5 sm:mt-5 sm:px-5"
@@ -58,7 +43,7 @@
                     *ngFor="let group of availableGroups"
                     (click)="selectGroup(group.id)"
                     [ngClass]="{
-                        'border-blue-600 bg-green-200 ring-2 ring-blue-500':
+                        'border-sky-600 bg-green-200 ring-2 ring-sky-500':
                             formStructure.selectedGroupId.value === group.id,
                         'border-gray-300 bg-blue-50 hover:bg-gray-50': formStructure.selectedGroupId.value !== group.id
                     }"
@@ -93,4 +78,4 @@
             ></p-button>
         </div>
     </form>
-</div>
+</master-layout>

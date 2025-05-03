@@ -2,7 +2,6 @@ package greenbuildings.idp.service.impl;
 
 import commons.springfw.impl.mappers.CommonMapper;
 import commons.springfw.impl.securities.UserContextData;
-import commons.springfw.impl.utils.SecurityUtils;
 import greenbuildings.commons.api.SagaManager;
 import greenbuildings.commons.api.dto.SearchCriteriaDTO;
 import greenbuildings.commons.api.exceptions.BusinessErrorParam;
@@ -275,8 +274,8 @@ public class UserServiceImpl extends SagaManager implements UserService {
     }
     
     @Override
-    public void sendOtp() {
-        UserEntity userEntity = userRepository.findByEmail(SecurityUtils.getCurrentUserEmail().orElseThrow()).orElseThrow();
+    public void sendOtp(UUID id) {
+        var userEntity = userRepository.findById(id).orElseThrow();
         
         if (userEntity.isEmailVerified()) {
             return;
@@ -299,8 +298,8 @@ public class UserServiceImpl extends SagaManager implements UserService {
     }
     
     @Override
-    public void validateOTP(ValidateOTPRequest request) {
-        UserEntity userEntity = userRepository.findByEmail(SecurityUtils.getCurrentUserEmail().orElseThrow()).orElseThrow();
+    public void validateOTP(ValidateOTPRequest request, UUID userId) {
+        UserEntity userEntity = userRepository.findById(userId).orElseThrow();
         
         var otp = userEntity.getOtp();
         if (!otp.getOtpCode().equals(request.otpCode())) {

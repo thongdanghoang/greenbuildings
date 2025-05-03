@@ -5,7 +5,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -23,13 +22,13 @@ public interface TenantRepository extends JpaRepository<TenantEntity, UUID> {
     @Query("""
                 SELECT DISTINCT t
                 FROM TenantEntity t
-                JOIN BuildingGroupEntity groups on t.id = groups.tenant.id
-                JOIN BuildingEntity building on groups.building.id = building.id
+                JOIN t.buildingGroups groups
+                JOIN groups.building building
                 WHERE building.enterprise.id = :enterpriseId
                     AND t.email ILIKE '%' || :tenantEmail || '%'
             """)
-    Page<TenantEntity> findByEnterpriseId(@Param("enterpriseId") UUID enterpriseId,
-                                          @Param("tenantEmail") String tenantEmail,
+    Page<TenantEntity> findByEnterpriseId(UUID enterpriseId,
+                                          String tenantEmail,
                                           Pageable pageable);
     
     Page<TenantEntity> findByEmailContainsIgnoreCase(String email, Pageable pageable);

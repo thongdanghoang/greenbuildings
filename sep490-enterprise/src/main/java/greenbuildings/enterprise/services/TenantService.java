@@ -32,5 +32,5 @@ public interface TenantService {
     
     Page<TenantTableView> search(UUID enterpriseID, SearchCriteriaDTO<SearchTenantCriteria> searchCriteria, Pageable pageable);
     
-    Page<TenantTableView> search(SearchCriteriaDTO<SearchTenantCriteria> searchCriteria, Pageable pageable);
+    Page<TenantTableView> search(SearchTenantCriteria criteria, Pageable pageable);
 }

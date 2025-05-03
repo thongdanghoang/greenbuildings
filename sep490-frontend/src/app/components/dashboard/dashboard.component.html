@@ -1,55 +1,60 @@
-<ng-container *ngIf="dashboards.length > 0; else noDashboards">
-    <div class="mb-4 flex flex-col justify-between gap-2.5 border-b pb-1 lg:flex-row lg:items-center">
-        <div class="flex w-full justify-between">
-            <p class="text-lg font-bold text-primary">
-                {{ 'powerBi.dashboard' | translate }}
-            </p>
-            <div class="flex gap-4">
-                <ng-container *ngTemplateOutlet="addNewDashboard"></ng-container>
-            </div>
-        </div>
-        <p-select
-            [options]="selectableDashboards"
-            [(ngModel)]="selectedDashboard"
-            optionLabel="label"
-            [placeholder]="'powerBi.selectDashboard' | translate"
-            size="small"
-            (onChange)="onChange($event)"
-            [checkmark]="true"
-        />
+<master-layout
+    title="powerBi.dashboard"
+    styleClass="h-full"
+>
+    <div
+        actions
+        class="flex gap-3"
+        *ngIf="dashboards.length > 0"
+    >
+        <ng-container *ngTemplateOutlet="addNewDashboard"></ng-container>
+        <ng-container *ngTemplateOutlet="selectDashboards; context: {$implicit: 'hidden lg:flex'}"></ng-container>
     </div>
-    @if (selectedDashboard) {
-        <iframe
-            class="h-full w-full"
-            [title]="selectedDashboard.value.title"
-            [src]="safeUrl"
-        ></iframe>
-    }
-</ng-container>
+
+    <ng-container *ngTemplateOutlet="selectDashboards; context: {$implicit: 'flex lg:hidden'}"></ng-container>
+
+    <ng-container *ngIf="dashboards.length > 0; else noDashboards">
+        @if (selectedDashboard) {
+            <iframe
+                class="h-full w-full"
+                [title]="selectedDashboard.value.title"
+                [src]="safeUrl"
+            ></iframe>
+        }
+    </ng-container>
+</master-layout>
+
+<ng-template #noDashboards>
+    <div class="flex h-96 flex-col items-center justify-center gap-4">
+        <i class="pi pi-chart-bar text-2xl"></i>
+        <div class="text-center text-xl font-semibold">
+            {{ 'powerBi.noPowerBi' | translate }}
+        </div>
+        <p class="text-center">
+            {{ 'powerBi.needPowerBi' | translate }}
+        </p>
+        <ng-container *ngTemplateOutlet="addNewDashboard"></ng-container>
+    </div>
+</ng-template>
+
+<ng-template
+    #selectDashboards
+    let-styleClass
+>
+    <p-select
+        [styleClass]="styleClass"
+        [options]="selectableDashboards"
+        [(ngModel)]="selectedDashboard"
+        optionLabel="label"
+        [placeholder]="'powerBi.selectDashboard' | translate"
+        (onChange)="onChange($event)"
+        [checkmark]="true"
+/></ng-template>
 
 <ng-template #addNewDashboard>
     <p-button
         [label]="'powerBi.addNewDashBoard' | translate"
         outlined
-        size="small"
         (onClick)="openCreateDashboardModal()"
     />
-</ng-template>
-
-<ng-template #noDashboards>
-    <div class="flex items-center justify-between border-b py-2">
-        <p class="text-xl text-primary">
-            {{ 'powerBi.dashboard' | translate }}
-        </p>
-    </div>
-    <div class="flex h-96 flex-col items-center justify-center gap-4">
-        <i class="pi pi-chart-bar text-2xl"></i>
-        <h3 class="text-xl font-semibold">
-            {{ 'powerBi.noPowerBi' | translate }}
-        </h3>
-        <p class="text-base">
-            {{ 'powerBi.needPowerBi' | translate }}
-        </p>
-        <ng-container *ngTemplateOutlet="addNewDashboard"></ng-container>
-    </div>
 </ng-template>

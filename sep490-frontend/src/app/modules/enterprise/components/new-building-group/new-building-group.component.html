@@ -1,22 +1,7 @@
-<div>
-    <div>
-        <p-button
-            icon="pi pi-arrow-left"
-            [label]="'common.back' | translate"
-            severity="primary"
-            outlined="true"
-            size="small"
-            (onClick)="onCancel()"
-        ></p-button>
-    </div>
-    <div
-        class="flex items-center justify-between border-b pb-1"
-        style="min-height: 42px"
-    >
-        <div class="text-lg font-bold text-primary">
-            {{ 'enterprise.building-group.create.title' | translate }}
-        </div>
-    </div>
+<master-layout
+    title="enterprise.building-group.create.title"
+    [showBack]="true"
+>
     <form
         [formGroup]="formGroup"
         class="py-5 sm:mt-5 sm:px-5"
@@ -79,4 +64,4 @@
             ></p-button>
         </div>
     </form>
-</div>
+</master-layout>

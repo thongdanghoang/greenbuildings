@@ -12,7 +12,7 @@ import java.util.UUID;
 
 public interface PaymentService {
     
-    Page<PaymentEntity> search(SearchCriteriaDTO<PaymentCriteriaDTO> searchCriteria, Pageable pageable);
+    Page<PaymentEntity> search(SearchCriteriaDTO<PaymentCriteriaDTO> searchCriteria, Pageable pageable, UUID enterpriseId);
     
     PaymentEntity createPayment(UUID enterpriseID, UUID creditPackageVersionUUID, String requestOrigin);
     

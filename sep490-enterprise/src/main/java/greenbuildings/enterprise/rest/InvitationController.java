@@ -52,8 +52,10 @@ public class InvitationController {
     }
     
     @PutMapping("/update-status")
-    public ResponseEntity<?> updateStatus(@RequestBody InvitationResponseDTO invitationDTO) {
-        invitationService.updateStatus(invitationDTO);
+    @RolesAllowed({UserRole.RoleNameConstant.TENANT})
+    public ResponseEntity<?> updateStatus(@RequestBody InvitationResponseDTO invitationDTO,
+                                          @AuthenticationPrincipal UserContextData userContextData) {
+        invitationService.updateStatus(invitationDTO, userContextData.getTenantId());
         return ResponseEntity.noContent().build();
     }
     

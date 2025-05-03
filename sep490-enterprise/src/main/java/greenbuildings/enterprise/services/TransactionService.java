@@ -8,6 +8,6 @@ import java.util.List;
 import java.util.UUID;
 
 public interface TransactionService {
-    List<TransactionEntity> getTransactions(UUID buildingId);
-    Page<TransactionEntity> search(UUID buildingId, Pageable page);
+    List<TransactionEntity> getTransactions(UUID buildingId, UUID enterpriseId);
+    Page<TransactionEntity> search(UUID buildingId, Pageable page, UUID enterpriseId);
 }

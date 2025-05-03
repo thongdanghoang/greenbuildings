@@ -1,190 +1,175 @@
-<ng-container *ngIf="buildingGroup">
-    <div>
-        <p-button
-            icon="pi pi-arrow-left"
-            label="{{ 'common.back' | translate }}"
-            (click)="goBack()"
-            severity="primary"
-            outlined="true"
-            size="small"
-        ></p-button>
-    </div>
-    <div class="my-4 flex items-center justify-between border-b pb-1">
-        <div class="text-lg font-bold text-primary">
-            {{ 'enterprise.buildings.group.title' | translate }}
-        </div>
-    </div>
-    <div class="my-2 flex flex-col lg:flex-row">
-        <div class="m-2 md:w-1/2">
-            <p-card styleClass="rounded-xl overflow-hidden h-full w-full">
-                <!-- Header -->
-                <ng-template pTemplate="header">
-                    <div class="items-center bg-primary-50 p-4 lg:p-6 dark:bg-primary-950">
-                        <div class="mb-3 flex items-baseline gap-3">
-                            <i class="pi pi-home text-2xl text-blue-500"></i>
-                            <h2 class="text-xl font-bold">
-                                {{ buildingGroup.name }}
-                            </h2>
-                        </div>
-                        <div
-                            class="flex items-baseline gap-2"
-                            *ngIf="buildingGroup.description"
-                        >
-                            <i class="pi pi-info-circle mt-1 text-black dark:text-white"></i>
-                            <p class="text-sm">
-                                <span class="font-medium">{{ 'buildingGroup.description' | translate }}:</span>
-                                {{ buildingGroup.description }}
-                            </p>
-                        </div>
-                    </div>
-                </ng-template>
-
-                <!-- Content -->
-                <div class="space-y-4">
-                    <!-- Building Information in Fieldset -->
-                    <div class="flex items-baseline gap-3">
-                        <i class="pi pi-building text-lg text-blue-500"></i>
-                        <span class="hidden font-semibold lg:block">
-                            {{ 'buildingGroup.building.name' | translate }}:
-                        </span>
-                        <span>{{ buildingGroup.building.name || '-' }}</span>
-                    </div>
-                    <div class="flex items-start gap-3">
-                        <i class="pi pi-map-marker text-lg text-blue-500"></i>
-                        <span class="hidden min-w-fit font-semibold lg:block">
-                            {{ 'buildingGroup.building.address' | translate }}:
-                        </span>
-                        <span>{{ buildingGroup.building.address }}</span>
-                    </div>
-                </div>
-
-                <!-- Footer -->
-                <ng-template pTemplate="footer">
-                    <div class="flex justify-end gap-4 border-t pt-4">
-                        <p-button
-                            label="{{ 'buildingGroup.enterprise.emission.activity.new' | translate }}"
-                            icon="pi pi-plus"
-                            severity="primary"
-                            styleClass="w-full transition-colors duration-200"
-                            (onClick)="openNewActivityDialog()"
-                            size="small"
-                        ></p-button>
-                    </div>
-                </ng-template>
-            </p-card>
-        </div>
-        <div class="m-2 md:w-1/2">
-            <p-card styleClass="rounded-xl overflow-hidden h-full w-full">
-                <!-- Header -->
-                <ng-template pTemplate="header">
-                    <div class="bg-primary-50 p-4 lg:p-6 dark:bg-primary-950">
-                        <div class="mb-3 flex items-baseline gap-3">
-                            <p-image
-                                src="assets/images/icon/tenant.png"
-                                alt="Tenant Logo"
-                                width="24"
-                                height="24"
-                                styleClass="rounded-full"
-                            />
-                            <h2 class="text-xl font-bold">
-                                {{ 'tenant.information' | translate }}
-                            </h2>
-                        </div>
-                    </div>
-                </ng-template>
-
-                <!-- Content -->
-                <ng-container>
-                    <ng-container *ngIf="buildingGroup.tenant; else noTenant">
-                        <div class="space-y-4">
-                            <div class="flex items-center gap-3">
-                                <i class="pi pi-home text-lg text-blue-500"></i>
-                                <span class="hidden font-semibold lg:block">
-                                    {{ 'tenant.building' | translate }}
-                                </span>
-                                <span>{{ buildingGroup.tenant.name || '-' }}</span>
+<master-layout
+    title="enterprise.buildings.group.title"
+    [showBack]="true"
+>
+    <ng-container *ngIf="buildingGroup">
+        <div class="my-2 flex flex-col lg:flex-row">
+            <div class="m-2 md:w-1/2">
+                <p-card styleClass="rounded-xl overflow-hidden h-full w-full">
+                    <!-- Header -->
+                    <ng-template pTemplate="header">
+                        <div class="items-center bg-primary-50 p-4 lg:p-6 dark:bg-primary-950">
+                            <div class="mb-3 flex items-baseline gap-3">
+                                <i class="pi pi-home text-2xl text-sky-500"></i>
+                                <h2 class="text-xl font-bold">
+                                    {{ buildingGroup.name }}
+                                </h2>
                             </div>
-                            <div class="flex items-center gap-3">
-                                <i class="pi pi-envelope text-lg text-blue-500"></i>
-                                <span class="hidden font-semibold lg:block">
-                                    {{ 'tenant.email' | translate }}
-                                </span>
-                                <span>{{ buildingGroup.tenant.email || '-' }}</span>
+                            <div
+                                class="flex items-baseline gap-2"
+                                *ngIf="buildingGroup.description"
+                            >
+                                <i class="pi pi-info-circle mt-1 text-black dark:text-white"></i>
+                                <p class="text-sm">
+                                    <span class="font-medium">{{ 'buildingGroup.description' | translate }}:</span>
+                                    {{ buildingGroup.description }}
+                                </p>
                             </div>
-                            <div class="flex items-center gap-3">
-                                <i class="pi pi-phone text-lg text-blue-500"></i>
-                                <span class="hidden font-semibold lg:block">
-                                    {{ 'tenant.hotline' | translate }}
-                                </span>
-                                <span>{{ buildingGroup.tenant.hotline || '-' }}</span>
-                            </div>
-                        </div>
-                    </ng-container>
-                    <ng-template #noTenant>
-                        <div
-                            *ngIf="!pendingInvitation"
-                            class="flex items-center justify-center py-3"
-                        >
-                            <i class="pi pi-exclamation-circle mr-2"></i>
-                            <span>{{ 'tenant.noTenant' | translate }}</span>
-                        </div>
-                        <div *ngIf="pendingInvitation">
-                            {{ 'tenant.pendingInvitation' | translate }}
-                            <span class="font-semibold">{{ pendingInvitation.email }}</span>
                         </div>
                     </ng-template>
-                </ng-container>
 
-                <!-- Footer -->
-                <ng-template pTemplate="footer">
-                    <div
-                        *ngIf="userRole === UserRole.ENTERPRISE_OWNER"
-                        class="flex justify-end gap-4 border-t border-gray-200 pt-4"
-                    >
-                        <p-button
-                            *ngIf="buildingGroup.tenant"
-                            label="{{ 'tenant.detail' | translate }}"
-                            icon="pi pi-eye"
-                            severity="primary"
-                            outlined
-                            styleClass="transition-colors duration-200"
-                            (onClick)="navigateToTenantDetail()"
-                            size="small"
-                        ></p-button>
-                        <p-button
-                            *ngIf="!buildingGroup.tenant && !pendingInvitation"
-                            label="{{ 'tenant.assign' | translate }}"
-                            icon="pi pi-user-plus"
-                            severity="primary"
-                            styleClass=" transition-colors duration-200"
-                            (onClick)="navigateToAssignTenant()"
-                            size="small"
-                        ></p-button>
+                    <!-- Content -->
+                    <div class="space-y-4">
+                        <!-- Building Information in Fieldset -->
+                        <div class="flex items-baseline gap-3">
+                            <i class="pi pi-building text-lg text-sky-500"></i>
+                            <span class="hidden font-semibold lg:block">
+                                {{ 'buildingGroup.building.name' | translate }}:
+                            </span>
+                            <span>{{ buildingGroup.building.name || '-' }}</span>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <i class="pi pi-map-marker text-lg text-sky-500"></i>
+                            <span class="hidden min-w-fit font-semibold lg:block">
+                                {{ 'buildingGroup.building.address' | translate }}:
+                            </span>
+                            <span>{{ buildingGroup.building.address }}</span>
+                        </div>
                     </div>
-                </ng-template>
-            </p-card>
-        </div>
-    </div>
-</ng-container>
 
-<div class="mt-8 flex items-center justify-between border-b pb-1">
-    <div class="text-lg font-bold text-primary">
-        {{ 'buildingGroup.enterprise.emission.activity.title' | translate }}
-    </div>
-</div>
-<table-template
-    [fetch]="fetchActivity"
-    [columns]="cols"
-    [searchOnInit]="false"
-    [captionTemplateRef]="captionTemplateRef"
-    [criteria]="searchCriteria"
-    [triggerSearch]="searchEvent"
-    [triggerClearSelected]="clearSelectedEvent"
-    (selectionChange)="onSelectionChange($event)"
-    [checkbox]="true"
->
-</table-template>
+                    <!-- Footer -->
+                    <ng-template pTemplate="footer">
+                        <div class="flex justify-end gap-4 border-t pt-4">
+                            <p-button
+                                label="{{ 'buildingGroup.enterprise.emission.activity.new' | translate }}"
+                                icon="pi pi-plus"
+                                severity="primary"
+                                styleClass="w-full transition-colors duration-200"
+                                (onClick)="openNewActivityDialog()"
+                            ></p-button>
+                        </div>
+                    </ng-template>
+                </p-card>
+            </div>
+            <div class="m-2 md:w-1/2">
+                <p-card styleClass="rounded-xl overflow-hidden h-full w-full">
+                    <!-- Header -->
+                    <ng-template pTemplate="header">
+                        <div class="bg-primary-50 p-4 lg:p-6 dark:bg-primary-950">
+                            <div class="mb-3 flex items-baseline gap-3">
+                                <p-image
+                                    src="assets/images/icon/tenant.png"
+                                    alt="Tenant Logo"
+                                    width="24"
+                                    height="24"
+                                    styleClass="rounded-full"
+                                />
+                                <h2 class="text-xl font-bold">
+                                    {{ 'tenant.information' | translate }}
+                                </h2>
+                            </div>
+                        </div>
+                    </ng-template>
+
+                    <!-- Content -->
+                    <ng-container>
+                        <ng-container *ngIf="buildingGroup.tenant; else noTenant">
+                            <div class="space-y-4">
+                                <div class="flex items-center gap-3">
+                                    <i class="pi pi-home text-lg text-sky-500"></i>
+                                    <span class="hidden font-semibold lg:block">
+                                        {{ 'tenant.building' | translate }}
+                                    </span>
+                                    <span>{{ buildingGroup.tenant.name || '-' }}</span>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <i class="pi pi-envelope text-lg text-sky-500"></i>
+                                    <span class="hidden font-semibold lg:block">
+                                        {{ 'tenant.email' | translate }}
+                                    </span>
+                                    <span>{{ buildingGroup.tenant.email || '-' }}</span>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <i class="pi pi-phone text-lg text-sky-500"></i>
+                                    <span class="hidden font-semibold lg:block">
+                                        {{ 'tenant.hotline' | translate }}
+                                    </span>
+                                    <span>{{ buildingGroup.tenant.hotline || '-' }}</span>
+                                </div>
+                            </div>
+                        </ng-container>
+                        <ng-template #noTenant>
+                            <div
+                                *ngIf="!pendingInvitation"
+                                class="flex items-center justify-center py-3"
+                            >
+                                <i class="pi pi-exclamation-circle mr-2"></i>
+                                <span>{{ 'tenant.noTenant' | translate }}</span>
+                            </div>
+                            <div *ngIf="pendingInvitation">
+                                {{ 'tenant.pendingInvitation' | translate }}
+                                <span class="font-semibold">{{ pendingInvitation.email }}</span>
+                            </div>
+                        </ng-template>
+                    </ng-container>
+
+                    <!-- Footer -->
+                    <ng-template pTemplate="footer">
+                        <div
+                            *ngIf="userRole === UserRole.ENTERPRISE_OWNER"
+                            class="flex justify-end gap-4 border-t border-gray-200 pt-4"
+                        >
+                            <p-button
+                                *ngIf="buildingGroup.tenant"
+                                label="{{ 'tenant.detail' | translate }}"
+                                icon="pi pi-eye"
+                                severity="primary"
+                                outlined
+                                styleClass="transition-colors duration-200"
+                                (onClick)="navigateToTenantDetail()"
+                            ></p-button>
+                            <p-button
+                                *ngIf="!buildingGroup.tenant && !pendingInvitation"
+                                label="{{ 'tenant.assign' | translate }}"
+                                icon="pi pi-user-plus"
+                                severity="primary"
+                                styleClass=" transition-colors duration-200"
+                                (onClick)="navigateToAssignTenant()"
+                            ></p-button>
+                        </div>
+                    </ng-template>
+                </p-card>
+            </div>
+        </div>
+    </ng-container>
+
+    <table-template
+        [fetch]="fetchActivity"
+        [columns]="cols"
+        [searchOnInit]="false"
+        [captionTemplateRef]="captionTemplateRef"
+        [criteria]="searchCriteria"
+        [triggerSearch]="searchEvent"
+        [triggerClearSelected]="clearSelectedEvent"
+        (selectionChange)="onSelectionChange($event)"
+        [checkbox]="true"
+    />
+</master-layout>
+
 <ng-template #captionTemplateRef>
+    <h6 class="text-primary">
+        {{ 'buildingGroup.enterprise.emission.activity.title' | translate }}
+    </h6>
     <div class="flex flex-col items-end justify-between gap-2 lg:flex-row lg:items-center">
         <p-inputgroup class="max-w-96">
             <input
@@ -214,7 +199,6 @@
             outlined
             [disabled]="!selected || !selected.length"
             (onClick)="confirmDelete()"
-            size="small"
         />
     </div>
 </ng-template>

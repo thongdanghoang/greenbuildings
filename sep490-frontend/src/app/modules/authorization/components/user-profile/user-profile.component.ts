@@ -11,22 +11,19 @@ import {
   Validators
 } from '@angular/forms';
 import {Router} from '@angular/router';
-import {TranslateService} from '@ngx-translate/core';
-import {MultiSelectChangeEvent} from 'primeng/multiselect';
-import {SelectChangeEvent} from 'primeng/select';
-import {takeUntil} from 'rxjs';
-import {UUID} from '../../../../../types/uuid';
-import {AppRoutingConstants} from '../../../../app-routing.constant';
 import {BuildingPermissionRole} from '@models/building-permission-role';
 import {Building} from '@models/enterprise';
 import {BuildingPermission, EnterpriseUserDetails} from '@models/enterprise-user';
 import {UserRole} from '@models/role-names';
 import {UserScope} from '@models/user-scope';
+import {TranslateService} from '@ngx-translate/core';
 import {BuildingService} from '@services/building.service';
 import {EnterpriseUserService} from '@services/enterprise-user.service';
 import {AbstractFormComponent} from '@shared/components/form/abstract-form-component';
-import {SelectableItem} from '@shared/models/base-models';
 import {ToastProvider} from '@shared/services/toast-provider';
+import {takeUntil} from 'rxjs';
+import {UUID} from '../../../../../types/uuid';
+import {AppRoutingConstants} from '../../../../app-routing.constant';
 
 @Component({
   selector: 'app-user-profile',
@@ -59,11 +56,6 @@ export class UserProfileComponent extends AbstractFormComponent<EnterpriseUserDe
     selectedBuildingIds: new FormControl<UUID[]>([], [this.selectedBuildingIdsValidator().bind(this)]),
     enterprisePermission: new FormControl<BuildingPermissionRole | null>(null)
   };
-  protected selectableBuildings: SelectableItem<any>[] = this.buildings.map(building => ({
-    disabled: false,
-    value: building.id,
-    label: building.name
-  }));
 
   constructor(
     httpClient: HttpClient,
@@ -78,58 +70,8 @@ export class UserProfileComponent extends AbstractFormComponent<EnterpriseUserDe
     super(httpClient, formBuilder, notificationService, translate);
   }
 
-  fetchBuilding(): void {
-    this.buildingService
-      .searchBuildings({
-        page: {
-          pageNumber: 0,
-          pageSize: 100
-        }
-      })
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(buildings => {
-        this.buildings = buildings.results;
-        this.updateSelectableBuildings();
-      });
-  }
-
-  updateSelectableBuildings(): void {
-    this.selectableBuildings = this.buildings.map(building => ({
-      disabled: false,
-      value: building.id,
-      label: building.name
-    }));
-  }
-
   back(): void {
     this.location.back();
-  }
-
-  onBuildingSelect(event: MultiSelectChangeEvent): void {
-    const selectedBuildingIds = event.value;
-    const currentBuildingIds = this.buildingPermissions.controls.map(control => control.value.buildingId);
-    const buildingIdsToAdd = selectedBuildingIds.filter((id: UUID): boolean => !currentBuildingIds.includes(id));
-    const buildingIdsToRemove = currentBuildingIds.filter((id: UUID): boolean => !selectedBuildingIds.includes(id));
-    buildingIdsToRemove.forEach(buildingId => {
-      const index = this.buildingPermissions.controls.findIndex(control => control.value.buildingId === buildingId);
-      if (index !== -1) {
-        this.removeBuildingPermission(index);
-      }
-    });
-    buildingIdsToAdd.forEach((buildingId: UUID): void => {
-      this.addBuildingPermission(buildingId);
-    });
-  }
-
-  onEnterprisePermissionChange(event: SelectChangeEvent): void {
-    this.enterpriseUserStructure.buildingPermissions.clear();
-    this.addBuildingPermission(null, event.value);
-  }
-
-  onScopeChange(): void {
-    this.buildingPermissions.clear();
-    this.enterpriseUserStructure.selectedBuildingIds.setValue([]);
-    this.enterpriseUserStructure.enterprisePermission.setValue(null);
   }
 
   get isEdit(): boolean {
@@ -148,24 +90,6 @@ export class UserProfileComponent extends AbstractFormComponent<EnterpriseUserDe
     return this.formGroup.get('buildingPermissions') as FormArray;
   }
 
-  getBuildingName(control: AbstractControl): string {
-    const building = this.buildings.find(b => b.id === control.value.buildingId);
-    return building?.name ?? '';
-  }
-
-  addBuildingPermission(buildingId: UUID | null, role?: keyof typeof BuildingPermissionRole): void {
-    this.buildingPermissions.controls.push(
-      this.formBuilder.group({
-        buildingId: new FormControl(buildingId),
-        role: new FormControl(role, [Validators.required])
-      })
-    );
-  }
-
-  removeBuildingPermission(index: number): void {
-    this.buildingPermissions.removeAt(index);
-  }
-
   override reset(): void {
     if (this.isEdit) {
       return this.initializeData();
@@ -175,7 +99,6 @@ export class UserProfileComponent extends AbstractFormComponent<EnterpriseUserDe
   }
 
   protected initializeData(): void {
-    this.fetchBuilding();
     this.userService
       .getUserOwner()
       .pipe(takeUntil(this.destroy$))
