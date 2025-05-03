@@ -398,6 +398,18 @@
       "deleteWithCount": "删除 ({{count}} 个活动类型"
     },
     "tenant": {
+      "dialogTitle": "租户详情",
+      "name": "租户名称",
+      "profile": "租户信息",
+      "representative": "租户代表",
+      "email": "租户邮箱",
+      "address": "地址",
+      "hotline": "热线电话",
+      "taxCode": "税号",
+      "businessLicenseImageUrl": "营业执照",
+      "representativeName": "代表姓名",
+      "representativePosition": "代表职位",
+      "representativeContact": "代表联系方式",
       "create": {
         "title": "创建新租户",
         "description": "为此建筑创建新租户",

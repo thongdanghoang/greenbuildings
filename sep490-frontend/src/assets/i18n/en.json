@@ -405,6 +405,18 @@
       }
     },
     "tenant": {
+      "dialogTitle": "Tenant Details",
+      "name": "Tenant Name",
+      "profile": "Tenant information",
+      "representative": "Tenant Representative",
+      "email": "Tenant Email",
+      "address": "Address",
+      "hotline": "Hotline",
+      "taxCode": "Tax Code",
+      "businessLicenseImageUrl": "Business License",
+      "representativeName": "Representative Name",
+      "representativePosition": "Representative Position",
+      "representativeContact": "Representative Contact",
       "create": {
         "title": "Create New Tenant",
         "description": "Create a new tenant for this building",

@@ -7,6 +7,12 @@ public record TenantDetailDTO(
         int version,
         String name,
         String email,
-        String hotline
+        String address,
+        String hotline,
+        String taxCode,
+        String businessLicenseImageUrl,
+        String representativeName,
+        String representativePosition,
+        String representativeContact
 ) {
 }
