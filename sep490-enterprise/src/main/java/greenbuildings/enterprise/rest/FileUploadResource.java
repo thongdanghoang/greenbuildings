@@ -1,6 +1,7 @@
 package greenbuildings.enterprise.rest;
 
 import greenbuildings.commons.api.security.UserRole;
+import greenbuildings.enterprise.dtos.FileURLResult;
 import greenbuildings.enterprise.services.MinioService;
 import greenbuildings.enterprise.views.file_upload.BusinessLicenseUploadView;
 import jakarta.annotation.security.RolesAllowed;
@@ -37,6 +38,11 @@ public class FileUploadResource {
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+    
+    @GetMapping("/business-license/url/{name}")
+    public ResponseEntity<FileURLResult> downloadBusinessLicenseUrl(@PathVariable String name) {
+        return ResponseEntity.ok(new FileURLResult(minioService.generatePresignedUrl(BUSINESS_LICENSE_BUCKET, name)));
     }
     
     @PostMapping("/business-license")

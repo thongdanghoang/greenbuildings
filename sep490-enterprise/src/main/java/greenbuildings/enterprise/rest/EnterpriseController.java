@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Objects;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/enterprise")
@@ -40,6 +42,13 @@ public class EnterpriseController {
         var enterpriseId = userContextData.getEnterpriseId().orElseThrow();
         var enterpriseDetail = service.getEnterpriseDetail(enterpriseId);
         return ResponseEntity.ok(enterpriseDetail);
+    }
+    
+    @GetMapping("/search-by-building/{buildingId}")
+    @RolesAllowed({UserRole.RoleNameConstant.TENANT})
+    public ResponseEntity<EnterpriseDetailDTO> getEnterpriseProfile(@PathVariable UUID buildingId) {
+        var enterpriseDetail = service.getEnterpriseDetailByBuildingId(buildingId);
+        return ResponseEntity.ok(mapper.toEnterpriseDetailDTO(enterpriseDetail));
     }
     
     @PutMapping("/profile")

@@ -3,10 +3,12 @@ package greenbuildings.enterprise.services;
 import greenbuildings.commons.api.exceptions.TechnicalException;
 import io.minio.BucketExistsArgs;
 import io.minio.GetObjectArgs;
+import io.minio.GetPresignedObjectUrlArgs;
 import io.minio.MakeBucketArgs;
 import io.minio.MinioClient;
 import io.minio.PutObjectArgs;
 import io.minio.RemoveObjectArgs;
+import io.minio.http.Method;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -101,6 +103,21 @@ public class MinioService {
                                  .build());
         } catch (Exception e) {
             throw new TechnicalException("Failed to get file", e);
+        }
+    }
+    
+    public String generatePresignedUrl(String bucketName, String objectName) {
+        try {
+            return minioClient.getPresignedObjectUrl(
+                    GetPresignedObjectUrlArgs.builder()
+                                             .method(Method.GET)
+                                             .bucket(bucketName)
+                                             .object(objectName)
+                                             .expiry(60 * 10) // 10 minutes
+                                             .build());
+        } catch (Exception e) {
+            log.error("Error generating presigned url for file: {}", objectName, e);
+            throw new TechnicalException("Failed to generate presigned url", e);
         }
     }
     

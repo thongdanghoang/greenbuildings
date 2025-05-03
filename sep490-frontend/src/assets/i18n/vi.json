@@ -170,6 +170,7 @@
   },
   "enterprise": {
     "title": "Doanh nghiệp",
+    "detail": "Chi tiết doanh nghiệp",
     "create": {
       "error": {
         "fileSizeExceeded": "Tệp tin quá lớn",

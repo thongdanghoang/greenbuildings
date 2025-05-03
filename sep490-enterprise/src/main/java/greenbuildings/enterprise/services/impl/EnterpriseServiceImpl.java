@@ -58,4 +58,9 @@ public class EnterpriseServiceImpl implements EnterpriseService {
     public Page<EnterpriseEntity> search(SearchCriteriaDTO<EnterpriseSearchCriteria> searchCriteria, Pageable pageable) {
         return repository.findByCriteria(searchCriteria.criteria().criteria(), pageable);
     }
+    
+    @Override
+    public EnterpriseEntity getEnterpriseDetailByBuildingId(UUID buildingId) {
+        return repository.findByBuidingId(buildingId).orElseThrow();
+    }
 }

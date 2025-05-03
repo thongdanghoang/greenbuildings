@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {TenantDetailDTO} from '@generated/models/tenant-detail-dto';
+import {StorageService} from '@services/storage.service';
 import {TenantService} from '@services/tenant.service';
 import {SubscriptionAwareComponent} from '@shared/directives/subscription-aware.component';
 import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
@@ -18,6 +19,7 @@ export class TenantDetailDialogComponent extends SubscriptionAwareComponent impl
   constructor(
     private readonly ref: DynamicDialogRef,
     protected tenantService: TenantService,
+    protected fileService: StorageService,
     public config: DynamicDialogConfig<UUID>
   ) {
     super();
@@ -45,7 +47,9 @@ export class TenantDetailDialogComponent extends SubscriptionAwareComponent impl
 
   openLicenseUrl(): void {
     if (this.tenant.businessLicenseImageUrl) {
-      window.open(this.tenant.businessLicenseImageUrl, '_blank');
+      this.fileService.getBusinessLicenseUrl(this.tenant.businessLicenseImageUrl).subscribe(rs => {
+        window.open(rs.url, '_blank');
+      });
     }
   }
 }
