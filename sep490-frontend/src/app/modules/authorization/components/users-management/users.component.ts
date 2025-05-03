@@ -96,17 +96,7 @@ export class UsersComponent extends SubscriptionAwareComponent implements OnInit
 
   confirmDelete(): void {
     this.modalProvider
-      .showConfirm({
-        message: this.translate.instant('common.defaultConfirmMessage'),
-        header: this.translate.instant('common.confirmHeader'),
-        icon: 'pi pi-info-circle',
-        acceptButtonStyleClass: 'p-button-danger p-button-text min-w-20',
-        rejectButtonStyleClass: 'p-button-contrast p-button-text min-w-20',
-        acceptIcon: 'none',
-        acceptLabel: this.translate.instant('common.accept'),
-        rejectIcon: 'none',
-        rejectLabel: this.translate.instant('common.reject')
-      })
+      .showDefaultConfirm(undefined)
       .pipe(takeUntil(this.destroy$))
       .subscribe((result: boolean): void => {
         if (result) {

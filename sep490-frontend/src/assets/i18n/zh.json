@@ -990,6 +990,8 @@
     "numberOfCommonActivities": "建筑物内的公共活动数量"
   },
   "tenant": {
+    "unlink": "解除租户关联",
+    "unlinkTenantConfirmMessage": "您确定要解除此租户与建筑群组的关联吗？",
     "building": "这组建筑供租户使用:",
     "email": "租户地址:",
     "hotline": "租户热线电话号码:",
