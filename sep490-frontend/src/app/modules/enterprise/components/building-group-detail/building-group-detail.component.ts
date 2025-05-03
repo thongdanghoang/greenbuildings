@@ -19,6 +19,7 @@ import {takeUntil} from 'rxjs/operators';
 import {UUID} from '../../../../../types/uuid';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
 import {NewActivityDialogComponent} from '../../dialog/new-activity-dialog/new-activity-dialog.component';
+import {TenantDetailDialogComponent} from '../../dialog/tenant-detail-dialog/tenant-detail-dialog.component';
 
 @Component({
   selector: 'app-building-group-detail',
@@ -111,11 +112,16 @@ export class BuildingGroupDetailComponent extends SubscriptionAwareComponent imp
 
   navigateToTenantDetail(): void {
     if (this.buildingGroup.tenant?.id) {
-      // void this.router.navigate([
-      //   AppRoutingConstants.ENTERPRISE_PATH,
-      //   AppRoutingConstants.TENANT_DETAIL_PATH,
-      //   this.buildingGroup.tenant.id
-      // ]);
+      const config: DynamicDialogConfig = {
+        data: this.buildingGroup.tenant.id,
+        closeOnEscape: true,
+        dismissableMask: true,
+        showHeader: true,
+        header: this.translate.instant('enterprise.tenant.dialogTitle'),
+        closable: true,
+        width: '50%'
+      };
+      this.ref = this.dialogService.open(TenantDetailDialogComponent, config);
     }
   }
 

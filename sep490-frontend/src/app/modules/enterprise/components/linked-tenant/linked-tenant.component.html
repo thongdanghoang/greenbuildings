@@ -70,3 +70,16 @@
         </div>
     </div>
 </ng-template>
+
+<ng-template
+    #viewTemplate
+    let-rowData
+>
+    <button
+        pButton
+        type="button"
+        icon="pi pi-eye"
+        class="p-button-rounded p-button-text"
+        (click)="onView(rowData.id)"
+    ></button>
+</ng-template>

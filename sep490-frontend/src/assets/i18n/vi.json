@@ -58,8 +58,8 @@
       },
       "groups": {
         "tenantEmail": "Email không phù hợp cho tác vụ này",
-        "tenantEmailLinked": "Người thuê này đã được liên kết với một nhóm khác trong tòa nhà hiện tại",
-        "tenantEmailPending": "Người thuê này đã có lời mời đang chờ xử lý cho một nhóm khác trong tòa nhà hiện tại",
+        "tenantEmailLinked": "Doanh nghiệp thuê này đã được liên kết với một nhóm khác trong tòa nhà hiện tại",
+        "tenantEmailPending": "Doanh nghiệp thuê này đã có lời mời đang chờ xử lý cho một nhóm khác trong tòa nhà hiện tại",
         "notFound": "Không tìm thấy nhóm tòa nhà"
       },
       "activityType": {
@@ -135,7 +135,7 @@
   "home": {
     "welcome": "Chào mừng đến với Green Building",
     "welcomeEnterprise": "Chào mừng đến với Bảng điều khiển Doanh nghiệp",
-    "welcomeTenant": "Chào mừng đến với Bảng điều khiển Người thuê",
+    "welcomeTenant": "Chào mừng đến với Bảng điều khiển doanh nghiệp thuê",
     "welcomeAdmin": "Chào mừng Quản trị viên hệ thống!",
     "adminDescription": "Truy cập và quản lý người dùng, cấu hình hệ thống và các cài đặt của toàn bộ ứng dụng.",
     "enterpriseDescription": "Quản lý tòa nhà, giám sát khí thải và theo dõi mục tiêu phát triển bền vững tại một nơi.",
@@ -199,12 +199,12 @@
       "role": {
         "buildingOwner": "Chủ tòa nhà",
         "buildingOwnerDesc": "Quản lý toàn bộ tòa nhà, giám sát lượng khí thải, thiết bị, hiệu suất sử dụng.",
-        "tenant": "Người thuê",
+        "tenant": "Doanh nghiệp thuê",
         "tenantDesc": "Theo dõi và quản lý hoạt động, thiết bị, và tiêu thụ năng lượng trong khu vực thuê.",
         "buildingOwnerLabel": "Chủ sở hữu tòa nhà",
-        "buildingOwnerDescription": "Quản lý một hoặc nhiều tòa nhà và có thể mời người thuê tham gia và quản lý các nhóm.",
-        "tenantLabel": "Người thuê",
-        "tenantDescription": "Trở thành người thuê và có thể tham gia tòa nhà theo lời mời. Có quyền truy cập vào các nhóm được chỉ định."
+        "buildingOwnerDescription": "Quản lý một hoặc nhiều tòa nhà và có thể mời doanh nghiệp thuê tham gia và quản lý các nhóm.",
+        "tenantLabel": "Doanh nghiệp thuê",
+        "tenantDescription": "Trở thành doanh nghiệp thuê và có thể tham gia tòa nhà theo lời mời. Có quyền truy cập vào các nhóm được chỉ định."
       },
       "placeholders": {
         "enterName": "Nhập tên doanh nghiệp",
@@ -398,12 +398,24 @@
       "deleteWithCount": "Xóa ({{count}}) loại hoạt động"
     },
     "tenant": {
+      "dialogTitle": "Thông tin doanh nghiệp thuê",
+      "name": "Tên doanh nghiệp thuê",
+      "profile": "Thông tin doanh nghiệp thuê",
+      "representative": "Đại diện doanh nghiệp thuê",
+      "email": "Email doanh nghiệp thuê",
+      "address": "Địa chỉ",
+      "hotline": "Đường dây nóng",
+      "taxCode": "Mã số thuế",
+      "businessLicenseImageUrl": "Giấy phép kinh doanh",
+      "representativeName": "Tên người đại diện",
+      "representativePosition": "Chức vụ người đại diện",
+      "representativeContact": "Liên hệ người đại diện",
       "create": {
-        "title": "Tạo Người Thuê Mới",
-        "description": "Tạo người thuê mới cho tòa nhà này",
-        "name": "Tên Người Thuê",
+        "title": "Tạo doanh nghiệp thuê Mới",
+        "description": "Tạo doanh nghiệp thuê mới cho tòa nhà này",
+        "name": "Tên doanh nghiệp thuê",
         "placeholders": {
-          "name": "Nhập tên người thuê"
+          "name": "Nhập tên doanh nghiệp thuê"
         }
       }
     },
@@ -413,10 +425,10 @@
         "subtitle": "Tạo nhóm tòa nhà mới cho tòa nhà này",
         "name": "Tên Nhóm",
         "description": "Mô tả",
-        "tenant": "Người thuê",
+        "tenant": "Doanh nghiệp thuê",
         "placeholders": {
           "name": "Nhập tên nhóm",
-          "tenant": "Chọn người thuê",
+          "tenant": "Chọn doanh nghiệp thuê",
           "description": "Nhập mô tả"
         }
       }
@@ -507,7 +519,7 @@
       "manageTenant": "Quản lý doanh nghiệp",
       "manageMenu": "Quản lý",
       "account": "Tài khoản",
-      "profile": "Hồ sơ người thuê"
+      "profile": "Hồ sơ doanh nghiệp thuê"
     },
     "basicUser": {
       "welcome": "Chào mừng đến Green Building",
@@ -522,7 +534,7 @@
       "emission": "Hoạt động phát thải",
       "invitation": "Lời mời đã gửi",
       "building": "Tòa nhà",
-      "tenant": "Người thuê",
+      "tenant": "Doanh nghiệp thuê",
       "manage": "Quản lý",
       "users": "Người dùng",
       "activityType": "Loại hoạt động",
@@ -547,7 +559,7 @@
       "emission": "Quản lý Khí thải",
       "accountManagement": "Tài khoản",
       "enterprise": "Doanh nghiệp",
-      "tenant": "Người thuê"
+      "tenant": "Doanh nghiệp thuê"
     }
   },
   "admin": {
@@ -626,10 +638,10 @@
       "description": "Xem và quản lý tất cả tài khoản người dùng đã đăng ký trong hệ thống, bao gồm vai trò và quyền hạn người dùng"
     },
     "enterprise": {
-      "description": "Xem và quản lý tài khoản doanh nghiệp, theo dõi đăng ký tòa nhà và mối quan hệ với người thuê"
+      "description": "Xem và quản lý tài khoản doanh nghiệp, theo dõi đăng ký tòa nhà và mối quan hệ với doanh nghiệp thuê"
     },
     "tenant": {
-      "description": "Xem và quản lý hồ sơ người thuê và tư cách thành viên nhóm tòa nhà của họ trong các doanh nghiệp"
+      "description": "Xem và quản lý hồ sơ doanh nghiệp thuê và tư cách thành viên nhóm tòa nhà của họ trong các doanh nghiệp"
     }
   },
   "dialog": {
@@ -730,7 +742,7 @@
     "features": {
       "title": "Tính năng",
       "mainTitle": "Theo dõi Phát thải Toàn diện",
-      "description": "Nền tảng của chúng tôi cung cấp các công cụ mạnh mẽ cho cả chủ sở hữu tòa nhà và người thuê để giám sát, phân tích và giảm lượng khí thải carbon.",
+      "description": "Nền tảng của chúng tôi cung cấp các công cụ mạnh mẽ cho cả chủ sở hữu tòa nhà và doanh nghiệp thuê để giám sát, phân tích và giảm lượng khí thải carbon.",
       "buildingManagement": {
         "title": "Quản lý Tòa nhà",
         "description": "Bảng điều khiển tập trung cho người quản lý tài sản để giám sát hiệu suất toàn bộ tòa nhà và đặt mục tiêu phát triển bền vững."
@@ -740,8 +752,8 @@
         "description": "Theo dõi dữ liệu phát thải theo thời gian thực với phân tích chi tiết và báo cáo tùy chỉnh để tuân thủ quy định."
       },
       "tenantPortal": {
-        "title": "Cổng thông tin Người thuê",
-        "description": "Giao diện chuyên dụng cho người thuê để giám sát việc sử dụng không gian của họ và đóng góp vào các nỗ lực phát triển bền vững của toàn tòa nhà."
+        "title": "Cổng thông tin doanh nghiệp thuê",
+        "description": "Giao diện chuyên dụng cho doanh nghiệp thuê để giám sát việc sử dụng không gian của họ và đóng góp vào các nỗ lực phát triển bền vững của toàn tòa nhà."
       }
     },
     "footer": {
@@ -944,8 +956,8 @@
     }
   },
   "linkedTenant": {
-    "title": "Người thuê đã liên kết",
-    "description": "Xem và quản lý tất cả người thuê đã kết nối trong doanh nghiệp của bạn đang hợp tác với các tòa nhà của bạn",
+    "title": "Doanh nghiệp thuê đã liên kết",
+    "description": "Xem và quản lý tất cả doanh nghiệp thuê đã kết nối trong doanh nghiệp của bạn đang hợp tác với các tòa nhà của bạn",
     "table": {
       "name": "Tên",
       "email": "Email",
@@ -954,7 +966,7 @@
   },
   "sentInvitation": {
     "title": "Lời mời đã gửi",
-    "description": "Xem và quản lý tất cả các lời mời đã gửi cho người thuê để hợp tác với doanh nghiệp của bạn",
+    "description": "Xem và quản lý tất cả các lời mời đã gửi cho doanh nghiệp thuê để hợp tác với doanh nghiệp của bạn",
     "reject": "Đã từ chối lời mời thành công!",
     "noInvitationsTitle": "Không có lời mời",
     "rejectConfirm": "Bạn có chắc chắn muốn từ chối lời mời này?",
@@ -964,7 +976,7 @@
       "selectBuildingGroup": "Chọn nhóm tòa nhà",
       "building": "Tòa nhà",
       "group": "Nhóm",
-      "email": "Email người thuê",
+      "email": "Email doanh nghiệp thuê",
       "status": "Trạng thái lời mời"
     }
   },
@@ -977,18 +989,18 @@
     "numberOfCommonActivities": "Số hoạt động chung trong tòa nhà"
   },
   "tenant": {
-    "building": "Nhóm tòa này là của người thuê:",
-    "email": "Email của người thuê:",
-    "hotline": "Số điện thoại của người thuê nhà:",
-    "information": "Thông tin người thuê",
-    "detail": "Chi tiết người thuê nhà",
-    "assign": "Chỉ định người thuê",
-    "noTenant": "Chưa có người thuê",
+    "building": "Nhóm tòa này là của doanh nghiệp thuê:",
+    "email": "Email của doanh nghiệp thuê:",
+    "hotline": "Số điện thoại của doanh nghiệp thuê nhà:",
+    "information": "Thông tin doanh nghiệp thuê",
+    "detail": "Chi tiết doanh nghiệp thuê",
+    "assign": "Chỉ định doanh nghiệp thuê",
+    "noTenant": "Chưa có doanh nghiệp thuê",
     "pendingInvitation": "Một lời mời đang chờ xử lý đã được gửi đến: ",
     "profile": {
-      "title": "Hồ sơ người thuê",
-      "description": "Xem và quản lý thông tin người thuê",
-      "name": "Tên người thuê nhà",
+      "title": "Hồ sơ doanh nghiệp thuê",
+      "description": "Xem và quản lý thông tin doanh nghiệp thuê",
+      "name": "Tên doanh nghiệp thuê",
       "email": "Email",
       "hotline": "Hotline"
     }

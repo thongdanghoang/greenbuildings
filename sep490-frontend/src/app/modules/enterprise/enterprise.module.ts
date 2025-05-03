@@ -27,6 +27,7 @@ import {NewActivityDialogComponent} from './dialog/new-activity-dialog/new-activ
 import {NewActivityRecordDialogComponent} from './dialog/new-activity-record-dialog/new-activity-record-dialog.component';
 import {PaymentDetailDialogComponent} from './dialog/payment-detail-dialog/payment-detail-dialog.component';
 import {ReportDialogComponent} from './dialog/report-dialog/report-dialog.component';
+import {TenantDetailDialogComponent} from './dialog/tenant-detail-dialog/tenant-detail-dialog.component';
 import {EnterpriseRoutingModule} from './enterprise-routing.module';
 import {EnterpriseComponent} from './enterprise.component';
 import {MarkerService} from './services/marker.service';
@@ -60,6 +61,7 @@ import {ManageCommonActivityComponent} from './components/manage-common-activity
     PaymentDetailDialogComponent,
     BuildingGroupDetailComponent,
     CreditDeductionHistoryDialogComponent,
+    TenantDetailDialogComponent,
     CreditPackageGuideDialogComponent,
     CreateTenantComponent,
     ManageTenantComponent,
