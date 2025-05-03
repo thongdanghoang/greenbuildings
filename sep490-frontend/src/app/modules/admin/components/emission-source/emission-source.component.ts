@@ -1,8 +1,8 @@
 import {Component, EventEmitter, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {DialogService, DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
-import {Observable} from 'rxjs';
+import {Observable, switchMap} from 'rxjs';
 import {UUID} from '../../../../../types/uuid';
-import {EmissionSource} from '@models/enterprise';
+import {EmissionSource, ExcelImportDTO} from '@models/enterprise';
 import {ApplicationService} from '@services/application.service';
 import {SubscriptionAwareComponent} from '@shared/directives/subscription-aware.component';
 import {TableTemplateColumn} from '@shared/components/table-template/table-template.component';
@@ -24,6 +24,7 @@ export class EmissionSourceComponent extends SubscriptionAwareComponent implemen
   actionsTemplate!: TemplateRef<any>;
   ref: DynamicDialogRef | undefined;
   isLoading: boolean = false;
+  importExcelDTO: ExcelImportDTO | undefined;
   protected fetchEmissionSource!: (
     criteria: SearchCriteriaDto<EmissionSourceCriteria>
   ) => Observable<SearchResultDto<EmissionSource>>;
@@ -69,6 +70,64 @@ export class EmissionSourceComponent extends SubscriptionAwareComponent implemen
         });
       }
     });
+  }
+
+  uploadExcelToMinio(event: any): void {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    this.isLoading = true;
+    this.emissionSourceService.uploadExcelToMinio(file).subscribe({
+      next: () => {
+        this.isLoading = false;
+        this.messageService.success({
+          severity: 'success',
+          summary: 'Thành công',
+          detail: `Tệp Excel đã được tải lên MinIO`
+        });
+        this.search(); // Refresh lại table
+      },
+      error: err => {
+        this.isLoading = false;
+        this.messageService.businessError({
+          severity: 'error',
+          summary: 'Lỗi',
+          detail: `Tải lên thất bại: ${err.message}`
+        });
+      }
+    });
+  }
+
+  onDownloadFile(): void {
+    this.emissionSourceService
+      .getExcelImportDTO()
+      .pipe(
+        switchMap((data: ExcelImportDTO) => {
+          this.importExcelDTO = data;
+
+          if (!this.importExcelDTO?.fileName) {
+            throw new Error('Không tìm thấy thông tin tệp để tải xuống');
+          }
+
+          return this.emissionSourceService.getFile();
+        })
+      )
+      .subscribe({
+        next: (fileData: Blob) => {
+          const link = document.createElement('a');
+          link.href = URL.createObjectURL(fileData);
+          link.download = this.importExcelDTO!.fileName;
+          link.click();
+          URL.revokeObjectURL(link.href);
+        },
+        error: err => {
+          this.messageService.businessError({
+            severity: 'error',
+            summary: 'Lỗi',
+            detail: err.message || 'Tải tệp thất bại'
+          });
+        }
+      });
   }
 
   buildCols(): void {

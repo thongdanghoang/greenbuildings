@@ -62,8 +62,32 @@
             outlined
             (onClick)="addEmissionSource()"
         />
+        <p-button
+            severity="secondary"
+            [label]="'admin.emissionSource.uploadToMinio' | translate"
+            icon="pi pi-upload"
+            outlined
+            (onClick)="fileInput.click()"
+            size="small"
+        />
+        <input
+            #fileInput
+            type="file"
+            accept=".xlsx"
+            style="display: none"
+            (change)="uploadExcelToMinio($event)"
+        />
+        <p-button
+            severity="secondary"
+            [label]="'admin.emissionSource.downloadFile' | translate"
+            icon="pi pi-download"
+            outlined
+            (onClick)="onDownloadFile()"
+            size="small"
+        />
     </div>
 </ng-template>
+
 <ng-template
     #actionsTemplate
     let-rowData

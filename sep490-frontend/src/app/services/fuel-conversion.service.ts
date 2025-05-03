@@ -5,6 +5,7 @@ import {SearchCriteriaDto, SearchResultDto} from '@shared/models/base-models';
 import {Observable} from 'rxjs';
 import {AppRoutingConstants} from '../app-routing.constant';
 import {FuelConversionCriteria} from '../modules/admin/components/fuel-conversion/fuel-conversion.component';
+import {ExcelImportDTO} from '@models/enterprise';
 
 @Injectable({
   providedIn: 'root'
@@ -28,5 +29,34 @@ export class FuelConversionService {
   }
   public get createOrUpdateFuelConversionURL(): string {
     return `${AppRoutingConstants.ENTERPRISE_API_URL}/energy-conversion`;
+  }
+
+  public importFuelExcel(file: File): Observable<void> {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    return this.httpClient.post<void>(`${AppRoutingConstants.ENTERPRISE_API_URL}/energy-conversion/excel`, formData);
+  }
+
+  getFile(): Observable<Blob> {
+    return this.httpClient.get(`${AppRoutingConstants.ENTERPRISE_API_URL}/energy-conversion/excel`, {
+      responseType: 'blob'
+    });
+  }
+
+  public getExcelImportDTO(): Observable<ExcelImportDTO> {
+    return this.httpClient.get<ExcelImportDTO>(
+      `${AppRoutingConstants.ENTERPRISE_API_URL}/energy-conversion/excel-import`
+    );
+  }
+
+  public uploadExcelToMinio(file: File): Observable<void> {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    return this.httpClient.post<void>(
+      `${AppRoutingConstants.ENTERPRISE_API_URL}/energy-conversion/upload-excel`,
+      formData
+    );
   }
 }

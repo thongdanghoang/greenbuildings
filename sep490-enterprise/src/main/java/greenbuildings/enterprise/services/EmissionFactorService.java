@@ -3,8 +3,10 @@ package greenbuildings.enterprise.services;
 import greenbuildings.commons.api.dto.SearchCriteriaDTO;
 import greenbuildings.enterprise.dtos.EmissionFactorCriteriaDTO;
 import greenbuildings.enterprise.entities.EmissionFactorEntity;
+import greenbuildings.enterprise.entities.ExcelImportFileEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,4 +26,10 @@ public interface EmissionFactorService {
     Optional<EmissionFactorEntity> findById(UUID id);
     
     void createOrUpdate(EmissionFactorEntity factor);
+
+    void importFactorFromExcel(MultipartFile file);
+
+    void uploadExcelToMinio(MultipartFile file);
+
+    ExcelImportFileEntity getExcelImportFile();
 }

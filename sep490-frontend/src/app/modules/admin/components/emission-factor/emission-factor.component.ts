@@ -1,7 +1,7 @@
 import {Component, EventEmitter, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {DialogService, DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
-import {Observable} from 'rxjs';
+import {Observable, switchMap} from 'rxjs';
 import {UUID} from '../../../../../types/uuid';
 import {ApplicationService} from '@services/application.service';
 import {SubscriptionAwareComponent} from '@shared/directives/subscription-aware.component';
@@ -11,6 +11,7 @@ import {EmissionFactorDTO, EmissionSourceDTO, FuelDTO} from '@models/shared-mode
 import {ToastProvider} from '@shared/services/toast-provider';
 import {EmissionFactorDialogComponent} from '../../dialog/emission-factor-dialog/emission-factor-dialog.component';
 import {EmissionFactorService} from '@services/emission_factor.service';
+import {ExcelImportDTO} from '@models/enterprise';
 
 export interface EmissionFactorCriteria {
   criteria: string;
@@ -36,6 +37,8 @@ export class EmissionFactorComponent extends SubscriptionAwareComponent implemen
   @ViewChild('isDirectEmissionTemplate', {static: true})
   isDirectEmissionTemplate!: TemplateRef<any>; // New template reference
   ref: DynamicDialogRef | undefined;
+  isLoading: boolean = false;
+  importExcelDTO: ExcelImportDTO | undefined;
   protected fetchEmissionFactor!: (
     criteria: SearchCriteriaDto<EmissionFactorCriteria>
   ) => Observable<SearchResultDto<EmissionFactorDTO>>;
@@ -67,6 +70,90 @@ export class EmissionFactorComponent extends SubscriptionAwareComponent implemen
     }
 
     return (source[`name${lang}` as keyof EmissionSourceDTO] as string) || source.nameEN;
+  }
+
+  uploadExcel(event: any): void {
+    const file = event.files[0];
+    if (!file) return;
+
+    this.isLoading = true;
+    this.emissionFactorService.importEmissionFactorExcel(file).subscribe({
+      next: () => {
+        this.isLoading = false;
+        this.messageService.success({
+          severity: 'success',
+          summary: 'Thành công',
+          detail: 'Import dữ liệu thành công'
+        });
+        this.search(); // Refresh lại table
+      },
+      error: err => {
+        this.isLoading = false;
+        this.messageService.businessError({
+          severity: 'error',
+          summary: 'Lỗi',
+          detail: `Import thất bại: ${err.message}`
+        });
+      }
+    });
+  }
+
+  uploadExcelToMinio(event: any): void {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    this.isLoading = true;
+    this.emissionFactorService.uploadExcelToMinio(file).subscribe({
+      next: () => {
+        this.isLoading = false;
+        this.messageService.success({
+          severity: 'success',
+          summary: 'Thành công',
+          detail: `Tệp Excel đã được tải lên MinIO`
+        });
+        this.search(); // Refresh lại table
+      },
+      error: err => {
+        this.isLoading = false;
+        this.messageService.businessError({
+          severity: 'error',
+          summary: 'Lỗi',
+          detail: `Tải lên thất bại: ${err.message}`
+        });
+      }
+    });
+  }
+
+  onDownloadFile(): void {
+    this.emissionFactorService
+      .getExcelImportDTO()
+      .pipe(
+        switchMap((data: ExcelImportDTO) => {
+          this.importExcelDTO = data;
+
+          if (!this.importExcelDTO?.fileName) {
+            throw new Error('Không tìm thấy thông tin tệp để tải xuống');
+          }
+
+          return this.emissionFactorService.getFile();
+        })
+      )
+      .subscribe({
+        next: (fileData: Blob) => {
+          const link = document.createElement('a');
+          link.href = URL.createObjectURL(fileData);
+          link.download = this.importExcelDTO!.fileName;
+          link.click();
+          URL.revokeObjectURL(link.href);
+        },
+        error: err => {
+          this.messageService.businessError({
+            severity: 'error',
+            summary: 'Lỗi',
+            detail: err.message || 'Tải tệp thất bại'
+          });
+        }
+      });
   }
 
   getLocalizedFuelName(source: FuelDTO | undefined): string {
