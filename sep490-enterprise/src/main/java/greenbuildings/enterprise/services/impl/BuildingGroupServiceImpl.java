@@ -143,4 +143,12 @@ public class BuildingGroupServiceImpl implements BuildingGroupService {
                                                       .build();
         invitationRepository.save(invitation);
     }
+    
+    @Override
+    public void unlinkTenant(UUID groupId) {
+        BuildingGroupEntity buildingGroupEntity = buildingGroupRepository.findById(groupId).orElseThrow();
+        buildingGroupEntity.setTenant(null);
+        // TODO: send mail to tenant
+        buildingGroupRepository.save(buildingGroupEntity);
+    }
 } 

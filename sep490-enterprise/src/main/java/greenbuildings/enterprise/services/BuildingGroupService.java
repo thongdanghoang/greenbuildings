@@ -39,4 +39,6 @@ public interface BuildingGroupService {
     BuildingGroupEntity create(BuildingGroupEntity buildingGroupEntity);
     
     void inviteTenant(InviteTenantToBuildingGroup dto);
+    
+    void unlinkTenant(UUID groupId);
 }

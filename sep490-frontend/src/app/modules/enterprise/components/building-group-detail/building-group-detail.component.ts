@@ -155,7 +155,12 @@ export class BuildingGroupDetailComponent extends SubscriptionAwareComponent imp
       .pipe(takeUntil(this.destroy$))
       .subscribe((result: boolean): void => {
         if (result) {
-          // handle result
+          this.buildingGroupService.unlinkTenant(this.buildingGroup.id).subscribe(() => {
+            this.msgService.success({
+              summary: this.translate.instant('common.success')
+            });
+            this.fetchBuildingGroupDetails();
+          });
         }
       });
   }
