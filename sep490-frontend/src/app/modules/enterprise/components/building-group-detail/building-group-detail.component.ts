@@ -18,6 +18,7 @@ import {Observable} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {UUID} from '../../../../../types/uuid';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
+import {EnterpriseDetailDialogComponent} from '../../dialog/enteprise-detail-dialog/enterprise-detail-dialog.component';
 import {NewActivityDialogComponent} from '../../dialog/new-activity-dialog/new-activity-dialog.component';
 import {TenantDetailDialogComponent} from '../../dialog/tenant-detail-dialog/tenant-detail-dialog.component';
 
@@ -122,6 +123,21 @@ export class BuildingGroupDetailComponent extends SubscriptionAwareComponent imp
         width: '50%'
       };
       this.ref = this.dialogService.open(TenantDetailDialogComponent, config);
+    }
+  }
+
+  navigateToEnterpriseDetail(): void {
+    if (this.buildingGroup.building?.id) {
+      const config: DynamicDialogConfig = {
+        data: this.buildingGroup.building.id,
+        closeOnEscape: true,
+        dismissableMask: true,
+        showHeader: true,
+        header: this.translate.instant('enterprise.tenant.dialogTitle'),
+        closable: true,
+        width: '50%'
+      };
+      this.ref = this.dialogService.open(EnterpriseDetailDialogComponent, config);
     }
   }
 

@@ -171,6 +171,7 @@
   },
   "enterprise": {
     "title": "Enterprise",
+    "detail": "Enterprise Details",
     "create": {
       "error": {
         "fileSizeExceeded": "File size exceeded",

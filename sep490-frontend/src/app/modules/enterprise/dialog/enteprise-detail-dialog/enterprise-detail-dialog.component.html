@@ -1,60 +1,60 @@
-<div *ngIf="tenant">
+<div *ngIf="enterprise">
     <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
         <div>
-            <h2 class="mb-4 text-xl font-semibold text-primary">{{ 'enterprise.tenant.profile' | translate }}</h2>
+            <h2 class="mb-4 text-xl font-semibold text-primary">{{ 'enterprise.create.title' | translate }}</h2>
             <p-iftalabel class="my-2 block">
                 <input
                     pInputText
-                    [(ngModel)]="tenant.name"
+                    [(ngModel)]="enterprise.name"
                     class="w-full"
                     readonly
                     autocomplete="off"
                 />
-                <label>{{ 'enterprise.tenant.name' | translate }}</label>
+                <label>{{ 'enterprise.create.name' | translate }}</label>
             </p-iftalabel>
 
             <p-iftalabel class="my-2 block">
                 <input
                     pInputText
-                    [(ngModel)]="tenant.email"
+                    [(ngModel)]="enterprise.enterpriseEmail"
                     class="w-full"
                     readonly
                     autocomplete="off"
                 />
-                <label>{{ 'enterprise.tenant.email' | translate }}</label>
+                <label>{{ 'enterprise.create.email' | translate }}</label>
             </p-iftalabel>
 
             <p-iftalabel class="my-2 block">
                 <input
                     pInputText
-                    [(ngModel)]="tenant.hotline"
+                    [(ngModel)]="enterprise.hotline"
                     class="w-full"
                     readonly
                     autocomplete="off"
                 />
-                <label>{{ 'enterprise.tenant.phone' | translate }}</label>
+                <label>{{ 'enterprise.create.hotline' | translate }}</label>
             </p-iftalabel>
 
             <p-iftalabel class="my-2 block">
                 <input
                     pInputText
-                    [(ngModel)]="tenant.address"
+                    [(ngModel)]="enterprise.address"
                     class="w-full"
                     readonly
                     autocomplete="off"
                 />
-                <label>{{ 'enterprise.tenant.address' | translate }}</label>
+                <label>{{ 'enterprise.create.address' | translate }}</label>
             </p-iftalabel>
 
             <p-iftalabel class="my-2 block">
                 <input
                     pInputText
-                    [(ngModel)]="tenant.taxCode"
+                    [(ngModel)]="enterprise.taxCode"
                     class="w-full"
                     readonly
                     autocomplete="off"
                 />
-                <label>{{ 'enterprise.tenant.taxCode' | translate }}</label>
+                <label>{{ 'enterprise.create.taxCode' | translate }}</label>
             </p-iftalabel>
 
             <p-iftalabel
@@ -63,13 +63,13 @@
             >
                 <input
                     pInputText
-                    [value]="tenant.businessLicenseImageUrl"
+                    [value]="enterprise.businessLicenseImageUrl"
                     class="w-full cursor-pointer text-primary"
                     readonly
                     autocomplete="off"
                 />
                 <label
-                    >{{ 'enterprise.tenant.businessLicenseImageUrl' | translate }}
+                    >{{ 'enterprise.create.businessLicenseImageUrl' | translate }}
                     <i class="pi pi-external-link text-sm"></i
                 ></label>
             </p-iftalabel>
@@ -77,39 +77,39 @@
 
         <div>
             <h2 class="mb-4 text-xl font-semibold text-primary">
-                {{ 'enterprise.tenant.representative' | translate }}
+                {{ 'enterprise.create.representative' | translate }}
             </h2>
             <p-iftalabel class="my-2 block">
                 <input
                     pInputText
-                    [(ngModel)]="tenant.representativeName"
+                    [(ngModel)]="enterprise.representativeName"
                     class="w-full"
                     readonly
                     autocomplete="off"
                 />
-                <label>{{ 'enterprise.tenant.representativeName' | translate }}</label>
+                <label>{{ 'enterprise.create.representativeName' | translate }}</label>
             </p-iftalabel>
 
             <p-iftalabel class="my-2 block">
                 <input
                     pInputText
-                    [(ngModel)]="tenant.representativePosition"
+                    [(ngModel)]="enterprise.representativePosition"
                     class="w-full"
                     readonly
                     autocomplete="off"
                 />
-                <label>{{ 'enterprise.tenant.representativePosition' | translate }}</label>
+                <label>{{ 'enterprise.create.representativePosition' | translate }}</label>
             </p-iftalabel>
 
             <p-iftalabel class="my-2 block">
                 <input
                     pInputText
-                    [(ngModel)]="tenant.representativeContact"
+                    [(ngModel)]="enterprise.representativeContact"
                     class="w-full"
                     readonly
                     autocomplete="off"
                 />
-                <label>{{ 'enterprise.tenant.representativeContact' | translate }}</label>
+                <label>{{ 'enterprise.create.representativeContact' | translate }}</label>
             </p-iftalabel>
         </div>
     </div>

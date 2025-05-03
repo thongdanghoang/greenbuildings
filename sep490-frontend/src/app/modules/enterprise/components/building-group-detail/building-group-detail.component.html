@@ -52,11 +52,13 @@
                         <div class="flex justify-between border-t pt-4">
                             <ng-container *ngIf="userRole === UserRole.TENANT; else spacer">
                                 <p-button
-                                    label="{{ 'buildingGroup.enterprise.emission.activity.new' | translate }}"
-                                    icon="pi pi-plus"
+                                    *ngIf="buildingGroup.tenant"
+                                    label="{{ 'enterprise.detail' | translate }}"
+                                    icon="pi pi-eye"
                                     severity="primary"
+                                    outlined
                                     styleClass="transition-colors duration-200"
-                                    (onClick)="openNewActivityDialog()"
+                                    (onClick)="navigateToEnterpriseDetail()"
                                 ></p-button>
                             </ng-container>
                             <ng-template #spacer>

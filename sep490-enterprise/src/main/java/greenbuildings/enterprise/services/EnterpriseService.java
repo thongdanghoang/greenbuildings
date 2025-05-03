@@ -22,4 +22,6 @@ public interface EnterpriseService {
     void updateEnterpriseDetail(EnterpriseDetailDTO dto);
     
     Page<EnterpriseEntity> search(SearchCriteriaDTO<EnterpriseSearchCriteria> searchCriteria, Pageable pageable);
+    
+    EnterpriseEntity getEnterpriseDetailByBuildingId(UUID buildingId);
 }

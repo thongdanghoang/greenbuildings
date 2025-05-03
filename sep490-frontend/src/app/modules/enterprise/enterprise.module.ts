@@ -35,6 +35,7 @@ import {PopupService} from './services/popup.service';
 import {RegionService} from './services/region.service';
 import {LinkedTenantComponent} from './components/linked-tenant/linked-tenant.component';
 import {ManageCommonActivityComponent} from './components/manage-common-activity/manage-common-activity.component';
+import {EnterpriseDetailDialogComponent} from './dialog/enteprise-detail-dialog/enterprise-detail-dialog.component';
 
 @NgModule({
   declarations: [
@@ -68,7 +69,8 @@ import {ManageCommonActivityComponent} from './components/manage-common-activity
     SentInvitationComponent,
     TenantProfileComponent,
     LinkedTenantComponent,
-    ManageCommonActivityComponent
+    ManageCommonActivityComponent,
+    EnterpriseDetailDialogComponent
   ],
   imports: [SharedModule, EnterpriseRoutingModule],
   providers: [MarkerService, PopupService, RegionService]

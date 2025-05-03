@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Repository
 public interface EnterpriseRepository extends AbstractBaseRepository<EnterpriseEntity> {
@@ -21,4 +22,12 @@ public interface EnterpriseRepository extends AbstractBaseRepository<EnterpriseE
                OR LOWER(e.hotline) LIKE LOWER(CONCAT('%', :criteria, '%'))
             """)
     Page<EnterpriseEntity> findByCriteria(String criteria, Pageable pageable);
+    
+    @Query("""
+        SELECT e
+            FROM EnterpriseEntity e
+            JOIN BuildingEntity b on b.enterprise.id = e.id
+            WHERE b.id = :id
+    """)
+    Optional<EnterpriseEntity> findByBuidingId(UUID id);
 }

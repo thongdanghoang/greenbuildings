@@ -12,6 +12,12 @@ export interface EnterpriseDetailDTO {
   id?: string;
   version?: number;
   name?: string;
-  email?: string;
+  enterpriseEmail?: string;
   hotline?: string;
+  address?: string;
+  taxCode?: string;
+  businessLicenseImageUrl?: string;
+  representativeName?: string;
+  representativePosition?: string;
+  representativeContact?: string;
 }
