@@ -121,4 +121,4 @@ public class BuildingGroupController extends AbstractRestController {
         buildingGroupService.unlinkTenant(groupId);
         return ResponseEntity.noContent().build();
     }
-} 
+}

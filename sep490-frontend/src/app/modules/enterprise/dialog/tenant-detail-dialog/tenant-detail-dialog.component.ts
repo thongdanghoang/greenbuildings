@@ -47,8 +47,12 @@ export class TenantDetailDialogComponent extends SubscriptionAwareComponent impl
 
   openLicenseUrl(): void {
     if (this.tenant.businessLicenseImageUrl) {
-      this.fileService.getBusinessLicenseUrl(this.tenant.businessLicenseImageUrl).subscribe(rs => {
-        window.open(rs.url, '_blank');
+      this.fileService.downloadBusinessLicense(this.tenant.businessLicenseImageUrl).subscribe((fileData: Blob) => {
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(fileData);
+        link.download = this.tenant.businessLicenseImageUrl as string;
+        link.click();
+        URL.revokeObjectURL(link.href);
       });
     }
   }
