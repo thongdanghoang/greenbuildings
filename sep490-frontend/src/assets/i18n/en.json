@@ -997,6 +997,8 @@
     "numberOfCommonActivities": "Number of common activities in building"
   },
   "tenant": {
+    "unlink": "Unlink this tenant",
+    "unlinkTenantConfirmMessage": "Are you sure you want to unlink this tenant from the building group?",
     "building": "This group of buildings is for tenants:",
     "email": "Tenant's email:",
     "hotline": "Tenant hotline number:",

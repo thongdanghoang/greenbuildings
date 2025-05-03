@@ -990,6 +990,8 @@
     "numberOfCommonActivities": "Số hoạt động chung trong tòa nhà"
   },
   "tenant": {
+    "unlink": "Hủy liên kết doanh nghiệp",
+    "unlinkTenantConfirmMessage": "Bạn có chắc chắn muốn hủy liên kết doanh nghiệp này khỏi nhóm?",
     "building": "Nhóm tòa này là của doanh nghiệp thuê:",
     "email": "Email của doanh nghiệp thuê:",
     "hotline": "Số điện thoại của doanh nghiệp thuê nhà:",

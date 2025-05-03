@@ -143,9 +143,18 @@
 
                     <!-- Footer -->
                     <ng-template pTemplate="footer">
-                        <div class="flex justify-end gap-4 border-t border-gray-200 pt-4">
+                        <div
+                            *ngIf="buildingGroup.tenant"
+                            class="flex justify-between gap-4 border-t border-gray-200 pt-4"
+                        >
                             <p-button
-                                *ngIf="buildingGroup.tenant"
+                                label="{{ 'tenant.unlink' | translate }}"
+                                icon="pi pi-times-circle"
+                                severity="danger"
+                                styleClass="transition-colors duration-200"
+                                (onClick)="unlinkTenant()"
+                            ></p-button>
+                            <p-button
                                 label="{{ 'tenant.detail' | translate }}"
                                 icon="pi pi-eye"
                                 severity="primary"
@@ -153,8 +162,12 @@
                                 styleClass="transition-colors duration-200"
                                 (onClick)="navigateToTenantDetail()"
                             ></p-button>
+                        </div>
+                        <div
+                            *ngIf="!buildingGroup.tenant && !pendingInvitation"
+                            class="flex justify-end gap-4 border-t border-gray-200 pt-4"
+                        >
                             <p-button
-                                *ngIf="!buildingGroup.tenant && !pendingInvitation"
                                 label="{{ 'tenant.assign' | translate }}"
                                 icon="pi pi-user-plus"
                                 severity="primary"
