@@ -1,131 +1,119 @@
-<div class="sm:px-5">
-    <div class="mb-3">
-        <p-button
-            icon="pi pi-arrow-left"
-            [label]="'common.back' | translate"
-            severity="primary"
-            outlined="true"
-            [routerLink]="['/']"
-        ></p-button>
-    </div>
-    <h1 class="text-lg font-bold">
-        {{ 'account.title' | translate }}
-    </h1>
-</div>
-
-<form
-    [formGroup]="formGroup"
-    class="py-5 sm:mt-5 sm:px-5"
->
-    <!-- Email -->
-    <div
-        class="my-3 grid grid-cols-12 items-center gap-2 sm:gap-4"
-        errorMessages
+<master-layout title="account.title">
+    <form
+        [formGroup]="formGroup"
+        unsavedChanges
+        id="accountInformationForm"
     >
-        <label
-            for="email"
-            class="col-span-12 font-normal sm:col-span-3"
-            >{{ 'account.email' | translate }}</label
+        <!-- Email -->
+        <div
+            class="my-3 grid grid-cols-12 items-baseline gap-2 sm:gap-4"
+            errorMessages
         >
-        <div class="col-span-12 sm:col-span-6">
-            <input
-                formControlName="email"
-                class="w-full"
-                type="text"
-                id="email"
-                pInputText
-                [placeholder]="'account.placeholders.enterEmail' | translate"
-            />
-            <form-field-error></form-field-error>
+            <label
+                for="email"
+                class="col-span-12 font-normal sm:col-span-3"
+                >{{ 'account.email' | translate }}</label
+            >
+            <div class="col-span-12 sm:col-span-6">
+                <input
+                    formControlName="email"
+                    class="w-full"
+                    type="text"
+                    id="email"
+                    pInputText
+                    [placeholder]="'account.placeholders.enterEmail' | translate"
+                />
+                <form-field-error></form-field-error>
+            </div>
         </div>
-    </div>
 
-    <!-- First Name -->
-    <div
-        class="my-3 grid grid-cols-12 items-center gap-2 sm:gap-4"
-        errorMessages
-    >
-        <label
-            for="firstName"
-            class="col-span-12 font-normal sm:col-span-3"
-            >{{ 'account.firstName' | translate }}</label
+        <!-- First Name -->
+        <div
+            class="my-3 grid grid-cols-12 items-baseline gap-2 sm:gap-4"
+            errorMessages
         >
-        <div class="col-span-12 sm:col-span-6">
-            <input
-                formControlName="firstName"
-                class="w-full"
-                type="text"
-                id="firstName"
-                pInputText
-                [placeholder]="'account.placeholders.enterFirstName' | translate"
-            />
-            <form-field-error></form-field-error>
+            <label
+                for="firstName"
+                class="col-span-12 font-normal sm:col-span-3"
+                >{{ 'account.firstName' | translate }}</label
+            >
+            <div class="col-span-12 sm:col-span-6">
+                <input
+                    formControlName="firstName"
+                    class="w-full"
+                    type="text"
+                    id="firstName"
+                    pInputText
+                    [placeholder]="'account.placeholders.enterFirstName' | translate"
+                />
+                <form-field-error></form-field-error>
+            </div>
         </div>
-    </div>
 
-    <!-- Last Name -->
-    <div
-        class="my-3 grid grid-cols-12 items-center gap-2 sm:gap-4"
-        errorMessages
-    >
-        <label
-            for="lastName"
-            class="col-span-12 font-normal sm:col-span-3"
-            >{{ 'account.lastName' | translate }}</label
+        <!-- Last Name -->
+        <div
+            class="my-3 grid grid-cols-12 items-baseline gap-2 sm:gap-4"
+            errorMessages
         >
-        <div class="col-span-12 sm:col-span-6">
-            <input
-                formControlName="lastName"
-                class="w-full"
-                type="text"
-                id="lastName"
-                pInputText
-                [placeholder]="'account.placeholders.enterLastName' | translate"
-            />
-            <form-field-error></form-field-error>
+            <label
+                for="lastName"
+                class="col-span-12 font-normal sm:col-span-3"
+                >{{ 'account.lastName' | translate }}</label
+            >
+            <div class="col-span-12 sm:col-span-6">
+                <input
+                    formControlName="lastName"
+                    class="w-full"
+                    type="text"
+                    id="lastName"
+                    pInputText
+                    [placeholder]="'account.placeholders.enterLastName' | translate"
+                />
+                <form-field-error></form-field-error>
+            </div>
         </div>
-    </div>
 
-    <!-- Phone -->
-    <div
-        class="my-3 grid grid-cols-12 items-center gap-2 sm:gap-4"
-        errorMessages
-    >
-        <label
-            for="phone"
-            class="col-span-12 font-normal sm:col-span-3"
-            >{{ 'account.phone' | translate }}</label
+        <!-- Phone -->
+        <div
+            class="my-3 grid grid-cols-12 items-baseline gap-2 sm:gap-4"
+            errorMessages
         >
-        <div class="col-span-12 sm:col-span-6">
-            <input
-                formControlName="phone"
-                class="w-full"
-                type="text"
-                id="phone"
-                pInputText
-                [placeholder]="'account.placeholders.enterPhone' | translate"
-            />
-            <form-field-error></form-field-error>
+            <label
+                for="phone"
+                class="col-span-12 font-normal sm:col-span-3"
+                >{{ 'account.phone' | translate }}</label
+            >
+            <div class="col-span-12 sm:col-span-6">
+                <input
+                    formControlName="phone"
+                    class="w-full"
+                    type="text"
+                    id="phone"
+                    pInputText
+                    [placeholder]="'account.placeholders.enterPhone' | translate"
+                />
+                <form-field-error></form-field-error>
+            </div>
         </div>
-    </div>
 
-    <!-- Buttons -->
-    <div class="flex justify-end gap-4 *:min-w-24 sm:justify-start">
-        <!-- Save Button -->
-        <p-button
-            [label]="'common.save' | translate"
-            styleClass="w-full"
-            severity="primary"
-            [disabled]="disableSubmitButton"
-            (onClick)="submit()"
-        ></p-button>
+        <!-- Buttons -->
+        <div class="flex justify-end gap-4 *:min-w-24 sm:justify-start">
+            <!-- Save Button -->
+            <p-button
+                [label]="'common.save' | translate"
+                styleClass="w-full"
+                severity="primary"
+                [disabled]="disableSubmitButton"
+                (onClick)="submit()"
+            ></p-button>
 
-        <!-- Revert Button -->
-        <p-button
-            [label]="'common.revert' | translate"
-            styleClass="w-full"
-            severity="secondary"
-            (onClick)="revert()"
-        ></p-button>
-    </div>
-</form>
+            <!-- Revert Button -->
+            <p-button
+                [label]="'common.revert' | translate"
+                styleClass="w-full"
+                severity="secondary"
+                (onClick)="revert()"
+            ></p-button>
+        </div>
+    </form>
+</master-layout>

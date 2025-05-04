@@ -25,58 +25,82 @@
         </div>
     </div>
 
+    <ng-container *ngFor="let invitation of invitations">
+        <ng-container *ngTemplateOutlet="buildingGroupTemplate; context: {$implicit: invitation}"></ng-container>
+    </ng-container>
+</master-layout>
+
+<ng-template
+    #buildingGroupTemplate
+    let-invitation
+>
     <div
-        class="mt-4"
-        *ngFor="let invitation of invitations"
+        class="rounded border-t-2 shadow *:w-full"
+        [ngClass]="{
+            'border-t-yellow-500': invitation.status === 'PENDING',
+            'border-t-green-500': invitation.status === 'ACCEPTED',
+            'border-t-red-500': invitation.status === 'REJECTED'
+        }"
     >
-        <div class="rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-800 dark:bg-black">
-            <h2 class="mb-2 text-xl font-semibold text-gray-800 dark:text-gray-100">
-                Invitation to: {{ invitation.buildingGroup.name }}
-            </h2>
-
-            <p class="text-sm text-gray-600 dark:text-gray-300">
-                <span class="font-medium">Building:</span>
-                {{ invitation.buildingGroup.building.name }}
-            </p>
-            <p class="text-sm text-gray-600 dark:text-gray-300">
-                <span class="font-medium">Address:</span>
-                {{ invitation.buildingGroup.building.address }}
-            </p>
-            <p class="text-sm text-gray-600 dark:text-gray-300">
-                <span class="font-medium">Group:</span>
-                {{ invitation.buildingGroup.name }}
-            </p>
-            <p class="mb-4 text-sm text-gray-600 dark:text-gray-300">
-                <span class="font-medium">Status:</span>
-                <span
-                    [ngClass]="{
-                        'text-yellow-600': invitation.status === 'PENDING',
-                        'text-green-600': invitation.status === 'ACCEPTED',
-                        'text-red-600': invitation.status === 'REJECTED'
-                    }"
-                >
-                    {{ invitation.status }}
-                </span>
-            </p>
-
-            <!-- Buttons only for PENDING invitations -->
-            <div
-                class="flex gap-4"
-                *ngIf="invitation.status === 'PENDING'"
-            >
-                <button
-                    class="rounded bg-green-600 px-4 py-2 text-white hover:bg-green-700"
-                    (click)="acceptInvitation(invitation)"
-                >
-                    Accept
-                </button>
-                <button
-                    class="rounded bg-red-600 px-4 py-2 text-white hover:bg-red-700"
-                    (click)="rejectInvitation(invitation)"
-                >
-                    Reject
-                </button>
+        <div
+            class="flex flex-col justify-between gap-4 rounded-t p-2 lg:flex-row lg:gap-0 lg:p-4"
+            [ngClass]="{
+                'bg-yellow-50 dark:bg-yellow-950': invitation.status === 'PENDING',
+                'bg-green-50 dark:bg-green-950': invitation.status === 'ACCEPTED',
+                'bg-red-50 dark:bg-red-950': invitation.status === 'REJECTED'
+            }"
+        >
+            <div class="flex items-baseline gap-2">
+                <i class="pi pi-building"></i>
+                <div class="text-xl font-bold">{{ invitation.buildingGroup.name }}</div>
             </div>
         </div>
+        <div class="border-b p-2 lg:p-4 dark:bg-black">
+            <div class="flex flex-col gap-4 lg:flex-row lg:gap-16">
+                <div class="flex flex-col gap-1">
+                    <small>
+                        {{ 'Building:' | translate }}
+                    </small>
+                    <p class="text-nowrap">
+                        {{ invitation.buildingGroup.building.name }}
+                    </p>
+                </div>
+                <div class="flex flex-col gap-1">
+                    <small>
+                        {{ 'Group:' | translate }}
+                    </small>
+                    <p class="text-nowrap">
+                        {{ invitation.buildingGroup.name }}
+                    </p>
+                </div>
+                <div class="flex flex-col gap-1">
+                    <small>
+                        {{ 'Address:' | translate }}
+                    </small>
+                    <p class="max-w-96 truncate">
+                        {{ invitation.buildingGroup.building.address }}
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div
+            class="flex justify-end gap-3 p-2 dark:bg-black"
+            *ngIf="invitation.status === 'PENDING'"
+        >
+            <p-button
+                outlined
+                severity="danger"
+                (click)="rejectInvitation(invitation)"
+            >
+                Reject
+            </p-button>
+            <p-button
+                outlined
+                severity="primary"
+                (click)="acceptInvitation(invitation)"
+            >
+                Accept
+            </p-button>
+        </div>
     </div>
-</master-layout>
+</ng-template>

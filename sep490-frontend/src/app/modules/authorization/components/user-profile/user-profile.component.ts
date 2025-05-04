@@ -1,4 +1,3 @@
-import {Location} from '@angular/common';
 import {HttpClient} from '@angular/common/http';
 import {Component} from '@angular/core';
 import {
@@ -17,7 +16,6 @@ import {BuildingPermission, EnterpriseUserDetails} from '@models/enterprise-user
 import {UserRole} from '@models/role-names';
 import {UserScope} from '@models/user-scope';
 import {TranslateService} from '@ngx-translate/core';
-import {BuildingService} from '@services/building.service';
 import {EnterpriseUserService} from '@services/enterprise-user.service';
 import {AbstractFormComponent} from '@shared/components/form/abstract-form-component';
 import {ToastProvider} from '@shared/services/toast-provider';
@@ -62,16 +60,10 @@ export class UserProfileComponent extends AbstractFormComponent<EnterpriseUserDe
     formBuilder: FormBuilder,
     notificationService: ToastProvider,
     translate: TranslateService,
-    private readonly buildingService: BuildingService,
     protected userService: EnterpriseUserService,
-    private readonly router: Router,
-    private readonly location: Location
+    private readonly router: Router
   ) {
     super(httpClient, formBuilder, notificationService, translate);
-  }
-
-  back(): void {
-    this.location.back();
   }
 
   get isEdit(): boolean {

@@ -129,14 +129,14 @@ public class EnterpriseUserRestController {
     }
     
     @GetMapping("/requestOTP")
-    public ResponseEntity<?> getOtpByMail(@AuthenticationPrincipal UserContextData userContextData) {
+    public ResponseEntity<?> validateOTP(@AuthenticationPrincipal UserContextData userContextData) {
         userService.sendOtp(userContextData.getId());
         return ResponseEntity.noContent().build();
     }
     
     @PostMapping("/validateOTP")
-    public ResponseEntity<?> getOtpByMail(@RequestBody ValidateOTPRequest request,
-                                          @AuthenticationPrincipal UserContextData userContextData) {
+    public ResponseEntity<?> validateOTP(@RequestBody ValidateOTPRequest request,
+                                         @AuthenticationPrincipal UserContextData userContextData) {
         userService.validateOTP(request, userContextData.getId());
         return ResponseEntity.noContent().build();
     }

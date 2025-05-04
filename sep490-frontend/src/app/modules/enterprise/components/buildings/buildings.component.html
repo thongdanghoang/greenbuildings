@@ -85,7 +85,7 @@
             </div>
         </div>
         <div class="border-b p-2 lg:p-4 dark:bg-black">
-            <div class="flex flex-col gap-4 lg:flex-row lg:gap-8">
+            <div class="flex flex-col gap-4 lg:flex-row lg:gap-16">
                 <div
                     class="flex flex-col gap-1"
                     *ngIf="building.subscriptionDTO"
@@ -102,26 +102,26 @@
                         <small>
                             {{ 'enterprise.buildings.details.labels.validFromInclusive' | translate }}
                         </small>
-                        <div>
+                        <p>
                             {{ building.subscriptionDTO?.startDate | date: 'dd.MM.yyyy' }}
-                        </div>
+                        </p>
                     </div>
                     <div class="flex flex-col gap-1">
                         <small>
                             {{ 'enterprise.buildings.details.labels.validToInclusive' | translate }}
                         </small>
-                        <div>
+                        <p>
                             {{ building.subscriptionDTO?.endDate | date: 'dd.MM.yyyy' }}
-                        </div>
+                        </p>
                     </div>
                 }
                 <div class="flex flex-col gap-1">
                     <small>
                         {{ 'enterprise.buildings.details.labels.address' | translate }}
                     </small>
-                    <div>
+                    <p class="max-w-96 truncate">
                         {{ building.address }}
-                    </div>
+                    </p>
                 </div>
             </div>
         </div>
