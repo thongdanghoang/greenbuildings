@@ -53,6 +53,10 @@
       "invalidCode": "Invalid OTP code",
       "expired": "OTP code has expired, please try again"
     },
+    "format": {
+      "enterpriseTaxCode": "Enterprise Tax Code must be in format: 0123456789 or 0123456789-001",
+      "enterpriseHotline": "Invalid hotline format. Use: 0123456789, 1800XXXX, or 1900XXXX"
+    },
     "business": {
       "email": {
         "exist": "Email address already exists"

@@ -52,6 +52,10 @@
       "invalidCode": "Mã OTP không hợp lệ",
       "expired": "Mã OTP đã hết hạn, vui lòng thử lại"
     },
+    "format": {
+      "enterpriseTaxCode": "Mã số thuế doanh nghiệp phải có định dạng: 0123456789 hoặc 0123456789-001",
+      "enterpriseHotline": "Định dạng hotline không hợp lệ. Dùng: 0123456789, 1800XXXX hoặc 1900XXXX"
+    },
     "business": {
       "email": {
         "exist": "Địa chỉ email đã tồn tại"
