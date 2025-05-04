@@ -15,6 +15,7 @@ public interface PaymentMapper {
     PaymentDTO paymentEntityToPaymentDTO(PaymentEntity paymentEntity);
 
     @Mapping(source = "enterprise", target = "enterpriseDTO")
+    @Mapping(source = "enterprise.enterpriseEmail", target = "enterpriseDTO.email")
     @Mapping(source = "creditPackageVersionEntity", target = "creditPackageVersionDTO")
     PaymentDetailDTO paymentEntityToPaymentDetailDTO(PaymentEntity paymentEntity);
     
