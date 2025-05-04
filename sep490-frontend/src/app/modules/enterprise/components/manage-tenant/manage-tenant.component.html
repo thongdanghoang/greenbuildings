@@ -1,27 +1,58 @@
 <master-layout title="enterprise.buildings.management.title1">
     <div subtitle>{{ 'enterprise.buildings.management.description' | translate }}</div>
     <div *ngFor="let group of buildingGroups">
-        <div class="rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-800 dark:bg-black">
-            <h2 class="mb-2 text-xl font-semibold">Group: {{ group.name }}</h2>
+        <ng-container *ngTemplateOutlet="buildingGroupTemplate; context: {$implicit: group}"></ng-container>
+    </div>
+</master-layout>
 
-            <p class="mb-1 text-sm">
-                <span class="font-medium">Description:</span>
-                {{ group.description || 'No description provided.' }}
-            </p>
-
-            <p class="mb-1 text-sm">
-                <span class="font-medium">Building:</span>
-                {{ group.building.name }}
-            </p>
-
-            <p class="text-sm">
-                <span class="font-medium">Address:</span>
-                {{ group.building.address }}
-            </p>
-
-            <div class="mt-4">
-                <p-button (click)="goToDetails(group.id)">View Details</p-button>
+<ng-template
+    #buildingGroupTemplate
+    let-group
+>
+    <div class="rounded border-t-2 border-t-sky-500 shadow *:w-full">
+        <div
+            class="flex flex-col justify-between gap-4 rounded-t bg-sky-50 p-2 lg:flex-row lg:gap-0 lg:p-4 dark:bg-sky-950"
+        >
+            <div class="flex items-baseline gap-2">
+                <i class="pi pi-building"></i>
+                <div class="text-xl font-bold">{{ group.building.name }}</div>
+            </div>
+            <div class="flex justify-end">
+                <p-button
+                    (click)="goToDetails(group.id)"
+                    icon="pi pi-info"
+                    text
+                    severity="info"
+                ></p-button>
+            </div>
+        </div>
+        <div class="p-2 lg:p-4 dark:bg-black">
+            <div class="flex flex-col gap-4 lg:flex-row lg:gap-16">
+                <div class="flex flex-col gap-1">
+                    <small>
+                        {{ 'Group:' | translate }}
+                    </small>
+                    <p class="text-nowrap">
+                        {{ group.name }}
+                    </p>
+                </div>
+                <div class="flex flex-col gap-1">
+                    <small>
+                        {{ 'Description:' | translate }}
+                    </small>
+                    <p class="text-nowrap">
+                        {{ group.description || 'No description provided.' }}
+                    </p>
+                </div>
+                <div class="flex flex-col gap-1">
+                    <small>
+                        {{ 'Address:' | translate }}
+                    </small>
+                    <p class="max-w-96 truncate">
+                        {{ group.building.address }}
+                    </p>
+                </div>
             </div>
         </div>
     </div>
-</master-layout>
+</ng-template>

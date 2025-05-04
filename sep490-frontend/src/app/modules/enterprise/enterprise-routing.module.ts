@@ -86,7 +86,8 @@ const routes: Routes = [
       },
       {
         path: `${AppRoutingConstants.ACCOUNT_INFO_PATH}`,
-        component: AccountInformationComponent
+        component: AccountInformationComponent,
+        canDeactivate: [UnsavedChangesGuard]
       },
       {
         path: `${AppRoutingConstants.INVITATION_PATH}`,

@@ -1,391 +1,383 @@
-<div class="sm:px-5">
-    <div class="mb-3">
-        <p-button
-            icon="pi pi-arrow-left"
-            [label]="'common.back' | translate"
-            severity="primary"
-            outlined="true"
-            [routerLink]="['/']"
-        ></p-button>
-    </div>
-    <h1 class="text-lg font-bold">
-        {{ 'enterprise.create.title' | translate }}
-    </h1>
-    <p class="text-sm text-gray-500">
+<master-layout
+    title="enterprise.create.title"
+    [showBack]="true"
+>
+    <p subtitle>
         {{ 'enterprise.create.description' | translate }}
     </p>
-</div>
 
-<div class="card flex justify-center">
-    <p-stepper
-        [value]="1"
-        class="w-full"
-        [linear]="true"
-    >
-        <p-step-list>
-            <p-step [value]="1">{{ 'enterprise.create.header1' | translate }}</p-step>
-            <p-step [value]="2">{{ 'enterprise.create.header2' | translate }}</p-step>
-            <p-step [value]="3">{{ 'enterprise.create.header3' | translate }}</p-step>
-        </p-step-list>
-        <p-step-panels>
-            <p-step-panel [value]="1">
-                <ng-template
-                    #content
-                    let-activateCallback="activateCallback"
-                >
-                    <div class="flex h-48 flex-col">
-                        <div
-                            class="rounded-xl border-2 border-dashed border-surface-200 bg-surface-50 p-5 dark:border-surface-700 dark:bg-surface-950"
-                        >
-                            <h2 class="mb-3 text-2xl font-semibold text-gray-800 dark:text-gray-200">
-                                👋
-                                {{ 'enterprise.create.welcomeTitle' | translate }}
-                            </h2>
-                            <p class="mb-3 text-gray-700 dark:text-gray-300">
-                                {{ 'enterprise.create.intro' | translate }}
-                            </p>
-                            <p class="mb-3 text-gray-700 dark:text-gray-300">
-                                {{ 'enterprise.create.roleInstruction' | translate }}
-                            </p>
-                            <ul class="mb-3 list-inside list-disc text-gray-700 dark:text-gray-300">
-                                <li>
-                                    <strong>{{ 'enterprise.create.role.buildingOwner' | translate }}</strong
-                                    >:
-                                    {{ 'enterprise.create.role.buildingOwnerDesc' | translate }}
-                                </li>
-                                <li>
-                                    <strong>{{ 'enterprise.create.role.tenant' | translate }}</strong
-                                    >:
-                                    {{ 'enterprise.create.role.tenantDesc' | translate }}
-                                </li>
-                            </ul>
-                            <p class="text-gray-700 dark:text-gray-300">
-                                {{ 'enterprise.create.callToAction' | translate }}
-                            </p>
+    <div class="card flex justify-center">
+        <p-stepper
+            [value]="1"
+            class="w-full"
+            [linear]="true"
+        >
+            <p-step-list>
+                <p-step [value]="1">{{ 'enterprise.create.header1' | translate }}</p-step>
+                <p-step [value]="2">{{ 'enterprise.create.header2' | translate }}</p-step>
+                <p-step [value]="3">{{ 'enterprise.create.header3' | translate }}</p-step>
+            </p-step-list>
+            <p-step-panels>
+                <p-step-panel [value]="1">
+                    <ng-template
+                        #content
+                        let-activateCallback="activateCallback"
+                    >
+                        <div class="flex flex-col">
+                            <div class="rounded-xl border border-primary-100 p-5 dark:border-primary-900">
+                                <h2 class="mb-3 text-2xl font-semibold text-gray-800 dark:text-gray-200">
+                                    👋
+                                    {{ 'enterprise.create.welcomeTitle' | translate }}
+                                </h2>
+                                <p class="mb-3 text-gray-700 dark:text-gray-300">
+                                    {{ 'enterprise.create.intro' | translate }}
+                                </p>
+                                <p class="mb-3 text-gray-700 dark:text-gray-300">
+                                    {{ 'enterprise.create.roleInstruction' | translate }}
+                                </p>
+                                <ul class="mb-3 list-inside list-disc text-gray-700 dark:text-gray-300">
+                                    <li>
+                                        <strong>{{ 'enterprise.create.role.buildingOwner' | translate }}</strong
+                                        >:
+                                        {{ 'enterprise.create.role.buildingOwnerDesc' | translate }}
+                                    </li>
+                                    <li>
+                                        <strong>{{ 'enterprise.create.role.tenant' | translate }}</strong
+                                        >:
+                                        {{ 'enterprise.create.role.tenantDesc' | translate }}
+                                    </li>
+                                </ul>
+                                <p class="text-gray-700 dark:text-gray-300">
+                                    {{ 'enterprise.create.callToAction' | translate }}
+                                </p>
+                            </div>
+                            <div class="flex justify-end pt-6">
+                                <p-button
+                                    [label]="'common.next' | translate"
+                                    icon="pi pi-arrow-right"
+                                    iconPos="right"
+                                    (onClick)="activateCallback(2)"
+                                />
+                            </div>
                         </div>
-                        <div class="flex justify-end pt-6">
-                            <p-button
-                                [label]="'common.next' | translate"
-                                icon="pi pi-arrow-right"
-                                iconPos="right"
-                                (onClick)="activateCallback(2)"
-                            />
-                        </div>
-                    </div>
-                </ng-template>
-            </p-step-panel>
+                    </ng-template>
+                </p-step-panel>
 
-            <p-step-panel [value]="2">
-                <ng-template
-                    #content
-                    let-activateCallback="activateCallback"
-                >
-                    <div class="flex flex-col gap-6">
-                        <form
-                            [formGroup]="formGroup"
-                            class="rounded-xl border-2 border-dashed border-surface-200 bg-surface-50 p-5 dark:border-surface-700 dark:bg-surface-950"
-                        >
-                            <div class="mb-4 flex items-start gap-3">
-                                <p-radiobutton
-                                    inputId="tenant"
-                                    formControlName="role"
-                                    size="large"
-                                    [value]="UserRole[UserRole.TENANT]"
-                                ></p-radiobutton>
-                                <div>
+                <p-step-panel [value]="2">
+                    <ng-template
+                        #content
+                        let-activateCallback="activateCallback"
+                    >
+                        <div class="flex flex-col">
+                            <form
+                                [formGroup]="formGroup"
+                                class="rounded-xl border border-primary-100 p-5 dark:border-primary-900"
+                            >
+                                <div class="mb-4 flex items-start gap-3">
+                                    <p-radiobutton
+                                        inputId="tenant"
+                                        formControlName="role"
+                                        size="large"
+                                        [value]="UserRole[UserRole.TENANT]"
+                                    ></p-radiobutton>
+                                    <div>
+                                        <label
+                                            for="tenant"
+                                            class="text-sm font-semibold"
+                                        >
+                                            {{ 'enterprise.create.role.tenantLabel' | translate }}
+                                        </label>
+                                        <p class="mt-1 text-xs">
+                                            {{ 'enterprise.create.role.tenantDescription' | translate }}
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-start gap-3">
+                                    <p-radiobutton
+                                        inputId="owner"
+                                        size="large"
+                                        formControlName="role"
+                                        [value]="UserRole[UserRole.ENTERPRISE_OWNER]"
+                                    ></p-radiobutton>
+                                    <div>
+                                        <label
+                                            for="owner"
+                                            class="text-sm font-semibold"
+                                        >
+                                            {{ 'enterprise.create.role.buildingOwnerLabel' | translate }}
+                                        </label>
+                                        <p class="mt-1 text-xs">
+                                            {{ 'enterprise.create.role.buildingOwnerDescription' | translate }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </form>
+
+                            <div class="flex justify-between pt-6">
+                                <p-button
+                                    [label]="'common.back' | translate"
+                                    icon="pi pi-arrow-left"
+                                    iconPos="left"
+                                    outlined
+                                    (onClick)="activateCallback(1)"
+                                />
+                                <p-button
+                                    [label]="'common.next' | translate"
+                                    icon="pi pi-arrow-right"
+                                    iconPos="right"
+                                    [disabled]="!formStructure.role.value"
+                                    (onClick)="activateCallback(3)"
+                                />
+                            </div>
+                        </div>
+                    </ng-template>
+                </p-step-panel>
+
+                <p-step-panel [value]="3">
+                    <ng-template
+                        #content
+                        let-activateCallback="activateCallback"
+                    >
+                        <div>
+                            <form
+                                [formGroup]="formGroup"
+                                class="rounded-xl border border-primary-50 p-5 dark:border-primary-950"
+                            >
+                                <!-- Name -->
+                                <div
+                                    class="my-3 grid grid-cols-12 items-center gap-2 sm:gap-4"
+                                    errorMessages
+                                >
                                     <label
-                                        for="tenant"
-                                        class="text-sm font-semibold"
+                                        for="name"
+                                        class="col-span-12 font-normal sm:col-span-3"
+                                        >{{ 'enterprise.create.name' | translate }}</label
                                     >
-                                        {{ 'enterprise.create.role.tenantLabel' | translate }}
-                                    </label>
-                                    <p class="mt-1 text-xs">
-                                        {{ 'enterprise.create.role.tenantDescription' | translate }}
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div class="flex items-start gap-3">
-                                <p-radiobutton
-                                    inputId="owner"
-                                    size="large"
-                                    formControlName="role"
-                                    [value]="UserRole[UserRole.ENTERPRISE_OWNER]"
-                                ></p-radiobutton>
-                                <div>
-                                    <label
-                                        for="owner"
-                                        class="text-sm font-semibold"
-                                    >
-                                        {{ 'enterprise.create.role.buildingOwnerLabel' | translate }}
-                                    </label>
-                                    <p class="mt-1 text-xs">
-                                        {{ 'enterprise.create.role.buildingOwnerDescription' | translate }}
-                                    </p>
-                                </div>
-                            </div>
-                        </form>
-
-                        <div class="flex justify-between pt-6">
-                            <p-button
-                                [label]="'common.back' | translate"
-                                icon="pi pi-arrow-left"
-                                iconPos="right"
-                                (onClick)="activateCallback(1)"
-                            />
-                            <p-button
-                                [label]="'common.next' | translate"
-                                icon="pi pi-arrow-right"
-                                iconPos="right"
-                                [disabled]="!formStructure.role.value"
-                                (onClick)="activateCallback(3)"
-                            />
-                        </div>
-                    </div>
-                </ng-template>
-            </p-step-panel>
-
-            <p-step-panel [value]="3">
-                <ng-template
-                    #content
-                    let-activateCallback="activateCallback"
-                >
-                    <div>
-                        <form
-                            [formGroup]="formGroup"
-                            class="rounded-xl border-2 border-dashed border-surface-200 bg-surface-50 p-5 dark:border-surface-700 dark:bg-surface-950"
-                        >
-                            <!-- Name -->
-                            <div
-                                class="my-3 grid grid-cols-12 items-center gap-2 sm:gap-4"
-                                errorMessages
-                            >
-                                <label
-                                    for="name"
-                                    class="col-span-12 font-normal sm:col-span-3"
-                                    >{{ 'enterprise.create.name' | translate }}</label
-                                >
-                                <div class="col-span-12 sm:col-span-9">
-                                    <input
-                                        formControlName="name"
-                                        class="w-full"
-                                        type="text"
-                                        id="name"
-                                        pInputText
-                                        [placeholder]="'enterprise.create.placeholders.enterName' | translate"
-                                    />
-                                    <form-field-error></form-field-error>
-                                </div>
-                            </div>
-
-                            <div
-                                class="my-3 grid grid-cols-12 items-center gap-2 sm:gap-4"
-                                errorMessages
-                            >
-                                <label
-                                    for="taxCode"
-                                    class="col-span-12 font-normal sm:col-span-3"
-                                    >{{ 'enterprise.create.taxCode' | translate }}</label
-                                >
-                                <div class="col-span-12 sm:col-span-9">
-                                    <input
-                                        formControlName="taxCode"
-                                        class="w-full"
-                                        type="text"
-                                        id="taxCode"
-                                        pInputText
-                                        [placeholder]="'enterprise.create.placeholders.enterTaxCode' | translate"
-                                    />
-                                    <form-field-error></form-field-error>
-                                </div>
-                            </div>
-
-                            <!-- Hotline -->
-                            <div
-                                class="my-3 grid grid-cols-12 items-center gap-2 sm:gap-4"
-                                errorMessages
-                            >
-                                <label
-                                    for="hotline"
-                                    class="col-span-12 font-normal sm:col-span-3"
-                                    >{{ 'enterprise.create.hotline' | translate }}</label
-                                >
-                                <div class="col-span-12 sm:col-span-9">
-                                    <input
-                                        formControlName="hotline"
-                                        class="w-full"
-                                        type="text"
-                                        id="hotline"
-                                        pInputText
-                                        [placeholder]="'enterprise.create.placeholders.enterHotline' | translate"
-                                    />
-                                    <form-field-error></form-field-error>
-                                </div>
-                            </div>
-
-                            <!-- Address -->
-                            <div
-                                class="my-3 grid grid-cols-12 items-center gap-2 sm:gap-4"
-                                errorMessages
-                            >
-                                <label
-                                    for="address"
-                                    class="col-span-12 font-normal sm:col-span-3"
-                                    >{{ 'enterprise.create.address' | translate }}</label
-                                >
-                                <div class="col-span-12 sm:col-span-9">
-                                    <input
-                                        formControlName="address"
-                                        class="w-full"
-                                        type="text"
-                                        id="address"
-                                        pInputText
-                                    />
-                                    <form-field-error></form-field-error>
-                                </div>
-                            </div>
-
-                            <div class="my-3 grid grid-cols-12 items-start gap-2 sm:gap-4">
-                                <label
-                                    for="businessLicenseImageUrl"
-                                    class="col-span-12 font-normal sm:col-span-3"
-                                    >{{ 'enterprise.create.businessLicenseImageUrl' | translate }}</label
-                                >
-                                <div class="col-span-12 sm:col-span-9">
-                                    <p-button
-                                        icon="pi pi-upload"
-                                        [label]="'enterprise.create.upload.businessLicenseImageUrl' | translate"
-                                        severity="primary"
-                                        outlined="true"
-                                        (click)="fileInput.click()"
-                                    >
+                                    <div class="col-span-12 sm:col-span-9">
                                         <input
-                                            #fileInput
-                                            class="hidden"
-                                            type="file"
-                                            accept="image/*,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-                                            (change)="uploadBusinessLicense($event)"
+                                            formControlName="name"
+                                            class="w-full"
+                                            type="text"
+                                            id="name"
+                                            pInputText
+                                            [placeholder]="'enterprise.create.placeholders.enterName' | translate"
                                         />
-                                    </p-button>
-                                    <div class="min-h-10">
-                                        <div
-                                            *ngIf="
-                                                formStructure.businessLicenseImageUrl.invalid &&
-                                                formStructure.businessLicenseImageUrl.touched
-                                            "
-                                            class="pt-1 font-medium text-red-600 dark:text-red-400"
+                                        <form-field-error></form-field-error>
+                                    </div>
+                                </div>
+
+                                <div
+                                    class="my-3 grid grid-cols-12 items-center gap-2 sm:gap-4"
+                                    errorMessages
+                                >
+                                    <label
+                                        for="taxCode"
+                                        class="col-span-12 font-normal sm:col-span-3"
+                                        >{{ 'enterprise.create.taxCode' | translate }}</label
+                                    >
+                                    <div class="col-span-12 sm:col-span-9">
+                                        <input
+                                            formControlName="taxCode"
+                                            class="w-full"
+                                            type="text"
+                                            id="taxCode"
+                                            pInputText
+                                            [placeholder]="'enterprise.create.placeholders.enterTaxCode' | translate"
+                                        />
+                                        <form-field-error></form-field-error>
+                                    </div>
+                                </div>
+
+                                <!-- Hotline -->
+                                <div
+                                    class="my-3 grid grid-cols-12 items-center gap-2 sm:gap-4"
+                                    errorMessages
+                                >
+                                    <label
+                                        for="hotline"
+                                        class="col-span-12 font-normal sm:col-span-3"
+                                        >{{ 'enterprise.create.hotline' | translate }}</label
+                                    >
+                                    <div class="col-span-12 sm:col-span-9">
+                                        <input
+                                            formControlName="hotline"
+                                            class="w-full"
+                                            type="text"
+                                            id="hotline"
+                                            pInputText
+                                            [placeholder]="'enterprise.create.placeholders.enterHotline' | translate"
+                                        />
+                                        <form-field-error></form-field-error>
+                                    </div>
+                                </div>
+
+                                <!-- Address -->
+                                <div
+                                    class="my-3 grid grid-cols-12 items-center gap-2 sm:gap-4"
+                                    errorMessages
+                                >
+                                    <label
+                                        for="address"
+                                        class="col-span-12 font-normal sm:col-span-3"
+                                        >{{ 'enterprise.create.address' | translate }}</label
+                                    >
+                                    <div class="col-span-12 sm:col-span-9">
+                                        <input
+                                            formControlName="address"
+                                            class="w-full"
+                                            type="text"
+                                            id="address"
+                                            pInputText
+                                        />
+                                        <form-field-error></form-field-error>
+                                    </div>
+                                </div>
+
+                                <div class="my-3 grid grid-cols-12 items-start gap-2 sm:gap-4">
+                                    <label
+                                        for="businessLicenseImageUrl"
+                                        class="col-span-12 font-normal sm:col-span-3"
+                                        >{{ 'enterprise.create.businessLicenseImageUrl' | translate }}</label
+                                    >
+                                    <div class="col-span-12 sm:col-span-9">
+                                        <p-button
+                                            icon="pi pi-upload"
+                                            [label]="'enterprise.create.upload.businessLicenseImageUrl' | translate"
+                                            severity="primary"
+                                            outlined="true"
+                                            (click)="fileInput.click()"
                                         >
-                                            {{ 'validation.required' | translate }}
-                                        </div>
-                                        <div
-                                            *ngIf="formStructure.businessLicenseImageUrl.value"
-                                            class="flex items-center"
-                                        >
-                                            <p-tag
-                                                [value]="formStructure.businessLicenseImageUrl.value"
-                                                severity="success"
-                                                [rounded]="true"
-                                            ></p-tag>
-                                            <button
-                                                pButton
-                                                icon="pi pi-times"
-                                                severity="danger"
-                                                text
-                                                rounded
-                                                (click)="formStructure.businessLicenseImageUrl.setValue(null)"
-                                            ></button>
+                                            <input
+                                                #fileInput
+                                                class="hidden"
+                                                type="file"
+                                                accept="image/*,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                                                (change)="uploadBusinessLicense($event)"
+                                            />
+                                        </p-button>
+                                        <div class="min-h-10">
+                                            <div
+                                                *ngIf="
+                                                    formStructure.businessLicenseImageUrl.invalid &&
+                                                    formStructure.businessLicenseImageUrl.touched
+                                                "
+                                                class="pt-1 font-medium text-red-600 dark:text-red-400"
+                                            >
+                                                {{ 'validation.required' | translate }}
+                                            </div>
+                                            <div
+                                                *ngIf="formStructure.businessLicenseImageUrl.value"
+                                                class="flex items-center"
+                                            >
+                                                <p-tag
+                                                    [value]="formStructure.businessLicenseImageUrl.value"
+                                                    severity="success"
+                                                    class="font-normal"
+                                                    [rounded]="true"
+                                                ></p-tag>
+                                                <button
+                                                    pButton
+                                                    icon="pi pi-times"
+                                                    severity="danger"
+                                                    text
+                                                    rounded
+                                                    (click)="formStructure.businessLicenseImageUrl.setValue(null)"
+                                                ></button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <!-- representativeName -->
-                            <div
-                                class="my-3 grid grid-cols-12 items-center gap-2 sm:gap-4"
-                                errorMessages
-                            >
-                                <label
-                                    for="representativeName"
-                                    class="col-span-12 font-normal sm:col-span-3"
-                                    >{{ 'enterprise.create.representativeName' | translate }}</label
+                                <!-- representativeName -->
+                                <div
+                                    class="my-3 grid grid-cols-12 items-center gap-2 sm:gap-4"
+                                    errorMessages
                                 >
-                                <div class="col-span-12 sm:col-span-9">
-                                    <input
-                                        formControlName="representativeName"
-                                        class="w-full"
-                                        type="text"
-                                        id="representativeName"
-                                        pInputText
-                                    />
-                                    <form-field-error></form-field-error>
+                                    <label
+                                        for="representativeName"
+                                        class="col-span-12 font-normal sm:col-span-3"
+                                        >{{ 'enterprise.create.representativeName' | translate }}</label
+                                    >
+                                    <div class="col-span-12 sm:col-span-9">
+                                        <input
+                                            formControlName="representativeName"
+                                            class="w-full"
+                                            type="text"
+                                            id="representativeName"
+                                            pInputText
+                                        />
+                                        <form-field-error></form-field-error>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <!-- representativePosition -->
-                            <div
-                                class="my-3 grid grid-cols-12 items-center gap-2 sm:gap-4"
-                                errorMessages
-                            >
-                                <label
-                                    for="representativePosition"
-                                    class="col-span-12 font-normal sm:col-span-3"
-                                    >{{ 'enterprise.create.representativePosition' | translate }}</label
+                                <!-- representativePosition -->
+                                <div
+                                    class="my-3 grid grid-cols-12 items-center gap-2 sm:gap-4"
+                                    errorMessages
                                 >
-                                <div class="col-span-12 sm:col-span-9">
-                                    <input
-                                        formControlName="representativePosition"
-                                        class="w-full"
-                                        type="text"
-                                        id="representativePosition"
-                                        pInputText
-                                    />
-                                    <form-field-error></form-field-error>
+                                    <label
+                                        for="representativePosition"
+                                        class="col-span-12 font-normal sm:col-span-3"
+                                        >{{ 'enterprise.create.representativePosition' | translate }}</label
+                                    >
+                                    <div class="col-span-12 sm:col-span-9">
+                                        <input
+                                            formControlName="representativePosition"
+                                            class="w-full"
+                                            type="text"
+                                            id="representativePosition"
+                                            pInputText
+                                        />
+                                        <form-field-error></form-field-error>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <!-- representativeContact -->
-                            <div
-                                class="my-3 grid grid-cols-12 items-center gap-2 sm:gap-4"
-                                errorMessages
-                            >
-                                <label
-                                    for="representativeContact"
-                                    class="col-span-12 font-normal sm:col-span-3"
-                                    >{{ 'enterprise.create.representativeContact' | translate }}</label
+                                <!-- representativeContact -->
+                                <div
+                                    class="my-3 grid grid-cols-12 items-center gap-2 sm:gap-4"
+                                    errorMessages
                                 >
-                                <div class="col-span-12 sm:col-span-9">
-                                    <input
-                                        formControlName="representativeContact"
-                                        class="w-full"
-                                        type="text"
-                                        id="representativeContact"
-                                        pInputText
-                                    />
-                                    <form-field-error></form-field-error>
+                                    <label
+                                        for="representativeContact"
+                                        class="col-span-12 font-normal sm:col-span-3"
+                                        >{{ 'enterprise.create.representativeContact' | translate }}</label
+                                    >
+                                    <div class="col-span-12 sm:col-span-9">
+                                        <input
+                                            formControlName="representativeContact"
+                                            class="w-full"
+                                            type="text"
+                                            id="representativeContact"
+                                            pInputText
+                                        />
+                                        <form-field-error></form-field-error>
+                                    </div>
                                 </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="flex justify-between pt-6">
-                        <p-button
-                            [label]="'common.back' | translate"
-                            severity="secondary"
-                            icon="pi pi-arrow-left"
-                            (onClick)="activateCallback(1)"
-                        />
-                        <p-button
-                            [label]="'common.create' | translate"
-                            styleClass="w-full"
-                            severity="primary"
-                            [disabled]="disableSubmitButton"
-                            (onClick)="submit()"
-                        ></p-button>
-                    </div>
-                </ng-template>
-            </p-step-panel>
-        </p-step-panels>
-    </p-stepper>
-</div>
+                            </form>
+                        </div>
+                        <div class="flex justify-between">
+                            <p-button
+                                [label]="'common.back' | translate"
+                                icon="pi pi-arrow-left"
+                                iconPos="left"
+                                outlined
+                                (onClick)="activateCallback(2)"
+                            />
+                            <p-button
+                                [label]="'common.create' | translate"
+                                styleClass="w-full"
+                                severity="primary"
+                                [disabled]="disableSubmitButton"
+                                (onClick)="submit()"
+                            ></p-button>
+                        </div>
+                    </ng-template>
+                </p-step-panel>
+            </p-step-panels>
+        </p-stepper>
+    </div>
+</master-layout>
 
 <div>
     <p-toast
