@@ -13,8 +13,8 @@ import static greenbuildings.commons.api.utils.CommonConstant.VIETNAM_ENTERPRISE
 public record RegisterEnterpriseDTO(
         @Size(min = 1, max = 255, message = "{validation.enterpriseName.invalid}") String name,
         @Email String enterpriseEmail,
-        @NotBlank @Pattern(regexp = VIETNAME_TAX_CODE, message = "{validation.enterpriseTaxCode.invalid}") String taxCode,
-        @NotBlank @Pattern(regexp = VIETNAM_ENTERPRISE_HOTLINE_PATTERN, message = "{validation.enterpriseHotline.invalid}") String hotline,
+        @NotBlank @Pattern(regexp = VIETNAME_TAX_CODE, message = "format.enterpriseTaxCode") String taxCode,
+        @NotBlank @Pattern(regexp = VIETNAM_ENTERPRISE_HOTLINE_PATTERN, message = "format.enterpriseHotline") String hotline,
         @NotNull UserRole role,
         @NotBlank String address,
         @NotBlank String businessLicenseImageUrl,

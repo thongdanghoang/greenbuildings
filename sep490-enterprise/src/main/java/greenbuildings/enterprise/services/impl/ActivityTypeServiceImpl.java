@@ -84,7 +84,7 @@ public class ActivityTypeServiceImpl implements ActivityTypeService {
                 return;
             }
         }
-        if (repository.existsByNameActivityTypeInTenant(activityTypeEntity.getName())) {
+        if (repository.existsByNameActivityTypeInTenant(activityTypeEntity.getBuilding().getId(), activityTypeEntity.getName())) {
             throw new BusinessException("name", "business.activityType.name.exist");
         }
         repository.save(activityTypeEntity);

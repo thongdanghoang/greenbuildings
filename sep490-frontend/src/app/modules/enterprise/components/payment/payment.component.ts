@@ -120,9 +120,6 @@ export class PaymentComponent extends SubscriptionAwareComponent implements OnIn
   }
 
   openNewActivityDialog(paymentId?: UUID): void {
-    // Made emissionId optional with ?
-    this.selected = []; // Clear local selection
-    this.triggerSearch.emit();
     const config: DynamicDialogConfig<UUID | undefined> = {
       // Allow undefined in config.data
       data: paymentId, // Will be undefined for add, UUID for edit
@@ -139,11 +136,6 @@ export class PaymentComponent extends SubscriptionAwareComponent implements OnIn
 
     // Open the dialog with EmissionSourceDialogComponent
     this.ref = this.dialogService.open(PaymentDetailDialogComponent, config);
-    this.ref.onClose.subscribe((result: boolean | undefined) => {
-      if (result) {
-        this.triggerSearch.emit(); // Refresh the list if dialog closed with a result
-      }
-    });
   }
 
   getBalance(): void {

@@ -52,6 +52,10 @@
       "invalidCode": "一次性密码无效",
       "expired": "一次性密码已过期，请重试"
     },
+    "format": {
+      "enterpriseTaxCode": "企业税号必须符合格式：0123456789 或 0123456789-001",
+      "enterpriseHotline": "服务热线格式无效。使用：0123456789、1800XXXX 或 1900XXXX"
+    },
     "business": {
       "email": {
         "exist": "电子邮件地址已存在"
