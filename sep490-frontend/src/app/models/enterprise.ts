@@ -89,7 +89,7 @@ export interface DownloadReport {
   buildingID: UUID;
   startDate: Date;
   endDate: Date;
-  selectedActivities: UUID[];
+  selectedGroups: UUID[];
 }
 
 export interface EmissionActivityDetails extends BaseDTO {

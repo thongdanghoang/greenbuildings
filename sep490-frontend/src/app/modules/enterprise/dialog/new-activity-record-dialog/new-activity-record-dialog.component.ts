@@ -37,7 +37,7 @@ export class NewActivityRecordDialogComponent extends AbstractFormComponent<Emis
     unit: new FormControl<null | string>(null, [Validators.required]),
     quantity: new FormControl(0, [Validators.required, Validators.min(0)]),
     startDate: new FormControl(new Date()),
-    rangeDates: new FormControl([], [Validators.required, Validators.min(2), Validators.max(2)]),
+    rangeDates: new FormControl([new Date(), new Date()], [Validators.required, Validators.min(2), Validators.max(2)]),
     endDate: new FormControl(new Date())
   };
 

@@ -28,6 +28,8 @@ public interface EmissionActivityRepository extends AbstractBaseRepository<Emiss
     
     List<EmissionActivityEntity> findByBuildingGroupId(UUID id);
     
+    List<EmissionActivityEntity> findByBuildingIdAndBuildingGroupIsNull(UUID id);
+    
     List<EmissionActivityEntity> findByBuildingGroupIdIn(Set<UUID> ids);
 
     Page<EmissionActivityEntity> findAllByBuildingGroupIdAndNameContainingIgnoreCase(UUID buildingId, String activityName,Pageable pageable);

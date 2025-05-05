@@ -23,6 +23,15 @@ public interface EmissionActivityRecordRepository
     List<EmissionActivityRecordEntity> findAllByIdIn(Set<UUID> ids);
     
     @Query("""
+        SELECT r
+        FROM EmissionActivityRecordEntity r
+        WHERE r.emissionActivity.id = :activityId
+        AND r.startDate <= :endDate
+        AND r.endDate >= :startDate
+    """)
+    List<EmissionActivityRecordEntity> findAllByEmissionActivityIdAndDateRangeExclusive(UUID activityId, LocalDate startDate, LocalDate endDate);
+    
+    @Query("""
                 SELECT CASE WHEN COUNT(e) > 0 THEN true ELSE false END
                 FROM EmissionActivityRecordEntity e
                 WHERE e.emissionActivity.id = :emissionActivityId

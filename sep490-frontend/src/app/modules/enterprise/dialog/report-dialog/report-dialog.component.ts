@@ -2,12 +2,12 @@ import {HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
 import {Component} from '@angular/core';
 import {AbstractControl, FormBuilder, FormControl, Validators} from '@angular/forms';
 import {TranslateService} from '@ngx-translate/core';
+import {BuildingGroupService} from '@services/building-group.service';
 import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
 import {take} from 'rxjs';
 import {UUID} from '../../../../../types/uuid';
-import {DownloadReport, EmissionActivity} from '@models/enterprise';
+import {BuildingGroup, DownloadReport} from '@models/enterprise';
 import {BuildingService} from '@services/building.service';
-import {EmissionActivityService} from '@services/emission-activity.service';
 import {AbstractFormComponent} from '@shared/components/form/abstract-form-component';
 import {ToastProvider} from '@shared/services/toast-provider';
 
@@ -17,14 +17,14 @@ import {ToastProvider} from '@shared/services/toast-provider';
   styleUrl: './report-dialog.component.css'
 })
 export class ReportDialogComponent extends AbstractFormComponent<DownloadReport> {
-  activities: EmissionActivity[] = [];
+  groups: BuildingGroup[] = [];
 
   protected readonly formStructure = {
     buildingID: new FormControl('', Validators.required),
     startDate: new FormControl(new Date()),
-    rangeDates: new FormControl([], [Validators.required]),
+    rangeDates: new FormControl([new Date(), new Date()], [Validators.required]),
     endDate: new FormControl(new Date()),
-    selectedActivities: new FormControl<UUID[]>([])
+    selectedGroups: new FormControl<UUID[]>([])
   };
 
   constructor(
@@ -32,7 +32,7 @@ export class ReportDialogComponent extends AbstractFormComponent<DownloadReport>
     formBuilder: FormBuilder,
     notificationService: ToastProvider,
     translate: TranslateService,
-    private readonly emissionActivityService: EmissionActivityService,
+    private readonly groupService: BuildingGroupService,
     private readonly buildingService: BuildingService,
     private readonly ref: DynamicDialogRef,
     protected readonly http: HttpClient,
@@ -47,8 +47,8 @@ export class ReportDialogComponent extends AbstractFormComponent<DownloadReport>
 
   protected initializeData(): void {
     this.formStructure.buildingID.setValue(this.config.data!.toString());
-    this.emissionActivityService.getAllActivitiesByBuildingId(this.config.data!).subscribe(activities => {
-      this.activities = activities;
+    this.groupService.getByBuildingId(this.config.data!).subscribe(groups => {
+      this.groups = groups;
     });
   }
 
