@@ -150,9 +150,10 @@ public class EmissionFactorServiceImpl implements EmissionFactorService {
                 consecutiveNullRows = 0;
 
                 // Use DataFormatter for string fields
-                String factorVN = row.getCell(0) != null ? formatter.formatCellValue(row.getCell(0)) : "";
-                String factorEN = row.getCell(1) != null ? formatter.formatCellValue(row.getCell(1)) : "";
-                String factorZH = row.getCell(2) != null ? formatter.formatCellValue(row.getCell(2)) : "";
+                String factorEN = row.getCell(0) != null ? formatter.formatCellValue(row.getCell(0)).trim() : "";
+                String factorVN = row.getCell(1) != null ? formatter.formatCellValue(row.getCell(1)).trim() : "";
+                String factorZH = row.getCell(2) != null ? formatter.formatCellValue(row.getCell(2)).trim() : "";
+
                 BigDecimal co2 = BigDecimal.valueOf(row.getCell(3) != null && row.getCell(3).getCellType() == CellType.NUMERIC ? row.getCell(3).getNumericCellValue() : 0.0);
                 BigDecimal ch4 = BigDecimal.valueOf(row.getCell(4) != null && row.getCell(4).getCellType() == CellType.NUMERIC ? row.getCell(4).getNumericCellValue() : 0.0);
                 BigDecimal n2o = BigDecimal.valueOf(row.getCell(5) != null && row.getCell(5).getCellType() == CellType.NUMERIC ? row.getCell(5).getNumericCellValue() : 0.0);
@@ -174,14 +175,14 @@ public class EmissionFactorServiceImpl implements EmissionFactorService {
                     throw new BusinessException("business.excel.invalidEmissionUnit", "Invalid Emission Unit Denominator at row " + (i + 1));
                 }
 
-                String sourceVN = row.getCell(8) != null ? formatter.formatCellValue(row.getCell(8)) : "";
-                String sourceEN = row.getCell(9) != null ? formatter.formatCellValue(row.getCell(9)) : "";
-                String sourceCN = row.getCell(10) != null ? formatter.formatCellValue(row.getCell(10)) : "";
+                String sourceEN = row.getCell(8) != null ? formatter.formatCellValue(row.getCell(8)).trim() : "";
+                String sourceVN = row.getCell(9) != null ? formatter.formatCellValue(row.getCell(9)).trim() : "";
+                String sourceCN = row.getCell(10) != null ? formatter.formatCellValue(row.getCell(10)).trim() : "";
                 String directEmission = row.getCell(11) != null ? formatter.formatCellValue(row.getCell(11)) : "";
 
-                String fuelVN = row.getCell(12) != null ? formatter.formatCellValue(row.getCell(14)) : "";
-                String fuelEN = row.getCell(13) != null ? formatter.formatCellValue(row.getCell(15)) : "";
-                String fuelCN = row.getCell(14) != null ? formatter.formatCellValue(row.getCell(16)) : "";
+                String fuelEN = row.getCell(12) != null ? formatter.formatCellValue(row.getCell(12)).trim() : "";
+                String fuelVN = row.getCell(13) != null ? formatter.formatCellValue(row.getCell(13)).trim() : "";
+                String fuelCN = row.getCell(14) != null ? formatter.formatCellValue(row.getCell(14)).trim() : "";
                 BigDecimal conversionValue = BigDecimal.valueOf(row.getCell(15) != null && row.getCell(15).getCellType() == CellType.NUMERIC ? row.getCell(15).getNumericCellValue() : 0.0);
 
                 EmissionUnit unitNumeratorConversion;
@@ -199,28 +200,62 @@ public class EmissionFactorServiceImpl implements EmissionFactorService {
                 } catch (IllegalArgumentException e) {
                     throw new BusinessException("business.excel.invalidEmissionUnit", "Invalid Conversion Unit Denominator at row " + (i + 1));
                 }
+                assert unitNumerator != null;
+                assert unitDenominator != null;
+                assert unitDenominatorConversion != null;
+                assert unitNumeratorConversion != null;
+                if (!fuelVN.isEmpty() || !fuelEN.isEmpty() || !fuelCN.isEmpty()) {
+                    boolean exists = energyConversionRepository.existsByName(fuelVN, fuelEN, fuelCN);
+                    if (!exists) {
+                        // Create and populate the FuelEntity
+                        FuelEntity fuel = new FuelEntity();
+                        fuel.setNameVN(fuelVN);
+                        fuel.setNameEN(fuelEN);
+                        fuel.setNameZH(fuelCN);
+                        fuelRepository.save(fuel);
+                        // Create and populate the EnergyConversionEntity
+                        EnergyConversionEntity energyConversion = new EnergyConversionEntity();
+                        energyConversion.setConversionValue(conversionValue);
+                        energyConversion.setConversionUnitNumerator(unitNumeratorConversion);
+                        energyConversion.setConversionUnitDenominator(unitDenominatorConversion);
+                        energyConversion.setFuel(fuel);
+                        energyConversionRepository.save(energyConversion);
+                    }else{
+                        // Update the existing EnergyConversionEntity
+                        Optional<EnergyConversionEntity> energyConversion = energyConversionRepository.findByName(fuelVN, fuelEN, fuelCN);
+                        if (energyConversion.isPresent()) {
 
-                // Create and populate the FuelEntity
-                FuelEntity fuel = new FuelEntity();
-                fuel.setNameVN(fuelVN);
-                fuel.setNameEN(fuelEN);
-                fuel.setNameZH(fuelCN);
-                fuelRepository.save(fuel);
+                            energyConversion.get().setConversionValue(conversionValue);
+                            energyConversion.get().setConversionUnitNumerator(unitNumeratorConversion);
+                            energyConversion.get().setConversionUnitDenominator(unitDenominatorConversion);
+                            energyConversionRepository.save(energyConversion.get());
+                            boolean existSource = sourceRepository.existsByName(sourceVN, sourceEN, sourceCN);
+                            if (existSource) {
+                                 boolean existEmissionFactor = emissionFactorRepository.existsByEmissionFactor(
+                                                factorVN, factorEN, factorZH,
+                                                co2, ch4, n2o,
+                                                unitNumerator.name(), unitDenominator.name());
+                                if (existEmissionFactor) {
+                                    continue;
+                                }
+                            }
 
-                // Create and populate the EmissionSourceEntity
-                EmissionSourceEntity source = new EmissionSourceEntity();
-                source.setNameVN(sourceVN);
-                source.setNameEN(sourceEN);
-                source.setNameZH(sourceCN);
-                sourceRepository.save(source);
 
-                // Create and populate the EnergyConversionEntity
-                EnergyConversionEntity energyConversion = new EnergyConversionEntity();
-                energyConversion.setConversionValue(conversionValue);
-                energyConversion.setConversionUnitNumerator(unitNumeratorConversion);
-                energyConversion.setConversionUnitDenominator(unitDenominatorConversion);
-                energyConversion.setFuel(fuel);
-                energyConversionRepository.save(energyConversion);
+                        }
+                    }
+                }
+
+                Optional<EnergyConversionEntity> energyConversion = energyConversionRepository.findByName(fuelVN, fuelEN, fuelCN);
+                if (energyConversion.isEmpty()) {
+                    continue; // Skip if already exists
+                }
+
+                emissionSourceCheck(sourceVN, sourceEN, sourceCN);
+                EmissionSourceEntity source = sourceRepository.findByName(sourceVN, sourceEN, sourceCN);
+                if (source == null) {
+                    continue; // Skip if already exists
+                }
+
 
                 // Create and populate the EmissionFactorEntity
                 EmissionFactorEntity emissionFactor = new EmissionFactorEntity();
@@ -239,7 +274,7 @@ public class EmissionFactorServiceImpl implements EmissionFactorService {
                 emissionFactor.setValidFrom(LocalDateTime.now());
                 emissionFactor.setValidTo(LocalDateTime.now());
 
-                emissionFactor.setEnergyConversion(energyConversion);
+                emissionFactor.setEnergyConversion(energyConversion.get());
 
                 // Save emissionFactor (assuming you have a repository for it)
                 emissionFactorRepository.save(emissionFactor);
@@ -248,6 +283,20 @@ public class EmissionFactorServiceImpl implements EmissionFactorService {
             workbook.close();
         } catch (IOException e) {
             throw new BusinessException("business.excel.ioError", e.getMessage());
+        }
+    }
+
+    private void emissionSourceCheck(String sourceVN, String sourceEN, String sourceCN) {
+        if (!sourceVN.isEmpty() || !sourceEN.isEmpty() || !sourceCN.isEmpty()) {
+            boolean exists = sourceRepository.existsByName(sourceVN, sourceEN, sourceCN);
+            if (!exists) {
+                // Create and populate the EmissionSourceEntity
+                EmissionSourceEntity source = new EmissionSourceEntity();
+                source.setNameVN(sourceVN);
+                source.setNameEN(sourceEN);
+                source.setNameZH(sourceCN);
+                sourceRepository.save(source);
+            }
         }
     }
 

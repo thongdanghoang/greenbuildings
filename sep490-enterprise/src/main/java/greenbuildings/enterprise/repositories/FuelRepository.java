@@ -18,4 +18,24 @@ public interface FuelRepository extends JpaRepository<FuelEntity, UUID> {
             """
     )
     Page<UUID> findByName(String name, Pageable pageable);
+
+    @Query("""
+            SELECT CASE WHEN COUNT(f) > 0 THEN true ELSE false END
+            FROM FuelEntity f
+            WHERE LOWER(f.nameVN) = LOWER(:nameVN)
+               OR LOWER(f.nameEN) = LOWER(:nameEN)
+               OR LOWER(f.nameZH) = LOWER(:nameZH)
+            """
+    )
+    boolean existsByName(String nameVN, String nameEN, String nameZH);
+
+    @Query("""
+            SELECT f
+            FROM FuelEntity f
+            WHERE LOWER(f.nameVN) = LOWER(:nameVN)
+              OR LOWER(f.nameEN) = LOWER(:nameEN)
+              OR LOWER(f.nameZH) = LOWER(:nameZH)
+            """
+    )
+    FuelEntity findByName(String nameVN, String nameEN, String nameZH);
 }

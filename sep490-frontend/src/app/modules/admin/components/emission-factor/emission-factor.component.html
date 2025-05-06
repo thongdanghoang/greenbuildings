@@ -30,21 +30,21 @@
                 />
             </p-inputgroup-addon>
         </p-inputgroup>
-        <p-button
-            severity="secondary"
-            [label]="'admin.emissionSource.uploadToMinio' | translate"
-            icon="pi pi-upload"
-            outlined
-            (onClick)="fileInput.click()"
-            size="small"
-        />
-        <input
-            #fileInput
-            type="file"
-            accept=".xlsx"
-            style="display: none"
-            (change)="uploadExcelToMinio($event)"
-        />
+        <!--        <p-button-->
+        <!--            severity="secondary"-->
+        <!--            [label]="'admin.emissionSource.uploadToMinio' | translate"-->
+        <!--            icon="pi pi-upload"-->
+        <!--            outlined-->
+        <!--            (onClick)="fileInput.click()"-->
+        <!--            size="small"-->
+        <!--        />-->
+        <!--        <input-->
+        <!--            #fileInput-->
+        <!--            type="file"-->
+        <!--            accept=".xlsx"-->
+        <!--            style="display: none"-->
+        <!--            (change)="uploadExcelToMinio($event)"-->
+        <!--        />-->
         <p-button
             severity="secondary"
             [label]="'admin.emissionSource.downloadFile' | translate"
