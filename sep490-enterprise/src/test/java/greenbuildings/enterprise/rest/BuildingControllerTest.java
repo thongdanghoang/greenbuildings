@@ -103,6 +103,8 @@ class BuildingControllerTest extends TestcontainersConfigs {
     void generateReport() {
         // given
         var buildingEntity = insertBuildingEntity();
+        var group1 = insertBuildingGroupEntity(buildingEntity);
+        var group2 = insertBuildingGroupEntity(buildingEntity);
         var emissionActivityDirect = insertActivity(true);
         var emissionActivityIndirect = insertActivity(false);
         var startDate = LocalDate.now().minusMonths(60);
@@ -118,11 +120,10 @@ class BuildingControllerTest extends TestcontainersConfigs {
         }
         var downloadReport = DownloadReportDTO
                 .builder()
-                .selectedActivities(List.of(
-                                            emissionActivityDirect.getId(),
-                                            emissionActivityIndirect.getId()
-                                           )
-                                   )
+                .buildingID(buildingEntity.getId())
+                .startDate(startDate)
+                .endDate(LocalDate.now())
+                .selectedGroups(List.of(group1.getId(), group2.getId()))
                 .build();
         // when
         asEnterpriseOwner()
