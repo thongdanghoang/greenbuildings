@@ -340,6 +340,7 @@
         "manageCommonActivity": "Manage common activity",
         "manageActivityType": "Manage Activity Type",
         "selectActivities": "Select Activities",
+        "selectGroups": "Select building groups:",
         "currentNoActivities": "Current number of activities:",
         "maxNoActivities": "Max number of activities:",
         "subscriptionDetail": "Subscription Detail",

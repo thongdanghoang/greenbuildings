@@ -6,6 +6,8 @@
         <p-button
             label="{{ 'enterprise.emission.activity.generateReport' | translate }}"
             class="flex-1"
+            icon="pi pi-file-excel"
+            (onClick)="generateReport()"
             severity="primary"
             outlined
             styleClass="w-full h-full"

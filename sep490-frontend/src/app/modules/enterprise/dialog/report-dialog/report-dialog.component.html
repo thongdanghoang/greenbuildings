@@ -9,16 +9,16 @@
                 let-activateCallback="activateCallback"
             >
                 <p>
-                    {{ 'enterprise.emission.activity.selectActivities' | translate }}
+                    {{ 'enterprise.emission.activity.selectGroups' | translate }}
                 </p>
                 <form [formGroup]="formGroup">
                     <div class="my-4 grid grid-cols-2 gap-4">
                         <div
-                            *ngFor="let activity of activities"
+                            *ngFor="let activity of groups"
                             class="flex items-center"
                         >
                             <p-checkbox
-                                [formControlName]="'selectedActivities'"
+                                [formControlName]="'selectedGroups'"
                                 [value]="activity.id"
                                 [inputId]="'activity-' + activity.id"
                             />
@@ -27,6 +27,12 @@
                                 class="ml-2"
                             >
                                 {{ activity.name | translate }}
+                                <span
+                                    *ngIf="activity.description"
+                                    class="block text-sm text-gray-500"
+                                >
+                                    {{ activity.description }}
+                                </span>
                             </label>
                         </div>
                     </div>
@@ -35,6 +41,7 @@
                             label="{{ 'common.next' | translate }}"
                             icon="pi pi-arrow-right"
                             iconPos="right"
+                            [disabled]="formStructure.selectedGroups.value!.length === 0"
                             (onClick)="activateCallback(2)"
                         ></p-button>
                     </div>
@@ -66,8 +73,8 @@
                             (onClick)="activateCallback(1)"
                         ></p-button>
                         <p-button
-                            label="{{ 'common.save' | translate }}"
-                            icon="pi pi-check"
+                            label="{{ 'common.download' | translate }}"
+                            icon="pi pi-download"
                             severity="primary"
                             [disabled]="formGroup.invalid"
                             (onClick)="submit()"

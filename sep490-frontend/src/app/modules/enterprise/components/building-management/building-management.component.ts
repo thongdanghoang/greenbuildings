@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {BuildingGroupCriteria} from '@models/building-group';
 import {TranslateService} from '@ngx-translate/core';
 import moment from 'moment/moment';
+import {DialogService, DynamicDialogConfig} from 'primeng/dynamicdialog';
 import {Observable, filter, map, switchMap, takeUntil} from 'rxjs';
 import {validate} from 'uuid';
 import {UUID} from '../../../../../types/uuid';
@@ -16,6 +17,7 @@ import {TableTemplateColumn} from '@shared/components/table-template/table-templ
 import {SearchCriteriaDto, SearchResultDto} from '@shared/models/base-models';
 import {ModalProvider} from '@shared/services/modal-provider';
 import {ToastProvider} from '@shared/services/toast-provider';
+import {ReportDialogComponent} from '../../dialog/report-dialog/report-dialog.component';
 
 @Component({
   selector: 'app-building-management',
@@ -42,6 +44,7 @@ export class BuildingManagementComponent extends SubscriptionAwareComponent impl
     private readonly translate: TranslateService,
     private readonly router: Router,
     private readonly modalProvider: ModalProvider,
+    private readonly dialogService: DialogService,
     private readonly activatedRoute: ActivatedRoute,
     private readonly buildingService: BuildingService,
     private readonly msgService: ToastProvider,
@@ -82,7 +85,17 @@ export class BuildingManagementComponent extends SubscriptionAwareComponent impl
     void this.router.navigate([AppRoutingConstants.ENTERPRISE_PATH, AppRoutingConstants.BUILDING_GROUP_PATH, group.id]);
   }
 
-  generateReport(): void {}
+  generateReport(): void {
+    const config: DynamicDialogConfig<UUID> = {
+      data: this.buildingDetails.id,
+      closeOnEscape: true,
+      closable: true,
+      dismissableMask: true,
+      showHeader: true,
+      header: this.translate.instant('enterprise.emission.activity.generateReport')
+    };
+    this.dialogService.open(ReportDialogComponent, config);
+  }
 
   openNewActivityDialog(): void {}
 

@@ -56,4 +56,8 @@ export class BuildingGroupService {
   getAvailableBuildingGroups(buildingId: UUID): Observable<BuildingGroup[]> {
     return this.http.get<BuildingGroup[]>(`${this.baseUrl}/building/${buildingId}/available`);
   }
+
+  getByBuildingId(buildingId: UUID): Observable<BuildingGroup[]> {
+    return this.http.get<BuildingGroup[]>(`${this.baseUrl}/building/${buildingId}`);
+  }
 }

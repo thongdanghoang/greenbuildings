@@ -339,6 +339,7 @@
         "manageActivityType": "管理活动类型",
         "manageCommonActivity": "管理公共活动",
         "selectActivities": "选择活动",
+        "selectGroups": "选择建筑群组:",
         "currentNoActivities": "当前活动数量：",
         "maxNoActivities": "最大活动数量：",
         "subscriptionDetail": "订阅详情",
