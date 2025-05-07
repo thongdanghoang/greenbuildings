@@ -16,7 +16,7 @@ import greenbuildings.idp.dto.OtpDTO;
 import greenbuildings.idp.limiter.ForgotPasswordLimiter;
 import greenbuildings.idp.service.ForgotPasswordService;
 import commons.springfw.impl.utils.IEmailUtil;
-import greenbuildings.idp.utils.IMessageUtil;
+import commons.springfw.impl.utils.IMessageUtil;
 
 
 @Controller

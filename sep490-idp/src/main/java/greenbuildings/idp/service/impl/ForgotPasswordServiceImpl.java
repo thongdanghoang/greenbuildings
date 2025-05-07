@@ -13,7 +13,7 @@ import greenbuildings.idp.repository.UserOTPRepository;
 import greenbuildings.idp.repository.UserRepository;
 import greenbuildings.idp.service.ForgotPasswordService;
 import commons.springfw.impl.utils.IEmailUtil;
-import greenbuildings.idp.utils.IMessageUtil;
+import commons.springfw.impl.utils.IMessageUtil;
 import commons.springfw.impl.utils.SEPMailMessage;
 
 import java.time.LocalDateTime;

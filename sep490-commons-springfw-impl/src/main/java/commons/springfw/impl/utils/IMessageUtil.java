@@ -1,4 +1,4 @@
-package greenbuildings.idp.utils;
+package commons.springfw.impl.utils;
 
 public interface IMessageUtil {
     String getMessage(String code, Object... args);
