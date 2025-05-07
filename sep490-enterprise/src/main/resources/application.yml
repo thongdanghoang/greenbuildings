@@ -54,7 +54,14 @@ spring:
               packages: "*"
       auto-offset-reset: latest
       group-id: sep490-enterprise
-
+  mail:
+    host: 127.0.0.1
+    port: 1025
+    username:
+    password:
+    properties:
+      mail.smtp.starttls.enable: true
+      mail.smtp.auth: false
 minio:
   endpoint: http://localhost:9000
   accessKey: minioadmin
