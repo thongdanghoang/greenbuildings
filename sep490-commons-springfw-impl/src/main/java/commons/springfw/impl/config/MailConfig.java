@@ -1,4 +1,4 @@
-package greenbuildings.idp.configs;
+package commons.springfw.impl.config;
 
 import freemarker.cache.ClassTemplateLoader;
 import freemarker.cache.TemplateLoader;

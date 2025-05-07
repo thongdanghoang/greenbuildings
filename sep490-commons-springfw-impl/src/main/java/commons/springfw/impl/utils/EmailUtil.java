@@ -1,4 +1,4 @@
-package greenbuildings.idp.utils;
+package commons.springfw.impl.utils;
 
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
