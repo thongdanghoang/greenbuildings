@@ -1,6 +1,9 @@
 package greenbuildings.enterprise.services.impl;
 
 import commons.springfw.impl.mappers.CommonMapper;
+import commons.springfw.impl.utils.EmailUtil;
+import commons.springfw.impl.utils.IMessageUtil;
+import commons.springfw.impl.utils.SEPMailMessage;
 import greenbuildings.commons.api.dto.SearchCriteriaDTO;
 import greenbuildings.commons.api.exceptions.BusinessException;
 import greenbuildings.enterprise.dtos.BuildingGroupCriteria;
@@ -38,6 +41,8 @@ public class BuildingGroupServiceImpl implements BuildingGroupService {
     private final EnterpriseRepository enterpriseRepository;
     private final InvitationRepository invitationRepository;
     private final EmissionActivityRepository emissionActivityRepository;
+    private final EmailUtil emailUtil;
+    private final IMessageUtil messageUtil;
     
     @Override
     public BuildingGroupEntity create(BuildingGroupDTO dto) {
@@ -147,8 +152,27 @@ public class BuildingGroupServiceImpl implements BuildingGroupService {
     @Override
     public void unlinkTenant(UUID groupId) {
         BuildingGroupEntity buildingGroupEntity = buildingGroupRepository.findById(groupId).orElseThrow();
-        buildingGroupEntity.setTenant(null);
-        // TODO: send mail to tenant
-        buildingGroupRepository.save(buildingGroupEntity);
+        if (buildingGroupEntity.getTenant() != null) {
+            SEPMailMessage message = createUnlinkTenantMailMessage(buildingGroupEntity);
+            buildingGroupEntity.setTenant(null);
+            emailUtil.sendMail(message);
+            buildingGroupRepository.save(buildingGroupEntity);
+        }
+    }
+    
+    private SEPMailMessage createUnlinkTenantMailMessage(BuildingGroupEntity buildingGroupEntity) {
+        SEPMailMessage message = new SEPMailMessage();
+        
+        message.setTemplateName("unlink-tenant.ftl");
+        message.setTo(buildingGroupEntity.getTenant().getEmail());
+        message.setSubject(messageUtil.getMessage("unlinkTenant.title"));
+        
+        message.addTemplateModel("subject", messageUtil.getMessage("unlinkTenant.title"));
+        message.addTemplateModel("tenantName", buildingGroupEntity.getTenant().getName());
+        message.addTemplateModel("groupName", buildingGroupEntity.getName());
+        message.addTemplateModel("ownerEmail", buildingGroupEntity.getBuilding().getEnterprise().getEnterpriseEmail());
+        message.addTemplateModel("appName", "GreenBuildings");
+        
+        return message;
     }
 } 

@@ -26,18 +26,6 @@ public class I18nConfig implements WebMvcConfigurer {
         return interceptor;
     }
 
-    @Bean
-    public ReloadableResourceBundleMessageSource messageSource() {
-        ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
-        messageSource.setBasename("classpath:i18n/messages");
-        messageSource.setDefaultEncoding("UTF-8");
-        messageSource.setCacheSeconds(3600);
-        messageSource.setFallbackToSystemLocale(false);
-        messageSource.setUseCodeAsDefaultMessage(false);
-        messageSource.setDefaultLocale(Locale.ENGLISH);
-        return messageSource;
-    }
-
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(localeChangeInterceptor());

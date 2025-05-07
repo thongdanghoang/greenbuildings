@@ -23,7 +23,7 @@ import greenbuildings.idp.repository.UserOTPRepository;
 import greenbuildings.idp.repository.UserRepository;
 import greenbuildings.idp.service.UserService;
 import commons.springfw.impl.utils.IEmailUtil;
-import greenbuildings.idp.utils.IMessageUtil;
+import commons.springfw.impl.utils.IMessageUtil;
 import commons.springfw.impl.utils.SEPMailMessage;
 import greenbuildings.idp.validators.Validator;
 import lombok.RequiredArgsConstructor;

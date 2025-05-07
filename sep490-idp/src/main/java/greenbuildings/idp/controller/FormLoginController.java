@@ -6,7 +6,7 @@ import greenbuildings.idp.dto.SignupResult;
 import greenbuildings.idp.repository.UserAuthenticatorRepository;
 import greenbuildings.idp.security.MvcUserContextData;
 import greenbuildings.idp.service.UserService;
-import greenbuildings.idp.utils.IMessageUtil;
+import commons.springfw.impl.utils.IMessageUtil;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
