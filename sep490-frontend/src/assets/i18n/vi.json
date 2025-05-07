@@ -227,6 +227,7 @@
       "search": "Tìm kiếm",
       "add": "Thêm người dùng",
       "create": "Tạo người dùng",
+      "managePasskey": "Quản lý khóa truy cập hồ sơ",
       "delete": "Xóa",
       "detail": "Chi tiết",
       "deleteWithCount": "Xóa ({{count}}) người dùng",

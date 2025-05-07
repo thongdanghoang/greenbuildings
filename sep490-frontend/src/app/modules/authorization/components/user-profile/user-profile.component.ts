@@ -22,6 +22,7 @@ import {ToastProvider} from '@shared/services/toast-provider';
 import {takeUntil} from 'rxjs';
 import {UUID} from '../../../../../types/uuid';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
+import {environment} from '@environment';
 
 @Component({
   selector: 'app-user-profile',
@@ -29,6 +30,7 @@ import {AppRoutingConstants} from '../../../../app-routing.constant';
   styleUrl: './user-profile.component.css'
 })
 export class UserProfileComponent extends AbstractFormComponent<EnterpriseUserDetails> {
+  passkeyIdpPage = environment.accountPageIDP;
   buildings: Building[] = [];
   protected readonly enterpriseUserStructure = {
     id: new FormControl<UUID | null>({value: null, disabled: true}),
@@ -80,6 +82,10 @@ export class UserProfileComponent extends AbstractFormComponent<EnterpriseUserDe
 
   get buildingPermissions(): FormArray {
     return this.formGroup.get('buildingPermissions') as FormArray;
+  }
+
+  navigateToPasskey(): void {
+    window.location.href = this.passkeyIdpPage;
   }
 
   override reset(): void {

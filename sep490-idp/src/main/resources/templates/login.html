@@ -120,7 +120,7 @@
             })
             .then(async r => {
                 let value = await r.json();
-                document.location.href = value.url;
+                document.location.href = value.url + '/triggerLogin';
             })
             .catch(err => console.error(err));
     });

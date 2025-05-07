@@ -35,6 +35,10 @@ const routes: Routes = [
     canActivate: [authGuard]
   },
   {
+    path: 'triggerLogin',
+    component: HomeComponent
+  },
+  {
     path: AppRoutingConstants.LANDING_PAGE_PATH,
     component: LandingPageComponent
   },
