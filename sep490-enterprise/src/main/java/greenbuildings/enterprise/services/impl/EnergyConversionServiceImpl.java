@@ -128,9 +128,9 @@ public class EnergyConversionServiceImpl implements EnergyConversionService {
                 // Column 0: Fuel (VN), Column 1: Fuel (EN), Column 2: Fuel (CN),
                 // Column 3: Conversion Value, Column 4: Conversion Unit Numerator,
                 // Column 5: Conversion Unit Denominator
-                String fuelVN = row.getCell(0) != null ? row.getCell(0).getStringCellValue() : "";
-                String fuelEN = row.getCell(1) != null ? row.getCell(1).getStringCellValue() : "";
-                String fuelCN = row.getCell(2) != null ? row.getCell(2).getStringCellValue() : "";
+                String fuelVN = row.getCell(0) != null ? row.getCell(0).getStringCellValue().trim() : "";
+                String fuelEN = row.getCell(1) != null ? row.getCell(1).getStringCellValue().trim(): "";
+                String fuelCN = row.getCell(2) != null ? row.getCell(2).getStringCellValue().trim() : "";
                 BigDecimal conversionValue = BigDecimal.valueOf(row.getCell(3) != null ? row.getCell(3).getNumericCellValue() : 0.0);
 
                 // Validate and parse EmissionUnit for numerator and denominator
@@ -149,6 +149,21 @@ public class EnergyConversionServiceImpl implements EnergyConversionService {
                 } catch (IllegalArgumentException e) {
                     throw new BusinessException("business.excel.invalidEmissionUnit", "Invalid Conversion Unit Denominator at row " + (i + 1));
                 }
+
+                if (!fuelVN.isEmpty() || !fuelEN.isEmpty() || !fuelCN.isEmpty()) {
+                    boolean exists = energyConversionRepository.existsByName(fuelVN, fuelEN, fuelCN);
+                    if (exists) {
+                        Optional<EnergyConversionEntity> energyConversion = energyConversionRepository.findByName(fuelVN, fuelEN, fuelCN);
+                        if (energyConversion.isPresent()) {
+                            energyConversion.get().setConversionValue(conversionValue);
+                            energyConversion.get().setConversionUnitNumerator(unitNumerator);
+                            energyConversion.get().setConversionUnitDenominator(unitDenominator);
+                            energyConversionRepository.save(energyConversion.get());
+                        }
+                        continue; // Skip if already exists
+                    }
+                }
+
 
                 // Create and populate the FuelEntity
                 FuelEntity fuel = new FuelEntity();

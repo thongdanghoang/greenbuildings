@@ -99,9 +99,17 @@ public class EmissionSourceServiceImpl implements EmissionSourceService {
                 // Reset counter if a non-null row is found
                 consecutiveNullRows = 0;
 
-                String vn = row.getCell(0).getStringCellValue();
-                String en = row.getCell(1).getStringCellValue();
-                String cn = row.getCell(2).getStringCellValue();
+                String vn = row.getCell(0)!= null ? row.getCell(0).getStringCellValue().trim() : "";
+                String en = row.getCell(1)!= null ? row.getCell(1).getStringCellValue().trim() : "";
+                String cn = row.getCell(2)!= null ? row.getCell(2).getStringCellValue().trim() : "";
+
+                if (!vn.isEmpty() || !en.isEmpty() || !cn.isEmpty()) {
+                    boolean exists = emissionSourceRepository.existsByName(vn, en, cn);
+                    if (exists) {
+                        continue; // Bỏ qua nếu đã tồn tại
+                    }
+                }
+
 
                 EmissionSourceEntity source = new EmissionSourceEntity();
                 source.setNameVN(vn);
