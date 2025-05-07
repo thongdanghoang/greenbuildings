@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
 import {AppRoutingConstants} from '../../app-routing.constant';
 import {UserRole} from '@models/role-names';
 import {EnterpriseUserDetails} from '@models/enterprise-user';
@@ -23,28 +24,35 @@ export class HomeComponent extends SubscriptionAwareComponent implements OnInit 
 
   constructor(
     private readonly applicationService: ApplicationService,
-    private readonly userService: UserService
+    private readonly userService: UserService,
+    private readonly activeRoute: ActivatedRoute
   ) {
     super();
   }
 
   ngOnInit(): void {
-    this.applicationService.UserData.pipe(
-      takeUntil(this.destroy$),
-      switchMap(userData => {
-        this.userData = userData;
-        return this.applicationService.getUserRoles();
-      }),
-      switchMap(roles => {
-        this.userRoles = roles;
-        return this.userService.getUserInfo();
-      }),
-      switchMap(userInfo => {
-        this.userInfo = userInfo;
-        return this.applicationService.isEmailVerified();
-      })
-    ).subscribe(verified => {
-      this.emailVerified = verified;
+    this.activeRoute.url.subscribe(url => {
+      if (url.some(segment => segment.path.includes('triggerLogin'))) {
+        this.applicationService.login();
+      } else {
+        this.applicationService.UserData.pipe(
+          takeUntil(this.destroy$),
+          switchMap(userData => {
+            this.userData = userData;
+            return this.applicationService.getUserRoles();
+          }),
+          switchMap(roles => {
+            this.userRoles = roles;
+            return this.userService.getUserInfo();
+          }),
+          switchMap(userInfo => {
+            this.userInfo = userInfo;
+            return this.applicationService.isEmailVerified();
+          })
+        ).subscribe(verified => {
+          this.emailVerified = verified;
+        });
+      }
     });
   }
 }

@@ -227,6 +227,7 @@
       "search": "搜索",
       "add": "添加用户",
       "create": "创建用户",
+      "managePasskey": "管理个人访问密钥",
       "delete": "删除",
       "detail": "详细信息",
       "deleteWithCount": "删除（{{count}}）用户",

@@ -2,9 +2,19 @@
     title="{{ isEdit ? 'enterprise.Users.detail' : 'enterprise.Users.create' }}"
     [showBack]="true"
 >
+    <div class="flex justify-start">
+        <p-button
+            [label]="'enterprise.Users.managePasskey' | translate"
+            severity="info"
+            (onClick)="navigateToPasskey()"
+            iconPos="right"
+            icon="pi pi-key"
+            class="*:min-w-28"
+        />
+    </div>
     <form
         [formGroup]="formGroup"
-        class="py-5 sm:mt-5 sm:px-5"
+        class="py-2 sm:mt-5 sm:px-5"
     >
         @if (isEdit) {
             <!--   createdDate   -->

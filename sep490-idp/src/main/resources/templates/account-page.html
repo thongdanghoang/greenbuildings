@@ -8,30 +8,31 @@
     <title>Account</title>
     <link rel="stylesheet" th:href="@{/css/main.css}"/>
 </head>
-<body>
+<body th:style="'background-image: url(img/background.jpg)'">
 
 <div class="max-w-2xl mx-auto mt-10 p-6 bg-white shadow-md rounded-lg">
     <div class="mb-6 border-b border-gray-200 pb-4">
-        <h1 class="text-2xl font-bold text-gray-800">WebAuthN Demo</h1>
+        <h1 class="text-2xl font-bold text-gray-800" th:text="#{account.title}">WebAuthN Demo</h1>
     </div>
     <div class="mb-6">
-        <p class="text-gray-600 text-sm">Your Account:</p>
+        <p class="text-gray-600 text-sm" th:text="#{account.label.account}">Your Account:</p>
         <ul class="mt-2 space-y-1">
             <li class="flex items-center text-gray-800">
-                <span class="font-semibold">Email:</span>
+                <span class="font-semibold" th:text="#{account.label.email}">Email:</span>
                 <span class="ml-2" th:text="${email}"></span>
             </li>
         </ul>
     </div>
     <div class="mb-6">
-        <h3 class="text-lg font-semibold text-gray-800 mb-3">Existing Passkeys</h3>
+        <h3 class="text-lg font-semibold text-gray-800 mb-3" th:text="#{account.existing.passkeys}">Existing Passkeys</h3>
         <ul class="space-y-4">
             <li th:each="authenticator: ${authenticators}" class="flex items-center justify-between">
                 <span class="text-gray-600" th:text="${authenticator.getCredentialName()}"></span>
                 <form action="/passkey/delete" method="POST" class="flex items-center">
                     <input type="hidden" name="credential-id" th:value="${authenticator.getCredentialId()}"/>
                     <button type="submit"
-                            class="bg-red-500 hover:bg-red-600 text-white text-sm px-4 py-2 rounded-md shadow-sm">
+                            class="bg-red-500 hover:bg-red-600 text-white text-sm px-4 py-2 rounded-md shadow-sm"
+                            th:text="#{account.button.delete}">
                         Delete
                     </button>
                 </form>
@@ -39,26 +40,39 @@
         </ul>
     </div>
     <div class="mb-6">
-        <h3 class="text-lg font-semibold text-gray-800 mb-3">Register New Passkey</h3>
+        <h3 class="text-lg font-semibold text-gray-800 mb-3" th:text="#{account.register.passkey}">Register New Passkey</h3>
         <div class="flex items-center space-x-4">
-            <input type="text" id="passkey-name" placeholder="Passkey Name"
+            <input type="text" id="passkey-name"
+                   placeholder="Passkey Name"
+                   th:placeholder="#{account.input.passkey.name}"
                    class="w-full px-4 py-2 border rounded-md text-gray-700 focus:outline-none focus:ring focus:ring-indigo-200">
             <button id="register-webauthn"
-                    class="bg-indigo-500 hover:bg-indigo-600 text-white text-sm px-4 py-2 rounded-md shadow-sm">
+                    class="bg-indigo-500 hover:bg-indigo-600 text-white text-sm px-4 py-2 rounded-md shadow-sm"
+                    th:text="#{account.button.register}">
                 Register
             </button>
         </div>
     </div>
     <div>
-        <h3 class="text-lg font-semibold text-gray-800 mb-3">Logout</h3>
-        <form th:action="@{/logout}" method="post">
+        <h3 class="text-lg font-semibold text-gray-800 mb-3" th:text="#{account.logout.title}">Logout</h3>
+        <form th:action="${@environment.getProperty('spring.application.homepage')}">
             <button type="submit"
-                    class="inline-block bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm px-4 py-2 rounded-md shadow-sm">
-                Logout
+                    class="inline-block bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm px-4 py-2 rounded-md shadow-sm"
+                    th:text="#{account.button.back}">
+                Back to homepage
             </button>
         </form>
     </div>
+    <div class="text-center mt-4">
+        <a class="text-primary font-inter hover:underline" th:href="@{''(lang=en)}"
+           th:text="#{language.english}">English</a> |
+        <a class="text-primary font-inter hover:underline" th:href="@{''(lang=vi)}"
+           th:text="#{language.vietnamese}">Vietnamese</a> |
+        <a class="text-primary font-inter hover:underline" th:href="@{''(lang=zh)}"
+           th:text="#{language.chinese}">Chinese</a>
+    </div>
 </div>
+
 
 </body>
 <script th:inline="javascript">

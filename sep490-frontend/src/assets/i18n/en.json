@@ -225,6 +225,7 @@
       "id": "ID",
       "createdDate": "Created date",
       "title": "Users",
+      "managePasskey": "Configure Profile Passkey",
       "search": "Search",
       "add": "Add user",
       "create": "Create user",
