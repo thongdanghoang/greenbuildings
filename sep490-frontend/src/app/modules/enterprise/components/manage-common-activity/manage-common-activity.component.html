@@ -78,3 +78,9 @@
 >
     <span *ngIf="activity.type">{{ activity?.type.name }}</span>
 </ng-template>
+<ng-template
+    #factorNameTemplate
+    let-activity
+>
+    <span *ngIf="activity.emissionFactor">{{ getFactorName(activity) }}</span>
+</ng-template>

@@ -8,6 +8,7 @@ import greenbuildings.enterprise.dtos.CreateEmissionActivityDTO;
 import greenbuildings.enterprise.dtos.EmissionActivityCriteria;
 import greenbuildings.enterprise.dtos.EmissionActivityDTO;
 import greenbuildings.enterprise.dtos.EmissionActivityDetailsDTO;
+import greenbuildings.enterprise.dtos.EmissionActivityTableView;
 import greenbuildings.enterprise.entities.EmissionActivityEntity;
 import greenbuildings.enterprise.mappers.EmissionActivityMapper;
 import greenbuildings.enterprise.services.EmissionActivityService;
@@ -47,9 +48,9 @@ public class EmissionActivityController {
     }
     
     @PostMapping("/building")
-    public ResponseEntity<SearchResultDTO<EmissionActivityDTO>> findAllByCriteria(@RequestBody SearchCriteriaDTO<EmissionActivityCriteria> criteria) {
+    public ResponseEntity<SearchResultDTO<EmissionActivityTableView>> findAllByCriteria(@RequestBody SearchCriteriaDTO<EmissionActivityCriteria> criteria) {
         Page<EmissionActivityEntity> list = emissionActivityService.search(criteria);
-        return ResponseEntity.ok(CommonMapper.toSearchResultDTO(list, mapper::toDTO));
+        return ResponseEntity.ok(CommonMapper.toSearchResultDTO(list, mapper::toTableView));
     }
     
     @PostMapping
