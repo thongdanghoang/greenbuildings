@@ -1,5 +1,11 @@
 <master-layout title="sidebar.owner.settings.items.powerBiAccessToken">
     <div
+        *ngIf="accessTokens.length === 0"
+        subtitle
+    >
+        {{ 'powerBi.accessToken.description' | translate }}
+    </div>
+    <div
         *ngIf="accessTokens.length > 0"
         actions
     >

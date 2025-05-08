@@ -283,6 +283,7 @@
       "group": {
         "new": "New Group",
         "title": "Building Group",
+        "subtitle": "Organize building areas into groups to efficiently manage resources, delegate leases, and track emissions.",
         "item": {
           "new": "New item",
           "newDescription": "Add new item for your building group",
@@ -293,6 +294,7 @@
         }
       },
       "management": {
+        "subtitle": "Comprehensive building tracking and management, including tenant information, groups, registrations, activities, and shared resource permissions.",
         "title": "Building Management",
         "list": "Building group list",
         "title1": "Enterprise Manager",
@@ -300,6 +302,7 @@
       },
       "overview": {
         "title": "Buildings",
+        "description": "Enterprise building management to track activity and emissions, with location, address and management group information.",
         "btn": {
           "add": "Add building",
           "activate": "Activate",
@@ -426,6 +429,7 @@
       "representativeContact": "Representative Contact",
       "create": {
         "title": "Create New Tenant",
+        "subtitle": "Send lease invitations to building teams via email, allowing tenants to manage areas and track emissions.",
         "description": "Create a new tenant for this building",
         "name": "Tenant Name",
         "placeholders": {
@@ -437,6 +441,7 @@
       "create": {
         "title": "Create New Building Group",
         "subtitle": "Create a new building group for this building",
+        "subtitle1": "Create teams within the building to track emissions, engage with tenants, and allocate resources by area.",
         "description": "Description",
         "name": "Group Name",
         "tenant": "Tenant",
@@ -521,7 +526,7 @@
   },
   "purchaseCredit": {
     "title": "Purchase Credit",
-    "introduceMethod": "You can use the following payment methods.",
+    "introduceMethod": "You can pay easily through:",
     "currentBalance": "Current credits",
     "selectCreditPackage": "Select Credit package to purchase",
     "about": "About Credit",
@@ -846,7 +851,8 @@
       "save": "Save",
       "create": "Generate token",
       "regenerate": "Regenerate token",
-      "cancel": "Cancel"
+      "cancel": "Cancel",
+      "description": "Manage Power BI access tokens with scoped permissions, enabling custom dashboard views via time-sensitive security links."
     },
     "neverUsed": "Never used",
     "noAccessToken": "No Power BI access token created",
@@ -886,7 +892,8 @@
     "regenerateTokenTitle": "Regenerate Power BI access token",
     "submitThisForm": "Submitting this form will generate a new token. Be aware that any scripts or applications using this token will need to be updated.",
     "tokenWillExpire": "The token will expire on the selected date",
-    "dashboard": "Power BI Dashboards",
+    "dashboard": "Dashboards",
+    "dashboardDescription": "Create and manage custom dashboards that display real-time emissions data, supporting monitoring and sustainability decisions.",
     "noPowerBi": "No Power BI Dashboards created",
     "needPowerBi": "Need a Power BI dashboard for scripts or testing? Add a embedded dashboard for quick view the Green Buildings data.",
     "addNewDashBoard": "Add new dashboard",

@@ -280,6 +280,7 @@
         "description": "Xem và quản lý tất cả các hoạt động chung được chia sẻ trong toàn bộ tòa nhà"
       },
       "management": {
+        "subtitle": "Theo dõi và quản lý toàn diện tòa nhà, gồm thông tin thuê, nhóm, đăng ký, hoạt động và phân quyền tài nguyên dùng chung.",
         "title": "Quản lý tòa nhà",
         "list": "Danh sách nhóm tòa nhà",
         "title1": "Quản lý Doanh nghiệp",
@@ -288,6 +289,7 @@
       "group": {
         "new": "Thêm nhóm",
         "title": "Nhóm Tòa Nhà",
+        "subtitle": "Tổ chức khu vực trong tòa nhà theo nhóm để quản lý tài nguyên, phân quyền cho thuê và theo dõi phát thải hiệu quả.",
         "item": {
           "new": "Thêm thiết bị mới",
           "newDescription": "Thêm thiết bị mới cho nhóm tòa nhà của bạn",
@@ -299,6 +301,7 @@
       },
       "overview": {
         "title": "Tòa nhà",
+        "description": "Quản lý tòa nhà doanh nghiệp để theo dõi hoạt động và phát thải, với thông tin vị trí, địa chỉ và phân nhóm quản lý.",
         "btn": {
           "add": "Thêm tòa nhà",
           "activate": "Kích hoạt",
@@ -419,6 +422,7 @@
       "representativeContact": "Liên hệ người đại diện",
       "create": {
         "title": "Tạo doanh nghiệp thuê Mới",
+        "subtitle": "Gửi lời mời thuê cho nhóm tòa nhà qua email, cho phép người thuê quản lý khu vực và theo dõi phát thải.",
         "description": "Tạo doanh nghiệp thuê mới cho tòa nhà này",
         "name": "Tên doanh nghiệp thuê",
         "placeholders": {
@@ -430,6 +434,7 @@
       "create": {
         "title": "Tạo Nhóm Tòa Nhà Mới",
         "subtitle": "Tạo nhóm tòa nhà mới cho tòa nhà này",
+        "subtitle1": "Tạo nhóm trong tòa nhà để theo dõi phát thải, gắn với người thuê và phân bổ tài nguyên theo khu vực.",
         "name": "Tên Nhóm",
         "description": "Mô tả",
         "tenant": "Doanh nghiệp thuê",
@@ -514,7 +519,7 @@
   },
   "purchaseCredit": {
     "title": "Mua tín dụng",
-    "introduceMethod": "Bạn có thể sử dụng các phương thức thanh toán sau.",
+    "introduceMethod": "Bạn có thể thanh toán dễ dàng thông qua:",
     "currentBalance": "Số tín dụng hiện tại",
     "selectCreditPackage": "Chọn gói tín dụng để mua",
     "about": "Về tín dụng",
@@ -839,7 +844,8 @@
       "save": "Lưu",
       "create": "Tạo token",
       "regenerate": "Tạo lại token",
-      "cancel": "Hủy"
+      "cancel": "Hủy",
+      "description": "Quản lý token truy cập Power BI với phân quyền theo phạm vi, cho phép xem dashboard tùy chỉnh qua liên kết bảo mật có thời hạn."
     },
     "neverUsed": "Chưa sử dụng",
     "noAccessToken": "Không có Power BI Access token nào được tạo",
@@ -880,6 +886,7 @@
     "submitThisForm": "Gửi biểu mẫu này sẽ tạo ra một token mới. Xin lưu ý rằng bất kỳ tập lệnh hoặc ứng dụng nào sử dụng token này đều cần phải được cập nhật.",
     "tokenWillExpire": "Access token sẽ hết hạn vào ngày đã chọn",
     "dashboard": "Dashboard",
+    "dashboardDescription": "Tạo và quản lý dashboard tùy chỉnh hiển thị dữ liệu phát thải theo thời gian thực, hỗ trợ theo dõi và ra quyết định bền vững.",
     "noPowerBi": "Không có bảng điều khiển Power BI nào được tạo",
     "needPowerBi": "Cần bảng điều khiển Power BI cho các tập lệnh hoặc thử nghiệm? Thêm bảng điều khiển nhúng để xem nhanh dữ liệu công trình xanh.",
     "addNewDashBoard": "Thêm mới dashboard",

@@ -1,5 +1,29 @@
 <master-layout title="enterprise.emission.activity.dialog.EmissionFactor">
     <div subtitle>{{ 'admin.emissionFactor.description1' | translate }}</div>
+    <h3 class="my-2 font-semibold text-primary">
+        {{ 'admin.emissionSource.upload.title' | translate }}
+    </h3>
+    <!-- import.component.html -->
+    <p-progressSpinner
+        *ngIf="isLoading"
+        styleClass="overlay-spinner"
+    ></p-progressSpinner>
+
+    <!-- Drag & Drop upload -->
+    <p-fileUpload
+        name="file"
+        accept=".xlsx"
+        mode="advanced"
+        customUpload="true"
+        [multiple]="false"
+        (uploadHandler)="uploadExcel($event)"
+        [chooseLabel]="'admin.emissionSource.upload.chooseFile' | translate"
+        [uploadLabel]="'admin.emissionSource.upload.import' | translate"
+        [cancelLabel]="'admin.emissionSource.upload.cancel' | translate"
+        [auto]="false"
+        [maxFileSize]="5000000"
+    >
+    </p-fileUpload>
     <table-template
         [fetch]="fetchEmissionFactor"
         [columns]="cols"
@@ -118,28 +142,3 @@
 >
     <p>{{ data.validTo | date: 'dd.MM.yyyy' }}</p>
 </ng-template>
-
-<h3 class="my-2 font-semibold text-primary">
-    {{ 'admin.emissionSource.upload.title' | translate }}
-</h3>
-<!-- import.component.html -->
-<p-progressSpinner
-    *ngIf="isLoading"
-    styleClass="overlay-spinner"
-></p-progressSpinner>
-
-<!-- Drag & Drop upload -->
-<p-fileUpload
-    name="file"
-    accept=".xlsx"
-    mode="advanced"
-    customUpload="true"
-    [multiple]="false"
-    (uploadHandler)="uploadExcel($event)"
-    [chooseLabel]="'admin.emissionSource.upload.chooseFile' | translate"
-    [uploadLabel]="'admin.emissionSource.upload.import' | translate"
-    [cancelLabel]="'admin.emissionSource.upload.cancel' | translate"
-    [auto]="false"
-    [maxFileSize]="5000000"
->
-</p-fileUpload>

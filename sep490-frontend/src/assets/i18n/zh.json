@@ -276,6 +276,7 @@
         }
       },
       "management": {
+        "subtitle": "全面的建筑跟踪和管理，包括租户信息、团体、注册、活动和共享资源权限。",
         "title": "建筑管理",
         "list": "建筑群组列表",
         "title1": "企业管理",
@@ -288,6 +289,7 @@
       "group": {
         "new": "新组",
         "title": "建筑群",
+        "subtitle": "将建筑区域分组，以有效管理资源、委托租赁和跟踪排放。",
         "item": {
           "new": "新项目",
           "newDescription": "为您的建筑群组添加新项目",
@@ -299,6 +301,7 @@
       },
       "overview": {
         "title": "建筑物",
+        "description": "企业楼宇管理跟踪活动和排放，包括位置、地址和管理组信息",
         "btn": {
           "add": "添加建筑物",
           "activate": "激活",
@@ -419,6 +422,7 @@
       "representativeContact": "代表联系方式",
       "create": {
         "title": "创建新租户",
+        "subtitle": "通过电子邮件向建筑团队发送租赁邀请，让租户管理区域并跟踪排放。",
         "description": "为此建筑创建新租户",
         "name": "租户名称",
         "placeholders": {
@@ -430,6 +434,7 @@
       "create": {
         "title": "创建新建筑群",
         "subtitle": "为此建筑创建新建筑群",
+        "subtitle1": "在建筑物内创建团队来跟踪排放、与租户互动并按区域分配资源。",
         "description": "描述",
         "name": "群组名称",
         "tenant": "租户",
@@ -514,7 +519,7 @@
   },
   "purchaseCredit": {
     "title": "购买信用",
-    "introduceMethod": "您可以使用以下付款方式。",
+    "introduceMethod": "您可以通过 轻松付款:",
     "currentBalance": "当前余额",
     "selectCreditPackage": "选择要购买的信用包",
     "about": "关于信用",
@@ -839,7 +844,8 @@
       "save": "保存",
       "create": "生成访问令牌",
       "regenerate": "重新生成访问令牌",
-      "cancel": "取消"
+      "cancel": "取消",
+      "description": "使用范围权限管理 Power BI 访问令牌，通过时间敏感的安全链接启用自定义仪表板视图。"
     },
     "neverUsed": "从未使用",
     "noAccessToken": "未创建 Power BI 访问令牌",
@@ -880,6 +886,7 @@
     "submitThisForm": "提交此表单将生成一个新令牌。请注意，使用此令牌的任何脚本或应用程序都需要更新。",
     "tokenWillExpire": "令牌将在选定日期到期",
     "dashboard": "Power BI 仪表板",
+    "dashboardDescription": "创建和管理显示实时排放数据的自定义仪表板，支持监控和可持续决策。",
     "noPowerBi": "未创建 Power BI 仪表板",
     "needPowerBi": "需要用于脚本或测试的 Power BI 仪表板吗？添加嵌入式仪表板，以便快速查看绿色建筑数据。",
     "addNewDashBoard": "添加新仪表板",
