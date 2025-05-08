@@ -76,9 +76,6 @@ public class UserEntity extends AbstractAuditableEntity {
     @Column(name = "phone", length = 16)
     private String phone;
     
-    @Column(name = "phone_verified")
-    private boolean phoneVerified;
-    
     @Column(name = "first_name", length = 50)
     private String firstName;
     
@@ -98,7 +95,6 @@ public class UserEntity extends AbstractAuditableEntity {
             String firstName,
             String lastName,
             String phone,
-            boolean phoneVerified,
             String password) {
         var user = new UserEntity();
         user.setEmail(email);
@@ -106,7 +102,6 @@ public class UserEntity extends AbstractAuditableEntity {
         user.setFirstName(firstName);
         user.setLastName(lastName);
         user.setPhone(phone);
-        user.setPhoneVerified(phoneVerified);
         user.setPassword(password);
         user.getAuthorities().add(UserPermissionEntity.of(user, role, null));
         return user;

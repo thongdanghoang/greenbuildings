@@ -23,7 +23,6 @@ public interface EnterpriseUserMapper {
     @Mapping(target = "password", ignore = true)
     @Mapping(target = "emailVerified", ignore = true)
     @Mapping(target = "phone", ignore = true)
-    @Mapping(target = "phoneVerified", ignore = true)
     UserEntity createNewEnterpriseUser(EnterpriseUserDetailsDTO dto);
     
     EnterpriseUserDetailsDTO userEntityToEnterpriseUserDetailDTO(UserEntity user);
@@ -34,12 +33,10 @@ public interface EnterpriseUserMapper {
     @Mapping(target = "emailVerified", ignore = true)
     @Mapping(target = "password", ignore = true)
     @Mapping(target = "phone", ignore = true)
-    @Mapping(target = "phoneVerified", ignore = true)
     void updateEnterpriseUser(@MappingTarget UserEntity user, EnterpriseUserDetailsDTO dto);
     
     @Mapping(target = "emailVerified", ignore = true)
     @Mapping(target = "password", ignore = true)
-    @Mapping(target = "phoneVerified", ignore = true)
     @Mapping(target = "powerBiApiKeys", ignore = true)
     @Mapping(target = "email", ignore = true)
     @Mapping(target = "locale", ignore = true)
