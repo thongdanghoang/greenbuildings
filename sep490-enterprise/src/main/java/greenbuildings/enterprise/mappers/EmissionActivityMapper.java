@@ -4,6 +4,7 @@ import greenbuildings.commons.api.views.DateRangeView;
 import greenbuildings.enterprise.dtos.CreateEmissionActivityDTO;
 import greenbuildings.enterprise.dtos.EmissionActivityDTO;
 import greenbuildings.enterprise.dtos.EmissionActivityDetailsDTO;
+import greenbuildings.enterprise.dtos.EmissionActivityTableView;
 import greenbuildings.enterprise.entities.EmissionActivityEntity;
 import greenbuildings.enterprise.mappers.decorators.EmissionActivityMapperDecorator;
 import greenbuildings.enterprise.models.ActivityRecordDateRange;
@@ -22,6 +23,10 @@ public interface EmissionActivityMapper {
     @Mapping(target = "emissionFactorID", ignore = true)
     @Mapping(target = "records", ignore = true)
     EmissionActivityDTO toDTO(EmissionActivityEntity emissionActivityEntity);
+    
+    @Mapping(target = "emissionFactor", source = "emissionFactorEntity")
+    @Mapping(target = "records", ignore = true)
+    EmissionActivityTableView toTableView(EmissionActivityEntity emissionActivityEntity);
     
     @Mapping(target = "building.id", source = "buildingId")
     @Mapping(target = "buildingGroup", ignore = true)

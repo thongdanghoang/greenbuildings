@@ -70,6 +70,15 @@ export interface EmissionActivity extends BaseDTO {
   description: string;
 }
 
+export interface EmissionActivityTableView extends BaseDTO {
+  records: EmissionActivityRecord[];
+  emissionFactor: EmissionFactorDTO;
+  name: string;
+  type: ActivityType;
+  category: string;
+  description: string;
+}
+
 export interface CreateNewActivityDTO extends BaseDTO {
   buildingGroupID: UUID;
   emissionFactorID: UUID;

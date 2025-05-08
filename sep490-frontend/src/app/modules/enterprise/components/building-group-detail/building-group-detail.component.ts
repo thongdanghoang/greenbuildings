@@ -1,8 +1,9 @@
 import {Component, EventEmitter, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {ActivitySearchCriteria} from '@models/emission-activity';
-import {BuildingGroup, EmissionActivity, InvitationDTO} from '@models/enterprise';
+import {BuildingGroup, EmissionActivity, EmissionActivityTableView, InvitationDTO} from '@models/enterprise';
 import {UserRole} from '@models/role-names';
+import {EmissionFactorDTO} from '@models/shared-models';
 import {TranslateService} from '@ngx-translate/core';
 import {ApplicationService} from '@services/application.service';
 import {BuildingGroupService} from '@services/building-group.service';
@@ -35,10 +36,12 @@ export class BuildingGroupDetailComponent extends SubscriptionAwareComponent imp
   typeTemplate!: TemplateRef<any>;
   @ViewChild('actionsTemplate', {static: true})
   actionsTemplate!: TemplateRef<any>;
+  @ViewChild('factorNameTemplate', {static: true})
+  factorNameTemplate!: TemplateRef<any>;
   protected readonly UserRole = UserRole;
   protected fetchActivity!: (
     criteria: SearchCriteriaDto<ActivitySearchCriteria>
-  ) => Observable<SearchResultDto<EmissionActivity>>;
+  ) => Observable<SearchResultDto<EmissionActivityTableView>>;
   protected searchCriteria!: ActivitySearchCriteria;
   protected cols: TableTemplateColumn[] = [];
   protected readonly searchEvent: EventEmitter<void> = new EventEmitter();
@@ -92,13 +95,8 @@ export class BuildingGroupDetailComponent extends SubscriptionAwareComponent imp
     });
     this.cols.push({
       header: 'enterprise.emission.activity.table.category',
-      field: 'category',
-      sortable: true
-    });
-    this.cols.push({
-      header: 'enterprise.emission.activity.table.description',
-      field: 'description',
-      sortable: true
+      field: '',
+      templateRef: this.factorNameTemplate
     });
     this.cols.push({
       field: 'actions',
@@ -223,6 +221,19 @@ export class BuildingGroupDetailComponent extends SubscriptionAwareComponent imp
         this.clearSelectedEvent.emit();
       }
     });
+  }
+
+  getFactorName(activity: EmissionActivityTableView): string {
+    if (!activity.emissionFactor) return '';
+
+    let lang = this.translate.currentLang.toUpperCase();
+    if (lang === 'VI') {
+      lang = 'VN';
+    }
+
+    return (
+      (activity.emissionFactor[`name${lang}` as keyof EmissionFactorDTO] as string) || activity.emissionFactor.nameEN
+    );
   }
 
   openActivityDetailsDialog(activity: EmissionActivity): void {

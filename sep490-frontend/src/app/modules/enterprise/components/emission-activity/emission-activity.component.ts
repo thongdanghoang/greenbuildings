@@ -74,7 +74,7 @@ export class EmissionActivityComponent extends SubscriptionAwareComponent implem
 
   ngOnInit(): void {
     this.fetchAndValidateBuilding();
-    this.fetchActivity = this.activityService.fetchActivityOfBuilding.bind(this.activityService);
+    // this.fetchActivity = this.activityService.fetchActivityOfBuilding.bind(this.activityService);
     this.searchCriteria = {buildingGroupId: '' as UUID};
   }
 
