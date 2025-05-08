@@ -579,7 +579,7 @@
   "admin": {
     "packageCredit": {
       "title": "Credit Package",
-      "description": "Credit Packages are configurable credit bundles that administrators can create, edit, and manage for enterprise accounts. Each package includes a specific number of credits at a defined price point with optional discount rates. Admins can activate or deactivate packages, track version history, and monitor usage across the system. These packages provide the foundation for the platform's transaction economy, enabling enterprises to access premium features and services.",
+      "description": "Credit packages are administrator-created configuration packages that allow businesses to purchase credits at optional prices and discounts, for use on premium services on the platform.",
       "active": "on",
       "inactive": "off",
       "versionList": "Credit package version history",
@@ -607,7 +607,7 @@
       }
     },
     "ratio": {
-      "description": "Configure conversion ratios that determine how credits are allocated in the system. These ratios define the credit cost for each month of subscription and per device, serving as the foundation for all credit-based transactions across enterprises.",
+      "description": "The conversion rate configuration determines the number of credits required per subscription month and per device, which serves as the basis for all credit transactions.",
       "title1": "Credit Ratio",
       "title": "RATIO",
       "type": {
@@ -622,7 +622,7 @@
     },
     "emissionSource": {
       "name": "Emission source",
-      "description": "Manage categorized sources of emissions across multiple languages. These standardized entries serve as the foundation for all emission calculations and reporting in the system, enabling consistent data collection and analysis across enterprises",
+      "description": "Manage emissions sources by category and multilingually, as a standard basis for emissions calculation and reporting.",
       "addEmissionSource": "Add Emission Source",
       "upload": {
         "title": "Import multiple records via Excel file",
@@ -635,13 +635,13 @@
     },
     "fuel": {
       "addFuel": "Add Fuel",
-      "description": "Manage standardized fuel conversion factors that determine how different energy sources translate to emissions. These conversion values establish the relationship between fuel consumption and emission output, providing the foundation for accurate greenhouse gas calculations across the system"
+      "description": "Manage standard fuel conversion factors to accurately calculate greenhouse gas emissions from energy consumption."
     },
     "emissionFactor": {
       "numerator": "Emission Unit Numerator",
       "denominator": "Emission Unit Denominator",
       "description": "Description",
-      "description1": "Manage emission factors that quantify greenhouse gas emissions from various sources. These standardized values for CO2, CH4, and N2O provide the foundation for accurate carbon calculations across the entire system.",
+      "description1": "Manage standard emission factors for CO2, CH4, N2O to accurately calculate carbon from different sources.",
       "isDirectEmission": "Direct Emission"
     },
     "energyConversion": {
@@ -652,7 +652,7 @@
     "chemicalDensity": {
       "formal": "Chemical Formula",
       "value": "Value",
-      "description": "Manage standardized chemical density values that define the conversion between mass and volume for various chemical compounds. These values establish the relationship between chemical formulas and their physical properties, serving as essential conversion factors for emission calculations.",
+      "description": "Manage standard chemical densities to convert between mass and volume, supporting emission calculations.",
       "unitNumerator": "Unit Numerator",
       "unitDenominator": "Unit Denominator",
       "add": "Add Chemical Formula"

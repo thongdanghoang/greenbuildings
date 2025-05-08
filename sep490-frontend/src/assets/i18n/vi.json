@@ -572,7 +572,7 @@
   "admin": {
     "packageCredit": {
       "title": "Quản lý gói",
-      "description": "Gói tín dụng là các gói tín dụng có thể cấu hình mà quản trị viên có thể tạo, chỉnh sửa và quản lý cho các tài khoản doanh nghiệp. Mỗi gói bao gồm một số lượng tín dụng cụ thể ở một mức giá xác định với mức chiết khấu tùy chọn. Quản trị viên có thể kích hoạt hoặc hủy kích hoạt các gói, theo dõi lịch sử phiên bản và giám sát việc sử dụng trên toàn hệ thống. Các gói này cung cấp nền tảng cho nền kinh tế giao dịch của nền tảng, cho phép các doanh nghiệp truy cập các tính năng và dịch vụ cao cấp.",
+      "description": "Gói tín dụng là các gói cấu hình do quản trị viên tạo để doanh nghiệp mua tín dụng với mức giá và chiết khấu tùy chọn, dùng cho các dịch vụ cao cấp trên nền tảng.",
       "active": "bật",
       "inactive": "tắt",
       "versionList": "Lịch sử phiên bản gói tín dụng",
@@ -602,7 +602,7 @@
     "ratio": {
       "title": "TỶ LỆ",
       "title1": "Tỷ lệ chuyển đổi",
-      "description": "Cấu hình tỷ lệ chuyển đổi xác định cách phân bổ tín dụng trong hệ thống. Các tỷ lệ này xác định chi phí tín dụng cho mỗi tháng đăng ký và cho mỗi thiết bị, đóng vai trò là nền tảng cho tất cả các giao dịch dựa trên tín dụng trên khắp các doanh nghiệp",
+      "description": "Cấu hình tỷ lệ quy đổi xác định số tín dụng cần cho mỗi tháng đăng ký và mỗi thiết bị, làm nền tảng cho mọi giao dịch bằng tín dụng.",
       "type": {
         "MONTH": "THÁNG",
         "DEVICE": "THIẾT BỊ"
@@ -615,7 +615,7 @@
     },
     "emissionSource": {
       "name": "Nguồn phát thải",
-      "description": "Quản lý các nguồn phát thải được phân loại trên nhiều ngôn ngữ. Các mục nhập chuẩn hóa này đóng vai trò là nền tảng cho tất cả các tính toán và báo cáo phát thải trong hệ thống, cho phép thu thập và phân tích dữ liệu nhất quán trên khắp các doanh nghiệp",
+      "description": "Quản lý nguồn phát thải theo danh mục và đa ngôn ngữ, làm cơ sở chuẩn cho tính toán và báo cáo phát thải.",
       "addEmissionSource": "Thêm Nguồn Phát Thải",
       "upload": {
         "title": "Nhập nhiều dữ liệu qua file Excel",
@@ -628,13 +628,13 @@
     },
     "fuel": {
       "addFuel": "Thêm nhiên liệu",
-      "description": "Quản lý các hệ số chuyển đổi nhiên liệu chuẩn hóa xác định cách các nguồn năng lượng khác nhau chuyển thành khí thải. Các giá trị chuyển đổi này thiết lập mối quan hệ giữa mức tiêu thụ nhiên liệu và lượng khí thải, tạo nền tảng cho các tính toán khí nhà kính chính xác trên toàn hệ thống"
+      "description": "Quản lý hệ số quy đổi nhiên liệu chuẩn để tính phát thải khí nhà kính chính xác từ mức tiêu thụ năng lượng."
     },
     "emissionFactor": {
       "numerator": "Tử số đơn vị phát thải",
       "denominator": "Mẫu số đơn vị phát thải",
       "description": "Mô tả",
-      "description1": "Quản lý các yếu tố phát thải định lượng khí thải nhà kính từ nhiều nguồn khác nhau. Các giá trị chuẩn hóa này cho CO2, CH4 và N2O cung cấp nền tảng cho các phép tính carbon chính xác trong toàn bộ hệ thống.",
+      "description1": "Quản lý hệ số phát thải chuẩn cho CO2, CH4, N2O nhằm tính toán carbon chính xác từ các nguồn khác nhau.",
       "isDirectEmission": "Phát thải trực tiếp"
     },
     "energyConversion": {
@@ -645,7 +645,7 @@
     "chemicalDensity": {
       "formal": "Công thức hóa học",
       "value": "Giá trị",
-      "description": "Quản lý các giá trị mật độ hóa học chuẩn hóa xác định sự chuyển đổi giữa khối lượng và thể tích cho các hợp chất hóa học khác nhau. Các giá trị này thiết lập mối quan hệ giữa các công thức hóa học và tính chất vật lý của chúng, đóng vai trò là các hệ số chuyển đổi thiết yếu cho các phép tính phát thải.",
+      "description": "Quản lý mật độ hóa chất chuẩn để quy đổi giữa khối lượng và thể tích, hỗ trợ tính toán phát thải.",
       "unitNumerator": "Tử số đơn vị",
       "unitDenominator": "Mẫu số đơn vị",
       "add": "Thêm Khối lượng riêng"
