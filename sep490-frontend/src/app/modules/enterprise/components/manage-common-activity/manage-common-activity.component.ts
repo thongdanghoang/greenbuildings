@@ -2,7 +2,8 @@ import {Location} from '@angular/common';
 import {Component, EventEmitter, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ActivitySearchCriteria} from '@models/emission-activity';
-import {BuildingDetails, EmissionActivity} from '@models/enterprise';
+import {BuildingDetails, EmissionActivity, EmissionActivityTableView} from '@models/enterprise';
+import {EmissionFactorDTO} from '@models/shared-models';
 import {TranslateService} from '@ngx-translate/core';
 import {BuildingService} from '@services/building.service';
 import {EmissionActivityService} from '@services/emission-activity.service';
@@ -31,11 +32,13 @@ export class ManageCommonActivityComponent extends SubscriptionAwareComponent im
   typeTemplate!: TemplateRef<any>;
   @ViewChild('actionsTemplate', {static: true})
   actionsTemplate!: TemplateRef<any>;
+  @ViewChild('factorNameTemplate', {static: true})
+  factorNameTemplate!: TemplateRef<any>;
   ref: DynamicDialogRef | undefined;
 
   protected fetchActivity!: (
     criteria: SearchCriteriaDto<ActivitySearchCriteria>
-  ) => Observable<SearchResultDto<EmissionActivity>>;
+  ) => Observable<SearchResultDto<EmissionActivityTableView>>;
 
   protected searchCriteria!: ActivitySearchCriteria;
 
@@ -95,19 +98,27 @@ export class ManageCommonActivityComponent extends SubscriptionAwareComponent im
     });
     this.cols.push({
       header: 'enterprise.emission.activity.table.category',
-      field: 'category',
-      sortable: true
-    });
-    this.cols.push({
-      header: 'enterprise.emission.activity.table.description',
-      field: 'description',
-      sortable: true
+      field: '',
+      templateRef: this.factorNameTemplate
     });
     this.cols.push({
       field: 'actions',
       header: '',
       templateRef: this.actionsTemplate
     });
+  }
+
+  getFactorName(activity: EmissionActivityTableView): string {
+    if (!activity.emissionFactor) return '';
+
+    let lang = this.translate.currentLang.toUpperCase();
+    if (lang === 'VI') {
+      lang = 'VN';
+    }
+
+    return (
+      (activity.emissionFactor[`name${lang}` as keyof EmissionFactorDTO] as string) || activity.emissionFactor.nameEN
+    );
   }
 
   openNewActivityDialog(): void {

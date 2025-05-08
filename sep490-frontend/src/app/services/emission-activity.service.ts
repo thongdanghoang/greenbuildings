@@ -5,7 +5,7 @@ import {ActivitySearchCriteria} from '@models/emission-activity';
 import {Observable} from 'rxjs';
 import {UUID} from '../../types/uuid';
 import {AppRoutingConstants} from '../app-routing.constant';
-import {EmissionActivity, EmissionActivityDetails} from '@models/enterprise';
+import {EmissionActivity, EmissionActivityDetails, EmissionActivityTableView} from '@models/enterprise';
 import {SearchCriteriaDto, SearchResultDto} from '@shared/models/base-models';
 
 @Injectable({
@@ -18,8 +18,8 @@ export class EmissionActivityService {
 
   public fetchActivityOfBuilding(
     criteria: SearchCriteriaDto<ActivitySearchCriteria>
-  ): Observable<SearchResultDto<EmissionActivity>> {
-    return this.httpClient.post<SearchResultDto<EmissionActivity>>(
+  ): Observable<SearchResultDto<EmissionActivityTableView>> {
+    return this.httpClient.post<SearchResultDto<EmissionActivityTableView>>(
       `${AppRoutingConstants.ENTERPRISE_API_URL}/${this.EMISSION_ACTIVITY_PATH}/building`,
       criteria
     );
