@@ -125,7 +125,6 @@ public class UserServiceImpl extends SagaManager implements UserService {
                 "",
                 "",
                 "",
-                false,
                 passwordEncoder.encode(signupDTO.getPassword()));
     }
     
