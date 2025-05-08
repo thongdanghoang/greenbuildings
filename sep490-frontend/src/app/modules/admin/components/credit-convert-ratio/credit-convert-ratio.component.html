@@ -1,39 +1,45 @@
-<div class="grid grid-cols-1 items-center justify-center gap-4 p-4 md:grid-cols-2 lg:grid-cols-2">
-    @for (ratio of creditConvertRatios; track ratio.id) {
-        <p-card class="rounded-2xl shadow-lg">
-            <ng-template #header>
-                <div class="bg-primary-400 py-6 text-center text-lg font-semibold dark:bg-primary-600">
-                    {{ 'admin.ratio.type.' + ratio.convertType | translate }}
-                </div>
-            </ng-template>
-            <ng-template #title>
-                <div class="flex items-center justify-center text-primary-emphasis">
-                    {{ 'admin.ratio.title' | translate }}
-                </div>
-            </ng-template>
-            <ng-template #subtitle>
-                <div class="mt-2 flex flex-col items-center space-y-2">
-                    <div
-                        pRipple
-                        class="box cursor-pointer rounded-full p-4"
-                        style="border: 1px solid rgba(75, 175, 80, 0.3); --p-ripple-background: rgba(75, 175, 80, 0.3)"
-                    >
-                        <span class="font-bold">{{ ratio.ratio }}</span>
+<master-layout title="admin.ratio.title1">
+    <div subtitle>{{ 'admin.ratio.description' | translate }}</div>
+    <div class="grid grid-cols-1 items-center justify-center gap-4 p-4 md:grid-cols-2 lg:grid-cols-2">
+        @for (ratio of creditConvertRatios; track ratio.id) {
+            <p-card class="rounded-2xl shadow-lg">
+                <ng-template #header>
+                    <div class="bg-primary-400 py-6 text-center text-lg font-semibold dark:bg-primary-600">
+                        {{ 'admin.ratio.type.' + ratio.convertType | translate }}
                     </div>
-                </div>
-            </ng-template>
-            <ng-template #footer>
-                <div class="flex items-center justify-center pt-4">
-                    <p-button
-                        class="*:w-40"
-                        severity="primary"
-                        [label]="'admin.ratio.button.control' | translate"
-                        outlined
-                        icon="pi pi-wrench"
-                        (onClick)="control(ratio)"
-                    />
-                </div>
-            </ng-template>
-        </p-card>
-    }
-</div>
+                </ng-template>
+                <ng-template #title>
+                    <div class="flex items-center justify-center text-primary-emphasis">
+                        {{ 'admin.ratio.title' | translate }}
+                    </div>
+                </ng-template>
+                <ng-template #subtitle>
+                    <div class="mt-2 flex flex-col items-center space-y-2">
+                        <div
+                            pRipple
+                            class="box cursor-pointer rounded-full p-4"
+                            style="
+                                border: 1px solid rgba(75, 175, 80, 0.3);
+                                --p-ripple-background: rgba(75, 175, 80, 0.3);
+                            "
+                        >
+                            <span class="font-bold">{{ ratio.ratio }}</span>
+                        </div>
+                    </div>
+                </ng-template>
+                <ng-template #footer>
+                    <div class="flex items-center justify-center pt-4">
+                        <p-button
+                            class="*:w-40"
+                            severity="primary"
+                            [label]="'admin.ratio.button.control' | translate"
+                            outlined
+                            icon="pi pi-wrench"
+                            (onClick)="control(ratio)"
+                        />
+                    </div>
+                </ng-template>
+            </p-card>
+        }
+    </div>
+</master-layout>
