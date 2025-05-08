@@ -1,4 +1,5 @@
 <master-layout title="admin.packageCredit.title">
+    <div subtitle>{{ 'admin.packageCredit.description' | translate }}</div>
     <div actions>
         <button
             pButton
@@ -9,7 +10,6 @@
             {{ 'admin.packageCredit.addPackageCredit' | translate }}
         </button>
     </div>
-
     <table-template
         [fetch]="fetchData"
         [columns]="cols"
