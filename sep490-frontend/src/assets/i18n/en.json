@@ -641,7 +641,7 @@
       "numerator": "Emission Unit Numerator",
       "denominator": "Emission Unit Denominator",
       "description": "Description",
-      "description1": "Quản lý các yếu tố phát thải định lượng khí thải nhà kính từ nhiều nguồn khác nhau. Các giá trị chuẩn hóa này cho CO2, CH4 và N2O cung cấp nền tảng cho các phép tính carbon chính xác trong toàn bộ hệ thống.",
+      "description1": "Manage emission factors that quantify greenhouse gas emissions from various sources. These standardized values for CO2, CH4, and N2O provide the foundation for accurate carbon calculations across the entire system.",
       "isDirectEmission": "Direct Emission"
     },
     "energyConversion": {
