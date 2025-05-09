@@ -15,6 +15,7 @@ import greenbuildings.enterprise.mappers.BuildingMapper;
 import greenbuildings.enterprise.services.BuildingGroupService;
 import greenbuildings.enterprise.services.BuildingService;
 import greenbuildings.enterprise.services.EnterpriseService;
+import greenbuildings.enterprise.services.ReportService;
 import greenbuildings.enterprise.views.buildings.details.TenantView;
 import jakarta.annotation.security.RolesAllowed;
 import lombok.RequiredArgsConstructor;
@@ -46,6 +47,7 @@ public class BuildingController extends AbstractRestController {
     private final EnterpriseService enterpriseService;
     private final BuildingGroupService buildingGroupService;
     private final BuildingGroupMapper buildingGroupMapper;
+    private final ReportService reportService;
     
     @GetMapping("/{id}")
     public ResponseEntity<BuildingDTO> getBuildingById(@PathVariable UUID id) {
@@ -103,7 +105,7 @@ public class BuildingController extends AbstractRestController {
     
     @PostMapping("/generate-report")
     public ResponseEntity<ByteArrayResource> generateReport(@RequestBody DownloadReportDTO downloadReport) {
-        byte[] result = buildingService.generateReport(downloadReport);
+        byte[] result = reportService.generateReport(downloadReport);
         return generateFileDownloadResponse(new ByteArrayResource(result));
     }
     
