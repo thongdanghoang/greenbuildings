@@ -1,6 +1,5 @@
 package greenbuildings.enterprise.services;
 
-import greenbuildings.enterprise.dtos.DownloadReportDTO;
 import greenbuildings.enterprise.dtos.OverviewBuildingDTO;
 import greenbuildings.enterprise.entities.BuildingEntity;
 import org.springframework.data.domain.Page;
@@ -22,7 +21,5 @@ public interface BuildingService {
     
     List<BuildingEntity> findBuildingsByEnterpriseId(UUID enterpriseId);
     
-    byte[] generateReport(DownloadReportDTO downloadReport);
-
     OverviewBuildingDTO getOverviewBuildingById(UUID id);
 }

@@ -81,7 +81,7 @@ public class PowerBiAuthenticationServiceImpl implements PowerBiAuthenticationSe
                          .filter(biAuthority -> biAuthority.getExpirationTime().isAfter(LocalDateTime.now()))
                          .map(biAuthority -> {
                              var now = LocalDateTime.now();
-                             if (ChronoUnit.MINUTES.between(biAuthority.getLastUsed(), now) >= 1) {
+                             if (biAuthority.getLastUsed() == null || ChronoUnit.MINUTES.between(biAuthority.getLastUsed(), now) >= 1) {
                                  biAuthority.setLastUsed(now);
                                  repository.save(biAuthority);
                              }

@@ -1,6 +1,7 @@
 package greenbuildings.enterprise.rest;
 
 import greenbuildings.enterprise.securities.PowerBiAuthenticationFacade;
+import greenbuildings.enterprise.services.ReportService;
 import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +25,7 @@ import java.nio.charset.StandardCharsets;
 public class PowerBiResource {
     
     private final PowerBiAuthenticationFacade authenticationFacade;
+    private final ReportService reportService;
     
     @GetMapping(value = "/poc", produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("@powerBiSecurityCheckerBean.checkIfUserHasPermission(#apiKey)")
@@ -36,6 +38,13 @@ public class PowerBiResource {
             
             return ResponseEntity.ok(StreamUtils.copyToString(inputStream, StandardCharsets.UTF_8));
         }
+    }
+    
+    @GetMapping(value = "/report", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("@powerBiSecurityCheckerBean.checkIfUserHasPermission(#apiKey)")
+    public ResponseEntity<?> report(@PathVariable @NotBlank String apiKey) throws IOException {
+        var contextData = authenticationFacade.getAuthentication().getPrincipal();
+        return ResponseEntity.ok(reportService.generateReport(contextData));
     }
     
 }
