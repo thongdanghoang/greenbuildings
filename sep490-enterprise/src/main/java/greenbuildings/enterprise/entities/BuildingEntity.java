@@ -29,7 +29,6 @@ import java.util.Set;
 @FieldNameConstants
 @NoArgsConstructor
 public class BuildingEntity extends AbstractAuditableEntity {
-    
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "enterprise_id", nullable = false)

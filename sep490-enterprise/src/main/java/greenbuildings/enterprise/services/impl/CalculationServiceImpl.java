@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -29,19 +30,19 @@ public class CalculationServiceImpl implements CalculationService {
     private final ChemicalDensityRepository chemicalDensityRepo;
     
     @Override
-    public List<EmissionActivityRecordEntity> calculate(UUID activityId, List<EmissionActivityRecordEntity> content) {
+    public List<EmissionActivityRecordEntity> calculate(UUID activityId, Collection<EmissionActivityRecordEntity> content) {
         var activity = activityRepo.findById(activityId).orElseThrow();
         var factor = activity.getEmissionFactorEntity();
         
         if (factor == null || !factor.isActive() || content.isEmpty()) {
-            return content;
+            return content.stream().toList();
         }
         if (factor.isDirectEmission()) {
-            calculateDirectly(factor, content);
+            calculateDirectly(factor, content.stream().toList());
         } else {
-            calculateIndirectly(factor, content);
+            calculateIndirectly(factor, content.stream().toList());
         }
-        return content;
+        return content.stream().toList();
     }
     
     private void calculateDirectly(EmissionFactorEntity factor, List<EmissionActivityRecordEntity> content) {
