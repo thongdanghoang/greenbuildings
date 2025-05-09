@@ -1,8 +1,156 @@
-import {Component} from '@angular/core';
+import {Component, EventEmitter, OnInit, TemplateRef, ViewChild, inject} from '@angular/core';
+import {FormBuilder, FormControl} from '@angular/forms';
+import {ActivityCriteria} from '@generated/models/activity-criteria';
+import {EmissionActivityView} from '@generated/models/emission-activity-view';
+import {TranslateService} from '@ngx-translate/core';
+import {EmissionActivityService} from '@services/emission-activity.service';
+import {TableTemplateColumn} from '@shared/components/table-template/table-template.component';
+import {SubscriptionAwareComponent} from '@shared/directives/subscription-aware.component';
+import {SearchCriteriaDto, SearchResultDto, SelectableItem} from '@shared/models/base-models';
+import {ModalProvider} from '@shared/services/modal-provider';
+import {ToastProvider} from '@shared/services/toast-provider';
+import {DialogService, DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
+import {Observable, of, switchMap, takeUntil} from 'rxjs';
+import {UUID} from '../../../types/uuid';
+import {NewActivityDialogComponent} from '../enterprise/dialog/new-activity-dialog/new-activity-dialog.component';
 
 @Component({
   selector: 'app-emissions',
   templateUrl: './emissions.component.html',
   styleUrl: './emissions.component.css'
 })
-export class EmissionsComponent {}
+export class EmissionsComponent extends SubscriptionAwareComponent implements OnInit {
+  protected cols: TableTemplateColumn[] = [];
+  protected search: (
+    criteria: SearchCriteriaDto<ActivityCriteria>
+  ) => Observable<SearchResultDto<EmissionActivityView>>;
+  protected criteria: ActivityCriteria = {};
+  protected readonly searchEvent: EventEmitter<void> = new EventEmitter();
+
+  @ViewChild('activityColActions', {static: true})
+  protected activityColActions!: TemplateRef<any>;
+  @ViewChild('activityDescriptionTemplate', {static: true})
+  protected activityDescriptionTemplate!: TemplateRef<any>;
+
+  protected selectableBuildings: SelectableItem<UUID>[] = [];
+  protected selectableFactors: SelectableItem<UUID>[] = [];
+
+  protected filterFormGroup = inject(FormBuilder).group({
+    name: new FormControl<null | string>(null),
+    category: new FormControl<null | string>(null),
+    buildings: new FormControl<UUID[]>([], {nonNullable: true}),
+    factors: new FormControl<UUID[]>([], {nonNullable: true})
+  });
+
+  private ref: DynamicDialogRef | undefined;
+
+  constructor(
+    protected readonly emissionActivityService: EmissionActivityService,
+    private readonly modalProvider: ModalProvider,
+    private readonly msgService: ToastProvider,
+    private readonly translate: TranslateService,
+    private readonly dialogService: DialogService,
+    private readonly activityService: EmissionActivityService
+  ) {
+    super();
+    this.search = this.emissionActivityService.search.bind(this.emissionActivityService);
+  }
+
+  ngOnInit(): void {
+    this.buildCols();
+    this.fetchFilterOptions();
+    this.translate.onLangChange.pipe(takeUntil(this.destroy$)).subscribe(() => this.fetchFilterOptions());
+  }
+
+  onResetFilters(): void {
+    this.filterFormGroup.reset();
+    this.onFilter();
+  }
+
+  onFilter(): void {
+    this.criteria.name = this.filterFormGroup.controls.name.value || undefined;
+    this.criteria.category = this.filterFormGroup.controls.category.value || undefined;
+    this.criteria.factors = this.filterFormGroup.controls.factors.value.map(factor => factor.toString());
+    this.criteria.buildings = this.filterFormGroup.controls.buildings.value.map(building => building.toString());
+    this.searchEvent.emit();
+  }
+
+  openNewActivityDialog(): void {
+    const config: DynamicDialogConfig = {
+      data: {
+        selectableBuildings: this.selectableBuildings
+      },
+      closeOnEscape: true,
+      showHeader: false,
+      modal: true
+    };
+    this.ref = this.dialogService.open(NewActivityDialogComponent, config);
+    this.ref.onClose.subscribe(rs => {
+      if (rs) {
+        this.searchEvent.emit();
+      }
+    });
+  }
+
+  onDeleteEmissionActivity(activityId: UUID): void {
+    this.modalProvider
+      .showDefaultConfirm(undefined)
+      .pipe(
+        takeUntil(this.destroy$),
+        switchMap((result: boolean) => {
+          if (!result) {
+            return of(null); // Skip deletion if modal is cancelled
+          }
+          return this.activityService.deleteActivities([activityId]).pipe(
+            switchMap(() => {
+              this.msgService.success({
+                summary: this.translate.instant('common.success')
+              });
+              this.searchEvent.emit();
+              return of(null); // Complete the stream
+            })
+          );
+        })
+      )
+      .subscribe();
+  }
+
+  private fetchFilterOptions(): void {
+    this.emissionActivityService
+      .getSelectableBuildings()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(selectableBuildings => (this.selectableBuildings = selectableBuildings));
+    this.emissionActivityService
+      .getSelectableFactors(this.translate.currentLang)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(selectableFactors => (this.selectableFactors = selectableFactors));
+  }
+
+  private buildCols(): void {
+    this.cols.push({
+      field: 'type',
+      header: 'emissions.activities.table.header.type'
+    });
+    this.cols.push({
+      field: 'name',
+      header: 'emissions.activities.table.header.name',
+      sortable: true
+    });
+    this.cols.push({
+      field: 'category',
+      header: 'emissions.activities.table.header.category',
+      sortable: true
+    });
+    this.cols.push({
+      field: 'description',
+      header: 'emissions.activities.table.header.description',
+      sortable: true,
+      templateRef: this.activityDescriptionTemplate
+    });
+    this.cols.push({
+      field: 'id',
+      header: '',
+      templateRef: this.activityColActions
+    });
+  }
+}

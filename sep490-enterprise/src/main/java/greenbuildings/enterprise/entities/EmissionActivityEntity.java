@@ -19,6 +19,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.Setter;
+import lombok.experimental.FieldNameConstants;
 
 import java.util.Set;
 
@@ -51,6 +52,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
+@FieldNameConstants
 public class EmissionActivityEntity extends AbstractAuditableEntity {
 
     public static final String DETAILS_GRAPH = "EmissionActivity.details";

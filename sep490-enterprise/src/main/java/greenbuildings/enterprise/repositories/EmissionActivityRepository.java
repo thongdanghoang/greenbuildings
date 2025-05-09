@@ -6,6 +6,7 @@ import greenbuildings.enterprise.models.ActivityRecordDateRange;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
@@ -15,7 +16,8 @@ import java.util.Set;
 import java.util.UUID;
 
 @Repository
-public interface EmissionActivityRepository extends AbstractBaseRepository<EmissionActivityEntity> {
+public interface EmissionActivityRepository extends AbstractBaseRepository<EmissionActivityEntity>,
+        JpaSpecificationExecutor<EmissionActivityEntity> {
     
     @Query("""
             SELECT new greenbuildings.enterprise.models.ActivityRecordDateRange(r.startDate, r.endDate)
@@ -31,24 +33,24 @@ public interface EmissionActivityRepository extends AbstractBaseRepository<Emiss
     List<EmissionActivityEntity> findByBuildingIdAndBuildingGroupIsNull(UUID id);
     
     List<EmissionActivityEntity> findByBuildingGroupIdIn(Set<UUID> ids);
-
-    @EntityGraph(attributePaths = {"emissionFactorEntity", "type"})
-    Page<EmissionActivityEntity> findAllByBuildingGroupIdAndNameContainingIgnoreCase(UUID buildingId, String activityName,Pageable pageable);
     
     @EntityGraph(attributePaths = {"emissionFactorEntity", "type"})
-    Page<EmissionActivityEntity> findAllByBuildingIdAndNameContainingIgnoreCaseAndBuildingGroupIsNull(UUID buildingId, String activityName,Pageable pageable);
+    Page<EmissionActivityEntity> findAllByBuildingGroupIdAndNameContainingIgnoreCase(UUID buildingId, String activityName, Pageable pageable);
+    
+    @EntityGraph(attributePaths = {"emissionFactorEntity", "type"})
+    Page<EmissionActivityEntity> findAllByBuildingIdAndNameContainingIgnoreCaseAndBuildingGroupIsNull(UUID buildingId, String activityName, Pageable pageable);
     
     Integer countAllByIdIn(Set<UUID> ids);
     
     default boolean existsAllById(Set<UUID> ids) {
         return countAllByIdIn(ids).equals(ids.size());
     }
-
+    
     @EntityGraph(value = EmissionActivityEntity.DETAILS_GRAPH)
     Optional<EmissionActivityEntity> findDetailsById(UUID id);
     
     List<EmissionActivityEntity> findAllByIdIn(List<UUID> ids);
-
+    
     List<EmissionActivityEntity> findAllByTypeIdIn(Set<UUID> typeIds);
     
     long countByBuildingIdAndBuildingGroupIsNull(UUID buildingId);

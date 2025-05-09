@@ -352,6 +352,7 @@
         "remainingDays": "剩余天数：",
         "new": "新活动",
         "dialog": {
+          "buildingId": "建筑物",
           "title": "新增排放活动",
           "EmissionSource": "排放来源",
           "EmissionFactor": "排放因子",
@@ -451,6 +452,24 @@
       "name": "企业名称",
       "email": "企业邮箱",
       "hotline": "企业热线"
+    }
+  },
+  "emissions": {
+    "title": "排放活动",
+    "subtitle": "排放活动是企业可以选择创建活动记录的活动。",
+    "activities": {
+      "filters": {
+        "buildings": "建筑物",
+        "factors": "排放因子"
+      },
+      "table": {
+        "header": {
+          "name": "名称",
+          "type": "类型",
+          "category": "类别",
+          "description": "描述"
+        }
+      }
     }
   },
   "enum": {

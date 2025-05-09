@@ -8,6 +8,7 @@ import {ActivityTypeService} from '@services/activity-type.service';
 import {EmissionActivityService} from '@services/emission-activity.service';
 import {EmissionFactorService} from '@services/emission-factor.service';
 import {AbstractFormComponent} from '@shared/components/form/abstract-form-component';
+import {SelectableItem} from '@shared/models/base-models';
 import {ToastProvider} from '@shared/services/toast-provider';
 import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
 import {UUID} from '../../../../../types/uuid';
@@ -22,6 +23,7 @@ export class NewActivityDialogComponent extends AbstractFormComponent<CreateNewA
   emissionSources: EmissionSourceDTO[] = [];
   availableEmissionFactors: EmissionFactorDTO[] = [];
   activityTypes: ActivityType[] = [];
+  selectableBuildings: SelectableItem<UUID>[] = [];
 
   protected readonly formStructure = {
     id: new FormControl(null),
@@ -85,6 +87,12 @@ export class NewActivityDialogComponent extends AbstractFormComponent<CreateNewA
     this.formStructure.emissionFactorID.markAsPristine();
   }
 
+  protected onSelectedBuildingChanged(): void {
+    if (this.formStructure.buildingId.value) {
+      this.loadActivityTypes(this.formStructure.buildingId.value);
+    }
+  }
+
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected override onSubmitFormDataSuccess(_result: any): void {
     this.ref.close(true);
@@ -105,11 +113,16 @@ export class NewActivityDialogComponent extends AbstractFormComponent<CreateNewA
   private initializeFormData(): void {
     this.formStructure.buildingId.setValue(this.config.data?.buildingId);
     this.formStructure.buildingGroupID.setValue(this.config.data?.buildingGroupId);
-    this.loadActivityTypes();
+    if (this.config.data?.selectableBuildings) {
+      this.selectableBuildings = this.config.data.selectableBuildings;
+    }
+    if (this.config.data?.buildingId) {
+      this.loadActivityTypes(this.config.data?.buildingId);
+    }
   }
 
-  private loadActivityTypes(): void {
-    this.activityTypeService.getByBuildingId(this.config.data?.buildingId).subscribe(types => {
+  private loadActivityTypes(buildingId: UUID): void {
+    this.activityTypeService.getByBuildingId(buildingId).subscribe(types => {
       this.activityTypes = types;
     });
   }

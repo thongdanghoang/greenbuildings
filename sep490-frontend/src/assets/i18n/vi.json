@@ -352,6 +352,7 @@
         "remainingDays": "Số ngày còn lại:",
         "new": "Hoạt động mới",
         "dialog": {
+          "buildingId": "Tòa nhà",
           "title": "Hoạt động phát thải mới",
           "EmissionSource": "Nguồn phát thải",
           "EmissionFactor": "Hệ số phát thải",
@@ -451,6 +452,24 @@
       "name": "Tên doanh nghiệp",
       "email": "Email doanh nghiệp",
       "hotline": "Đường dây nóng doanh nghiệp"
+    }
+  },
+  "emissions": {
+    "title": "Hoạt động phát thải",
+    "subtitle": "Hoạt động phát thải là hoạt động mà doanh nghiệp có thể lựa chọn để tạo bản ghi phát thải.",
+    "activities": {
+      "filters": {
+        "buildings": "Tòa nhà",
+        "factors": "Hệ số phát thải"
+      },
+      "table": {
+        "header": {
+          "name": "Tên",
+          "type": "Loại",
+          "category": "Danh mục",
+          "description": "Mô tả"
+        }
+      }
     }
   },
   "enum": {

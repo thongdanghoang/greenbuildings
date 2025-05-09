@@ -8,6 +8,7 @@ import greenbuildings.enterprise.dtos.EmissionActivityTableView;
 import greenbuildings.enterprise.entities.EmissionActivityEntity;
 import greenbuildings.enterprise.mappers.decorators.EmissionActivityMapperDecorator;
 import greenbuildings.enterprise.models.ActivityRecordDateRange;
+import greenbuildings.enterprise.views.emission_activities.EmissionActivityView;
 import org.mapstruct.DecoratedWith;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -27,6 +28,11 @@ public interface EmissionActivityMapper {
     @Mapping(target = "emissionFactor", source = "emissionFactorEntity")
     @Mapping(target = "records", ignore = true)
     EmissionActivityTableView toTableView(EmissionActivityEntity emissionActivityEntity);
+    
+    @Mapping(target = "building", source = "building.id")
+    @Mapping(target = "emissionFactor", source = "emissionFactorEntity.id")
+    @Mapping(target = "type", source = "type.name")
+    EmissionActivityView toEmissionActivityView(EmissionActivityEntity source);
     
     @Mapping(target = "building.id", source = "buildingId")
     @Mapping(target = "buildingGroup", ignore = true)

@@ -25,6 +25,22 @@
                         [formGroup]="formGroup"
                         class="p-dialog-content flex min-h-[400px] flex-col overflow-hidden p-0"
                     >
+                        <p-iftalabel
+                            *ngIf="selectableBuildings.length > 0"
+                            class="my-2"
+                        >
+                            <p-select
+                                [options]="selectableBuildings"
+                                optionLabel="label"
+                                optionValue="value"
+                                formControlName="buildingId"
+                                class="w-full break-words"
+                                (onChange)="onSelectedBuildingChanged()"
+                            >
+                            </p-select>
+                            <label>{{ 'enterprise.emission.activity.dialog.buildingId' | translate }}</label>
+                        </p-iftalabel>
+
                         <!-- Emission Source -->
                         <p-iftalabel class="my-2">
                             <p-select

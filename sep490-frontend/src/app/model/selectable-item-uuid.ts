@@ -8,9 +8,8 @@
  * Do not edit the class manually.
  */
 
-export interface DownloadReportDTO {
-  buildingID: string;
-  startDate: string;
-  endDate: string;
-  selectedGroups: string[];
+export interface SelectableItemUUID {
+  label?: string;
+  value?: string;
+  disabled?: boolean;
 }
