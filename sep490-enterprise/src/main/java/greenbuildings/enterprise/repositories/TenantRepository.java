@@ -1,6 +1,9 @@
 package greenbuildings.enterprise.repositories;
 
+import greenbuildings.commons.api.utils.CommonConstant;
 import greenbuildings.enterprise.entities.TenantEntity;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -8,6 +11,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
@@ -32,4 +36,6 @@ public interface TenantRepository extends JpaRepository<TenantEntity, UUID> {
                                           Pageable pageable);
     
     Page<TenantEntity> findByEmailContainsIgnoreCase(String email, Pageable pageable);
+
+    Optional<TenantEntity> findByEmail(@NotBlank @Pattern(regexp = CommonConstant.EMAIL_PATTERN) String email);
 }

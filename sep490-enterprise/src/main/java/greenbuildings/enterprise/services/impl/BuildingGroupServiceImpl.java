@@ -11,12 +11,10 @@ import greenbuildings.enterprise.dtos.BuildingGroupDTO;
 import greenbuildings.enterprise.dtos.InviteTenantToBuildingGroup;
 import greenbuildings.enterprise.entities.BuildingGroupEntity;
 import greenbuildings.enterprise.entities.InvitationEntity;
+import greenbuildings.enterprise.entities.TenantEntity;
 import greenbuildings.enterprise.enums.InvitationStatus;
 import greenbuildings.enterprise.mappers.BuildingGroupMapper;
-import greenbuildings.enterprise.repositories.BuildingGroupRepository;
-import greenbuildings.enterprise.repositories.EmissionActivityRepository;
-import greenbuildings.enterprise.repositories.EnterpriseRepository;
-import greenbuildings.enterprise.repositories.InvitationRepository;
+import greenbuildings.enterprise.repositories.*;
 import greenbuildings.enterprise.services.BuildingGroupService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -43,6 +41,7 @@ public class BuildingGroupServiceImpl implements BuildingGroupService {
     private final EmissionActivityRepository emissionActivityRepository;
     private final EmailUtil emailUtil;
     private final IMessageUtil messageUtil;
+    private final TenantRepository tenantRepository;
     
     @Override
     public BuildingGroupEntity create(BuildingGroupDTO dto) {
@@ -141,12 +140,19 @@ public class BuildingGroupServiceImpl implements BuildingGroupService {
         if (invitationRepository.existsByBuildingGroupBuildingIdAndEmailAndStatus(dto.buildingId(), dto.tenantEmail(), InvitationStatus.PENDING)) {
             throw new BusinessException("tenantEmail", "business.groups.tenantEmailPending");
         }
+        var tenant = tenantRepository.findByEmail((dto.tenantEmail()));
+        if(tenant.isEmpty()) {
+            throw new BusinessException("tenantEmail", "business.groups.noFindEmailTenant");
+        }
         InvitationEntity invitation = InvitationEntity.builder()
                                                       .buildingGroup(group)
                                                       .status(InvitationStatus.PENDING)
                                                       .email(dto.tenantEmail())
                                                       .build();
+        SEPMailMessage message = createInviteMailMessage(invitation, tenant.get());
+        emailUtil.sendMail(message);
         invitationRepository.save(invitation);
+
     }
     
     @Override
@@ -173,6 +179,24 @@ public class BuildingGroupServiceImpl implements BuildingGroupService {
         message.addTemplateModel("ownerEmail", buildingGroupEntity.getBuilding().getEnterprise().getEnterpriseEmail());
         message.addTemplateModel("appName", "GreenBuildings");
         
+        return message;
+    }
+
+    private SEPMailMessage createInviteMailMessage(InvitationEntity invitation, TenantEntity tenant) {
+        SEPMailMessage message = new SEPMailMessage();
+
+        message.setTemplateName("invite-tenant.ftl");
+        message.setTo(invitation.getEmail());
+        message.setSubject(messageUtil.getMessage("invite.title"));
+
+        message.addTemplateModel("subject", messageUtil.getMessage("invite.title"));
+        message.addTemplateModel("tenantName", tenant.getName());
+        message.addTemplateModel("buildingGroupName", invitation.getBuildingGroup().getName());
+        message.addTemplateModel("buildingName", invitation.getBuildingGroup().getBuilding().getName());
+        message.addTemplateModel("appName", "GreenBuildings");
+        message.addTemplateModel("appUrl", "https://greenbuildings.cloud");
+        message.addTemplateModel("ownerEmail", invitation.getBuildingGroup().getBuilding().getEnterprise().getEnterpriseEmail());
+
         return message;
     }
 } 

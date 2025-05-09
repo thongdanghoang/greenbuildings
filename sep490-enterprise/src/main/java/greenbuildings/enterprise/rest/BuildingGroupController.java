@@ -113,7 +113,7 @@ public class BuildingGroupController extends AbstractRestController {
     @PostMapping("/invite")
     public ResponseEntity<?> inviteTenant(@RequestBody InviteTenantToBuildingGroup dto) {
         buildingGroupService.inviteTenant(dto);
-        return null;
+        return ResponseEntity.ok().build();
     }
     
     @DeleteMapping("/unlink/{groupId}")
