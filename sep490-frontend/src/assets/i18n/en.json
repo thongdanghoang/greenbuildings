@@ -355,6 +355,7 @@
         "new": "New Activity",
         "remainingDays": "Remaining Days:",
         "dialog": {
+          "buildingId": "Building",
           "title": "New Emission Activity",
           "EmissionSource": "Emission Source",
           "EmissionFactor": "Emission Factor",
@@ -460,6 +461,24 @@
       "name": "Enterprise Name",
       "email": "Enterprise Email",
       "hotline": "Enterprise Hotline"
+    }
+  },
+  "emissions": {
+    "title": "Emission Activity",
+    "subtitle": "Emission activity is the activity that the enterprise can choose from to create an activity record.",
+    "activities": {
+      "filters": {
+        "buildings": "Buildings",
+        "factors": "Factors"
+      },
+      "table": {
+        "header": {
+          "name": "Name",
+          "type": "Type",
+          "category": "Category",
+          "description": "Description"
+        }
+      }
     }
   },
   "enum": {

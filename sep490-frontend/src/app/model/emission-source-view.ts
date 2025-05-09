@@ -8,9 +8,9 @@
  * Do not edit the class manually.
  */
 
-export interface DownloadReportDTO {
-  buildingID: string;
-  startDate: string;
-  endDate: string;
-  selectedGroups: string[];
+export interface EmissionSourceView {
+  id?: string;
+  version?: number;
+  name?: string;
+  description?: string;
 }

@@ -1,4 +1,3 @@
-import {Location} from '@angular/common';
 import {HttpClient} from '@angular/common/http';
 import {Component, EventEmitter, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {AbstractControl, FormBuilder, FormControl, Validators} from '@angular/forms';
@@ -91,8 +90,7 @@ export class EmissionActivityDetailComponent extends AbstractFormComponent<Emiss
     private readonly emissionActivityService: EmissionActivityService,
     private readonly emissionActivityRecordService: EmissionActivityRecordService,
     private readonly dialogService: DialogService,
-    private readonly activityTypeService: ActivityTypeService,
-    private readonly location: Location
+    private readonly activityTypeService: ActivityTypeService
   ) {
     super(httpClient, formBuilder, notificationService, translate);
   }
@@ -192,10 +190,6 @@ export class EmissionActivityDetailComponent extends AbstractFormComponent<Emiss
     });
   }
 
-  onBack(): void {
-    this.location.back();
-  }
-
   onDownloadFile(record: EmissionActivityRecord): void {
     this.emissionActivityRecordService
       .getFile(record.id as string, record.file.id as string)
@@ -228,7 +222,6 @@ export class EmissionActivityDetailComponent extends AbstractFormComponent<Emiss
           recordedDateRanges
         },
         closeOnEscape: true,
-        dismissableMask: true,
         showHeader: false,
         modal: true
       };
@@ -251,7 +244,6 @@ export class EmissionActivityDetailComponent extends AbstractFormComponent<Emiss
           recordedDateRanges
         },
         closeOnEscape: true,
-        dismissableMask: true,
         showHeader: false,
         modal: true
       };

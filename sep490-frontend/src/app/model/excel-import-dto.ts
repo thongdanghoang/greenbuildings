@@ -8,9 +8,8 @@
  * Do not edit the class manually.
  */
 
-export interface DownloadReportDTO {
-  buildingID: string;
-  startDate: string;
-  endDate: string;
-  selectedGroups: string[];
+export interface ExcelImportDTO {
+  id?: string;
+  fileName?: string;
+  contentType?: string;
 }

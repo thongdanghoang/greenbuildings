@@ -1,5 +1,6 @@
 package greenbuildings.enterprise.services.impl;
 
+import greenbuildings.enterprise.entities.EmissionActivityEntity;
 import greenbuildings.enterprise.entities.EmissionActivityRecordEntity;
 import greenbuildings.enterprise.entities.EmissionFactorEntity;
 import greenbuildings.enterprise.enums.EmissionUnit;
@@ -10,12 +11,14 @@ import greenbuildings.enterprise.services.CalculationService;
 import greenbuildings.enterprise.utils.CalculationUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -43,6 +46,22 @@ public class CalculationServiceImpl implements CalculationService {
             calculateIndirectly(factor, content.stream().toList());
         }
         return content.stream().toList();
+    }
+    
+    @Override
+    public EmissionActivityEntity calculate(EmissionActivityEntity activity) {
+        var factor = activity.getEmissionFactorEntity();
+        var records = activity.getRecords();
+        if (factor == null || !factor.isActive() || CollectionUtils.isEmpty(records)) {
+            return activity;
+        }
+        if (factor.isDirectEmission()) {
+            calculateDirectly(factor, records.stream().toList());
+        } else {
+            calculateIndirectly(factor, records.stream().toList());
+        }
+        activity.setRecords(new HashSet<>(records));
+        return activity;
     }
     
     private void calculateDirectly(EmissionFactorEntity factor, List<EmissionActivityRecordEntity> content) {

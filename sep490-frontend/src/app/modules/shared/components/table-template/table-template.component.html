@@ -11,6 +11,7 @@
     [(selection)]="selected"
     (selectionChange)="onSelectionChange($event)"
     [stripedRows]="isMobile"
+    dataKey="id"
 >
     @if (captionTemplateRef) {
         <ng-template pTemplate="caption">
@@ -29,6 +30,9 @@
                 >
                     <p-tableHeaderCheckbox />
                 </th>
+            }
+            @if (expandedTemplateRef) {
+                <th style="width: 5rem"></th>
             }
             @for (col of columns; track col.field) {
                 @if (col.header) {
@@ -58,6 +62,7 @@
         pTemplate="body"
         let-rowData
         let-columns="columns"
+        let-expanded="expanded"
     >
         @if (isMobile) {
             <tr>
@@ -100,6 +105,17 @@
                         <p-tableCheckbox [value]="rowData" />
                     </td>
                 }
+                <td *ngIf="expandedTemplateRef">
+                    <p-button
+                        type="button"
+                        pRipple
+                        [pRowToggler]="rowData"
+                        [text]="true"
+                        [rounded]="true"
+                        [plain]="true"
+                        [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"
+                    />
+                </td>
                 <td *ngFor="let col of columns">
                     @if (col.templateRef) {
                         <ng-container *ngTemplateOutlet="col.templateRef; context: {$implicit: rowData}"></ng-container>
@@ -110,6 +126,16 @@
             </tr>
         }
     </ng-template>
+    @if (expandedTemplateRef) {
+        <ng-template
+            #expandedrow
+            let-rowData
+        >
+            <tr>
+                <ng-container *ngTemplateOutlet="expandedTemplateRef; context: {$implicit: rowData}"></ng-container>
+            </tr>
+        </ng-template>
+    }
     <ng-template pTemplate="emptymessage">
         <td
             [attr.colspan]="columns.length + (checkbox ? 1 : 0)"

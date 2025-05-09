@@ -61,15 +61,15 @@ public class ReportServiceImpl implements ReportService {
                                                           .orElseThrow();
         
         List<BuildingEntity> buildings = fetchBuildingsByScope(contextData);
-        if (buildings.isEmpty()) return null;
+        if (buildings.isEmpty()) {return null;}
         
         return buildGeneralReportDTO(enterprise, buildings);
     }
     
     private List<BuildingEntity> fetchBuildingsByScope(PowerBiAccessTokenAuthResult contextData) {
         return contextData.scope() == PowerBiScope.ENTERPRISE
-               ? buildingRepository.findAllByEnterpriseId(contextData.enterpriseId())
-               : buildingRepository.findAllById(contextData.buildings());
+               ? buildingRepository.findValidBuildingsByEnterpriseId(contextData.enterpriseId(), LocalDate.now())
+               : buildingRepository.findValidBuildingsIn(new HashSet<>(contextData.buildings()), LocalDate.now());
     }
     
     private GeneralReportDTO buildGeneralReportDTO(EnterpriseEntity enterprise, List<BuildingEntity> buildings) {
@@ -203,7 +203,8 @@ public class ReportServiceImpl implements ReportService {
     }
     
     @NotNull
-    private HashMap<EmissionActivityEntity, List<EmissionActivityRecordEntity>> getActivityAndRecordsMap(DownloadReportDTO downloadReport, List<EmissionActivityEntity> activities) {
+    private HashMap<EmissionActivityEntity, List<EmissionActivityRecordEntity>> getActivityAndRecordsMap(DownloadReportDTO downloadReport,
+                                                                                                         List<EmissionActivityEntity> activities) {
         if (activities.isEmpty() || downloadReport.selectedGroups().isEmpty() || downloadReport.startDate() == null || downloadReport.endDate() == null) {
             return new HashMap<>();
         }

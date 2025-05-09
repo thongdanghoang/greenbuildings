@@ -11,37 +11,36 @@ import {AppRoutingConstants} from '../app-routing.constant';
   providedIn: 'root'
 })
 export class EmissionActivityRecordService {
-  public readonly EMISSION_ACTIVITY_RECORD_PATH: string = 'emission-activity-record';
+  public readonly PATH: string = 'emission-activity-record';
+  public readonly URL: string = `${AppRoutingConstants.ENTERPRISE_API_URL}/${this.PATH}`;
 
-  public readonly newRecordURL: string = `${AppRoutingConstants.ENTERPRISE_API_URL}/${this.EMISSION_ACTIVITY_RECORD_PATH}`;
+  public readonly newRecordURL: string = `${AppRoutingConstants.ENTERPRISE_API_URL}/${this.PATH}`;
 
   constructor(private readonly http: HttpClient) {}
 
   search(
     criteria: SearchCriteriaDto<EmissionActivityRecordCriteria>
   ): Observable<SearchResultDto<EmissionActivityRecord>> {
-    return this.http.post<SearchResultDto<EmissionActivityRecord>>(
-      `${AppRoutingConstants.ENTERPRISE_API_URL}/${this.EMISSION_ACTIVITY_RECORD_PATH}/search`,
-      criteria
-    );
+    return this.http.post<SearchResultDto<EmissionActivityRecord>>(`${this.URL}/search`, criteria);
+  }
+
+  public findById(id: UUID): Observable<EmissionActivityRecord> {
+    return this.http.get<EmissionActivityRecord>(`${this.URL}/${id}`);
   }
 
   public deleteRecords(ids: UUID[]): Observable<void> {
-    return this.http.delete<void>(`${AppRoutingConstants.ENTERPRISE_API_URL}/${this.EMISSION_ACTIVITY_RECORD_PATH}`, {
+    return this.http.delete<void>(`${AppRoutingConstants.ENTERPRISE_API_URL}/${this.PATH}`, {
       body: ids
     });
   }
 
   public deleteRecordFile(recordId: UUID, fileId: UUID): Observable<void> {
-    return this.http.delete<void>(
-      `${AppRoutingConstants.ENTERPRISE_API_URL}/${this.EMISSION_ACTIVITY_RECORD_PATH}/${recordId}/file/${fileId}`
-    );
+    return this.http.delete<void>(`${this.URL}/${recordId}/file/${fileId}`);
   }
 
   getFile(recordId: string, fileId: string): Observable<Blob> {
-    return this.http.get(
-      `${AppRoutingConstants.ENTERPRISE_API_URL}/${this.EMISSION_ACTIVITY_RECORD_PATH}/${recordId}/file/${fileId}`,
-      {responseType: 'blob'}
-    );
+    return this.http.get(`${this.URL}/${recordId}/file/${fileId}`, {
+      responseType: 'blob'
+    });
   }
 }

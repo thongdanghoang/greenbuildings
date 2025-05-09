@@ -2,9 +2,13 @@ package greenbuildings.enterprise.services;
 
 import greenbuildings.commons.api.dto.SearchCriteriaDTO;
 import greenbuildings.enterprise.dtos.EmissionActivityCriteria;
+import greenbuildings.enterprise.dtos.emission_activities.ActivityCriteria;
+import greenbuildings.enterprise.entities.BuildingEntity;
 import greenbuildings.enterprise.entities.EmissionActivityEntity;
+import greenbuildings.enterprise.entities.EmissionFactorEntity;
 import greenbuildings.enterprise.models.ActivityRecordDateRange;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.Set;
@@ -12,6 +16,12 @@ import java.util.UUID;
 
 public interface EmissionActivityService {
     Page<EmissionActivityEntity> search(SearchCriteriaDTO<EmissionActivityCriteria> searchCriteria);
+    
+    Page<EmissionActivityEntity> search(Pageable pageable, UUID enterpriseId, ActivityCriteria criteria);
+    
+    List<BuildingEntity> getBuildingsByEnterpriseId(UUID enterpriseId);
+    
+    List<EmissionFactorEntity> getEmissionFactorsByEnterpriseId(UUID enterpriseId);
     
     EmissionActivityEntity addOrUpdate(EmissionActivityEntity entity);
     

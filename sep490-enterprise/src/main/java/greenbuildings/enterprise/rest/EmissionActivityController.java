@@ -1,20 +1,32 @@
 package greenbuildings.enterprise.rest;
 
+import commons.springfw.impl.entities.AbstractAuditableEntity;
 import commons.springfw.impl.mappers.CommonMapper;
+import commons.springfw.impl.securities.UserContextData;
 import greenbuildings.commons.api.dto.SearchCriteriaDTO;
 import greenbuildings.commons.api.dto.SearchResultDTO;
+import greenbuildings.commons.api.dto.SortDTO;
+import greenbuildings.commons.api.enums.SortDirection;
+import greenbuildings.commons.api.security.UserRole;
 import greenbuildings.commons.api.views.DateRangeView;
+import greenbuildings.commons.api.views.SelectableItem;
 import greenbuildings.enterprise.dtos.CreateEmissionActivityDTO;
 import greenbuildings.enterprise.dtos.EmissionActivityCriteria;
 import greenbuildings.enterprise.dtos.EmissionActivityDTO;
 import greenbuildings.enterprise.dtos.EmissionActivityDetailsDTO;
 import greenbuildings.enterprise.dtos.EmissionActivityTableView;
+import greenbuildings.enterprise.dtos.emission_activities.ActivityCriteria;
 import greenbuildings.enterprise.entities.EmissionActivityEntity;
+import greenbuildings.enterprise.entities.EmissionFactorEntity;
 import greenbuildings.enterprise.mappers.EmissionActivityMapper;
 import greenbuildings.enterprise.services.EmissionActivityService;
+import greenbuildings.enterprise.views.emission_activities.EmissionActivityView;
+import jakarta.annotation.security.RolesAllowed;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,13 +37,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/emission-activity")
+@RequestMapping(EmissionActivityController.PATH)
 @RequiredArgsConstructor
+@Slf4j
 public class EmissionActivityController {
+    
+    public static final String PATH = "emission-activity";
     
     private final EmissionActivityService emissionActivityService;
     private final EmissionActivityMapper mapper;
@@ -51,6 +67,54 @@ public class EmissionActivityController {
     public ResponseEntity<SearchResultDTO<EmissionActivityTableView>> findAllByCriteria(@RequestBody SearchCriteriaDTO<EmissionActivityCriteria> criteria) {
         Page<EmissionActivityEntity> list = emissionActivityService.search(criteria);
         return ResponseEntity.ok(CommonMapper.toSearchResultDTO(list, mapper::toTableView));
+    }
+    
+    @PostMapping("/search")
+    @RolesAllowed(UserRole.RoleNameConstant.ENTERPRISE_OWNER)
+    public ResponseEntity<SearchResultDTO<EmissionActivityView>> search(@RequestBody SearchCriteriaDTO<ActivityCriteria> searchCriteria,
+                                                                        @AuthenticationPrincipal UserContextData userContext) {
+        var enterpriseId = userContext.getEnterpriseId().orElseThrow();
+        var sort = Optional.ofNullable(searchCriteria.sort()).orElse(new SortDTO(AbstractAuditableEntity.Fields.createdDate, SortDirection.ASC));
+        var pageable = CommonMapper.toPageable(searchCriteria.page(), sort);
+        var searchResults = emissionActivityService.search(pageable, enterpriseId, searchCriteria.criteria());
+        return ResponseEntity.ok(CommonMapper.toSearchResultDTO(searchResults, this.mapper::toEmissionActivityView));
+    }
+    
+    @GetMapping("/selectable-buildings")
+    @RolesAllowed(UserRole.RoleNameConstant.ENTERPRISE_OWNER)
+    public ResponseEntity<List<SelectableItem<UUID>>> getSelectableBuildings(@AuthenticationPrincipal UserContextData userContext) {
+        var enterpriseId = userContext.getEnterpriseId().orElseThrow();
+        var buildings = emissionActivityService
+                .getBuildingsByEnterpriseId(enterpriseId)
+                .stream()
+                .map(building -> new SelectableItem<>(building.getName(), building.getId(), false))
+                .toList();
+        return ResponseEntity.ok(buildings);
+    }
+    
+    @GetMapping("/selectable-factors")
+    @RolesAllowed(UserRole.RoleNameConstant.ENTERPRISE_OWNER)
+    public ResponseEntity<List<SelectableItem<UUID>>> getEmissionFactors(
+            @RequestParam(defaultValue = "vi") String language,
+            @AuthenticationPrincipal UserContextData userContext) {
+        if (Set.of("vi", "en", "zh").stream().noneMatch(code -> code.equals(language))) {
+            return ResponseEntity.badRequest().build();
+        }
+        var enterpriseId = userContext.getEnterpriseId().orElseThrow();
+        var buildings = emissionActivityService
+                .getEmissionFactorsByEnterpriseId(enterpriseId)
+                .stream()
+                .map(factor -> new SelectableItem<>(getFactorNameLocale(language, factor), factor.getId(), false))
+                .toList();
+        return ResponseEntity.ok(buildings);
+    }
+    
+    private String getFactorNameLocale(String language, EmissionFactorEntity factor) {
+        return switch (language) {
+            case "vi" -> factor.getNameVN();
+            case "zh" -> factor.getNameZH();
+            default -> factor.getNameEN();
+        };
     }
     
     @PostMapping

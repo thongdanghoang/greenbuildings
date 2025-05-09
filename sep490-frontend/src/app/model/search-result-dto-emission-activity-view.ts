@@ -7,10 +7,9 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import {EmissionActivityView} from './emission-activity-view';
 
-export interface DownloadReportDTO {
-  buildingID: string;
-  startDate: string;
-  endDate: string;
-  selectedGroups: string[];
+export interface SearchResultDTOEmissionActivityView {
+  results: EmissionActivityView[];
+  totalElements?: number;
 }
