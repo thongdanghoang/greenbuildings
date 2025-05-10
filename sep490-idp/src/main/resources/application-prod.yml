@@ -38,7 +38,7 @@ spring:
                 - phone
             require-proof-key: true
             token:
-              access-token-time-to-live: PT1H
+              access-token-time-to-live: PT8H
   mail:
     host: ${SMTP_HOST}
     port: ${SMTP_PORT}
