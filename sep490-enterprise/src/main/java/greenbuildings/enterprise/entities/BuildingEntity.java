@@ -42,6 +42,12 @@ public class BuildingEntity extends AbstractAuditableEntity {
     @Column(name = "address", nullable = false)
     private String address;
 
+    @Column(name = "number_of_levels")
+    private int numberOfLevels;
+
+    @Column(name = "area")
+    private double area;
+
     @DecimalMin("-90.0")
     @DecimalMax("90.0")
     @Column(name = "latitude")

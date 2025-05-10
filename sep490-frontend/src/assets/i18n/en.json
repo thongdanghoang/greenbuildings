@@ -317,6 +317,8 @@
         "create": "Create",
         "labels": {
           "name": "Building name",
+          "levels": "Number of Levels",
+          "area": "Total area (m²)",
           "numberOfDevices": "Expected number of activities",
           "haveSubscriptionOfNumberOfDevices": "Max number of activities",
           "maxNumberOfDevices": "Estimate the amount of activities inventory in the building",

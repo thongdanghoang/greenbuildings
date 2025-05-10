@@ -28,6 +28,34 @@
             class="flex flex-col gap-2"
             errorMessages
         >
+            <label class="text-lg font-medium">{{ 'enterprise.buildings.details.labels.levels' | translate }}</label>
+            <p-inputnumber
+                formControlName="numberOfLevels"
+                [showButtons]="true"
+                [min]="0"
+                inputId="Levels"
+            >
+            </p-inputnumber>
+            <form-field-error></form-field-error>
+        </div>
+        <div
+            class="flex flex-col gap-2"
+            errorMessages
+        >
+            <label class="text-lg font-medium">{{ 'enterprise.buildings.details.labels.area' | translate }}</label>
+            <p-inputnumber
+                formControlName="area"
+                inputId="horizontal"
+                [min]="0"
+                suffix=" (m²)"
+            >
+            </p-inputnumber>
+            <form-field-error></form-field-error>
+        </div>
+        <div
+            class="flex flex-col gap-2"
+            errorMessages
+        >
             <label class="text-lg font-medium">{{ 'enterprise.buildings.details.labels.address' | translate }}</label>
             <p-inputgroup>
                 <p-autoComplete

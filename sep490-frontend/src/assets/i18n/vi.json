@@ -316,6 +316,8 @@
         "create": "Tạo mới",
         "labels": {
           "name": "Tên tòa nhà",
+          "levels": "Số lượng tầng",
+          "area": "Diện tích (m²)",
           "numberOfDevices": "Số lượng hoạt động dự kiến",
           "haveSubscriptionOfNumberOfDevices": "Số lượng hoạt động tối đa",
           "maxNumberOfDevices": "Ước tính số lượng hoạt động kiểm kê trong tòa nhà",

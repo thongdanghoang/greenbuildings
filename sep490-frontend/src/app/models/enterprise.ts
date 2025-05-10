@@ -6,6 +6,8 @@ import {BaseDTO} from '../modules/shared/models/base-models';
 export interface Building extends BaseDTO {
   name: string;
   address?: string;
+  numberOfLevels: number;
+  area: number;
   activated?: boolean;
   latitude: number;
   longitude: number;
@@ -24,6 +26,8 @@ export interface BuildingDetails extends BaseDTO {
   latitude: number;
   longitude: number;
   address: string;
+  numberOfLevels: number;
+  area: number;
   subscriptionDTO?: Subscription;
   buildingGroups: BuildingGroup[];
 }
