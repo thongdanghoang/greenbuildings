@@ -17,6 +17,46 @@
     >
         {{ 'powerBi.tokenGenerated' | translate }}
     </div>
+    <div
+        class="flex w-full flex-col justify-center gap-4 border-b"
+        *ngIf="accessTokens.length > 0"
+    >
+        <p-floatlabel variant="in">
+            <input
+                pInputText
+                id="tokenInput"
+                [(ngModel)]="userToken"
+            />
+            <label for="tokenInput">Enter Access Token:</label>
+        </p-floatlabel>
+        <p>{{ 'powerBi.generatedUrlMessage' | translate }}</p>
+        <div
+            *ngIf="userToken.length > 0"
+            class="mb-2 p-2"
+        >
+            <div class="w-full">
+                <code class="break-all text-gray-700">{{ getUrl(userToken) }}</code>
+            </div>
+            <p-button
+                icon="pi pi-external-link"
+                class="mr-2"
+                outlined
+                iconPos="right"
+                (click)="goToLink(getUrl(userToken))"
+                [label]="'common.goToLink' | translate"
+            >
+            </p-button>
+            <p-button
+                icon="pi pi-copy"
+                severity="info"
+                outlined
+                iconPos="right"
+                (click)="copyToClipboard(getUrl(userToken))"
+                [label]="'common.copy' | translate"
+            >
+            </p-button>
+        </div>
+    </div>
 
     <ng-container *ngIf="accessTokens.length > 0; else noTokens">
         @if (newestCreatedTokenId && newestCreatedTokenKey) {

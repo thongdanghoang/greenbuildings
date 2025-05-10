@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
+import {environment} from '@environment';
 import {PowerBiAuthority} from '@models/power-bi-access-token';
 import {TranslateService} from '@ngx-translate/core';
 import {ApplicationService} from '@services/application.service';
@@ -21,6 +22,7 @@ export class PowerBiAccessTokenComponent extends SubscriptionAwareComponent impl
   protected accessTokens: PowerBiAuthority[] = [];
   protected newestCreatedTokenId: UUID | null = null;
   protected newestCreatedTokenKey: string | null = null;
+  protected userToken: string = '';
 
   constructor(
     private readonly powerBiService: PowerBiAccessTokenService,
@@ -87,16 +89,25 @@ export class PowerBiAccessTokenComponent extends SubscriptionAwareComponent impl
         .then(() => {
           this.messageService.success({
             summary: 'Copied',
-            detail: 'Token copied to clipboard'
+            detail: 'Data copied to clipboard'
           });
         })
         .catch(() => {
           this.messageService.businessError({
             summary: 'Error',
-            detail: 'Failed to copy token'
+            detail: 'Failed to copy data'
           });
         });
     }
+  }
+
+  goToLink(link: string): void {
+    window.open(link, '_blank');
+  }
+
+  getUrl(userToken: string): string {
+    const api = environment.enterpriseUrl;
+    return `${api}/power-bi/${userToken}/report`;
   }
 
   // eslint-disable-next-line max-lines-per-function

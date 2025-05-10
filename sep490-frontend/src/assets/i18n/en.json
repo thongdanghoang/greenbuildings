@@ -14,6 +14,8 @@
     "search": "Search",
     "create": "Create",
     "login": "Login",
+    "copy": "Copy",
+    "goToLink": "Open link",
     "logout": "Logout",
     "download": "Download",
     "save": "Save",
@@ -860,6 +862,7 @@
     "PIECES": "Pieces"
   },
   "powerBi": {
+    "generatedUrlMessage": "Enter your access token to generate the Power BI API URL for dashboard integration",
     "accessToken": {
       "expiration": {
         "7days": "7 days",
