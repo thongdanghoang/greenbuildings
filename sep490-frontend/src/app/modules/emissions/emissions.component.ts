@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, TemplateRef, ViewChild, inject} from '@angular/core';
+import {Component, EventEmitter, inject, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {FormBuilder, FormControl} from '@angular/forms';
 import {ActivityCriteria} from '@generated/models/activity-criteria';
 import {EmissionActivityRecordView} from '@generated/models/emission-activity-record-view';
@@ -131,11 +131,14 @@ export class EmissionsComponent extends SubscriptionAwareComponent implements On
           showHeader: false,
           modal: true
         };
-        this.dialogService.open(NewActivityRecordDialogComponent, config).onClose.subscribe(result => {
-          if (result) {
-            this.searchEvent.emit();
-          }
-        });
+        this.dialogService
+          .open(NewActivityRecordDialogComponent, config)
+          .onClose.pipe(takeUntil(this.destroy$))
+          .subscribe(result => {
+            if (result) {
+              this.searchEvent.emit();
+            }
+          });
       });
   }
 

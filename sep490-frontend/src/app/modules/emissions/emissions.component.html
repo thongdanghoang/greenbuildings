@@ -42,7 +42,7 @@
                         {{ 'enterprise.emission.activity.record.table.value' | translate }} <p-sortIcon field="value" />
                     </th>
                     <th pSortableColumn="unit }">
-                        {{ 'enterprise.emission.activity.record.table.unit' | translate }} <p-sortIcon field="unit }" />
+                        {{ 'enterprise.emission.activity.record.table.unit' | translate }} <p-sortIcon field="unit" />
                     </th>
                     <th pSortableColumn="quantity">
                         {{ 'enterprise.emission.activity.record.table.quantity' | translate }}
@@ -86,7 +86,7 @@
             </ng-template>
             <ng-template #emptymessage>
                 <tr>
-                    <td colspan="6">There are no order for this product yet.</td>
+                    <td colspan="6">{{ 'common.noRow' | translate }}</td>
                 </tr>
             </ng-template>
         </p-table>

@@ -75,6 +75,7 @@ public interface EmissionFactorRepository extends JpaRepository<EmissionFactorEn
             SELECT activity.emissionFactorEntity
             FROM EmissionActivityEntity activity
             WHERE activity.building.enterprise.id = :enterpriseId
+            AND activity.emissionFactorEntity.active = true
             """)
     List<EmissionFactorEntity> getEmissionFactorsByEnterpriseId(UUID enterpriseId);
 }
