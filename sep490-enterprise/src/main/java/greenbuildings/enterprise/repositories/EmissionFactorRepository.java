@@ -9,7 +9,6 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 public interface EmissionFactorRepository extends JpaRepository<EmissionFactorEntity, UUID> {
@@ -71,4 +70,12 @@ public interface EmissionFactorRepository extends JpaRepository<EmissionFactorEn
         """
     )
     boolean existsByEmissionFactor(String nameVN, String nameEN, String nameZH, BigDecimal co2, BigDecimal ch4, BigDecimal n2o, String emissionUnitNumerator, String emissionUnitDenominator);
+    
+    @Query("""
+            SELECT activity.emissionFactorEntity
+            FROM EmissionActivityEntity activity
+            WHERE activity.building.enterprise.id = :enterpriseId
+            AND activity.emissionFactorEntity.active = true
+            """)
+    List<EmissionFactorEntity> getEmissionFactorsByEnterpriseId(UUID enterpriseId);
 }

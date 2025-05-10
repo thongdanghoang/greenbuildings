@@ -19,6 +19,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.Setter;
+import lombok.experimental.FieldNameConstants;
 
 import java.util.Set;
 
@@ -48,12 +49,35 @@ import java.util.Set;
         )
     }
 )
+@NamedEntityGraph(
+        name = EmissionActivityEntity.SEARCH_PAGE_GRAPH,
+        attributeNodes = {
+                @NamedAttributeNode(value = "records", subgraph = "record"),
+                @NamedAttributeNode(value = "emissionFactorEntity", subgraph = "emissionFactor")
+        },
+        subgraphs = {
+                @NamedSubgraph(
+                        name = "emissionFactor",
+                        attributeNodes = {
+                                @NamedAttributeNode("source"),
+                        }
+                ),
+                @NamedSubgraph(
+                        name = "record",
+                        attributeNodes = {
+                                @NamedAttributeNode("file")
+                        }
+                )
+        }
+)
 @Getter
 @Setter
 @NoArgsConstructor
+@FieldNameConstants
 public class EmissionActivityEntity extends AbstractAuditableEntity {
 
     public static final String DETAILS_GRAPH = "EmissionActivity.details";
+    public static final String SEARCH_PAGE_GRAPH = "search-page-graph";
     
     @NonNull
     @NotNull

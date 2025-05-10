@@ -1,1 +1,193 @@
-<p>emissions works!</p>
+<master-layout title="emissions.title">
+    <div subtitle>{{ 'emissions.subtitle' | translate }}</div>
+
+    <div
+        class=""
+        actions
+    >
+        <ng-container
+            *ngTemplateOutlet="addActivityBtn; context: {styleClass: 'block lg:hidden', mobile: true}"
+        ></ng-container>
+        <ng-container
+            *ngTemplateOutlet="addActivityBtn; context: {styleClass: 'hidden lg:block', mobile: false}"
+        ></ng-container>
+    </div>
+
+    <table-template
+        [fetch]="search"
+        [criteria]="criteria"
+        [columns]="cols"
+        [triggerSearch]="searchEvent"
+        [captionTemplateRef]="captionTemplateRef"
+        [expandedTemplateRef]="expandedTemplateRef"
+    />
+</master-layout>
+
+<ng-template
+    #expandedTemplateRef
+    let-activity
+>
+    <td
+        colspan="6"
+        class="p-3"
+    >
+        <p class="mb-2 text-sm font-semibold">Records for {{ activity.name }}</p>
+        <p-table
+            [value]="activity.records"
+            dataKey="id"
+        >
+            <ng-template #header>
+                <tr>
+                    <th pSortableColumn="value">
+                        {{ 'enterprise.emission.activity.record.table.value' | translate }} <p-sortIcon field="value" />
+                    </th>
+                    <th pSortableColumn="unit }">
+                        {{ 'enterprise.emission.activity.record.table.unit' | translate }} <p-sortIcon field="unit" />
+                    </th>
+                    <th pSortableColumn="quantity">
+                        {{ 'enterprise.emission.activity.record.table.quantity' | translate }}
+                        <p-sortIcon field="quantity" />
+                    </th>
+                    <th pSortableColumn="ghg">
+                        {{ 'enterprise.emission.activity.record.table.ghg' | translate }} <p-sortIcon field="ghg" />
+                    </th>
+                    <th pSortableColumn="startDate">
+                        {{ 'enterprise.emission.activity.record.table.startDate' | translate }}
+                        <p-sortIcon field="startDate" />
+                    </th>
+                    <th pSortableColumn="endDate">
+                        {{ 'enterprise.emission.activity.record.table.endDate' | translate }}
+                        <p-sortIcon field="endDate" />
+                    </th>
+                    <th>/</th>
+                </tr>
+            </ng-template>
+            <ng-template
+                #body
+                let-record
+            >
+                <tr>
+                    <td>{{ record.value }}</td>
+                    <td>{{ record.unit }}</td>
+                    <td>{{ record.quantity | number: '1.0-0' }}</td>
+                    <td class="text-primary-emphasis">{{ record.ghg | number: '1.0-0' }}</td>
+                    <td>{{ record.startDate | date: 'dd.MM.yyyy' }}</td>
+                    <td>{{ record.endDate | date: 'dd.MM.yyyy' }}</td>
+                    <td>
+                        <p-button
+                            icon="pi pi-info"
+                            outlined
+                            text
+                            severity="secondary"
+                            (onClick)="openEditRecordDialog(activity, record)"
+                        />
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template #emptymessage>
+                <tr>
+                    <td colspan="6">{{ 'common.noRow' | translate }}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </td>
+</ng-template>
+
+<ng-template #captionTemplateRef>
+    <form
+        [formGroup]="filterFormGroup"
+        class="-mx-4 grid grid-cols-4 gap-2.5 lg:mx-0"
+    >
+        <div class="col-span-4 *:w-full lg:col-span-1">
+            <p-multiselect
+                [options]="selectableBuildings"
+                formControlName="buildings"
+                optionLabel="label"
+                placeholder="{{ 'emissions.activities.filters.buildings' | translate }}"
+                [maxSelectedLabels]="1"
+                optionValue="value"
+            >
+            </p-multiselect>
+        </div>
+        <div class="col-span-4 *:w-full lg:col-span-1">
+            <p-multiselect
+                [options]="selectableFactors"
+                formControlName="factors"
+                optionLabel="label"
+                placeholder="{{ 'emissions.activities.filters.factors' | translate }}"
+                [maxSelectedLabels]="1"
+                optionValue="value"
+            >
+            </p-multiselect>
+        </div>
+        <p-iconfield class="col-span-4 *:w-full lg:col-span-1">
+            <p-inputicon styleClass="pi pi-search" />
+            <input
+                (keydown.enter)="onFilter()"
+                type="text"
+                pInputText
+                formControlName="name"
+                placeholder="{{ 'emissions.activities.table.header.name' | translate }}"
+            />
+        </p-iconfield>
+        <p-iconfield class="col-span-4 *:w-full lg:col-span-1">
+            <p-inputicon styleClass="pi pi-search" />
+            <input
+                (keydown.enter)="onFilter()"
+                type="text"
+                pInputText
+                formControlName="category"
+                placeholder="{{ 'emissions.activities.table.header.category' | translate }}"
+            />
+        </p-iconfield>
+        <div class="col-span-4 flex w-full justify-end gap-2.5">
+            <p-button
+                severity="danger"
+                [label]="'common.revert' | translate"
+                icon="pi pi-times"
+                outlined
+                (onClick)="onResetFilters()"
+            />
+            <p-button
+                severity="primary"
+                [label]="'common.search' | translate"
+                icon="pi pi-search"
+                outlined
+                (onClick)="onFilter()"
+            />
+        </div>
+    </form>
+</ng-template>
+
+<ng-template
+    #activityDescriptionTemplate
+    let-rowData
+>
+    <p class="max-w-96 truncate">{{ rowData.description }}</p>
+</ng-template>
+
+<ng-template
+    #activityColActions
+    let-rowData
+>
+    <p-button
+        icon="pi pi-trash"
+        severity="danger"
+        [text]="true"
+        (onClick)="onDeleteEmissionActivity(rowData.id)"
+    />
+</ng-template>
+
+<ng-template
+    #addActivityBtn
+    let-styleClass="styleClass"
+    let-mobile="mobile"
+>
+    <p-button
+        [class]="styleClass"
+        [label]="mobile ? '' : ('buildingGroup.enterprise.emission.activity.new' | translate)"
+        icon="pi pi-plus"
+        severity="primary"
+        (onClick)="openNewActivityDialog()"
+    ></p-button>
+</ng-template>

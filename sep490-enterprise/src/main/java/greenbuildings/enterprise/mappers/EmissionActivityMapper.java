@@ -6,8 +6,13 @@ import greenbuildings.enterprise.dtos.EmissionActivityDTO;
 import greenbuildings.enterprise.dtos.EmissionActivityDetailsDTO;
 import greenbuildings.enterprise.dtos.EmissionActivityTableView;
 import greenbuildings.enterprise.entities.EmissionActivityEntity;
+import greenbuildings.enterprise.entities.EmissionActivityRecordEntity;
+import greenbuildings.enterprise.entities.EmissionFactorEntity;
+import greenbuildings.enterprise.entities.EmissionSourceEntity;
+import greenbuildings.enterprise.entities.RecordFileEntity;
 import greenbuildings.enterprise.mappers.decorators.EmissionActivityMapperDecorator;
 import greenbuildings.enterprise.models.ActivityRecordDateRange;
+import greenbuildings.enterprise.views.emission_activities.EmissionActivityView;
 import org.mapstruct.DecoratedWith;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -27,6 +32,20 @@ public interface EmissionActivityMapper {
     @Mapping(target = "emissionFactor", source = "emissionFactorEntity")
     @Mapping(target = "records", ignore = true)
     EmissionActivityTableView toTableView(EmissionActivityEntity emissionActivityEntity);
+    
+    @Mapping(target = "building", source = "building.id")
+    @Mapping(target = "emissionFactor", source = "emissionFactorEntity")
+    @Mapping(target = "type", source = "type.name")
+    EmissionActivityView toEmissionActivityView(EmissionActivityEntity source);
+    
+    EmissionActivityView.EmissionActivityRecordView toEmissionActivityRecordView(EmissionActivityRecordEntity source);
+    
+    @Mapping(source = "source", target = "emissionSourceDTO")
+    EmissionActivityView.EmissionActivityFactorView toEmissionActivityFactorView(EmissionFactorEntity source);
+    
+    EmissionActivityView.EmissionActivityFactorView.EmissionSourceView toEmissionSourceView(EmissionSourceEntity source);
+    
+    EmissionActivityView.EmissionActivityRecordView.RecordFileView toRecordFileView(RecordFileEntity source);
     
     @Mapping(target = "building.id", source = "buildingId")
     @Mapping(target = "buildingGroup", ignore = true)

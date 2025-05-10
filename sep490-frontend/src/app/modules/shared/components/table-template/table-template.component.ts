@@ -1,11 +1,11 @@
 import {Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
+import {ApplicationService} from '@services/application.service';
 import {SortEvent} from 'primeng/api';
 import {PaginatorState} from 'primeng/paginator';
 import {Table} from 'primeng/table';
 import {takeUntil} from 'rxjs';
 import {ApplicationConstant} from '../../../../application.constant';
-import {ApplicationService} from '@services/application.service';
 import {SearchResultDto, SortDto} from '../../models/base-models';
 import {ToastProvider} from '../../services/toast-provider';
 import {AbstractSearchComponent} from '../abstract-search';
@@ -28,6 +28,7 @@ export class TableTemplateComponent<C, R, W extends SearchResultDto<R> = SearchR
   implements OnInit
 {
   @Input() captionTemplateRef: TemplateRef<any> | undefined;
+  @Input() expandedTemplateRef: TemplateRef<any> | undefined;
   @Input({required: true}) columns!: TableTemplateColumn[];
   @Input() sort: SortDto | undefined;
   @ViewChild('tableTemplateComponent') tableTemplateComponent!: Table;

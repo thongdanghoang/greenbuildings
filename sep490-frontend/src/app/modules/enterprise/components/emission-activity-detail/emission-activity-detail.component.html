@@ -1,139 +1,122 @@
-<div>
-    <p-button
-        icon="pi pi-arrow-left"
-        [label]="'common.back' | translate"
-        severity="primary"
-        outlined="true"
-        (onClick)="onBack()"
-    ></p-button>
-</div>
-<div
-    class="flex items-center justify-between border-b pb-1"
-    style="min-height: 42px"
+<master-layout
+    title="enterprise.emission.activity.title"
+    [showBack]="true"
 >
-    <div class="text-lg font-bold text-primary">
-        {{ 'enterprise.emission.activity.title' | translate }}
-    </div>
-</div>
-<p-card
-    styleClass="mt-2"
-    [header]="'enterprise.emission.activity.details.title' | translate"
->
-    <ng-template pTemplate="subtitle">
-        <i class="pi pi-info-circle"></i>
-        {{ 'enterprise.emission.activity.details.subtitle' | translate }}
-    </ng-template>
+    <p-card [header]="'enterprise.emission.activity.details.title' | translate">
+        <ng-template pTemplate="subtitle">
+            <i class="pi pi-info-circle"></i>
+            {{ 'enterprise.emission.activity.details.subtitle' | translate }}
+        </ng-template>
 
-    <div class="grid">
-        <div class="col-12">
-            <p-fieldset [legend]="'enterprise.emission.activity.details.basicInfo' | translate">
-                <form
-                    unsavedChanges
-                    id="emissionActivityDetailForm"
-                    [formGroup]="formGroup"
-                    (ngSubmit)="submit()"
-                    class="grid grid-cols-1 gap-4 md:grid-cols-2"
-                >
-                    <p-iftalabel class="col-span-2 my-2 md:col-span-1">
-                        <input
-                            pInputText
-                            formControlName="name"
-                            class="w-full"
-                            autocomplete="off"
-                        />
-                        <label>{{ 'enterprise.emission.activity.table.name' | translate }}</label>
-                    </p-iftalabel>
+        <div class="grid">
+            <div class="col-12">
+                <p-fieldset [legend]="'enterprise.emission.activity.details.basicInfo' | translate">
+                    <form
+                        unsavedChanges
+                        id="emissionActivityDetailForm"
+                        [formGroup]="formGroup"
+                        (ngSubmit)="submit()"
+                        class="grid grid-cols-1 gap-4 md:grid-cols-2"
+                    >
+                        <p-iftalabel class="col-span-2 my-2 md:col-span-1">
+                            <input
+                                pInputText
+                                formControlName="name"
+                                class="w-full"
+                                autocomplete="off"
+                            />
+                            <label>{{ 'enterprise.emission.activity.table.name' | translate }}</label>
+                        </p-iftalabel>
 
-                    <!-- Type -->
-                    <p-iftalabel class="my-2">
-                        <p-select
-                            [options]="activityTypes"
-                            optionLabel="name"
-                            optionValue="id"
-                            [editable]="true"
-                            [showClear]="true"
-                            formControlName="type"
-                            class="w-full"
-                        >
-                            <ng-template
-                                pTemplate="selectedItem"
-                                let-type
+                        <!-- Type -->
+                        <p-iftalabel class="my-2">
+                            <p-select
+                                [options]="activityTypes"
+                                optionLabel="name"
+                                optionValue="id"
+                                [editable]="true"
+                                [showClear]="true"
+                                formControlName="type"
+                                class="w-full"
                             >
-                                <div class="align-items-center flex gap-2">
-                                    <div>{{ type.name }}</div>
-                                </div>
-                            </ng-template>
-                            <ng-template
-                                let-type
-                                pTemplate="item"
-                            >
-                                <div class="align-items-center flex gap-2">
-                                    <div>{{ type.name }}</div>
-                                </div>
-                            </ng-template>
-                        </p-select>
-                        <label>{{ 'enterprise.emission.activity.dialog.Type' | translate }}</label>
-                    </p-iftalabel>
+                                <ng-template
+                                    pTemplate="selectedItem"
+                                    let-type
+                                >
+                                    <div class="align-items-center flex gap-2">
+                                        <div>{{ type.name }}</div>
+                                    </div>
+                                </ng-template>
+                                <ng-template
+                                    let-type
+                                    pTemplate="item"
+                                >
+                                    <div class="align-items-center flex gap-2">
+                                        <div>{{ type.name }}</div>
+                                    </div>
+                                </ng-template>
+                            </p-select>
+                            <label>{{ 'enterprise.emission.activity.dialog.Type' | translate }}</label>
+                        </p-iftalabel>
 
-                    <p-iftalabel class="col-span-2 my-2 md:col-span-1">
-                        <input
-                            pInputText
-                            [value]="getFactorName()"
-                            id="factorName"
-                            class="w-full"
-                            disabled
-                        />
-                        <label for="factorName">{{
-                            'enterprise.emission.activity.record.table.factor' | translate
-                        }}</label>
-                    </p-iftalabel>
+                        <p-iftalabel class="col-span-2 my-2 md:col-span-1">
+                            <input
+                                pInputText
+                                [value]="getFactorName()"
+                                id="factorName"
+                                class="w-full"
+                                disabled
+                            />
+                            <label for="factorName">{{
+                                'enterprise.emission.activity.record.table.factor' | translate
+                            }}</label>
+                        </p-iftalabel>
 
-                    <p-iftalabel class="col-span-2 my-2 md:col-span-1">
-                        <input
-                            pInputText
-                            class="w-full"
-                            [value]="getSourceName()"
-                            id="sourceName"
-                            disabled
-                        />
-                        <label for="sourceName">{{
-                            'enterprise.emission.activity.record.table.source' | translate
-                        }}</label>
-                    </p-iftalabel>
+                        <p-iftalabel class="col-span-2 my-2 md:col-span-1">
+                            <input
+                                pInputText
+                                class="w-full"
+                                [value]="getSourceName()"
+                                id="sourceName"
+                                disabled
+                            />
+                            <label for="sourceName">{{
+                                'enterprise.emission.activity.record.table.source' | translate
+                            }}</label>
+                        </p-iftalabel>
 
-                    <p-iftalabel class="col-span-2 my-2 md:col-span-1">
-                        <input
-                            pInputText
-                            formControlName="category"
-                            class="w-full"
-                            autocomplete="off"
-                        />
-                        <label>{{ 'enterprise.emission.activity.table.category' | translate }}</label>
-                    </p-iftalabel>
+                        <p-iftalabel class="col-span-2 my-2 md:col-span-1">
+                            <input
+                                pInputText
+                                formControlName="category"
+                                class="w-full"
+                                autocomplete="off"
+                            />
+                            <label>{{ 'enterprise.emission.activity.table.category' | translate }}</label>
+                        </p-iftalabel>
 
-                    <p-iftalabel class="col-span-2 my-2">
-                        <input
-                            pInputText
-                            formControlName="description"
-                            class="w-full"
-                        />
-                        <label>{{ 'enterprise.emission.activity.dialog.Description' | translate }}</label>
-                    </p-iftalabel>
+                        <p-iftalabel class="col-span-2 my-2">
+                            <input
+                                pInputText
+                                formControlName="description"
+                                class="w-full"
+                            />
+                            <label>{{ 'enterprise.emission.activity.dialog.Description' | translate }}</label>
+                        </p-iftalabel>
 
-                    <div class="mt-4 flex flex-row-reverse justify-between gap-2 md:col-span-2">
-                        <p-button
-                            type="submit"
-                            [label]="'common.update' | translate"
-                            [disabled]="disableUpdateBtn()"
-                        ></p-button>
-                    </div>
-                </form>
-            </p-fieldset>
+                        <div class="mt-4 flex flex-row-reverse justify-between gap-2 md:col-span-2">
+                            <p-button
+                                type="submit"
+                                [label]="'common.update' | translate"
+                                [disabled]="disableUpdateBtn()"
+                            ></p-button>
+                        </div>
+                    </form>
+                </p-fieldset>
+            </div>
         </div>
-    </div>
-</p-card>
+    </p-card>
 
-<div class="mt-4">
     <p-card [header]="'enterprise.emission.activity.record.title' | translate">
         <table-template
             [fetch]="fetchRecords"
@@ -147,72 +130,72 @@
             [checkbox]="true"
         >
         </table-template>
-
-        <ng-template #captionTemplateRef>
-            <div class="flex flex-row-reverse items-center">
-                <div class="flex gap-2.5">
-                    <p-button
-                        severity="danger"
-                        [label]="
-                            selected.length
-                                ? ('enterprise.emission.activity.record.deleteWithCount'
-                                  | translate: {count: selected.length})
-                                : ('enterprise.Users.delete' | translate)
-                        "
-                        icon="pi pi-trash"
-                        outlined
-                        [disabled]="!selected || !selected.length"
-                        (onClick)="confirmDelete()"
-                    />
-                    <p-button
-                        [label]="'enterprise.emission.activity.record.new' | translate"
-                        [severity]="'primary'"
-                        (onClick)="onNewRecord()"
-                    ></p-button>
-                </div>
-            </div>
-        </ng-template>
-
-        <ng-template
-            #actionsTemplate
-            let-record
-        >
-            <p-button
-                icon="pi pi-file-edit"
-                [rounded]="true"
-                [text]="true"
-                severity="contrast"
-                (onClick)="openEditRecordDialog(record)"
-            />
-        </ng-template>
-
-        <ng-template
-            #fileTemplate
-            let-rowData
-        >
-            <div *ngIf="rowData.file">
-                <p-button
-                    [pTooltip]="rowData.file.fileName"
-                    icon="pi pi-download"
-                    class="w-full"
-                    [style]="{maxWidth: '200px'}"
-                    [styleClass]="'p-button-text p-button-sm'"
-                    (onClick)="onDownloadFile(rowData)"
-                >
-                </p-button>
-                <p-button
-                    icon="pi pi-trash"
-                    severity="danger"
-                    [text]="true"
-                    (onClick)="removeFile(rowData)"
-                />
-            </div>
-        </ng-template>
-        <ng-template
-            #ghgTemplate
-            let-rowData
-        >
-            {{ rowData.ghg | number: '1.0-0' }}
-        </ng-template>
     </p-card>
-</div>
+</master-layout>
+
+<ng-template #captionTemplateRef>
+    <div class="flex flex-row-reverse items-center">
+        <div class="flex gap-2.5">
+            <p-button
+                severity="danger"
+                [label]="
+                    selected.length
+                        ? ('enterprise.emission.activity.record.deleteWithCount' | translate: {count: selected.length})
+                        : ('enterprise.Users.delete' | translate)
+                "
+                icon="pi pi-trash"
+                outlined
+                [disabled]="!selected || !selected.length"
+                (onClick)="confirmDelete()"
+            />
+            <p-button
+                [label]="'enterprise.emission.activity.record.new' | translate"
+                [severity]="'primary'"
+                (onClick)="onNewRecord()"
+            ></p-button>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template
+    #actionsTemplate
+    let-record
+>
+    <p-button
+        icon="pi pi-file-edit"
+        [rounded]="true"
+        [text]="true"
+        severity="contrast"
+        (onClick)="openEditRecordDialog(record)"
+    />
+</ng-template>
+
+<ng-template
+    #fileTemplate
+    let-rowData
+>
+    <div *ngIf="rowData.file">
+        <p-button
+            [pTooltip]="rowData.file.fileName"
+            icon="pi pi-download"
+            class="w-full"
+            [style]="{maxWidth: '200px'}"
+            [styleClass]="'p-button-text p-button-sm'"
+            (onClick)="onDownloadFile(rowData)"
+        >
+        </p-button>
+        <p-button
+            icon="pi pi-trash"
+            severity="danger"
+            [text]="true"
+            (onClick)="removeFile(rowData)"
+        />
+    </div>
+</ng-template>
+
+<ng-template
+    #ghgTemplate
+    let-rowData
+>
+    {{ rowData.ghg | number: '1.0-0' }}
+</ng-template>
