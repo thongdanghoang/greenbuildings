@@ -54,10 +54,26 @@
             class="flex flex-col justify-between gap-4 rounded-t p-2 lg:flex-row lg:gap-0 lg:p-4"
             [class]="building.subscriptionDTO ? 'bg-primary-50 dark:bg-primary-950' : 'bg-yellow-50 dark:bg-yellow-950'"
         >
-            <div class="flex items-baseline gap-2">
-                <i class="pi pi-building"></i>
-                <div class="text-xl font-bold">{{ building.name }}</div>
+            <div class="flex flex-wrap items-center justify-between gap-4">
+                <div class="flex items-center gap-2">
+                    <i class="pi pi-building"></i>
+                    <div class="text-xl font-bold">{{ building.name }}</div>
+                </div>
+                <div class="flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400">
+                    <div class="flex items-center gap-1">
+                        <i class="pi pi-expand-arrows-alt"></i>
+                        <span>{{ building.area }} m²</span>
+                    </div>
+                    <div class="flex items-center gap-1">
+                        <i class="pi pi-sort-numeric-up-alt"></i>
+                        <span
+                            >{{ building.numberOfLevels }}
+                            {{ 'enterprise.buildings.details.labels.levels' | translate }}</span
+                        >
+                    </div>
+                </div>
             </div>
+
             <div class="flex justify-end">
                 <p-button
                     (onClick)="viewBuildingDetails(building.id)"

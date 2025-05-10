@@ -316,6 +316,8 @@
         "create": "创建",
         "labels": {
           "name": "建筑名称",
+          "levels": "楼层数",
+          "area": "建筑面积",
           "numberOfDevices": "预计活动数量",
           "haveSubscriptionOfNumberOfDevices": "订阅中的最大数量",
           "maxNumberOfDevices": "估计建筑物内的活动库存量",
