@@ -39,10 +39,10 @@ public interface EmissionActivityRepository extends AbstractBaseRepository<Emiss
     
     List<EmissionActivityEntity> findByBuildingGroupIdIn(Set<UUID> ids);
     
-    @EntityGraph(value = EmissionActivityEntity.DETAILS_GRAPH)
+    @EntityGraph(attributePaths = {"emissionFactorEntity", "type"})
     Page<EmissionActivityEntity> findAllByBuildingGroupIdAndNameContainingIgnoreCase(UUID buildingId, String activityName, Pageable pageable);
     
-    @EntityGraph(value = EmissionActivityEntity.DETAILS_GRAPH)
+    @EntityGraph(attributePaths = {"emissionFactorEntity", "type"})
     Page<EmissionActivityEntity> findAllByBuildingIdAndNameContainingIgnoreCaseAndBuildingGroupIsNull(UUID buildingId, String activityName, Pageable pageable);
     
     Integer countAllByIdIn(Set<UUID> ids);

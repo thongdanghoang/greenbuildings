@@ -20,7 +20,7 @@ import org.mapstruct.MappingConstants;
 
 import java.util.List;
 
-@Mapper(componentModel = MappingConstants.ComponentModel.SPRING, uses = {EmissionFactorMapper.class})
+@Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 @DecoratedWith(EmissionActivityMapperDecorator.class)
 public interface EmissionActivityMapper {
     
