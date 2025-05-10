@@ -13,6 +13,8 @@
     "saveSuccess": "Lưu thành công!",
     "download": "Tải xuống",
     "search": "Tìm kiếm",
+    "copy": "Sao chép",
+    "goToLink": "Mở liên kết",
     "create": "Tạo",
     "login": "Đăng nhập",
     "logout": "Đăng xuất",
@@ -853,6 +855,7 @@
     "PIECES": "Cái: pcs"
   },
   "powerBi": {
+    "generatedUrlMessage": "Nhập access token của bạn để tạo URL API Power BI cho tích hợp bảng điều khiển",
     "accessToken": {
       "expiration": {
         "7days": "7 ngày",
