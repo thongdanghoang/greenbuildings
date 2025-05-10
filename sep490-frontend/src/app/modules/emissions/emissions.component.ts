@@ -1,4 +1,4 @@
-import {Component, EventEmitter, inject, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {Component, EventEmitter, OnInit, TemplateRef, ViewChild, inject} from '@angular/core';
 import {FormBuilder, FormControl} from '@angular/forms';
 import {ActivityCriteria} from '@generated/models/activity-criteria';
 import {EmissionActivityRecordView} from '@generated/models/emission-activity-record-view';
