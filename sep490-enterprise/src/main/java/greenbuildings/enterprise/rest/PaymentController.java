@@ -5,9 +5,7 @@ import commons.springfw.impl.securities.UserContextData;
 import greenbuildings.commons.api.dto.SearchCriteriaDTO;
 import greenbuildings.commons.api.dto.SearchResultDTO;
 import greenbuildings.commons.api.security.UserRole;
-import greenbuildings.enterprise.dtos.PaymentCriteriaDTO;
-import greenbuildings.enterprise.dtos.PaymentDTO;
-import greenbuildings.enterprise.dtos.PaymentDetailDTO;
+import greenbuildings.enterprise.dtos.*;
 import greenbuildings.enterprise.entities.PaymentEntity;
 import greenbuildings.enterprise.mappers.PaymentMapper;
 import greenbuildings.enterprise.services.PaymentService;
@@ -71,5 +69,16 @@ public class PaymentController {
                                               @AuthenticationPrincipal UserContextData userContextData) {
         paymentService.updatePaymentInfo(userContextData.getEnterpriseId().orElseThrow(), orderCode);
         return ResponseEntity.noContent().build();
+    }
+
+    @RolesAllowed(UserRole.RoleNameConstant.SYSTEM_ADMIN)
+    @PostMapping("/search/enterprise")
+    public ResponseEntity<SearchResultDTO<PaymentEnterpriseAdminDTO>> searchEnterpriseAdmin(@RequestBody SearchCriteriaDTO<PaymentAdminCriteria> searchCriteria) {
+        var pageable = CommonMapper.toPageable(searchCriteria.page(), searchCriteria.sort());
+        var searchResults = paymentService.searchEnterpriseAdmin(pageable, searchCriteria.criteria().criteria());
+        return ResponseEntity.ok(
+                CommonMapper.toSearchResultDTO(
+                        searchResults,
+                        paymentMapper::toPaymentEnterpriseAdminDTO));
     }
 }

@@ -1,0 +1,44 @@
+<master-layout title="sidebar.admin.transaction">
+    <!-- Table -->
+    <table-template
+        [fetch]="fetchTransaction"
+        [columns]="cols"
+        [sort]="undefined"
+        [criteria]="searchCriteria"
+        [triggerSearch]="searchEvent"
+        [triggerClearSelected]="clearSelectedEvent"
+        [captionTemplateRef]="captionTemplateRef"
+        (selectionChange)="onSelectionChange($event)"
+    ></table-template>
+</master-layout>
+
+<ng-template #captionTemplateRef>
+    <div class="flex flex-col items-end justify-between gap-2 lg:flex-row lg:items-center">
+        <p-inputgroup class="max-w-96">
+            <input
+                [(ngModel)]="searchCriteria.criteria"
+                type="text"
+                pInputText
+                placeholder="{{ 'common.search' | translate }}"
+                (keydown.enter)="search()"
+            />
+            <p-inputgroup-addon>
+                <p-button
+                    icon="pi pi-search"
+                    severity="secondary"
+                    text
+                    (onClick)="search()"
+                />
+            </p-inputgroup-addon>
+        </p-inputgroup>
+    </div>
+</ng-template>
+
+<ng-template
+    #typeTemplate
+    let-rowData
+>
+    <p>
+        {{ 'useCreditHistory.table.' + rowData.transactionType | translate }}
+    </p>
+</ng-template>

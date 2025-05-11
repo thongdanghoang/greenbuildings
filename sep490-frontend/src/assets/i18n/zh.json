@@ -598,7 +598,10 @@
       "emission": "排放管理",
       "accountManagement": "账户管理",
       "enterprise": "企业",
-      "tenant": "租户"
+      "tenant": "租户",
+      "tradingActivities": "交易活动",
+      "payment": "支付业务",
+      "transaction": "建立交易"
     }
   },
   "admin": {

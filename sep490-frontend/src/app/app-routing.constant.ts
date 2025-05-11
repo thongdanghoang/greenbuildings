@@ -56,6 +56,8 @@ export class AppRoutingConstants {
   public static readonly ACCOUNT_MANAGEMENT = 'account-management';
   public static readonly ENTERPRISE_MANAGEMENT = 'enterprise-management';
   public static readonly TENANT_MANAGEMENT = 'tenant-management';
+  public static readonly PAYMENT_ENTERPRISE_MANAGEMENT = 'payment-enterprise-management';
+  public static readonly TRANSACTION_ENTERPRISE_MANAGEMENT = 'transaction-enterprise-management';
 
   // App Routing
   public static readonly LANDING_PAGE_PATH = 'landing-page';

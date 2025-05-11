@@ -3,7 +3,7 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {UUID} from '../../types/uuid';
 import {AppRoutingConstants} from '../app-routing.constant';
-import {PaymentDTO, PaymentDetailDTO} from '@models/payment';
+import {PaymentAdminCriteria, PaymentDTO, PaymentDetailDTO, PaymentEnterpriseAdminDTO} from '@models/payment';
 import {PaymentCriteria} from '../modules/enterprise/components/payment/payment.component';
 import {SearchCriteriaDto, SearchResultDto} from '@shared/models/base-models';
 
@@ -17,6 +17,14 @@ export class PaymentService {
   public getPayments(criteria: SearchCriteriaDto<PaymentCriteria>): Observable<SearchResultDto<PaymentDTO>> {
     return this.httpClient.post<SearchResultDto<PaymentDTO>>(
       `${AppRoutingConstants.ENTERPRISE_API_URL}/${this.PAYMENT_ENDPOINT}/search`,
+      criteria
+    );
+  }
+  public getPaymentsAdmin(
+    criteria: SearchCriteriaDto<PaymentAdminCriteria>
+  ): Observable<SearchResultDto<PaymentEnterpriseAdminDTO>> {
+    return this.httpClient.post<SearchResultDto<PaymentEnterpriseAdminDTO>>(
+      `${AppRoutingConstants.ENTERPRISE_API_URL}/${this.PAYMENT_ENDPOINT}/search/enterprise`,
       criteria
     );
   }

@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {TransactionCriteria} from '@models/transactions';
+import {TransactionAdminCriteria, TransactionCriteria, TransactionEnterpriseAdminDTO} from '@models/transactions';
 import {Observable} from 'rxjs';
 import {AppRoutingConstants} from '../app-routing.constant';
 import {UUID} from '../../types/uuid';
@@ -19,6 +19,15 @@ export class TransactionService {
   ): Observable<SearchResultDto<TransactionDTO>> {
     return this.httpClient.post<SearchResultDto<TransactionDTO>>(
       `${AppRoutingConstants.ENTERPRISE_API_URL}/transaction/search/building/${id}`,
+      criteria
+    );
+  }
+
+  public searchTransactionAdmin(
+    criteria: SearchCriteriaDto<TransactionAdminCriteria>
+  ): Observable<SearchResultDto<TransactionEnterpriseAdminDTO>> {
+    return this.httpClient.post<SearchResultDto<TransactionEnterpriseAdminDTO>>(
+      `${AppRoutingConstants.ENTERPRISE_API_URL}/transaction/search/enterprise`,
       criteria
     );
   }

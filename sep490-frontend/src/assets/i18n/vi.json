@@ -598,7 +598,10 @@
       "emission": "Quản lý Khí thải",
       "accountManagement": "Tài khoản",
       "enterprise": "Doanh nghiệp",
-      "tenant": "Doanh nghiệp thuê"
+      "tenant": "Doanh nghiệp thuê",
+      "tradingActivities": "Hoạt động giao dịch",
+      "payment": "Doanh nghiệp thanh toán",
+      "transaction": "Giao dịch tòa nhà"
     }
   },
   "admin": {

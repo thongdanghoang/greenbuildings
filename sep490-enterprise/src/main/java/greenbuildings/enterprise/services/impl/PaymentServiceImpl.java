@@ -5,6 +5,8 @@ import greenbuildings.commons.api.enums.PaymentStatus;
 import greenbuildings.commons.api.exceptions.TechnicalException;
 import greenbuildings.enterprise.adapters.payos.payos.PayOSAdapter;
 import greenbuildings.enterprise.dtos.PaymentCriteriaDTO;
+import greenbuildings.enterprise.dtos.PaymentEnterpriseAdminDTO;
+import greenbuildings.enterprise.dtos.TransactionEnterpriseAdminDTO;
 import greenbuildings.enterprise.entities.PaymentEntity;
 import greenbuildings.enterprise.entities.WalletEntity;
 import greenbuildings.enterprise.repositories.CreditPackageVersionRepository;
@@ -87,6 +89,22 @@ public class PaymentServiceImpl implements PaymentService {
             wallet.deposit(paymentEntity.getNumberOfCredits());
             walletRepository.save(wallet);
         }
+    }
+
+    @Override
+    public Page<PaymentEnterpriseAdminDTO> searchEnterpriseAdmin(
+            Pageable page, String name
+    ) {
+        return payRepo.findAllOrderByCreatedDateDesc(page,name).map(
+                payment -> new PaymentEnterpriseAdminDTO(
+                        payment.getId(),
+                        payment.getVersion(),
+                        payment.getEnterprise().getName(),
+                        payment.getCreatedDate(),
+                        payment.getNumberOfCredits(),
+                        payment.getStatus()
+                )
+        );
     }
     
 }

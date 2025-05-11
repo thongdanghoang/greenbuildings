@@ -1,0 +1,52 @@
+<master-layout title="sidebar.admin.payment">
+    <!-- Table -->
+    <table-template
+        [fetch]="fetchPayments"
+        [columns]="cols"
+        [sort]="undefined"
+        [criteria]="searchCriteria"
+        [triggerSearch]="searchEvent"
+        [triggerClearSelected]="clearSelectedEvent"
+        [captionTemplateRef]="captionTemplateRef"
+        (selectionChange)="onSelectionChange($event)"
+    ></table-template>
+</master-layout>
+
+<ng-template #captionTemplateRef>
+    <div class="flex flex-col items-end justify-between gap-2 lg:flex-row lg:items-center">
+        <p-inputgroup class="max-w-96">
+            <input
+                [(ngModel)]="searchCriteria.criteria"
+                type="text"
+                pInputText
+                placeholder="{{ 'common.search' | translate }}"
+                (keydown.enter)="search()"
+            />
+            <p-inputgroup-addon>
+                <p-button
+                    icon="pi pi-search"
+                    severity="secondary"
+                    text
+                    (onClick)="search()"
+                />
+            </p-inputgroup-addon>
+        </p-inputgroup>
+    </div>
+</ng-template>
+
+<ng-template
+    #statusTemplate
+    let-rowData
+>
+    <p-tag
+        [ngClass]="'font-medium ' + getStatusClass(rowData.status)"
+        [value]="'enum.status.payment.' + rowData.status | translate"
+    />
+</ng-template>
+
+<ng-template
+    #amountTemplate
+    let-rowData
+>
+    <p>+{{ rowData.numberOfCredits }}</p>
+</ng-template>

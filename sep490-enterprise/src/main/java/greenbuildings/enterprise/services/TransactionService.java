@@ -1,5 +1,6 @@
 package greenbuildings.enterprise.services;
 
+import greenbuildings.enterprise.dtos.TransactionEnterpriseAdminDTO;
 import greenbuildings.enterprise.entities.TransactionEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -10,4 +11,7 @@ import java.util.UUID;
 public interface TransactionService {
     List<TransactionEntity> getTransactions(UUID buildingId, UUID enterpriseId);
     Page<TransactionEntity> search(UUID buildingId, Pageable page, UUID enterpriseId);
+    Page<TransactionEnterpriseAdminDTO> searchEnterpriseAdmin(
+            Pageable page, String name
+    );
 }

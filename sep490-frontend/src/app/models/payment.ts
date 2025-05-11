@@ -45,3 +45,12 @@ export interface EnterpriseDTO extends BaseDTO {
   email: string;
   hotline: string;
 }
+export interface PaymentEnterpriseAdminDTO extends BaseDTO {
+  createdDate: Date;
+  status: keyof typeof PaymentStatus;
+  numberOfCredits: number;
+  enterpriseName: string;
+}
+export interface PaymentAdminCriteria {
+  criteria: string;
+}
