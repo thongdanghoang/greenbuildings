@@ -35,7 +35,7 @@ export class NewActivityDialogComponent extends AbstractFormComponent<CreateNewA
     emissionFactorID: new FormControl<UUID | null>(null, Validators.required),
     emissionSourceID: new FormControl<UUID | null>(null, Validators.required), // for UI handle only
     name: new FormControl<string | null>(null, Validators.required),
-    type: new FormControl<UUID | null>(null),
+    type: new FormControl<string | null>(null),
     category: new FormControl<string | null>(null, Validators.required), // why database mandatory in this field?
     description: new FormControl<string | null>(null),
     records: new FormControl([])
@@ -155,7 +155,10 @@ export class NewActivityDialogComponent extends AbstractFormComponent<CreateNewA
       this.activityTypes = types;
       if (this.config.data?.type) {
         this.formStructure.type.setValue(
-          this.activityTypes.filter(activity => activity.name === this.config.data.type).map(activity => activity.id)[0]
+          this.activityTypes
+            .filter(activity => activity.name === this.config.data.type)
+            .map(activity => activity.id)[0]
+            .toString()
         );
       }
     });
