@@ -5,7 +5,9 @@ import commons.springfw.impl.securities.UserContextData;
 import greenbuildings.commons.api.dto.SearchCriteriaDTO;
 import greenbuildings.commons.api.dto.SearchResultDTO;
 import greenbuildings.commons.api.security.UserRole;
+import greenbuildings.enterprise.dtos.TransactionAdminCriteria;
 import greenbuildings.enterprise.dtos.TransactionDTO;
+import greenbuildings.enterprise.dtos.TransactionEnterpriseAdminDTO;
 import greenbuildings.enterprise.mappers.TransactionMapper;
 import greenbuildings.enterprise.services.TransactionService;
 import jakarta.annotation.security.RolesAllowed;
@@ -53,6 +55,17 @@ public class TransactionController {
                 CommonMapper.toSearchResultDTO(
                         searchResults,
                         transactionMapper::toDTO));
+    }
+
+    @RolesAllowed(UserRole.RoleNameConstant.SYSTEM_ADMIN)
+    @PostMapping("/search/enterprise")
+    public ResponseEntity<SearchResultDTO<TransactionEnterpriseAdminDTO>> searchEnterpriseAdmin(@RequestBody SearchCriteriaDTO<TransactionAdminCriteria> searchCriteria) {
+        var pageable = CommonMapper.toPageable(searchCriteria.page(), searchCriteria.sort());
+        var searchResults = transactionService.searchEnterpriseAdmin(pageable, searchCriteria.criteria().criteria());
+        return ResponseEntity.ok(
+                CommonMapper.toSearchResultDTO(
+                        searchResults,
+                        transactionMapper::toAdminDTO));
     }
     
 }

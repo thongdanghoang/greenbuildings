@@ -605,7 +605,10 @@
       "emission": "Emission Management",
       "accountManagement": "Account",
       "enterprise": "Enterprise",
-      "tenant": "Tenant"
+      "tenant": "Tenant",
+      "tradingActivities": "Trading activities",
+      "payment": "Payment Enterprise",
+      "transaction": "Building transactions"
     }
   },
   "admin": {

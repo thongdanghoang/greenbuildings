@@ -91,7 +91,7 @@ payment:
     cancelPath: /enterprise/payment
 
 exchangerate-api:
-  key: secret_key_to_prevent_null
+  key: 7b2843504d093aa40a4fcbbd
   url: https://v6.exchangerate-api.com/v6/
 
 geocoding:

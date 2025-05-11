@@ -1,5 +1,6 @@
 package greenbuildings.enterprise.services.impl;
 
+import greenbuildings.enterprise.dtos.TransactionEnterpriseAdminDTO;
 import greenbuildings.enterprise.entities.TransactionEntity;
 import greenbuildings.enterprise.repositories.TransactionRepository;
 import greenbuildings.enterprise.services.TransactionService;
@@ -28,5 +29,24 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public Page<TransactionEntity> search(UUID buildingId, Pageable page, UUID enterpriseId) {
         return transactionRepository.findAllByBuilding_IdAndEnterprise_Id(buildingId, enterpriseId, page);
+    }
+
+    @Override
+    public Page<TransactionEnterpriseAdminDTO> searchEnterpriseAdmin(
+            Pageable page, String name
+    ) {
+        return transactionRepository.findAllOrderByCreatedDateDesc(page,name).map(
+                transaction -> new TransactionEnterpriseAdminDTO(
+                        transaction.getId(),
+                        transaction.getVersion(),
+                        transaction.getCreatedDate(),
+                        transaction.getBuilding().getEnterprise().getName(),
+                        transaction.getBuilding().getName(),
+                        transaction.getAmount(),
+                        transaction.getMonths(),
+                        transaction.getNumberOfDevices(),
+                        transaction.getTransactionType()
+                )
+        );
     }
 }

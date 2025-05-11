@@ -2,6 +2,7 @@ package greenbuildings.enterprise.mappers;
 
 import greenbuildings.enterprise.dtos.PaymentDTO;
 import greenbuildings.enterprise.dtos.PaymentDetailDTO;
+import greenbuildings.enterprise.dtos.PaymentEnterpriseAdminDTO;
 import greenbuildings.enterprise.entities.PaymentEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -20,4 +21,6 @@ public interface PaymentMapper {
     PaymentDetailDTO paymentEntityToPaymentDetailDTO(PaymentEntity paymentEntity);
     
     void updatePaymentFromCheckoutData(CheckoutResponseData payOSResult, @MappingTarget PaymentEntity payment);
+
+    PaymentEnterpriseAdminDTO toPaymentEnterpriseAdminDTO(PaymentEnterpriseAdminDTO paymentEntity);
 }

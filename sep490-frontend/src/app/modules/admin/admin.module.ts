@@ -19,6 +19,8 @@ import {FuelDialogComponent} from './dialog/fuel-dialog/fuel-dialog.component';
 import {AccountManagementComponent} from './components/account-management/account-management.component';
 import {EnterpriseManagementComponent} from './components/enterprise-management/enterprise-management.component';
 import {TenantManagementComponent} from './components/tenant-management/tenant-management.component';
+import {PaymentEnterpriseManagementComponent} from './components/payment-enterprise-management/payment-enterprise-management.component';
+import {TransactionEnterpriseManagementComponent} from './components/transaction-enterprise-management/transaction-enterprise-management.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,9 @@ import {TenantManagementComponent} from './components/tenant-management/tenant-m
     UserDetailsComponent,
     AccountManagementComponent,
     EnterpriseManagementComponent,
-    TenantManagementComponent
+    TenantManagementComponent,
+    PaymentEnterpriseManagementComponent,
+    TransactionEnterpriseManagementComponent
   ],
   imports: [SharedModule, AdminRoutingModule],
   providers: []
