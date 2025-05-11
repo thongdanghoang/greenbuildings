@@ -14,6 +14,8 @@ export interface BuildingDTO {
   version?: number;
   name?: string;
   address?: string;
+  numberOfLevels?: number;
+  area?: number;
   latitude?: number;
   longitude?: number;
   subscriptionDTO?: SubscriptionDTO;

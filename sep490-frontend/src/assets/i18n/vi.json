@@ -472,7 +472,8 @@
           "type": "Loại",
           "category": "Danh mục",
           "description": "Mô tả"
-        }
+        },
+        "recordsFor": "Bản ghi phát thải cho "
       }
     }
   },

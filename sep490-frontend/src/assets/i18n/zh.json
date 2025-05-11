@@ -472,7 +472,8 @@
           "type": "类型",
           "category": "类别",
           "description": "描述"
-        }
+        },
+        "recordsFor": "记录 "
       }
     }
   },

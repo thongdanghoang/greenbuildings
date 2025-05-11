@@ -31,7 +31,10 @@
         colspan="6"
         class="p-3"
     >
-        <p class="mb-2 text-sm font-semibold">Records for {{ activity.name }}</p>
+        <p class="mb-2 text-sm font-semibold">
+            {{ 'emissions.activities.table.recordsFor' | translate }}
+            {{ activity.name }}
+        </p>
         <p-table
             [value]="activity.records"
             dataKey="id"
@@ -59,7 +62,7 @@
                         {{ 'enterprise.emission.activity.record.table.endDate' | translate }}
                         <p-sortIcon field="endDate" />
                     </th>
-                    <th>/</th>
+                    <th></th>
                 </tr>
             </ng-template>
             <ng-template
@@ -86,7 +89,7 @@
             </ng-template>
             <ng-template #emptymessage>
                 <tr>
-                    <td colspan="6">{{ 'common.noRow' | translate }}</td>
+                    <td colspan="7">{{ 'common.noRow' | translate }}</td>
                 </tr>
             </ng-template>
         </p-table>
