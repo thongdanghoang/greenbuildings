@@ -1,17 +1,18 @@
 import {Component, EventEmitter, OnInit, TemplateRef, ViewChild} from '@angular/core';
-import {Building, BuildingGroup, InvitationDTO, InvitationStatus} from '@models/enterprise';
+import {BuildingGroup, InvitationDTO, InvitationStatus} from '@models/enterprise';
 import {InvitationResponse, InvitationSearchCriteria} from '@models/tenant';
 import {TranslateService} from '@ngx-translate/core';
 import {ApplicationService} from '@services/application.service';
 import {BuildingGroupService} from '@services/building-group.service';
-import {BuildingService} from '@services/building.service';
+import {EmissionActivityService} from '@services/emission-activity.service';
 import {InvitationService} from '@services/invitation.service';
 import {TableTemplateColumn} from '@shared/components/table-template/table-template.component';
 import {SubscriptionAwareComponent} from '@shared/directives/subscription-aware.component';
-import {SearchCriteriaDto, SearchResultDto} from '@shared/models/base-models';
+import {SearchCriteriaDto, SearchResultDto, SelectableItem} from '@shared/models/base-models';
 import {ModalProvider} from '@shared/services/modal-provider';
 import {ToastProvider} from '@shared/services/toast-provider';
 import {Observable, takeUntil} from 'rxjs';
+import {UUID} from '../../../../../types/uuid';
 
 @Component({
   selector: 'app-sent-invitation',
@@ -28,7 +29,7 @@ export class SentInvitationComponent extends SubscriptionAwareComponent implemen
   @ViewChild('actionsTemplate', {static: true})
   actionTemplate!: TemplateRef<any>;
 
-  availableBuildings: Building[] = [];
+  availableBuildings: SelectableItem<UUID>[] = [];
   allAvailableGroups: BuildingGroup[] = [];
   matchingGroups: BuildingGroup[] = [];
 
@@ -45,10 +46,10 @@ export class SentInvitationComponent extends SubscriptionAwareComponent implemen
     private readonly modalProvider: ModalProvider,
     private readonly msgService: ToastProvider,
     private readonly translate: TranslateService,
-    private readonly buildingService: BuildingService,
     private readonly buildingGroupService: BuildingGroupService,
     private readonly invitationService: InvitationService,
-    protected readonly applicationService: ApplicationService
+    protected readonly applicationService: ApplicationService,
+    protected readonly emissionActivityService: EmissionActivityService
   ) {
     super();
   }
@@ -61,6 +62,7 @@ export class SentInvitationComponent extends SubscriptionAwareComponent implemen
   }
 
   getStatusClass(status: string): string {
+    // TODO: class not work in typeScript with Tailwind -> CSS styleClass always in HTML
     switch (status) {
       case 'PENDING':
         return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-100';
@@ -131,16 +133,11 @@ export class SentInvitationComponent extends SubscriptionAwareComponent implemen
   }
 
   fetchBuildings(): void {
-    this.buildingService
-      .searchBuildings({
-        page: {
-          pageNumber: 0,
-          pageSize: 100
-        }
-      })
+    this.emissionActivityService
+      .getSelectableBuildings()
       .pipe(takeUntil(this.destroy$))
       .subscribe(buildings => {
-        this.availableBuildings = buildings.results;
+        this.availableBuildings = buildings;
       });
   }
 

@@ -7,13 +7,16 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import {EmissionActivityBuildingGroupView} from './emission-activity-building-group-view';
+import {EmissionActivityBuildingView} from './emission-activity-building-view';
 import {EmissionActivityFactorView} from './emission-activity-factor-view';
 import {EmissionActivityRecordView} from './emission-activity-record-view';
 
 export interface EmissionActivityView {
   id?: string;
   version?: number;
-  building?: string;
+  building?: EmissionActivityBuildingView;
+  buildingGroup?: EmissionActivityBuildingGroupView;
   emissionFactor?: EmissionActivityFactorView;
   type?: string;
   name?: string;

@@ -6,7 +6,7 @@
     "noRow": "Nothing has been found.",
     "success": "Success",
     "saveSuccess": "Save successfully!",
-    "defaultConfirmMessage": "Do you want to delete this row?",
+    "defaultConfirmMessage": "Do you want to delete this record?",
     "buildingConfirmMessage": "Do you want to delete this building?",
     "confirmHeader": "Confirmation",
     "accept": "Yes",
@@ -358,6 +358,7 @@
         "remainingDays": "Remaining Days:",
         "dialog": {
           "buildingId": "Building",
+          "buildingGroup": "Building Group",
           "title": "New Emission Activity",
           "EmissionSource": "Emission Source",
           "EmissionFactor": "Emission Factor",
@@ -478,7 +479,9 @@
           "name": "Name",
           "type": "Type",
           "category": "Category",
-          "description": "Description"
+          "description": "Description",
+          "building": "Building",
+          "buildingGroup": "Building Group"
         },
         "recordsFor": "Records for "
       }

@@ -29,10 +29,10 @@
             showClear="true"
             (onChange)="onSelectBuilding($event)"
             (onClear)="onSelectBuilding($event)"
-            filterBy="name"
+            filterBy="label"
             [(ngModel)]="searchCriteria.buildingId"
-            optionLabel="name"
-            optionValue="id"
+            optionLabel="label"
+            optionValue="value"
             [placeholder]="'sentInvitation.table.selectBuilding' | translate"
         />
         <p-select

@@ -31,8 +31,10 @@ export class EmissionsComponent extends SubscriptionAwareComponent implements On
 
   @ViewChild('activityColActions', {static: true})
   protected activityColActions!: TemplateRef<any>;
-  @ViewChild('activityDescriptionTemplate', {static: true})
-  protected activityDescriptionTemplate!: TemplateRef<any>;
+  @ViewChild('buildingTemplate', {static: true})
+  protected buildingTemplate!: TemplateRef<any>;
+  @ViewChild('buildingGroupTemplate', {static: true})
+  protected buildingGroupTemplate!: TemplateRef<any>;
 
   protected selectableBuildings: SelectableItem<UUID>[] = [];
   protected selectableFactors: SelectableItem<UUID>[] = [];
@@ -93,9 +95,36 @@ export class EmissionsComponent extends SubscriptionAwareComponent implements On
     });
   }
 
+  openEditActivityDialog(rowData: EmissionActivityView): void {
+    const config: DynamicDialogConfig = {
+      data: {
+        selectableBuildings: this.selectableBuildings,
+        id: rowData.id,
+        version: rowData.version,
+        buildingId: rowData.building?.id,
+        buildingGroupId: rowData.buildingGroup?.id,
+        emissionFactorID: rowData.emissionFactor?.id,
+        emissionSourceID: rowData.emissionFactor?.emissionSourceDTO?.id,
+        name: rowData.name,
+        type: rowData.type,
+        category: rowData.category,
+        description: rowData.description
+      },
+      closeOnEscape: true,
+      showHeader: false,
+      modal: true
+    };
+    this.ref = this.dialogService.open(NewActivityDialogComponent, config);
+    this.ref.onClose.pipe(takeUntil(this.destroy$)).subscribe(rs => {
+      if (rs) {
+        this.searchEvent.emit();
+      }
+    });
+  }
+
   onDeleteEmissionActivity(activityId: UUID): void {
     this.modalProvider
-      .showDefaultConfirm(undefined)
+      .showDefaultConfirm()
       .pipe(
         takeUntil(this.destroy$),
         switchMap((result: boolean) => {
@@ -109,6 +138,52 @@ export class EmissionsComponent extends SubscriptionAwareComponent implements On
               });
               this.searchEvent.emit();
               return of(null); // Complete the stream
+            })
+          );
+        })
+      )
+      .subscribe();
+  }
+
+  onNewEmissionRecord(rowData: EmissionActivityView): void {
+    this.emissionActivityService.getRecordedDateRanges(rowData.id as UUID).subscribe(recordedDateRanges => {
+      const config: DynamicDialogConfig = {
+        data: {
+          activityId: rowData.id,
+          factor: rowData.emissionFactor,
+          recordedDateRanges
+        },
+        closeOnEscape: true,
+        showHeader: false,
+        modal: true
+      };
+      this.dialogService
+        .open(NewActivityRecordDialogComponent, config)
+        .onClose.pipe(takeUntil(this.destroy$))
+        .subscribe(result => {
+          if (result) {
+            this.searchEvent.emit();
+          }
+        });
+    });
+  }
+
+  onDeleteEmissionRecord(recordId: UUID): void {
+    this.modalProvider
+      .showDefaultConfirm()
+      .pipe(
+        takeUntil(this.destroy$),
+        switchMap((result: boolean) => {
+          if (!result) {
+            return of(null);
+          }
+          return this.emissionActivityService.deleteActivities([recordId]).pipe(
+            switchMap(() => {
+              this.msgService.success({
+                summary: this.translate.instant('common.success')
+              });
+              this.searchEvent.emit();
+              return of(null);
             })
           );
         })
@@ -155,24 +230,28 @@ export class EmissionsComponent extends SubscriptionAwareComponent implements On
 
   private buildCols(): void {
     this.cols.push({
-      field: 'type',
-      header: 'emissions.activities.table.header.type'
-    });
-    this.cols.push({
       field: 'name',
       header: 'emissions.activities.table.header.name',
       sortable: true
     });
     this.cols.push({
+      field: 'building',
+      header: 'emissions.activities.table.header.building',
+      templateRef: this.buildingTemplate
+    });
+    this.cols.push({
+      field: 'buildingGroup',
+      header: 'emissions.activities.table.header.buildingGroup',
+      templateRef: this.buildingGroupTemplate
+    });
+    this.cols.push({
+      field: 'type',
+      header: 'emissions.activities.table.header.type'
+    });
+    this.cols.push({
       field: 'category',
       header: 'emissions.activities.table.header.category',
       sortable: true
-    });
-    this.cols.push({
-      field: 'description',
-      header: 'emissions.activities.table.header.description',
-      sortable: true,
-      templateRef: this.activityDescriptionTemplate
     });
     this.cols.push({
       field: 'id',

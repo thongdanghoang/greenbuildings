@@ -10,7 +10,8 @@ import java.util.UUID;
 public record EmissionActivityView(
         UUID id,
         int version,
-        UUID building,
+        EmissionActivityBuildingView building,
+        EmissionActivityBuildingGroupView buildingGroup,
         EmissionActivityFactorView emissionFactor,
         String type,
         String name,
@@ -18,6 +19,20 @@ public record EmissionActivityView(
         String description,
         List<EmissionActivityRecordView> records
 ) {
+    public record EmissionActivityBuildingView(
+            UUID id,
+            int version,
+            String name
+    ) {
+    }
+    
+    public record EmissionActivityBuildingGroupView(
+            UUID id,
+            int version,
+            String name
+    ) {
+    }
+    
     public record EmissionActivityFactorView(
             UUID id,
             int version,
@@ -39,8 +54,9 @@ public record EmissionActivityView(
         public record EmissionSourceView(
                 UUID id,
                 int version,
-                String name,
-                String description
+                String nameVN,
+                String nameEN,
+                String nameZH
         ) {
         }
     }

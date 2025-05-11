@@ -5,6 +5,7 @@ import {ActivityType, CreateNewActivityDTO} from '@models/enterprise';
 import {EmissionFactorDTO, EmissionSourceDTO} from '@models/shared-models';
 import {TranslateService} from '@ngx-translate/core';
 import {ActivityTypeService} from '@services/activity-type.service';
+import {BuildingGroupService} from '@services/building-group.service';
 import {EmissionActivityService} from '@services/emission-activity.service';
 import {EmissionFactorService} from '@services/emission-factor.service';
 import {AbstractFormComponent} from '@shared/components/form/abstract-form-component';
@@ -24,18 +25,19 @@ export class NewActivityDialogComponent extends AbstractFormComponent<CreateNewA
   availableEmissionFactors: EmissionFactorDTO[] = [];
   activityTypes: ActivityType[] = [];
   selectableBuildings: SelectableItem<UUID>[] = [];
+  selectableBuildingGroups: SelectableItem<UUID>[] = [];
 
   protected readonly formStructure = {
     id: new FormControl(null),
     version: new FormControl(0),
     buildingId: new FormControl<UUID | null>(null, Validators.required),
     buildingGroupID: new FormControl<UUID | null>(null),
-    emissionFactorID: new FormControl('', Validators.required),
-    emissionSourceID: new FormControl('', Validators.required), // for UI handle only
-    name: new FormControl('', Validators.required),
-    type: new FormControl(),
-    category: new FormControl(''),
-    description: new FormControl(''),
+    emissionFactorID: new FormControl<UUID | null>(null, Validators.required),
+    emissionSourceID: new FormControl<UUID | null>(null, Validators.required), // for UI handle only
+    name: new FormControl<string | null>(null, Validators.required),
+    type: new FormControl<UUID | null>(null),
+    category: new FormControl<string | null>(null, Validators.required), // why database mandatory in this field?
+    description: new FormControl<string | null>(null),
     records: new FormControl([])
   };
 
@@ -48,7 +50,8 @@ export class NewActivityDialogComponent extends AbstractFormComponent<CreateNewA
     private readonly activityService: EmissionActivityService,
     private readonly ref: DynamicDialogRef,
     public config: DynamicDialogConfig,
-    private readonly activityTypeService: ActivityTypeService
+    private readonly activityTypeService: ActivityTypeService,
+    private readonly buildingGroupService: BuildingGroupService
   ) {
     super(httpClient, formBuilder, notificationService, translate);
   }
@@ -61,12 +64,12 @@ export class NewActivityDialogComponent extends AbstractFormComponent<CreateNewA
 
   protected override initializeData(): void {
     this.formStructure.emissionFactorID.disable();
-    this.initializeFormData();
     this.factorService.findAll().subscribe((rs: EmissionFactorDTO[]) => {
       this.emissionFactors = rs;
       this.emissionSources = Array.from(
         new Map(this.emissionFactors.map(f => [f.emissionSourceDTO.id, f.emissionSourceDTO])).values()
       );
+      this.initializeFormData();
     });
   }
 
@@ -80,7 +83,7 @@ export class NewActivityDialogComponent extends AbstractFormComponent<CreateNewA
 
   protected onSourceChange(): void {
     this.availableEmissionFactors = this.emissionFactors.filter(
-      f => f.emissionSourceDTO.id.toString() === this.formStructure.emissionSourceID.value
+      f => f.emissionSourceDTO.id === this.formStructure.emissionSourceID.value
     );
     this.formStructure.emissionFactorID.enable();
     this.formStructure.emissionFactorID.reset();
@@ -90,6 +93,16 @@ export class NewActivityDialogComponent extends AbstractFormComponent<CreateNewA
   protected onSelectedBuildingChanged(): void {
     if (this.formStructure.buildingId.value) {
       this.loadActivityTypes(this.formStructure.buildingId.value);
+      this.buildingGroupService.getByBuildingId(this.formStructure.buildingId.value).subscribe(
+        buildingGroups =>
+          (this.selectableBuildingGroups = buildingGroups.map(group => {
+            return {
+              value: group.id,
+              label: group.name,
+              disable: false
+            };
+          }))
+      );
     }
   }
 
@@ -111,19 +124,40 @@ export class NewActivityDialogComponent extends AbstractFormComponent<CreateNewA
   }
 
   private initializeFormData(): void {
-    this.formStructure.buildingId.setValue(this.config.data?.buildingId);
-    this.formStructure.buildingGroupID.setValue(this.config.data?.buildingGroupId);
+    if (this.config.data?.id) {
+      // edit mode
+      this.formStructure.id.setValue(this.config.data?.id);
+      this.formStructure.version.setValue(this.config.data?.version);
+      this.formStructure.buildingId.setValue(this.config.data?.buildingId);
+      this.onSelectedBuildingChanged();
+      this.formStructure.buildingGroupID.setValue(this.config.data?.buildingGroupId);
+      this.formStructure.emissionSourceID.setValue(this.config.data?.emissionSourceID);
+      this.onSourceChange();
+      this.formStructure.emissionFactorID.setValue(this.config.data?.emissionFactorID);
+      this.formStructure.name.setValue(this.config.data?.name);
+      this.formStructure.category.setValue(this.config.data?.category);
+      this.formStructure.description.setValue(this.config.data?.description);
+    } else {
+      // create mode
+      this.formStructure.buildingGroupID.setValue(this.config.data?.buildingGroupId);
+      if (this.config.data?.buildingId) {
+        this.formStructure.buildingId.setValue(this.config.data?.buildingId);
+        this.loadActivityTypes(this.config.data?.buildingId);
+      }
+    }
     if (this.config.data?.selectableBuildings) {
       this.selectableBuildings = this.config.data.selectableBuildings;
-    }
-    if (this.config.data?.buildingId) {
-      this.loadActivityTypes(this.config.data?.buildingId);
     }
   }
 
   private loadActivityTypes(buildingId: UUID): void {
     this.activityTypeService.getByBuildingId(buildingId).subscribe(types => {
       this.activityTypes = types;
+      if (this.config.data?.type) {
+        this.formStructure.type.setValue(
+          this.activityTypes.filter(activity => activity.name === this.config.data.type).map(activity => activity.id)[0]
+        );
+      }
     });
   }
 }

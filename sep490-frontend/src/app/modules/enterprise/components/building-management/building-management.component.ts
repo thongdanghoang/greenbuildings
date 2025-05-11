@@ -115,7 +115,7 @@ export class BuildingManagementComponent extends SubscriptionAwareComponent impl
 
   confirmDelete(): void {
     this.modalProvider
-      .showDefaultConfirm(undefined)
+      .showDefaultConfirm()
       .pipe(takeUntil(this.destroy$))
       .subscribe((result: boolean): void => {
         if (result) {

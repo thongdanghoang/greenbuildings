@@ -2,11 +2,11 @@ package greenbuildings.enterprise.mappers.decorators;
 
 import greenbuildings.enterprise.dtos.CreateEmissionActivityDTO;
 import greenbuildings.enterprise.entities.ActivityTypeEntity;
+import greenbuildings.enterprise.entities.BuildingEntity;
+import greenbuildings.enterprise.entities.BuildingGroupEntity;
 import greenbuildings.enterprise.entities.EmissionActivityEntity;
 import greenbuildings.enterprise.mappers.EmissionActivityMapper;
 import greenbuildings.enterprise.repositories.ActivityTypeRepository;
-import greenbuildings.enterprise.repositories.BuildingGroupRepository;
-import greenbuildings.enterprise.repositories.BuildingRepository;
 import greenbuildings.enterprise.repositories.EmissionFactorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -25,25 +25,41 @@ public abstract class EmissionActivityMapperDecorator implements EmissionActivit
     private EmissionFactorRepository factorRepo;
     
     @Autowired
-    private BuildingRepository buildingRepo;
-    
-    @Autowired
     private ActivityTypeRepository activityTypeRepo;
-    
-    @Autowired
-    private BuildingGroupRepository buildingGroupRepository;
     
     
     @Override
     public EmissionActivityEntity createNewActivity(CreateEmissionActivityDTO dto) {
-        EmissionActivityEntity entity = delegate.createNewActivity(dto);
-        entity.setBuilding(buildingRepo.findById(dto.buildingId()).orElseThrow());
-        if (dto.buildingGroupID() != null) {
-            entity.setBuildingGroup(buildingGroupRepository.findById(dto.buildingGroupID()).orElseThrow());
-        }
+        var entity = delegate.createNewActivity(dto);
+        mapBuildingAndBuildingGroup(dto, entity);
         entity.setEmissionFactorEntity(factorRepo.findById(dto.emissionFactorID()).orElseThrow());
         mapEmissionType(dto, entity);
         return entity;
+    }
+    
+    @Override
+    public EmissionActivityEntity updateActivity(CreateEmissionActivityDTO dto) {
+        EmissionActivityEntity entity = delegate.createNewActivity(dto);
+        mapBuildingAndBuildingGroup(dto, entity);
+        mapEmissionType(dto, entity);
+        return entity;
+    }
+    
+    private static void mapBuildingAndBuildingGroup(CreateEmissionActivityDTO dto, EmissionActivityEntity entity) {
+        if(dto.buildingId() != null) {
+            var building = new BuildingEntity();
+            building.setId(dto.buildingId());
+            entity.setBuilding(building);
+        } else {
+            entity.setBuilding(null);
+        }
+        if (dto.buildingGroupID() != null) {
+            var buildingGroup = new BuildingGroupEntity();
+            buildingGroup.setId(dto.buildingGroupID());
+            entity.setBuildingGroup(buildingGroup);
+        } else {
+            entity.setBuildingGroup(null);
+        }
     }
     
     private void mapEmissionType(CreateEmissionActivityDTO dto, EmissionActivityEntity entity) {
@@ -61,12 +77,5 @@ public abstract class EmissionActivityMapperDecorator implements EmissionActivit
             type.setName(dto.type());
             entity.setType(type);
         }
-    }
-    
-    @Override
-    public EmissionActivityEntity updateActivity(CreateEmissionActivityDTO dto) {
-        EmissionActivityEntity entity = delegate.createNewActivity(dto);
-        mapEmissionType(dto, entity);
-        return entity;
     }
 }

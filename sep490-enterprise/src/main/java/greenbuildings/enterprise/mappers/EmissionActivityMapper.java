@@ -5,6 +5,8 @@ import greenbuildings.enterprise.dtos.CreateEmissionActivityDTO;
 import greenbuildings.enterprise.dtos.EmissionActivityDTO;
 import greenbuildings.enterprise.dtos.EmissionActivityDetailsDTO;
 import greenbuildings.enterprise.dtos.EmissionActivityTableView;
+import greenbuildings.enterprise.entities.BuildingEntity;
+import greenbuildings.enterprise.entities.BuildingGroupEntity;
 import greenbuildings.enterprise.entities.EmissionActivityEntity;
 import greenbuildings.enterprise.entities.EmissionActivityRecordEntity;
 import greenbuildings.enterprise.entities.EmissionFactorEntity;
@@ -33,10 +35,13 @@ public interface EmissionActivityMapper {
     @Mapping(target = "records", ignore = true)
     EmissionActivityTableView toTableView(EmissionActivityEntity emissionActivityEntity);
     
-    @Mapping(target = "building", source = "building.id")
     @Mapping(target = "emissionFactor", source = "emissionFactorEntity")
     @Mapping(target = "type", source = "type.name")
     EmissionActivityView toEmissionActivityView(EmissionActivityEntity source);
+    
+    EmissionActivityView.EmissionActivityBuildingView toEmissionActivityBuildingView(BuildingEntity source);
+    
+    EmissionActivityView.EmissionActivityBuildingGroupView toEmissionActivityBuildingGroupView(BuildingGroupEntity source);
     
     EmissionActivityView.EmissionActivityRecordView toEmissionActivityRecordView(EmissionActivityRecordEntity source);
     

@@ -39,4 +39,6 @@ public interface BuildingGroupRepository extends AbstractBaseRepository<Building
     List<BuildingGroupEntity> findByBuildingIdAndTenantIsNull(UUID buildingId);
     
     Page<BuildingGroupEntity> findAllByBuildingIdAndNameContainingIgnoreCase(@NotNull UUID uuid, String s, Pageable pageable);
+    
+    boolean existsByIdAndBuildingId(UUID id, UUID buildingId);
 }
