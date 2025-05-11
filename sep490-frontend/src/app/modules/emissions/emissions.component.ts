@@ -4,6 +4,7 @@ import {ActivityCriteria} from '@generated/models/activity-criteria';
 import {EmissionActivityRecordView} from '@generated/models/emission-activity-record-view';
 import {EmissionActivityView} from '@generated/models/emission-activity-view';
 import {TranslateService} from '@ngx-translate/core';
+import {EmissionActivityRecordService} from '@services/emission-activity-record.service';
 import {EmissionActivityService} from '@services/emission-activity.service';
 import {TableTemplateColumn} from '@shared/components/table-template/table-template.component';
 import {SubscriptionAwareComponent} from '@shared/directives/subscription-aware.component';
@@ -53,7 +54,8 @@ export class EmissionsComponent extends SubscriptionAwareComponent implements On
     private readonly modalProvider: ModalProvider,
     private readonly msgService: ToastProvider,
     private readonly translate: TranslateService,
-    private readonly dialogService: DialogService
+    private readonly dialogService: DialogService,
+    private readonly emissionActivityRecordService: EmissionActivityRecordService
   ) {
     super();
     this.search = this.emissionActivityService.search.bind(this.emissionActivityService);
@@ -177,7 +179,7 @@ export class EmissionsComponent extends SubscriptionAwareComponent implements On
           if (!result) {
             return of(null);
           }
-          return this.emissionActivityService.deleteActivities([recordId]).pipe(
+          return this.emissionActivityRecordService.deleteRecords([recordId]).pipe(
             switchMap(() => {
               this.msgService.success({
                 summary: this.translate.instant('common.success')
