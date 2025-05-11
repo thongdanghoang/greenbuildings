@@ -12,6 +12,7 @@ import greenbuildings.enterprise.entities.EmissionFactorEntity;
 import greenbuildings.enterprise.models.ActivityRecordDateRange;
 import greenbuildings.enterprise.models.IdProjection;
 import greenbuildings.enterprise.repositories.ActivityTypeRepository;
+import greenbuildings.enterprise.repositories.BuildingGroupRepository;
 import greenbuildings.enterprise.repositories.BuildingRepository;
 import greenbuildings.enterprise.repositories.EmissionActivityRepository;
 import greenbuildings.enterprise.repositories.EmissionFactorRepository;
@@ -29,6 +30,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
@@ -42,6 +44,7 @@ public class EmissionActivityServiceImpl implements EmissionActivityService {
     private final EmissionActivityRepository emissionActivityRepository;
     private final EmissionFactorRepository emissionFactorRepository;
     private final BuildingRepository buildingRepository;
+    private final BuildingGroupRepository buildingGroupRepository;
     private final ActivityTypeRepository typeRepository;
     private final CalculationService calculationService;
     
@@ -72,7 +75,7 @@ public class EmissionActivityServiceImpl implements EmissionActivityService {
                 .findWithRecords(activityIDs.toSet(), pageable.getSort()) // sorting applied here => return this collection to remains sorted
                 .stream().map(calculationService::calculate)
                 .toList();
-
+        
         return new PageImpl<>(searchResults, pageable, activityIDs.getTotalElements());
     }
     
@@ -113,10 +116,18 @@ public class EmissionActivityServiceImpl implements EmissionActivityService {
     }
     
     private void updateActivity(EmissionActivityEntity entity, EmissionActivityEntity existing) {
+        // TODO: why manually update these fields, especially when using @Transactional?
         existing.setName(entity.getName());
         existing.setType(entity.getType());
         existing.setCategory(entity.getCategory());
         existing.setDescription(entity.getDescription());
+        existing.setBuilding(entity.getBuilding());
+        if (Objects.nonNull(entity.getBuildingGroup())
+            && buildingGroupRepository.existsByIdAndBuildingId(entity.getBuildingGroup().getId(), entity.getBuilding().getId())) {
+            existing.setBuildingGroup(entity.getBuildingGroup());
+        } else {
+            existing.setBuildingGroup(null);
+        }
     }
     
     @Override

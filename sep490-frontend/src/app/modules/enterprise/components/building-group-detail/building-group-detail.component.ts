@@ -199,7 +199,7 @@ export class BuildingGroupDetailComponent extends SubscriptionAwareComponent imp
 
   confirmDelete(): void {
     this.modalProvider
-      .showDefaultConfirm(undefined)
+      .showDefaultConfirm()
       .pipe(takeUntil(this.destroy$))
       .subscribe((result: boolean): void => {
         if (result) {

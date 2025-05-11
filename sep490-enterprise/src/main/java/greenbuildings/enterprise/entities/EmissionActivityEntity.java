@@ -52,6 +52,7 @@ import java.util.Set;
 @NamedEntityGraph(
         name = EmissionActivityEntity.SEARCH_PAGE_GRAPH,
         attributeNodes = {
+                @NamedAttributeNode(value = "buildingGroup"),
                 @NamedAttributeNode(value = "records", subgraph = "record"),
                 @NamedAttributeNode(value = "emissionFactorEntity", subgraph = "emissionFactor")
         },

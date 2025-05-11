@@ -12,9 +12,10 @@ import {EmissionActivityService} from '@services/emission-activity.service';
 import {AbstractFormComponent} from '@shared/components/form/abstract-form-component';
 import {TableTemplateColumn} from '@shared/components/table-template/table-template.component';
 import {SearchCriteriaDto, SearchResultDto} from '@shared/models/base-models';
+import {ModalProvider} from '@shared/services/modal-provider';
 import {ToastProvider} from '@shared/services/toast-provider';
 import {DialogService, DynamicDialogConfig} from 'primeng/dynamicdialog';
-import {Observable, Observer, filter, map, switchMap, takeUntil} from 'rxjs';
+import {Observable, Observer, filter, map, of, switchMap, takeUntil} from 'rxjs';
 import {validate} from 'uuid';
 import {UUID} from '../../../../../types/uuid';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
@@ -90,7 +91,8 @@ export class EmissionActivityDetailComponent extends AbstractFormComponent<Emiss
     private readonly emissionActivityService: EmissionActivityService,
     private readonly emissionActivityRecordService: EmissionActivityRecordService,
     private readonly dialogService: DialogService,
-    private readonly activityTypeService: ActivityTypeService
+    private readonly activityTypeService: ActivityTypeService,
+    private readonly modalProvider: ModalProvider
   ) {
     super(httpClient, formBuilder, notificationService, translate);
   }
@@ -177,17 +179,28 @@ export class EmissionActivityDetailComponent extends AbstractFormComponent<Emiss
 
   confirmDelete(): void {
     const ids: UUID[] = this.selected.map(record => record.id);
-
-    this.emissionActivityRecordService.deleteRecords(ids).subscribe({
-      next: () => {
-        this.notificationService.success({
-          summary: this.translate.instant('common.success')
-        });
-        this.selected = []; // Clear local selection
-        this.searchEvent.emit(); // Refresh table
-        this.clearSelectedEvent.emit();
-      }
-    });
+    this.modalProvider
+      .showDefaultConfirm()
+      .pipe(
+        takeUntil(this.destroy$),
+        switchMap((result: boolean) => {
+          if (!result) {
+            return of(null); // Skip deletion if modal is cancelled
+          }
+          return this.emissionActivityService.deleteActivities(ids).pipe(
+            switchMap(() => {
+              this.notificationService.success({
+                summary: this.translate.instant('common.success')
+              });
+              this.selected = []; // Clear local selection
+              this.searchEvent.emit(); // Refresh table
+              this.clearSelectedEvent.emit();
+              return of(null); // Complete the stream
+            })
+          );
+        })
+      )
+      .subscribe();
   }
 
   onDownloadFile(record: EmissionActivityRecord): void {
@@ -203,14 +216,26 @@ export class EmissionActivityDetailComponent extends AbstractFormComponent<Emiss
   }
 
   removeFile(record: EmissionActivityRecord): void {
-    this.emissionActivityRecordService.deleteRecordFile(record.id, record.file.id).subscribe({
-      next: () => {
-        this.notificationService.success({
-          summary: this.translate.instant('common.success')
-        });
-        this.searchEvent.emit();
-      }
-    });
+    this.modalProvider
+      .showDefaultConfirm()
+      .pipe(
+        takeUntil(this.destroy$),
+        switchMap((result: boolean) => {
+          if (!result) {
+            return of(null);
+          }
+          return this.emissionActivityRecordService.deleteRecordFile(record.id, record.file.id).pipe(
+            switchMap(() => {
+              this.notificationService.success({
+                summary: this.translate.instant('common.success')
+              });
+              this.searchEvent.emit();
+              return of(null);
+            })
+          );
+        })
+      )
+      .subscribe();
   }
 
   onNewRecord(): void {

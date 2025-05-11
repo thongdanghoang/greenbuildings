@@ -8,10 +8,8 @@
  * Do not edit the class manually.
  */
 
-export interface EmissionSourceView {
+export interface EmissionActivityBuildingGroupView {
   id?: string;
-  nameVN?: string;
-  nameEN?: string;
-  nameZH?: string;
   version?: number;
+  name?: string;
 }

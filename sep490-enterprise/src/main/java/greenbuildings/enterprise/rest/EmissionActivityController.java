@@ -74,7 +74,7 @@ public class EmissionActivityController {
     public ResponseEntity<SearchResultDTO<EmissionActivityView>> search(@RequestBody SearchCriteriaDTO<ActivityCriteria> searchCriteria,
                                                                         @AuthenticationPrincipal UserContextData userContext) {
         var enterpriseId = userContext.getEnterpriseId().orElseThrow();
-        var sort = Optional.ofNullable(searchCriteria.sort()).orElse(new SortDTO(AbstractAuditableEntity.Fields.createdDate, SortDirection.ASC));
+        var sort = Optional.ofNullable(searchCriteria.sort()).orElse(new SortDTO(AbstractAuditableEntity.Fields.lastModifiedDate, SortDirection.DESC));
         var pageable = CommonMapper.toPageable(searchCriteria.page(), sort);
         var searchResults = emissionActivityService.search(pageable, enterpriseId, searchCriteria.criteria());
         return ResponseEntity.ok(CommonMapper.toSearchResultDTO(searchResults, this.mapper::toEmissionActivityView));

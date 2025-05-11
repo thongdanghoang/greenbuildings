@@ -52,6 +52,7 @@ export enum UnitCategory {
 }
 
 export interface EmissionSourceDTO extends BaseDTO {
+  name?: string;
   nameVN: string;
   nameEN: string;
   nameZH: string;

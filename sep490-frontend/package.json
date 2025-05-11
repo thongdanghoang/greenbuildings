@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng lint && ng serve",
+    "start": "openapi-generator-cli generate -i http://localhost:8080/enterprise/v3/api-docs -g typescript-angular -o src/app --global-property models --additional-properties=enumPropertyNaming=original,fileNaming=kebab-case && openapi-generator-cli generate -i http://localhost:8180/idp/v3/api-docs -g typescript-angular -o src/app --global-property models --additional-properties=enumPropertyNaming=original,fileNaming=kebab-case && npm run lint -- --fix && ng serve",
     "build": "ng lint && ng build --configuration=production --base-href https://greenbuildings.cloud/",
     "watch": "ng lint && ng build --watch --configuration development",
     "test": "ng test",

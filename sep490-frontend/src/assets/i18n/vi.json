@@ -4,7 +4,7 @@
     "rechargeNow": "Nạp ngay",
     "profile": "Hồ sơ",
     "noRow": "Không tìm thấy bản ghi nào.",
-    "defaultConfirmMessage": "Bạn có muốn xóa hàng này không?",
+    "defaultConfirmMessage": "Bạn có muốn xóa bản ghi này không?",
     "buildingConfirmMessage": "Bạn có muốn xóa tòa nhà này không?",
     "confirmHeader": "Xác nhận",
     "accept": "Đồng ý",
@@ -356,7 +356,8 @@
         "remainingDays": "Số ngày còn lại:",
         "new": "Hoạt động mới",
         "dialog": {
-          "buildingId": "Tòa nhà",
+          "building": "Tòa nhà",
+          "buildingGroup": "Nhóm tòa nhà",
           "title": "Hoạt động phát thải mới",
           "EmissionSource": "Nguồn phát thải",
           "EmissionFactor": "Hệ số phát thải",
@@ -471,8 +472,11 @@
           "name": "Tên",
           "type": "Loại",
           "category": "Danh mục",
-          "description": "Mô tả"
-        }
+          "description": "Mô tả",
+          "building": "Tòa nhà",
+          "buildingGroup": "Nhóm tòa nhà"
+        },
+        "recordsFor": "Bản ghi phát thải cho "
       }
     }
   },

@@ -157,17 +157,17 @@ export class NewActivityRecordDialogComponent extends AbstractFormComponent<Emis
 
   handleUpdate(): void {
     if (this.data?.editRecord) {
-      this.formGroup.controls['startDate'].setValue(new Date(this.data.editRecord.startDate));
-      this.formGroup.controls['endDate'].setValue(new Date(this.data.editRecord.endDate));
-      this.formGroup.controls['rangeDates'].setValue([
+      this.formStructure.startDate.setValue(new Date(this.data.editRecord.startDate));
+      this.formStructure.endDate.setValue(new Date(this.data.editRecord.endDate));
+      this.formStructure.rangeDates.setValue([
         new Date(this.data.editRecord.startDate),
         new Date(this.data.editRecord.endDate)
       ]);
-      this.formGroup.controls['value'].setValue(this.data.editRecord.value);
-      this.formGroup.controls['unit'].setValue(this.data.editRecord.unit);
-      this.formGroup.controls['quantity'].setValue(this.data.editRecord.quantity);
-      this.formGroup.controls['id'].setValue(this.data.editRecord.id);
-      this.formGroup.controls['version'].setValue(this.data.editRecord.version);
+      this.formStructure.value.setValue(this.data.editRecord.value);
+      this.formStructure.unit.setValue(this.data.editRecord.unit);
+      this.formStructure.quantity.setValue(this.data.editRecord.quantity);
+      this.formStructure.id.setValue(this.data.editRecord.id);
+      this.formStructure.version.setValue(this.data.editRecord.version);
     }
   }
 
