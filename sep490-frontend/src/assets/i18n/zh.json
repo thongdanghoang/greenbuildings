@@ -188,6 +188,7 @@
       "address": "地址",
       "businessLicenseImageUrl": "营业执照",
       "representativeName": "代表",
+      "representative": "代表",
       "representativePosition": "职称",
       "representativeContact": "联系方式",
       "title": "创建企业",
@@ -327,6 +328,12 @@
           "validToInclusive": "有效日期",
           "address": "地址",
           "currentMaxNumberOfDevices": "当前最大活动数"
+        },
+        "tenant": {
+          "name": "名称"
+        },
+        "groups": {
+          "name": "组名称"
         }
       },
       "message": {
@@ -601,7 +608,8 @@
       "tenant": "租户",
       "tradingActivities": "交易活动",
       "payment": "支付业务",
-      "transaction": "建立交易"
+      "transaction": "建立交易",
+      "user": "用户管理"
     }
   },
   "admin": {
@@ -889,6 +897,8 @@
     "whatToken": "这个代币有什么用处？",
     "expiration": "到期",
     "tokenGenerated": "您生成的令牌可用于访问 GreenBuildings Power BI。",
+    "enterAccessToken": "输入访问令牌：",
+    "messageMakeSure": "请务必立即复制您的访问令牌。您将无法再次看到它！",
     "delete": "删除",
     "lastUsed": "最后使用于 {{lastUsed}}",
     "expirationOn": "到期日期",
@@ -1105,6 +1115,12 @@
   },
   "invitation": {
     "title": "您的邀请",
-    "description": "查看和管理您待处理的加入建筑群组的邀请。"
+    "description": "查看和管理您待处理的加入建筑群组的邀请。",
+    "building": "建筑:",
+    "description1": "描述:",
+    "group": "团体:",
+    "address": "地址:",
+    "accept": "接受",
+    "reject": "拒绝"
   }
 }

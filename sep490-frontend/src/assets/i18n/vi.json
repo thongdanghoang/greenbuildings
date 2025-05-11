@@ -188,6 +188,7 @@
       "address": "Địa chỉ",
       "businessLicenseImageUrl": "Giấy phép kinh doanh",
       "representativeName": "Người đại diện",
+      "representative": "Người đại diện",
       "representativePosition": "Chức danh",
       "representativeContact": "Liên hệ",
       "title": "Tạo doanh nghiệp",
@@ -327,6 +328,12 @@
           "validToInclusive": "Hiệu lực đến",
           "address": "Địa chỉ",
           "currentMaxNumberOfDevices": "Số lượng hoạt động tối đa hiện tại"
+        },
+        "tenant": {
+          "name": "Tên"
+        },
+        "groups": {
+          "name": "Tên nhóm"
         }
       },
       "message": {
@@ -601,7 +608,8 @@
       "tenant": "Doanh nghiệp thuê",
       "tradingActivities": "Hoạt động giao dịch",
       "payment": "Doanh nghiệp thanh toán",
-      "transaction": "Giao dịch tòa nhà"
+      "transaction": "Giao dịch tòa nhà",
+      "user": "Quản lý người dùng"
     }
   },
   "admin": {
@@ -889,6 +897,8 @@
     "whatToken": "Access token này dùng để làm gì?",
     "expiration": "Hết hạn",
     "tokenGenerated": "Access token bạn đã tạo có thể được sử dụng để truy xuất dữ liệu phát thải GreenBuildings từ Power BI.",
+    "enterAccessToken": "Nhập Access Token:",
+    "messageMakeSure": "Hãy đảm bảo sao chép Access Token của bạn ngay bây giờ. Bạn sẽ không thể nhìn thấy nó nữa!",
     "delete": "Xóa",
     "lastUsed": "Lần cuối cùng sử dụng {{lastUsed}}",
     "expirationOn": "Hết hạn vào",
@@ -1105,6 +1115,12 @@
   },
   "invitation": {
     "title": "Lời Mời",
-    "description": "Xem xét và quản lý các lời mời đang chờ để tham gia các nhóm tòa nhà."
+    "description": "Xem xét và quản lý các lời mời đang chờ để tham gia các nhóm tòa nhà.",
+    "building": "Tòa nhà:",
+    "description1": "Mô tả:",
+    "group": "Nhóm:",
+    "address": "Địa chỉ:",
+    "accept": "Chấp nhận",
+    "reject": "Từ chối"
   }
 }

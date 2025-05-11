@@ -27,7 +27,7 @@
                 id="tokenInput"
                 [(ngModel)]="userToken"
             />
-            <label for="tokenInput">Enter Access Token:</label>
+            <label for="tokenInput">{{ 'powerBi.enterAccessToken' | translate }}</label>
         </p-floatlabel>
         <p>{{ 'powerBi.generatedUrlMessage' | translate }}</p>
         <div
@@ -63,7 +63,7 @@
             <p-message
                 severity="warn"
                 icon="pi pi-bell"
-                text="Make sure to copy your access token now. You won’t be able to see it again!"
+                text="{{ 'powerBi.messageMakeSure' | translate }}"
                 class="h-full"
             />
             <div class="rounded-lg border">

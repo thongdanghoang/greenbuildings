@@ -189,6 +189,7 @@
       "address": "Address",
       "businessLicenseImageUrl": "Business License",
       "representativeName": "Representative",
+      "representative": "Representative",
       "representativePosition": "Title",
       "representativeContact": "Contact",
       "title": "Create Enterprise",
@@ -328,6 +329,12 @@
           "validToInclusive": "Valid to",
           "address": "Address",
           "currentMaxNumberOfDevices": "Current max number of activities"
+        },
+        "tenant": {
+          "name": "Name"
+        },
+        "groups": {
+          "name": "Group name"
         }
       },
       "message": {
@@ -357,7 +364,7 @@
         "new": "New Activity",
         "remainingDays": "Remaining Days:",
         "dialog": {
-          "buildingId": "Building",
+          "building": "Building",
           "buildingGroup": "Building Group",
           "title": "New Emission Activity",
           "EmissionSource": "Emission Source",
@@ -608,7 +615,8 @@
       "tenant": "Tenant",
       "tradingActivities": "Trading activities",
       "payment": "Payment Enterprise",
-      "transaction": "Building transactions"
+      "transaction": "Building transactions",
+      "user": "User Management"
     }
   },
   "admin": {
@@ -896,6 +904,8 @@
     "whatToken": "What's this token for?",
     "expiration": "Expiration",
     "tokenGenerated": "Tokens you have generated that can be used to access the GreenBuildings Power BI.",
+    "enterAccessToken": "Enter Access Token:",
+    "messageMakeSure": "Make sure to copy your access token now. You won’t be able to see it again!",
     "delete": "Delete",
     "lastUsed": "Last used in {{lastUsed}}",
     "expirationOn": "Expires on",
@@ -1112,6 +1122,12 @@
   },
   "invitation": {
     "title": "Your Invitations",
-    "description": "Review and manage your pending invitations to join building groups."
+    "description": "Review and manage your pending invitations to join building groups.",
+    "building": "Building:",
+    "group": "Group:",
+    "description1": "Description:",
+    "address": "Address:",
+    "accept": "Accept",
+    "reject": "Reject"
   }
 }

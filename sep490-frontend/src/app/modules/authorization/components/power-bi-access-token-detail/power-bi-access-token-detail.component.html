@@ -45,7 +45,7 @@
             <form-field-error></form-field-error>
         </div>
 
-        <label class="font-semibold">Expiration</label>
+        <label class="font-semibold">{{ 'powerBi.expiration' | translate }}</label>
         <div
             errorMessages
             *ngIf="!isEdit; else regenerateTokenLinkTemplate"
@@ -95,7 +95,7 @@
             <form-field-error></form-field-error>
         </div>
 
-        <label class="font-semibold">Scope</label>
+        <label class="font-semibold">{{ 'enterprise.Users.scope' | translate }}</label>
         <div class="flex flex-col *:w-full *:max-w-96 lg:flex-row lg:gap-8">
             <div
                 class="flex flex-col"
