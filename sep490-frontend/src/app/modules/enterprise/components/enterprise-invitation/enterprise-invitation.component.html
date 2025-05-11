@@ -59,7 +59,7 @@
             <div class="flex flex-col gap-4 lg:flex-row lg:gap-16">
                 <div class="flex flex-col gap-1">
                     <small>
-                        {{ 'Building:' | translate }}
+                        {{ 'invitation.building' | translate }}
                     </small>
                     <p class="text-nowrap">
                         {{ invitation.buildingGroup.building.name }}
@@ -67,7 +67,7 @@
                 </div>
                 <div class="flex flex-col gap-1">
                     <small>
-                        {{ 'Group:' | translate }}
+                        {{ 'invitation.group' | translate }}
                     </small>
                     <p class="text-nowrap">
                         {{ invitation.buildingGroup.name }}
@@ -75,7 +75,7 @@
                 </div>
                 <div class="flex flex-col gap-1">
                     <small>
-                        {{ 'Address:' | translate }}
+                        {{ 'invitation.address' | translate }}
                     </small>
                     <p class="max-w-96 truncate">
                         {{ invitation.buildingGroup.building.address }}
@@ -92,14 +92,14 @@
                 severity="danger"
                 (click)="rejectInvitation(invitation)"
             >
-                Reject
+                {{ 'invitation.reject' | translate }}
             </p-button>
             <p-button
                 outlined
                 severity="primary"
                 (click)="acceptInvitation(invitation)"
             >
-                Accept
+                {{ 'invitation.accept' | translate }}
             </p-button>
         </div>
     </div>
