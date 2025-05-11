@@ -99,7 +99,7 @@ export class NewActivityDialogComponent extends AbstractFormComponent<CreateNewA
             return {
               value: group.id,
               label: group.name,
-              disable: false
+              disabled: false
             };
           }))
       );

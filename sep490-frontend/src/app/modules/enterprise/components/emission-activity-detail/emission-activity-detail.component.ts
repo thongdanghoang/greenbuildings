@@ -187,7 +187,7 @@ export class EmissionActivityDetailComponent extends AbstractFormComponent<Emiss
           if (!result) {
             return of(null); // Skip deletion if modal is cancelled
           }
-          return this.emissionActivityService.deleteActivities(ids).pipe(
+          return this.emissionActivityRecordService.deleteRecords(ids).pipe(
             switchMap(() => {
               this.notificationService.success({
                 summary: this.translate.instant('common.success')
