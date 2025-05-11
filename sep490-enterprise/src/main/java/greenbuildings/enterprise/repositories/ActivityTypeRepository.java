@@ -27,4 +27,6 @@ public interface ActivityTypeRepository extends JpaRepository<ActivityTypeEntity
     
     @Query("SELECT CASE WHEN COUNT(b) > 0 THEN true ELSE false END FROM ActivityTypeEntity b WHERE b.name = :name and b.building.id = :buildingId")
     boolean existsByNameActivityTypeInTenant(@NotNull UUID buildingId, @NotBlank String name);
+    
+    ActivityTypeEntity findByNameIgnoreCaseAndBuildingId(String name, UUID buildingId);
 } 

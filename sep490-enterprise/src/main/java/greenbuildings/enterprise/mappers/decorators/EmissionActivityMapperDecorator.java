@@ -72,10 +72,15 @@ public abstract class EmissionActivityMapperDecorator implements EmissionActivit
             activityTypeEntity.setBuilding(entity.getBuilding());
             entity.setType(activityTypeEntity);
         } catch (IllegalArgumentException ex) {
-            ActivityTypeEntity type = new ActivityTypeEntity();
-            type.setBuilding(entity.getBuilding());
-            type.setName(dto.type());
-            entity.setType(type);
+            ActivityTypeEntity dbType = activityTypeRepo.findByNameIgnoreCaseAndBuildingId(dto.type(), entity.getBuilding().getId());
+            if (dbType != null) {
+                entity.setType(dbType);
+            } else {
+                ActivityTypeEntity type = new ActivityTypeEntity();
+                type.setBuilding(entity.getBuilding());
+                type.setName(dto.type());
+                entity.setType(type);
+            }
         }
     }
 }
