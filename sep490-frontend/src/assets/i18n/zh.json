@@ -40,6 +40,9 @@
       "cancel": "返回",
       "discard": "继续"
     },
+    "subscription": {
+      "noActivities": "当前活动数量已达到订阅允许的最大限制"
+    },
     "authorizeDenied": "您无权执行此操作",
     "email": "格式无效：请输入有效的电子邮件地址",
     "phoneNumber": "无效的电话号码",

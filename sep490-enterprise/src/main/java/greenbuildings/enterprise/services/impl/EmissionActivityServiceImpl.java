@@ -9,6 +9,7 @@ import greenbuildings.enterprise.entities.ActivityTypeEntity;
 import greenbuildings.enterprise.entities.BuildingEntity;
 import greenbuildings.enterprise.entities.EmissionActivityEntity;
 import greenbuildings.enterprise.entities.EmissionFactorEntity;
+import greenbuildings.enterprise.entities.SubscriptionEntity;
 import greenbuildings.enterprise.models.ActivityRecordDateRange;
 import greenbuildings.enterprise.models.IdProjection;
 import greenbuildings.enterprise.repositories.ActivityTypeRepository;
@@ -16,6 +17,7 @@ import greenbuildings.enterprise.repositories.BuildingGroupRepository;
 import greenbuildings.enterprise.repositories.BuildingRepository;
 import greenbuildings.enterprise.repositories.EmissionActivityRepository;
 import greenbuildings.enterprise.repositories.EmissionFactorRepository;
+import greenbuildings.enterprise.repositories.SubscriptionRepository;
 import greenbuildings.enterprise.repositories.specifications.EmissionActivitySpecifications;
 import greenbuildings.enterprise.services.CalculationService;
 import greenbuildings.enterprise.services.EmissionActivityService;
@@ -47,6 +49,7 @@ public class EmissionActivityServiceImpl implements EmissionActivityService {
     private final BuildingGroupRepository buildingGroupRepository;
     private final ActivityTypeRepository typeRepository;
     private final CalculationService calculationService;
+    private final SubscriptionRepository subscriptionRepository;
     
     @Override
     public Page<EmissionActivityEntity> search(SearchCriteriaDTO<EmissionActivityCriteria> searchCriteria) {
@@ -93,6 +96,12 @@ public class EmissionActivityServiceImpl implements EmissionActivityService {
     public EmissionActivityEntity addOrUpdate(EmissionActivityEntity entity) {
         mapActivityType(entity);
         if (entity.getId() == null) {
+            List<SubscriptionEntity> allValidSubscriptions = subscriptionRepository.findAllValidSubscriptions(LocalDate.now(),
+                                                                                                              entity.getBuilding().getId());
+            long noActivities = emissionActivityRepository.countByBuildingId(entity.getBuilding().getId());
+            if (allValidSubscriptions.isEmpty() || !allValidSubscriptions.get(0).isValid() || noActivities >= allValidSubscriptions.get(0).getMaxNumberOfDevices()) {
+                throw new BusinessException("maxNumberOfActivities", "validation.subscription.noActivities");
+            }
             entity = emissionActivityRepository.save(entity);
             return emissionActivityRepository.findDetailsById(entity.getId()).orElseThrow();
         }
