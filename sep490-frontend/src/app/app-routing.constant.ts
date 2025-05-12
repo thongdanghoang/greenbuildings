@@ -11,7 +11,6 @@ export class AppRoutingConstants {
   public static readonly USERS_PATH = 'users';
   public static readonly ADMIN_PATH = 'admin';
   public static readonly USER_DETAILS = 'user-details';
-  public static readonly USER_PROFILE = 'user-profile';
   public static readonly SETTINGS = 'settings';
   public static readonly POWER_BI = 'power-bi';
   public static readonly ACCESS_TOKEN = 'tokens';

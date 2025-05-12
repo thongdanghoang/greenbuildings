@@ -132,12 +132,9 @@ export class HeaderComponent extends SubscriptionAwareComponent implements OnIni
     this.applicationService.logout();
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected userProfile(roles: UserRole[]): void {
-    if (roles.includes(UserRole.BASIC_USER) || roles.includes(UserRole.TENANT)) {
-      void this.router.navigate([`/${AppRoutingConstants.ENTERPRISE_PATH}/${AppRoutingConstants.ACCOUNT_INFO_PATH}`]);
-    } else {
-      void this.router.navigate([`/${AppRoutingConstants.AUTH_PATH}/${AppRoutingConstants.USER_PROFILE}`]);
-    }
+    void this.router.navigate([`/${AppRoutingConstants.ENTERPRISE_PATH}/${AppRoutingConstants.ACCOUNT_INFO_PATH}`]);
   }
 
   protected get isDarkMode(): Observable<boolean> {

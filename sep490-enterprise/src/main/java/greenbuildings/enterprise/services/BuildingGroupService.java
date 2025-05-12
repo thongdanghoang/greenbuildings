@@ -36,9 +36,9 @@ public interface BuildingGroupService {
     
     List<BuildingGroupEntity> getAvailableBuildingGroups(UUID buildingId);
     
-    BuildingGroupEntity create(BuildingGroupEntity buildingGroupEntity);
+    BuildingGroupEntity create(BuildingGroupEntity buildingGroupEntity, String tenantEmail);
     
-    void inviteTenant(InviteTenantToBuildingGroup dto);
+    void inviteTenant(InviteTenantToBuildingGroup dto, boolean validateEmail);
     
     void unlinkTenant(UUID groupId);
 }

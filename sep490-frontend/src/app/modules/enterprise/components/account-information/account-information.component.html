@@ -1,4 +1,17 @@
-<master-layout title="account.title">
+<master-layout
+    title="account.title"
+    [showBack]="true"
+>
+    <div class="flex justify-start">
+        <p-button
+            [label]="'enterprise.Users.managePasskey' | translate"
+            severity="info"
+            (onClick)="navigateToPasskey()"
+            iconPos="right"
+            icon="pi pi-key"
+            class="*:min-w-28"
+        />
+    </div>
     <form
         [formGroup]="formGroup"
         unsavedChanges

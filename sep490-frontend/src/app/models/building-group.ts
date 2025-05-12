@@ -9,6 +9,7 @@ export interface CreateBuildingGroupDTO {
   name: string;
   description: string;
   buildingId: UUID;
+  tenantEmail: string;
 }
 
 export interface InviteTenantToBuildingGroup {

@@ -25,7 +25,8 @@ export class NewBuildingGroupComponent extends AbstractFormComponent<CreateBuild
   protected readonly formStructure = {
     name: new FormControl('', Validators.required),
     description: new FormControl(''),
-    buildingId: new FormControl('', Validators.required)
+    buildingId: new FormControl('', Validators.required),
+    tenantEmail: new FormControl('', Validators.email)
   };
 
   constructor(

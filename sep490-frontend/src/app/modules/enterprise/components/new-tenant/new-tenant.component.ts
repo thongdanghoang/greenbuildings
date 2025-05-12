@@ -1,6 +1,6 @@
 import {Location} from '@angular/common';
 import {HttpClient} from '@angular/common/http';
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormControl, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {InviteTenantToBuildingGroup} from '@models/building-group';
@@ -13,13 +13,17 @@ import {BuildingGroupService} from '@services/building-group.service';
 import {BuildingService} from '@services/building.service';
 import {AbstractFormComponent} from '@shared/components/form/abstract-form-component';
 import {ToastProvider} from '@shared/services/toast-provider';
+import {ApplicationConstant} from '../../../../application.constant';
 
 @Component({
   selector: 'app-new-tenant',
   templateUrl: './new-tenant.component.html',
   styleUrl: './new-tenant.component.css'
 })
-export class NewTenantComponent extends AbstractFormComponent<InviteTenantToBuildingGroup> implements OnInit {
+export class NewTenantComponent
+  extends AbstractFormComponent<InviteTenantToBuildingGroup>
+  implements OnInit, OnDestroy
+{
   buildingDetails!: BuildingDetails;
   availableGroups: BuildingGroup[] = [];
 
@@ -43,6 +47,11 @@ export class NewTenantComponent extends AbstractFormComponent<InviteTenantToBuil
     super(httpClient, formBuilder, notificationService, translate);
   }
 
+  override ngOnDestroy(): void {
+    super.ngOnDestroy();
+    sessionStorage.removeItem(ApplicationConstant.SELECT_GROUP_TO_ASSIGN);
+  }
+
   fetchAvailableGroups(): void {
     this.buildingGroupService
       .getAvailableBuildingGroups(this.buildingDetails.id)
@@ -50,6 +59,14 @@ export class NewTenantComponent extends AbstractFormComponent<InviteTenantToBuil
       .subscribe({
         next: groups => {
           this.availableGroups = groups;
+          if (sessionStorage.getItem(ApplicationConstant.SELECT_GROUP_TO_ASSIGN)) {
+            const selectedId = sessionStorage.getItem(ApplicationConstant.SELECT_GROUP_TO_ASSIGN) as UUID;
+            if (this.availableGroups.find(group => group.id === selectedId)) {
+              this.formStructure.selectedGroupId.setValue(selectedId);
+            } else {
+              sessionStorage.removeItem(ApplicationConstant.SELECT_GROUP_TO_ASSIGN);
+            }
+          }
         }
       });
   }
@@ -90,6 +107,7 @@ export class NewTenantComponent extends AbstractFormComponent<InviteTenantToBuil
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected override onSubmitFormDataSuccess(_result: any): void {
+    sessionStorage.removeItem(ApplicationConstant.SELECT_GROUP_TO_ASSIGN);
     this.location.back();
   }
 }

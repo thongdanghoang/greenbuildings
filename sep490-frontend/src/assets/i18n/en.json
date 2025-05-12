@@ -43,6 +43,9 @@
     },
     "authorizeDenied": "You are not allowed to perform this action",
     "email": "Invalid format: please enter a valid email address",
+    "subscription": {
+      "noActivities": "The current number of activities has reached the maximum limit allowed by your subscription"
+    },
     "phoneNumber": "Invalid phone number",
     "max": "Value must be less than or equal to {{max}}",
     "maxlength": "A maximum of {{requiredLength}} characters is supported",

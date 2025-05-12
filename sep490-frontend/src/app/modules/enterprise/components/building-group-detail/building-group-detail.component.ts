@@ -19,6 +19,7 @@ import {Observable} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {UUID} from '../../../../../types/uuid';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
+import {ApplicationConstant} from '../../../../application.constant';
 import {EnterpriseDetailDialogComponent} from '../../dialog/enteprise-detail-dialog/enterprise-detail-dialog.component';
 import {NewActivityDialogComponent} from '../../dialog/new-activity-dialog/new-activity-dialog.component';
 import {TenantDetailDialogComponent} from '../../dialog/tenant-detail-dialog/tenant-detail-dialog.component';
@@ -140,6 +141,7 @@ export class BuildingGroupDetailComponent extends SubscriptionAwareComponent imp
   }
 
   navigateToAssignTenant(): void {
+    sessionStorage.setItem(ApplicationConstant.SELECT_GROUP_TO_ASSIGN, this.buildingGroup.id as string);
     void this.router.navigate([
       AppRoutingConstants.ENTERPRISE_PATH,
       AppRoutingConstants.NEW_TENANT_PATH,

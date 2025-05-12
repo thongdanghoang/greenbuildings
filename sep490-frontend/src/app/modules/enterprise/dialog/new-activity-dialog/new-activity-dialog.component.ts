@@ -111,6 +111,14 @@ export class NewActivityDialogComponent extends AbstractFormComponent<CreateNewA
     this.ref.close(true);
   }
 
+  protected override onSubmitFormRequestError(_error: any): void {
+    this.notificationService.businessError({
+      severity: 'error',
+      summary: this.translate.instant('common.error.title'),
+      detail: _error.error.i18nKey ? this.translate.instant(_error.error.i18nKey) : ''
+    });
+  }
+
   protected getLocalizedName(source: any): string {
     const lang = this.translate.currentLang.toLowerCase();
     switch (lang) {

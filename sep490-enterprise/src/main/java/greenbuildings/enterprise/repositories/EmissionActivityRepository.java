@@ -57,4 +57,6 @@ public interface EmissionActivityRepository extends AbstractBaseRepository<Emiss
     List<EmissionActivityEntity> findAllByTypeIdIn(Set<UUID> typeIds);
     
     long countByBuildingIdAndBuildingGroupIsNull(UUID buildingId);
+    
+    long countByBuildingId(UUID buildingId);
 }

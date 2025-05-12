@@ -40,6 +40,9 @@
       "cancel": "Trở về",
       "discard": "Tiếp tục"
     },
+    "subscription": {
+      "noActivities": "Số lượng hoạt động hiện tại đã đạt đến giới hạn tối đa được cho phép bởi gói đăng ký của bạn"
+    },
     "authorizeDenied": "Bạn không thể thực hiện chức năng này",
     "email": "Định dạng không đúng: vui lòng nhập địa chỉ email hợp lệ",
     "phoneNumber": "Số điện thoại không hợp lệ",

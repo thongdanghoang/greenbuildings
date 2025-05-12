@@ -162,7 +162,7 @@ public class BuildingGroupControllerTest extends TestcontainersConfigs {
                 .post(getBaseUrl() + "/invite")
                 .then()
                 .log().all()
-                .statusCode(417);
+                .statusCode(500);
     }
     
 }

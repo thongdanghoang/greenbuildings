@@ -86,7 +86,7 @@ export class TenantProfileComponent extends AbstractFormComponent<TenantDetailDT
   }
 
   protected onSubmitFormDataSuccess(): void {
-    void this.router.navigate(['/', AppRoutingConstants.ENTERPRISE_PATH, 'tenants']);
+    void this.router.navigate(['/']);
   }
 
   private loadTenantDetail(): void {
