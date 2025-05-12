@@ -10,8 +10,8 @@ import greenbuildings.enterprise.dtos.BuildingGroupCriteria;
 import greenbuildings.enterprise.dtos.BuildingGroupDTO;
 import greenbuildings.enterprise.dtos.InviteTenantToBuildingGroup;
 import greenbuildings.enterprise.entities.BuildingGroupEntity;
+import greenbuildings.enterprise.entities.EnterpriseEntity;
 import greenbuildings.enterprise.entities.InvitationEntity;
-import greenbuildings.enterprise.entities.TenantEntity;
 import greenbuildings.enterprise.enums.InvitationStatus;
 import greenbuildings.enterprise.mappers.BuildingGroupMapper;
 import greenbuildings.enterprise.repositories.*;
@@ -120,15 +120,22 @@ public class BuildingGroupServiceImpl implements BuildingGroupService {
     }
     
     @Override
-    public BuildingGroupEntity create(BuildingGroupEntity buildingGroupEntity) {
+    public BuildingGroupEntity create(BuildingGroupEntity buildingGroupEntity, String tenantEmail) {
         if (buildingGroupRepository.existsByNameIgnoreCaseAndBuildingId(buildingGroupEntity.getName(), buildingGroupEntity.getBuilding().getId())) {
             throw new BusinessException("name", "business.buildings.group.nameExists");
         }
-        return buildingGroupRepository.save(buildingGroupEntity);
+        buildingGroupEntity = buildingGroupRepository.save(buildingGroupEntity);
+        if (tenantEmail != null) {
+            inviteTenant(InviteTenantToBuildingGroup.builder()
+                                                    .buildingId(buildingGroupEntity.getBuilding().getId())
+                                                    .selectedGroupId(buildingGroupEntity.getId())
+                                                    .tenantEmail(tenantEmail).build(), false);
+        }
+        return buildingGroupEntity;
     }
     
     @Override
-    public void inviteTenant(InviteTenantToBuildingGroup dto) {
+    public void inviteTenant(InviteTenantToBuildingGroup dto, boolean validateEmail) {
         BuildingGroupEntity group = buildingGroupRepository.findById(dto.selectedGroupId()).orElseThrow();
         // TODO: what about email belong to registered user?
         if (enterpriseRepository.findByEnterpriseEmail(dto.tenantEmail()).isPresent()) {
@@ -140,8 +147,7 @@ public class BuildingGroupServiceImpl implements BuildingGroupService {
         if (invitationRepository.existsByBuildingGroupBuildingIdAndEmailAndStatus(dto.buildingId(), dto.tenantEmail(), InvitationStatus.PENDING)) {
             throw new BusinessException("tenantEmail", "business.groups.tenantEmailPending");
         }
-        var tenant = tenantRepository.findByEmail((dto.tenantEmail()));
-        if(tenant.isEmpty()) {
+        if(validateEmail && dto.tenantEmail().isEmpty()) {
             throw new BusinessException("tenantEmail", "business.groups.noFindEmailTenant");
         }
         InvitationEntity invitation = InvitationEntity.builder()
@@ -149,7 +155,7 @@ public class BuildingGroupServiceImpl implements BuildingGroupService {
                                                       .status(InvitationStatus.PENDING)
                                                       .email(dto.tenantEmail())
                                                       .build();
-        SEPMailMessage message = createInviteMailMessage(invitation, tenant.get());
+        SEPMailMessage message = createInviteMailMessage(invitation, dto.tenantEmail());
         emailUtil.sendMail(message);
         invitationRepository.save(invitation);
 
@@ -182,7 +188,7 @@ public class BuildingGroupServiceImpl implements BuildingGroupService {
         return message;
     }
 
-    private SEPMailMessage createInviteMailMessage(InvitationEntity invitation, TenantEntity tenant) {
+    private SEPMailMessage createInviteMailMessage(InvitationEntity invitation, String tenantEmail) {
         SEPMailMessage message = new SEPMailMessage();
 
         message.setTemplateName("invite-tenant.ftl");
@@ -190,12 +196,13 @@ public class BuildingGroupServiceImpl implements BuildingGroupService {
         message.setSubject(messageUtil.getMessage("invite.title"));
 
         message.addTemplateModel("subject", messageUtil.getMessage("invite.title"));
-        message.addTemplateModel("tenantName", tenant.getName());
+        message.addTemplateModel("tenantName", tenantEmail);
         message.addTemplateModel("buildingGroupName", invitation.getBuildingGroup().getName());
         message.addTemplateModel("buildingName", invitation.getBuildingGroup().getBuilding().getName());
         message.addTemplateModel("appName", "GreenBuildings");
         message.addTemplateModel("appUrl", "https://greenbuildings.cloud");
-        message.addTemplateModel("ownerEmail", invitation.getBuildingGroup().getBuilding().getEnterprise().getEnterpriseEmail());
+        EnterpriseEntity enterprise = enterpriseRepository.findByBuidingId(invitation.getBuildingGroup().getBuilding().getId()).orElseThrow();
+        message.addTemplateModel("ownerEmail", enterprise.getEnterpriseEmail());
 
         return message;
     }

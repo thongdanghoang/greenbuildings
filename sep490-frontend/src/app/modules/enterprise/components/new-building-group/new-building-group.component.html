@@ -48,6 +48,27 @@
                 />
                 <form-field-error></form-field-error>
             </div>
+
+            <label
+                class="col-span-12 font-normal sm:col-span-3"
+                for="name"
+                >{{ 'enterprise.buildings.tenant.email' | translate }}</label
+            >
+            <div
+                class="col-span-12 *:w-full sm:col-span-9"
+                errorMessages
+            >
+                <input
+                    class="w-full"
+                    pInputText
+                    email
+                    formControlName="tenantEmail"
+                    id="name"
+                    type="text"
+                    [placeholder]="'enterprise.buildings.tenant.placeholder.email' | translate"
+                />
+                <form-field-error></form-field-error>
+            </div>
         </div>
 
         <div class="flex justify-end gap-4 *:min-w-24 sm:justify-start">

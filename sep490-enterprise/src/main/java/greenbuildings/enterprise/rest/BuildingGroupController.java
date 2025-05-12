@@ -46,7 +46,7 @@ public class BuildingGroupController extends AbstractRestController {
     @PostMapping
     public ResponseEntity<BuildingGroupDTO> createOrUpdate(@RequestBody CreateBuildingGroupDTO dto) {
         BuildingGroupEntity buildingGroupEntity = buildingGroupMapper.toEntity(dto);
-        return ResponseEntity.ok(buildingGroupMapper.toDTO(buildingGroupService.create(buildingGroupEntity)));
+        return ResponseEntity.ok(buildingGroupMapper.toDTO(buildingGroupService.create(buildingGroupEntity, dto.tenantEmail())));
     }
     
     @GetMapping("/{id}")
@@ -112,7 +112,7 @@ public class BuildingGroupController extends AbstractRestController {
     
     @PostMapping("/invite")
     public ResponseEntity<?> inviteTenant(@RequestBody InviteTenantToBuildingGroup dto) {
-        buildingGroupService.inviteTenant(dto);
+        buildingGroupService.inviteTenant(dto, true);
         return ResponseEntity.ok().build();
     }
     
