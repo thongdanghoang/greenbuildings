@@ -125,7 +125,7 @@ public class BuildingGroupServiceImpl implements BuildingGroupService {
             throw new BusinessException("name", "business.buildings.group.nameExists");
         }
         buildingGroupEntity = buildingGroupRepository.save(buildingGroupEntity);
-        if (tenantEmail != null) {
+        if (tenantEmail != null && !tenantEmail.isEmpty() && buildingGroupEntity.getTenant() == null) {
             inviteTenant(InviteTenantToBuildingGroup.builder()
                                                     .buildingId(buildingGroupEntity.getBuilding().getId())
                                                     .selectedGroupId(buildingGroupEntity.getId())
