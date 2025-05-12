@@ -9,7 +9,6 @@ import {ApplicationService} from '@services/application.service';
 import {BuildingGroupService} from '@services/building-group.service';
 import {EmissionActivityService} from '@services/emission-activity.service';
 import {InvitationService} from '@services/invitation.service';
-import {TenantService} from '@services/tenant.service';
 import {TableTemplateColumn} from '@shared/components/table-template/table-template.component';
 import {SubscriptionAwareComponent} from '@shared/directives/subscription-aware.component';
 import {SearchCriteriaDto, SearchResultDto} from '@shared/models/base-models';

@@ -1,6 +1,6 @@
 import {Location} from '@angular/common';
 import {HttpClient} from '@angular/common/http';
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormControl, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {InviteTenantToBuildingGroup} from '@models/building-group';
@@ -20,7 +20,10 @@ import {ApplicationConstant} from '../../../../application.constant';
   templateUrl: './new-tenant.component.html',
   styleUrl: './new-tenant.component.css'
 })
-export class NewTenantComponent extends AbstractFormComponent<InviteTenantToBuildingGroup> implements OnInit {
+export class NewTenantComponent
+  extends AbstractFormComponent<InviteTenantToBuildingGroup>
+  implements OnInit, OnDestroy
+{
   buildingDetails!: BuildingDetails;
   availableGroups: BuildingGroup[] = [];
 
