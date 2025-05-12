@@ -90,7 +90,6 @@ public class EnterpriseUserRestController {
     }
     
     @PutMapping("/self-update")
-    @RolesAllowed({UserRole.RoleNameConstant.BASIC_USER})
     public ResponseEntity<EnterpriseUserDetailsDTO> updateEnterpriseUser(@RequestBody EnterpriseUserDetailsDTO enterpriseUserDTO) {
         var user = userService.getEnterpriseUserDetail(enterpriseUserDTO.id());
         userMapper.updateSelfUser(user, enterpriseUserDTO);

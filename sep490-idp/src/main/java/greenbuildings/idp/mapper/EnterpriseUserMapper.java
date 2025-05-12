@@ -27,7 +27,6 @@ public interface EnterpriseUserMapper {
     
     EnterpriseUserDetailsDTO userEntityToEnterpriseUserDetailDTO(UserEntity user);
     
-    @Mapping(target = "buildingPermissions", ignore = true)
     EnterpriseUserDetailsDTO userEntityToBasicEnterpriseUserDetailDTO(UserEntity user);
     
     @Mapping(target = "emailVerified", ignore = true)
