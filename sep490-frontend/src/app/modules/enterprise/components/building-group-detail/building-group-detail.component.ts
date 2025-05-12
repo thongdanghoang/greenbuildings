@@ -9,6 +9,7 @@ import {ApplicationService} from '@services/application.service';
 import {BuildingGroupService} from '@services/building-group.service';
 import {EmissionActivityService} from '@services/emission-activity.service';
 import {InvitationService} from '@services/invitation.service';
+import {TenantService} from '@services/tenant.service';
 import {TableTemplateColumn} from '@shared/components/table-template/table-template.component';
 import {SubscriptionAwareComponent} from '@shared/directives/subscription-aware.component';
 import {SearchCriteriaDto, SearchResultDto} from '@shared/models/base-models';
@@ -19,6 +20,7 @@ import {Observable} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {UUID} from '../../../../../types/uuid';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
+import {ApplicationConstant} from '../../../../application.constant';
 import {EnterpriseDetailDialogComponent} from '../../dialog/enteprise-detail-dialog/enterprise-detail-dialog.component';
 import {NewActivityDialogComponent} from '../../dialog/new-activity-dialog/new-activity-dialog.component';
 import {TenantDetailDialogComponent} from '../../dialog/tenant-detail-dialog/tenant-detail-dialog.component';
@@ -140,6 +142,7 @@ export class BuildingGroupDetailComponent extends SubscriptionAwareComponent imp
   }
 
   navigateToAssignTenant(): void {
+    sessionStorage.setItem(ApplicationConstant.SELECT_GROUP_TO_ASSIGN, this.buildingGroup.id as string);
     void this.router.navigate([
       AppRoutingConstants.ENTERPRISE_PATH,
       AppRoutingConstants.NEW_TENANT_PATH,
