@@ -6,10 +6,11 @@
     <div
         actions
         class="flex gap-3"
-        *ngIf="dashboards.length > 0"
     >
         <ng-container *ngTemplateOutlet="addNewDashboard"></ng-container>
-        <ng-container *ngTemplateOutlet="selectDashboards; context: {$implicit: 'hidden lg:flex'}"></ng-container>
+        @if (dashboards.length > 0) {
+            <ng-container *ngTemplateOutlet="selectDashboards; context: {$implicit: 'hidden lg:flex'}"></ng-container>
+        }
     </div>
 
     <ng-container *ngTemplateOutlet="selectDashboards; context: {$implicit: 'flex lg:hidden'}"></ng-container>
@@ -26,15 +27,26 @@
 </master-layout>
 
 <ng-template #noDashboards>
-    <div class="flex h-96 flex-col items-center justify-center gap-4">
-        <i class="pi pi-chart-bar text-2xl"></i>
-        <div class="text-center text-xl font-semibold">
-            {{ 'powerBi.noPowerBi' | translate }}
+    <div class="flex flex-col gap-4 p-8">
+        <!-- Total emissions card -->
+        <div class="p-4">
+            <div class="mb-3 text-lg">{{ 'powerBi.totalEmissions' | translate }}</div>
+            <div class="text-2xl font-bold text-primary">{{ totalEmissions | number: '1.0-0' }} kg CO₂e</div>
         </div>
-        <p class="text-center">
-            {{ 'powerBi.needPowerBi' | translate }}
-        </p>
-        <ng-container *ngTemplateOutlet="addNewDashboard"></ng-container>
+
+        <div class="flex items-center gap-8">
+            <p-chart
+                type="pie"
+                [data]="dataPieArea"
+                [options]="optionsPieOptions"
+            />
+            <p-chart
+                type="bar"
+                class="w-full"
+                [data]="basicData"
+                [options]="basicOptions"
+            />
+        </div>
     </div>
 </ng-template>
 

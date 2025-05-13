@@ -1,6 +1,10 @@
+import {isPlatformBrowser} from '@angular/common';
 import {HttpClient} from '@angular/common/http';
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnDestroy, OnInit, PLATFORM_ID, inject} from '@angular/core';
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
+import {BuildingGhgEmission} from '@generated/models/building-ghg-emission';
+import {DefaultChartView} from '@generated/models/default-chart-view';
+import {DistributionEmissionSource} from '@generated/models/distribution-emission-source';
 import {DialogService, DynamicDialogRef} from 'primeng/dynamicdialog';
 import {SelectChangeEvent} from 'primeng/select';
 import {Observable, filter, switchMap, take, takeUntil, tap} from 'rxjs';
@@ -31,6 +35,56 @@ export class DashboardComponent extends SubscriptionAwareComponent implements On
   selectableDashboards: SelectableItem<EnterpriseDashboardDTO>[] | undefined;
   selectedDashboard: SelectableItem<EnterpriseDashboardDTO> | undefined;
   ref: DynamicDialogRef | undefined;
+
+  platformId = inject(PLATFORM_ID);
+
+  documentStyle = getComputedStyle(document.documentElement);
+  textColor = this.documentStyle.getPropertyValue('--p-text-color');
+  surfaceBorder = this.documentStyle.getPropertyValue('--p-content-border-color');
+  textColorSecondary = this.documentStyle.getPropertyValue('--p-text-muted-color');
+
+  totalEmissions = 0;
+  dataPieArea: any;
+  optionsPieOptions = {
+    plugins: {
+      legend: {
+        labels: {
+          usePointStyle: true,
+          color: this.textColor
+        }
+      }
+    }
+  };
+  basicData: any;
+  basicOptions = {
+    plugins: {
+      legend: {
+        labels: {
+          color: this.textColor
+        }
+      }
+    },
+    scales: {
+      x: {
+        ticks: {
+          color: this.textColorSecondary
+        },
+        grid: {
+          color: this.surfaceBorder
+        }
+      },
+      y: {
+        beginAtZero: true,
+        ticks: {
+          color: this.textColorSecondary
+        },
+        grid: {
+          color: this.surfaceBorder
+        }
+      }
+    }
+  };
+
   protected dashboards: EnterpriseDashboardDTO[] = [];
 
   constructor(
@@ -38,12 +92,14 @@ export class DashboardComponent extends SubscriptionAwareComponent implements On
     private readonly httpClient: HttpClient,
     private readonly dialogService: DialogService,
     private readonly messageService: ToastProvider,
-    public readonly translate: TranslateService
+    public readonly translate: TranslateService,
+    private readonly cd: ChangeDetectorRef
   ) {
     super();
   }
 
   ngOnInit(): void {
+    this.initChart();
     this.getDashboardData()
       .pipe(
         takeUntil(this.destroy$),
@@ -66,6 +122,59 @@ export class DashboardComponent extends SubscriptionAwareComponent implements On
         })
       )
       .subscribe(dashboards => (this.dashboards = dashboards));
+  }
+
+  // eslint-disable-next-line max-lines-per-function
+  initChart(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      this.httpClient
+        .get(`${AppRoutingConstants.ENTERPRISE_API_URL}/dashboards/default`)
+        .subscribe((result: DefaultChartView): void => {
+          this.totalEmissions = result.totalEnterpriseEmissions ?? 0;
+          this.dataPieArea = this.distributionEmissionSourcesToChartData(result.distributionEmissionSources);
+          this.basicData = this.buildingGhgEmissionsToChartData(result.buildingGhgEmissions);
+          this.cd.markForCheck();
+        });
+    }
+  }
+
+  distributionEmissionSourcesToChartData(data?: DistributionEmissionSource[]): any {
+    return {
+      datasets: [
+        {
+          label: 'My dataset',
+          data: data?.map(source => source.totalGhgEmission),
+          backgroundColor: [
+            this.documentStyle.getPropertyValue('--p-primary-500'),
+            this.documentStyle.getPropertyValue('--p-red-500'),
+            this.documentStyle.getPropertyValue('--p-yellow-500'),
+            this.documentStyle.getPropertyValue('--p-sky-500'),
+            this.documentStyle.getPropertyValue('--p-neutral-500')
+          ]
+        }
+      ],
+      labels: data?.map(source => source.sourceName)
+    };
+  }
+
+  buildingGhgEmissionsToChartData(data?: BuildingGhgEmission[]): any {
+    return {
+      labels: data?.map(building => building.buildingName),
+      datasets: [
+        {
+          label: 'Dataset Label',
+          data: data?.map(building => building.totalGhgEmission),
+          backgroundColor: [
+            this.documentStyle.getPropertyValue('--p-primary-500'),
+            this.documentStyle.getPropertyValue('--p-red-500'),
+            this.documentStyle.getPropertyValue('--p-yellow-500'),
+            this.documentStyle.getPropertyValue('--p-sky-500'),
+            this.documentStyle.getPropertyValue('--p-neutral-500')
+          ],
+          borderWidth: 1
+        }
+      ]
+    };
   }
 
   override ngOnDestroy(): void {

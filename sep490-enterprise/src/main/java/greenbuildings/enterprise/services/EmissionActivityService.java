@@ -6,11 +6,14 @@ import greenbuildings.enterprise.dtos.emission_activities.ActivityCriteria;
 import greenbuildings.enterprise.entities.BuildingEntity;
 import greenbuildings.enterprise.entities.EmissionActivityEntity;
 import greenbuildings.enterprise.entities.EmissionFactorEntity;
+import greenbuildings.enterprise.entities.EmissionSourceEntity;
 import greenbuildings.enterprise.models.ActivityRecordDateRange;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
@@ -32,4 +35,10 @@ public interface EmissionActivityService {
     List<EmissionActivityEntity> getAllActivitiesByBuildingId(UUID id);
     
     List<ActivityRecordDateRange> findRecordedDateRangesById(UUID id, UUID excludeRecordId);
+    
+    Map<BuildingEntity, BigDecimal> getTopBuildingsWithHighestEmissions(UUID enterpriseId, int limit);
+    
+    Map<EmissionSourceEntity, BigDecimal> getTopEmissionSourcesWithHighestEmissions(UUID enterpriseId, int limit);
+    
+    BigDecimal calculateTotalEmissions(UUID enterpriseId);
 }
