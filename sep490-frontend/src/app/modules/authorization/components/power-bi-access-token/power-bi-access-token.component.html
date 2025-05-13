@@ -1,10 +1,19 @@
 <master-layout title="sidebar.owner.settings.items.powerBiAccessToken">
-    <div
-        *ngIf="accessTokens.length === 0"
-        subtitle
-    >
-        {{ 'powerBi.accessToken.description' | translate }}
+    <div class="flex w-full items-center justify-between">
+        <div
+            *ngIf="accessTokens.length === 0"
+            subtitle
+        >
+            {{ 'powerBi.accessToken.description' | translate }}
+        </div>
+        <p-button
+            icon="pi pi-question"
+            [rounded]="true"
+            (click)="userGuidePowerBi()"
+            severity="primary"
+        />
     </div>
+
     <div
         *ngIf="accessTokens.length > 0"
         actions

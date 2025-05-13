@@ -147,6 +147,15 @@ export class PowerBiAccessTokenComponent extends SubscriptionAwareComponent impl
       });
   }
 
+  protected userGuidePowerBi(): void {
+    void this.router.navigate([
+      '/',
+      AppRoutingConstants.AUTH_PATH,
+      AppRoutingConstants.SETTINGS,
+      AppRoutingConstants.USER_GUIDE_POWER_BI
+    ]);
+  }
+
   private clearNewestPowerBiAccessToken(): void {
     this.newestCreatedTokenId = null;
     this.newestCreatedTokenKey = null;
