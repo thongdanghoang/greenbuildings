@@ -873,6 +873,7 @@
     "PIECES": "件"
   },
   "powerBi": {
+    "totalEmissions": "总排放量",
     "generatedUrlMessage": "输入访问令牌以生成 Power BI API URL 进行仪表板整合",
     "accessToken": {
       "expiration": {

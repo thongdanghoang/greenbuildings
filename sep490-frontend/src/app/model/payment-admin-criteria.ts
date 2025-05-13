@@ -8,9 +8,6 @@
  * Do not edit the class manually.
  */
 
-export interface CreateBuildingGroupDTO {
-  name?: string;
-  description?: string;
-  buildingId?: string;
-  tenantEmail?: string;
+export interface PaymentAdminCriteria {
+  criteria?: string;
 }

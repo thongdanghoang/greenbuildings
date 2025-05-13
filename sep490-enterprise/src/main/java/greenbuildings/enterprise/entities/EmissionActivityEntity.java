@@ -12,6 +12,7 @@ import jakarta.persistence.NamedEntityGraph;
 import jakarta.persistence.NamedSubgraph;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -21,6 +22,7 @@ import lombok.NonNull;
 import lombok.Setter;
 import lombok.experimental.FieldNameConstants;
 
+import java.math.BigDecimal;
 import java.util.Set;
 
 
@@ -116,4 +118,7 @@ public class EmissionActivityEntity extends AbstractAuditableEntity {
     
     @OneToMany(mappedBy = "emissionActivity", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private Set<EmissionActivityRecordEntity> records = new java.util.HashSet<>();
+    
+    @Transient
+    private BigDecimal totalEmission = BigDecimal.ZERO;
 }

@@ -59,4 +59,12 @@ public interface EmissionActivityRepository extends AbstractBaseRepository<Emiss
     long countByBuildingIdAndBuildingGroupIsNull(UUID buildingId);
     
     long countByBuildingId(UUID buildingId);
+    
+    @Query("""
+                SELECT ea
+                FROM EmissionActivityEntity ea
+                WHERE ea.building.enterprise.id = :enterpriseId
+            """)
+    @EntityGraph(attributePaths = {EmissionActivityEntity.Fields.records})
+    List<EmissionActivityEntity> findAllWithRecords(UUID enterpriseId);
 }

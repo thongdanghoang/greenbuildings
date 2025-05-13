@@ -7,10 +7,9 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import {PaymentEnterpriseAdminDTO} from './payment-enterprise-admin-dto';
 
-export interface CreateBuildingGroupDTO {
-  name?: string;
-  description?: string;
-  buildingId?: string;
-  tenantEmail?: string;
+export interface SearchResultDTOPaymentEnterpriseAdminDTO {
+  results: PaymentEnterpriseAdminDTO[];
+  totalElements?: number;
 }

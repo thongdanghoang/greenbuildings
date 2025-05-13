@@ -7,7 +7,6 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import {BuildingPermissionDTO} from './building-permission-dto';
 
 export interface EnterpriseUserDetailsDTO {
   id?: string;
@@ -18,9 +17,7 @@ export interface EnterpriseUserDetailsDTO {
   emailVerified?: boolean;
   firstName?: string;
   lastName?: string;
-  role: EnterpriseUserDetailsDTO.RoleEnum;
-  scope: EnterpriseUserDetailsDTO.ScopeEnum;
-  buildingPermissions?: BuildingPermissionDTO[];
+  role?: EnterpriseUserDetailsDTO.RoleEnum;
 }
 export namespace EnterpriseUserDetailsDTO {
   export const RoleEnum = {
@@ -30,9 +27,4 @@ export namespace EnterpriseUserDetailsDTO {
     SYSTEM_ADMIN: 'SYSTEM_ADMIN'
   } as const;
   export type RoleEnum = (typeof RoleEnum)[keyof typeof RoleEnum];
-  export const ScopeEnum = {
-    BUILDING: 'BUILDING',
-    ENTERPRISE: 'ENTERPRISE'
-  } as const;
-  export type ScopeEnum = (typeof ScopeEnum)[keyof typeof ScopeEnum];
 }

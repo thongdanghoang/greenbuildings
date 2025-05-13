@@ -1,5 +1,6 @@
 package greenbuildings.enterprise.repositories;
 
+import com.google.common.io.Files;
 import greenbuildings.enterprise.entities.EmissionFactorEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -8,6 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
@@ -78,4 +80,8 @@ public interface EmissionFactorRepository extends JpaRepository<EmissionFactorEn
             AND activity.emissionFactorEntity.active = true
             """)
     List<EmissionFactorEntity> getEmissionFactorsByEnterpriseId(UUID enterpriseId);
+    
+    @EntityGraph(attributePaths = {EmissionFactorEntity.Fields.source})
+    @Query("SELECT e FROM EmissionFactorEntity e WHERE e.id IN :ids")
+    List<EmissionFactorEntity>  findAllByIdIn(Collection<UUID> ids);
 }

@@ -13,7 +13,6 @@ export interface EnterpriseUserDTO {
   name?: string;
   email?: string;
   role: EnterpriseUserDTO.RoleEnum;
-  scope: EnterpriseUserDTO.ScopeEnum;
 }
 export namespace EnterpriseUserDTO {
   export const RoleEnum = {
@@ -23,9 +22,4 @@ export namespace EnterpriseUserDTO {
     SYSTEM_ADMIN: 'SYSTEM_ADMIN'
   } as const;
   export type RoleEnum = (typeof RoleEnum)[keyof typeof RoleEnum];
-  export const ScopeEnum = {
-    BUILDING: 'BUILDING',
-    ENTERPRISE: 'ENTERPRISE'
-  } as const;
-  export type ScopeEnum = (typeof ScopeEnum)[keyof typeof ScopeEnum];
 }

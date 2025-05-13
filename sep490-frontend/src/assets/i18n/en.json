@@ -880,6 +880,7 @@
     "PIECES": "Pieces"
   },
   "powerBi": {
+    "totalEmissions": "Total Emissions",
     "generatedUrlMessage": "Enter your access token to generate the Power BI API URL for dashboard integration",
     "accessToken": {
       "expiration": {

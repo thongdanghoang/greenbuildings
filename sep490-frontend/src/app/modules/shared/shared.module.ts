@@ -14,6 +14,7 @@ import {ButtonModule} from 'primeng/button';
 import {Calendar} from 'primeng/calendar';
 import {CardModule} from 'primeng/card';
 import {CarouselModule} from 'primeng/carousel';
+import {ChartModule} from 'primeng/chart';
 import {CheckboxModule} from 'primeng/checkbox';
 import {ChipModule} from 'primeng/chip';
 import {DatePickerModule} from 'primeng/datepicker';
@@ -79,6 +80,7 @@ const primeNgModules = [
   BadgeModule,
   ButtonModule,
   BlockUIModule,
+  ChartModule,
   CardModule,
   CheckboxModule,
   DatePickerModule,

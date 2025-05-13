@@ -873,6 +873,7 @@
     "PIECES": "Cái: pcs"
   },
   "powerBi": {
+    "totalEmissions": "Tổng phát thải",
     "generatedUrlMessage": "Nhập access token của bạn để tạo URL API Power BI cho tích hợp bảng điều khiển",
     "accessToken": {
       "expiration": {
