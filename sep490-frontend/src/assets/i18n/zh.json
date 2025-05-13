@@ -1125,5 +1125,31 @@
     "address": "地址:",
     "accept": "接受",
     "reject": "拒绝"
+  },
+  "powerBiGuide": {
+    "title": "Power Bi 用户指南",
+    "title1": "1. 生成访问令牌以从Power BI获取数据到网站",
+    "step1": "在菜单中选择Power BI访问令牌项。",
+    "step2": "点击“生成新令牌”按钮：",
+    "step3": "填写令牌名称、到期时间并选择Scope",
+    "step4": "然后点击“生成令牌”以创建访问令牌或“取消”以取消",
+    "step5": "令牌成功创建后，将显示访问令牌。",
+    "example": "示例: c80db031-8424-4d7a-8471-774015818342",
+    "note1": "企业可以删除不再使用的令牌并生成新令牌。",
+    "note2": "然后企业访问链接: https://greenbuildings.cloud/power-bi/apiKey/**",
+    "withApiKey": "其中apiKey是企业刚刚生成的令牌",
+    "exampleLink": "示例: https://greenbuildings.cloud/power-bi/c80db031-8424-4d7a-8471-774015818342/**",
+    "enterpriseAccess": "企业通过选择Home > Get Data > Web访问此链接到Power BI Desktop。",
+    "dataNote": "数据将从网站获取到Power BI，企业可以编辑信息字段以及他们想要的图表。",
+    "title2": "2. 在网站上生成Power BI仪表板",
+    "step6": "企业访问Power BI服务: https://app.powerbi.com",
+    "step7": "企业使用Power BI Desktop账户登录Power BI服务",
+    "step8": "企业选择File > Embed report > Website或portal。",
+    "step9": "Power BI系统将为企业提供iframe HTML代码。",
+    "step10": "企业重新访问网站: https://greenbuildings.cloud/",
+    "step11": "在菜单中选择Dashboard类别",
+    "step12": "企业复制刚从Power BI服务获得的iframe并将其放入GreenBuildings",
+    "step13": "然后，用户点击“提交”按钮，仪表板将被创建",
+    "note3": "注意: 当用户对数据进行任何更改时，仪表板也将根据数据进行更改。"
   }
 }

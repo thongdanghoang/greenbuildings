@@ -7,6 +7,7 @@ import {PowerBiAccessTokenDetailComponent} from './components/power-bi-access-to
 import {PowerBiAccessTokenComponent} from './components/power-bi-access-token/power-bi-access-token.component';
 import {PowerBiRegenerateAccessTokenComponent} from './components/power-bi-regenerate-access-token/power-bi-regenerate-access-token.component';
 import {UsersComponent} from './components/users-management/users.component';
+import {UserGuidePowerBiComponent} from './components/user-guide-power-bi/user-guide-power-bi.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import {UsersComponent} from './components/users-management/users.component';
     UsersComponent,
     PowerBiAccessTokenComponent,
     PowerBiAccessTokenDetailComponent,
-    PowerBiRegenerateAccessTokenComponent
+    PowerBiRegenerateAccessTokenComponent,
+    UserGuidePowerBiComponent
   ],
   imports: [SharedModule, AuthorizationRoutingModule],
   providers: []

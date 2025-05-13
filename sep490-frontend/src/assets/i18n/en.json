@@ -1132,5 +1132,31 @@
     "address": "Address:",
     "accept": "Accept",
     "reject": "Reject"
+  },
+  "powerBiGuide": {
+    "title": "Power Bi User Guide",
+    "title1": "1. Generate Access Token to get data from Power BI to website",
+    "step1": "Select the Power BI Access Token item in the menu.",
+    "step2": "Click \"Generate new token\" button:",
+    "step3": "Fill in Token Name, Expiration and select Scope",
+    "step4": "Then click \"Generate token\" to create access token or \"Cancel\" to cancel",
+    "step5": "After the token is successfully created, the access token will appear.",
+    "example": "Example: c80db031-8424-4d7a-8471-774015818342",
+    "note1": "Enterprise can delete the token if they don't use it and can generate a new one.",
+    "note2": "Then the enterprise accesses the link: https://greenbuildings.cloud/power-bi/apiKey/**",
+    "withApiKey": "With apiKey being the token that the enterprise just generated",
+    "exampleLink": "Example: https://greenbuildings.cloud/power-bi/c80db031-8424-4d7a-8471-774015818342/**",
+    "enterpriseAccess": "Enterprise access this link to Power BI Desktop by selecting Home > Get Data > Web.",
+    "dataNote": "Data will be fetched from the website to power BI and enterprise can edit the information fields as well as the charts they want.",
+    "title2": "2. Generate Dashboard in Power BI in website",
+    "step6": "Business access to Power BI service: https://app.powerbi.com",
+    "step7": "Enterprise log in to Power BI service using Power BI Desktop account",
+    "step8": "Enterprise select File > Embed report > Website or portal.",
+    "step9": "The Power BI system will provide enterprise with a iframe HTML code.",
+    "step10": "Enterprise re-visits website: https://greenbuildings.cloud/",
+    "step11": "Select the Dashboard category in the menu",
+    "step12": "Enterprise copies the iframe just obtained from Power BI Service and puts it into GreenBuildings",
+    "step13": "Then, the user click \"Submit\" button and the Dashboard will be created]",
+    "note3": "Note: When the user makes any changes to the data, the Dashboard will also change according to the data."
   }
 }

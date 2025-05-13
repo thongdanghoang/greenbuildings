@@ -1125,5 +1125,31 @@
     "address": "Địa chỉ:",
     "accept": "Chấp nhận",
     "reject": "Từ chối"
+  },
+  "powerBiGuide": {
+    "title": "Hướng dẫn sử dụng Power Bi",
+    "title1": "1. Tạo Access Token để lấy dữ liệu từ Power BI vào website",
+    "step1": "Chọn mục Power BI Access Token trong menu.",
+    "step2": "Nhấn nút \"Tạo token mới\":",
+    "step3": "Điền Tên Token, Thời hạn và chọn Scope",
+    "step4": "Sau đó nhấn \"Tạo token\" để tạo token truy cập hoặc \"Hủy\" để hủy",
+    "step5": "Sau khi token được tạo thành công, token truy cập sẽ xuất hiện.",
+    "example": "Ví dụ: c80db031-8424-4d7a-8471-774015818342",
+    "note1": "Doanh nghiệp có thể xóa token nếu không sử dụng và tạo token mới.",
+    "note2": "Sau đó doanh nghiệp truy cập liên kết: https://greenbuildings.cloud/power-bi/apiKey/**",
+    "withApiKey": "Với apiKey là token mà doanh nghiệp vừa tạo",
+    "exampleLink": "Ví dụ: https://greenbuildings.cloud/power-bi/c80db031-8424-4d7a-8471-774015818342/**",
+    "enterpriseAccess": "Doanh nghiệp truy cập liên kết này vào Power BI Desktop bằng cách chọn Home > Get Data > Web.",
+    "dataNote": "Dữ liệu sẽ được lấy từ website đến Power BI và doanh nghiệp có thể chỉnh sửa các trường thông tin cũng như các biểu đồ họ muốn.",
+    "title2": "2. Tạo Dashboard trong Power BI trên website",
+    "step6": "Doanh nghiệp truy cập dịch vụ Power BI: https://app.powerbi.com",
+    "step7": "Doanh nghiệp đăng nhập vào dịch vụ Power BI bằng tài khoản Power BI Desktop",
+    "step8": "Doanh nghiệp chọn File > Embed report > Website hoặc portal.",
+    "step9": "Hệ thống Power BI sẽ cung cấp cho doanh nghiệp mã HTML iframe.",
+    "step10": "Doanh nghiệp truy cập lại website: https://greenbuildings.cloud/",
+    "step11": "Chọn danh mục Dashboard trong menu",
+    "step12": "Doanh nghiệp sao chép iframe vừa lấy từ Power BI Service và đặt vào GreenBuildings",
+    "step13": "Sau đó, người dùng nhấn nút \"Submit\" và Dashboard sẽ được tạo",
+    "note3": "Lưu ý: Khi người dùng thay đổi dữ liệu, Dashboard cũng sẽ thay đổi theo dữ liệu."
   }
 }

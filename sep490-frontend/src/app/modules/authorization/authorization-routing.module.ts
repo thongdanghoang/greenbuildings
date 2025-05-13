@@ -7,6 +7,7 @@ import {PowerBiAccessTokenDetailComponent} from './components/power-bi-access-to
 import {PowerBiAccessTokenComponent} from './components/power-bi-access-token/power-bi-access-token.component';
 import {PowerBiRegenerateAccessTokenComponent} from './components/power-bi-regenerate-access-token/power-bi-regenerate-access-token.component';
 import {UsersComponent} from './components/users-management/users.component';
+import {UserGuidePowerBiComponent} from './components/user-guide-power-bi/user-guide-power-bi.component';
 
 const routes: Routes = [
   {
@@ -29,6 +30,10 @@ const routes: Routes = [
           {
             path: `${AppRoutingConstants.POWER_BI_ACCESS_TOKEN}/:id/${AppRoutingConstants.REGENERATE}`,
             component: PowerBiRegenerateAccessTokenComponent
+          },
+          {
+            path: `${AppRoutingConstants.USER_GUIDE_POWER_BI}`,
+            component: UserGuidePowerBiComponent
           }
         ]
       }

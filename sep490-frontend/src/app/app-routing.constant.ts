@@ -16,6 +16,7 @@ export class AppRoutingConstants {
   public static readonly ACCESS_TOKEN = 'tokens';
   public static readonly REGENERATE = 'regenerate';
   public static readonly POWER_BI_ACCESS_TOKEN = `${AppRoutingConstants.POWER_BI}/tokens`;
+  public static readonly USER_GUIDE_POWER_BI = 'user-guide-power-bi';
 
   // Basic User Flow
   public static readonly ACCOUNT_INFO_PATH = 'account-info';
