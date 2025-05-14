@@ -20,6 +20,14 @@ public interface EnergyConversionRepository extends AbstractBaseRepository<Energ
             """
     )
     Page<UUID> findByName(String name, Pageable pageable);
+    
+    @Query("""
+        SELECT e
+        FROM EnergyConversionEntity e
+        JOIN EmissionFactorEntity f on e.id = f.energyConversion.id
+        WHERE f.id = :id
+    """)
+    Optional<EnergyConversionEntity> findByFactorId(UUID id);
 
     @Query("""
             SELECT CASE WHEN COUNT(e) > 0 THEN true ELSE false END

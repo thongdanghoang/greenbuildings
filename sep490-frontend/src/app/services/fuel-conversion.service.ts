@@ -3,6 +3,7 @@ import {Injectable} from '@angular/core';
 import {EnergyConversionDTO} from '@models/shared-models';
 import {SearchCriteriaDto, SearchResultDto} from '@shared/models/base-models';
 import {Observable} from 'rxjs';
+import {UUID} from '../../types/uuid';
 import {AppRoutingConstants} from '../app-routing.constant';
 import {FuelConversionCriteria} from '../modules/admin/components/fuel-conversion/fuel-conversion.component';
 import {ExcelImportDTO} from '@models/enterprise';
@@ -19,6 +20,12 @@ export class FuelConversionService {
     return this.httpClient.post<SearchResultDto<EnergyConversionDTO>>(
       `${AppRoutingConstants.ENTERPRISE_API_URL}/energy-conversion/search`,
       criteria
+    );
+  }
+
+  public getFuelConversionByFactorId(factorId: UUID): Observable<EnergyConversionDTO> {
+    return this.httpClient.get<EnergyConversionDTO>(
+      `${AppRoutingConstants.ENTERPRISE_API_URL}/energy-conversion/find-by-factor/${factorId}`
     );
   }
 

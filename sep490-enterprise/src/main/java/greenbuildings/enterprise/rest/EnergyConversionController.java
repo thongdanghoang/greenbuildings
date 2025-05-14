@@ -44,6 +44,15 @@ public class EnergyConversionController {
                 .orElseThrow();
         return ResponseEntity.ok(energyConversionDTO);
     }
+    
+    @GetMapping("/find-by-factor/{id}")
+    public ResponseEntity<EnergyConversionDTO> findByFactor(@PathVariable UUID id) {
+        EnergyConversionEntity energyConversion = energyConversionService.findByFactorId(id);
+        if (Objects.isNull(energyConversion)) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(energyConversionMapper.toDTO(energyConversion));
+    }
 
     @PostMapping("/search")
     public ResponseEntity<SearchResultDTO<EnergyConversionDTO>> searchFuel(@RequestBody SearchCriteriaDTO<FuelCriteriaDTO> searchCriteria) {
