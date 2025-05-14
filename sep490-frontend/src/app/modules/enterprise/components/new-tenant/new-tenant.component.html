@@ -29,7 +29,10 @@
                 <form-field-error></form-field-error>
             </div>
         </div>
-        <div class="my-3 mb-8 grid grid-cols-12 items-start gap-2 sm:gap-4">
+        <div
+            *ngIf="!preSelected"
+            class="my-3 mb-8 grid grid-cols-12 items-start gap-2 sm:gap-4"
+        >
             <label class="col-span-12 font-normal sm:col-span-3">
                 {{ 'enterprise.buildings.tenant.buildingGroup' | translate }}
             </label>
