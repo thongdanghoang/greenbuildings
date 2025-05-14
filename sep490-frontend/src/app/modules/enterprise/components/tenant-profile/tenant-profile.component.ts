@@ -30,7 +30,9 @@ export class TenantProfileComponent extends AbstractFormComponent<TenantDetailDT
     }),
     hotline: new FormControl<string>('', {
       validators: [Validators.required, Validators.pattern('[0-9]{10}')]
-    })
+    }),
+    address: new FormControl<string>('', Validators.required),
+    taxCode: new FormControl<string>('', Validators.required)
   };
 
   private enterpriseId: UUID | null = null;
@@ -96,6 +98,8 @@ export class TenantProfileComponent extends AbstractFormComponent<TenantDetailDT
         .pipe(takeUntil(this.destroy$))
         .subscribe(tenant => {
           this.formGroup.patchValue(tenant);
+
+          this.tenantStructure.email.disable();
         });
     }
   }

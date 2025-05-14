@@ -4,34 +4,18 @@
         unsavedChanges
         id="tenantProfileForm"
     >
-        <!-- Name -->
-        <div errorMessages>
-            <label
-                for="name"
-                class="block text-sm font-semibold"
-            >
-                {{ 'tenant.profile.name' | translate }} *
-            </label>
-            <div class="p-inputgroup relative w-full">
-                <input
-                    pInputText
-                    id="name"
-                    formControlName="name"
-                    class="p-inputtext w-full rounded-r-md"
-                />
-            </div>
-            <form-field-error></form-field-error>
-        </div>
-
         <!-- Email -->
-        <div errorMessages>
+        <div
+            class="my-3 grid grid-cols-12 items-center gap-2 sm:gap-4"
+            errorMessages
+        >
             <label
                 for="email"
-                class="block text-sm font-semibold"
+                class="col-span-12 font-normal sm:col-span-3"
             >
                 {{ 'tenant.profile.email' | translate }} *
             </label>
-            <div class="p-inputgroup relative w-full">
+            <div class="col-span-12 sm:col-span-9">
                 <input
                     pInputText
                     type="email"
@@ -43,15 +27,84 @@
             <form-field-error></form-field-error>
         </div>
 
+        <!-- Name -->
+        <div
+            class="my-3 grid grid-cols-12 items-center gap-2 sm:gap-4"
+            errorMessages
+        >
+            <label
+                for="name"
+                class="col-span-12 font-normal sm:col-span-3"
+            >
+                {{ 'tenant.profile.name' | translate }} *
+            </label>
+            <div class="col-span-12 sm:col-span-9">
+                <input
+                    pInputText
+                    id="name"
+                    formControlName="name"
+                    class="p-inputtext w-full rounded-r-md"
+                />
+            </div>
+            <form-field-error></form-field-error>
+        </div>
+
+        <div
+            class="my-3 grid grid-cols-12 items-center gap-2 sm:gap-4"
+            errorMessages
+        >
+            <label
+                for="taxCode"
+                class="col-span-12 font-normal sm:col-span-3"
+                >{{ 'enterprise.create.taxCode' | translate }} *</label
+            >
+            <div class="col-span-12 sm:col-span-9">
+                <input
+                    formControlName="taxCode"
+                    class="w-full"
+                    type="text"
+                    id="taxCode"
+                    pInputText
+                    [placeholder]="'enterprise.create.placeholders.enterTaxCode' | translate"
+                />
+                <form-field-error></form-field-error>
+            </div>
+        </div>
+
+        <!-- Address -->
+        <div
+            class="my-3 grid grid-cols-12 items-center gap-2 sm:gap-4"
+            errorMessages
+        >
+            <label
+                for="address"
+                class="col-span-12 font-normal sm:col-span-3"
+                >{{ 'enterprise.create.address' | translate }} *</label
+            >
+            <div class="col-span-12 sm:col-span-9">
+                <input
+                    formControlName="address"
+                    class="w-full"
+                    type="text"
+                    id="address"
+                    pInputText
+                />
+                <form-field-error></form-field-error>
+            </div>
+        </div>
+
         <!-- Hotline -->
-        <div errorMessages>
+        <div
+            class="my-3 grid grid-cols-12 items-center gap-2 sm:gap-4"
+            errorMessages
+        >
             <label
                 for="hotline"
-                class="block text-sm font-semibold"
+                class="col-span-12 font-normal sm:col-span-3"
             >
                 {{ 'tenant.profile.hotline' | translate }} *
             </label>
-            <div class="p-inputgroup relative w-full">
+            <div class="col-span-12 sm:col-span-9">
                 <input
                     pInputText
                     id="hotline"
