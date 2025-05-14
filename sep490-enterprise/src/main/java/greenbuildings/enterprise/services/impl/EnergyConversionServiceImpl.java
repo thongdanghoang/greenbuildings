@@ -226,5 +226,10 @@ public class EnergyConversionServiceImpl implements EnergyConversionService {
         return (ExcelImportFileEntity) excelImportFileRepository.findByType(ImportExcelType.FUEL_CONVERSION).stream().findFirst()
                 .orElseThrow(() -> new BusinessException("business.excel.notFound"));
     }
+    
+    @Override
+    public EnergyConversionEntity findByFactorId(UUID id) {
+        return energyConversionRepository.findByFactorId(id).orElse(null);
+    }
 }
 

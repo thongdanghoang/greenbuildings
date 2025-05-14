@@ -3,6 +3,7 @@ import {Component} from '@angular/core';
 import {AbstractControl, FormBuilder, FormControl, Validators} from '@angular/forms';
 import {DateRangeView} from '@generated/models/date-range-view';
 import {TranslateService} from '@ngx-translate/core';
+import {FuelConversionService} from '@services/fuel-conversion.service';
 import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
 import {takeUntil} from 'rxjs';
 import {EmissionActivityRecord} from '@models/enterprise';
@@ -50,6 +51,7 @@ export class NewActivityRecordDialogComponent extends AbstractFormComponent<Emis
     protected override readonly translate: TranslateService,
     private readonly unitService: UnitService,
     private readonly dialogRef: DynamicDialogRef,
+    private readonly energyService: FuelConversionService,
     private readonly dialogConfig: DynamicDialogConfig<NewActivityRecordDialogConfig>,
     private readonly emissionActivityRecordService: EmissionActivityRecordService
   ) {
@@ -224,15 +226,23 @@ export class NewActivityRecordDialogComponent extends AbstractFormComponent<Emis
   }
 
   private initUnits(): void {
-    let supportedUnits: EmissionUnit[];
-
     if (this.data!.factor.directEmission) {
-      supportedUnits = this.unitService.getSameUnitType(this.data!.factor.emissionUnitDenominator);
+      this.populateUnitOptions(this.data!.factor.emissionUnitDenominator);
     } else {
-      supportedUnits = this.unitService.getSameUnitType(
-        this.data!.factor.energyConversionDTO!.conversionUnitDenominator
-      );
+      if (this.data?.factor.energyConversionDTO) {
+        this.populateUnitOptions(this.data.factor.energyConversionDTO.conversionUnitDenominator);
+      } else {
+        this.energyService.getFuelConversionByFactorId(this.data!.factor.id).subscribe(rs => {
+          this.data!.factor.energyConversionDTO = rs;
+          this.populateUnitOptions(this.data!.factor.energyConversionDTO.conversionUnitDenominator);
+        });
+      }
     }
+  }
+
+  private populateUnitOptions(unit: EmissionUnit): void {
+    let supportedUnits: EmissionUnit[] = [];
+    supportedUnits = this.unitService.getSameUnitType(unit);
     this.unitOptions = supportedUnits.map(unit => ({
       label: this.translate.instant(`unit.${unit}`),
       value: unit

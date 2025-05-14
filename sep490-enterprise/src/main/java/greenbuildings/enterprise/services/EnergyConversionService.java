@@ -20,4 +20,6 @@ public interface EnergyConversionService {
     void importFuelFromExcel(MultipartFile file);
     void uploadExcelToMinio(MultipartFile file);
     ExcelImportFileEntity getExcelImportFile();
+    
+    EnergyConversionEntity findByFactorId(UUID id);
 }

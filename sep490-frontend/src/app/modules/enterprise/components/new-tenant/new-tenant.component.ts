@@ -26,6 +26,7 @@ export class NewTenantComponent
 {
   buildingDetails!: BuildingDetails;
   availableGroups: BuildingGroup[] = [];
+  preSelected: boolean = false;
 
   protected readonly formStructure = {
     buildingId: new FormControl('', [Validators.required]),
@@ -63,6 +64,7 @@ export class NewTenantComponent
             const selectedId = sessionStorage.getItem(ApplicationConstant.SELECT_GROUP_TO_ASSIGN) as UUID;
             if (this.availableGroups.find(group => group.id === selectedId)) {
               this.formStructure.selectedGroupId.setValue(selectedId);
+              this.preSelected = true;
             } else {
               sessionStorage.removeItem(ApplicationConstant.SELECT_GROUP_TO_ASSIGN);
             }

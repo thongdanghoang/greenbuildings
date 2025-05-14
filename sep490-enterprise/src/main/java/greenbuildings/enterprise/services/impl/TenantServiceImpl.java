@@ -52,7 +52,8 @@ public class TenantServiceImpl implements TenantService {
         
         // Update fields from detailDTO
         existingEntity.setName(detailDTO.name());
-        existingEntity.setEmail(detailDTO.email());
+        existingEntity.setAddress(detailDTO.address());
+        existingEntity.setTaxCode(detailDTO.taxCode());
         existingEntity.setHotline(detailDTO.hotline());
         
         // Save and return updated entity
