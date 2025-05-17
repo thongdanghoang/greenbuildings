@@ -136,19 +136,13 @@ export class EmissionsComponent extends SubscriptionAwareComponent implements On
   }
 
   onNewEmissionRecord(rowData: EmissionActivityView): void {
-    this.emissionActivityService
-      .getRecordedDateRanges(rowData.id as UUID)
-      .pipe(
-        switchMap(recordedDateRanges =>
-          this.modalProvider.openDynamicDialog(NewActivityRecordDialogComponent, {
-            buildingId: rowData.building?.id,
-            activityId: rowData.id,
-            factor: rowData.emissionFactor,
-            recordedDateRanges
-          })
-        ),
-        takeUntil(this.destroy$)
-      )
+    this.modalProvider
+      .openDynamicDialog(NewActivityRecordDialogComponent, {
+        buildingId: rowData.building?.id,
+        activityId: rowData.id,
+        factor: rowData.emissionFactor
+      })
+      .pipe(takeUntil(this.destroy$))
       .subscribe(result => {
         if (result) {
           this.searchEvent.emit();
@@ -180,20 +174,14 @@ export class EmissionsComponent extends SubscriptionAwareComponent implements On
   }
 
   openEditRecordDialog(activity: EmissionActivityView, record: EmissionActivityRecordView): void {
-    this.emissionActivityService
-      .getRecordedDateRanges(activity.id as UUID, record.id as UUID)
-      .pipe(
-        switchMap(recordedDateRanges =>
-          this.modalProvider.openDynamicDialog(NewActivityRecordDialogComponent, {
-            buildingId: activity.building?.id,
-            activityId: activity.id,
-            factor: activity.emissionFactor,
-            editRecord: record,
-            recordedDateRanges
-          })
-        ),
-        takeUntil(this.destroy$)
-      )
+    this.modalProvider
+      .openDynamicDialog(NewActivityRecordDialogComponent, {
+        buildingId: activity.building?.id,
+        activityId: activity.id,
+        factor: activity.emissionFactor,
+        editRecord: record
+      })
+      .pipe(takeUntil(this.destroy$))
       .subscribe(result => {
         if (result) {
           this.searchEvent.emit();

@@ -34,7 +34,7 @@ public interface EmissionActivityService {
 
     List<EmissionActivityEntity> getAllActivitiesByBuildingId(UUID id);
     
-    List<ActivityRecordDateRange> findRecordedDateRangesById(UUID id, UUID excludeRecordId);
+    List<ActivityRecordDateRange> findRecordedDateRangesById(UUID id, UUID excludeRecordId, UUID assetId);
     
     Map<BuildingEntity, BigDecimal> getTopBuildingsWithHighestEmissions(List<EmissionActivityEntity> activities, int limit);
     

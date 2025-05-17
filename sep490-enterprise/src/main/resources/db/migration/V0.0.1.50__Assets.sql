@@ -40,3 +40,14 @@ alter table activity_data_record
 alter table activity_data_record
     add foreign key (asset_id) references assets (id);
 CREATE INDEX idx_activity_data_record_asset_id ON activity_data_record (asset_id);
+
+ALTER TABLE activity_data_record
+    DROP CONSTRAINT activity_data_record_no_date_overlap;
+
+ALTER TABLE activity_data_record
+    ADD CONSTRAINT activity_data_record_no_date_overlap
+        EXCLUDE USING gist (
+        emission_activity_id WITH =,
+        (coalesce(asset_id, '00000000-0000-0000-0000-000000000000'::uuid)) WITH =,
+        daterange(start_date, end_date, '[]') WITH &&
+        );

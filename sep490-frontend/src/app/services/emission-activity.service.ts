@@ -37,10 +37,13 @@ export class EmissionActivityService {
     return this.httpClient.get<SelectableItem<UUID>[]>(`${this.URL}/selectable-factors?language=${language}`);
   }
 
-  public getRecordedDateRanges(activityId: UUID, excludeRecordId?: UUID): Observable<DateRangeView[]> {
+  public getRecordedDateRanges(activityId: UUID, excludeRecordId?: UUID, assetId?: UUID): Observable<DateRangeView[]> {
     let url = `${this.URL}/${activityId}/recorded-date-ranges`;
     if (excludeRecordId) {
       url += `?excludeRecordId=${excludeRecordId}`;
+    }
+    if (assetId) {
+      url += `${excludeRecordId ? '&' : '?'}assetId=${assetId}`;
     }
     return this.httpClient.get<DateRangeView[]>(url);
   }

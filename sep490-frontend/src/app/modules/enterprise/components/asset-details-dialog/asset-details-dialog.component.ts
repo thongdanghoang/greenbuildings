@@ -55,13 +55,15 @@ export class AssetDetailsDialogComponent extends AbstractFormComponent<AssetView
       this.assetService
         .getAssetById(this.data.id as UUID)
         .pipe(takeUntil(this.destroy$))
-        .subscribe(asset => {
-          this.formStructure.version.setValue(asset.version ?? 0);
-          this.formStructure.id.setValue(asset.id as UUID);
-          this.formStructure.buildingId.setValue(asset.building?.id as UUID);
-          this.formStructure.name.setValue(asset.name ?? null);
-          this.formStructure.description.setValue(asset.description ?? null);
-        });
+        .subscribe(asset =>
+          this.formGroup.patchValue({
+            version: asset.version ?? 0,
+            id: asset.id,
+            buildingId: asset.building?.id,
+            name: asset.name ?? null,
+            description: asset.description ?? null
+          })
+        );
     }
   }
 

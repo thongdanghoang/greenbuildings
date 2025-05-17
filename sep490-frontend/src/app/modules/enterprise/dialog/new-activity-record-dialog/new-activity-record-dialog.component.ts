@@ -5,6 +5,7 @@ import {EmissionActivityRecord} from '@models/enterprise';
 import {EmissionFactorDTO, EmissionUnit} from '@models/shared-models';
 import {AssetService} from '@services/asset.service';
 import {EmissionActivityRecordService} from '@services/emission-activity-record.service';
+import {EmissionActivityService} from '@services/emission-activity.service';
 import {FuelConversionService} from '@services/fuel-conversion.service';
 import {UnitService} from '@services/unit.service';
 import {AbstractFormComponent} from '@shared/components/form/abstract-form-component';
@@ -18,7 +19,6 @@ export interface NewActivityRecordDialogConfig {
   buildingId?: UUID;
   factor: EmissionFactorDTO;
   editRecord?: EmissionActivityRecord;
-  recordedDateRanges: DateRangeView[];
 }
 
 @Component({
@@ -53,7 +53,8 @@ export class NewActivityRecordDialogComponent extends AbstractFormComponent<Emis
     private readonly energyService: FuelConversionService,
     private readonly dialogConfig: DynamicDialogConfig<NewActivityRecordDialogConfig>,
     private readonly emissionActivityRecordService: EmissionActivityRecordService,
-    private readonly assetService: AssetService
+    private readonly assetService: AssetService,
+    private readonly emissionActivityService: EmissionActivityService
   ) {
     super();
     this.data = this.dialogConfig.data;
@@ -67,7 +68,9 @@ export class NewActivityRecordDialogComponent extends AbstractFormComponent<Emis
     this.initUnits();
     this.handleUpdate();
     this.initFormData();
-    this.disabledDates = this.convertDateRangesToDisabledDates(this.data?.recordedDateRanges ?? []);
+    if (this.data?.activityId) {
+      this.getRecordedDateRanges(this.data.activityId, this.data?.editRecord?.id, this.data?.editRecord?.assetId);
+    }
     this.formStructure.assetId.valueChanges.pipe(takeUntil(this.destroy$)).subscribe(assetId => {
       if (assetId) {
         this.formStructure.quantity.setValue(1);
@@ -75,11 +78,22 @@ export class NewActivityRecordDialogComponent extends AbstractFormComponent<Emis
       } else {
         this.formStructure.quantity.enable();
       }
+      if (this.data?.activityId) {
+        this.getRecordedDateRanges(this.data.activityId, this.data?.editRecord?.id, assetId as UUID);
+      }
     });
     this.assetService
       .selectable(this.data?.buildingId)
       .pipe(takeUntil(this.destroy$))
       .subscribe(assets => (this.selectableAssets = assets));
+  }
+
+  getRecordedDateRanges(activityId: UUID, excludeRecordId?: UUID, assetId?: UUID): void {
+    this.emissionActivityService
+      .getRecordedDateRanges(activityId, excludeRecordId, assetId)
+      .subscribe(
+        recordedDateRanges => (this.disabledDates = this.convertDateRangesToDisabledDates(recordedDateRanges))
+      );
   }
 
   override prepareDataBeforeSubmit(): void {

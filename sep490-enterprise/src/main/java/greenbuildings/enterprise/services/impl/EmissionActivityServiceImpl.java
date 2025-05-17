@@ -106,8 +106,9 @@ public class EmissionActivityServiceImpl implements EmissionActivityService {
             List<SubscriptionEntity> allValidSubscriptions = subscriptionRepository.findAllValidSubscriptions(LocalDate.now(),
                                                                                                               entity.getBuilding().getId());
             long noActivities = emissionActivityRepository.countByBuildingId(entity.getBuilding().getId());
-            if (allValidSubscriptions.isEmpty() || !allValidSubscriptions.get(0).isValid() || noActivities >= allValidSubscriptions.get(0)
-                                                                                                                                   .getMaxNumberOfDevices()) {
+            if (allValidSubscriptions.isEmpty()
+                || !allValidSubscriptions.getFirst().isValid()
+                || noActivities >= allValidSubscriptions.getFirst().getMaxNumberOfDevices()) {
                 throw new BusinessException("maxNumberOfActivities", "validation.subscription.noActivities");
             }
             entity = emissionActivityRepository.save(entity);
@@ -166,8 +167,8 @@ public class EmissionActivityServiceImpl implements EmissionActivityService {
     }
     
     @Override
-    public List<ActivityRecordDateRange> findRecordedDateRangesById(UUID activityId, UUID excludeRecordId) {
-        return emissionActivityRepository.findRecordedDateRangesById(activityId, excludeRecordId);
+    public List<ActivityRecordDateRange> findRecordedDateRangesById(UUID activityId, UUID excludeRecordId, UUID assetId) {
+        return emissionActivityRepository.findRecordedDateRangesById(activityId, excludeRecordId, assetId);
     }
     
     @Override

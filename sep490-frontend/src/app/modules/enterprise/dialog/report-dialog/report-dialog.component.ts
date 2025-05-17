@@ -1,5 +1,5 @@
-import {HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
-import {Component, inject} from '@angular/core';
+import {HttpClient, HttpResponse} from '@angular/common/http';
+import {Component} from '@angular/core';
 import {AbstractControl, FormControl, Validators} from '@angular/forms';
 import {BuildingGroup, DownloadReport} from '@models/enterprise';
 import {BuildingGroupService} from '@services/building-group.service';
@@ -48,16 +48,8 @@ export class ReportDialogComponent extends AbstractFormComponent<DownloadReport>
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars,@typescript-eslint/explicit-function-return-type,max-lines-per-function
   protected override submitForm(_data: DownloadReport | null = null) {
-    return inject(HttpClient)
-      .post<any>(this.submitFormDataUrl(), this.getSubmitFormData(), {
-        headers: new HttpHeaders({
-          // responseType: 'blob',
-          contentType: 'application/json',
-          accept: 'application/octet-stream'
-        }),
-        responseType: 'blob' as 'json',
-        observe: 'response'
-      })
+    return this.buildingService
+      .submitReport(this.getSubmitFormData())
       .pipe(take(1))
       .subscribe(
         (result: HttpResponse<Blob>) => {

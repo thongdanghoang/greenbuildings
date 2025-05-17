@@ -56,8 +56,11 @@ public class EmissionActivityController {
     }
     
     @GetMapping("/{id}/recorded-date-ranges")
-    public ResponseEntity<List<DateRangeView>> getRecordedDateRanges(@PathVariable UUID id, @RequestParam(required = false) UUID excludeRecordId) {
-        return ResponseEntity.ok(mapper.toDateRangeView(emissionActivityService.findRecordedDateRangesById(id, excludeRecordId)));
+    public ResponseEntity<List<DateRangeView>> getRecordedDateRanges(
+            @PathVariable UUID id,
+            @RequestParam(required = false) UUID excludeRecordId,
+            @RequestParam(required = false) UUID assetId) {
+        return ResponseEntity.ok(mapper.toDateRangeView(emissionActivityService.findRecordedDateRangesById(id, excludeRecordId, assetId)));
     }
     
     @PostMapping("/building")

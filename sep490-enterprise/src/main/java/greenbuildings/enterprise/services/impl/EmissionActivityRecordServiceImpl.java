@@ -4,10 +4,12 @@ import greenbuildings.commons.api.dto.SearchCriteriaDTO;
 import greenbuildings.commons.api.exceptions.BusinessException;
 import greenbuildings.commons.api.exceptions.TechnicalException;
 import greenbuildings.enterprise.dtos.EmissionActivityRecordCriteria;
+import greenbuildings.enterprise.entities.AssetEntity;
 import greenbuildings.enterprise.entities.EmissionActivityRecordEntity;
 import greenbuildings.enterprise.entities.RecordFileEntity;
 import greenbuildings.enterprise.repositories.AssetRepository;
 import greenbuildings.enterprise.repositories.EmissionActivityRecordRepository;
+import greenbuildings.enterprise.repositories.EmissionActivityRepository;
 import greenbuildings.enterprise.repositories.RecordFileRepository;
 import greenbuildings.enterprise.services.CalculationService;
 import greenbuildings.enterprise.services.EmissionActivityRecordService;
@@ -25,6 +27,7 @@ import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
@@ -39,6 +42,7 @@ public class EmissionActivityRecordServiceImpl implements EmissionActivityRecord
     private final RecordFileRepository fileRepository;
     private final CalculationService calculationService;
     private final AssetRepository assetRepository;
+    private final EmissionActivityRepository emissionActivityRepository;
     
     @Override
     public Page<EmissionActivityRecordEntity> search(SearchCriteriaDTO<EmissionActivityRecordCriteria> searchCriteria) {
@@ -61,9 +65,10 @@ public class EmissionActivityRecordServiceImpl implements EmissionActivityRecord
             && !assetRepository.existsByIdAndActivityId(record.getAsset().getId(), record.getEmissionActivity().getId())) {
             throw new BusinessException("assetId", "business.record.asset.notFound");
         }
-        if (recordRepository.existsByGroupItemIdAndDateOverlap(
-                record.getId(),
+        if (emissionActivityRepository.existsRecordDateRangesNotOverlap(
                 record.getEmissionActivity().getId(),
+                record.getId(),
+                Optional.ofNullable(record.getAsset()).map(AssetEntity::getId).orElse(null),
                 record.getStartDate(),
                 record.getEndDate())
         ) {

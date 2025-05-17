@@ -11,15 +11,11 @@ import {AbstractFormComponent} from '@shared/components/form/abstract-form-compo
 import {TableTemplateColumn} from '@shared/components/table-template/table-template.component';
 import {SearchCriteriaDto, SearchResultDto} from '@shared/models/base-models';
 import {ModalProvider} from '@shared/services/modal-provider';
-import {DialogService, DynamicDialogConfig} from 'primeng/dynamicdialog';
 import {Observable, Observer, filter, map, of, switchMap, takeUntil} from 'rxjs';
 import {validate} from 'uuid';
 import {UUID} from '../../../../../types/uuid';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
-import {
-  NewActivityRecordDialogComponent,
-  NewActivityRecordDialogConfig
-} from '../../dialog/new-activity-record-dialog/new-activity-record-dialog.component';
+import {NewActivityRecordDialogComponent} from '../../dialog/new-activity-record-dialog/new-activity-record-dialog.component';
 
 @Component({
   selector: 'app-emission-activity-detail',
@@ -83,7 +79,6 @@ export class EmissionActivityDetailComponent extends AbstractFormComponent<Emiss
     private readonly router: Router,
     private readonly emissionActivityService: EmissionActivityService,
     private readonly emissionActivityRecordService: EmissionActivityRecordService,
-    private readonly dialogService: DialogService,
     private readonly activityTypeService: ActivityTypeService,
     private readonly modalProvider: ModalProvider
   ) {
@@ -232,48 +227,32 @@ export class EmissionActivityDetailComponent extends AbstractFormComponent<Emiss
   }
 
   onNewRecord(): void {
-    this.emissionActivityService.getRecordedDateRanges(this.activity.id).subscribe(recordedDateRanges => {
-      const config: DynamicDialogConfig<NewActivityRecordDialogConfig> = {
-        data: {
-          buildingId: this.activity.buildingId,
-          activityId: this.activity.id,
-          factor: this.activity.emissionFactor,
-          recordedDateRanges
-        },
-        closeOnEscape: true,
-        showHeader: false,
-        modal: true
-      };
-      const ref = this.dialogService.open(NewActivityRecordDialogComponent, config);
-      ref.onClose.subscribe(result => {
+    this.modalProvider
+      .openDynamicDialog(NewActivityRecordDialogComponent, {
+        buildingId: this.activity.buildingId,
+        activityId: this.activity.id,
+        factor: this.activity.emissionFactor
+      })
+      .subscribe(result => {
         if (result) {
           this.searchEvent.emit();
         }
       });
-    });
   }
 
   openEditRecordDialog(record: EmissionActivityRecord): void {
-    this.emissionActivityService.getRecordedDateRanges(this.activity.id, record.id).subscribe(recordedDateRanges => {
-      const config: DynamicDialogConfig<NewActivityRecordDialogConfig> = {
-        data: {
-          buildingId: this.activity.buildingId,
-          activityId: this.activity.id,
-          factor: this.activity.emissionFactor,
-          editRecord: record,
-          recordedDateRanges
-        },
-        closeOnEscape: true,
-        showHeader: false,
-        modal: true
-      };
-      const ref = this.dialogService.open(NewActivityRecordDialogComponent, config);
-      ref.onClose.subscribe(result => {
+    this.modalProvider
+      .openDynamicDialog(NewActivityRecordDialogComponent, {
+        buildingId: this.activity.buildingId,
+        activityId: this.activity.id,
+        factor: this.activity.emissionFactor,
+        editRecord: record
+      })
+      .subscribe(result => {
         if (result) {
           this.searchEvent.emit();
         }
       });
-    });
   }
 
   validateAndFetchDetail(): void {
