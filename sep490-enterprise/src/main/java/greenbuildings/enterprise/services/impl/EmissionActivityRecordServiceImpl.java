@@ -1,17 +1,20 @@
 package greenbuildings.enterprise.services.impl;
 
-import commons.springfw.impl.mappers.CommonMapper;
 import greenbuildings.commons.api.dto.SearchCriteriaDTO;
 import greenbuildings.commons.api.exceptions.BusinessException;
 import greenbuildings.commons.api.exceptions.TechnicalException;
 import greenbuildings.enterprise.dtos.EmissionActivityRecordCriteria;
+import greenbuildings.enterprise.entities.AssetEntity;
 import greenbuildings.enterprise.entities.EmissionActivityRecordEntity;
 import greenbuildings.enterprise.entities.RecordFileEntity;
+import greenbuildings.enterprise.repositories.AssetRepository;
 import greenbuildings.enterprise.repositories.EmissionActivityRecordRepository;
+import greenbuildings.enterprise.repositories.EmissionActivityRepository;
 import greenbuildings.enterprise.repositories.RecordFileRepository;
 import greenbuildings.enterprise.services.CalculationService;
 import greenbuildings.enterprise.services.EmissionActivityRecordService;
-import greenbuildings.enterprise.services.MinioService;
+
+import commons.springfw.impl.mappers.CommonMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -23,6 +26,8 @@ import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
@@ -36,6 +41,8 @@ public class EmissionActivityRecordServiceImpl implements EmissionActivityRecord
     private final MinioService minioService;
     private final RecordFileRepository fileRepository;
     private final CalculationService calculationService;
+    private final AssetRepository assetRepository;
+    private final EmissionActivityRepository emissionActivityRepository;
     
     @Override
     public Page<EmissionActivityRecordEntity> search(SearchCriteriaDTO<EmissionActivityRecordCriteria> searchCriteria) {
@@ -54,9 +61,14 @@ public class EmissionActivityRecordServiceImpl implements EmissionActivityRecord
     
     @Override
     public void createWithFile(EmissionActivityRecordEntity record, MultipartFile file) {
-        if (recordRepository.existsByGroupItemIdAndDateOverlap(
-                record.getId(),
+        if (Objects.nonNull(record.getAsset())
+            && !assetRepository.existsByIdAndActivityId(record.getAsset().getId(), record.getEmissionActivity().getId())) {
+            throw new BusinessException("assetId", "business.record.asset.notFound");
+        }
+        if (emissionActivityRepository.existsRecordDateRangesNotOverlap(
                 record.getEmissionActivity().getId(),
+                record.getId(),
+                Optional.ofNullable(record.getAsset()).map(AssetEntity::getId).orElse(null),
                 record.getStartDate(),
                 record.getEndDate())
         ) {

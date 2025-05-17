@@ -1,15 +1,12 @@
-import {HttpClient} from '@angular/common/http';
 import {Component} from '@angular/core';
-import {AbstractControl, FormBuilder, FormControl, Validators} from '@angular/forms';
+import {AbstractControl, FormControl, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import {TranslateService} from '@ngx-translate/core';
+import {CreditPackage} from '@models/enterprise';
+import {PackageCreditService} from '@services/package-credit.service';
+import {AbstractFormComponent} from '@shared/components/form/abstract-form-component';
 import {filter, map, switchMap, takeUntil, tap} from 'rxjs';
 
 import {AppRoutingConstants} from '../../../../app-routing.constant';
-import {CreditPackage} from '../../../../models/enterprise';
-import {AbstractFormComponent} from '../../../shared/components/form/abstract-form-component';
-import {ToastProvider} from '../../../shared/services/toast-provider';
-import {PackageCreditService} from '../../../../services/package-credit.service';
 
 @Component({
   selector: 'app-create-update-package-credit',
@@ -28,15 +25,11 @@ export class CreateUpdatePackageCreditComponent extends AbstractFormComponent<Cr
     })
   };
   constructor(
-    httpClient: HttpClient,
-    formBuilder: FormBuilder,
-    notificationService: ToastProvider,
-    translate: TranslateService,
     protected creditPackageService: PackageCreditService,
     private readonly router: Router,
     private readonly activatedRoute: ActivatedRoute
   ) {
-    super(httpClient, formBuilder, notificationService, translate);
+    super();
   }
 
   back(): void {

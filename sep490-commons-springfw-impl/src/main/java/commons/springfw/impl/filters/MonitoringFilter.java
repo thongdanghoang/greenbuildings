@@ -1,5 +1,7 @@
 package commons.springfw.impl.filters;
 
+import greenbuildings.commons.api.utils.MDCContext;
+
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.GenericFilter;
 import jakarta.servlet.ServletException;
@@ -11,7 +13,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.MDC;
-import greenbuildings.commons.api.utils.MDCContext;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -23,7 +24,7 @@ public class MonitoringFilter extends GenericFilter {
     
     public static final String CORRELATION_ID_HEADER_NAME = "X-Correlation-ID";
     public static final String PROCESSING_TIME_ATTRIBUTE = "processing_time";
-    public static final long MAX_RESPONSE_TIME = 1;
+    public static final long MAX_RESPONSE_TIME = 500;
     
     @Override
     public void doFilter(ServletRequest request,
@@ -37,7 +38,7 @@ public class MonitoringFilter extends GenericFilter {
             } else {
                 MDC.put(MDCContext.CORRELATION_ID, requestingCorrelationId);
             }
-            httpRequest.setAttribute(PROCESSING_TIME_ATTRIBUTE, LocalDateTime.now().toEpochSecond(ZoneOffset.UTC));
+            httpRequest.setAttribute(PROCESSING_TIME_ATTRIBUTE, LocalDateTime.now().toInstant(ZoneOffset.UTC).toEpochMilli());
             
             try {
                 chain.doFilter(request, response);
@@ -59,9 +60,9 @@ public class MonitoringFilter extends GenericFilter {
     
     public static void monitorExecutionTime(long requestingEpochTime, String request) {
         var now = LocalDateTime.now();
-        var executionTime = now.toEpochSecond(ZoneOffset.UTC) - requestingEpochTime;
+        var executionTime = now.toInstant(ZoneOffset.UTC).toEpochMilli() - requestingEpochTime;
         if (executionTime > MAX_RESPONSE_TIME) {
-            log.warn("Request `{}` is processed too long. Execution time: {}s", request, executionTime);
+            log.warn("Request `{}` is processed too long. Execution time: {} ms", request, executionTime);
         }
     }
 }

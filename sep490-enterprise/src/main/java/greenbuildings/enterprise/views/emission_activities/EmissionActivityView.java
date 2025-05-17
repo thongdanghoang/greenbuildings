@@ -70,7 +70,8 @@ public record EmissionActivityView(
             LocalDate startDate,
             LocalDate endDate,
             RecordFileView file,
-            int quantity
+            int quantity,
+            UUID assetId
     ) {
         public record RecordFileView(
                 UUID id,

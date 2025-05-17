@@ -19,6 +19,7 @@ export interface EmissionActivityRecordDTO {
   quantity?: number;
   file?: RecordFileDTO;
   ghg?: number;
+  assetId?: string;
 }
 export namespace EmissionActivityRecordDTO {
   export const UnitEnum = {

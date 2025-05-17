@@ -1,17 +1,13 @@
-import {HttpClient} from '@angular/common/http';
 import {Component} from '@angular/core';
-import {AbstractControl, FormBuilder, FormControl, Validators} from '@angular/forms';
+import {AbstractControl, FormControl, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {TenantDetailDTO} from '@generated/models/tenant-detail-dto';
-import {TranslateService} from '@ngx-translate/core';
+import {ApplicationService} from '@services/application.service';
+import {TenantService} from '@services/tenant.service';
+import {AbstractFormComponent} from '@shared/components/form/abstract-form-component';
 import {takeUntil} from 'rxjs';
 import {UUID} from '../../../../../types/uuid';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
-import {AbstractFormComponent} from '@shared/components/form/abstract-form-component';
-import {ToastProvider} from '@shared/services/toast-provider';
-import {TenantService} from '@services/tenant.service';
-import {Location} from '@angular/common';
-import {ApplicationService} from '@services/application.service';
 
 @Component({
   selector: 'app-tenant-profile',
@@ -38,20 +34,11 @@ export class TenantProfileComponent extends AbstractFormComponent<TenantDetailDT
   private enterpriseId: UUID | null = null;
 
   constructor(
-    httpClient: HttpClient,
-    formBuilder: FormBuilder,
-    notificationService: ToastProvider,
-    translate: TranslateService,
     protected tenantService: TenantService,
     private readonly router: Router,
-    private readonly location: Location,
     private readonly applicationService: ApplicationService
   ) {
-    super(httpClient, formBuilder, notificationService, translate);
-  }
-
-  back(): void {
-    this.location.back();
+    super();
   }
 
   get isEdit(): boolean {

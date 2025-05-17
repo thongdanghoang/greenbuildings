@@ -43,6 +43,7 @@ public interface EmissionActivityMapper {
     
     EmissionActivityView.EmissionActivityBuildingGroupView toEmissionActivityBuildingGroupView(BuildingGroupEntity source);
     
+    @Mapping(target = "assetId", source = "asset.id")
     EmissionActivityView.EmissionActivityRecordView toEmissionActivityRecordView(EmissionActivityRecordEntity source);
     
     @Mapping(source = "source", target = "emissionSourceDTO")

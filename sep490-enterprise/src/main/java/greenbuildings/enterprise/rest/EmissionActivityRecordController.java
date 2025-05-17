@@ -1,6 +1,5 @@
 package greenbuildings.enterprise.rest;
 
-import commons.springfw.impl.mappers.CommonMapper;
 import greenbuildings.commons.api.dto.SearchCriteriaDTO;
 import greenbuildings.commons.api.dto.SearchResultDTO;
 import greenbuildings.enterprise.dtos.EmissionActivityRecordCriteria;
@@ -9,7 +8,9 @@ import greenbuildings.enterprise.dtos.NewEmissionActivityRecordDTO;
 import greenbuildings.enterprise.entities.EmissionActivityRecordEntity;
 import greenbuildings.enterprise.mappers.EmissionActivityRecordMapper;
 import greenbuildings.enterprise.services.EmissionActivityRecordService;
-import greenbuildings.enterprise.services.MinioService;
+import greenbuildings.enterprise.services.impl.MinioService;
+
+import commons.springfw.impl.mappers.CommonMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
@@ -39,8 +40,8 @@ public class EmissionActivityRecordController {
     @PostMapping("/search")
     public ResponseEntity<SearchResultDTO<EmissionActivityRecordDTO>> findAllByCriteria(
             @RequestBody SearchCriteriaDTO<EmissionActivityRecordCriteria> criteria) {
-        Page<EmissionActivityRecordEntity> list = recordService.search(criteria);
-        return ResponseEntity.ok(CommonMapper.toSearchResultDTO(list, recordMapper::toDTO));
+        var records = recordService.search(criteria);
+        return ResponseEntity.ok(CommonMapper.toSearchResultDTO(records, recordMapper::toDTO));
     }
     
     @PostMapping

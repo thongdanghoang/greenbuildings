@@ -1,6 +1,7 @@
-package greenbuildings.enterprise.services;
+package greenbuildings.enterprise.services.impl;
 
 import greenbuildings.commons.api.exceptions.TechnicalException;
+
 import io.minio.BucketExistsArgs;
 import io.minio.GetObjectArgs;
 import io.minio.GetPresignedObjectUrlArgs;

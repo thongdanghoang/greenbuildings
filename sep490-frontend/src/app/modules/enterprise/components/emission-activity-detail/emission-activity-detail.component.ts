@@ -1,10 +1,8 @@
-import {HttpClient} from '@angular/common/http';
 import {Component, EventEmitter, OnInit, TemplateRef, ViewChild} from '@angular/core';
-import {AbstractControl, FormBuilder, FormControl, Validators} from '@angular/forms';
+import {AbstractControl, FormControl, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {EmissionActivityRecordCriteria} from '@models/emission-activity-record';
 import {ActivityType, EmissionActivityDetails, EmissionActivityRecord} from '@models/enterprise';
-import {TranslateService} from '@ngx-translate/core';
 import {ActivityTypeService} from '@services/activity-type.service';
 import {ApplicationService} from '@services/application.service';
 import {EmissionActivityRecordService} from '@services/emission-activity-record.service';
@@ -13,16 +11,11 @@ import {AbstractFormComponent} from '@shared/components/form/abstract-form-compo
 import {TableTemplateColumn} from '@shared/components/table-template/table-template.component';
 import {SearchCriteriaDto, SearchResultDto} from '@shared/models/base-models';
 import {ModalProvider} from '@shared/services/modal-provider';
-import {ToastProvider} from '@shared/services/toast-provider';
-import {DialogService, DynamicDialogConfig} from 'primeng/dynamicdialog';
 import {Observable, Observer, filter, map, of, switchMap, takeUntil} from 'rxjs';
 import {validate} from 'uuid';
 import {UUID} from '../../../../../types/uuid';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
-import {
-  NewActivityRecordDialogComponent,
-  NewActivityRecordDialogConfig
-} from '../../dialog/new-activity-record-dialog/new-activity-record-dialog.component';
+import {NewActivityRecordDialogComponent} from '../../dialog/new-activity-record-dialog/new-activity-record-dialog.component';
 
 @Component({
   selector: 'app-emission-activity-detail',
@@ -81,20 +74,15 @@ export class EmissionActivityDetailComponent extends AbstractFormComponent<Emiss
   };
 
   constructor(
-    protected override readonly httpClient: HttpClient,
-    protected override readonly formBuilder: FormBuilder,
-    protected override readonly notificationService: ToastProvider,
-    protected override readonly translate: TranslateService,
     protected readonly applicationService: ApplicationService,
     private readonly route: ActivatedRoute,
     private readonly router: Router,
     private readonly emissionActivityService: EmissionActivityService,
     private readonly emissionActivityRecordService: EmissionActivityRecordService,
-    private readonly dialogService: DialogService,
     private readonly activityTypeService: ActivityTypeService,
     private readonly modalProvider: ModalProvider
   ) {
-    super(httpClient, formBuilder, notificationService, translate);
+    super();
   }
 
   override ngOnInit(): void {
@@ -239,46 +227,32 @@ export class EmissionActivityDetailComponent extends AbstractFormComponent<Emiss
   }
 
   onNewRecord(): void {
-    this.emissionActivityService.getRecordedDateRanges(this.activity.id).subscribe(recordedDateRanges => {
-      const config: DynamicDialogConfig<NewActivityRecordDialogConfig> = {
-        data: {
-          activityId: this.activity.id,
-          factor: this.activity.emissionFactor,
-          recordedDateRanges
-        },
-        closeOnEscape: true,
-        showHeader: false,
-        modal: true
-      };
-      const ref = this.dialogService.open(NewActivityRecordDialogComponent, config);
-      ref.onClose.subscribe(result => {
+    this.modalProvider
+      .openDynamicDialog(NewActivityRecordDialogComponent, {
+        buildingId: this.activity.buildingId,
+        activityId: this.activity.id,
+        factor: this.activity.emissionFactor
+      })
+      .subscribe(result => {
         if (result) {
           this.searchEvent.emit();
         }
       });
-    });
   }
 
   openEditRecordDialog(record: EmissionActivityRecord): void {
-    this.emissionActivityService.getRecordedDateRanges(this.activity.id, record.id).subscribe(recordedDateRanges => {
-      const config: DynamicDialogConfig<NewActivityRecordDialogConfig> = {
-        data: {
-          activityId: this.activity.id,
-          factor: this.activity.emissionFactor,
-          editRecord: record,
-          recordedDateRanges
-        },
-        closeOnEscape: true,
-        showHeader: false,
-        modal: true
-      };
-      const ref = this.dialogService.open(NewActivityRecordDialogComponent, config);
-      ref.onClose.subscribe(result => {
+    this.modalProvider
+      .openDynamicDialog(NewActivityRecordDialogComponent, {
+        buildingId: this.activity.buildingId,
+        activityId: this.activity.id,
+        factor: this.activity.emissionFactor,
+        editRecord: record
+      })
+      .subscribe(result => {
         if (result) {
           this.searchEvent.emit();
         }
       });
-    });
   }
 
   validateAndFetchDetail(): void {

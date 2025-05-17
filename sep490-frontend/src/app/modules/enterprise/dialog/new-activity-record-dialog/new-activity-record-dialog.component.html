@@ -1,16 +1,16 @@
-<div class="max-w-sm p-4 sm:max-w-md md:min-w-[500px]">
-    <div class="mb-4 flex items-center justify-between">
+<div class="max-w-sm space-y-4 p-4 sm:max-w-md md:min-w-[500px]">
+    <div class="flex items-center justify-between">
         <h2 class="text-xl font-semibold">
             {{ 'enterprise.emission.activity.record.new' | translate }}
         </h2>
-        <button
-            pButton
+        <p-button
             icon="pi pi-times"
-            class="p-button-rounded p-button-text"
+            text
+            rounded
             (click)="onCancel()"
-        ></button>
+        ></p-button>
     </div>
-    <div class="grid grid-cols-1 gap-4">
+    <div class="grid grid-cols-1 gap-2">
         <p-iftalabel class="col-span-1 my-2">
             <input
                 pInputText
@@ -37,6 +37,17 @@
         (ngSubmit)="submit()"
         class="grid grid-cols-1 gap-4 md:grid-cols-1"
     >
+        <p-iftalabel>
+            <p-select
+                [options]="selectableAssets"
+                formControlName="assetId"
+                optionLabel="label"
+                optionValue="value"
+                class="w-full"
+                [showClear]="true"
+            />
+            <label>{{ 'enterprise.emission.activity.record.table.asset' | translate }}</label>
+        </p-iftalabel>
         <p-iftalabel class="my-2">
             <p-inputnumber
                 formControlName="quantity"

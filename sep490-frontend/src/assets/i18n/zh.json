@@ -1152,5 +1152,32 @@
     "step12": "企业复制刚从Power BI服务获得的iframe并将其放入GreenBuildings",
     "step13": "然后，用户点击“提交”按钮，仪表板将被创建",
     "note3": "注意: 当用户对数据进行任何更改时，仪表板也将根据数据进行更改。"
+  },
+  "assets": {
+    "title": "资产",
+    "subtitle": "副标题",
+    "btn": {
+      "new": "添加资产"
+    },
+    "table": {
+      "header": {
+        "name": "名称",
+        "description": "描述",
+        "building": {
+          "name": "建筑物名称"
+        }
+      }
+    },
+    "details": {
+      "dialog": {
+        "title": {
+          "edit": "编辑",
+          "new": "新建资产"
+        },
+        "name": "名称",
+        "description": "描述",
+        "building": "建筑物"
+      }
+    }
   }
 }

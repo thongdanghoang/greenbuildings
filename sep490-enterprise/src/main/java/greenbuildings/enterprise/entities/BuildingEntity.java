@@ -20,6 +20,7 @@ import org.hibernate.annotations.SoftDelete;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 @Entity
 @Table(name = "buildings")
@@ -41,13 +42,13 @@ public class BuildingEntity extends AbstractAuditableEntity {
     @NotBlank
     @Column(name = "address", nullable = false)
     private String address;
-
+    
     @Column(name = "number_of_levels")
     private int numberOfLevels;
-
+    
     @Column(name = "area")
     private double area;
-
+    
     @DecimalMin("-90.0")
     @DecimalMax("90.0")
     @Column(name = "latitude")
@@ -67,4 +68,9 @@ public class BuildingEntity extends AbstractAuditableEntity {
     @OneToMany(mappedBy = "building")
     private Set<ActivityTypeEntity> activityTypes = new HashSet<>();
     
+    public static BuildingEntity of(UUID id) {
+        var building = new BuildingEntity();
+        building.setId(id);
+        return building;
+    }
 }

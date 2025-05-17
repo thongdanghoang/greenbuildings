@@ -1152,5 +1152,32 @@
     "step12": "Doanh nghiệp sao chép iframe vừa lấy từ Power BI Service và đặt vào GreenBuildings",
     "step13": "Sau đó, người dùng nhấn nút \"Submit\" và Dashboard sẽ được tạo",
     "note3": "Lưu ý: Khi người dùng thay đổi dữ liệu, Dashboard cũng sẽ thay đổi theo dữ liệu."
+  },
+  "assets": {
+    "title": "Tài sản",
+    "subtitle": "Tiêu đề phụ",
+    "btn": {
+      "new": "Thêm tài sản"
+    },
+    "table": {
+      "header": {
+        "name": "Tên",
+        "description": "Mô tả",
+        "building": {
+          "name": "Tên tòa nhà"
+        }
+      }
+    },
+    "details": {
+      "dialog": {
+        "title": {
+          "edit": "Chỉnh sửa",
+          "new": "Tài sản mới"
+        },
+        "name": "Tên",
+        "description": "Mô tả",
+        "building": "Tòa nhà"
+      }
+    }
   }
 }

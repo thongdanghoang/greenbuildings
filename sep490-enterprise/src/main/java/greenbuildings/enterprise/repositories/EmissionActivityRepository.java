@@ -1,8 +1,9 @@
 package greenbuildings.enterprise.repositories;
 
-import commons.springfw.impl.repositories.AbstractBaseRepository;
 import greenbuildings.enterprise.entities.EmissionActivityEntity;
 import greenbuildings.enterprise.models.ActivityRecordDateRange;
+
+import commons.springfw.impl.repositories.AbstractBaseRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -11,6 +12,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -28,10 +30,25 @@ public interface EmissionActivityRepository extends AbstractBaseRepository<Emiss
             SELECT new greenbuildings.enterprise.models.ActivityRecordDateRange(r.startDate, r.endDate)
             FROM EmissionActivityEntity ea
             JOIN ea.records r
+            LEFT JOIN r.asset a
             WHERE ea.id = :activityId
+            AND ((:assetId IS NOT NULL AND a.id = :assetId) OR (:assetId IS NULL AND a.id IS NULL))
             AND (:excludeRecordId IS NULL OR r.id <> :excludeRecordId)
             """)
-    List<ActivityRecordDateRange> findRecordedDateRangesById(UUID activityId, UUID excludeRecordId);
+    List<ActivityRecordDateRange> findRecordedDateRangesById(UUID activityId, UUID excludeRecordId, UUID assetId);
+    
+    @Query("""
+            SELECT CASE WHEN COUNT(r) > 0 THEN true ELSE false END
+            FROM EmissionActivityEntity ea
+            JOIN ea.records r
+            LEFT JOIN r.asset a
+            WHERE ea.id = :activityId
+            AND ((:assetId IS NOT NULL AND a.id = :assetId) OR (:assetId IS NULL AND a.id IS NULL))
+            AND (:excludeRecordId IS NULL OR r.id <> :excludeRecordId)
+            AND r.startDate <= :endDate
+            AND r.endDate >= :startDate
+            """)
+    boolean existsRecordDateRangesNotOverlap(UUID activityId, UUID excludeRecordId, UUID assetId, LocalDate startDate, LocalDate endDate);
     
     List<EmissionActivityEntity> findByBuildingGroupId(UUID id);
     

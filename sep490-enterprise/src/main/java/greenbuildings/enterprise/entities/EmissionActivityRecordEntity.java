@@ -29,6 +29,10 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class EmissionActivityRecordEntity extends AbstractAuditableEntity {
     
+    @ManyToOne
+    @JoinColumn(name = "asset_id")
+    private AssetEntity asset;
+    
     @NotNull
     @Min(0)
     @Column(name = "value")

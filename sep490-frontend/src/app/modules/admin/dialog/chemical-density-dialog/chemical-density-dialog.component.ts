@@ -1,13 +1,10 @@
-import {HttpClient} from '@angular/common/http';
 import {Component} from '@angular/core';
-import {AbstractControl, FormBuilder, FormControl, Validators} from '@angular/forms';
-import {TranslateService} from '@ngx-translate/core';
+import {AbstractControl, FormControl, Validators} from '@angular/forms';
 import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
 import {UUID} from '../../../../../types/uuid';
-import {AbstractFormComponent} from '../../../shared/components/form/abstract-form-component';
 import {ChemicalDensityDTO, EmissionUnit} from '../../../../models/shared-models';
-import {ToastProvider} from '../../../shared/services/toast-provider';
 import {ChemicalDensityService} from '../../../../services/chemical-density.service';
+import {AbstractFormComponent} from '../../../shared/components/form/abstract-form-component';
 
 @Component({
   selector: 'app-chemical-density-dialog',
@@ -29,15 +26,11 @@ export class ChemicalDensityDialogComponent extends AbstractFormComponent<Chemic
   };
 
   constructor(
-    httpClient: HttpClient,
-    formBuilder: FormBuilder,
-    notificationService: ToastProvider,
-    translate: TranslateService,
     private readonly chemicalDensityService: ChemicalDensityService,
     private readonly ref: DynamicDialogRef,
     public config: DynamicDialogConfig<UUID>
   ) {
-    super(httpClient, formBuilder, notificationService, translate);
+    super();
   }
 
   get isEdit(): boolean {

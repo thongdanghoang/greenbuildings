@@ -17,6 +17,7 @@ export interface NewEmissionActivityRecordDTO {
   endDate?: string;
   quantity?: number;
   activityId: string;
+  assetId?: string;
 }
 export namespace NewEmissionActivityRecordDTO {
   export const UnitEnum = {

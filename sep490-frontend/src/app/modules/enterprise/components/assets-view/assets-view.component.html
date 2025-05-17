@@ -1,0 +1,62 @@
+<master-layout title="assets.title">
+    <div subtitle>{{ 'assets.subtitle' | translate }}</div>
+
+    <div
+        class=""
+        actions
+    >
+        <ng-container
+            *ngTemplateOutlet="addAssetsBtn; context: {styleClass: 'block lg:hidden', mobile: true}"
+        ></ng-container>
+        <ng-container
+            *ngTemplateOutlet="addAssetsBtn; context: {styleClass: 'hidden lg:block', mobile: false}"
+        ></ng-container>
+    </div>
+
+    <table-template
+        [fetch]="search"
+        [columns]="cols"
+        [triggerSearch]="searchEvent"
+    />
+</master-layout>
+
+<ng-template
+    #addAssetsBtn
+    let-styleClass="styleClass"
+    let-mobile="mobile"
+>
+    <p-button
+        [class]="styleClass"
+        [label]="mobile ? '' : ('assets.btn.new' | translate)"
+        icon="pi pi-plus"
+        severity="primary"
+        (onClick)="openNewAssetDialog()"
+    ></p-button>
+</ng-template>
+
+<ng-template
+    #buildingTemplate
+    let-rowData
+>
+    {{ rowData.building?.name }}
+</ng-template>
+
+<ng-template
+    #assetColActions
+    let-rowData
+>
+    <div class="flex">
+        <p-button
+            icon="pi pi-pencil"
+            text
+            severity="contrast"
+            (onClick)="openEditAsset(rowData.id)"
+        />
+        <p-button
+            icon="pi pi-trash"
+            severity="danger"
+            [text]="true"
+            (onClick)="onDeleteAsset(rowData.id)"
+        />
+    </div>
+</ng-template>

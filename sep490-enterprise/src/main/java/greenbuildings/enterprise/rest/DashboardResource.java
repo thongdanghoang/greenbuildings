@@ -1,6 +1,5 @@
 package greenbuildings.enterprise.rest;
 
-import commons.springfw.impl.securities.UserContextData;
 import greenbuildings.commons.api.security.UserRole;
 import greenbuildings.enterprise.dtos.dashboard.EnterpriseDashboardDTO;
 import greenbuildings.enterprise.mappers.EnterpriseDashboardMapper;
@@ -10,6 +9,8 @@ import greenbuildings.enterprise.services.EnterpriseService;
 import greenbuildings.enterprise.views.dashboard.BuildingGhgEmission;
 import greenbuildings.enterprise.views.dashboard.DefaultChartView;
 import greenbuildings.enterprise.views.dashboard.DistributionEmissionSource;
+
+import commons.springfw.impl.securities.UserContextData;
 import jakarta.annotation.security.RolesAllowed;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.task.TaskExecutor;
@@ -49,24 +50,25 @@ public class DashboardResource {
     @GetMapping("/default")
     public ResponseEntity<DefaultChartView> getDefault(@AuthenticationPrincipal UserContextData userContextData) {
         var enterpriseId = userContextData.getEnterpriseId().orElseThrow();
+        var entities = emissionActivityService.calculationActivitiesTotalGhg(enterpriseId);
         
         // Fire off concurrent tasks
         var sourcesF = CompletableFuture
                 .supplyAsync(() -> emissionActivityService
-                        .getTopEmissionSourcesWithHighestEmissions(enterpriseId, 5), taskExecutor)
+                        .getTopEmissionSourcesWithHighestEmissions(entities, 5), taskExecutor)
                 .thenApply(map -> map.entrySet().stream()
                                      .map(e -> new DistributionEmissionSource(e.getKey().getNameVN(), e.getValue().setScale(0, RoundingMode.DOWN)))
                                      .toList());
         
         var buildingsF = CompletableFuture
                 .supplyAsync(() -> emissionActivityService
-                        .getTopBuildingsWithHighestEmissions(enterpriseId, 5), taskExecutor)
+                        .getTopBuildingsWithHighestEmissions(entities, 5), taskExecutor)
                 .thenApply(map -> map.entrySet().stream()
                                      .map(e -> new BuildingGhgEmission(e.getKey().getName(), e.getValue().setScale(0, RoundingMode.DOWN)))
                                      .toList());
         
         var totalF = CompletableFuture
-                .supplyAsync(() -> emissionActivityService.calculateTotalEmissions(enterpriseId).setScale(0, RoundingMode.DOWN), taskExecutor);
+                .supplyAsync(() -> emissionActivityService.calculateTotalEmissions(entities).setScale(0, RoundingMode.DOWN), taskExecutor);
         
         // Wait for all to finish
         CompletableFuture.allOf(sourcesF, buildingsF, totalF).join();

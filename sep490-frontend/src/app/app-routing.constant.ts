@@ -41,6 +41,8 @@ export class AppRoutingConstants {
   public static readonly NEW_GROUP_PATH = 'new-group';
   public static readonly ACTIVITY_TYPE = 'activity-type';
   public static readonly ENTERPRISE_PROFILE = 'enterprise-profile';
+  public static readonly ASSET_MANAGEMENT = 'assets';
+
   // Emissions Module
   public static readonly EMISSIONS_PATH = 'emissions';
 

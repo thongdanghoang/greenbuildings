@@ -1,13 +1,10 @@
-import {HttpClient} from '@angular/common/http';
 import {Component} from '@angular/core';
-import {AbstractControl, FormBuilder, FormControl, Validators} from '@angular/forms';
-import {TranslateService} from '@ngx-translate/core';
+import {AbstractControl, FormControl, Validators} from '@angular/forms';
+import {EmissionFactorDTO} from '@models/shared-models';
+import {EmissionFactorService} from '@services/emission_factor.service';
+import {AbstractFormComponent} from '@shared/components/form/abstract-form-component';
 import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
 import {UUID} from '../../../../../types/uuid';
-import {AbstractFormComponent} from '../../../shared/components/form/abstract-form-component';
-import {EmissionFactorDTO} from '../../../../models/shared-models';
-import {ToastProvider} from '../../../shared/services/toast-provider';
-import {EmissionFactorService} from '../../../../services/emission_factor.service';
 
 @Component({
   selector: 'app-emission-factor-dialog',
@@ -36,15 +33,11 @@ export class EmissionFactorDialogComponent extends AbstractFormComponent<Emissio
   };
 
   constructor(
-    httpClient: HttpClient,
-    formBuilder: FormBuilder,
-    notificationService: ToastProvider,
-    translate: TranslateService,
     private readonly emissionFactorService: EmissionFactorService,
     private readonly ref: DynamicDialogRef,
     public config: DynamicDialogConfig<UUID>
   ) {
-    super(httpClient, formBuilder, notificationService, translate);
+    super();
   }
 
   protected initializeData(): void {

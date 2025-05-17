@@ -1,4 +1,4 @@
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {SearchCriteriaDTOSearchTenantCriteria} from '@generated/models/search-criteria-dto-search-tenant-criteria';
 import {TenantView} from '@generated/models/tenant-view';
@@ -59,5 +59,17 @@ export class BuildingService {
 
   getBuildingOverview(id: UUID): Observable<OverviewBuildingDTO> {
     return this.httpClient.get<OverviewBuildingDTO>(`${this.BUILDINGS_URL}/${id}/overview`);
+  }
+
+  submitReport(data: any): Observable<any> {
+    return this.httpClient.post<any>(this.generateReportUrl, data, {
+      headers: new HttpHeaders({
+        // responseType: 'blob',
+        contentType: 'application/json',
+        accept: 'application/octet-stream'
+      }),
+      responseType: 'blob' as 'json',
+      observe: 'response'
+    });
   }
 }

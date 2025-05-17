@@ -1,7 +1,8 @@
 package greenbuildings.enterprise.entities;
 
-import commons.springfw.impl.entities.AbstractAuditableEntity;
 import greenbuildings.commons.api.utils.CommonConstant;
+
+import commons.springfw.impl.entities.AbstractAuditableEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
@@ -9,28 +10,23 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldNameConstants;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 @Entity
 @Table(name = "tenant")
 @Getter
 @Setter
-@NoArgsConstructor
-@RequiredArgsConstructor
 @FieldNameConstants
 public class TenantEntity extends AbstractAuditableEntity {
     
     @OneToMany(mappedBy = "tenant")
     private Set<BuildingGroupEntity> buildingGroups = new HashSet<>();
     
-    @NonNull
     @NotBlank
     @Column(name = "name")
     private String name;
@@ -40,24 +36,20 @@ public class TenantEntity extends AbstractAuditableEntity {
     @Column(name = "email")
     private String email;
     
-    @NonNull
     @NotBlank
     @Column(name = "address")
     private String address;
     
-    @NonNull
     @NotBlank
     @Pattern(regexp = CommonConstant.VIETNAM_PHONE_PATTERN)
     @Column(name = "hotline")
     private String hotline;
     
-    @NonNull
     @NotBlank
-    @Column(name = "tax_code")
     @Pattern(regexp = CommonConstant.VIETNAME_TAX_CODE)
+    @Column(name = "tax_code")
     private String taxCode;
     
-    @NonNull
     @NotBlank
     @Column(name = "business_license_image_url")
     private String businessLicenseImageUrl;
@@ -70,5 +62,10 @@ public class TenantEntity extends AbstractAuditableEntity {
     
     @Column(name = "representative_contact")
     private String representativeContact;
-
+    
+    public static TenantEntity of(UUID id) {
+        TenantEntity tenant = new TenantEntity();
+        tenant.setId(id);
+        return tenant;
+    }
 }

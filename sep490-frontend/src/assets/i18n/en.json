@@ -1159,5 +1159,32 @@
     "step12": "Enterprise copies the iframe just obtained from Power BI Service and puts it into GreenBuildings",
     "step13": "Then, the user click \"Submit\" button and the Dashboard will be created]",
     "note3": "Note: When the user makes any changes to the data, the Dashboard will also change according to the data."
+  },
+  "assets": {
+    "title": "Assets",
+    "subtitle": "Subtitle",
+    "btn": {
+      "new": "New asset"
+    },
+    "table": {
+      "header": {
+        "name": "Name",
+        "description": "Description",
+        "building": {
+          "name": "Building name"
+        }
+      }
+    },
+    "details": {
+      "dialog": {
+        "title": {
+          "edit": "Edit asset",
+          "new": "New asset"
+        },
+        "name": "Name",
+        "description": "Description",
+        "building": "Building"
+      }
+    }
   }
 }

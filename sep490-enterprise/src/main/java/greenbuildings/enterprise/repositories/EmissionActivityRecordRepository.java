@@ -1,6 +1,7 @@
 package greenbuildings.enterprise.repositories;
 
 import greenbuildings.enterprise.entities.EmissionActivityRecordEntity;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -23,20 +24,15 @@ public interface EmissionActivityRecordRepository
     List<EmissionActivityRecordEntity> findAllByIdIn(Set<UUID> ids);
     
     @Query("""
-        SELECT r
-        FROM EmissionActivityRecordEntity r
-        WHERE r.emissionActivity.id = :activityId
-        AND r.startDate <= :endDate
-        AND r.endDate >= :startDate
-    """)
+                SELECT r
+                FROM EmissionActivityRecordEntity r
+                WHERE r.emissionActivity.id = :activityId
+                AND r.startDate <= :endDate
+                AND r.endDate >= :startDate
+            """)
     List<EmissionActivityRecordEntity> findAllByEmissionActivityIdAndDateRangeExclusive(UUID activityId, LocalDate startDate, LocalDate endDate);
     
-    @Query("""
-                SELECT CASE WHEN COUNT(e) > 0 THEN true ELSE false END
-                FROM EmissionActivityRecordEntity e
-                WHERE e.emissionActivity.id = :emissionActivityId
-                AND ((e.startDate <= :endDate AND e.endDate >= :startDate))
-                AND (:id IS NULL OR e.id <> :id)
-            """)
-    boolean existsByGroupItemIdAndDateOverlap(UUID id, UUID emissionActivityId, LocalDate startDate, LocalDate endDate);
+    List<EmissionActivityRecordEntity> findAllByAssetId(UUID assetId);
+    
+    boolean existsByAssetId(UUID assetId);
 }

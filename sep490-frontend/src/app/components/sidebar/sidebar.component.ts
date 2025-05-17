@@ -73,6 +73,11 @@ export class SidebarComponent extends SubscriptionAwareComponent implements OnIn
             label: 'sidebar.basicUser.invitation',
             icon: 'pi pi-envelope',
             route: `/${AppRoutingConstants.ENTERPRISE_PATH}/${AppRoutingConstants.INVITATION_PATH}`
+          },
+          {
+            label: 'assets.title',
+            icon: 'pi pi-warehouse',
+            route: `/${AppRoutingConstants.ENTERPRISE_PATH}/${AppRoutingConstants.ASSET_MANAGEMENT}`
           }
         ]
       }
@@ -99,6 +104,11 @@ export class SidebarComponent extends SubscriptionAwareComponent implements OnIn
             label: 'sidebar.owner.building',
             icon: 'pi pi-building',
             route: `/${AppRoutingConstants.ENTERPRISE_PATH}/${AppRoutingConstants.BUILDING_PATH}`
+          },
+          {
+            label: 'assets.title',
+            icon: 'pi pi-warehouse',
+            route: `/${AppRoutingConstants.ENTERPRISE_PATH}/${AppRoutingConstants.ASSET_MANAGEMENT}`
           }
         ]
       },

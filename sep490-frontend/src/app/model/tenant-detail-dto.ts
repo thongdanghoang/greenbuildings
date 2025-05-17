@@ -11,11 +11,11 @@
 export interface TenantDetailDTO {
   id?: string;
   version?: number;
-  name?: string;
-  email?: string;
-  address?: string;
-  hotline?: string;
-  taxCode?: string;
+  name: string;
+  email: string;
+  address: string;
+  hotline: string;
+  taxCode: string;
   businessLicenseImageUrl?: string;
   representativeName?: string;
   representativePosition?: string;

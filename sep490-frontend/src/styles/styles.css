@@ -15,10 +15,6 @@
   @apply bg-primary-500 text-white dark:bg-primary-400 dark:text-black;
 }
 
-.p-datepicker-day-cell {
-  @apply hover:cursor-not-allowed;
-}
-
 h6 {
   @apply text-lg font-medium;
 }

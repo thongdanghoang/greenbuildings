@@ -1,21 +1,21 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
+import {UserRole} from '@models/role-names';
 import {TranslateService} from '@ngx-translate/core';
+import {ApplicationService} from '@services/application.service';
+import {UserService} from '@services/user.service';
+import {SubscriptionAwareComponent} from '@shared/directives/subscription-aware.component';
+import {UserLanguage} from '@shared/enums/user-language.enum';
 import {MenuItem} from 'primeng/api';
 import {Drawer} from 'primeng/drawer';
 import {Observable, filter, map, switchMap, take, takeUntil} from 'rxjs';
 import {AppRoutingConstants} from '../../app-routing.constant';
-import {UserRole} from '@models/role-names';
-import {ApplicationService} from '@services/application.service';
 import {ThemeService} from '../../modules/core/services/theme.service';
-import {SubscriptionAwareComponent} from '@shared/directives/subscription-aware.component';
-import {UserLocale} from '@shared/enums/user-language.enum';
-import {UserService} from '@services/user.service';
 
 interface Language {
   display: string;
   mobile: string;
-  key: UserLocale;
+  key: UserLanguage;
 }
 
 @Component({
@@ -45,15 +45,15 @@ export class HeaderComponent extends SubscriptionAwareComponent implements OnIni
 
   ngOnInit(): void {
     this.languages = [
-      {display: 'Tiếng Việt', mobile: 'VI', key: UserLocale.VI},
-      {display: 'English', mobile: 'EN', key: UserLocale.EN},
-      {display: '中文(简体)', mobile: 'ZH', key: UserLocale.ZH}
+      {display: 'Tiếng Việt', mobile: 'VI', key: UserLanguage.VI},
+      {display: 'English', mobile: 'EN', key: UserLanguage.EN},
+      {display: '中文(简体)', mobile: 'ZH', key: UserLanguage.ZH}
     ];
     this.buildMenuItems();
     this.selectedLanguage = {
       display: 'Tiếng Việt',
       mobile: 'VI',
-      key: UserLocale.VI
+      key: UserLanguage.VI
     };
     this.translate.onLangChange
       .pipe(

@@ -1,18 +1,15 @@
 import {Location} from '@angular/common';
-import {HttpClient} from '@angular/common/http';
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {AbstractControl, FormBuilder, FormControl, Validators} from '@angular/forms';
-import {ActivatedRoute, Router} from '@angular/router';
+import {AbstractControl, FormControl, Validators} from '@angular/forms';
+import {ActivatedRoute} from '@angular/router';
 import {InviteTenantToBuildingGroup} from '@models/building-group';
-import {TranslateService} from '@ngx-translate/core';
-import {filter, map, switchMap, takeUntil} from 'rxjs';
-import {validate} from 'uuid';
-import {UUID} from '../../../../../types/uuid';
 import {BuildingDetails, BuildingGroup} from '@models/enterprise';
 import {BuildingGroupService} from '@services/building-group.service';
 import {BuildingService} from '@services/building.service';
 import {AbstractFormComponent} from '@shared/components/form/abstract-form-component';
-import {ToastProvider} from '@shared/services/toast-provider';
+import {filter, map, switchMap, takeUntil} from 'rxjs';
+import {validate} from 'uuid';
+import {UUID} from '../../../../../types/uuid';
 import {ApplicationConstant} from '../../../../application.constant';
 
 @Component({
@@ -35,17 +32,12 @@ export class NewTenantComponent
   };
 
   constructor(
-    httpClient: HttpClient,
-    formBuilder: FormBuilder,
-    notificationService: ToastProvider,
-    translate: TranslateService,
-    private readonly router: Router,
     private readonly activatedRoute: ActivatedRoute,
     private readonly buildingService: BuildingService,
     private readonly buildingGroupService: BuildingGroupService,
     private readonly location: Location
   ) {
-    super(httpClient, formBuilder, notificationService, translate);
+    super();
   }
 
   override ngOnDestroy(): void {

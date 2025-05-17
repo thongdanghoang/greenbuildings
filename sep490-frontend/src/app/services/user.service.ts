@@ -2,7 +2,7 @@ import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {EnterpriseUserDetails} from '@models/enterprise-user';
 import {UserConfigs} from '@models/user-configs';
-import {UserLocale} from '@shared/enums/user-language.enum';
+import {UserLanguage} from '@shared/enums/user-language.enum';
 import {Observable} from 'rxjs';
 import {AppRoutingConstants} from '../app-routing.constant';
 
@@ -15,12 +15,13 @@ export class UserService {
   constructor(private readonly httpClient: HttpClient) {}
 
   get userConfigs(): Observable<UserConfigs> {
-    return this.httpClient.get<UserConfigs>(`${AppRoutingConstants.IDP_API_URL}/${UserService.USER_API_URL}/locale`);
+    return this.httpClient.get<UserConfigs>(`${AppRoutingConstants.IDP_API_URL}/${UserService.USER_API_URL}/language`);
   }
 
-  changeLanguage(locale: UserLocale): Observable<void> {
+  changeLanguage(language: UserLanguage): Observable<void> {
     return this.httpClient.put<void>(
-      `${AppRoutingConstants.IDP_API_URL}/${UserService.USER_API_URL}/locale/${locale}`,
+      `${AppRoutingConstants.IDP_API_URL}/${UserService.USER_API_URL}/language`,
+      {language},
       {}
     );
   }

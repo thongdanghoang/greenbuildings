@@ -1,12 +1,7 @@
 package greenbuildings.enterprise.rest;
 
-import commons.springfw.impl.entities.AbstractAuditableEntity;
-import commons.springfw.impl.mappers.CommonMapper;
-import commons.springfw.impl.securities.UserContextData;
 import greenbuildings.commons.api.dto.SearchCriteriaDTO;
 import greenbuildings.commons.api.dto.SearchResultDTO;
-import greenbuildings.commons.api.dto.SortDTO;
-import greenbuildings.commons.api.enums.SortDirection;
 import greenbuildings.commons.api.security.UserRole;
 import greenbuildings.commons.api.views.DateRangeView;
 import greenbuildings.commons.api.views.SelectableItem;
@@ -17,10 +12,13 @@ import greenbuildings.enterprise.dtos.EmissionActivityDetailsDTO;
 import greenbuildings.enterprise.dtos.EmissionActivityTableView;
 import greenbuildings.enterprise.dtos.emission_activities.ActivityCriteria;
 import greenbuildings.enterprise.entities.EmissionActivityEntity;
-import greenbuildings.enterprise.entities.EmissionFactorEntity;
 import greenbuildings.enterprise.mappers.EmissionActivityMapper;
 import greenbuildings.enterprise.services.EmissionActivityService;
 import greenbuildings.enterprise.views.emission_activities.EmissionActivityView;
+
+import commons.springfw.impl.UserLanguage;
+import commons.springfw.impl.mappers.CommonMapper;
+import commons.springfw.impl.securities.UserContextData;
 import jakarta.annotation.security.RolesAllowed;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -37,7 +35,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
@@ -59,8 +56,11 @@ public class EmissionActivityController {
     }
     
     @GetMapping("/{id}/recorded-date-ranges")
-    public ResponseEntity<List<DateRangeView>> getRecordedDateRanges(@PathVariable UUID id, @RequestParam(required = false) UUID excludeRecordId) {
-        return ResponseEntity.ok(mapper.toDateRangeView(emissionActivityService.findRecordedDateRangesById(id, excludeRecordId)));
+    public ResponseEntity<List<DateRangeView>> getRecordedDateRanges(
+            @PathVariable UUID id,
+            @RequestParam(required = false) UUID excludeRecordId,
+            @RequestParam(required = false) UUID assetId) {
+        return ResponseEntity.ok(mapper.toDateRangeView(emissionActivityService.findRecordedDateRangesById(id, excludeRecordId, assetId)));
     }
     
     @PostMapping("/building")
@@ -74,8 +74,7 @@ public class EmissionActivityController {
     public ResponseEntity<SearchResultDTO<EmissionActivityView>> search(@RequestBody SearchCriteriaDTO<ActivityCriteria> searchCriteria,
                                                                         @AuthenticationPrincipal UserContextData userContext) {
         var enterpriseId = userContext.getEnterpriseId().orElseThrow();
-        var sort = Optional.ofNullable(searchCriteria.sort()).orElse(new SortDTO(AbstractAuditableEntity.Fields.lastModifiedDate, SortDirection.DESC));
-        var pageable = CommonMapper.toPageable(searchCriteria.page(), sort);
+        var pageable = CommonMapper.toPageableFallbackSortToLastModifiedDate(searchCriteria.page(), searchCriteria.sort());
         var searchResults = emissionActivityService.search(pageable, enterpriseId, searchCriteria.criteria());
         return ResponseEntity.ok(CommonMapper.toSearchResultDTO(searchResults, this.mapper::toEmissionActivityView));
     }
@@ -83,6 +82,7 @@ public class EmissionActivityController {
     @GetMapping("/selectable-buildings")
     @RolesAllowed(UserRole.RoleNameConstant.ENTERPRISE_OWNER)
     public ResponseEntity<List<SelectableItem<UUID>>> getSelectableBuildings(@AuthenticationPrincipal UserContextData userContext) {
+        // TODO: tenant also need to see this by query by building group they belong to
         var enterpriseId = userContext.getEnterpriseId().orElseThrow();
         var buildings = emissionActivityService
                 .getBuildingsByEnterpriseId(enterpriseId)
@@ -97,24 +97,17 @@ public class EmissionActivityController {
     public ResponseEntity<List<SelectableItem<UUID>>> getEmissionFactors(
             @RequestParam(defaultValue = "vi") String language,
             @AuthenticationPrincipal UserContextData userContext) {
-        if (Set.of("vi", "en", "zh").stream().noneMatch(code -> code.equals(language))) {
-            return ResponseEntity.badRequest().build();
-        }
         var enterpriseId = userContext.getEnterpriseId().orElseThrow();
         var buildings = emissionActivityService
                 .getEmissionFactorsByEnterpriseId(enterpriseId)
                 .stream()
-                .map(factor -> new SelectableItem<>(getFactorNameLocale(language, factor), factor.getId(), false))
+                .map(factor -> new SelectableItem<>(
+                        UserLanguage.fromCode(language).getByLanguage(factor.getNameVN(), factor.getNameEN(), factor.getNameZH()),
+                        factor.getId(),
+                        false)
+                    )
                 .toList();
         return ResponseEntity.ok(buildings);
-    }
-    
-    private String getFactorNameLocale(String language, EmissionFactorEntity factor) {
-        return switch (language) {
-            case "vi" -> factor.getNameVN();
-            case "zh" -> factor.getNameZH();
-            default -> factor.getNameEN();
-        };
     }
     
     @PostMapping

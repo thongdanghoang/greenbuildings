@@ -5,9 +5,13 @@ import greenbuildings.commons.api.dto.SearchCriteriaDTO;
 import greenbuildings.enterprise.TestcontainersConfigs;
 import greenbuildings.enterprise.dtos.EmissionActivityRecordCriteria;
 import greenbuildings.enterprise.entities.EmissionActivityRecordEntity;
+import greenbuildings.enterprise.repositories.AssetRepository;
 import greenbuildings.enterprise.repositories.EmissionActivityRecordRepository;
+import greenbuildings.enterprise.repositories.EmissionActivityRepository;
 import greenbuildings.enterprise.repositories.RecordFileRepository;
 import greenbuildings.enterprise.services.impl.EmissionActivityRecordServiceImpl;
+import greenbuildings.enterprise.services.impl.MinioService;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -33,6 +37,10 @@ public class EmissionActivityRecordServiceTest extends TestcontainersConfigs {
     private RecordFileRepository fileRepository;
     @Autowired
     private CalculationService calculationService;
+    @Autowired
+    private AssetRepository assetRepository;
+    @Autowired
+    private EmissionActivityRepository emissionActivityRepository;
     
     EmissionActivityRecordService emissionActivityRecordService;
     
@@ -47,7 +55,9 @@ public class EmissionActivityRecordServiceTest extends TestcontainersConfigs {
                 recordRepository,
                 minioService,
                 fileRepository,
-                calculationService
+                calculationService,
+                assetRepository,
+                emissionActivityRepository
         );
     }
     

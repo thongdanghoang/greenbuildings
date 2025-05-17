@@ -1,13 +1,10 @@
-import {HttpClient} from '@angular/common/http';
 import {Component} from '@angular/core';
-import {AbstractControl, FormBuilder, FormControl, Validators} from '@angular/forms';
-import {TranslateService} from '@ngx-translate/core';
+import {AbstractControl, FormControl, Validators} from '@angular/forms';
+import {EmissionSource} from '@models/enterprise';
+import {EmissionSourceService} from '@services/emission-source.service';
+import {AbstractFormComponent} from '@shared/components/form/abstract-form-component';
 import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
 import {UUID} from '../../../../../types/uuid';
-import {EmissionSource} from '../../../../models/enterprise';
-import {AbstractFormComponent} from '../../../shared/components/form/abstract-form-component';
-import {ToastProvider} from '../../../shared/services/toast-provider';
-import {EmissionSourceService} from '../../../../services/emission-source.service';
 
 @Component({
   selector: 'app-emission-source-dialog',
@@ -24,15 +21,11 @@ export class EmissionSourceDialogComponent extends AbstractFormComponent<Emissio
   };
 
   constructor(
-    httpClient: HttpClient,
-    formBuilder: FormBuilder,
-    notificationService: ToastProvider,
-    translate: TranslateService,
     private readonly sourceService: EmissionSourceService,
     private readonly ref: DynamicDialogRef,
     public config: DynamicDialogConfig<UUID>
   ) {
-    super(httpClient, formBuilder, notificationService, translate);
+    super();
   }
 
   get isEdit(): boolean {

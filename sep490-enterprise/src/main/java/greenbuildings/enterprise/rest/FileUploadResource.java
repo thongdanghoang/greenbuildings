@@ -2,8 +2,9 @@ package greenbuildings.enterprise.rest;
 
 import greenbuildings.commons.api.security.UserRole;
 import greenbuildings.enterprise.dtos.FileURLResult;
-import greenbuildings.enterprise.services.MinioService;
+import greenbuildings.enterprise.services.impl.MinioService;
 import greenbuildings.enterprise.views.file_upload.BusinessLicenseUploadView;
+
 import jakarta.annotation.security.RolesAllowed;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
