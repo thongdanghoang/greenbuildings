@@ -1,6 +1,5 @@
 package greenbuildings.enterprise.services.impl;
 
-import commons.springfw.impl.mappers.CommonMapper;
 import greenbuildings.commons.api.dto.SearchCriteriaDTO;
 import greenbuildings.commons.api.exceptions.BusinessException;
 import greenbuildings.enterprise.dtos.EmissionActivityCriteria;
@@ -23,9 +22,10 @@ import greenbuildings.enterprise.repositories.SubscriptionRepository;
 import greenbuildings.enterprise.repositories.specifications.EmissionActivitySpecifications;
 import greenbuildings.enterprise.services.CalculationService;
 import greenbuildings.enterprise.services.EmissionActivityService;
+
+import commons.springfw.impl.mappers.CommonMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -172,19 +172,20 @@ public class EmissionActivityServiceImpl implements EmissionActivityService {
     
     @Override
     @Transactional(readOnly = true)
-    public Map<BuildingEntity, BigDecimal> getTopBuildingsWithHighestEmissions(UUID enterpriseId, int limit) {
-        var activities = calculationActivitiesTotalGhg(enterpriseId);
+    public Map<BuildingEntity, BigDecimal> getTopBuildingsWithHighestEmissions(List<EmissionActivityEntity> activities, int limit) {
         // Group by BuildingEntity and sum totalEmission
-        var buildingToTotalGhg = activities.stream()
+        var buildingToTotalGhg = activities
+                .stream()
                 .collect(Collectors.groupingBy(
                         EmissionActivityEntity::getBuilding,
                         Collectors.mapping(
                                 EmissionActivityEntity::getTotalEmission,
                                 Collectors.reducing(BigDecimal.ZERO, BigDecimal::add)
-                        )
-                ));
+                                          )
+                                              ));
         // Sort and limit to top N
-        return buildingToTotalGhg.entrySet().stream()
+        return buildingToTotalGhg
+                .entrySet().stream()
                 .sorted(Map.Entry.<BuildingEntity, BigDecimal>comparingByValue().reversed())
                 .limit(limit)
                 .collect(Collectors.toMap(
@@ -192,46 +193,48 @@ public class EmissionActivityServiceImpl implements EmissionActivityService {
                         Map.Entry::getValue,
                         (e1, e2) -> e1,
                         java.util.LinkedHashMap::new
-                ));
+                                         ));
     }
     
     @Override
     @Transactional(readOnly = true)
-    public Map<EmissionSourceEntity, BigDecimal> getTopEmissionSourcesWithHighestEmissions(UUID enterpriseId, int limit) {
-        var activities = calculationActivitiesTotalGhg(enterpriseId);
+    public Map<EmissionSourceEntity, BigDecimal> getTopEmissionSourcesWithHighestEmissions(List<EmissionActivityEntity> activities, int limit) {
         // Group by EmissionSourceEntity and sum totalEmission
-        var sourceToTotalGhg = activities.stream()
-            .collect(Collectors.groupingBy(
-                a -> a.getEmissionFactorEntity().getSource(),
-                Collectors.mapping(
-                    EmissionActivityEntity::getTotalEmission,
-                    Collectors.reducing(BigDecimal.ZERO, BigDecimal::add)
-                )
-            ));
+        var sourceToTotalGhg = activities
+                .stream()
+                .collect(Collectors.groupingBy(
+                        a -> a.getEmissionFactorEntity().getSource(),
+                        Collectors.mapping(
+                                EmissionActivityEntity::getTotalEmission,
+                                Collectors.reducing(BigDecimal.ZERO, BigDecimal::add)
+                                          )
+                                              ));
         // Sort and limit to top N
-        return sourceToTotalGhg.entrySet().stream()
-            .sorted(Map.Entry.<EmissionSourceEntity, BigDecimal>comparingByValue().reversed())
-            .limit(limit)
-            .collect(Collectors.toMap(
-                Map.Entry::getKey,
-                Map.Entry::getValue,
-                (e1, e2) -> e1,
-                java.util.LinkedHashMap::new
-            ));
+        return sourceToTotalGhg
+                .entrySet().stream()
+                .sorted(Map.Entry.<EmissionSourceEntity, BigDecimal>comparingByValue().reversed())
+                .limit(limit)
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        Map.Entry::getValue,
+                        (e1, e2) -> e1,
+                        java.util.LinkedHashMap::new
+                                         ));
     }
     
     @Override
     @Transactional(readOnly = true)
-    public BigDecimal calculateTotalEmissions(UUID enterpriseId) {
-        return calculationActivitiesTotalGhg(enterpriseId)
+    public BigDecimal calculateTotalEmissions(List<EmissionActivityEntity> activities) {
+        return activities
                 .stream()
                 .map(EmissionActivityEntity::getTotalEmission)
                 .filter(Objects::nonNull)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
     
-    @NotNull
-    private List<EmissionActivityEntity> calculationActivitiesTotalGhg(UUID enterpriseId) {
+    @Override
+    @Transactional(readOnly = true)
+    public List<EmissionActivityEntity> calculationActivitiesTotalGhg(UUID enterpriseId) {
         var activities = emissionActivityRepository.findAllWithRecords(enterpriseId);
         var factorIDs = activities.stream()
                                   .map(EmissionActivityEntity::getEmissionFactorEntity)
@@ -249,13 +252,13 @@ public class EmissionActivityServiceImpl implements EmissionActivityService {
         activities = activities.stream().map(calculationService::calculate).toList();
         // Calculate total GHG for each activity
         activities.forEach(activity ->
-            activity.setTotalEmission(
-                activity.getRecords().stream()
-                    .map(EmissionActivityRecordEntity::getGhg)
-                    .filter(Objects::nonNull)
-                    .reduce(BigDecimal.ZERO, BigDecimal::add)
-            )
-        );
+                                   activity.setTotalEmission(
+                                           activity.getRecords().stream()
+                                                   .map(EmissionActivityRecordEntity::getGhg)
+                                                   .filter(Objects::nonNull)
+                                                   .reduce(BigDecimal.ZERO, BigDecimal::add)
+                                                            )
+                          );
         return activities;
     }
     

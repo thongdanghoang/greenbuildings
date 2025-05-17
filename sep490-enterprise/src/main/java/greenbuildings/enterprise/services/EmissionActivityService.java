@@ -36,9 +36,11 @@ public interface EmissionActivityService {
     
     List<ActivityRecordDateRange> findRecordedDateRangesById(UUID id, UUID excludeRecordId);
     
-    Map<BuildingEntity, BigDecimal> getTopBuildingsWithHighestEmissions(UUID enterpriseId, int limit);
+    Map<BuildingEntity, BigDecimal> getTopBuildingsWithHighestEmissions(List<EmissionActivityEntity> activities, int limit);
     
-    Map<EmissionSourceEntity, BigDecimal> getTopEmissionSourcesWithHighestEmissions(UUID enterpriseId, int limit);
+    Map<EmissionSourceEntity, BigDecimal> getTopEmissionSourcesWithHighestEmissions(List<EmissionActivityEntity> activities, int limit);
     
-    BigDecimal calculateTotalEmissions(UUID enterpriseId);
+    BigDecimal calculateTotalEmissions(List<EmissionActivityEntity> activities);
+    
+    List<EmissionActivityEntity> calculationActivitiesTotalGhg(UUID enterpriseId);
 }
