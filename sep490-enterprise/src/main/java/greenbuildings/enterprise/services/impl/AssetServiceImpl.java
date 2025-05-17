@@ -30,11 +30,11 @@ public class AssetServiceImpl implements AssetService {
         var buildingFrom = assetRepository.getReferenceById(target.getId()).getBuilding();
         var buildingTo = target.getBuilding();
         
-        var isMoveFromBuildingMoveToAny = Objects.nonNull(buildingTo);
-        var isMoveFromBuildingToDifferent = Objects.isNull(buildingFrom) || !Objects.equals(buildingTo.getId(), buildingFrom.getId());
+        var isMoveFromBuildingMoveToAny = Objects.nonNull(buildingFrom);
+        var isMoveToDifferentBuilding = Objects.isNull(buildingTo) || !Objects.equals(buildingFrom.getId(), buildingTo.getId());
         
         if (isMoveFromBuildingMoveToAny
-            && isMoveFromBuildingToDifferent
+            && isMoveToDifferentBuilding
             && recordRepository.existsByAssetId((target.getId())) // side effect
         ) {
             var newAssetEntity = AssetEntity.clone(target);

@@ -45,11 +45,11 @@ public class HibernateFilterAspect {
         }
         
         try {
-            // Proceed with the original method execution
             return joinPoint.proceed();
         } finally {
-            // Disable the filter after execution
-            session.disableFilter(enableHibernateFilter.filterName());
+            if (Objects.nonNull(session)) {
+                session.disableFilter(enableHibernateFilter.filterName());
+            }
         }
     }
 }
