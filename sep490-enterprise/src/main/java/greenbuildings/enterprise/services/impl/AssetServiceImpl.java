@@ -2,6 +2,7 @@ package greenbuildings.enterprise.services.impl;
 
 import greenbuildings.enterprise.entities.AssetEntity;
 import greenbuildings.enterprise.repositories.AssetRepository;
+import greenbuildings.enterprise.repositories.EmissionActivityRecordRepository;
 import greenbuildings.enterprise.services.AssetService;
 
 import lombok.RequiredArgsConstructor;
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.Objects;
 import java.util.UUID;
 
 @Service
@@ -22,9 +23,30 @@ import java.util.UUID;
 public class AssetServiceImpl implements AssetService {
     
     private final AssetRepository assetRepository;
+    private final EmissionActivityRecordRepository recordRepository;
     
     @Override
-    public AssetEntity saveAsset(AssetEntity assetEntity) {
+    public AssetEntity updateAsset(AssetEntity target) {
+        var buildingFrom = assetRepository.getReferenceById(target.getId()).getBuilding();
+        var buildingTo = target.getBuilding();
+        
+        var isMoveFromBuildingMoveToAny = Objects.nonNull(buildingTo);
+        var isMoveFromBuildingToDifferent = Objects.isNull(buildingFrom) || !Objects.equals(buildingTo.getId(), buildingFrom.getId());
+        
+        if (isMoveFromBuildingMoveToAny
+            && isMoveFromBuildingToDifferent
+            && recordRepository.existsByAssetId((target.getId())) // side effect
+        ) {
+            var newAssetEntity = AssetEntity.clone(target);
+            target.setName("Archived asset with name: %s".formatted(target.getName()));
+            assetRepository.deleteById(target.getId()); // use type better than delete?
+            return assetRepository.save(newAssetEntity);
+        }
+        return assetRepository.save(target);
+    }
+    
+    @Override
+    public AssetEntity createAsset(AssetEntity assetEntity) {
         return assetRepository.save(assetEntity);
     }
     
@@ -35,8 +57,8 @@ public class AssetServiceImpl implements AssetService {
     
     @Transactional(readOnly = true)
     @Override
-    public Page<AssetEntity> search(Pageable pageable) {
-        return assetRepository.findAll(pageable);
+    public Page<AssetEntity> search(Pageable pageable, UUID organizationId) {
+        return assetRepository.findAllByOrganizationId(pageable, organizationId);
     }
     
     @Transactional(readOnly = true)

@@ -3,6 +3,8 @@ package greenbuildings.enterprise.repositories;
 import greenbuildings.enterprise.entities.AssetEntity;
 
 import commons.springfw.impl.repositories.AbstractBaseRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
@@ -39,4 +41,10 @@ public interface AssetRepository
             """)
     boolean existsByIdAndActivityId(UUID id, UUID activityId);
     
+    @Query("""
+            FROM AssetEntity root
+            WHERE (root.tenant.id IS NOT NULL AND root.tenant.id = :organizationId)
+            OR (root.enterprise.id IS NOT NULL AND root.enterprise.id = :organizationId)
+            """)
+    Page<AssetEntity> findAllByOrganizationId(Pageable pageable, UUID organizationId);
 }

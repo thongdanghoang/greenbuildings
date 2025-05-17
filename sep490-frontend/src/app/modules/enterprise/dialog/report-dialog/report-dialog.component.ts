@@ -1,4 +1,4 @@
-import {HttpClient, HttpResponse} from '@angular/common/http';
+import {HttpResponse} from '@angular/common/http';
 import {Component} from '@angular/core';
 import {AbstractControl, FormControl, Validators} from '@angular/forms';
 import {BuildingGroup, DownloadReport} from '@models/enterprise';
@@ -29,7 +29,6 @@ export class ReportDialogComponent extends AbstractFormComponent<DownloadReport>
     private readonly groupService: BuildingGroupService,
     private readonly buildingService: BuildingService,
     private readonly ref: DynamicDialogRef,
-    protected readonly http: HttpClient,
     public config: DynamicDialogConfig<UUID>
   ) {
     super();

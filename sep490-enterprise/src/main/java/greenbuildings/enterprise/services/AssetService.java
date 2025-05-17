@@ -6,16 +6,17 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 public interface AssetService {
     
-    AssetEntity saveAsset(AssetEntity assetEntity);
+    AssetEntity updateAsset(AssetEntity target);
+    
+    AssetEntity createAsset(AssetEntity assetEntity);
     
     void deleteAsset(UUID id);
     
-    Page<AssetEntity> search(Pageable pageable);
+    Page<AssetEntity> search(Pageable pageable, UUID organizationId);
     
     AssetEntity getById(UUID id);
     

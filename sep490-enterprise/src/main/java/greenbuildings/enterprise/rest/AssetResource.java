@@ -2,9 +2,13 @@ package greenbuildings.enterprise.rest;
 
 import greenbuildings.commons.api.dto.SearchCriteriaDTO;
 import greenbuildings.commons.api.dto.SearchResultDTO;
+import greenbuildings.commons.api.exceptions.BusinessException;
 import greenbuildings.commons.api.security.UserRole;
 import greenbuildings.commons.api.views.SelectableItem;
 import greenbuildings.enterprise.dtos.assets.AssetDTO;
+import greenbuildings.enterprise.entities.AssetEntity;
+import greenbuildings.enterprise.entities.EnterpriseEntity;
+import greenbuildings.enterprise.entities.TenantEntity;
 import greenbuildings.enterprise.mappers.AssetMapper;
 import greenbuildings.enterprise.services.AssetService;
 import greenbuildings.enterprise.views.assets.AssetView;
@@ -25,7 +29,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.Objects;
 import java.util.UUID;
 
 @RestController
@@ -40,11 +44,41 @@ public class AssetResource {
     private final AssetMapper assetMapper;
     
     @PostMapping
-    public ResponseEntity<AssetView> saveAsset(@RequestBody AssetDTO assetDTO) {
-        var entity = assetMapper.toEntity(assetDTO);
-        var assetEntity = assetService.saveAsset(entity);
+    public ResponseEntity<AssetView> saveAsset(@RequestBody AssetDTO assetDTO,
+                                               @AuthenticationPrincipal UserContextData userContextData) {
+        if (Objects.nonNull(assetDTO.id())) {
+            var target = assetService.getById(assetDTO.id());
+            assetMapper.fullUpdate(assetMapper.toEntity(assetDTO), target);
+            assignOrganizationToEntity(target, userContextData);
+            return ResponseEntity.ok(assetMapper.toView(assetService.updateAsset(target)));
+        }
+        var target = assetMapper.toEntity(assetDTO);
+        assignOrganizationToEntity(target, userContextData);
+        var assetEntity = assetService.createAsset(target);
         return ResponseEntity.ok(assetMapper.toView(assetEntity));
     }
+    
+    private void assignOrganizationToEntity(AssetEntity entity, UserContextData userContextData) {
+        boolean assigned = userContextData
+                .getTenantId()
+                .map(TenantEntity::of)
+                .map(tenant -> {
+                    entity.setTenant(tenant);
+                    return true;
+                })
+                .orElseGet(() -> userContextData
+                                   .getEnterpriseId()
+                                   .map(EnterpriseEntity::of)
+                                   .map(enterprise -> {
+                                       entity.setEnterprise(enterprise);
+                                       return true;
+                                   }).orElse(false)
+                          );
+        if (!assigned) {
+            throw new BusinessException("UserContextData must have either TenantId or EnterpriseId");
+        }
+    }
+    
     
     @GetMapping("/{id}")
     public ResponseEntity<AssetView> getAssetById(@PathVariable UUID id) {
@@ -68,9 +102,15 @@ public class AssetResource {
     }
     
     @PostMapping("/search")
-    public ResponseEntity<SearchResultDTO<AssetView>> searchAssets(@RequestBody SearchCriteriaDTO<Void> searchCriteria) {
+    public ResponseEntity<SearchResultDTO<AssetView>> searchAssets(
+            @RequestBody SearchCriteriaDTO<Void> searchCriteria, // add criteria later by replace Void
+            @AuthenticationPrincipal UserContextData userContext) {
+        var organizationId = userContext
+                .getTenantId()
+                .or(userContext::getEnterpriseId)
+                .orElseThrow();
         var pageable = CommonMapper.toPageableFallbackSortToLastModifiedDate(searchCriteria.page(), searchCriteria.sort());
-        var searchResult = assetService.search(pageable);
+        var searchResult = assetService.search(pageable, organizationId);
         return ResponseEntity.ok(CommonMapper.toSearchResultDTO(searchResult, assetMapper::toView));
     }
     

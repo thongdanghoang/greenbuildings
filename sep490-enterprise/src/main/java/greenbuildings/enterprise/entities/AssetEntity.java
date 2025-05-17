@@ -22,6 +22,14 @@ import java.util.UUID;
 @FieldNameConstants
 public class AssetEntity extends AbstractAuditableEntity {
     
+    @ManyToOne
+    @JoinColumn(name = "enterprise_id")
+    private EnterpriseEntity enterprise;
+    
+    @ManyToOne
+    @JoinColumn(name = "tenant_id")
+    private TenantEntity tenant;
+    
     @NotBlank
     @Column(name = "name")
     private String name;
@@ -37,5 +45,15 @@ public class AssetEntity extends AbstractAuditableEntity {
         AssetEntity asset = new AssetEntity();
         asset.setId(id);
         return asset;
+    }
+    
+    public static AssetEntity clone(AssetEntity asset) {
+        AssetEntity clone = new AssetEntity();
+        clone.setName(asset.getName());
+        clone.setDescription(asset.getDescription());
+        clone.setBuilding(asset.getBuilding());
+        clone.setTenant(asset.getTenant());
+        clone.setEnterprise(asset.getEnterprise());
+        return clone;
     }
 }

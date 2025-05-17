@@ -31,4 +31,8 @@ public interface EmissionActivityRecordRepository
                 AND r.endDate >= :startDate
             """)
     List<EmissionActivityRecordEntity> findAllByEmissionActivityIdAndDateRangeExclusive(UUID activityId, LocalDate startDate, LocalDate endDate);
+    
+    List<EmissionActivityRecordEntity> findAllByAssetId(UUID assetId);
+    
+    boolean existsByAssetId(UUID assetId);
 }

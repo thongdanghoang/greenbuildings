@@ -82,6 +82,7 @@ public class EmissionActivityController {
     @GetMapping("/selectable-buildings")
     @RolesAllowed(UserRole.RoleNameConstant.ENTERPRISE_OWNER)
     public ResponseEntity<List<SelectableItem<UUID>>> getSelectableBuildings(@AuthenticationPrincipal UserContextData userContext) {
+        // TODO: tenant also need to see this by query by building group they belong to
         var enterpriseId = userContext.getEnterpriseId().orElseThrow();
         var buildings = emissionActivityService
                 .getBuildingsByEnterpriseId(enterpriseId)
