@@ -1,19 +1,21 @@
-import {HttpClient} from '@angular/common/http';
-import {Component, inject} from '@angular/core';
+import {Component} from '@angular/core';
 import {AbstractControl, FormControl, Validators} from '@angular/forms';
 import {DateRangeView} from '@generated/models/date-range-view';
 import {EmissionActivityRecord} from '@models/enterprise';
 import {EmissionFactorDTO, EmissionUnit} from '@models/shared-models';
+import {AssetService} from '@services/asset.service';
 import {EmissionActivityRecordService} from '@services/emission-activity-record.service';
 import {FuelConversionService} from '@services/fuel-conversion.service';
 import {UnitService} from '@services/unit.service';
 import {AbstractFormComponent} from '@shared/components/form/abstract-form-component';
+import {SelectableItem} from '@shared/models/base-models';
 import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
 import {takeUntil} from 'rxjs';
 import {UUID} from '../../../../../types/uuid';
 
 export interface NewActivityRecordDialogConfig {
   activityId: UUID;
+  buildingId?: UUID;
   factor: EmissionFactorDTO;
   editRecord?: EmissionActivityRecord;
   recordedDateRanges: DateRangeView[];
@@ -30,11 +32,12 @@ export class NewActivityRecordDialogComponent extends AbstractFormComponent<Emis
   disabledDates: Date[] = [];
   formStructure = {
     activityId: new FormControl<null | UUID>(null, [Validators.required]),
+    assetId: new FormControl<null | UUID>(null),
     id: new FormControl<null | UUID>(null),
     version: new FormControl(0),
     value: new FormControl(0, [Validators.required, Validators.min(0)]),
     unit: new FormControl<null | string>(null, [Validators.required]),
-    quantity: new FormControl(0, [Validators.required, Validators.min(0)]),
+    quantity: new FormControl(1, {nonNullable: true, validators: [Validators.required, Validators.min(1)]}),
     startDate: new FormControl(new Date()),
     rangeDates: new FormControl([new Date(), new Date()], [Validators.required, Validators.min(2), Validators.max(2)]),
     endDate: new FormControl(new Date())
@@ -42,12 +45,15 @@ export class NewActivityRecordDialogComponent extends AbstractFormComponent<Emis
 
   data?: NewActivityRecordDialogConfig;
 
+  selectableAssets: SelectableItem<UUID>[] = [];
+
   constructor(
     private readonly unitService: UnitService,
     private readonly dialogRef: DynamicDialogRef,
     private readonly energyService: FuelConversionService,
     private readonly dialogConfig: DynamicDialogConfig<NewActivityRecordDialogConfig>,
-    private readonly emissionActivityRecordService: EmissionActivityRecordService
+    private readonly emissionActivityRecordService: EmissionActivityRecordService,
+    private readonly assetService: AssetService
   ) {
     super();
     this.data = this.dialogConfig.data;
@@ -62,6 +68,18 @@ export class NewActivityRecordDialogComponent extends AbstractFormComponent<Emis
     this.handleUpdate();
     this.initFormData();
     this.disabledDates = this.convertDateRangesToDisabledDates(this.data?.recordedDateRanges ?? []);
+    this.formStructure.assetId.valueChanges.pipe(takeUntil(this.destroy$)).subscribe(assetId => {
+      if (assetId) {
+        this.formStructure.quantity.setValue(1);
+        this.formStructure.quantity.disable();
+      } else {
+        this.formStructure.quantity.enable();
+      }
+    });
+    this.assetService
+      .selectable(this.data?.buildingId)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(assets => (this.selectableAssets = assets));
   }
 
   override prepareDataBeforeSubmit(): void {
@@ -96,7 +114,7 @@ export class NewActivityRecordDialogComponent extends AbstractFormComponent<Emis
     if (this.formGroup.valid) {
       const formData = new FormData();
       const recordData = {
-        ...this.formGroup.value,
+        ...this.getSubmitFormData(),
         startDate: this.convertDateToUTC(this.formGroup.value.startDate),
         endDate: this.convertDateToUTC(this.formGroup.value.endDate)
       };
@@ -104,8 +122,8 @@ export class NewActivityRecordDialogComponent extends AbstractFormComponent<Emis
       if (this.selectedFile) {
         formData.append('file', this.selectedFile);
       }
-      inject(HttpClient)
-        .post(this.submitFormDataUrl(), formData)
+      this.emissionActivityRecordService
+        .submitRecord(formData)
         .pipe(takeUntil(this.destroy$))
         .subscribe({
           next: r => {
@@ -162,6 +180,10 @@ export class NewActivityRecordDialogComponent extends AbstractFormComponent<Emis
       this.formStructure.value.setValue(this.data.editRecord.value);
       this.formStructure.unit.setValue(this.data.editRecord.unit);
       this.formStructure.quantity.setValue(this.data.editRecord.quantity);
+      if (this.data.editRecord.assetId) {
+        this.formStructure.assetId.setValue(this.data.editRecord.assetId);
+        this.formStructure.quantity.disable();
+      }
       this.formStructure.id.setValue(this.data.editRecord.id);
       this.formStructure.version.setValue(this.data.editRecord.version);
     }

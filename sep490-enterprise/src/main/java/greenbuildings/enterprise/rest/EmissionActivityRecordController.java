@@ -40,8 +40,8 @@ public class EmissionActivityRecordController {
     @PostMapping("/search")
     public ResponseEntity<SearchResultDTO<EmissionActivityRecordDTO>> findAllByCriteria(
             @RequestBody SearchCriteriaDTO<EmissionActivityRecordCriteria> criteria) {
-        Page<EmissionActivityRecordEntity> list = recordService.search(criteria);
-        return ResponseEntity.ok(CommonMapper.toSearchResultDTO(list, recordMapper::toDTO));
+        var records = recordService.search(criteria);
+        return ResponseEntity.ok(CommonMapper.toSearchResultDTO(records, recordMapper::toDTO));
     }
     
     @PostMapping

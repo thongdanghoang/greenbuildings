@@ -21,9 +21,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -50,13 +52,15 @@ public class AssetResource {
     }
     
     @GetMapping("/selectable")
-    public ResponseEntity<List<SelectableItem<UUID>>> selectable(@AuthenticationPrincipal UserContextData userContext) {
+    public ResponseEntity<List<SelectableItem<UUID>>> selectable(
+            @AuthenticationPrincipal UserContextData userContext,
+            @RequestParam(required = false) UUID buildingId) {
         var organizationId = userContext
                 .getTenantId()
                 .or(userContext::getEnterpriseId)
                 .orElseThrow();
         var selectableItems = assetService
-                .selectableByOrganizationId(organizationId)
+                .selectableByOrganizationId(organizationId, buildingId)
                 .stream()
                 .map(asset -> new SelectableItem<>(asset.getName(), asset.getId(), false))
                 .toList();

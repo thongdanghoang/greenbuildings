@@ -15,6 +15,7 @@ public record EmissionActivityRecordDTO(
         LocalDate endDate,
         int quantity,
         RecordFileDTO file,
-        BigDecimal ghg
+        BigDecimal ghg,
+        UUID assetId
 ) {
 }

@@ -24,8 +24,8 @@ export class EmissionActivityRecordService {
     return this.http.post<SearchResultDto<EmissionActivityRecord>>(`${this.URL}/search`, criteria);
   }
 
-  public findById(id: UUID): Observable<EmissionActivityRecord> {
-    return this.http.get<EmissionActivityRecord>(`${this.URL}/${id}`);
+  public submitRecord(formData: FormData): Observable<void> {
+    return this.http.post<void>(this.newRecordURL, formData);
   }
 
   public deleteRecords(ids: UUID[]): Observable<void> {

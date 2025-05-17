@@ -19,6 +19,7 @@ export interface EmissionActivityRecordView {
   endDate?: string;
   file?: RecordFileView;
   quantity?: number;
+  assetId?: string;
 }
 export namespace EmissionActivityRecordView {
   export const UnitEnum = {

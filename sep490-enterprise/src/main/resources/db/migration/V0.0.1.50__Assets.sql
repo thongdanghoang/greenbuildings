@@ -34,3 +34,9 @@ CREATE UNIQUE INDEX ux_organizations_assets_enterprise ON organizations_assets (
 CREATE INDEX organizations_assets_asset_id ON organizations_assets (asset_id);
 CREATE INDEX organizations_assets_enterprise_id ON organizations_assets (enterprise_id);
 CREATE INDEX organizations_assets_tenant_id ON organizations_assets (tenant_id);
+
+alter table activity_data_record
+    add column asset_id UUID;
+alter table activity_data_record
+    add foreign key (asset_id) references assets (id);
+CREATE INDEX idx_activity_data_record_asset_id ON activity_data_record (asset_id);

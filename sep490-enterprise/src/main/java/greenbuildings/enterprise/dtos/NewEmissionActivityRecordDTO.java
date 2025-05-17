@@ -16,6 +16,7 @@ public record NewEmissionActivityRecordDTO(
         LocalDateTime startDate,
         LocalDateTime endDate,
         @Min(0) int quantity,
-        @NotNull UUID activityId
+        @NotNull UUID activityId,
+        UUID assetId
 ) {
 }

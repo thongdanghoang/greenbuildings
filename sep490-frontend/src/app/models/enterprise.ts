@@ -125,6 +125,7 @@ export interface EmissionActivityRecord extends BaseDTO {
   endDate: Date;
   file: EmissionActivityRecordFile;
   ghg: number;
+  assetId?: UUID;
 }
 
 export interface EmissionActivityRecordFile extends BaseDTO {

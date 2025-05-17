@@ -5,6 +5,7 @@ import greenbuildings.commons.api.dto.SearchCriteriaDTO;
 import greenbuildings.enterprise.TestcontainersConfigs;
 import greenbuildings.enterprise.dtos.EmissionActivityRecordCriteria;
 import greenbuildings.enterprise.entities.EmissionActivityRecordEntity;
+import greenbuildings.enterprise.repositories.AssetRepository;
 import greenbuildings.enterprise.repositories.EmissionActivityRecordRepository;
 import greenbuildings.enterprise.repositories.RecordFileRepository;
 import greenbuildings.enterprise.services.impl.EmissionActivityRecordServiceImpl;
@@ -35,6 +36,8 @@ public class EmissionActivityRecordServiceTest extends TestcontainersConfigs {
     private RecordFileRepository fileRepository;
     @Autowired
     private CalculationService calculationService;
+    @Autowired
+    AssetRepository assetRepository;
     
     EmissionActivityRecordService emissionActivityRecordService;
     
@@ -49,7 +52,8 @@ public class EmissionActivityRecordServiceTest extends TestcontainersConfigs {
                 recordRepository,
                 minioService,
                 fileRepository,
-                calculationService
+                calculationService,
+                assetRepository
         );
     }
     

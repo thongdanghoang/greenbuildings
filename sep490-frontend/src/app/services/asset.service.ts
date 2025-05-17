@@ -1,8 +1,7 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {AssetDTO} from '@generated/models/asset-dto';
 import {AssetView} from '@generated/models/asset-view';
-import {SearchCriteriaDto, SearchResultDto} from '@shared/models/base-models';
+import {SearchCriteriaDto, SearchResultDto, SelectableItem} from '@shared/models/base-models';
 import {Observable} from 'rxjs';
 import {UUID} from '../../types/uuid';
 import {AppRoutingConstants} from '../app-routing.constant';
@@ -16,10 +15,6 @@ export class AssetService {
 
   constructor(private readonly httpClient: HttpClient) {}
 
-  saveAsset(assetDTO: AssetDTO): Observable<AssetView> {
-    return this.httpClient.post(AssetService.URL, assetDTO);
-  }
-
   getAssetById(id: UUID): Observable<AssetView> {
     return this.httpClient.get<AssetView>(`${AssetService.URL}/${id}`);
   }
@@ -30,5 +25,12 @@ export class AssetService {
 
   deleteAsset(id: UUID): Observable<void> {
     return this.httpClient.delete<void>(`${AssetService.URL}/${id}`);
+  }
+
+  selectable(buildingId?: UUID): Observable<SelectableItem<UUID>[]> {
+    const url = buildingId
+      ? `${AssetService.URL}/selectable?buildingId=${buildingId}`
+      : `${AssetService.URL}/selectable`;
+    return this.httpClient.get<SelectableItem<UUID>[]>(url);
   }
 }

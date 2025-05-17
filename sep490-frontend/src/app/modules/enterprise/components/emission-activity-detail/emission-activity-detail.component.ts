@@ -235,6 +235,7 @@ export class EmissionActivityDetailComponent extends AbstractFormComponent<Emiss
     this.emissionActivityService.getRecordedDateRanges(this.activity.id).subscribe(recordedDateRanges => {
       const config: DynamicDialogConfig<NewActivityRecordDialogConfig> = {
         data: {
+          buildingId: this.activity.buildingId,
           activityId: this.activity.id,
           factor: this.activity.emissionFactor,
           recordedDateRanges
@@ -256,6 +257,7 @@ export class EmissionActivityDetailComponent extends AbstractFormComponent<Emiss
     this.emissionActivityService.getRecordedDateRanges(this.activity.id, record.id).subscribe(recordedDateRanges => {
       const config: DynamicDialogConfig<NewActivityRecordDialogConfig> = {
         data: {
+          buildingId: this.activity.buildingId,
           activityId: this.activity.id,
           factor: this.activity.emissionFactor,
           editRecord: record,

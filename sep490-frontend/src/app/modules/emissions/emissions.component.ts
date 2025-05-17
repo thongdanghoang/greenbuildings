@@ -141,6 +141,7 @@ export class EmissionsComponent extends SubscriptionAwareComponent implements On
       .pipe(
         switchMap(recordedDateRanges =>
           this.modalProvider.openDynamicDialog(NewActivityRecordDialogComponent, {
+            buildingId: rowData.building?.id,
             activityId: rowData.id,
             factor: rowData.emissionFactor,
             recordedDateRanges
@@ -184,6 +185,7 @@ export class EmissionsComponent extends SubscriptionAwareComponent implements On
       .pipe(
         switchMap(recordedDateRanges =>
           this.modalProvider.openDynamicDialog(NewActivityRecordDialogComponent, {
+            buildingId: activity.building?.id,
             activityId: activity.id,
             factor: activity.emissionFactor,
             editRecord: record,

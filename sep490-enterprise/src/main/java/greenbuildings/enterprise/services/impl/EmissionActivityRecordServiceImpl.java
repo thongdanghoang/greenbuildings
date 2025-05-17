@@ -6,6 +6,7 @@ import greenbuildings.commons.api.exceptions.TechnicalException;
 import greenbuildings.enterprise.dtos.EmissionActivityRecordCriteria;
 import greenbuildings.enterprise.entities.EmissionActivityRecordEntity;
 import greenbuildings.enterprise.entities.RecordFileEntity;
+import greenbuildings.enterprise.repositories.AssetRepository;
 import greenbuildings.enterprise.repositories.EmissionActivityRecordRepository;
 import greenbuildings.enterprise.repositories.RecordFileRepository;
 import greenbuildings.enterprise.services.CalculationService;
@@ -23,6 +24,7 @@ import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
@@ -36,6 +38,7 @@ public class EmissionActivityRecordServiceImpl implements EmissionActivityRecord
     private final MinioService minioService;
     private final RecordFileRepository fileRepository;
     private final CalculationService calculationService;
+    private final AssetRepository assetRepository;
     
     @Override
     public Page<EmissionActivityRecordEntity> search(SearchCriteriaDTO<EmissionActivityRecordCriteria> searchCriteria) {
@@ -54,6 +57,10 @@ public class EmissionActivityRecordServiceImpl implements EmissionActivityRecord
     
     @Override
     public void createWithFile(EmissionActivityRecordEntity record, MultipartFile file) {
+        if (Objects.nonNull(record.getAsset())
+            && !assetRepository.existsByIdAndActivityId(record.getAsset().getId(), record.getEmissionActivity().getId())) {
+            throw new BusinessException("assetId", "business.record.asset.notFound");
+        }
         if (recordRepository.existsByGroupItemIdAndDateOverlap(
                 record.getId(),
                 record.getEmissionActivity().getId(),

@@ -32,10 +32,18 @@ export abstract class AbstractFormComponent<T> extends SubscriptionAwareComponen
    */
   protected submitted: boolean = false;
 
-  protected readonly formBuilder: FormBuilder = inject(FormBuilder);
-  protected readonly notificationService: ToastProvider = inject(ToastProvider);
-  protected readonly translate: TranslateService = inject(TranslateService);
-  private readonly httpClient: HttpClient = inject(HttpClient);
+  protected readonly formBuilder: FormBuilder;
+  protected readonly notificationService: ToastProvider;
+  protected readonly translate: TranslateService;
+  private readonly httpClient: HttpClient;
+
+  protected constructor() {
+    super();
+    this.formBuilder = inject(FormBuilder);
+    this.notificationService = inject(ToastProvider);
+    this.translate = inject(TranslateService);
+    this.httpClient = inject(HttpClient);
+  }
 
   ngOnInit(): void {
     this.formControls = this.initializeFormControls();

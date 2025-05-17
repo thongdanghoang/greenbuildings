@@ -23,7 +23,7 @@ export class ModalProvider extends SubscriptionAwareComponent {
     }).onClose;
   }
 
-  openDynamicDialog(componentType: Type<any>, data?: any): Observable<boolean> {
+  openDynamicDialog(componentType: Type<any>, data?: any): Observable<any> {
     return this.dialogService.open(componentType, {
       closeOnEscape: true,
       showHeader: false,

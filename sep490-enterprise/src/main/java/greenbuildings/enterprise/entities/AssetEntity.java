@@ -12,6 +12,8 @@ import lombok.Setter;
 import lombok.experimental.FieldNameConstants;
 import org.hibernate.annotations.SoftDelete;
 
+import java.util.UUID;
+
 @Entity
 @SoftDelete
 @Table(name = "assets")
@@ -31,4 +33,9 @@ public class AssetEntity extends AbstractAuditableEntity {
     @JoinColumn(name = "building_id")
     private BuildingEntity building;
     
+    public static AssetEntity of(UUID id) {
+        AssetEntity asset = new AssetEntity();
+        asset.setId(id);
+        return asset;
+    }
 }

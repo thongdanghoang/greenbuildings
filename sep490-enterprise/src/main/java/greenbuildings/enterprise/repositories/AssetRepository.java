@@ -13,13 +13,30 @@ public interface AssetRepository
     
     @Query("""
             FROM AssetEntity assets
-            WHERE assets.building.enterprise.id = :organizationId
-            OR assets.building.id
-            IN (
-                SELECT groups.building.id
-                FROM BuildingGroupEntity groups
-                WHERE groups.tenant.id = :organizationId
+            WHERE (:buildingId IS NULL OR assets.building.id = :buildingId)
+            AND (
+                assets.building.enterprise.id = :organizationId
+                OR assets.building.id
+                IN (
+                    SELECT groups.building.id
+                    FROM BuildingGroupEntity groups
+                    WHERE groups.tenant.id = :organizationId
+                )
             )
             """)
-    List<AssetEntity> selectableByOrganizationId(UUID organizationId);
+    List<AssetEntity> selectableByOrganizationId(UUID organizationId, UUID buildingId);
+    
+    @Query("""
+                SELECT CASE WHEN COUNT(a) > 0 THEN true ELSE false END
+                  FROM AssetEntity a
+                 WHERE a.id = :id
+                   AND EXISTS (
+                       SELECT 1
+                         FROM EmissionActivityEntity eae
+                        WHERE eae.id = :activityId
+                          AND eae.building.id = a.building.id
+                   )
+            """)
+    boolean existsByIdAndActivityId(UUID id, UUID activityId);
+    
 }
