@@ -1,5 +1,5 @@
-import {UserLocale} from '../modules/shared/enums/user-language.enum';
+import {UserLanguage} from '@shared/enums/user-language.enum';
 
 export interface UserConfigs {
-  language: UserLocale;
+  language: UserLanguage;
 }

@@ -1,15 +1,12 @@
-import {HttpClient} from '@angular/common/http';
 import {Component} from '@angular/core';
-import {AbstractControl, FormBuilder, FormControl, Validators} from '@angular/forms';
+import {AbstractControl, FormControl, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import {TranslateService} from '@ngx-translate/core';
+import {CreditConvertRatio} from '@models/enterprise';
+import {CreditConvertRatioService} from '@services/credit-convert-ratio.service';
+import {AbstractFormComponent} from '@shared/components/form/abstract-form-component';
 import {filter, map, switchMap, takeUntil} from 'rxjs';
 import {UUID} from '../../../../../types/uuid';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
-import {CreditConvertRatio} from '@models/enterprise';
-import {AbstractFormComponent} from '@shared/components/form/abstract-form-component';
-import {ToastProvider} from '@shared/services/toast-provider';
-import {CreditConvertRatioService} from '@services/credit-convert-ratio.service';
 
 @Component({
   selector: 'app-update-ratio',
@@ -26,15 +23,11 @@ export class UpdateRatioComponent extends AbstractFormComponent<CreditConvertRat
   };
 
   constructor(
-    httpClient: HttpClient,
-    formBuilder: FormBuilder,
-    notificationService: ToastProvider,
-    translate: TranslateService,
     private readonly creditConvertRatioService: CreditConvertRatioService,
     private readonly router: Router,
     private readonly activatedRoute: ActivatedRoute
   ) {
-    super(httpClient, formBuilder, notificationService, translate);
+    super();
   }
 
   getCreditConvertRatio(): void {

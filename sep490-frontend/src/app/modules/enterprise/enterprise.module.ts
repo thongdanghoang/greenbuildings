@@ -2,6 +2,8 @@ import {NgModule} from '@angular/core';
 import {SharedModule} from '@shared/shared.module';
 import {AccountInformationComponent} from './components/account-information/account-information.component';
 import {ActivityTypeComponent} from './components/activity-type/activity-type.component';
+import {AssetDetailsDialogComponent} from './components/asset-details-dialog/asset-details-dialog.component';
+import {AssetsViewComponent} from './components/assets-view/assets-view.component';
 import {BuildingDetailsComponent} from './components/building-details/building-details.component';
 import {BuildingGroupDetailComponent} from './components/building-group-detail/building-group-detail.component';
 import {BuildingManagementComponent} from './components/building-management/building-management.component';
@@ -12,6 +14,8 @@ import {CreateTenantComponent} from './components/create-tenant/create-tenant.co
 import {EmissionActivityDetailComponent} from './components/emission-activity-detail/emission-activity-detail.component';
 import {EmissionActivityComponent} from './components/emission-activity/emission-activity.component';
 import {EnterpriseInvitationComponent} from './components/enterprise-invitation/enterprise-invitation.component';
+import {LinkedTenantComponent} from './components/linked-tenant/linked-tenant.component';
+import {ManageCommonActivityComponent} from './components/manage-common-activity/manage-common-activity.component';
 import {ManageTenantComponent} from './components/manage-tenant/manage-tenant.component';
 import {NewBuildingGroupComponent} from './components/new-building-group/new-building-group.component';
 import {NewTenantComponent} from './components/new-tenant/new-tenant.component';
@@ -23,6 +27,7 @@ import {ActivityTypeDialogComponent} from './dialog/activity-type-dialog/activit
 import {BuildingSubscriptionDialogComponent} from './dialog/building-subcription-dialog/building-subscription-dialog.component';
 import {CreditDeductionHistoryDialogComponent} from './dialog/credit-deduction-history-dialog/credit-deduction-history-dialog.component';
 import {CreditPackageGuideDialogComponent} from './dialog/credit-package-guide-dialog/credit-package-guide-dialog.component';
+import {EnterpriseDetailDialogComponent} from './dialog/enteprise-detail-dialog/enterprise-detail-dialog.component';
 import {NewActivityDialogComponent} from './dialog/new-activity-dialog/new-activity-dialog.component';
 import {NewActivityRecordDialogComponent} from './dialog/new-activity-record-dialog/new-activity-record-dialog.component';
 import {PaymentDetailDialogComponent} from './dialog/payment-detail-dialog/payment-detail-dialog.component';
@@ -33,9 +38,6 @@ import {EnterpriseComponent} from './enterprise.component';
 import {MarkerService} from './services/marker.service';
 import {PopupService} from './services/popup.service';
 import {RegionService} from './services/region.service';
-import {LinkedTenantComponent} from './components/linked-tenant/linked-tenant.component';
-import {ManageCommonActivityComponent} from './components/manage-common-activity/manage-common-activity.component';
-import {EnterpriseDetailDialogComponent} from './dialog/enteprise-detail-dialog/enterprise-detail-dialog.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +72,9 @@ import {EnterpriseDetailDialogComponent} from './dialog/enteprise-detail-dialog/
     TenantProfileComponent,
     LinkedTenantComponent,
     ManageCommonActivityComponent,
-    EnterpriseDetailDialogComponent
+    EnterpriseDetailDialogComponent,
+    AssetsViewComponent,
+    AssetDetailsDialogComponent
   ],
   imports: [SharedModule, EnterpriseRoutingModule],
   providers: [MarkerService, PopupService, RegionService]

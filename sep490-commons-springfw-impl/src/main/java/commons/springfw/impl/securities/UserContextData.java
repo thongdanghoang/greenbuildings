@@ -1,6 +1,7 @@
 package commons.springfw.impl.securities;
 
 import greenbuildings.commons.api.security.UserRole;
+
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -27,10 +28,10 @@ public class UserContextData implements UserDetails {
     }
     
     public Optional<UUID> getEnterpriseId() {
-        return permissions.get(UserRole.ENTERPRISE_OWNER);
+        return permissions.containsKey(UserRole.ENTERPRISE_OWNER) ? permissions.get(UserRole.ENTERPRISE_OWNER) : Optional.empty();
     }
     
     public Optional<UUID> getTenantId() {
-        return permissions.get(UserRole.TENANT);
+        return permissions.containsKey(UserRole.TENANT) ? permissions.get(UserRole.TENANT) : Optional.empty();
     }
 }

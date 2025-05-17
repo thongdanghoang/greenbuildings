@@ -1,16 +1,13 @@
-import {HttpClient} from '@angular/common/http';
 import {Component} from '@angular/core';
-import {AbstractControl, FormBuilder, FormControl, Validators} from '@angular/forms';
+import {AbstractControl, FormControl, Validators} from '@angular/forms';
 import {ActivityType, CreateNewActivityDTO} from '@models/enterprise';
 import {EmissionFactorDTO, EmissionSourceDTO} from '@models/shared-models';
-import {TranslateService} from '@ngx-translate/core';
 import {ActivityTypeService} from '@services/activity-type.service';
 import {BuildingGroupService} from '@services/building-group.service';
 import {EmissionActivityService} from '@services/emission-activity.service';
 import {EmissionFactorService} from '@services/emission-factor.service';
 import {AbstractFormComponent} from '@shared/components/form/abstract-form-component';
 import {SelectableItem} from '@shared/models/base-models';
-import {ToastProvider} from '@shared/services/toast-provider';
 import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
 import {UUID} from '../../../../../types/uuid';
 
@@ -42,10 +39,6 @@ export class NewActivityDialogComponent extends AbstractFormComponent<CreateNewA
   };
 
   constructor(
-    httpClient: HttpClient,
-    formBuilder: FormBuilder,
-    notificationService: ToastProvider,
-    translate: TranslateService,
     private readonly factorService: EmissionFactorService,
     private readonly activityService: EmissionActivityService,
     private readonly ref: DynamicDialogRef,
@@ -53,7 +46,7 @@ export class NewActivityDialogComponent extends AbstractFormComponent<CreateNewA
     private readonly activityTypeService: ActivityTypeService,
     private readonly buildingGroupService: BuildingGroupService
   ) {
-    super(httpClient, formBuilder, notificationService, translate);
+    super();
   }
 
   protected override initializeFormControls(): {

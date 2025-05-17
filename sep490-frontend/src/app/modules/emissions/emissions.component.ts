@@ -11,7 +11,6 @@ import {SubscriptionAwareComponent} from '@shared/directives/subscription-aware.
 import {SearchCriteriaDto, SearchResultDto, SelectableItem} from '@shared/models/base-models';
 import {ModalProvider} from '@shared/services/modal-provider';
 import {ToastProvider} from '@shared/services/toast-provider';
-import {DialogService, DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
 import {Observable, of, switchMap, takeUntil} from 'rxjs';
 import {UUID} from '../../../types/uuid';
 import {NewActivityDialogComponent} from '../enterprise/dialog/new-activity-dialog/new-activity-dialog.component';
@@ -47,14 +46,11 @@ export class EmissionsComponent extends SubscriptionAwareComponent implements On
     factors: new FormControl<UUID[]>([], {nonNullable: true})
   });
 
-  private ref: DynamicDialogRef | undefined;
-
   constructor(
     protected readonly emissionActivityService: EmissionActivityService,
     private readonly modalProvider: ModalProvider,
     private readonly msgService: ToastProvider,
     private readonly translate: TranslateService,
-    private readonly dialogService: DialogService,
     private readonly emissionActivityRecordService: EmissionActivityRecordService
   ) {
     super();
@@ -81,25 +77,21 @@ export class EmissionsComponent extends SubscriptionAwareComponent implements On
   }
 
   openNewActivityDialog(): void {
-    const config: DynamicDialogConfig = {
-      data: {
+    this.modalProvider
+      .openDynamicDialog(NewActivityDialogComponent, {
         selectableBuildings: this.selectableBuildings
-      },
-      closeOnEscape: true,
-      showHeader: false,
-      modal: true
-    };
-    this.ref = this.dialogService.open(NewActivityDialogComponent, config);
-    this.ref.onClose.pipe(takeUntil(this.destroy$)).subscribe(rs => {
-      if (rs) {
-        this.searchEvent.emit();
-      }
-    });
+      })
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(rs => {
+        if (rs) {
+          this.searchEvent.emit();
+        }
+      });
   }
 
   openEditActivityDialog(rowData: EmissionActivityView): void {
-    const config: DynamicDialogConfig = {
-      data: {
+    this.modalProvider
+      .openDynamicDialog(NewActivityDialogComponent, {
         selectableBuildings: this.selectableBuildings,
         id: rowData.id,
         version: rowData.version,
@@ -111,17 +103,13 @@ export class EmissionsComponent extends SubscriptionAwareComponent implements On
         type: rowData.type,
         category: rowData.category,
         description: rowData.description
-      },
-      closeOnEscape: true,
-      showHeader: false,
-      modal: true
-    };
-    this.ref = this.dialogService.open(NewActivityDialogComponent, config);
-    this.ref.onClose.pipe(takeUntil(this.destroy$)).subscribe(rs => {
-      if (rs) {
-        this.searchEvent.emit();
-      }
-    });
+      })
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(rs => {
+        if (rs) {
+          this.searchEvent.emit();
+        }
+      });
   }
 
   onDeleteEmissionActivity(activityId: UUID): void {
@@ -148,26 +136,23 @@ export class EmissionsComponent extends SubscriptionAwareComponent implements On
   }
 
   onNewEmissionRecord(rowData: EmissionActivityView): void {
-    this.emissionActivityService.getRecordedDateRanges(rowData.id as UUID).subscribe(recordedDateRanges => {
-      const config: DynamicDialogConfig = {
-        data: {
-          activityId: rowData.id,
-          factor: rowData.emissionFactor,
-          recordedDateRanges
-        },
-        closeOnEscape: true,
-        showHeader: false,
-        modal: true
-      };
-      this.dialogService
-        .open(NewActivityRecordDialogComponent, config)
-        .onClose.pipe(takeUntil(this.destroy$))
-        .subscribe(result => {
-          if (result) {
-            this.searchEvent.emit();
-          }
-        });
-    });
+    this.emissionActivityService
+      .getRecordedDateRanges(rowData.id as UUID)
+      .pipe(
+        switchMap(recordedDateRanges =>
+          this.modalProvider.openDynamicDialog(NewActivityRecordDialogComponent, {
+            activityId: rowData.id,
+            factor: rowData.emissionFactor,
+            recordedDateRanges
+          })
+        ),
+        takeUntil(this.destroy$)
+      )
+      .subscribe(result => {
+        if (result) {
+          this.searchEvent.emit();
+        }
+      });
   }
 
   onDeleteEmissionRecord(recordId: UUID): void {
@@ -196,26 +181,21 @@ export class EmissionsComponent extends SubscriptionAwareComponent implements On
   openEditRecordDialog(activity: EmissionActivityView, record: EmissionActivityRecordView): void {
     this.emissionActivityService
       .getRecordedDateRanges(activity.id as UUID, record.id as UUID)
-      .subscribe(recordedDateRanges => {
-        const config: DynamicDialogConfig = {
-          data: {
+      .pipe(
+        switchMap(recordedDateRanges =>
+          this.modalProvider.openDynamicDialog(NewActivityRecordDialogComponent, {
             activityId: activity.id,
             factor: activity.emissionFactor,
             editRecord: record,
             recordedDateRanges
-          },
-          closeOnEscape: true,
-          showHeader: false,
-          modal: true
-        };
-        this.dialogService
-          .open(NewActivityRecordDialogComponent, config)
-          .onClose.pipe(takeUntil(this.destroy$))
-          .subscribe(result => {
-            if (result) {
-              this.searchEvent.emit();
-            }
-          });
+          })
+        ),
+        takeUntil(this.destroy$)
+      )
+      .subscribe(result => {
+        if (result) {
+          this.searchEvent.emit();
+        }
       });
   }
 

@@ -1,15 +1,13 @@
 import {HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
-import {Component} from '@angular/core';
-import {AbstractControl, FormBuilder, FormControl, Validators} from '@angular/forms';
-import {TranslateService} from '@ngx-translate/core';
+import {Component, inject} from '@angular/core';
+import {AbstractControl, FormControl, Validators} from '@angular/forms';
+import {BuildingGroup, DownloadReport} from '@models/enterprise';
 import {BuildingGroupService} from '@services/building-group.service';
+import {BuildingService} from '@services/building.service';
+import {AbstractFormComponent} from '@shared/components/form/abstract-form-component';
 import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
 import {take} from 'rxjs';
 import {UUID} from '../../../../../types/uuid';
-import {BuildingGroup, DownloadReport} from '@models/enterprise';
-import {BuildingService} from '@services/building.service';
-import {AbstractFormComponent} from '@shared/components/form/abstract-form-component';
-import {ToastProvider} from '@shared/services/toast-provider';
 
 @Component({
   selector: 'app-report-dialog',
@@ -28,17 +26,13 @@ export class ReportDialogComponent extends AbstractFormComponent<DownloadReport>
   };
 
   constructor(
-    httpClient: HttpClient,
-    formBuilder: FormBuilder,
-    notificationService: ToastProvider,
-    translate: TranslateService,
     private readonly groupService: BuildingGroupService,
     private readonly buildingService: BuildingService,
     private readonly ref: DynamicDialogRef,
     protected readonly http: HttpClient,
     public config: DynamicDialogConfig<UUID>
   ) {
-    super(httpClient, formBuilder, notificationService, translate);
+    super();
   }
 
   protected initializeFormControls(): {[p: string]: AbstractControl} {
@@ -54,7 +48,7 @@ export class ReportDialogComponent extends AbstractFormComponent<DownloadReport>
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars,@typescript-eslint/explicit-function-return-type,max-lines-per-function
   protected override submitForm(_data: DownloadReport | null = null) {
-    return this.httpClient
+    return inject(HttpClient)
       .post<any>(this.submitFormDataUrl(), this.getSubmitFormData(), {
         headers: new HttpHeaders({
           // responseType: 'blob',

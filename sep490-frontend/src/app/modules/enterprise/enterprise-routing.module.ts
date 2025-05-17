@@ -1,9 +1,10 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
+import {UnsavedChangesGuard} from '@shared/directives/unsaved-changes/unsaved-changes-guard.service';
 import {AppRoutingConstants} from '../../app-routing.constant';
-import {UnsavedChangesGuard} from '../shared/directives/unsaved-changes/unsaved-changes-guard.service';
 import {AccountInformationComponent} from './components/account-information/account-information.component';
 import {ActivityTypeComponent} from './components/activity-type/activity-type.component';
+import {AssetsViewComponent} from './components/assets-view/assets-view.component';
 import {BuildingDetailsComponent} from './components/building-details/building-details.component';
 import {BuildingGroupDetailComponent} from './components/building-group-detail/building-group-detail.component';
 import {BuildingManagementComponent} from './components/building-management/building-management.component';
@@ -109,6 +110,10 @@ const routes: Routes = [
         path: `${AppRoutingConstants.TENANT_PROFILE}`,
         component: TenantProfileComponent,
         canDeactivate: [UnsavedChangesGuard]
+      },
+      {
+        path: `${AppRoutingConstants.ASSET_MANAGEMENT}`,
+        component: AssetsViewComponent
       }
     ]
   }

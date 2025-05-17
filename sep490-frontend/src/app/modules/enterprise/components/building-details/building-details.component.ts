@@ -1,18 +1,15 @@
-import {HttpClient} from '@angular/common/http';
 import {Component, EventEmitter} from '@angular/core';
-import {AbstractControl, FormBuilder, FormControl, Validators} from '@angular/forms';
+import {AbstractControl, FormControl, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {SearchCriteriaDTOSearchTenantCriteria} from '@generated/models/search-criteria-dto-search-tenant-criteria';
 import {TenantView} from '@generated/models/tenant-view';
 import {BuildingDetails} from '@models/enterprise';
-import {TranslateService} from '@ngx-translate/core';
 import {ApplicationService} from '@services/application.service';
 import {BuildingService} from '@services/building.service';
 import {GeocodingService} from '@services/geocoding.service';
 import {AbstractFormComponent} from '@shared/components/form/abstract-form-component';
 import {TableTemplateColumn} from '@shared/components/table-template/table-template.component';
 import {SearchResultDto} from '@shared/models/base-models';
-import {ToastProvider} from '@shared/services/toast-provider';
 import L from 'leaflet';
 import {Observable, debounceTime, distinctUntilChanged, filter, map, switchMap, takeUntil, tap} from 'rxjs';
 import {validate} from 'uuid';
@@ -52,17 +49,13 @@ export class BuildingDetailsComponent extends AbstractFormComponent<BuildingDeta
   private markers: L.Marker[] = [];
 
   constructor(
-    httpClient: HttpClient,
-    formBuilder: FormBuilder,
-    notificationService: ToastProvider,
-    translate: TranslateService,
     private readonly activatedRoute: ActivatedRoute,
     private readonly buildingService: BuildingService,
     private readonly geocodingService: GeocodingService,
     private readonly router: Router,
     protected readonly applicationService: ApplicationService
   ) {
-    super(httpClient, formBuilder, notificationService, translate);
+    super();
   }
 
   buildCols(): void {

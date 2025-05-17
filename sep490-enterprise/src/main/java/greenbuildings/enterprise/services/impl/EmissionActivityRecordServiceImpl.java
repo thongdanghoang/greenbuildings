@@ -1,6 +1,5 @@
 package greenbuildings.enterprise.services.impl;
 
-import commons.springfw.impl.mappers.CommonMapper;
 import greenbuildings.commons.api.dto.SearchCriteriaDTO;
 import greenbuildings.commons.api.exceptions.BusinessException;
 import greenbuildings.commons.api.exceptions.TechnicalException;
@@ -11,7 +10,8 @@ import greenbuildings.enterprise.repositories.EmissionActivityRecordRepository;
 import greenbuildings.enterprise.repositories.RecordFileRepository;
 import greenbuildings.enterprise.services.CalculationService;
 import greenbuildings.enterprise.services.EmissionActivityRecordService;
-import greenbuildings.enterprise.services.MinioService;
+
+import commons.springfw.impl.mappers.CommonMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;

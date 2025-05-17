@@ -1,6 +1,5 @@
 package greenbuildings.enterprise.rest;
 
-import commons.springfw.impl.mappers.CommonMapper;
 import greenbuildings.commons.api.dto.SearchCriteriaDTO;
 import greenbuildings.commons.api.dto.SearchResultDTO;
 import greenbuildings.enterprise.dtos.EmissionActivityRecordCriteria;
@@ -9,7 +8,9 @@ import greenbuildings.enterprise.dtos.NewEmissionActivityRecordDTO;
 import greenbuildings.enterprise.entities.EmissionActivityRecordEntity;
 import greenbuildings.enterprise.mappers.EmissionActivityRecordMapper;
 import greenbuildings.enterprise.services.EmissionActivityRecordService;
-import greenbuildings.enterprise.services.MinioService;
+import greenbuildings.enterprise.services.impl.MinioService;
+
+import commons.springfw.impl.mappers.CommonMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;

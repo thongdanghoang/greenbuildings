@@ -1,13 +1,10 @@
-import {HttpClient} from '@angular/common/http';
 import {Component} from '@angular/core';
-import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {TranslateService} from '@ngx-translate/core';
+import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
+import {EmissionUnit, EnergyConversionDTO} from '@models/shared-models';
+import {FuelConversionService} from '@services/fuel-conversion.service';
+import {AbstractFormComponent} from '@shared/components/form/abstract-form-component';
 import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
 import {UUID} from '../../../../../types/uuid';
-import {AbstractFormComponent} from '../../../shared/components/form/abstract-form-component';
-import {EmissionUnit, EnergyConversionDTO} from '../../../../models/shared-models';
-import {ToastProvider} from '../../../shared/services/toast-provider';
-import {FuelConversionService} from '../../../../services/fuel-conversion.service';
 
 @Component({
   selector: 'app-fuel-dialog',
@@ -21,15 +18,11 @@ export class FuelDialogComponent extends AbstractFormComponent<EnergyConversionD
   }));
 
   constructor(
-    httpClient: HttpClient,
-    formBuilder: FormBuilder,
-    notificationService: ToastProvider,
-    translate: TranslateService,
     private readonly fuelService: FuelConversionService,
     private readonly ref: DynamicDialogRef,
     public config: DynamicDialogConfig<UUID>
   ) {
-    super(httpClient, formBuilder, notificationService, translate);
+    super();
   }
 
   get fuelFormGroup(): FormGroup {

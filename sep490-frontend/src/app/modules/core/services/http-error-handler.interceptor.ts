@@ -1,9 +1,9 @@
 import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
-import {Observable, catchError, throwError} from 'rxjs';
 import {BusinessErrorParam} from '@shared/models/base-models';
 import {ToastProvider} from '@shared/services/toast-provider';
+import {Observable, catchError, throwError} from 'rxjs';
 
 @Injectable()
 export class HttpErrorHandlerInterceptor implements HttpInterceptor {
@@ -27,9 +27,12 @@ export class HttpErrorHandlerInterceptor implements HttpInterceptor {
   }
 
   private handleTechnicalErrorException(error: any): void {
-    const message = this.translateService.instant('common.error.technicalServerError', {
-      correlationId: error.error.correlationId
-    });
+    const message =
+      error.status === 409
+        ? error.error.message
+        : this.translateService.instant('common.error.technicalServerError', {
+            correlationId: error.error.correlationId
+          });
     this.messageService.technicalError({
       summary: this.translateService.instant('common.error.unexpectedError'),
       detail: message

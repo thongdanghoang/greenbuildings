@@ -1,14 +1,11 @@
-import {HttpClient} from '@angular/common/http';
 import {Component, Injector} from '@angular/core';
-import {AbstractControl, FormBuilder, FormControl, Validators} from '@angular/forms';
+import {AbstractControl, FormControl, Validators} from '@angular/forms';
 import {RegisterEnterpriseDTO} from '@generated/models/register-enterprise-dto';
 import {UserRole} from '@models/role-names';
-import {TranslateService} from '@ngx-translate/core';
 import {ApplicationService} from '@services/application.service';
 import {EnterpriseUserService} from '@services/enterprise-user.service';
 import {StorageService} from '@services/storage.service';
 import {AbstractFormComponent} from '@shared/components/form/abstract-form-component';
-import {ToastProvider} from '@shared/services/toast-provider';
 import {OidcSecurityService} from 'angular-auth-oidc-client';
 import {MessageService} from 'primeng/api';
 import {delay, take, takeUntil, tap} from 'rxjs';
@@ -36,16 +33,12 @@ export class CreateEnterpriseComponent extends AbstractFormComponent<RegisterEnt
   };
 
   constructor(
-    httpClient: HttpClient,
-    formBuilder: FormBuilder,
-    notificationService: ToastProvider,
-    translate: TranslateService,
     private readonly enterpriseUserService: EnterpriseUserService,
     private readonly injector: Injector,
     private readonly applicationService: ApplicationService,
     private readonly storageService: StorageService
   ) {
-    super(httpClient, formBuilder, notificationService, translate);
+    super();
   }
 
   protected uploadBusinessLicense(event: Event): void {

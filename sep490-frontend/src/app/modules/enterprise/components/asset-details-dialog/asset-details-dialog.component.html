@@ -1,0 +1,68 @@
+<div class="mt-4"></div>
+<master-layout
+    [title]="formStructure.id.value ? 'assets.details.dialog.title.edit' : 'assets.details.dialog.title.new'"
+>
+    <p-button
+        actions
+        icon="pi pi-times"
+        text
+        rounded
+        (click)="onclose()"
+    ></p-button>
+
+    <ng-container *ngTemplateOutlet="assetDetailsForm"></ng-container>
+</master-layout>
+
+<ng-template #assetDetailsForm>
+    <form
+        [formGroup]="formGroup"
+        (ngSubmit)="submit()"
+        class="grid w-80 grid-cols-1 sm:w-96 md:grid-cols-1"
+    >
+        <p-iftalabel class="mb-6">
+            <p-select
+                [options]="selectableBuildings"
+                formControlName="buildingId"
+                optionLabel="label"
+                optionValue="value"
+                class="w-full"
+                [showClear]="true"
+            />
+            <label>{{ 'assets.details.dialog.building' | translate }}</label>
+        </p-iftalabel>
+        <p-iftalabel errorMessages>
+            <input
+                pInputText
+                formControlName="name"
+                class="w-full"
+            />
+            <label>{{ 'assets.details.dialog.name' | translate }}</label>
+            <form-field-error />
+        </p-iftalabel>
+        <p-iftalabel errorMessages>
+            <textarea
+                rows="5"
+                cols="30"
+                pTextarea
+                formControlName="description"
+                class="w-full"
+            ></textarea>
+            <label>{{ 'assets.details.dialog.description' | translate }}</label>
+            <form-field-error />
+        </p-iftalabel>
+        <div class="flex justify-end gap-4">
+            <p-button
+                label="{{ 'common.back' | translate }}"
+                severity="secondary"
+                icon="pi pi-arrow-left"
+                (onClick)="onclose()"
+            ></p-button>
+            <p-button
+                label="{{ 'common.save' | translate }}"
+                icon="pi pi-check"
+                severity="primary"
+                (onClick)="submit()"
+            ></p-button>
+        </div>
+    </form>
+</ng-template>

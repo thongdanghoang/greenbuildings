@@ -8,6 +8,8 @@ import greenbuildings.enterprise.entities.EmissionActivityRecordEntity;
 import greenbuildings.enterprise.repositories.EmissionActivityRecordRepository;
 import greenbuildings.enterprise.repositories.RecordFileRepository;
 import greenbuildings.enterprise.services.impl.EmissionActivityRecordServiceImpl;
+import greenbuildings.enterprise.services.impl.MinioService;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

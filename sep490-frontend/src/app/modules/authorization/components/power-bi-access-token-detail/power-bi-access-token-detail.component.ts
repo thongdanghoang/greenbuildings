@@ -1,19 +1,16 @@
-import {HttpClient} from '@angular/common/http';
 import {Component} from '@angular/core';
-import {AbstractControl, FormBuilder, FormControl, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
+import {AbstractControl, FormControl, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import {TranslateService} from '@ngx-translate/core';
-import {filter, map, switchMap, takeUntil, tap} from 'rxjs';
-import {validate} from 'uuid';
-import {UUID} from '../../../../../types/uuid';
-import {AppRoutingConstants} from '../../../../app-routing.constant';
-import {ApplicationConstant} from '../../../../application.constant';
 import {PowerBiAuthority, PowerBiScope} from '@models/power-bi-access-token';
 
 import {PowerBiAccessTokenService} from '@services/power-bi-access-token.service';
 import {AbstractFormComponent} from '@shared/components/form/abstract-form-component';
 import {SelectableItem} from '@shared/models/base-models';
-import {ToastProvider} from '@shared/services/toast-provider';
+import {filter, map, switchMap, takeUntil, tap} from 'rxjs';
+import {validate} from 'uuid';
+import {UUID} from '../../../../../types/uuid';
+import {AppRoutingConstants} from '../../../../app-routing.constant';
+import {ApplicationConstant} from '../../../../application.constant';
 import {PowerBiAccessTokenExpirationOptions} from '../power-bi-access-token-expiration-options';
 
 @Component({
@@ -54,15 +51,11 @@ export class PowerBiAccessTokenDetailComponent extends AbstractFormComponent<Pow
   protected selectablePowerBiScopes: SelectableItem<any>[] = [];
 
   constructor(
-    httpClient: HttpClient,
-    formBuilder: FormBuilder,
-    notificationService: ToastProvider,
-    translate: TranslateService,
     private readonly activatedRoute: ActivatedRoute,
     private readonly router: Router,
     private readonly powerBiService: PowerBiAccessTokenService
   ) {
-    super(httpClient, formBuilder, notificationService, translate);
+    super();
   }
 
   get scopeBuilding(): boolean {

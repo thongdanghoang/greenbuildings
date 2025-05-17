@@ -1,8 +1,7 @@
 import {Component, EventEmitter, Output} from '@angular/core';
-import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
 import {Confirmation} from 'primeng/api';
+import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
 import {Nullable} from 'primeng/ts-helpers';
-import {DomSanitizer} from '@angular/platform-browser';
 
 /**
  * Type of the confirm event.
@@ -30,7 +29,6 @@ export class ConfirmDialogComponent {
 
   constructor(
     private readonly configs: DynamicDialogConfig,
-    protected readonly sanitizer: DomSanitizer,
     private readonly ref: DynamicDialogRef
   ) {
     this.confirmationOptions = this.configs.data;

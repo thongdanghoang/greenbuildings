@@ -1,15 +1,12 @@
-import {HttpClient} from '@angular/common/http';
 import {Component, Injector} from '@angular/core';
-import {AbstractControl, FormBuilder, FormControl, Validators} from '@angular/forms';
+import {AbstractControl, FormControl, Validators} from '@angular/forms';
 import {ValidateOTPRequest} from '@models/enterprise-user';
-import {TranslateService} from '@ngx-translate/core';
+import {ApplicationService} from '@services/application.service';
+import {EnterpriseUserService} from '@services/enterprise-user.service';
+import {AbstractFormComponent} from '@shared/components/form/abstract-form-component';
 import {OidcSecurityService} from 'angular-auth-oidc-client';
 import {MessageService} from 'primeng/api';
 import {delay, take, tap} from 'rxjs';
-import {EnterpriseUserService} from '@services/enterprise-user.service';
-import {ApplicationService} from '@services/application.service';
-import {AbstractFormComponent} from '@shared/components/form/abstract-form-component';
-import {ToastProvider} from '@shared/services/toast-provider';
 
 @Component({
   selector: 'app-email-verify-otp',
@@ -25,15 +22,11 @@ export class EmailVerifyOTPComponent extends AbstractFormComponent<ValidateOTPRe
   };
 
   constructor(
-    httpClient: HttpClient,
-    formBuilder: FormBuilder,
-    notificationService: ToastProvider,
-    translate: TranslateService,
     private readonly enterpriseUserService: EnterpriseUserService,
     private readonly injector: Injector,
     private readonly applicationService: ApplicationService
   ) {
-    super(httpClient, formBuilder, notificationService, translate);
+    super();
   }
 
   sendOtp(): void {

@@ -1,14 +1,11 @@
-import {HttpClient} from '@angular/common/http';
 import {Component} from '@angular/core';
-import {AbstractControl, FormBuilder, FormControl, Validators} from '@angular/forms';
-import {TranslateService} from '@ngx-translate/core';
+import {AbstractControl, FormControl, Validators} from '@angular/forms';
+import {Building, BuildingDetails, CreditConvertRatio, CreditConvertType, TransactionType} from '@models/enterprise';
+import {SubscriptionService} from '@services/subscription.service';
+import {AbstractFormComponent} from '@shared/components/form/abstract-form-component';
 import moment from 'moment';
 import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
-import {Building, BuildingDetails, CreditConvertRatio, CreditConvertType, TransactionType} from '@models/enterprise';
-import {AbstractFormComponent} from '@shared/components/form/abstract-form-component';
-import {ToastProvider} from '@shared/services/toast-provider';
-import {SubscriptionService} from '@services/subscription.service';
 
 export interface SubscriptionDialogOptions {
   selectedBuildingDetails: BuildingDetails;
@@ -43,15 +40,11 @@ export class BuildingSubscriptionDialogComponent extends AbstractFormComponent<v
   };
 
   constructor(
-    httpClient: HttpClient,
-    formBuilder: FormBuilder,
-    notificationService: ToastProvider,
-    translate: TranslateService,
     protected subscribeService: SubscriptionService,
     protected ref: DynamicDialogRef,
     public config: DynamicDialogConfig
   ) {
-    super(httpClient, formBuilder, notificationService, translate);
+    super();
     this.data = config.data;
   }
 

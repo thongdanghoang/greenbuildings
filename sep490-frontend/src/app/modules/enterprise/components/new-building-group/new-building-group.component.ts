@@ -1,14 +1,11 @@
-import {HttpClient} from '@angular/common/http';
 import {Component, OnInit} from '@angular/core';
-import {AbstractControl, FormBuilder, FormControl, Validators} from '@angular/forms';
+import {AbstractControl, FormControl, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CreateBuildingGroupDTO} from '@models/building-group';
 import {BuildingDetails} from '@models/enterprise';
-import {TranslateService} from '@ngx-translate/core';
 import {BuildingGroupService} from '@services/building-group.service';
 import {BuildingService} from '@services/building.service';
 import {AbstractFormComponent} from '@shared/components/form/abstract-form-component';
-import {ToastProvider} from '@shared/services/toast-provider';
 import {filter, map, switchMap, takeUntil} from 'rxjs';
 import {validate} from 'uuid';
 import {UUID} from '../../../../../types/uuid';
@@ -30,16 +27,12 @@ export class NewBuildingGroupComponent extends AbstractFormComponent<CreateBuild
   };
 
   constructor(
-    httpClient: HttpClient,
-    formBuilder: FormBuilder,
-    notificationService: ToastProvider,
-    translate: TranslateService,
     private readonly activatedRoute: ActivatedRoute,
     private readonly buildingService: BuildingService,
     private readonly buildingGroupService: BuildingGroupService,
     private readonly router: Router
   ) {
-    super(httpClient, formBuilder, notificationService, translate);
+    super();
   }
 
   initializeData(): void {

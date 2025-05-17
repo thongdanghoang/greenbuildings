@@ -1,15 +1,13 @@
-import {Injectable, OnDestroy} from '@angular/core';
+import {Injectable, Type} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
-import {Confirmation} from 'primeng/api';
-import {DialogService, DynamicDialogRef} from 'primeng/dynamicdialog';
-import {Observable} from 'rxjs';
 import {SubscriptionAwareComponent} from '@shared/directives/subscription-aware.component';
+import {Confirmation} from 'primeng/api';
+import {DialogService} from 'primeng/dynamicdialog';
+import {Observable} from 'rxjs';
 import {ConfirmDialogComponent} from '../components/dialog/confirm-dialog/confirm-dialog.component';
 
 @Injectable()
-export class ModalProvider extends SubscriptionAwareComponent implements OnDestroy {
-  ref: DynamicDialogRef | undefined;
-
+export class ModalProvider extends SubscriptionAwareComponent {
   constructor(
     private readonly dialogService: DialogService,
     private readonly translate: TranslateService
@@ -18,16 +16,24 @@ export class ModalProvider extends SubscriptionAwareComponent implements OnDestr
   }
 
   showConfirm(params: Confirmation): Observable<boolean> {
-    this.ref = this.dialogService.open(ConfirmDialogComponent, {
+    return this.dialogService.open(ConfirmDialogComponent, {
       header: params.header,
       modal: true,
       data: params
-    });
-    return this.ref.onClose;
+    }).onClose;
+  }
+
+  openDynamicDialog(componentType: Type<any>, data?: any): Observable<boolean> {
+    return this.dialogService.open(componentType, {
+      closeOnEscape: true,
+      showHeader: false,
+      modal: true,
+      data
+    }).onClose;
   }
 
   showDefaultConfirm(message: string = 'common.defaultConfirmMessage'): Observable<boolean> {
-    this.ref = this.dialogService.open(ConfirmDialogComponent, {
+    return this.dialogService.open(ConfirmDialogComponent, {
       modal: true,
       header: this.translate.instant('common.confirmHeader'),
       data: {
@@ -40,8 +46,7 @@ export class ModalProvider extends SubscriptionAwareComponent implements OnDestr
         rejectIcon: 'none',
         rejectLabel: this.translate.instant('common.reject')
       }
-    });
-    return this.ref.onClose;
+    }).onClose;
   }
 
   showError(): void {
@@ -49,7 +54,7 @@ export class ModalProvider extends SubscriptionAwareComponent implements OnDestr
   }
 
   showDirtyCheckConfirm(params: Confirmation): Observable<boolean> {
-    this.ref = this.dialogService.open(ConfirmDialogComponent, {
+    return this.dialogService.open(ConfirmDialogComponent, {
       header: params.header,
       modal: true,
       data: {
@@ -60,14 +65,6 @@ export class ModalProvider extends SubscriptionAwareComponent implements OnDestr
         acceptIcon: 'none',
         rejectIcon: 'none'
       }
-    });
-    return this.ref.onClose;
-  }
-
-  override ngOnDestroy(): void {
-    if (this.ref) {
-      this.ref.close();
-    }
-    super.ngOnDestroy();
+    }).onClose;
   }
 }

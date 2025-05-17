@@ -1,12 +1,9 @@
-import {HttpClient} from '@angular/common/http';
 import {Component} from '@angular/core';
-import {AbstractControl, FormBuilder, FormControl, Validators} from '@angular/forms';
+import {AbstractControl, FormControl, Validators} from '@angular/forms';
 import {ActivityType} from '@models/enterprise';
-import {TranslateService} from '@ngx-translate/core';
 import {ActivityTypeService} from '@services/activity-type.service';
 import {ApplicationService} from '@services/application.service';
 import {AbstractFormComponent} from '@shared/components/form/abstract-form-component';
-import {ToastProvider} from '@shared/services/toast-provider';
 import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
 import {UUID} from '../../../../../types/uuid';
 
@@ -30,16 +27,12 @@ export class ActivityTypeDialogComponent extends AbstractFormComponent<ActivityT
   };
 
   constructor(
-    httpClient: HttpClient,
-    formBuilder: FormBuilder,
-    notificationService: ToastProvider,
-    translate: TranslateService,
     private readonly activityTypeService: ActivityTypeService,
     private readonly ref: DynamicDialogRef,
     public config: DynamicDialogConfig<ActivityTypeDialogData>,
     protected readonly applicationService: ApplicationService
   ) {
-    super(httpClient, formBuilder, notificationService, translate);
+    super();
   }
 
   protected initializeData(): void {

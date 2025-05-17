@@ -1,17 +1,14 @@
 import {Location} from '@angular/common';
-import {HttpClient} from '@angular/common/http';
 import {Component} from '@angular/core';
-import {AbstractControl, FormBuilder, FormControl, Validators} from '@angular/forms';
+import {AbstractControl, FormControl, Validators} from '@angular/forms';
 import {environment} from '@environment';
-import {TranslateService} from '@ngx-translate/core';
+import {EnterpriseUserDetails} from '@models/enterprise-user';
+import {EnterpriseUserService} from '@services/enterprise-user.service';
+import {UserService} from '@services/user.service';
+import {AbstractFormComponent} from '@shared/components/form/abstract-form-component';
 import {takeUntil} from 'rxjs';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
 import {ApplicationConstant} from '../../../../application.constant';
-import {UserService} from '@services/user.service';
-import {EnterpriseUserDetails} from '@models/enterprise-user';
-import {EnterpriseUserService} from '@services/enterprise-user.service';
-import {AbstractFormComponent} from '@shared/components/form/abstract-form-component';
-import {ToastProvider} from '@shared/services/toast-provider';
 
 @Component({
   selector: 'app-account-information',
@@ -34,15 +31,11 @@ export class AccountInformationComponent extends AbstractFormComponent<Enterpris
   protected readonly AppRoutingConstants = AppRoutingConstants;
 
   constructor(
-    httpClient: HttpClient,
-    formBuilder: FormBuilder,
-    notificationService: ToastProvider,
-    translate: TranslateService,
     private readonly location: Location,
     private readonly userService: UserService,
     private readonly enterpriseUserService: EnterpriseUserService
   ) {
-    super(httpClient, formBuilder, notificationService, translate);
+    super();
   }
 
   revert(): void {

@@ -1,9 +1,9 @@
 import {HttpClient} from '@angular/common/http';
-import {Directive, OnInit} from '@angular/core';
+import {Directive, OnInit, inject} from '@angular/core';
 import {AbstractControl, FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {TranslateService} from '@ngx-translate/core';
-import {of, take, takeUntil} from 'rxjs';
 import {SubscriptionAwareComponent} from '@shared/directives/subscription-aware.component';
+import {of, take, takeUntil} from 'rxjs';
 import {BusinessErrorParam} from '../../models/base-models';
 import {ToastProvider} from '../../services/toast-provider';
 
@@ -32,14 +32,10 @@ export abstract class AbstractFormComponent<T> extends SubscriptionAwareComponen
    */
   protected submitted: boolean = false;
 
-  protected constructor(
-    protected httpClient: HttpClient,
-    protected formBuilder: FormBuilder,
-    protected notificationService: ToastProvider,
-    protected translate: TranslateService
-  ) {
-    super();
-  }
+  protected readonly formBuilder: FormBuilder = inject(FormBuilder);
+  protected readonly notificationService: ToastProvider = inject(ToastProvider);
+  protected readonly translate: TranslateService = inject(TranslateService);
+  private readonly httpClient: HttpClient = inject(HttpClient);
 
   ngOnInit(): void {
     this.formControls = this.initializeFormControls();
