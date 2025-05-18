@@ -1,5 +1,6 @@
 import {Component, EventEmitter, OnInit, TemplateRef, ViewChild, inject} from '@angular/core';
 import {FormBuilder, FormControl} from '@angular/forms';
+import {Router} from '@angular/router';
 import {ActivityCriteria} from '@generated/models/activity-criteria';
 import {EmissionActivityRecordView} from '@generated/models/emission-activity-record-view';
 import {EmissionActivityView} from '@generated/models/emission-activity-view';
@@ -11,7 +12,7 @@ import {SubscriptionAwareComponent} from '@shared/directives/subscription-aware.
 import {SearchCriteriaDto, SearchResultDto, SelectableItem} from '@shared/models/base-models';
 import {ModalProvider} from '@shared/services/modal-provider';
 import {ToastProvider} from '@shared/services/toast-provider';
-import {Observable, of, switchMap, takeUntil} from 'rxjs';
+import {Observable, of, switchMap, takeUntil, tap} from 'rxjs';
 import {UUID} from '../../../types/uuid';
 import {NewActivityDialogComponent} from '../enterprise/dialog/new-activity-dialog/new-activity-dialog.component';
 import {NewActivityRecordDialogComponent} from '../enterprise/dialog/new-activity-record-dialog/new-activity-record-dialog.component';
@@ -51,7 +52,8 @@ export class EmissionsComponent extends SubscriptionAwareComponent implements On
     private readonly modalProvider: ModalProvider,
     private readonly msgService: ToastProvider,
     private readonly translate: TranslateService,
-    private readonly emissionActivityRecordService: EmissionActivityRecordService
+    private readonly emissionActivityRecordService: EmissionActivityRecordService,
+    private readonly router: Router
   ) {
     super();
     this.search = this.emissionActivityService.search.bind(this.emissionActivityService);
@@ -192,7 +194,18 @@ export class EmissionsComponent extends SubscriptionAwareComponent implements On
   private fetchFilterOptions(): void {
     this.emissionActivityService
       .getSelectableBuildings()
-      .pipe(takeUntil(this.destroy$))
+      .pipe(
+        tap(selectableBuildings => {
+          if (selectableBuildings.length === 0) {
+            this.msgService.warn({
+              summary: this.translate.instant('emissions.warning.noBuildingsActivated.summary'),
+              detail: this.translate.instant('emissions.warning.noBuildingsActivated.detail')
+            });
+            void this.router.navigate(['/enterprise/buildings']);
+          }
+        }),
+        takeUntil(this.destroy$)
+      )
       .subscribe(selectableBuildings => (this.selectableBuildings = selectableBuildings));
     this.emissionActivityService
       .getSelectableFactors(this.translate.currentLang)
@@ -217,13 +230,13 @@ export class EmissionsComponent extends SubscriptionAwareComponent implements On
       templateRef: this.buildingGroupTemplate
     });
     this.cols.push({
-      field: 'type',
-      header: 'emissions.activities.table.header.type'
-    });
-    this.cols.push({
       field: 'category',
       header: 'emissions.activities.table.header.category',
       sortable: true
+    });
+    this.cols.push({
+      field: 'type',
+      header: 'emissions.activities.table.header.type'
     });
     this.cols.push({
       field: 'id',

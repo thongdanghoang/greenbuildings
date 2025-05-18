@@ -16,17 +16,17 @@ public interface AssetRepository
     @Query("""
             FROM AssetEntity assets
             WHERE (:buildingId IS NULL OR assets.building.id = :buildingId)
-            AND (
-                assets.building.enterprise.id = :organizationId
-                OR assets.building.id
-                IN (
-                    SELECT groups.building.id
-                    FROM BuildingGroupEntity groups
-                    WHERE groups.tenant.id = :organizationId
-                )
-            )
+            AND ((assets.tenant.id IS NOT NULL)
+            OR (assets.enterprise.id IS NOT NULL AND assets.enterprise.id = :enterpriseId))
             """)
-    List<AssetEntity> selectableByOrganizationId(UUID organizationId, UUID buildingId);
+    List<AssetEntity> selectableByEnterpriseId(UUID enterpriseId, UUID buildingId);
+    
+    @Query("""
+            FROM AssetEntity assets
+            WHERE (:buildingId IS NULL OR assets.building.id = :buildingId)
+            AND (assets.tenant.id IS NOT NULL AND assets.tenant.id = :tenantId)
+            """)
+    List<AssetEntity> selectableByTenantId(UUID tenantId, UUID buildingId);
     
     @Query("""
                 SELECT CASE WHEN COUNT(a) > 0 THEN true ELSE false END

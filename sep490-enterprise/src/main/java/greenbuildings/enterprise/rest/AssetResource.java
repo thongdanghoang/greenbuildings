@@ -89,12 +89,8 @@ public class AssetResource {
     public ResponseEntity<List<SelectableItem<UUID>>> selectable(
             @AuthenticationPrincipal UserContextData userContext,
             @RequestParam(required = false) UUID buildingId) {
-        var organizationId = userContext
-                .getTenantId()
-                .or(userContext::getEnterpriseId)
-                .orElseThrow();
         var selectableItems = assetService
-                .selectableByOrganizationId(organizationId, buildingId)
+                .selectableByBuildingId(userContext, buildingId)
                 .stream()
                 .map(asset -> new SelectableItem<>(asset.getName(), asset.getId(), false))
                 .toList();

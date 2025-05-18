@@ -470,6 +470,12 @@
     }
   },
   "emissions": {
+    "warning": {
+      "noBuildingsActivated": {
+        "summary": "没有活跃的建筑物",
+        "detail": "请至少激活一个建筑物以开始管理排放数据。"
+      }
+    },
     "title": "排放活动",
     "subtitle": "排放活动是企业可以选择创建活动记录的活动。",
     "activities": {

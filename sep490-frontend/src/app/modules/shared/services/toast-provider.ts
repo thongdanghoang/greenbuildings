@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
-import {MessageService, ToastMessageOptions} from 'primeng/api';
 import {SubscriptionAwareComponent} from '@shared/directives/subscription-aware.component';
+import {MessageService, ToastMessageOptions} from 'primeng/api';
 
 @Injectable()
 export class ToastProvider extends SubscriptionAwareComponent {

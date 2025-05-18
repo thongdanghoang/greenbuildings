@@ -2,6 +2,7 @@ package greenbuildings.enterprise.services;
 
 import greenbuildings.enterprise.entities.AssetEntity;
 
+import commons.springfw.impl.securities.UserContextData;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -20,6 +21,6 @@ public interface AssetService {
     
     AssetEntity getById(UUID id);
     
-    List<AssetEntity> selectableByOrganizationId(UUID organizationId, UUID buildingId);
+    List<AssetEntity> selectableByBuildingId(UserContextData userContext, UUID buildingId);
     
 }

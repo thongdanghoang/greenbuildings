@@ -477,6 +477,12 @@
     }
   },
   "emissions": {
+    "warning": {
+      "noBuildingsActivated": {
+        "summary": "No Active Buildings",
+        "detail": "Please activate at least one building to start managing emissions data."
+      }
+    },
     "title": "Emission Activity",
     "subtitle": "Emission activity is the activity that the enterprise can choose from to create an activity record.",
     "activities": {
