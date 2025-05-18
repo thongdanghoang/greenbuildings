@@ -2,18 +2,20 @@ import {isPlatformBrowser} from '@angular/common';
 import {HttpClient} from '@angular/common/http';
 import {ChangeDetectorRef, Component, OnDestroy, OnInit, PLATFORM_ID, inject} from '@angular/core';
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
+import {Router} from '@angular/router';
 import {BuildingGhgEmission} from '@generated/models/building-ghg-emission';
 import {DefaultChartView} from '@generated/models/default-chart-view';
 import {DistributionEmissionSource} from '@generated/models/distribution-emission-source';
+import {TranslateService} from '@ngx-translate/core';
+import {EmissionActivityService} from '@services/emission-activity.service';
+import {SubscriptionAwareComponent} from '@shared/directives/subscription-aware.component';
+import {BaseDTO, SelectableItem} from '@shared/models/base-models';
+import {ToastProvider} from '@shared/services/toast-provider';
 import {DialogService, DynamicDialogRef} from 'primeng/dynamicdialog';
 import {SelectChangeEvent} from 'primeng/select';
 import {Observable, filter, switchMap, take, takeUntil, tap} from 'rxjs';
 import {AppRoutingConstants} from '../../app-routing.constant';
-import {SubscriptionAwareComponent} from '@shared/directives/subscription-aware.component';
-import {BaseDTO, SelectableItem} from '@shared/models/base-models';
-import {ToastProvider} from '@shared/services/toast-provider';
 import {CreateDashboardComponent} from './create-dashboard/create-dashboard.component';
-import {TranslateService} from '@ngx-translate/core';
 
 interface EnterpriseDashboardDTO extends BaseDTO {
   title: string;
@@ -93,12 +95,16 @@ export class DashboardComponent extends SubscriptionAwareComponent implements On
     private readonly dialogService: DialogService,
     private readonly messageService: ToastProvider,
     public readonly translate: TranslateService,
-    private readonly cd: ChangeDetectorRef
+    private readonly cd: ChangeDetectorRef,
+    protected readonly emissionActivityService: EmissionActivityService,
+    private readonly toastProvider: ToastProvider,
+    private readonly router: Router
   ) {
     super();
   }
 
   ngOnInit(): void {
+    this.checkAnyActivatedBuildings();
     this.initChart();
     this.getDashboardData()
       .pipe(
@@ -122,6 +128,24 @@ export class DashboardComponent extends SubscriptionAwareComponent implements On
         })
       )
       .subscribe(dashboards => (this.dashboards = dashboards));
+  }
+
+  checkAnyActivatedBuildings(): void {
+    this.emissionActivityService
+      .getSelectableBuildings()
+      .pipe(
+        tap(selectableBuildings => {
+          if (selectableBuildings.length === 0) {
+            this.toastProvider.warn({
+              summary: this.translate.instant('emissions.warning.noBuildingsActivated.summary'),
+              detail: this.translate.instant('emissions.warning.noBuildingsActivated.detail')
+            });
+            void this.router.navigate(['/enterprise/buildings']);
+          }
+        }),
+        takeUntil(this.destroy$)
+      )
+      .subscribe();
   }
 
   // eslint-disable-next-line max-lines-per-function
