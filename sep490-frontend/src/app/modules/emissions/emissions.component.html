@@ -51,9 +51,6 @@
                         {{ 'enterprise.emission.activity.record.table.quantity' | translate }}
                         <p-sortIcon field="quantity" />
                     </th>
-                    <th pSortableColumn="ghg">
-                        {{ 'enterprise.emission.activity.record.table.ghg' | translate }} <p-sortIcon field="ghg" />
-                    </th>
                     <th pSortableColumn="startDate">
                         {{ 'enterprise.emission.activity.record.table.startDate' | translate }}
                         <p-sortIcon field="startDate" />
@@ -61,6 +58,9 @@
                     <th pSortableColumn="endDate">
                         {{ 'enterprise.emission.activity.record.table.endDate' | translate }}
                         <p-sortIcon field="endDate" />
+                    </th>
+                    <th pSortableColumn="ghg">
+                        {{ 'enterprise.emission.activity.record.table.ghg' | translate }} <p-sortIcon field="ghg" />
                     </th>
                     <th class="flex justify-end">
                         <p-button
@@ -80,9 +80,9 @@
                     <td>{{ record.value }}</td>
                     <td>{{ record.unit }}</td>
                     <td>{{ record.quantity | number: '1.0-0' }}</td>
-                    <td class="text-primary-emphasis">{{ record.ghg | number: '1.0-0' }}</td>
                     <td>{{ record.startDate | date: 'dd.MM.yyyy' }}</td>
                     <td>{{ record.endDate | date: 'dd.MM.yyyy' }}</td>
+                    <td class="font-bold text-primary">{{ record.ghg | number: '1.0-0' }}</td>
                     <td class="flex justify-end">
                         <p-button
                             icon="pi pi-pencil"

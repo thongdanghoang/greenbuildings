@@ -5,6 +5,7 @@ import greenbuildings.enterprise.repositories.AssetRepository;
 import greenbuildings.enterprise.repositories.EmissionActivityRecordRepository;
 import greenbuildings.enterprise.services.AssetService;
 
+import commons.springfw.impl.securities.UserContextData;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -72,7 +73,10 @@ public class AssetServiceImpl implements AssetService {
     }
     
     @Override
-    public List<AssetEntity> selectableByOrganizationId(UUID organizationId, UUID buildingId) {
-        return assetRepository.selectableByOrganizationId(organizationId, buildingId);
+    public List<AssetEntity> selectableByBuildingId(UserContextData userContext, UUID buildingId) {
+        if (userContext.getEnterpriseId().isPresent()) {
+            return assetRepository.selectableByEnterpriseId(userContext.getEnterpriseId().get(), buildingId);
+        }
+        return assetRepository.selectableByTenantId(userContext.getTenantId().orElseThrow(), buildingId);
     }
 }

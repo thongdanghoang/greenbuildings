@@ -230,13 +230,13 @@ export class EmissionsComponent extends SubscriptionAwareComponent implements On
       templateRef: this.buildingGroupTemplate
     });
     this.cols.push({
-      field: 'type',
-      header: 'emissions.activities.table.header.type'
-    });
-    this.cols.push({
       field: 'category',
       header: 'emissions.activities.table.header.category',
       sortable: true
+    });
+    this.cols.push({
+      field: 'type',
+      header: 'emissions.activities.table.header.type'
     });
     this.cols.push({
       field: 'id',

@@ -28,7 +28,7 @@ export class EmissionActivityDetailComponent extends AbstractFormComponent<Emiss
     version: new FormControl(0, Validators.required),
     name: new FormControl<null | string>(null, [Validators.required]),
     buildingId: new FormControl<null | UUID>(null, [Validators.required]),
-    buildingGroupId: new FormControl<null | UUID>(null),
+    buildingGroupID: new FormControl<null | UUID>(null),
     emissionFactorID: new FormControl<null | UUID>(null, [Validators.required]),
     type: new FormControl(),
     category: new FormControl<null | string>(null, [Validators.required]),
@@ -95,7 +95,7 @@ export class EmissionActivityDetailComponent extends AbstractFormComponent<Emiss
     this.formStructure.id.setValue(this.activity.id);
     this.formStructure.version.setValue(this.activity.version);
     this.formStructure.buildingId.setValue(this.activity.buildingId);
-    this.formStructure.buildingGroupId.setValue(this.activity.buildingGroup?.id);
+    this.formStructure.buildingGroupID.setValue(this.activity.buildingGroup?.id);
     this.formStructure.emissionFactorID.setValue(this.activity.emissionFactor.id);
     this.formStructure.name.setValue(this.activity.name);
     if (this.activity.type) {
