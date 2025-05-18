@@ -56,11 +56,9 @@ public class BuildingPermissionFilterInterceptor {
             return joinPoint.proceed();
         } finally {
             if (Objects.nonNull(session)) {
-                // always clear the enterprise filter, even if currentEnterpriseId is empty
                 session.disableFilter(BuildingEntity.BUILDING_SUBSCRIPTION_FILTER_FOR_ENTERPRISE);
-                if (currentTenantId.isPresent()) {
-                    session.disableFilter(BuildingEntity.BUILDING_SUBSCRIPTION_FILTER_FOR_TENANT);
-                }
+                session.disableFilter(BuildingEntity.BUILDING_SUBSCRIPTION_FILTER_FOR_TENANT);
+            }
         }
     }
 }
