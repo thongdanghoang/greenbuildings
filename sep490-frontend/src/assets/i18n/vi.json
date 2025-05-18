@@ -616,10 +616,10 @@
       "enterprise": "Doanh nghiệp",
       "tenant": "Doanh nghiệp thuê",
       "tradingActivities": "Hoạt động giao dịch",
-      "payment": "Doanh nghiệp thanh toán",
+      "payment": "Giao dịch thanh toán",
       "transaction": "Giao dịch tòa nhà",
       "user": "Quản lý người dùng",
-      "revenue": "Tổng Quan Doanh Thu"
+      "revenue": "Tổng quan doanh thu"
     }
   },
   "admin": {
@@ -1000,8 +1000,8 @@
       "months": "Số Tháng",
       "numberOfDevices": "Số Lượng Hoạt Động",
       "transactionType": "Loại Giao Dịch",
-      "NEW_PURCHASE": "mua lần đầu",
-      "UPGRADE": "năng cấp về sau"
+      "NEW_PURCHASE": "Kích hoạt toà nhà",
+      "UPGRADE": "Nâng cấp gói tín dụng"
     },
     "search": "Tìm Kiếm",
     "close": "Đóng",

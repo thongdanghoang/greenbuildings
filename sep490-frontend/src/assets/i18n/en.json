@@ -622,10 +622,10 @@
       "accountManagement": "Account",
       "enterprise": "Enterprise",
       "tenant": "Tenant",
-      "tradingActivities": "Trading activities",
+      "tradingActivities": "Trading Activities",
       "revenue": "Revenue Overview",
-      "payment": "Payment Enterprise",
-      "transaction": "Building transactions",
+      "payment": "Payment Transaction",
+      "transaction": "Building Transactions",
       "user": "User Management"
     }
   },
@@ -1007,8 +1007,8 @@
       "months": "Months",
       "numberOfDevices": "Number of Activities",
       "transactionType": "Transaction Type",
-      "NEW_PURCHASE": "new purchase",
-      "UPGRADE": "update"
+      "NEW_PURCHASE": "Activate building",
+      "UPGRADE": "Upgrade credit package"
     },
     "search": "Search",
     "close": "Close",

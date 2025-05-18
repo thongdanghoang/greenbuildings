@@ -1,17 +1,9 @@
 <master-layout title="sidebar.owner.settings.items.powerBiAccessToken">
-    <div class="flex w-full items-center justify-between">
-        <div
-            *ngIf="accessTokens.length === 0"
-            subtitle
-        >
-            {{ 'powerBi.accessToken.description' | translate }}
-        </div>
-        <p-button
-            icon="pi pi-question"
-            [rounded]="true"
-            (click)="userGuidePowerBi()"
-            severity="primary"
-        />
+    <div
+        *ngIf="accessTokens.length === 0"
+        subtitle
+    >
+        {{ 'powerBi.accessToken.description' | translate }}
     </div>
 
     <div
@@ -107,17 +99,33 @@
 
 <ng-template #generateNewToken>
     @if (isMobile) {
-        <p-button
-            icon="pi pi-plus"
-            outlined
-            (onClick)="navigateToDetail()"
-        />
+        <div class="flex w-full items-center justify-center gap-3">
+            <p-button
+                icon="pi pi-plus"
+                outlined
+                (onClick)="navigateToDetail()"
+            />
+            <p-button
+                icon="pi pi-question"
+                [rounded]="true"
+                (click)="userGuidePowerBi()"
+                severity="primary"
+            />
+        </div>
     } @else {
-        <p-button
-            [label]="'powerBi.buttonGenerateToken' | translate"
-            outlined
-            (onClick)="navigateToDetail()"
-        />
+        <div class="flex w-full items-center justify-center gap-2">
+            <p-button
+                [label]="'powerBi.buttonGenerateToken' | translate"
+                outlined
+                (onClick)="navigateToDetail()"
+            />
+            <p-button
+                [label]="'purchaseCredit.guide' | translate"
+                outlined
+                (click)="userGuidePowerBi()"
+                severity="secondary"
+            />
+        </div>
     }
 </ng-template>
 
