@@ -20,6 +20,7 @@ import {EnterpriseManagementComponent} from './components/enterprise-management/
 import {TenantManagementComponent} from './components/tenant-management/tenant-management.component';
 import {PaymentEnterpriseManagementComponent} from './components/payment-enterprise-management/payment-enterprise-management.component';
 import {TransactionEnterpriseManagementComponent} from './components/transaction-enterprise-management/transaction-enterprise-management.component';
+import {RevenueOverviewComponent} from './components/revenue-overview/revenue-overview.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import {TransactionEnterpriseManagementComponent} from './components/transaction
     EnterpriseManagementComponent,
     TenantManagementComponent,
     PaymentEnterpriseManagementComponent,
-    TransactionEnterpriseManagementComponent
+    TransactionEnterpriseManagementComponent,
+    RevenueOverviewComponent
   ],
   imports: [SharedModule, AdminRoutingModule],
   providers: []

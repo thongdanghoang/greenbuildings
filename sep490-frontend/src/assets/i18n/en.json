@@ -623,12 +623,24 @@
       "enterprise": "Enterprise",
       "tenant": "Tenant",
       "tradingActivities": "Trading activities",
+      "revenue": "Revenue Overview",
       "payment": "Payment Enterprise",
       "transaction": "Building transactions",
       "user": "User Management"
     }
   },
   "admin": {
+    "revenue": {
+      "title": "Revenue",
+      "packageType": "Number of credits usage by type",
+      "currentYearRevenue": "Current Year Revenue",
+      "noPayment": "Number of Payments",
+      "noPaymentDesc": "Successful payment transactions",
+      "totalRevenue": "Total Revenue",
+      "totalRevenueDesc": "Total revenue collected from all payments",
+      "noSubscription": "Number of subscription",
+      "noSubscriptionDesc": "The usage of credits"
+    },
     "packageCredit": {
       "title": "Credit Package",
       "description": "Credit packages are administrator-created configuration packages that allow businesses to purchase credits at optional prices and discounts, for use on premium services on the platform.",

@@ -618,10 +618,22 @@
       "tradingActivities": "Hoạt động giao dịch",
       "payment": "Doanh nghiệp thanh toán",
       "transaction": "Giao dịch tòa nhà",
-      "user": "Quản lý người dùng"
+      "user": "Quản lý người dùng",
+      "revenue": "Tổng Quan Doanh Thu"
     }
   },
   "admin": {
+    "revenue": {
+      "title": "Doanh thu",
+      "packageType": "Số lượng tín dụng sử dụng theo loại",
+      "currentYearRevenue": "Doanh thu năm hiện tại",
+      "noPayment": "Số lượng thanh toán",
+      "noPaymentDesc": "Giao dịch thanh toán thành công",
+      "totalRevenue": "Tổng doanh thu",
+      "totalRevenueDesc": "Tổng doanh thu thu được từ tất cả các khoản thanh toán",
+      "noSubscription": "Số lượng đăng ký",
+      "noSubscriptionDesc": "Việc sử dụng tín dụng"
+    },
     "packageCredit": {
       "title": "Quản lý gói",
       "description": "Gói tín dụng là các gói cấu hình do quản trị viên tạo để doanh nghiệp mua tín dụng với mức giá và chiết khấu tùy chọn, dùng cho các dịch vụ cao cấp trên nền tảng.",
