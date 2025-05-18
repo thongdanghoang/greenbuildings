@@ -616,7 +616,7 @@
       "enterprise": "企业",
       "tenant": "租户",
       "tradingActivities": "交易活动",
-      "payment": "支付业务",
+      "payment": "支付交易",
       "transaction": "建立交易",
       "user": "用户管理",
       "revenue": "收入概览"
@@ -1000,8 +1000,8 @@
       "months": "月份数",
       "numberOfDevices": "设备数量",
       "transactionType": "交易类型",
-      "NEW_PURCHASE": "新购买",
-      "UPGRADE": "更新"
+      "NEW_PURCHASE": "激活建筑",
+      "UPGRADE": "升级信用套餐"
     },
     "search": "搜索",
     "close": "关闭",
