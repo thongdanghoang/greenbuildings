@@ -242,6 +242,11 @@ export class SidebarComponent extends SubscriptionAwareComponent implements OnIn
         label: 'sidebar.admin.tradingActivities',
         items: [
           {
+            label: 'sidebar.admin.revenue',
+            icon: 'pi pi-chart-pie',
+            route: `/${AppRoutingConstants.ADMIN_PATH}/${AppRoutingConstants.REVENUE_OVERVIEW}`
+          },
+          {
             label: 'sidebar.admin.payment',
             icon: 'pi pi-wallet',
             route: `/${AppRoutingConstants.ADMIN_PATH}/${AppRoutingConstants.PAYMENT_ENTERPRISE_MANAGEMENT}`

@@ -1,0 +1,52 @@
+<master-layout title="sidebar.admin.revenue">
+    <div class="grid w-full grid-cols-1 gap-4 rounded-md border bg-gray-100 p-5 sm:grid-cols-3">
+        <div class="flex h-full w-full flex-col justify-between rounded-md border bg-white p-4">
+            <div>
+                <h1 class="font-semibold">{{ 'admin.revenue.noPayment' | translate }}</h1>
+                <p class="italic text-gray-700">{{ 'admin.revenue.noPaymentDesc' | translate }}</p>
+            </div>
+            <h1 class="bottom-0 justify-end text-center text-3xl font-bold text-primary">
+                {{ report.numberOfPaidPayment }}
+            </h1>
+        </div>
+        <div class="flex h-full w-full flex-col justify-between rounded-md border bg-white p-4">
+            <div>
+                <h1 class="font-semibold">{{ 'admin.revenue.totalRevenue' | translate }}</h1>
+                <p class="italic text-gray-700">{{ 'admin.revenue.totalRevenueDesc' | translate }}</p>
+            </div>
+            <h1 class="bottom-0 justify-end text-center text-3xl font-bold text-primary">
+                {{ report.totalRevenue | currency: 'VND' : 'symbol' : '1.0-0' }}
+            </h1>
+        </div>
+        <div class="flex h-full w-full flex-col justify-between rounded-md border bg-white p-4">
+            <div>
+                <h1 class="font-semibold">{{ 'admin.revenue.noSubscription' | translate }}</h1>
+                <p class="italic text-gray-700">{{ 'admin.revenue.noSubscriptionDesc' | translate }}</p>
+            </div>
+            <h1 class="bottom-0 justify-end text-center text-3xl font-bold text-primary">
+                {{ report.numberOfTransactions }}
+            </h1>
+        </div>
+    </div>
+
+    <div class="mb-5 flex items-center justify-between gap-3">
+        <div class="card flex h-full w-1/2 flex-col items-center rounded-md border bg-gray-100 p-2">
+            <p-chart
+                type="doughnut"
+                [data]="doughnutData"
+                [options]="doughnutOptions"
+                class="w-1/2"
+            />
+            <p class="my-2 w-full text-center">{{ 'admin.revenue.packageType' | translate }}</p>
+        </div>
+        <div class="card flex h-full w-1/2 flex-col items-center rounded-md border bg-gray-100 p-2">
+            <p-chart
+                type="bar"
+                [data]="barData"
+                [options]="barOptions"
+                class="w-full"
+            />
+            <p class="my-2 w-full text-center">{{ 'admin.revenue.currentYearRevenue' | translate }}</p>
+        </div>
+    </div>
+</master-layout>

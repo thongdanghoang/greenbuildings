@@ -17,6 +17,7 @@ import {EmissionFactorComponent} from './components/emission-factor/emission-fac
 import {ChemicalDensityComponent} from './components/chemical-density/chemical-density.component';
 import {PaymentEnterpriseManagementComponent} from './components/payment-enterprise-management/payment-enterprise-management.component';
 import {TransactionEnterpriseManagementComponent} from './components/transaction-enterprise-management/transaction-enterprise-management.component';
+import {RevenueOverviewComponent} from './components/revenue-overview/revenue-overview.component';
 
 const routes: Routes = [
   {
@@ -72,6 +73,10 @@ const routes: Routes = [
       {
         path: `${AppRoutingConstants.TENANT_MANAGEMENT}`,
         component: TenantManagementComponent
+      },
+      {
+        path: `${AppRoutingConstants.REVENUE_OVERVIEW}`,
+        component: RevenueOverviewComponent
       },
       {
         path: `${AppRoutingConstants.PAYMENT_ENTERPRISE_MANAGEMENT}`,

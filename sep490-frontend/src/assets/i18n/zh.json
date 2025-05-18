@@ -618,10 +618,22 @@
       "tradingActivities": "交易活动",
       "payment": "支付业务",
       "transaction": "建立交易",
-      "user": "用户管理"
+      "user": "用户管理",
+      "revenue": "收入概览"
     }
   },
   "admin": {
+    "revenue": {
+      "title": "收入",
+      "packageType": "按类型的积分使用数量",
+      "currentYearRevenue": "本年度收入",
+      "noPayment": "支付次数",
+      "noPaymentDesc": "成功支付交易",
+      "totalRevenue": "总收入",
+      "totalRevenueDesc": "所有支付收取的总收入",
+      "noSubscription": "订阅数量",
+      "noSubscriptionDesc": "积分的使用情况"
+    },
     "packageCredit": {
       "title": "信用套餐",
       "description": "信用包是管理员创建的配置包，允许企业以可选价格和折扣购买信用，以用于平台上的高级服务。",
