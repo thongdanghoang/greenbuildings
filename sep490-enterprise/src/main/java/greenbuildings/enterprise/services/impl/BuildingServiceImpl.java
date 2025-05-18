@@ -3,19 +3,18 @@ package greenbuildings.enterprise.services.impl;
 import greenbuildings.commons.api.exceptions.BusinessException;
 import greenbuildings.enterprise.dtos.OverviewBuildingDTO;
 import greenbuildings.enterprise.entities.BuildingEntity;
+import greenbuildings.enterprise.interceptors.BuildingPermissionFilter;
 import greenbuildings.enterprise.repositories.BuildingRepository;
-import greenbuildings.enterprise.repositories.EmissionActivityRecordRepository;
 import greenbuildings.enterprise.repositories.EmissionActivityRepository;
 import greenbuildings.enterprise.services.BuildingService;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -25,7 +24,6 @@ public class BuildingServiceImpl implements BuildingService {
     
     public static final int START_RECORD_ROW_IDX = 14;
     private final BuildingRepository buildingRepository;
-    private final EmissionActivityRecordRepository recordRepo;
     private final EmissionActivityRepository activityRepo;
     
     @Override
@@ -43,8 +41,8 @@ public class BuildingServiceImpl implements BuildingService {
     }
     
     @Override
-    public Optional<BuildingEntity> findById(UUID id) {
-        return buildingRepository.findByIdWithGraph(id);
+    public BuildingEntity findById(UUID id) {
+        return buildingRepository.getWithGraph(id, BuildingEntity.class, new String[]{BuildingEntity.Fields.buildingGroups});
     }
     
     @Override
@@ -62,10 +60,12 @@ public class BuildingServiceImpl implements BuildingService {
     
     
     @Override
+    @BuildingPermissionFilter
     public List<BuildingEntity> findBuildingsByEnterpriseId(UUID enterpriseId) {
-        return buildingRepository.findValidBuildingsByEnterpriseId(enterpriseId, LocalDate.now());
+        return buildingRepository.findAll();
     }
     
+    @Transactional(readOnly = true)
     @Override
     public OverviewBuildingDTO getOverviewBuildingById(UUID id) {
         var building = buildingRepository.findById(id).orElseThrow();

@@ -1,8 +1,5 @@
 package greenbuildings.enterprise.rest;
 
-import commons.springfw.impl.controller.AbstractRestController;
-import commons.springfw.impl.mappers.CommonMapper;
-import commons.springfw.impl.securities.UserContextData;
 import greenbuildings.commons.api.dto.SearchCriteriaDTO;
 import greenbuildings.commons.api.dto.SearchResultDTO;
 import greenbuildings.commons.api.security.UserRole;
@@ -17,6 +14,10 @@ import greenbuildings.enterprise.services.BuildingService;
 import greenbuildings.enterprise.services.EnterpriseService;
 import greenbuildings.enterprise.services.ReportService;
 import greenbuildings.enterprise.views.buildings.details.TenantView;
+
+import commons.springfw.impl.controller.AbstractRestController;
+import commons.springfw.impl.mappers.CommonMapper;
+import commons.springfw.impl.securities.UserContextData;
 import jakarta.annotation.security.RolesAllowed;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.ByteArrayResource;
@@ -51,8 +52,7 @@ public class BuildingController extends AbstractRestController {
     
     @GetMapping("/{id}")
     public ResponseEntity<BuildingDTO> getBuildingById(@PathVariable UUID id) {
-        var building = buildingService.findById(id);
-        return ResponseEntity.ok(buildingMapper.toDto(building.orElseThrow()));
+        return ResponseEntity.ok(buildingMapper.toDto(buildingService.findById(id)));
     }
     
     @GetMapping("/selectable")

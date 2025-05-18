@@ -3,6 +3,7 @@ package greenbuildings.idp.utils;
 import greenbuildings.idp.entity.UserEntity;
 import greenbuildings.idp.entity.UserPermissionEntity;
 import greenbuildings.idp.security.PasskeyAuthenticationToken;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.constraints.NotNull;
@@ -40,7 +41,6 @@ public final class IdpSecurityUtils {
     public static void storeAuthenticationToContext(@NotNull PasskeyAuthenticationToken authenticationToken,
                                                     @NotNull HttpServletRequest request,
                                                     @NotNull HttpServletResponse response) {
-        // TODO: [TRAB] utils is not component, instead of inject bean, move this method to a service
         try {
             SecurityContext newContext = SecurityContextHolder.createEmptyContext();
             newContext.setAuthentication(authenticationToken);

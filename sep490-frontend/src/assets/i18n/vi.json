@@ -470,6 +470,12 @@
     }
   },
   "emissions": {
+    "warning": {
+      "noBuildingsActivated": {
+        "summary": "Không có tòa nhà đang hoạt động",
+        "detail": "Vui lòng kích hoạt ít nhất một tòa nhà để bắt đầu quản lý dữ liệu phát thải."
+      }
+    },
     "title": "Hoạt động phát thải",
     "subtitle": "Hoạt động phát thải là hoạt động mà doanh nghiệp có thể lựa chọn để tạo bản ghi phát thải.",
     "activities": {

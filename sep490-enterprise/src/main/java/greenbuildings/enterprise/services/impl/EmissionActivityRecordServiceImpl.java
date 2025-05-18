@@ -45,6 +45,7 @@ public class EmissionActivityRecordServiceImpl implements EmissionActivityRecord
     private final EmissionActivityRepository emissionActivityRepository;
     
     @Override
+    @Transactional(readOnly = true)
     public Page<EmissionActivityRecordEntity> search(SearchCriteriaDTO<EmissionActivityRecordCriteria> searchCriteria) {
         var page = recordRepository
                 .findAllByEmissionActivityId(
@@ -138,7 +139,7 @@ public class EmissionActivityRecordServiceImpl implements EmissionActivityRecord
     @Override
     @Transactional
     public RecordFileEntity uploadFile(UUID recordId, MultipartFile file) {
-        return null;
+        return null; // TODO: Tran Gia Bao
     }
     
     @Override

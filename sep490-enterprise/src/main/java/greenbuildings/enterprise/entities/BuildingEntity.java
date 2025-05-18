@@ -16,12 +16,40 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldNameConstants;
+import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.FilterDef;
+import org.hibernate.annotations.ParamDef;
 import org.hibernate.annotations.SoftDelete;
+import org.hibernate.annotations.SqlFragmentAlias;
 
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
+@FilterDef(name = BuildingEntity.BUILDING_SUBSCRIPTION_FILTER_FOR_TENANT,
+           parameters = {@ParamDef(name = BuildingEntity.TENANT_ID_PARAMETER_NAME, type = UUID.class)})
+@Filter(name = BuildingEntity.BUILDING_SUBSCRIPTION_FILTER_FOR_TENANT,
+        condition = """
+                            exists (
+                                select 1 from building_group bg
+                                join subscriptions s on {rootEntity}.id = s.building_id
+                                where bg.building_id = {rootEntity}.id
+                                and s.start_date <= current_date
+                                and current_date <= s.end_date
+                                and bg.tenant_id = :""" + BuildingEntity.TENANT_ID_PARAMETER_NAME + ")",
+        aliases = {@SqlFragmentAlias(alias = "rootEntity", table = "buildings")})
+
+@FilterDef(name = BuildingEntity.BUILDING_SUBSCRIPTION_FILTER_FOR_ENTERPRISE,
+           parameters = {@ParamDef(name = BuildingEntity.ENTERPRISE_ID_PARAMETER_NAME, type = UUID.class)})
+@Filter(name = BuildingEntity.BUILDING_SUBSCRIPTION_FILTER_FOR_ENTERPRISE,
+        condition = """
+                            exists (
+                                select 1 from subscriptions s
+                                where {rootEntity}.id = s.building_id
+                                and s.start_date <= current_date
+                                and current_date <= s.end_date
+                                and {rootEntity}.enterprise_id = :""" + BuildingEntity.ENTERPRISE_ID_PARAMETER_NAME + ")",
+        aliases = {@SqlFragmentAlias(alias = "rootEntity", table = "buildings")})
 @Entity
 @Table(name = "buildings")
 @SoftDelete
@@ -30,6 +58,13 @@ import java.util.UUID;
 @FieldNameConstants
 @NoArgsConstructor
 public class BuildingEntity extends AbstractAuditableEntity {
+    
+    public static final String BUILDING_SUBSCRIPTION_FILTER_FOR_TENANT = "building_subscription_filter_for_tenant";
+    public static final String TENANT_ID_PARAMETER_NAME = "tenantId";
+    
+    public static final String BUILDING_SUBSCRIPTION_FILTER_FOR_ENTERPRISE = "building_subscription_filter_for_enterprise";
+    public static final String ENTERPRISE_ID_PARAMETER_NAME = "enterpriseId";
+    
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "enterprise_id", nullable = false)

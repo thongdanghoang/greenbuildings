@@ -5,6 +5,7 @@ import greenbuildings.enterprise.repositories.AssetRepository;
 import greenbuildings.enterprise.repositories.EmissionActivityRecordRepository;
 import greenbuildings.enterprise.services.AssetService;
 
+import commons.springfw.impl.securities.UserContextData;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -30,11 +31,11 @@ public class AssetServiceImpl implements AssetService {
         var buildingFrom = assetRepository.getReferenceById(target.getId()).getBuilding();
         var buildingTo = target.getBuilding();
         
-        var isMoveFromBuildingMoveToAny = Objects.nonNull(buildingTo);
-        var isMoveFromBuildingToDifferent = Objects.isNull(buildingFrom) || !Objects.equals(buildingTo.getId(), buildingFrom.getId());
+        var isMoveFromBuildingMoveToAny = Objects.nonNull(buildingFrom);
+        var isMoveToDifferentBuilding = Objects.isNull(buildingTo) || !Objects.equals(buildingFrom.getId(), buildingTo.getId());
         
         if (isMoveFromBuildingMoveToAny
-            && isMoveFromBuildingToDifferent
+            && isMoveToDifferentBuilding
             && recordRepository.existsByAssetId((target.getId())) // side effect
         ) {
             var newAssetEntity = AssetEntity.clone(target);
@@ -72,7 +73,10 @@ public class AssetServiceImpl implements AssetService {
     }
     
     @Override
-    public List<AssetEntity> selectableByOrganizationId(UUID organizationId, UUID buildingId) {
-        return assetRepository.selectableByOrganizationId(organizationId, buildingId);
+    public List<AssetEntity> selectableByBuildingId(UserContextData userContext, UUID buildingId) {
+        if (userContext.getEnterpriseId().isPresent()) {
+            return assetRepository.selectableByEnterpriseId(userContext.getEnterpriseId().get(), buildingId);
+        }
+        return assetRepository.selectableByTenantId(userContext.getTenantId().orElseThrow(), buildingId);
     }
 }

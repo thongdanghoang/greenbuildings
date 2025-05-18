@@ -11,6 +11,7 @@ import greenbuildings.enterprise.entities.EmissionActivityRecordEntity;
 import greenbuildings.enterprise.entities.EmissionFactorEntity;
 import greenbuildings.enterprise.entities.EmissionSourceEntity;
 import greenbuildings.enterprise.entities.SubscriptionEntity;
+import greenbuildings.enterprise.interceptors.BuildingPermissionFilter;
 import greenbuildings.enterprise.models.ActivityRecordDateRange;
 import greenbuildings.enterprise.models.IdProjection;
 import greenbuildings.enterprise.repositories.ActivityTypeRepository;
@@ -58,6 +59,7 @@ public class EmissionActivityServiceImpl implements EmissionActivityService {
     private final CalculationService calculationService;
     private final SubscriptionRepository subscriptionRepository;
     
+    @Transactional(readOnly = true)
     @Override
     public Page<EmissionActivityEntity> search(SearchCriteriaDTO<EmissionActivityCriteria> searchCriteria) {
         if (searchCriteria.criteria().buildingId() != null) {
@@ -74,6 +76,7 @@ public class EmissionActivityServiceImpl implements EmissionActivityService {
                         CommonMapper.toPageable(searchCriteria.page(), searchCriteria.sort()));
     }
     
+    @Transactional(readOnly = true)
     @Override
     public Page<EmissionActivityEntity> search(Pageable pageable, UUID enterpriseId, ActivityCriteria criteria) {
         var activityIDs = emissionActivityRepository
@@ -90,10 +93,13 @@ public class EmissionActivityServiceImpl implements EmissionActivityService {
     }
     
     @Override
-    public List<BuildingEntity> getBuildingsByEnterpriseId(UUID enterpriseId) {
-        return buildingRepository.getBuildingsByEnterpriseId(enterpriseId, LocalDate.now());
+    @Transactional(readOnly = true)
+    @BuildingPermissionFilter
+    public List<BuildingEntity> getBuildingsByEnterpriseId() {
+        return buildingRepository.findAll();
     }
     
+    @Transactional(readOnly = true)
     @Override
     public List<EmissionFactorEntity> getEmissionFactorsByEnterpriseId(UUID enterpriseId) {
         return emissionFactorRepository.getEmissionFactorsByEnterpriseId(enterpriseId);
@@ -156,16 +162,19 @@ public class EmissionActivityServiceImpl implements EmissionActivityService {
         emissionActivityRepository.deleteAllById(ids);
     }
     
+    @Transactional(readOnly = true)
     @Override
     public EmissionActivityEntity getEmissionActivityDetails(UUID id) {
         return emissionActivityRepository.findDetailsById(id).orElseThrow(() -> new BusinessException("id", "http.error.status.404", Collections.emptyList()));
     }
     
+    @Transactional(readOnly = true)
     @Override
     public List<EmissionActivityEntity> getAllActivitiesByBuildingId(UUID id) {
         return emissionActivityRepository.findByBuildingGroupId(id);
     }
     
+    @Transactional(readOnly = true)
     @Override
     public List<ActivityRecordDateRange> findRecordedDateRangesById(UUID activityId, UUID excludeRecordId, UUID assetId) {
         return emissionActivityRepository.findRecordedDateRangesById(activityId, excludeRecordId, assetId);

@@ -22,7 +22,7 @@ public interface EmissionActivityService {
     
     Page<EmissionActivityEntity> search(Pageable pageable, UUID enterpriseId, ActivityCriteria criteria);
     
-    List<BuildingEntity> getBuildingsByEnterpriseId(UUID enterpriseId);
+    List<BuildingEntity> getBuildingsByEnterpriseId();
     
     List<EmissionFactorEntity> getEmissionFactorsByEnterpriseId(UUID enterpriseId);
     

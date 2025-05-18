@@ -11,6 +11,7 @@ import greenbuildings.enterprise.entities.EmissionActivityEntity;
 import greenbuildings.enterprise.entities.EmissionActivityRecordEntity;
 import greenbuildings.enterprise.entities.EnterpriseEntity;
 import greenbuildings.enterprise.enums.EmissionUnit;
+import greenbuildings.enterprise.interceptors.BuildingPermissionFilter;
 import greenbuildings.enterprise.repositories.BuildingRepository;
 import greenbuildings.enterprise.repositories.EmissionActivityRecordRepository;
 import greenbuildings.enterprise.repositories.EmissionActivityRepository;
@@ -18,6 +19,7 @@ import greenbuildings.enterprise.repositories.EnterpriseRepository;
 import greenbuildings.enterprise.services.CalculationService;
 import greenbuildings.enterprise.services.ReportService;
 import greenbuildings.enterprise.utils.CalculationUtils;
+
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.collections.map.HashedMap;
 import org.apache.poi.ss.usermodel.Row;
@@ -56,6 +58,7 @@ public class ReportServiceImpl implements ReportService {
     private final EnterpriseRepository enterpriseRepository;
     
     @Override
+    @BuildingPermissionFilter
     public GeneralReportDTO generateReport(PowerBiAccessTokenAuthResult contextData) {
         EnterpriseEntity enterprise = enterpriseRepository.findById(contextData.enterpriseId())
                                                           .orElseThrow();
@@ -68,8 +71,8 @@ public class ReportServiceImpl implements ReportService {
     
     private List<BuildingEntity> fetchBuildingsByScope(PowerBiAccessTokenAuthResult contextData) {
         return contextData.scope() == PowerBiScope.ENTERPRISE
-               ? buildingRepository.findValidBuildingsByEnterpriseId(contextData.enterpriseId(), LocalDate.now())
-               : buildingRepository.findValidBuildingsIn(new HashSet<>(contextData.buildings()), LocalDate.now());
+               ? buildingRepository.findAll()
+               : buildingRepository.findAllById(new HashSet<>(contextData.buildings()));
     }
     
     private GeneralReportDTO buildGeneralReportDTO(EnterpriseEntity enterprise, List<BuildingEntity> buildings) {
