@@ -1,10 +1,11 @@
 package greenbuildings.idp.producers;
 
-import commons.springfw.impl.securities.KafkaSecurityConfig;
 import greenbuildings.commons.api.events.PendingEnterpriseRegisterEvent;
 import greenbuildings.commons.api.utils.MDCContext;
+import greenbuildings.commons.springfw.impl.securities.KafkaSecurityConfig;
 import greenbuildings.idp.dto.RegisterEnterpriseDTO;
 import greenbuildings.idp.mapper.UserEventMapper;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;

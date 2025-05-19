@@ -1,6 +1,6 @@
 package greenbuildings.idp.repository;
 
-import commons.springfw.impl.repositories.AbstractBaseRepository;
+import greenbuildings.commons.springfw.impl.repositories.AbstractBaseRepository;
 import greenbuildings.idp.entity.UserAuthenticator;
 import greenbuildings.idp.entity.UserEntity;
 

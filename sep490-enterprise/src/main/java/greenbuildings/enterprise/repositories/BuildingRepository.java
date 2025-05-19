@@ -1,8 +1,8 @@
 package greenbuildings.enterprise.repositories;
 
+import greenbuildings.commons.springfw.impl.repositories.AbstractBaseRepository;
 import greenbuildings.enterprise.entities.BuildingEntity;
 
-import commons.springfw.impl.repositories.AbstractBaseRepository;
 import jakarta.validation.constraints.NotBlank;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

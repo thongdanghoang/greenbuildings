@@ -1,7 +1,8 @@
 package greenbuildings.enterprise.securities;
 
-import commons.springfw.impl.filters.MonitoringFilter;
-import commons.springfw.impl.securities.JwtAuthenticationConverter;
+import greenbuildings.commons.springfw.impl.filters.MonitoringFilter;
+import greenbuildings.commons.springfw.impl.securities.JwtAuthenticationConverter;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

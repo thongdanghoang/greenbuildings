@@ -2,6 +2,10 @@ package greenbuildings.enterprise.services.impl;
 
 import greenbuildings.commons.api.dto.SearchCriteriaDTO;
 import greenbuildings.commons.api.exceptions.BusinessException;
+import greenbuildings.commons.springfw.impl.mappers.CommonMapper;
+import greenbuildings.commons.springfw.impl.utils.EmailUtil;
+import greenbuildings.commons.springfw.impl.utils.IMessageUtil;
+import greenbuildings.commons.springfw.impl.utils.SEPMailMessage;
 import greenbuildings.enterprise.dtos.BuildingGroupCriteria;
 import greenbuildings.enterprise.dtos.BuildingGroupDTO;
 import greenbuildings.enterprise.dtos.InviteTenantToBuildingGroup;
@@ -16,10 +20,6 @@ import greenbuildings.enterprise.repositories.EnterpriseRepository;
 import greenbuildings.enterprise.repositories.InvitationRepository;
 import greenbuildings.enterprise.services.BuildingGroupService;
 
-import commons.springfw.impl.mappers.CommonMapper;
-import commons.springfw.impl.utils.EmailUtil;
-import commons.springfw.impl.utils.IMessageUtil;
-import commons.springfw.impl.utils.SEPMailMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

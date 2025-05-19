@@ -1,17 +1,23 @@
 package greenbuildings.enterprise.rest;
 
-import commons.springfw.impl.mappers.CommonMapper;
 import greenbuildings.commons.api.dto.SearchCriteriaDTO;
 import greenbuildings.commons.api.dto.SearchResultDTO;
-import greenbuildings.enterprise.dtos.FuelDTO;
+import greenbuildings.commons.springfw.impl.mappers.CommonMapper;
 import greenbuildings.enterprise.dtos.FuelCriteriaDTO;
+import greenbuildings.enterprise.dtos.FuelDTO;
 import greenbuildings.enterprise.entities.FuelEntity;
 import greenbuildings.enterprise.mappers.FuelMapper;
 import greenbuildings.enterprise.services.FuelService;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Objects;

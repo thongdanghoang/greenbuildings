@@ -1,10 +1,10 @@
 package greenbuildings.enterprise.interceptors;
 
+import greenbuildings.commons.springfw.impl.securities.UserContextData;
+import greenbuildings.commons.springfw.impl.utils.SecurityUtils;
 import greenbuildings.enterprise.entities.BuildingEntity;
 import greenbuildings.enterprise.securities.PowerBiAuthenticationFacade;
 
-import commons.springfw.impl.securities.UserContextData;
-import commons.springfw.impl.utils.SecurityUtils;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import lombok.RequiredArgsConstructor;

@@ -1,7 +1,8 @@
 package greenbuildings.idp.entity;
 
-import commons.springfw.impl.entities.AbstractAuditableEntity;
 import greenbuildings.commons.api.security.PowerBiScope;
+import greenbuildings.commons.springfw.impl.entities.AbstractAuditableEntity;
+
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;

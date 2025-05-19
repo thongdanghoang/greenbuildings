@@ -1,6 +1,6 @@
 package greenbuildings.enterprise.repositories;
 
-import commons.springfw.impl.repositories.AbstractBaseRepository;
+import greenbuildings.commons.springfw.impl.repositories.AbstractBaseRepository;
 import greenbuildings.enterprise.entities.WalletEntity;
 import org.springframework.stereotype.Repository;
 

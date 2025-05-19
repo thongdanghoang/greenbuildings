@@ -1,11 +1,12 @@
 package greenbuildings.idp.rest;
 
-import commons.springfw.impl.securities.UserContextData;
 import greenbuildings.commons.api.security.UserRole;
+import greenbuildings.commons.springfw.impl.securities.UserContextData;
 import greenbuildings.idp.dto.powerbi.PowerBiAuthorityDTO;
 import greenbuildings.idp.mapper.PowerBiMapper;
 import greenbuildings.idp.service.PowerBiAuthenticationService;
 import greenbuildings.idp.service.UserService;
+
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;

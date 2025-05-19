@@ -1,12 +1,13 @@
 package greenbuildings.idp.controller;
 
+import greenbuildings.commons.springfw.impl.utils.IMessageUtil;
 import greenbuildings.idp.dto.LoginDTO;
 import greenbuildings.idp.dto.SignupDTO;
 import greenbuildings.idp.dto.SignupResult;
 import greenbuildings.idp.repository.UserAuthenticatorRepository;
 import greenbuildings.idp.security.MvcUserContextData;
 import greenbuildings.idp.service.UserService;
-import commons.springfw.impl.utils.IMessageUtil;
+
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

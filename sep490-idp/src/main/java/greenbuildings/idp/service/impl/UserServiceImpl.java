@@ -1,7 +1,5 @@
 package greenbuildings.idp.service.impl;
 
-import commons.springfw.impl.mappers.CommonMapper;
-import commons.springfw.impl.securities.UserContextData;
 import greenbuildings.commons.api.SagaManager;
 import greenbuildings.commons.api.dto.SearchCriteriaDTO;
 import greenbuildings.commons.api.exceptions.BusinessErrorParam;
@@ -10,6 +8,11 @@ import greenbuildings.commons.api.exceptions.BusinessException;
 import greenbuildings.commons.api.exceptions.TechnicalException;
 import greenbuildings.commons.api.security.UserRole;
 import greenbuildings.commons.api.utils.CommonUtils;
+import greenbuildings.commons.springfw.impl.mappers.CommonMapper;
+import greenbuildings.commons.springfw.impl.securities.UserContextData;
+import greenbuildings.commons.springfw.impl.utils.IEmailUtil;
+import greenbuildings.commons.springfw.impl.utils.IMessageUtil;
+import greenbuildings.commons.springfw.impl.utils.SEPMailMessage;
 import greenbuildings.idp.dto.RegisterEnterpriseDTO;
 import greenbuildings.idp.dto.SignupDTO;
 import greenbuildings.idp.dto.SignupResult;
@@ -22,10 +25,8 @@ import greenbuildings.idp.producers.IdPEventProducer;
 import greenbuildings.idp.repository.UserOTPRepository;
 import greenbuildings.idp.repository.UserRepository;
 import greenbuildings.idp.service.UserService;
-import commons.springfw.impl.utils.IEmailUtil;
-import commons.springfw.impl.utils.IMessageUtil;
-import commons.springfw.impl.utils.SEPMailMessage;
 import greenbuildings.idp.validators.Validator;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;

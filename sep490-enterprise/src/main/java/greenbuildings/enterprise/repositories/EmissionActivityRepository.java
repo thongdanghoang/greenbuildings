@@ -1,9 +1,9 @@
 package greenbuildings.enterprise.repositories;
 
+import greenbuildings.commons.springfw.impl.repositories.AbstractBaseRepository;
 import greenbuildings.enterprise.entities.EmissionActivityEntity;
 import greenbuildings.enterprise.models.ActivityRecordDateRange;
 
-import commons.springfw.impl.repositories.AbstractBaseRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;

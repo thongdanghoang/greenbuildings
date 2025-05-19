@@ -1,11 +1,11 @@
 package greenbuildings.enterprise.services.impl;
 
+import greenbuildings.commons.springfw.impl.securities.UserContextData;
 import greenbuildings.enterprise.entities.AssetEntity;
 import greenbuildings.enterprise.repositories.AssetRepository;
 import greenbuildings.enterprise.repositories.EmissionActivityRecordRepository;
 import greenbuildings.enterprise.services.AssetService;
 
-import commons.springfw.impl.securities.UserContextData;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;

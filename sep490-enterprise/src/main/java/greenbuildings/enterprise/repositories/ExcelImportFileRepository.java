@@ -1,8 +1,9 @@
 package greenbuildings.enterprise.repositories;
 
-import commons.springfw.impl.repositories.AbstractBaseRepository;
+import greenbuildings.commons.springfw.impl.repositories.AbstractBaseRepository;
 import greenbuildings.enterprise.entities.ExcelImportFileEntity;
 import greenbuildings.enterprise.enums.ImportExcelType;
+
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;

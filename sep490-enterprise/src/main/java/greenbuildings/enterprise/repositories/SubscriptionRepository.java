@@ -1,7 +1,8 @@
 package greenbuildings.enterprise.repositories;
 
-import commons.springfw.impl.repositories.AbstractBaseRepository;
+import greenbuildings.commons.springfw.impl.repositories.AbstractBaseRepository;
 import greenbuildings.enterprise.entities.SubscriptionEntity;
+
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 

@@ -2,6 +2,7 @@ package greenbuildings.enterprise.services.impl;
 
 import greenbuildings.commons.api.dto.SearchCriteriaDTO;
 import greenbuildings.commons.api.exceptions.BusinessException;
+import greenbuildings.commons.springfw.impl.mappers.CommonMapper;
 import greenbuildings.enterprise.dtos.EmissionActivityCriteria;
 import greenbuildings.enterprise.dtos.emission_activities.ActivityCriteria;
 import greenbuildings.enterprise.entities.ActivityTypeEntity;
@@ -24,7 +25,6 @@ import greenbuildings.enterprise.repositories.specifications.EmissionActivitySpe
 import greenbuildings.enterprise.services.CalculationService;
 import greenbuildings.enterprise.services.EmissionActivityService;
 
-import commons.springfw.impl.mappers.CommonMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;

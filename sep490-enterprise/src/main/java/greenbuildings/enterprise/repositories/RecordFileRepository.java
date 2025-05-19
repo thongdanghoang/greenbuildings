@@ -1,7 +1,8 @@
 package greenbuildings.enterprise.repositories;
 
-import commons.springfw.impl.repositories.AbstractBaseRepository;
+import greenbuildings.commons.springfw.impl.repositories.AbstractBaseRepository;
 import greenbuildings.enterprise.entities.RecordFileEntity;
+
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 
 @SpringBootApplication
-@ComponentScan(basePackages = {"commons.springfw", "greenbuildings.idp"})
+@ComponentScan(basePackages = {"greenbuildings.commons", "greenbuildings.idp"})
 @EnableJpaAuditing
 @EnableMethodSecurity(jsr250Enabled = true)
 public class IdentityProvider {

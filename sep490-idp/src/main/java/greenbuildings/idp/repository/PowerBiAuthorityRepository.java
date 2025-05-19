@@ -1,7 +1,8 @@
 package greenbuildings.idp.repository;
 
-import commons.springfw.impl.repositories.AbstractBaseRepository;
+import greenbuildings.commons.springfw.impl.repositories.AbstractBaseRepository;
 import greenbuildings.idp.entity.PowerBiAuthority;
+
 import jakarta.validation.constraints.NotBlank;
 
 import java.util.List;

@@ -1,10 +1,10 @@
 package greenbuildings.idp.rest;
 
-import commons.springfw.impl.mappers.CommonMapper;
-import commons.springfw.impl.securities.UserContextData;
 import greenbuildings.commons.api.dto.SearchCriteriaDTO;
 import greenbuildings.commons.api.dto.SearchResultDTO;
 import greenbuildings.commons.api.security.UserRole;
+import greenbuildings.commons.springfw.impl.mappers.CommonMapper;
+import greenbuildings.commons.springfw.impl.securities.UserContextData;
 import greenbuildings.idp.dto.EnterpriseUserDTO;
 import greenbuildings.idp.dto.EnterpriseUserDetailsDTO;
 import greenbuildings.idp.dto.RegisterEnterpriseDTO;
@@ -13,6 +13,7 @@ import greenbuildings.idp.dto.ValidateOTPRequest;
 import greenbuildings.idp.entity.UserEntity;
 import greenbuildings.idp.mapper.EnterpriseUserMapper;
 import greenbuildings.idp.service.UserService;
+
 import jakarta.annotation.security.RolesAllowed;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

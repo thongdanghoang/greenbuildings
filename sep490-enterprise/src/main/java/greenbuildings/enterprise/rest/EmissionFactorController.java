@@ -2,6 +2,7 @@ package greenbuildings.enterprise.rest;
 
 import greenbuildings.commons.api.dto.SearchCriteriaDTO;
 import greenbuildings.commons.api.dto.SearchResultDTO;
+import greenbuildings.commons.springfw.impl.mappers.CommonMapper;
 import greenbuildings.enterprise.dtos.EmissionFactorCriteriaDTO;
 import greenbuildings.enterprise.dtos.EmissionFactorDTO;
 import greenbuildings.enterprise.dtos.ExcelImportDTO;
@@ -11,7 +12,6 @@ import greenbuildings.enterprise.mappers.ExcelImportMapper;
 import greenbuildings.enterprise.services.EmissionFactorService;
 import greenbuildings.enterprise.services.impl.MinioService;
 
-import commons.springfw.impl.mappers.CommonMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

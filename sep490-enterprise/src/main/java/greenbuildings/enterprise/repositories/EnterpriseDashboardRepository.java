@@ -1,7 +1,8 @@
 package greenbuildings.enterprise.repositories;
 
-import commons.springfw.impl.repositories.AbstractBaseRepository;
+import greenbuildings.commons.springfw.impl.repositories.AbstractBaseRepository;
 import greenbuildings.enterprise.entities.EnterpriseDashboardEntity;
+
 import jakarta.validation.constraints.NotBlank;
 
 import java.util.List;
