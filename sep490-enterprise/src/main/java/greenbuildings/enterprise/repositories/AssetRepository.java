@@ -24,9 +24,9 @@ public interface AssetRepository
     @Query("""
             FROM AssetEntity assets
             WHERE (:buildingId IS NULL OR assets.building.id = :buildingId)
-            AND (assets.tenant.id IS NOT NULL AND assets.tenant.id = :tenantId)
+            AND ((assets.tenant.id IS NOT NULL AND assets.tenant.id = :tenantId) OR (:excludeId IS NOT NULL AND assets.id = :excludeId))
             """)
-    List<AssetEntity> selectableByTenantId(UUID tenantId, UUID buildingId);
+    List<AssetEntity> selectableByTenantId(UUID tenantId, UUID buildingId, UUID excludeId);
     
     @Query("""
                 SELECT CASE WHEN COUNT(a) > 0 THEN true ELSE false END
@@ -45,6 +45,7 @@ public interface AssetRepository
             FROM AssetEntity root
             WHERE (root.tenant.id IS NOT NULL AND root.tenant.id = :organizationId)
             OR (root.enterprise.id IS NOT NULL AND root.enterprise.id = :organizationId)
+            AND root.disabled = false
             """)
     Page<AssetEntity> findAllByOrganizationId(Pageable pageable, UUID organizationId);
 }

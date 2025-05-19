@@ -83,7 +83,7 @@ export class NewActivityRecordDialogComponent extends AbstractFormComponent<Emis
       }
     });
     this.assetService
-      .selectable(this.data?.buildingId)
+      .selectable(this.data?.buildingId, this.data?.editRecord?.assetId)
       .pipe(takeUntil(this.destroy$))
       .subscribe(assets => (this.selectableAssets = assets));
   }

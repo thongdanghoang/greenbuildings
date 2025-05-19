@@ -1,5 +1,6 @@
 package greenbuildings.enterprise.mappers;
 
+import greenbuildings.commons.api.views.SelectableItem;
 import greenbuildings.enterprise.dtos.assets.AssetDTO;
 import greenbuildings.enterprise.entities.AssetEntity;
 import greenbuildings.enterprise.entities.BuildingEntity;
@@ -34,6 +35,10 @@ public abstract class AssetMapper {
     
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.SET_TO_NULL)
     public abstract void fullUpdate(AssetEntity source, @MappingTarget AssetEntity target);
+    
+    @Mapping(target = "value", source = "id")
+    @Mapping(target = "label", source = "name")
+    public abstract SelectableItem<UUID> toSelectableItem(AssetEntity source);
     
     BuildingEntity toBuildingEntity(UUID buildingId) {
         return Optional.ofNullable(buildingId)

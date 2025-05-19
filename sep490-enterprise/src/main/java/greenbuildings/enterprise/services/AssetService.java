@@ -21,6 +21,6 @@ public interface AssetService {
     
     AssetEntity getById(UUID id);
     
-    List<AssetEntity> selectableByBuildingId(UserContextData userContext, UUID buildingId);
+    List<AssetEntity> selectableByBuildingId(UserContextData userContext, UUID buildingId, UUID excludeId);
     
 }

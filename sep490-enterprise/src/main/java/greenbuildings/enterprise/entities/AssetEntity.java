@@ -10,12 +10,10 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldNameConstants;
-import org.hibernate.annotations.SoftDelete;
 
 import java.util.UUID;
 
 @Entity
-@SoftDelete
 @Table(name = "assets")
 @Getter
 @Setter
@@ -37,6 +35,9 @@ public class AssetEntity extends AbstractAuditableEntity {
     @Column(name = "description")
     private String description;
     
+    @Column(name = "disabled")
+    private boolean disabled;
+
     @ManyToOne
     @JoinColumn(name = "building_id")
     private BuildingEntity building;

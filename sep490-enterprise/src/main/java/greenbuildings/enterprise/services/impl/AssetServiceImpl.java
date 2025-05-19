@@ -27,23 +27,25 @@ public class AssetServiceImpl implements AssetService {
     private final EmissionActivityRecordRepository recordRepository;
     
     @Override
-    public AssetEntity updateAsset(AssetEntity target) {
-        var buildingFrom = assetRepository.getReferenceById(target.getId()).getBuilding();
-        var buildingTo = target.getBuilding();
+    public AssetEntity updateAsset(AssetEntity asset) {
+        var oldBuilding = assetRepository.getReferenceById(asset.getId()).getBuilding();
+        var newBuilding = asset.getBuilding();
         
-        var isMoveFromBuildingMoveToAny = Objects.nonNull(buildingFrom);
-        var isMoveToDifferentBuilding = Objects.isNull(buildingTo) || !Objects.equals(buildingFrom.getId(), buildingTo.getId());
+        var isMoveFromBuildingMoveToAny = Objects.nonNull(oldBuilding);
+        var isMoveToDifferentBuilding = Objects.isNull(newBuilding)
+                                        || (isMoveFromBuildingMoveToAny && !Objects.equals(oldBuilding.getId(), newBuilding.getId()));
         
         if (isMoveFromBuildingMoveToAny
             && isMoveToDifferentBuilding
-            && recordRepository.existsByAssetId((target.getId())) // side effect
+            && recordRepository.existsByAssetId((asset.getId())) // side effect
         ) {
-            var newAssetEntity = AssetEntity.clone(target);
-            target.setName("Archived asset with name: %s".formatted(target.getName()));
-            assetRepository.deleteById(target.getId()); // use type better than delete?
+            var newAssetEntity = AssetEntity.clone(asset);
+            asset.setBuilding(oldBuilding);
+            archiveAsset(asset);
+            assetRepository.save(asset);
             return assetRepository.save(newAssetEntity);
         }
-        return assetRepository.save(target);
+        return assetRepository.save(asset);
     }
     
     @Override
@@ -53,7 +55,17 @@ public class AssetServiceImpl implements AssetService {
     
     @Override
     public void deleteAsset(UUID id) {
+        if (recordRepository.existsByAssetId(id)) {
+            assetRepository.findById(id).ifPresent(this::archiveAsset);
+            return;
+        }
         assetRepository.deleteById(id);
+    }
+    
+    private void archiveAsset(AssetEntity asset) {
+        asset.setName("[Archived] %s".formatted(asset.getName()));
+        asset.setDisabled(true);
+        assetRepository.save(asset);
     }
     
     @Transactional(readOnly = true)
@@ -73,10 +85,10 @@ public class AssetServiceImpl implements AssetService {
     }
     
     @Override
-    public List<AssetEntity> selectableByBuildingId(UserContextData userContext, UUID buildingId) {
+    public List<AssetEntity> selectableByBuildingId(UserContextData userContext, UUID buildingId, UUID excludeId) {
         if (userContext.getEnterpriseId().isPresent()) {
             return assetRepository.selectableByEnterpriseId(userContext.getEnterpriseId().get(), buildingId);
         }
-        return assetRepository.selectableByTenantId(userContext.getTenantId().orElseThrow(), buildingId);
+        return assetRepository.selectableByTenantId(userContext.getTenantId().orElseThrow(), buildingId, excludeId);
     }
 }

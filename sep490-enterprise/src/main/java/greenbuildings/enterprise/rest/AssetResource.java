@@ -88,11 +88,12 @@ public class AssetResource {
     @GetMapping("/selectable")
     public ResponseEntity<List<SelectableItem<UUID>>> selectable(
             @AuthenticationPrincipal UserContextData userContext,
+            @RequestParam(required = false) UUID excludeId, // useful for tenant view
             @RequestParam(required = false) UUID buildingId) {
         var selectableItems = assetService
-                .selectableByBuildingId(userContext, buildingId)
+                .selectableByBuildingId(userContext, buildingId, excludeId)
                 .stream()
-                .map(asset -> new SelectableItem<>(asset.getName(), asset.getId(), false))
+                .map(assetMapper::toSelectableItem)
                 .toList();
         return ResponseEntity.ok(selectableItems);
     }
