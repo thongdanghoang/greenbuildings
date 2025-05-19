@@ -1,8 +1,9 @@
 package greenbuildings.idp.security;
 
-import commons.springfw.impl.securities.UserContextData;
 import greenbuildings.commons.api.security.UserRole;
+import greenbuildings.commons.springfw.impl.securities.UserContextData;
 import greenbuildings.idp.entity.UserEntity;
+
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;

@@ -6,7 +6,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @SpringBootApplication
-@ComponentScan(basePackages = {"greenbuildings.enterprise", "commons.springfw"})
+@ComponentScan(basePackages = {"greenbuildings.enterprise", "greenbuildings.commons"})
 @EnableJpaAuditing
 public class EnterpriseApplication {
     

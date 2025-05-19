@@ -1,20 +1,21 @@
 package greenbuildings.idp.service.impl;
 
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import greenbuildings.commons.springfw.impl.utils.IEmailUtil;
+import greenbuildings.commons.springfw.impl.utils.IMessageUtil;
+import greenbuildings.commons.springfw.impl.utils.SEPMailMessage;
 import greenbuildings.idp.dto.ForgotResetPasswordDTO;
 import greenbuildings.idp.entity.UserEntity;
 import greenbuildings.idp.entity.UserOTP;
 import greenbuildings.idp.repository.UserOTPRepository;
 import greenbuildings.idp.repository.UserRepository;
 import greenbuildings.idp.service.ForgotPasswordService;
-import commons.springfw.impl.utils.IEmailUtil;
-import commons.springfw.impl.utils.IMessageUtil;
-import commons.springfw.impl.utils.SEPMailMessage;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 

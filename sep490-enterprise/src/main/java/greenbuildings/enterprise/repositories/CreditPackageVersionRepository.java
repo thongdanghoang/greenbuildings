@@ -1,7 +1,8 @@
 package greenbuildings.enterprise.repositories;
-import commons.springfw.impl.repositories.AbstractBaseRepository;
-import greenbuildings.enterprise.entities.CreditPackageEntity;
+
+import greenbuildings.commons.springfw.impl.repositories.AbstractBaseRepository;
 import greenbuildings.enterprise.entities.CreditPackageVersionEntity;
+
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 

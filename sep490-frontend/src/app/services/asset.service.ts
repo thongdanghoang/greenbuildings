@@ -27,10 +27,11 @@ export class AssetService {
     return this.httpClient.delete<void>(`${AssetService.URL}/${id}`);
   }
 
-  selectable(buildingId?: UUID): Observable<SelectableItem<UUID>[]> {
-    const url = buildingId
-      ? `${AssetService.URL}/selectable?buildingId=${buildingId}`
-      : `${AssetService.URL}/selectable`;
+  selectable(buildingId?: UUID, assetId?: UUID): Observable<SelectableItem<UUID>[]> {
+    let url = buildingId ? `${AssetService.URL}/selectable?buildingId=${buildingId}` : `${AssetService.URL}/selectable`;
+    if (assetId) {
+      url += `${buildingId ? '&' : '?'}excludeId=${assetId}`;
+    }
     return this.httpClient.get<SelectableItem<UUID>[]>(url);
   }
 }

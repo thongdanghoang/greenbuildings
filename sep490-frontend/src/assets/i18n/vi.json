@@ -398,6 +398,7 @@
           "dateWarning": "Ngày bản ghi phát thải trong tương lai, báo cáo có thể không chính xác",
           "deleteWithCount": "Xóa ({{count}}) bản ghi",
           "table": {
+            "asset": "Tài sản",
             "value": "Giá trị",
             "unit": "Đơn vị",
             "startDate": "Ngày bắt đầu",

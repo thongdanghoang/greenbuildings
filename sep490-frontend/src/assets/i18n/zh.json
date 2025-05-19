@@ -398,6 +398,7 @@
           "new": "新的排放记录",
           "dateWarning": "记录日期在将来，报告可能不准确",
           "table": {
+            "asset": "资产",
             "value": "数值",
             "unit": "单位",
             "startDate": "开始日期",

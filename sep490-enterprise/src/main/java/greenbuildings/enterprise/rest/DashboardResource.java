@@ -1,6 +1,7 @@
 package greenbuildings.enterprise.rest;
 
 import greenbuildings.commons.api.security.UserRole;
+import greenbuildings.commons.springfw.impl.securities.UserContextData;
 import greenbuildings.enterprise.dtos.dashboard.EnterpriseDashboardDTO;
 import greenbuildings.enterprise.mappers.EnterpriseDashboardMapper;
 import greenbuildings.enterprise.services.DashboardService;
@@ -10,7 +11,6 @@ import greenbuildings.enterprise.views.dashboard.BuildingGhgEmission;
 import greenbuildings.enterprise.views.dashboard.DefaultChartView;
 import greenbuildings.enterprise.views.dashboard.DistributionEmissionSource;
 
-import commons.springfw.impl.securities.UserContextData;
 import jakarta.annotation.security.RolesAllowed;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.task.TaskExecutor;

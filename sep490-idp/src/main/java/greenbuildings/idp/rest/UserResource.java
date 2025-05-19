@@ -1,13 +1,13 @@
 package greenbuildings.idp.rest;
 
 import greenbuildings.commons.api.security.UserRole;
+import greenbuildings.commons.springfw.impl.UserLanguage;
+import greenbuildings.commons.springfw.impl.securities.UserContextData;
 import greenbuildings.idp.dto.EnterpriseUserDetailsDTO;
 import greenbuildings.idp.dto.UserConfigs;
 import greenbuildings.idp.mapper.EnterpriseUserMapper;
 import greenbuildings.idp.service.UserService;
 
-import commons.springfw.impl.UserLanguage;
-import commons.springfw.impl.securities.UserContextData;
 import jakarta.annotation.security.RolesAllowed;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

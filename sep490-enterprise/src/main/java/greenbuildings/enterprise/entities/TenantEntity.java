@@ -1,8 +1,8 @@
 package greenbuildings.enterprise.entities;
 
 import greenbuildings.commons.api.utils.CommonConstant;
+import greenbuildings.commons.springfw.impl.entities.AbstractAuditableEntity;
 
-import commons.springfw.impl.entities.AbstractAuditableEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;

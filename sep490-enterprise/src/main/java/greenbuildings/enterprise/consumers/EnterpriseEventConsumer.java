@@ -1,15 +1,16 @@
 package greenbuildings.enterprise.consumers;
 
-import commons.springfw.impl.securities.KafkaSecurityConfig;
 import greenbuildings.commons.api.events.PendingEnterpriseRegisterEvent;
 import greenbuildings.commons.api.exceptions.BusinessException;
 import greenbuildings.commons.api.security.UserRole;
 import greenbuildings.commons.api.utils.MDCContext;
+import greenbuildings.commons.springfw.impl.securities.KafkaSecurityConfig;
 import greenbuildings.enterprise.mappers.EnterpriseMapper;
 import greenbuildings.enterprise.mappers.TenantMapper;
 import greenbuildings.enterprise.producers.EnterpriseEventProducer;
 import greenbuildings.enterprise.services.EnterpriseService;
 import greenbuildings.enterprise.services.TenantService;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;

@@ -1,6 +1,7 @@
 package greenbuildings.enterprise.entities;
 
-import commons.springfw.impl.entities.AbstractAuditableEntity;
+import greenbuildings.commons.springfw.impl.entities.AbstractAuditableEntity;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -10,12 +11,10 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldNameConstants;
-import org.hibernate.annotations.SoftDelete;
 
 import java.util.UUID;
 
 @Entity
-@SoftDelete
 @Table(name = "assets")
 @Getter
 @Setter
@@ -37,6 +36,9 @@ public class AssetEntity extends AbstractAuditableEntity {
     @Column(name = "description")
     private String description;
     
+    @Column(name = "disabled")
+    private boolean disabled;
+
     @ManyToOne
     @JoinColumn(name = "building_id")
     private BuildingEntity building;

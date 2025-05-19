@@ -1,7 +1,8 @@
 package greenbuildings.enterprise.entities;
 
-import commons.springfw.impl.entities.AbstractAuditableEntity;
 import greenbuildings.commons.api.enums.PaymentStatus;
+import greenbuildings.commons.springfw.impl.entities.AbstractAuditableEntity;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

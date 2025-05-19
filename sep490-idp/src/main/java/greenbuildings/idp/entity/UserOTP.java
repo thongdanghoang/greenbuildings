@@ -1,6 +1,8 @@
 package greenbuildings.idp.entity;
 
-import commons.springfw.impl.entities.AbstractBaseEntity;
+import greenbuildings.commons.api.utils.CommonUtils;
+import greenbuildings.commons.springfw.impl.entities.AbstractBaseEntity;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -8,7 +10,6 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import greenbuildings.commons.api.utils.CommonUtils;
 
 import java.time.LocalDateTime;
 

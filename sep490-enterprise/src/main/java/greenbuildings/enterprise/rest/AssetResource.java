@@ -5,6 +5,8 @@ import greenbuildings.commons.api.dto.SearchResultDTO;
 import greenbuildings.commons.api.exceptions.BusinessException;
 import greenbuildings.commons.api.security.UserRole;
 import greenbuildings.commons.api.views.SelectableItem;
+import greenbuildings.commons.springfw.impl.mappers.CommonMapper;
+import greenbuildings.commons.springfw.impl.securities.UserContextData;
 import greenbuildings.enterprise.dtos.assets.AssetDTO;
 import greenbuildings.enterprise.entities.AssetEntity;
 import greenbuildings.enterprise.entities.EnterpriseEntity;
@@ -13,8 +15,6 @@ import greenbuildings.enterprise.mappers.AssetMapper;
 import greenbuildings.enterprise.services.AssetService;
 import greenbuildings.enterprise.views.assets.AssetView;
 
-import commons.springfw.impl.mappers.CommonMapper;
-import commons.springfw.impl.securities.UserContextData;
 import jakarta.annotation.security.RolesAllowed;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -88,11 +88,12 @@ public class AssetResource {
     @GetMapping("/selectable")
     public ResponseEntity<List<SelectableItem<UUID>>> selectable(
             @AuthenticationPrincipal UserContextData userContext,
+            @RequestParam(required = false) UUID excludeId, // useful for tenant view
             @RequestParam(required = false) UUID buildingId) {
         var selectableItems = assetService
-                .selectableByBuildingId(userContext, buildingId)
+                .selectableByBuildingId(userContext, buildingId, excludeId)
                 .stream()
-                .map(asset -> new SelectableItem<>(asset.getName(), asset.getId(), false))
+                .map(assetMapper::toSelectableItem)
                 .toList();
         return ResponseEntity.ok(selectableItems);
     }

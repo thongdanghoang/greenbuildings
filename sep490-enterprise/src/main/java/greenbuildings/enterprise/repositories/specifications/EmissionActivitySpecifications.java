@@ -1,9 +1,10 @@
 package greenbuildings.enterprise.repositories.specifications;
 
-import commons.springfw.impl.entities.AbstractBaseEntity;
+import greenbuildings.commons.springfw.impl.entities.AbstractBaseEntity;
 import greenbuildings.enterprise.dtos.emission_activities.ActivityCriteria;
 import greenbuildings.enterprise.entities.BuildingEntity;
 import greenbuildings.enterprise.entities.EmissionActivityEntity;
+
 import jakarta.persistence.criteria.Predicate;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.jpa.domain.Specification;

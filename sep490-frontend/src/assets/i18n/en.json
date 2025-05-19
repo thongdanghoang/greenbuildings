@@ -399,6 +399,7 @@
           "deleteWithCount": "Delete ({{count}}) records",
           "dateWarning": "Record date are in the future, the report might be inaccurate",
           "table": {
+            "asset": "Asset",
             "value": "Value",
             "unit": "Unit",
             "startDate": "Start Date",

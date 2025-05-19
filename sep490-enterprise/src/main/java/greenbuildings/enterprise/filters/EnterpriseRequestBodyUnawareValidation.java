@@ -1,6 +1,7 @@
 package greenbuildings.enterprise.filters;
 
-import commons.springfw.impl.filters.RequestBodyUnawareValidation;
+import greenbuildings.commons.springfw.impl.filters.RequestBodyUnawareValidation;
+
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice

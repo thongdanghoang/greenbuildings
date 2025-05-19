@@ -1,13 +1,14 @@
 package greenbuildings.enterprise.rest;
 
-import commons.springfw.impl.mappers.CommonMapper;
 import greenbuildings.commons.api.dto.SearchCriteriaDTO;
 import greenbuildings.commons.api.dto.SearchResultDTO;
+import greenbuildings.commons.springfw.impl.mappers.CommonMapper;
 import greenbuildings.enterprise.dtos.ActivityTypeCriteriaDTO;
 import greenbuildings.enterprise.dtos.ActivityTypeDTO;
 import greenbuildings.enterprise.entities.ActivityTypeEntity;
 import greenbuildings.enterprise.mappers.ActivityTypeMapper;
 import greenbuildings.enterprise.services.ActivityTypeService;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

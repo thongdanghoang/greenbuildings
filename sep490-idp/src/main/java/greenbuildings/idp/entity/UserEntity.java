@@ -1,8 +1,9 @@
 package greenbuildings.idp.entity;
 
-import commons.springfw.impl.entities.AbstractAuditableEntity;
 import greenbuildings.commons.api.security.UserRole;
 import greenbuildings.commons.api.utils.CommonConstant;
+import greenbuildings.commons.springfw.impl.entities.AbstractAuditableEntity;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

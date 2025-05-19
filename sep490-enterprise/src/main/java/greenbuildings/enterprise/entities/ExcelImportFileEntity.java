@@ -1,8 +1,13 @@
 package greenbuildings.enterprise.entities;
 
-import commons.springfw.impl.entities.AbstractAuditableEntity;
+import greenbuildings.commons.springfw.impl.entities.AbstractAuditableEntity;
 import greenbuildings.enterprise.enums.ImportExcelType;
-import jakarta.persistence.*;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
