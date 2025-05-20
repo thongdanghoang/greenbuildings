@@ -15,6 +15,7 @@ export interface EnterpriseUserDetails extends BaseDTO {
 export interface EnterpriseUser extends BaseDTO {
   email: string;
   name: string;
+  emailVerified: boolean;
   role: UserRole;
   scope: UserScope;
 }

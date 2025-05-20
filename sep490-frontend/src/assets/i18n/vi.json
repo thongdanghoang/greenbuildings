@@ -241,6 +241,7 @@
       "emailVerified": "Đã xác minh email",
       "firstName": "Tên",
       "lastName": "Họ",
+      "fullName": "Họ và tên",
       "role": "Vai trò",
       "scope": "Phạm vi",
       "placeholders": {
@@ -499,6 +500,8 @@
   },
   "enum": {
     "role": {
+      "BASIC_USER": "Người dùng cơ bản",
+      "TENANT": "Doanh nghiệp thuê",
       "SYSTEM_ADMIN": "Quản trị viên",
       "ENTERPRISE_OWNER": "Chủ doanh nghiệp",
       "ENTERPRISE_EMPLOYEE": "Nhân viên doanh nghiệp"

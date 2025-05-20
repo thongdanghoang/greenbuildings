@@ -13,5 +13,6 @@ public record EnterpriseUserDTO(
         UUID id,
         @NotBlank String name,
         @NotBlank @Pattern(regexp = CommonConstant.EMAIL_PATTERN) String email,
-        @NotNull UserRole role) {
+        @NotNull UserRole role,
+        boolean emailVerified) {
 }
