@@ -241,6 +241,7 @@
       "emailVerified": "电子邮件已验证",
       "firstName": "名字",
       "lastName": "姓氏",
+      "fullName": "全名",
       "role": "角色",
       "scope": "范围",
       "placeholders": {
@@ -499,6 +500,8 @@
   },
   "enum": {
     "role": {
+      "BASIC_USER": "基本用户",
+      "TENANT": "租户",
       "SYSTEM_ADMIN": "管理员",
       "ENTERPRISE_OWNER": "企业所有者",
       "ENTERPRISE_EMPLOYEE": "企业员工"

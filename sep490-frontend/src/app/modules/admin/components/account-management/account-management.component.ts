@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {EnterpriseUser} from '@models/enterprise-user';
 import {ApplicationService} from '@services/application.service';
 import {EnterpriseUserService} from '@services/enterprise-user.service';
@@ -14,6 +14,11 @@ import {UserCriteria} from '../../../authorization/components/users-management/u
   styleUrl: './account-management.component.css'
 })
 export class AccountManagementComponent extends SubscriptionAwareComponent implements OnInit {
+  @ViewChild('roleTemplate', {static: true})
+  roleTemplate!: TemplateRef<any>;
+  @ViewChild('emailVerifiedTemplate', {static: true})
+  emailVerifiedTemplate!: TemplateRef<any>;
+
   protected fetchUsers!: (criteria: SearchCriteriaDto<UserCriteria>) => Observable<SearchResultDto<EnterpriseUser>>;
   protected cols: TableTemplateColumn[] = [];
   protected readonly searchEvent: EventEmitter<void> = new EventEmitter();
@@ -36,6 +41,20 @@ export class AccountManagementComponent extends SubscriptionAwareComponent imple
     this.cols.push({
       field: 'email',
       header: 'enterprise.Users.email'
+    });
+    this.cols.push({
+      field: 'name',
+      header: 'enterprise.Users.fullName'
+    });
+    this.cols.push({
+      field: '',
+      header: 'enterprise.Users.role',
+      templateRef: this.roleTemplate
+    });
+    this.cols.push({
+      field: '',
+      header: 'enterprise.Users.emailVerified',
+      templateRef: this.emailVerifiedTemplate
     });
   }
 

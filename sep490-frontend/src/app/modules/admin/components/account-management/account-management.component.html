@@ -34,3 +34,28 @@
         </p-inputgroup>
     </div>
 </ng-template>
+<ng-template
+    #roleTemplate
+    let-data
+>
+    <p>{{ 'enum.role.' + data.role | translate }}</p>
+</ng-template>
+<ng-template
+    #emailVerifiedTemplate
+    let-data
+>
+    <span
+        *ngIf="data.emailVerified"
+        class="text-green-500"
+    >
+        <i class="pi pi-check-circle"></i>
+        {{ 'common.accept' | translate }}
+    </span>
+    <span
+        *ngIf="!data.emailVerified"
+        class="text-red-500"
+    >
+        <i class="pi pi-times-circle"></i>
+        {{ 'common.reject' | translate }}
+    </span>
+</ng-template>
