@@ -38,14 +38,14 @@
     <div class="flex flex-col gap-1">
         <div
             *ngFor="let building of rowData.buildings"
-            class="my-1 flex cursor-pointer items-center gap-3 text-sm"
+            class="my-1 flex items-center gap-3 text-sm"
         >
-            <span class="flex items-center gap-1 text-sky-600 hover:underline">
+            <span class="flex items-center gap-1 text-sky-600">
                 <i class="pi pi-building"></i>
                 <span class="font-semibold">{{ building.name }}</span>
             </span>
             <span class="text-gray-400">-</span>
-            <span class="flex items-center gap-1 text-green-600 hover:underline">
+            <span class="flex items-center gap-1 text-green-600">
                 <i class="pi pi-user"></i>
                 <span class="font-semibold">{{ building.buildingGroup.name }}</span>
             </span>
