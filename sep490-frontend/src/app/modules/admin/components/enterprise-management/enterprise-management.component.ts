@@ -46,6 +46,14 @@ export class EnterpriseManagementComponent extends SubscriptionAwareComponent im
       {
         field: 'hotline',
         header: 'enterprise.create.hotline'
+      },
+      {
+        field: 'taxCode',
+        header: 'enterprise.create.taxCode'
+      },
+      {
+        field: 'representativeName',
+        header: 'enterprise.create.representativeName'
       }
     );
   }

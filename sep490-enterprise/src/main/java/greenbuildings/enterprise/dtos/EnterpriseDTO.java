@@ -14,6 +14,8 @@ public record EnterpriseDTO(
         int version,
         @NotBlank String name,
         @NotBlank @Pattern(regexp = CommonConstant.EMAIL_PATTERN) String email,
-        @NotBlank @Pattern(regexp = CommonConstant.VIETNAM_PHONE_PATTERN) String hotline
+        @NotBlank @Pattern(regexp = CommonConstant.VIETNAM_PHONE_PATTERN) String hotline,
+        String taxCode,
+        String representativeName
 ) implements BaseDTO {
 }

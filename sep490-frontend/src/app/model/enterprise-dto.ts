@@ -14,4 +14,6 @@ export interface EnterpriseDTO {
   name?: string;
   email?: string;
   hotline?: string;
+  taxCode?: string;
+  representativeName?: string;
 }
