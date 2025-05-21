@@ -78,7 +78,7 @@
             >
                 <tr>
                     <td>{{ record.value }}</td>
-                    <td>{{ record.unit }}</td>
+                    <td>{{ 'unit.' + record.unit | translate }}</td>
                     <td>{{ record.quantity | number: '1.0-0' }}</td>
                     <td>{{ record.startDate | date: 'dd.MM.yyyy' }}</td>
                     <td>{{ record.endDate | date: 'dd.MM.yyyy' }}</td>
