@@ -138,6 +138,9 @@ export class NewActivityDialogComponent extends AbstractFormComponent<CreateNewA
       this.formStructure.name.setValue(this.config.data?.name);
       this.formStructure.category.setValue(this.config.data?.category);
       this.formStructure.description.setValue(this.config.data?.description);
+
+      this.formStructure.emissionSourceID.disable();
+      this.formStructure.emissionFactorID.disable();
     } else {
       // create mode
       this.formStructure.buildingGroupID.setValue(this.config.data?.buildingGroupId);
