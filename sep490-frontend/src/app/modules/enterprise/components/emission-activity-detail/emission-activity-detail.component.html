@@ -199,3 +199,9 @@
 >
     {{ rowData.ghg | number: '1.0-0' }}
 </ng-template>
+<ng-template
+    #unitTemplate
+    let-rowData
+>
+    {{ 'unit.' + rowData.unit | translate }}
+</ng-template>

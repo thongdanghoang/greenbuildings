@@ -48,6 +48,8 @@ export class EmissionActivityDetailComponent extends AbstractFormComponent<Emiss
   actionsTemplate!: TemplateRef<any>;
   @ViewChild('ghgTemplate', {static: true})
   ghgTemplate!: TemplateRef<any>;
+  @ViewChild('unitTemplate', {static: true})
+  unitTemplate!: TemplateRef<any>;
   searchEvent = new EventEmitter<void>();
   clearSelectedEvent = new EventEmitter<void>();
   fetchRecords!: (
@@ -125,7 +127,8 @@ export class EmissionActivityDetailComponent extends AbstractFormComponent<Emiss
       {
         field: 'unit',
         header: 'enterprise.emission.activity.record.table.unit',
-        sortable: true
+        sortable: true,
+        templateRef: this.unitTemplate
       },
       {
         field: 'quantity',
