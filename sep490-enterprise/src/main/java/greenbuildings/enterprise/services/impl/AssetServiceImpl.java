@@ -87,7 +87,7 @@ public class AssetServiceImpl implements AssetService {
     @Override
     public List<AssetEntity> selectableByBuildingId(UserContextData userContext, UUID buildingId, UUID excludeId) {
         if (userContext.getEnterpriseId().isPresent()) {
-            return assetRepository.selectableByEnterpriseId(userContext.getEnterpriseId().get(), buildingId);
+            return assetRepository.selectableByEnterpriseId(userContext.getEnterpriseId().get(), buildingId, excludeId);
         }
         return assetRepository.selectableByTenantId(userContext.getTenantId().orElseThrow(), buildingId, excludeId);
     }

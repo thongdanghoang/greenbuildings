@@ -1,10 +1,5 @@
 <master-layout title="assets.title">
-    <div subtitle>{{ 'assets.subtitle' | translate }}</div>
-
-    <div
-        class=""
-        actions
-    >
+    <div actions>
         <ng-container
             *ngTemplateOutlet="addAssetsBtn; context: {styleClass: 'block lg:hidden', mobile: true}"
         ></ng-container>
