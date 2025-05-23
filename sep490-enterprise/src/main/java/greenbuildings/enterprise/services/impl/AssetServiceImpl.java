@@ -96,10 +96,10 @@ public class AssetServiceImpl implements AssetService {
     }
     
     @EventListener
-    @Transactional(propagation = Propagation.MANDATORY) // also rollback from the caller
+    @Transactional(propagation = Propagation.MANDATORY)
     @Override
     public void handleBuildingGroupUnlinkedEvent(BuildingGroupUnlinkedEvent event) {
-        var assets = assetRepository.findByBuildingId(event.getBuildingId());
+        var assets = assetRepository.findByBuildingIdAndDisabled(event.getBuildingId(), false);
         assets.forEach(asset -> asset.setBuilding(null));
         assetRepository.saveAll(assets);
     }

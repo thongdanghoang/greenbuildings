@@ -43,11 +43,13 @@ public interface AssetRepository
     
     @Query("""
             FROM AssetEntity root
-            WHERE (root.tenant.id IS NOT NULL AND root.tenant.id = :organizationId)
-            OR (root.enterprise.id IS NOT NULL AND root.enterprise.id = :organizationId)
-            AND root.disabled = false
+            WHERE root.disabled = false
+            AND (
+                (root.tenant.id IS NOT NULL AND root.tenant.id = :organizationId)
+                OR (root.enterprise.id IS NOT NULL AND root.enterprise.id = :organizationId)
+            )
             """)
     Page<AssetEntity> findAllByOrganizationId(Pageable pageable, UUID organizationId);
     
-    List<AssetEntity> findByBuildingId(UUID buildingId);
+    List<AssetEntity> findByBuildingIdAndDisabled(UUID buildingId, boolean disabled);
 }
