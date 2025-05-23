@@ -49,7 +49,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ReportServiceImpl implements ReportService {
     
-    public static final int START_RECORD_ROW_IDX = 14;
+    public static final int START_RECORD_ROW_IDX = 31;
     
     private final BuildingRepository buildingRepository;
     private final EmissionActivityRecordRepository recordRepo;
