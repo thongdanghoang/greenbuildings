@@ -13,6 +13,7 @@ export interface EnterpriseUserDTO {
   name?: string;
   email?: string;
   role: EnterpriseUserDTO.RoleEnum;
+  emailVerified?: boolean;
 }
 export namespace EnterpriseUserDTO {
   export const RoleEnum = {

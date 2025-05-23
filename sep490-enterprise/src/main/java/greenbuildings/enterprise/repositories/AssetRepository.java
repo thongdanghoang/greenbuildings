@@ -16,15 +16,15 @@ public interface AssetRepository
     @Query("""
             FROM AssetEntity assets
             WHERE (:buildingId IS NULL OR assets.building.id = :buildingId)
-            AND ((assets.tenant.id IS NOT NULL)
-            OR (assets.enterprise.id IS NOT NULL AND assets.enterprise.id = :enterpriseId))
+            AND ((assets.tenant.id IS NOT NULL) OR (assets.enterprise.id IS NOT NULL AND assets.enterprise.id = :enterpriseId))
+            AND (assets.disabled = false OR assets.id = :excludeId)
             """)
-    List<AssetEntity> selectableByEnterpriseId(UUID enterpriseId, UUID buildingId);
+    List<AssetEntity> selectableByEnterpriseId(UUID enterpriseId, UUID buildingId, UUID excludeId);
     
     @Query("""
             FROM AssetEntity assets
             WHERE (:buildingId IS NULL OR assets.building.id = :buildingId)
-            AND ((assets.tenant.id IS NOT NULL AND assets.tenant.id = :tenantId) OR (:excludeId IS NOT NULL AND assets.id = :excludeId))
+            AND ((assets.tenant.id IS NOT NULL AND assets.tenant.id = :tenantId AND assets.disabled = false) OR (:excludeId IS NOT NULL AND assets.id = :excludeId))
             """)
     List<AssetEntity> selectableByTenantId(UUID tenantId, UUID buildingId, UUID excludeId);
     
@@ -43,9 +43,13 @@ public interface AssetRepository
     
     @Query("""
             FROM AssetEntity root
-            WHERE (root.tenant.id IS NOT NULL AND root.tenant.id = :organizationId)
-            OR (root.enterprise.id IS NOT NULL AND root.enterprise.id = :organizationId)
-            AND root.disabled = false
+            WHERE root.disabled = false
+            AND (
+                (root.tenant.id IS NOT NULL AND root.tenant.id = :organizationId)
+                OR (root.enterprise.id IS NOT NULL AND root.enterprise.id = :organizationId)
+            )
             """)
     Page<AssetEntity> findAllByOrganizationId(Pageable pageable, UUID organizationId);
+    
+    List<AssetEntity> findByBuildingIdAndDisabled(UUID buildingId, boolean disabled);
 }

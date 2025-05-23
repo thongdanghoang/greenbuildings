@@ -2,6 +2,7 @@ package greenbuildings.enterprise.services;
 
 import greenbuildings.commons.springfw.impl.securities.UserContextData;
 import greenbuildings.enterprise.entities.AssetEntity;
+import greenbuildings.enterprise.events.BuildingGroupUnlinkedEvent;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,5 +23,7 @@ public interface AssetService {
     AssetEntity getById(UUID id);
     
     List<AssetEntity> selectableByBuildingId(UserContextData userContext, UUID buildingId, UUID excludeId);
+    
+    void handleBuildingGroupUnlinkedEvent(BuildingGroupUnlinkedEvent event);
     
 }

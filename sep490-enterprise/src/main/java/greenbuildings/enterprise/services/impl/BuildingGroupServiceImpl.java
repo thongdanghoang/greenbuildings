@@ -3,7 +3,7 @@ package greenbuildings.enterprise.services.impl;
 import greenbuildings.commons.api.dto.SearchCriteriaDTO;
 import greenbuildings.commons.api.exceptions.BusinessException;
 import greenbuildings.commons.springfw.impl.mappers.CommonMapper;
-import greenbuildings.commons.springfw.impl.utils.EmailUtil;
+import greenbuildings.commons.springfw.impl.utils.IEmailUtil;
 import greenbuildings.commons.springfw.impl.utils.IMessageUtil;
 import greenbuildings.commons.springfw.impl.utils.SEPMailMessage;
 import greenbuildings.enterprise.dtos.BuildingGroupCriteria;
@@ -13,6 +13,7 @@ import greenbuildings.enterprise.entities.BuildingGroupEntity;
 import greenbuildings.enterprise.entities.EnterpriseEntity;
 import greenbuildings.enterprise.entities.InvitationEntity;
 import greenbuildings.enterprise.enums.InvitationStatus;
+import greenbuildings.enterprise.events.BuildingGroupUnlinkedEvent;
 import greenbuildings.enterprise.mappers.BuildingGroupMapper;
 import greenbuildings.enterprise.repositories.BuildingGroupRepository;
 import greenbuildings.enterprise.repositories.EmissionActivityRepository;
@@ -21,6 +22,7 @@ import greenbuildings.enterprise.repositories.InvitationRepository;
 import greenbuildings.enterprise.services.BuildingGroupService;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -38,12 +40,13 @@ import java.util.stream.Collectors;
 @Transactional(rollbackFor = Throwable.class)
 public class BuildingGroupServiceImpl implements BuildingGroupService {
     
+    private final ApplicationEventPublisher publisher;
     private final BuildingGroupRepository buildingGroupRepository;
     private final BuildingGroupMapper buildingGroupMapper;
     private final EnterpriseRepository enterpriseRepository;
     private final InvitationRepository invitationRepository;
     private final EmissionActivityRepository emissionActivityRepository;
-    private final EmailUtil emailUtil;
+    private final IEmailUtil emailUtil;
     private final IMessageUtil messageUtil;
     
     @Override
@@ -171,6 +174,7 @@ public class BuildingGroupServiceImpl implements BuildingGroupService {
             buildingGroupEntity.setTenant(null);
             emailUtil.sendMail(message);
             buildingGroupRepository.save(buildingGroupEntity);
+            publisher.publishEvent(new BuildingGroupUnlinkedEvent(this, buildingGroupEntity.getBuilding().getId()));
         }
     }
     
