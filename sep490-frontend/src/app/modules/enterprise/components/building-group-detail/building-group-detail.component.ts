@@ -15,7 +15,7 @@ import {SearchCriteriaDto, SearchResultDto} from '@shared/models/base-models';
 import {ModalProvider} from '@shared/services/modal-provider';
 import {ToastProvider} from '@shared/services/toast-provider';
 import {DialogService, DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
-import {Observable} from 'rxjs';
+import {Observable, filter, switchMap, tap} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {UUID} from '../../../../../types/uuid';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
@@ -152,17 +152,21 @@ export class BuildingGroupDetailComponent extends SubscriptionAwareComponent imp
   unlinkTenant(): void {
     this.modalProvider
       .showDefaultConfirm('tenant.unlinkTenantConfirmMessage')
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((result: boolean): void => {
-        if (result) {
-          this.buildingGroupService.unlinkTenant(this.buildingGroup.id).subscribe(() => {
-            this.msgService.success({
-              summary: this.translate.instant('common.success')
-            });
-            this.fetchBuildingGroupDetails();
-          });
-        }
-      });
+      .pipe(
+        takeUntil(this.destroy$),
+        filter((result: boolean) => result), // Only proceed if the user said yes
+        switchMap(() =>
+          this.buildingGroupService.unlinkTenant(this.buildingGroup.id).pipe(
+            tap((): void => {
+              this.msgService.success({
+                summary: this.translate.instant('common.success')
+              });
+              this.fetchBuildingGroupDetails();
+            })
+          )
+        )
+      )
+      .subscribe();
   }
 
   openNewActivityDialog(): void {
@@ -226,7 +230,9 @@ export class BuildingGroupDetailComponent extends SubscriptionAwareComponent imp
   }
 
   getFactorName(activity: EmissionActivityTableView): string {
-    if (!activity.emissionFactor) return '';
+    if (!activity.emissionFactor) {
+      return '';
+    }
 
     let lang = this.translate.currentLang.toUpperCase();
     if (lang === 'VI') {
