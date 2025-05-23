@@ -2,15 +2,18 @@ package greenbuildings.enterprise.services.impl;
 
 import greenbuildings.commons.springfw.impl.securities.UserContextData;
 import greenbuildings.enterprise.entities.AssetEntity;
+import greenbuildings.enterprise.events.BuildingGroupUnlinkedEvent;
 import greenbuildings.enterprise.repositories.AssetRepository;
 import greenbuildings.enterprise.repositories.EmissionActivityRecordRepository;
 import greenbuildings.enterprise.services.AssetService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.event.EventListener;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -90,5 +93,14 @@ public class AssetServiceImpl implements AssetService {
             return assetRepository.selectableByEnterpriseId(userContext.getEnterpriseId().get(), buildingId, excludeId);
         }
         return assetRepository.selectableByTenantId(userContext.getTenantId().orElseThrow(), buildingId, excludeId);
+    }
+    
+    @EventListener
+    @Transactional(propagation = Propagation.MANDATORY) // also rollback from the caller
+    @Override
+    public void handleBuildingGroupUnlinkedEvent(BuildingGroupUnlinkedEvent event) {
+        var assets = assetRepository.findByBuildingId(event.getBuildingId());
+        assets.forEach(asset -> asset.setBuilding(null));
+        assetRepository.saveAll(assets);
     }
 }

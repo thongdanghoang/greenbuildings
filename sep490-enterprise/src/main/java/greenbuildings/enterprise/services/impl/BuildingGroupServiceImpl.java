@@ -13,6 +13,7 @@ import greenbuildings.enterprise.entities.BuildingGroupEntity;
 import greenbuildings.enterprise.entities.EnterpriseEntity;
 import greenbuildings.enterprise.entities.InvitationEntity;
 import greenbuildings.enterprise.enums.InvitationStatus;
+import greenbuildings.enterprise.events.BuildingGroupUnlinkedEvent;
 import greenbuildings.enterprise.mappers.BuildingGroupMapper;
 import greenbuildings.enterprise.repositories.BuildingGroupRepository;
 import greenbuildings.enterprise.repositories.EmissionActivityRepository;
@@ -21,6 +22,7 @@ import greenbuildings.enterprise.repositories.InvitationRepository;
 import greenbuildings.enterprise.services.BuildingGroupService;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -38,6 +40,7 @@ import java.util.stream.Collectors;
 @Transactional(rollbackFor = Throwable.class)
 public class BuildingGroupServiceImpl implements BuildingGroupService {
     
+    private final ApplicationEventPublisher publisher;
     private final BuildingGroupRepository buildingGroupRepository;
     private final BuildingGroupMapper buildingGroupMapper;
     private final EnterpriseRepository enterpriseRepository;
@@ -171,6 +174,7 @@ public class BuildingGroupServiceImpl implements BuildingGroupService {
             buildingGroupEntity.setTenant(null);
             emailUtil.sendMail(message);
             buildingGroupRepository.save(buildingGroupEntity);
+            publisher.publishEvent(new BuildingGroupUnlinkedEvent(this, buildingGroupEntity.getBuilding().getId()));
         }
     }
     

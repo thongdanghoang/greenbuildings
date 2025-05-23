@@ -48,4 +48,6 @@ public interface AssetRepository
             AND root.disabled = false
             """)
     Page<AssetEntity> findAllByOrganizationId(Pageable pageable, UUID organizationId);
+    
+    List<AssetEntity> findByBuildingId(UUID buildingId);
 }
