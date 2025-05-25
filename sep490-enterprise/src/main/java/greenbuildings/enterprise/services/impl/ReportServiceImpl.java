@@ -12,6 +12,7 @@ import greenbuildings.enterprise.entities.EmissionActivityRecordEntity;
 import greenbuildings.enterprise.entities.EnterpriseEntity;
 import greenbuildings.enterprise.enums.EmissionUnit;
 import greenbuildings.enterprise.interceptors.BuildingPermissionFilter;
+import greenbuildings.enterprise.repositories.BuildingGroupRepository;
 import greenbuildings.enterprise.repositories.BuildingRepository;
 import greenbuildings.enterprise.repositories.EmissionActivityRecordRepository;
 import greenbuildings.enterprise.repositories.EmissionActivityRepository;
@@ -22,8 +23,11 @@ import greenbuildings.enterprise.utils.CalculationUtils;
 
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.collections.map.HashedMap;
+import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.jetbrains.annotations.NotNull;
@@ -36,6 +40,7 @@ import java.io.InputStream;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -50,12 +55,15 @@ import java.util.stream.Collectors;
 public class ReportServiceImpl implements ReportService {
     
     public static final int START_RECORD_ROW_IDX = 31;
+    public static final int GROUP_INFO_ROW_IDX = 24;
+    public static final int GROUP_INFO_COL_IDX = 1;
     
     private final BuildingRepository buildingRepository;
     private final EmissionActivityRecordRepository recordRepo;
     private final EmissionActivityRepository activityRepo;
     private final CalculationService calculationService;
     private final EnterpriseRepository enterpriseRepository;
+    private final BuildingGroupRepository buildingGroupRepository;
     
     @Override
     @BuildingPermissionFilter
@@ -160,6 +168,7 @@ public class ReportServiceImpl implements ReportService {
         // Prepare data
         BuildingEntity building = buildingRepository.findById(downloadReport.buildingID()).orElseThrow();
         EnterpriseEntity enterprise = building.getEnterprise();
+        List<BuildingGroupEntity> buildingGroups = buildingGroupRepository.findAllById(downloadReport.selectedGroups());
         List<EmissionActivityEntity> activities = activityRepo.findByBuildingGroupIdIn(new HashSet<>(downloadReport.selectedGroups()));
         activities.addAll(activityRepo.findByBuildingIdAndBuildingGroupIsNull(downloadReport.buildingID()));
         
@@ -171,6 +180,11 @@ public class ReportServiceImpl implements ReportService {
                                             .getResourceAsStream("files/Template_Report.xlsx");
             XSSFWorkbook workbook = new XSSFWorkbook(inputStream);
             XSSFSheet sheet = workbook.getSheetAt(0);
+            XSSFCellStyle cellStyle = workbook.createCellStyle();
+            cellStyle.setBorderTop(BorderStyle.THIN);
+            cellStyle.setBorderBottom(BorderStyle.THIN);
+            cellStyle.setBorderLeft(BorderStyle.THIN);
+            cellStyle.setBorderRight(BorderStyle.THIN);
             fillEnterpriseInfo(downloadReport, sheet, enterprise, building);
             Map<UUID, Integer> groupMergeMap = new HashedMap();
             int rowIdx = START_RECORD_ROW_IDX;
@@ -195,6 +209,7 @@ public class ReportServiceImpl implements ReportService {
                 handleMergeCommonFieldInActivities(endRow, startRow, sheet);
             }
             handleMergeBuildingGroupName(groupMergeMap, sheet);
+            fillGroupsInfo(sheet, records, buildingGroups, cellStyle);
             
             try (var byteArrayOutputStream = new ByteArrayOutputStream()) {
                 workbook.write(byteArrayOutputStream);
@@ -202,6 +217,45 @@ public class ReportServiceImpl implements ReportService {
             }
         } catch (IOException ex) {
             throw new TechnicalException(ex);
+        }
+    }
+    
+    private void fillGroupsInfo(XSSFSheet sheet, HashMap<EmissionActivityEntity, List<EmissionActivityRecordEntity>> records,
+                                List<BuildingGroupEntity> groups, XSSFCellStyle cellStyle) {
+        HashMap<BuildingGroupEntity, List<EmissionActivityEntity>> groupActivities = new HashMap<>();
+        
+        groups.forEach(g -> groupActivities.put(g, new ArrayList<>()));
+        
+        for (var entry : records.entrySet()) {
+            if (entry.getKey().getBuildingGroup() != null) {
+                groupActivities.get(entry.getKey().getBuildingGroup()).add(entry.getKey());
+            }
+        }
+        int colCount = 0;
+        for (var gr : groupActivities.entrySet()) {
+            BuildingGroupEntity group = gr.getKey();
+            List<EmissionActivityEntity> activities = gr.getValue();
+            int count = 0;
+            BigDecimal totalGhg = BigDecimal.ZERO;
+            for (var activity : activities) {
+                List<EmissionActivityRecordEntity> emissionActivityRecordEntities = records.get(activity);
+                count += emissionActivityRecordEntities.size();
+                for (var record : emissionActivityRecordEntities) {
+                    BigDecimal ghg = record.getGhg().setScale(2, RoundingMode.HALF_UP);
+                    ghg = CalculationUtils.convertUnit(EmissionUnit.KILOGRAM, EmissionUnit.GIGAGRAM, ghg);
+                    totalGhg = totalGhg.add(ghg);
+                }
+            }
+            XSSFCell cell1 = sheet.getRow(GROUP_INFO_ROW_IDX).createCell(GROUP_INFO_COL_IDX + colCount);
+            cell1.setCellValue(group.getName());
+            cell1.setCellStyle(cellStyle);
+            XSSFCell cell2 = sheet.getRow(GROUP_INFO_ROW_IDX + 1).createCell(GROUP_INFO_COL_IDX + colCount);
+            cell2.setCellValue(count);
+            cell2.setCellStyle(cellStyle);
+            XSSFCell cell3 = sheet.getRow(GROUP_INFO_ROW_IDX + 2).createCell(GROUP_INFO_COL_IDX + colCount);
+            cell3.setCellValue(totalGhg.toString());
+            cell3.setCellStyle(cellStyle);
+            colCount ++;
         }
     }
     
