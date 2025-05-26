@@ -1,6 +1,9 @@
 package greenbuildings.enterprise.services.impl;
 
+import greenbuildings.commons.api.dto.SearchCriteriaDTO;
+import greenbuildings.commons.springfw.impl.mappers.CommonMapper;
 import greenbuildings.commons.springfw.impl.securities.UserContextData;
+import greenbuildings.enterprise.dtos.AssetSearchCriteria;
 import greenbuildings.enterprise.entities.AssetEntity;
 import greenbuildings.enterprise.events.BuildingGroupUnlinkedEvent;
 import greenbuildings.enterprise.repositories.AssetRepository;
@@ -11,7 +14,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -73,8 +75,9 @@ public class AssetServiceImpl implements AssetService {
     
     @Transactional(readOnly = true)
     @Override
-    public Page<AssetEntity> search(Pageable pageable, UUID organizationId) {
-        return assetRepository.findAllByOrganizationId(pageable, organizationId);
+    public Page<AssetEntity> search(SearchCriteriaDTO<AssetSearchCriteria> searchCriteria, UUID organizationId) {
+        var pageable = CommonMapper.toPageableFallbackSortToLastModifiedDate(searchCriteria.page(), searchCriteria.sort());
+        return assetRepository.findAllByOrganizationId(searchCriteria.criteria().criteria(), pageable, organizationId);
     }
     
     @Transactional(readOnly = true)

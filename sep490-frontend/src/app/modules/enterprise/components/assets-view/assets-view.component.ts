@@ -1,4 +1,5 @@
 import {Component, EventEmitter, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {AssetSearchCriteria} from '@generated/models/asset-search-criteria';
 import {AssetView} from '@generated/models/asset-view';
 import {TranslateService} from '@ngx-translate/core';
 import {AssetService} from '@services/asset.service';
@@ -18,8 +19,9 @@ import {AssetDetailsDialogComponent} from '../asset-details-dialog/asset-details
 })
 export class AssetsViewComponent extends SubscriptionAwareComponent implements OnInit {
   protected cols: TableTemplateColumn[] = [];
-  protected search: (criteria: SearchCriteriaDto<void>) => Observable<SearchResultDto<AssetView>>;
+  protected search: (criteria: SearchCriteriaDto<AssetSearchCriteria>) => Observable<SearchResultDto<AssetView>>;
   protected readonly searchEvent: EventEmitter<void> = new EventEmitter();
+  protected searchCriteria: AssetSearchCriteria = {criteria: ''};
 
   @ViewChild('buildingTemplate', {static: true})
   protected buildingTemplate!: TemplateRef<any>;

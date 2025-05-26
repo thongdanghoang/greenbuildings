@@ -11,9 +11,33 @@
     <table-template
         [fetch]="search"
         [columns]="cols"
+        [criteria]="searchCriteria"
+        [captionTemplateRef]="captionTemplateRef"
         [triggerSearch]="searchEvent"
     />
 </master-layout>
+
+<ng-template #captionTemplateRef>
+    <div>
+        <p-inputgroup class="max-w-96">
+            <input
+                [(ngModel)]="searchCriteria.criteria"
+                type="text"
+                pInputText
+                placeholder="{{ 'common.search' | translate }}"
+                (keydown.enter)="this.searchEvent.emit()"
+            />
+            <p-inputgroup-addon>
+                <p-button
+                    icon="pi pi-search"
+                    severity="secondary"
+                    text
+                    (onClick)="this.searchEvent.emit()"
+                />
+            </p-inputgroup-addon>
+        </p-inputgroup>
+    </div>
+</ng-template>
 
 <ng-template
     #addAssetsBtn

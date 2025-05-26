@@ -48,8 +48,9 @@ public interface AssetRepository
                 (root.tenant.id IS NOT NULL AND root.tenant.id = :organizationId)
                 OR (root.enterprise.id IS NOT NULL AND root.enterprise.id = :organizationId)
             )
+            AND root.name ilike '%' || :criteria || '%'
             """)
-    Page<AssetEntity> findAllByOrganizationId(Pageable pageable, UUID organizationId);
+    Page<AssetEntity> findAllByOrganizationId(String criteria, Pageable pageable, UUID organizationId);
     
     List<AssetEntity> findByBuildingIdAndDisabled(UUID buildingId, boolean disabled);
 }

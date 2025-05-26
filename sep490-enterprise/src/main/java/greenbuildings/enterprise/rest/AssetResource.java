@@ -7,6 +7,7 @@ import greenbuildings.commons.api.security.UserRole;
 import greenbuildings.commons.api.views.SelectableItem;
 import greenbuildings.commons.springfw.impl.mappers.CommonMapper;
 import greenbuildings.commons.springfw.impl.securities.UserContextData;
+import greenbuildings.enterprise.dtos.AssetSearchCriteria;
 import greenbuildings.enterprise.dtos.assets.AssetDTO;
 import greenbuildings.enterprise.entities.AssetEntity;
 import greenbuildings.enterprise.entities.EnterpriseEntity;
@@ -100,14 +101,13 @@ public class AssetResource {
     
     @PostMapping("/search")
     public ResponseEntity<SearchResultDTO<AssetView>> searchAssets(
-            @RequestBody SearchCriteriaDTO<Void> searchCriteria, // add criteria later by replace Void
+            @RequestBody SearchCriteriaDTO<AssetSearchCriteria> searchCriteria,
             @AuthenticationPrincipal UserContextData userContext) {
         var organizationId = userContext
                 .getTenantId()
                 .or(userContext::getEnterpriseId)
                 .orElseThrow();
-        var pageable = CommonMapper.toPageableFallbackSortToLastModifiedDate(searchCriteria.page(), searchCriteria.sort());
-        var searchResult = assetService.search(pageable, organizationId);
+        var searchResult = assetService.search(searchCriteria, organizationId);
         return ResponseEntity.ok(CommonMapper.toSearchResultDTO(searchResult, assetMapper::toView));
     }
     

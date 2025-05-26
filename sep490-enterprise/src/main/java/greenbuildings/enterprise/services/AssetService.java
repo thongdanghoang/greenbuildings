@@ -1,11 +1,12 @@
 package greenbuildings.enterprise.services;
 
+import greenbuildings.commons.api.dto.SearchCriteriaDTO;
 import greenbuildings.commons.springfw.impl.securities.UserContextData;
+import greenbuildings.enterprise.dtos.AssetSearchCriteria;
 import greenbuildings.enterprise.entities.AssetEntity;
 import greenbuildings.enterprise.events.BuildingGroupUnlinkedEvent;
 
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.UUID;
@@ -18,7 +19,7 @@ public interface AssetService {
     
     void deleteAsset(UUID id);
     
-    Page<AssetEntity> search(Pageable pageable, UUID organizationId);
+    Page<AssetEntity> search(SearchCriteriaDTO<AssetSearchCriteria> pageable, UUID organizationId);
     
     AssetEntity getById(UUID id);
     
