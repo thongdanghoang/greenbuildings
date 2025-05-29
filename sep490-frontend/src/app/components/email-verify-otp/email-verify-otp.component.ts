@@ -14,6 +14,7 @@ import {delay, take, tap} from 'rxjs';
   styleUrl: './email-verify-otp.component.css'
 })
 export class EmailVerifyOTPComponent extends AbstractFormComponent<ValidateOTPRequest> {
+  countdown: number | null = null;
   userEmail = '';
   firstSent = false;
 
@@ -51,19 +52,28 @@ export class EmailVerifyOTPComponent extends AbstractFormComponent<ValidateOTPRe
     const messageService = this.injector.get(MessageService);
 
     const countdown = 5;
+    this.countdown = countdown;
     const message = this.translate.instant('account.validateOTP.success');
     const redirectMessage = this.translate.instant('account.validateOTP.redirect');
 
     messageService.clear();
     messageService.add({
-      severity: 'success',
+      severity: 'custom',
       summary: message,
-      detail: `${redirectMessage} ${countdown}s...`,
+      detail: redirectMessage,
       sticky: true,
       closable: false,
-      key: 'center',
-      styleClass: 'text-xl p-6 min-w-[400px] max-w-[600px] bg-white dark:bg-gray-800 shadow-lg rounded-lg'
+      key: 'center'
     });
+
+    // Cập nhật số đếm ngược mỗi giây
+    const interval = setInterval(() => {
+      if (this.countdown !== null && this.countdown > 0) {
+        this.countdown--;
+      } else {
+        clearInterval(interval); // Dừng interval khi đếm về 0
+      }
+    }, 1000);
 
     // After 5 seconds, trigger logoff and login
     setTimeout(() => {
@@ -86,7 +96,7 @@ export class EmailVerifyOTPComponent extends AbstractFormComponent<ValidateOTPRe
             this.applicationService.login();
           }
         });
-    }, 5000);
+    }, countdown * 1000);
   }
 
   protected override submitFormDataUrl(): string {
