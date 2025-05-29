@@ -16,6 +16,7 @@ import {delay, take, takeUntil, tap} from 'rxjs';
   styleUrl: './create-enterprise.component.css'
 })
 export class CreateEnterpriseComponent extends AbstractFormComponent<RegisterEnterpriseDTO> {
+  countdown: number | null = null; // Biến để theo dõi thời gian đếm ngược
   protected readonly UserRole = UserRole;
   protected readonly formStructure = {
     name: new FormControl<string | null>(null, [Validators.required]),
@@ -82,19 +83,28 @@ export class CreateEnterpriseComponent extends AbstractFormComponent<RegisterEnt
     const messageService = this.injector.get(MessageService);
 
     const countdown = 5;
+    this.countdown = countdown; // Khởi tạo biến countdown
     const message = this.translate.instant('enterprise.create.success');
     const redirectMessage = this.translate.instant('enterprise.create.redirect');
 
     messageService.clear();
     messageService.add({
-      severity: 'success',
+      severity: 'custom',
       summary: message,
-      detail: `${redirectMessage} ${countdown}s...`,
+      detail: redirectMessage,
       sticky: true,
       closable: false,
-      key: 'center',
-      styleClass: 'text-xl p-6 min-w-[400px] max-w-[600px] bg-white dark:bg-gray-800 shadow-lg rounded-lg'
+      key: 'center'
     });
+
+    // Cập nhật số đếm ngược mỗi giây
+    const interval = setInterval(() => {
+      if (this.countdown !== null && this.countdown > 0) {
+        this.countdown--;
+      } else {
+        clearInterval(interval); // Dừng interval khi đếm về 0
+      }
+    }, 1000);
 
     // After 5 seconds, trigger logoff and login
     setTimeout(() => {
@@ -117,6 +127,6 @@ export class CreateEnterpriseComponent extends AbstractFormComponent<RegisterEnt
             this.applicationService.login();
           }
         });
-    }, 5000);
+    }, countdown * 1000);
   }
 }
