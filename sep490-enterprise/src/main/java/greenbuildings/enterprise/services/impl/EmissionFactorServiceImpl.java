@@ -99,11 +99,11 @@ public class EmissionFactorServiceImpl implements EmissionFactorService {
             if (emissionFactor.getEmissionUnitNumerator() == null
                 || emissionFactor.getEmissionUnitDenominator() == null
                 || emissionFactor.getSource() == null) {
-                throw new BusinessException("emissionFactor.disabled");
+                return;
             }
             if (emissionFactor.isDirectEmission()
                 && emissionFactor.getEnergyConversion() != null) {
-                throw new BusinessException("emissionFactor.disabled");
+                return;
             }
             emissionFactor.setActive(true);
         }
