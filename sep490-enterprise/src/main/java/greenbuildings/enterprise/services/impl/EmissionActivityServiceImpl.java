@@ -84,11 +84,11 @@ public class EmissionActivityServiceImpl implements EmissionActivityService {
     public Page<EmissionActivityEntity> search(Pageable pageable, UUID enterpriseId, ActivityCriteria criteria) {
         var activityIDs = emissionActivityRepository
                 .findBy(EmissionActivitySpecifications.withFilters(enterpriseId, criteria),
-                        q -> q.project().as(IdProjection.class).page(pageable)) // NOTE: paging only, sorting not applied in query in case use JpaSpecifications
+                        q -> q.project().as(IdProjection.class).page(pageable))
                 .map(IdProjection::getId);
         
         var searchResults = emissionActivityRepository
-                .findWithRecords(activityIDs.toSet(), pageable.getSort()) // sorting applied here => return this collection to remains sorted
+                .findWithRecords(activityIDs.toSet(), pageable.getSort())
                 .stream().map(calculationService::calculate)
                 .toList();
         
@@ -249,9 +249,7 @@ public class EmissionActivityServiceImpl implements EmissionActivityService {
     
     @Override
     @Transactional(readOnly = true)
-    @ActivityAwareBuildingPermissionFilter
-    public List<EmissionActivityEntity> calculationActivitiesTotalGhg(UUID enterpriseId) {
-        var activities = emissionActivityRepository.findAllWithRecords(enterpriseId);
+    public List<EmissionActivityEntity> calculationActivitiesTotalGhg(List<EmissionActivityEntity> activities) {
         var factorIDs = activities.stream()
                                   .map(EmissionActivityEntity::getEmissionFactorEntity)
                                   .map(EmissionFactorEntity::getId)
@@ -276,6 +274,18 @@ public class EmissionActivityServiceImpl implements EmissionActivityService {
                                                             )
                           );
         return activities;
+    }
+    
+    @Override
+    @ActivityAwareBuildingPermissionFilter
+    public List<EmissionActivityEntity> findByEnterpriseIdFetchRecords(UUID enterpriseId) {
+        return emissionActivityRepository.findByEnterpriseId(enterpriseId);
+    }
+    
+    @Override
+    @ActivityAwareBuildingPermissionFilter
+    public List<EmissionActivityEntity> findByEnterpriseAndBuildingsFetchRecords(UUID enterpriseId, Set<UUID> buildings) {
+        return emissionActivityRepository.findByEnterpriseAndBuildings(enterpriseId, buildings);
     }
     
 }

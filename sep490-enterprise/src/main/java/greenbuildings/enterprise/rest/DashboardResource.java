@@ -50,7 +50,8 @@ public class DashboardResource {
     @GetMapping("/default")
     public ResponseEntity<DefaultChartView> getDefault(@AuthenticationPrincipal UserContextData userContextData) {
         var enterpriseId = userContextData.getEnterpriseId().orElseThrow();
-        var entities = emissionActivityService.calculationActivitiesTotalGhg(enterpriseId);
+        var activities = emissionActivityService.findByEnterpriseIdFetchRecords(enterpriseId);
+        var entities = emissionActivityService.calculationActivitiesTotalGhg(activities);
         
         // Fire off concurrent tasks
         var sourcesF = CompletableFuture

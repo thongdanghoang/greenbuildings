@@ -107,7 +107,7 @@ export class PowerBiAccessTokenComponent extends SubscriptionAwareComponent impl
 
   getUrl(userToken: string): string {
     const api = environment.enterpriseUrl;
-    return `${api}/power-bi/${userToken}/report`;
+    return `${api}/power-bi/${userToken}/export`;
   }
 
   // eslint-disable-next-line max-lines-per-function

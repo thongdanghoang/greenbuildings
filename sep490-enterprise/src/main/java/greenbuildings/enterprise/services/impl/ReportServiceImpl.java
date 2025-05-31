@@ -1,22 +1,17 @@
 package greenbuildings.enterprise.services.impl;
 
-import greenbuildings.commons.api.events.PowerBiAccessTokenAuthResult;
 import greenbuildings.commons.api.exceptions.TechnicalException;
-import greenbuildings.commons.api.security.PowerBiScope;
 import greenbuildings.enterprise.dtos.DownloadReportDTO;
-import greenbuildings.enterprise.dtos.GeneralReportDTO;
 import greenbuildings.enterprise.entities.BuildingEntity;
 import greenbuildings.enterprise.entities.BuildingGroupEntity;
 import greenbuildings.enterprise.entities.EmissionActivityEntity;
 import greenbuildings.enterprise.entities.EmissionActivityRecordEntity;
 import greenbuildings.enterprise.entities.EnterpriseEntity;
 import greenbuildings.enterprise.enums.EmissionUnit;
-import greenbuildings.enterprise.interceptors.BuildingPermissionFilter;
 import greenbuildings.enterprise.repositories.BuildingGroupRepository;
 import greenbuildings.enterprise.repositories.BuildingRepository;
 import greenbuildings.enterprise.repositories.EmissionActivityRecordRepository;
 import greenbuildings.enterprise.repositories.EmissionActivityRepository;
-import greenbuildings.enterprise.repositories.EnterpriseRepository;
 import greenbuildings.enterprise.services.CalculationService;
 import greenbuildings.enterprise.services.ReportService;
 import greenbuildings.enterprise.utils.CalculationUtils;
@@ -47,7 +42,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional(rollbackFor = Throwable.class)
@@ -62,106 +56,7 @@ public class ReportServiceImpl implements ReportService {
     private final EmissionActivityRecordRepository recordRepo;
     private final EmissionActivityRepository activityRepo;
     private final CalculationService calculationService;
-    private final EnterpriseRepository enterpriseRepository;
     private final BuildingGroupRepository buildingGroupRepository;
-    
-    @Override
-    @BuildingPermissionFilter
-    public GeneralReportDTO generateReport(PowerBiAccessTokenAuthResult contextData) {
-        EnterpriseEntity enterprise = enterpriseRepository.findById(contextData.enterpriseId())
-                                                          .orElseThrow();
-        
-        List<BuildingEntity> buildings = fetchBuildingsByScope(contextData);
-        if (buildings.isEmpty()) {return null;}
-        
-        return buildGeneralReportDTO(enterprise, buildings);
-    }
-    
-    private List<BuildingEntity> fetchBuildingsByScope(PowerBiAccessTokenAuthResult contextData) {
-        return contextData.scope() == PowerBiScope.ENTERPRISE
-               ? buildingRepository.findAll()
-               : buildingRepository.findAllById(new HashSet<>(contextData.buildings()));
-    }
-    
-    private GeneralReportDTO buildGeneralReportDTO(EnterpriseEntity enterprise, List<BuildingEntity> buildings) {
-        GeneralReportDTO dto = new GeneralReportDTO();
-        dto.setEnterpriseName(enterprise.getName());
-        dto.setEnterpriseAddress(enterprise.getAddress());
-        dto.setEnterpriseEmail(enterprise.getEnterpriseEmail());
-        dto.setEnterpriseHotline(enterprise.getHotline());
-        
-        dto.setBuildings(buildings.stream()
-                                  .map(this::mapToBuildingDTO)
-                                  .collect(Collectors.toList()));
-        
-        return dto;
-    }
-    
-    private GeneralReportDTO.BuildingDTO mapToBuildingDTO(BuildingEntity building) {
-        GeneralReportDTO dto = new GeneralReportDTO();
-        GeneralReportDTO.BuildingDTO buildingDto = dto.new BuildingDTO();
-        buildingDto.setName(building.getName());
-        buildingDto.setAddress(building.getAddress());
-        
-        buildingDto.setBuildingGroups(building.getBuildingGroups().stream()
-                                              .map(group -> mapToBuildingGroupDTO(dto, buildingDto, group))
-                                              .collect(Collectors.toList()));
-        
-        return buildingDto;
-    }
-    
-    private GeneralReportDTO.BuildingDTO.BuildingGroupDTO mapToBuildingGroupDTO(
-            GeneralReportDTO dto,
-            GeneralReportDTO.BuildingDTO buildingDto,
-            BuildingGroupEntity group) {
-        
-        GeneralReportDTO.BuildingDTO.BuildingGroupDTO groupDto = buildingDto.new BuildingGroupDTO();
-        groupDto.setName(group.getName());
-        
-        groupDto.setActivities(group.getEmissionActivities().stream()
-                                    .map(activity -> mapToActivityDTO(dto, buildingDto, groupDto, activity))
-                                    .collect(Collectors.toList()));
-        
-        return groupDto;
-    }
-    
-    private GeneralReportDTO.BuildingDTO.BuildingGroupDTO.ActivityDTO mapToActivityDTO(
-            GeneralReportDTO dto,
-            GeneralReportDTO.BuildingDTO buildingDto,
-            GeneralReportDTO.BuildingDTO.BuildingGroupDTO groupDto,
-            EmissionActivityEntity activity) {
-        
-        GeneralReportDTO.BuildingDTO.BuildingGroupDTO.ActivityDTO activityDto = groupDto.new ActivityDTO();
-        activityDto.setName(activity.getName());
-        activityDto.setDescription(activity.getDescription());
-        activityDto.setCategory(activity.getCategory());
-        activityDto.setType(activity.getType() != null ? activity.getType().getName() : null);
-        
-        calculationService.calculate(activity.getId(), activity.getRecords());
-        
-        activityDto.setRecords(activity.getRecords().stream()
-                                       .map(record -> mapToRecordDTO(groupDto, activityDto, record))
-                                       .collect(Collectors.toList()));
-        
-        return activityDto;
-    }
-    
-    private GeneralReportDTO.BuildingDTO.BuildingGroupDTO.ActivityDTO.RecordDTO mapToRecordDTO(
-            GeneralReportDTO.BuildingDTO.BuildingGroupDTO groupDto,
-            GeneralReportDTO.BuildingDTO.BuildingGroupDTO.ActivityDTO activityDto,
-            EmissionActivityRecordEntity record) {
-        
-        GeneralReportDTO.BuildingDTO.BuildingGroupDTO.ActivityDTO.RecordDTO recordDto = activityDto.new RecordDTO();
-        recordDto.setStartDate(record.getStartDate());
-        recordDto.setEndDate(record.getEndDate());
-        recordDto.setQuantity(record.getQuantity());
-        recordDto.setValue(record.getValue());
-        recordDto.setUnit(record.getUnit());
-        recordDto.setGhg(record.getGhg());
-        
-        return recordDto;
-    }
-    
     
     @Override
     public byte[] generateReport(DownloadReportDTO downloadReport) {
@@ -255,7 +150,7 @@ public class ReportServiceImpl implements ReportService {
             XSSFCell cell3 = sheet.getRow(GROUP_INFO_ROW_IDX + 2).createCell(GROUP_INFO_COL_IDX + colCount);
             cell3.setCellValue(totalGhg.toString());
             cell3.setCellStyle(cellStyle);
-            colCount ++;
+            colCount++;
         }
     }
     
