@@ -42,9 +42,8 @@ public class PowerBiResource {
         var activities = contextData.scope() == PowerBiScope.BUILDING
                          ? emissionActivityService.findByEnterpriseAndBuildingsFetchRecords(enterpriseId, buildings)
                          : emissionActivityService.findByEnterpriseIdFetchRecords(enterpriseId);
-        var calculated = emissionActivityService.calculationActivitiesTotalGhg(activities);
         var results = emissionActivityService
-                .calculationActivitiesTotalGhg(calculated)
+                .calculationActivitiesTotalGhg(activities)
                 .stream()
                 .peek(e -> e.setTotalEmission(
                         e.getRecords()
