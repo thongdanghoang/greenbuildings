@@ -479,6 +479,9 @@
     }
   },
   "emissions": {
+    "chart": {
+      "totalEmissions": "Total emissions from buildings"
+    },
     "warning": {
       "noBuildingsActivated": {
         "summary": "No Active Buildings",
@@ -508,7 +511,7 @@
   "enum": {
     "role": {
       "BASIC_USER": "Basic User",
-      "TENANT":"Tenant",
+      "TENANT": "Tenant",
       "SYSTEM_ADMIN": "Admin",
       "ENTERPRISE_OWNER": "Enterprise owner",
       "ENTERPRISE_EMPLOYEE": "Enterprise employee"
@@ -827,7 +830,7 @@
       },
       "item4": {
         "title": "Foster a culture",
-        "description": "Foster a culture of sustainability within your orzanization."
+        "description": "Foster a culture of sustainability within your organization."
       }
     },
     "features": {
@@ -1135,7 +1138,7 @@
     "term4": "All top-up transactions are non-refundable unless due to system error.",
     "termNotice": "We reserve the right to update these terms at any time without prior notice.",
     "aboutContentTitle": "Introduction to Credit and deposit methods",
-    "aboutContent": "You can top up your account to receive credits for using our services. Multiple payment methods are supported, including MoMo, VNPAY, Visa/MasterCard, etc."
+    "aboutContent": "You can top up your account to receive credits for using our services. Multiple payment methods are supported by PayOS, including MoMo, VNPAY, Visa/MasterCard, etc."
   },
   "mailOTP": {
     "title": "Verify Your Email",
@@ -1189,7 +1192,12 @@
       "new": "New asset"
     },
     "table": {
+      "filters": {
+        "keyword": "Name, code, description etc.",
+        "buildings": "Buildings"
+      },
       "header": {
+        "code": "Code",
         "name": "Name",
         "description": "Description",
         "building": {
@@ -1203,6 +1211,7 @@
           "edit": "Edit asset",
           "new": "New asset"
         },
+        "code": "Code",
         "name": "Name",
         "description": "Description",
         "building": "Building"

@@ -8,6 +8,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldNameConstants;
@@ -32,6 +33,11 @@ public class AssetEntity extends AbstractAuditableEntity {
     @NotBlank
     @Column(name = "name")
     private String name;
+    
+    @NotBlank
+    @Size(max = 8)
+    @Column(name = "code")
+    private String code;
     
     @Column(name = "description")
     private String description;

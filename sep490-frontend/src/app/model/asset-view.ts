@@ -13,6 +13,7 @@ export interface AssetView {
   id?: string;
   version?: number;
   name?: string;
+  code?: string;
   description?: string;
   building?: AssetBuildingView;
 }

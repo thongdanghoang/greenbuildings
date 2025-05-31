@@ -40,6 +40,15 @@
             <form-field-error />
         </p-iftalabel>
         <p-iftalabel errorMessages>
+            <input
+                pInputText
+                formControlName="code"
+                class="w-full"
+            />
+            <label>{{ 'assets.details.dialog.code' | translate }}</label>
+            <form-field-error />
+        </p-iftalabel>
+        <p-iftalabel errorMessages>
             <textarea
                 rows="5"
                 cols="30"

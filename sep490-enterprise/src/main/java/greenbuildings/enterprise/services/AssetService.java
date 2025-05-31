@@ -18,7 +18,7 @@ public interface AssetService {
     
     void deleteAsset(UUID id);
     
-    Page<AssetEntity> search(Pageable pageable, UUID organizationId);
+    Page<AssetEntity> search(Pageable pageable, UUID organizationId, String keyword, List<UUID> buildings);
     
     AssetEntity getById(UUID id);
     

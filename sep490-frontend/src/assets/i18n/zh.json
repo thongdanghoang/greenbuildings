@@ -472,6 +472,9 @@
     }
   },
   "emissions": {
+    "chart": {
+      "totalEmissions": "建筑物总排放量"
+    },
     "warning": {
       "noBuildingsActivated": {
         "summary": "没有活跃的建筑物",
@@ -1182,7 +1185,12 @@
       "new": "添加资产"
     },
     "table": {
+      "filters": {
+        "keyword": "名称、代码、描述等。",
+        "buildings": "建筑物"
+      },
       "header": {
+        "code": "代码",
         "name": "名称",
         "description": "描述",
         "building": {
@@ -1196,6 +1204,7 @@
           "edit": "编辑",
           "new": "新建资产"
         },
+        "code": "代码",
         "name": "名称",
         "description": "描述",
         "building": "建筑物"

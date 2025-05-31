@@ -1,5 +1,6 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
+import {AssetSearchCriteria} from '@generated/models/asset-search-criteria';
 import {AssetView} from '@generated/models/asset-view';
 import {SearchCriteriaDto, SearchResultDto, SelectableItem} from '@shared/models/base-models';
 import {Observable} from 'rxjs';
@@ -19,7 +20,7 @@ export class AssetService {
     return this.httpClient.get<AssetView>(`${AssetService.URL}/${id}`);
   }
 
-  searchAssets(searchCriteria: SearchCriteriaDto<void>): Observable<SearchResultDto<AssetView>> {
+  searchAssets(searchCriteria: SearchCriteriaDto<AssetSearchCriteria>): Observable<SearchResultDto<AssetView>> {
     return this.httpClient.post<SearchResultDto<AssetView>>(`${AssetService.URL}/search`, searchCriteria);
   }
 

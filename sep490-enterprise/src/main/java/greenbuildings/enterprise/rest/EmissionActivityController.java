@@ -127,7 +127,7 @@ public class EmissionActivityController {
     
     @GetMapping("/building/{id}")
     public ResponseEntity<List<EmissionActivityDTO>> getAllActivitiesByBuildingId(@PathVariable UUID id) {
-        List<EmissionActivityEntity> list = emissionActivityService.getAllActivitiesByBuildingId(id);
+        List<EmissionActivityEntity> list = emissionActivityService.getAllActivitiesByBuildingGroupId(id);
         return ResponseEntity.ok(list.stream().map(mapper::toDTO).toList());
     }
 }

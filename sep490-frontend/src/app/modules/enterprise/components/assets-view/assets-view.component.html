@@ -12,8 +12,56 @@
         [fetch]="search"
         [columns]="cols"
         [triggerSearch]="searchEvent"
+        [captionTemplateRef]="captionTemplateRef"
+        [criteria]="criteria"
     />
 </master-layout>
+
+<ng-template #captionTemplateRef>
+    <form [formGroup]="filterFormGroup">
+        <div class="-mx-4 grid grid-cols-4 gap-2.5 lg:mx-0">
+            <p-iconfield class="col-span-4 *:w-full lg:col-span-1">
+                <p-inputicon styleClass="pi pi-search" />
+                <input
+                    (keydown.enter)="onFilter()"
+                    type="text"
+                    pInputText
+                    formControlName="keyword"
+                    placeholder="{{ 'assets.table.filters.keyword' | translate }}"
+                />
+            </p-iconfield>
+            <div class="col-span-4 *:w-full lg:col-span-1">
+                <p-multiselect
+                    [options]="selectableBuildings"
+                    formControlName="buildings"
+                    optionLabel="label"
+                    placeholder="{{ 'assets.table.filters.buildings' | translate }}"
+                    [maxSelectedLabels]="1"
+                    optionValue="value"
+                >
+                </p-multiselect>
+            </div>
+            <div class="col-span-4 *:w-full lg:col-span-2">
+                <div class="col-span-4 flex w-full justify-end gap-2.5">
+                    <p-button
+                        severity="danger"
+                        [label]="'common.revert' | translate"
+                        icon="pi pi-times"
+                        outlined
+                        (onClick)="onResetFilters()"
+                    />
+                    <p-button
+                        severity="primary"
+                        [label]="'common.search' | translate"
+                        icon="pi pi-search"
+                        outlined
+                        (onClick)="onFilter()"
+                    />
+                </div>
+            </div>
+        </div>
+    </form>
+</ng-template>
 
 <ng-template
     #addAssetsBtn

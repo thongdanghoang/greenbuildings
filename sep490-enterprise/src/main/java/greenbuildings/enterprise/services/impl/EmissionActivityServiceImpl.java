@@ -12,6 +12,7 @@ import greenbuildings.enterprise.entities.EmissionActivityRecordEntity;
 import greenbuildings.enterprise.entities.EmissionFactorEntity;
 import greenbuildings.enterprise.entities.EmissionSourceEntity;
 import greenbuildings.enterprise.entities.SubscriptionEntity;
+import greenbuildings.enterprise.interceptors.ActivityAwareBuildingPermissionFilter;
 import greenbuildings.enterprise.interceptors.BuildingPermissionFilter;
 import greenbuildings.enterprise.models.ActivityRecordDateRange;
 import greenbuildings.enterprise.models.IdProjection;
@@ -61,6 +62,7 @@ public class EmissionActivityServiceImpl implements EmissionActivityService {
     
     @Transactional(readOnly = true)
     @Override
+    @ActivityAwareBuildingPermissionFilter
     public Page<EmissionActivityEntity> search(SearchCriteriaDTO<EmissionActivityCriteria> searchCriteria) {
         if (searchCriteria.criteria().buildingId() != null) {
             return emissionActivityRepository
@@ -78,6 +80,7 @@ public class EmissionActivityServiceImpl implements EmissionActivityService {
     
     @Transactional(readOnly = true)
     @Override
+    @ActivityAwareBuildingPermissionFilter
     public Page<EmissionActivityEntity> search(Pageable pageable, UUID enterpriseId, ActivityCriteria criteria) {
         var activityIDs = emissionActivityRepository
                 .findBy(EmissionActivitySpecifications.withFilters(enterpriseId, criteria),
@@ -164,13 +167,15 @@ public class EmissionActivityServiceImpl implements EmissionActivityService {
     
     @Transactional(readOnly = true)
     @Override
+    @ActivityAwareBuildingPermissionFilter
     public EmissionActivityEntity getEmissionActivityDetails(UUID id) {
         return emissionActivityRepository.findDetailsById(id).orElseThrow(() -> new BusinessException("id", "http.error.status.404", Collections.emptyList()));
     }
     
     @Transactional(readOnly = true)
     @Override
-    public List<EmissionActivityEntity> getAllActivitiesByBuildingId(UUID id) {
+    @ActivityAwareBuildingPermissionFilter
+    public List<EmissionActivityEntity> getAllActivitiesByBuildingGroupId(UUID id) {
         return emissionActivityRepository.findByBuildingGroupId(id);
     }
     
@@ -244,6 +249,7 @@ public class EmissionActivityServiceImpl implements EmissionActivityService {
     
     @Override
     @Transactional(readOnly = true)
+    @ActivityAwareBuildingPermissionFilter
     public List<EmissionActivityEntity> calculationActivitiesTotalGhg(UUID enterpriseId) {
         var activities = emissionActivityRepository.findAllWithRecords(enterpriseId);
         var factorIDs = activities.stream()

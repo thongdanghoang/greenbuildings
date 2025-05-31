@@ -22,35 +22,39 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.Setter;
 import lombok.experimental.FieldNameConstants;
+import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.FilterDef;
+import org.hibernate.annotations.ParamDef;
+import org.hibernate.annotations.SqlFragmentAlias;
 
 import java.math.BigDecimal;
 import java.util.Set;
-
+import java.util.UUID;
 
 @Entity
 @Table(name = "emission_activity")
 @NamedEntityGraph(
-    name = EmissionActivityEntity.DETAILS_GRAPH,
-    attributeNodes = {
-        @NamedAttributeNode("buildingGroup"),
-        @NamedAttributeNode("type"),
-        @NamedAttributeNode(value = "emissionFactorEntity", subgraph = "emissionFactor")
-    },
-    subgraphs = {
-        @NamedSubgraph(
-            name = "emissionFactor",
-            attributeNodes = {
-                @NamedAttributeNode("source"),
-                @NamedAttributeNode(value = "energyConversion", subgraph = "energyConversion")
-            }
-        ),
-        @NamedSubgraph(
-                name = "energyConversion",
-                attributeNodes = {
-                        @NamedAttributeNode("fuel")
-                }
-        )
-    }
+        name = EmissionActivityEntity.DETAILS_GRAPH,
+        attributeNodes = {
+                @NamedAttributeNode("buildingGroup"),
+                @NamedAttributeNode("type"),
+                @NamedAttributeNode(value = "emissionFactorEntity", subgraph = "emissionFactor")
+        },
+        subgraphs = {
+                @NamedSubgraph(
+                        name = "emissionFactor",
+                        attributeNodes = {
+                                @NamedAttributeNode("source"),
+                                @NamedAttributeNode(value = "energyConversion", subgraph = "energyConversion")
+                        }
+                ),
+                @NamedSubgraph(
+                        name = "energyConversion",
+                        attributeNodes = {
+                                @NamedAttributeNode("fuel")
+                        }
+                )
+        }
 )
 @NamedEntityGraph(
         name = EmissionActivityEntity.SEARCH_PAGE_GRAPH,
@@ -74,12 +78,46 @@ import java.util.Set;
                 )
         }
 )
+@FilterDef(name = EmissionActivityEntity.ACTIVITY_BUILDING_SUBSCRIPTION_FILTER_FOR_ENTERPRISE,
+           parameters = {@ParamDef(name = EmissionActivityEntity.ENTERPRISE_ID_PARAMETER_NAME, type = UUID.class)})
+@Filter(name = EmissionActivityEntity.ACTIVITY_BUILDING_SUBSCRIPTION_FILTER_FOR_ENTERPRISE,
+        condition = """
+                            {rootEntity}.building_id IN (
+                                SELECT b_filter.id FROM buildings b_filter
+                                JOIN subscriptions s_filter ON b_filter.id = s_filter.building_id
+                                WHERE s_filter.start_date <= current_date
+                                AND current_date <= s_filter.end_date
+                                AND b_filter.enterprise_id = :""" + EmissionActivityEntity.ENTERPRISE_ID_PARAMETER_NAME + """
+                            )
+                            """,
+        aliases = {@SqlFragmentAlias(alias = "rootEntity", table = "emission_activity")}
+)
+@FilterDef(name = EmissionActivityEntity.ACTIVITY_BUILDING_SUBSCRIPTION_FILTER_FOR_TENANT,
+           parameters = {@ParamDef(name = EmissionActivityEntity.TENANT_ID_PARAMETER_NAME, type = UUID.class)})
+@Filter(name = EmissionActivityEntity.ACTIVITY_BUILDING_SUBSCRIPTION_FILTER_FOR_TENANT,
+        condition = """
+                            {rootEntity}.building_id IN (
+                                SELECT b_filter.id FROM buildings b_filter
+                                JOIN building_group bg_filter ON b_filter.id = bg_filter.building_id
+                                JOIN subscriptions s_filter ON b_filter.id = s_filter.building_id
+                                WHERE s_filter.start_date <= current_date
+                                AND current_date <= s_filter.end_date
+                                AND bg_filter.tenant_id = :""" + EmissionActivityEntity.TENANT_ID_PARAMETER_NAME + """
+                            )
+                            """,
+        aliases = {@SqlFragmentAlias(alias = "rootEntity", table = "emission_activity")}
+)
 @Getter
 @Setter
 @NoArgsConstructor
 @FieldNameConstants
 public class EmissionActivityEntity extends AbstractAuditableEntity {
-
+    
+    public static final String ACTIVITY_BUILDING_SUBSCRIPTION_FILTER_FOR_ENTERPRISE = "ACTIVITY_BUILDING_SUBSCRIPTION_FILTER_FOR_ENTERPRISE";
+    public static final String ACTIVITY_BUILDING_SUBSCRIPTION_FILTER_FOR_TENANT = "ACTIVITY_BUILDING_SUBSCRIPTION_FILTER_FOR_TENANT";
+    public static final String TENANT_ID_PARAMETER_NAME = "tenantId";
+    public static final String ENTERPRISE_ID_PARAMETER_NAME = "enterpriseId";
+    
     public static final String DETAILS_GRAPH = "EmissionActivity.details";
     public static final String SEARCH_PAGE_GRAPH = "search-page-graph";
     
