@@ -13,6 +13,7 @@ import greenbuildings.enterprise.views.dashboard.DistributionEmissionSource;
 
 import jakarta.annotation.security.RolesAllowed;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.math.RoundingMode;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
@@ -50,7 +52,8 @@ public class DashboardResource {
     @GetMapping("/default")
     public ResponseEntity<DefaultChartView> getDefault(@AuthenticationPrincipal UserContextData userContextData) {
         var enterpriseId = userContextData.getEnterpriseId().orElseThrow();
-        var entities = emissionActivityService.calculationActivitiesTotalGhg(enterpriseId);
+        var activities = emissionActivityService.findByEnterpriseIdFetchRecords(enterpriseId);
+        var entities = emissionActivityService.calculationActivitiesTotalGhg(activities);
         
         // Fire off concurrent tasks
         var sourcesF = CompletableFuture

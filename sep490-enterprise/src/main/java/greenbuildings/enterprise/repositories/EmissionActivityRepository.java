@@ -82,6 +82,15 @@ public interface EmissionActivityRepository extends AbstractBaseRepository<Emiss
                 FROM EmissionActivityEntity ea
                 WHERE ea.building.enterprise.id = :enterpriseId
             """)
-    @EntityGraph(attributePaths = {EmissionActivityEntity.Fields.records})
-    List<EmissionActivityEntity> findAllWithRecords(UUID enterpriseId);
+    @EntityGraph(value = EmissionActivityEntity.RECORDS_BUILDING_GROUPS_DETAIL)
+    List<EmissionActivityEntity> findByEnterpriseId(UUID enterpriseId);
+    
+    @Query("""
+                SELECT ea
+                FROM EmissionActivityEntity ea
+                WHERE ea.building.enterprise.id = :enterpriseId
+                AND ea.building.id IN :buildings
+            """)
+    @EntityGraph(value = EmissionActivityEntity.RECORDS_BUILDING_GROUPS_DETAIL)
+    List<EmissionActivityEntity> findByEnterpriseAndBuildings(UUID enterpriseId, Set<UUID> buildings);
 }

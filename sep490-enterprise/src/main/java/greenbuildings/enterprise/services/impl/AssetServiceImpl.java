@@ -75,10 +75,7 @@ public class AssetServiceImpl implements AssetService {
     @Transactional(readOnly = true)
     @Override
     public Page<AssetEntity> search(Pageable pageable, UUID organizationId, String keyword, List<UUID> buildings) {
-        return assetRepository.findBy(
-                AssetsSpecifications.withFilters(organizationId, keyword, buildings),
-                q -> q.sortBy(pageable.getSort()).page(pageable)
-                                     );
+        return assetRepository.findAll(AssetsSpecifications.withFilters(organizationId, keyword, buildings), pageable);
     }
     
     @Transactional(readOnly = true)

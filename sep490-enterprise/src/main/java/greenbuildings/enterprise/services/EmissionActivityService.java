@@ -8,6 +8,7 @@ import greenbuildings.enterprise.entities.EmissionActivityEntity;
 import greenbuildings.enterprise.entities.EmissionFactorEntity;
 import greenbuildings.enterprise.entities.EmissionSourceEntity;
 import greenbuildings.enterprise.models.ActivityRecordDateRange;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -31,7 +32,7 @@ public interface EmissionActivityService {
     void deleteActivities(Set<UUID> ids);
     
     EmissionActivityEntity getEmissionActivityDetails(UUID id);
-
+    
     List<EmissionActivityEntity> getAllActivitiesByBuildingGroupId(UUID id);
     
     List<ActivityRecordDateRange> findRecordedDateRangesById(UUID id, UUID excludeRecordId, UUID assetId);
@@ -42,5 +43,10 @@ public interface EmissionActivityService {
     
     BigDecimal calculateTotalEmissions(List<EmissionActivityEntity> activities);
     
-    List<EmissionActivityEntity> calculationActivitiesTotalGhg(UUID enterpriseId);
+    List<EmissionActivityEntity> calculationActivitiesTotalGhg(List<EmissionActivityEntity> activities);
+    
+    List<EmissionActivityEntity> findByEnterpriseIdFetchRecords(UUID enterpriseId);
+    
+    List<EmissionActivityEntity> findByEnterpriseAndBuildingsFetchRecords(UUID enterpriseId, Set<UUID> buildings);
+    
 }

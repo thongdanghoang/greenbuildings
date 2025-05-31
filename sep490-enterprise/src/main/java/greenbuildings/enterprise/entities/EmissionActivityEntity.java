@@ -78,6 +78,30 @@ import java.util.UUID;
                 )
         }
 )
+@NamedEntityGraph(
+        name = EmissionActivityEntity.RECORDS_BUILDING_GROUPS_DETAIL,
+        attributeNodes = {
+                @NamedAttributeNode(value = "records"),
+                @NamedAttributeNode(value = "type"),
+                @NamedAttributeNode(value = "building"),
+                @NamedAttributeNode(value = "buildingGroup", subgraph = "buildingGroupSubgraph"),
+                @NamedAttributeNode(value = "emissionFactorEntity", subgraph = "factorSubgraph"),
+        },
+        subgraphs = {
+                @NamedSubgraph(
+                        name = "buildingGroupSubgraph",
+                        attributeNodes = {
+                                @NamedAttributeNode("tenant"),
+                        }
+                ),
+                @NamedSubgraph(
+                        name = "factorSubgraph",
+                        attributeNodes = {
+                                @NamedAttributeNode("source"),
+                        }
+                )
+        }
+)
 @FilterDef(name = EmissionActivityEntity.ACTIVITY_BUILDING_SUBSCRIPTION_FILTER_FOR_ENTERPRISE,
            parameters = {@ParamDef(name = EmissionActivityEntity.ENTERPRISE_ID_PARAMETER_NAME, type = UUID.class)})
 @Filter(name = EmissionActivityEntity.ACTIVITY_BUILDING_SUBSCRIPTION_FILTER_FOR_ENTERPRISE,
@@ -119,6 +143,7 @@ public class EmissionActivityEntity extends AbstractAuditableEntity {
     public static final String ENTERPRISE_ID_PARAMETER_NAME = "enterpriseId";
     
     public static final String DETAILS_GRAPH = "EmissionActivity.details";
+    public static final String RECORDS_BUILDING_GROUPS_DETAIL = "records-building-groups-detail";
     public static final String SEARCH_PAGE_GRAPH = "search-page-graph";
     
     @NonNull
