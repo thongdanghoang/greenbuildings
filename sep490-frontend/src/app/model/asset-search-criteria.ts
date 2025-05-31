@@ -8,11 +8,7 @@
  * Do not edit the class manually.
  */
 
-export interface AssetDTO {
-  id?: string;
-  version?: number;
-  name: string;
-  code: string;
-  description?: string;
-  buildingId?: string;
+export interface AssetSearchCriteria {
+  keyword?: string;
+  buildings?: string[];
 }

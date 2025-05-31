@@ -128,6 +128,9 @@ export class DashboardComponent extends SubscriptionAwareComponent implements On
         })
       )
       .subscribe(dashboards => (this.dashboards = dashboards));
+    this.translate.onLangChange.pipe(takeUntil(this.destroy$)).subscribe((): void => {
+      this.initChart();
+    });
   }
 
   checkAnyActivatedBuildings(): void {
@@ -186,7 +189,7 @@ export class DashboardComponent extends SubscriptionAwareComponent implements On
       labels: data?.map(building => building.buildingName),
       datasets: [
         {
-          label: 'Dataset Label',
+          label: this.translate.instant('emissions.chart.totalEmissions'),
           data: data?.map(building => building.totalGhgEmission),
           backgroundColor: [
             this.documentStyle.getPropertyValue('--p-primary-500'),

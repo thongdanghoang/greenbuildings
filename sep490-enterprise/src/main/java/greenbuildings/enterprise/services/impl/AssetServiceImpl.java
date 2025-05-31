@@ -5,6 +5,7 @@ import greenbuildings.enterprise.entities.AssetEntity;
 import greenbuildings.enterprise.events.BuildingGroupUnlinkedEvent;
 import greenbuildings.enterprise.repositories.AssetRepository;
 import greenbuildings.enterprise.repositories.EmissionActivityRecordRepository;
+import greenbuildings.enterprise.repositories.specifications.AssetsSpecifications;
 import greenbuildings.enterprise.services.AssetService;
 
 import lombok.RequiredArgsConstructor;
@@ -73,8 +74,11 @@ public class AssetServiceImpl implements AssetService {
     
     @Transactional(readOnly = true)
     @Override
-    public Page<AssetEntity> search(Pageable pageable, UUID organizationId) {
-        return assetRepository.findAllByOrganizationId(pageable, organizationId);
+    public Page<AssetEntity> search(Pageable pageable, UUID organizationId, String keyword, List<UUID> buildings) {
+        return assetRepository.findBy(
+                AssetsSpecifications.withFilters(organizationId, keyword, buildings),
+                q -> q.sortBy(pageable.getSort()).page(pageable)
+                                     );
     }
     
     @Transactional(readOnly = true)

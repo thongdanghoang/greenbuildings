@@ -1,10 +1,13 @@
-import {Component, EventEmitter, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {Component, EventEmitter, OnInit, TemplateRef, ViewChild, inject} from '@angular/core';
+import {FormBuilder, FormControl} from '@angular/forms';
+import {AssetSearchCriteria} from '@generated/models/asset-search-criteria';
 import {AssetView} from '@generated/models/asset-view';
 import {TranslateService} from '@ngx-translate/core';
 import {AssetService} from '@services/asset.service';
+import {EmissionActivityService} from '@services/emission-activity.service';
 import {TableTemplateColumn} from '@shared/components/table-template/table-template.component';
 import {SubscriptionAwareComponent} from '@shared/directives/subscription-aware.component';
-import {SearchCriteriaDto, SearchResultDto} from '@shared/models/base-models';
+import {SearchCriteriaDto, SearchResultDto, SelectableItem} from '@shared/models/base-models';
 import {ModalProvider} from '@shared/services/modal-provider';
 import {ToastProvider} from '@shared/services/toast-provider';
 import {Observable, of, switchMap, takeUntil} from 'rxjs';
@@ -18,19 +21,27 @@ import {AssetDetailsDialogComponent} from '../asset-details-dialog/asset-details
 })
 export class AssetsViewComponent extends SubscriptionAwareComponent implements OnInit {
   protected cols: TableTemplateColumn[] = [];
-  protected search: (criteria: SearchCriteriaDto<void>) => Observable<SearchResultDto<AssetView>>;
+  protected search: (criteria: SearchCriteriaDto<AssetSearchCriteria>) => Observable<SearchResultDto<AssetView>>;
   protected readonly searchEvent: EventEmitter<void> = new EventEmitter();
+  protected criteria: AssetSearchCriteria = {};
 
   @ViewChild('buildingTemplate', {static: true})
   protected buildingTemplate!: TemplateRef<any>;
   @ViewChild('assetColActions', {static: true})
   protected assetColActions!: TemplateRef<any>;
 
+  protected filterFormGroup = inject(FormBuilder).group({
+    keyword: new FormControl<null | string>(null),
+    buildings: new FormControl<UUID[]>([], {nonNullable: true})
+  });
+  protected selectableBuildings: SelectableItem<UUID>[] = [];
+
   constructor(
     private readonly assetService: AssetService,
     private readonly modalProvider: ModalProvider,
     private readonly toastProvider: ToastProvider,
-    private readonly translateService: TranslateService
+    private readonly translateService: TranslateService,
+    private readonly emissionActivityService: EmissionActivityService
   ) {
     super();
     this.search = this.assetService.searchAssets.bind(this.assetService);
@@ -38,6 +49,14 @@ export class AssetsViewComponent extends SubscriptionAwareComponent implements O
 
   ngOnInit(): void {
     this.buildCols();
+    this.fetchFilterOptions();
+  }
+
+  fetchFilterOptions(): void {
+    this.emissionActivityService
+      .getSelectableBuildings()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(selectableBuildings => (this.selectableBuildings = selectableBuildings));
   }
 
   openNewAssetDialog(): void {
@@ -85,7 +104,23 @@ export class AssetsViewComponent extends SubscriptionAwareComponent implements O
       .subscribe();
   }
 
+  onFilter(): void {
+    this.criteria.keyword = this.filterFormGroup.controls.keyword.value || undefined;
+    this.criteria.buildings = this.filterFormGroup.controls.buildings.value.map(building => building.toString());
+    this.searchEvent.emit();
+  }
+
+  onResetFilters(): void {
+    this.filterFormGroup.reset();
+    this.onFilter();
+  }
+
   private buildCols(): void {
+    this.cols.push({
+      field: 'code',
+      header: 'assets.table.header.code',
+      sortable: true
+    });
     this.cols.push({
       field: 'name',
       header: 'assets.table.header.name',
@@ -99,7 +134,9 @@ export class AssetsViewComponent extends SubscriptionAwareComponent implements O
     this.cols.push({
       field: 'building',
       header: 'assets.table.header.building.name',
-      templateRef: this.buildingTemplate
+      templateRef: this.buildingTemplate,
+      sortable: true,
+      sortField: 'building.name'
     });
     this.cols.push({
       field: 'id',

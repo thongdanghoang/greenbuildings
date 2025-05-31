@@ -9,6 +9,7 @@ public record AssetDTO(
         UUID id,
         int version,
         @NotNull @NotBlank String name,
+        @NotNull @NotBlank String code,
         String description,
         UUID buildingId
 ) {

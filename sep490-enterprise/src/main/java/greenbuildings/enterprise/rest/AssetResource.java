@@ -8,6 +8,7 @@ import greenbuildings.commons.api.views.SelectableItem;
 import greenbuildings.commons.springfw.impl.mappers.CommonMapper;
 import greenbuildings.commons.springfw.impl.securities.UserContextData;
 import greenbuildings.enterprise.dtos.assets.AssetDTO;
+import greenbuildings.enterprise.dtos.assets.AssetSearchCriteria;
 import greenbuildings.enterprise.entities.AssetEntity;
 import greenbuildings.enterprise.entities.EnterpriseEntity;
 import greenbuildings.enterprise.entities.TenantEntity;
@@ -17,6 +18,8 @@ import greenbuildings.enterprise.views.assets.AssetView;
 
 import jakarta.annotation.security.RolesAllowed;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.text.StringSubstitutor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -28,7 +31,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -93,21 +98,34 @@ public class AssetResource {
         var selectableItems = assetService
                 .selectableByBuildingId(userContext, buildingId, excludeId)
                 .stream()
-                .map(assetMapper::toSelectableItem)
+                .map(this::toSelectableItem)
                 .toList();
         return ResponseEntity.ok(selectableItems);
     }
     
+    private SelectableItem<UUID> toSelectableItem(AssetEntity source) {
+        var params = Map
+                .of("name", source.getName(),
+                    "code", source.getCode());
+        return new SelectableItem<>(
+                StringSubstitutor.replace("${name} (${code})", params),
+                source.getId(),
+                source.isDisabled()
+        );
+    }
+    
     @PostMapping("/search")
     public ResponseEntity<SearchResultDTO<AssetView>> searchAssets(
-            @RequestBody SearchCriteriaDTO<Void> searchCriteria, // add criteria later by replace Void
+            @RequestBody SearchCriteriaDTO<AssetSearchCriteria> searchCriteria, // add criteria later by replace Void
             @AuthenticationPrincipal UserContextData userContext) {
         var organizationId = userContext
                 .getTenantId()
                 .or(userContext::getEnterpriseId)
                 .orElseThrow();
+        var criteria = searchCriteria.criteria();
         var pageable = CommonMapper.toPageableFallbackSortToLastModifiedDate(searchCriteria.page(), searchCriteria.sort());
-        var searchResult = assetService.search(pageable, organizationId);
+        List<UUID> buildings = CollectionUtils.isEmpty(criteria.buildings()) ? Collections.emptyList() : criteria.buildings();
+        var searchResult = assetService.search(pageable, organizationId, criteria.keyword(), buildings);
         return ResponseEntity.ok(CommonMapper.toSearchResultDTO(searchResult, assetMapper::toView));
     }
     

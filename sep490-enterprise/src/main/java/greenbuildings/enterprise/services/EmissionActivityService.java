@@ -32,7 +32,7 @@ public interface EmissionActivityService {
     
     EmissionActivityEntity getEmissionActivityDetails(UUID id);
 
-    List<EmissionActivityEntity> getAllActivitiesByBuildingId(UUID id);
+    List<EmissionActivityEntity> getAllActivitiesByBuildingGroupId(UUID id);
     
     List<ActivityRecordDateRange> findRecordedDateRangesById(UUID id, UUID excludeRecordId, UUID assetId);
     

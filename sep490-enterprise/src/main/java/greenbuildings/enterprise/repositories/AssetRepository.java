@@ -5,13 +5,14 @@ import greenbuildings.enterprise.entities.AssetEntity;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 import java.util.UUID;
 
 public interface AssetRepository
-        extends AbstractBaseRepository<AssetEntity>, EntityGraphBasedRepository<AssetEntity> {
+        extends AbstractBaseRepository<AssetEntity>, EntityGraphBasedRepository<AssetEntity>, JpaSpecificationExecutor<AssetEntity> {
     
     @Query("""
             FROM AssetEntity assets
@@ -48,8 +49,15 @@ public interface AssetRepository
                 (root.tenant.id IS NOT NULL AND root.tenant.id = :organizationId)
                 OR (root.enterprise.id IS NOT NULL AND root.enterprise.id = :organizationId)
             )
+            AND (
+                :keyword IS NULL
+                OR LOWER(root.name) LIKE CONCAT('%', LOWER(:keyword), '%')
+                OR LOWER(root.description) LIKE CONCAT('%', LOWER(:keyword), '%')
+                OR LOWER(root.building.name) LIKE CONCAT('%', LOWER(:keyword), '%')
+            )
+            AND (root.building.id in :buildings)
             """)
-    Page<AssetEntity> findAllByOrganizationId(Pageable pageable, UUID organizationId);
+    Page<AssetEntity> search(Pageable pageable, UUID organizationId, String keyword, List<UUID> buildings);
     
     List<AssetEntity> findByBuildingIdAndDisabled(UUID buildingId, boolean disabled);
 }

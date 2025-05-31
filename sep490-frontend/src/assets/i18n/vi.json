@@ -472,6 +472,9 @@
     }
   },
   "emissions": {
+    "chart": {
+      "totalEmissions": "Tổng lượng khí thải từ các tòa nhà"
+    },
     "warning": {
       "noBuildingsActivated": {
         "summary": "Không có tòa nhà đang hoạt động",
@@ -1182,7 +1185,12 @@
       "new": "Thêm tài sản"
     },
     "table": {
+      "filters": {
+        "keyword": "Tên, code, mô tả, v.v.",
+        "buildings": "Tòa nhà"
+      },
       "header": {
+        "code": "Code",
         "name": "Tên",
         "description": "Mô tả",
         "building": {
@@ -1196,6 +1204,7 @@
           "edit": "Chỉnh sửa",
           "new": "Tài sản mới"
         },
+        "code": "Code",
         "name": "Tên",
         "description": "Mô tả",
         "building": "Tòa nhà"

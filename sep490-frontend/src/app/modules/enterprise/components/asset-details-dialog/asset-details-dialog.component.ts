@@ -21,6 +21,7 @@ export class AssetDetailsDialogComponent extends AbstractFormComponent<AssetView
   formStructure = {
     id: new FormControl<null | UUID>(null),
     version: new FormControl(0),
+    code: new FormControl<null | string>(null, [Validators.required]),
     name: new FormControl<null | string>(null, [Validators.required]),
     description: new FormControl<null | string>(null),
     buildingId: new FormControl<null | UUID>(null)

@@ -6,6 +6,7 @@ public record AssetView(
         UUID id,
         int version,
         String name,
+        String code,
         String description,
         AssetBuildingView building
 ) {
