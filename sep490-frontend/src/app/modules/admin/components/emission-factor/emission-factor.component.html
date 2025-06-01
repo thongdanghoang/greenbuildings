@@ -37,8 +37,8 @@
 </master-layout>
 
 <ng-template #captionTemplateRef>
-    <div class="flex flex-col items-end justify-between gap-2 lg:flex-row lg:items-center">
-        <p-inputgroup class="max-w-96">
+    <div class="flex flex-col items-end justify-between gap-2 *:w-full lg:flex-row lg:items-center">
+        <p-inputgroup>
             <input
                 [(ngModel)]="searchCriteria.criteria"
                 type="text"
@@ -55,29 +55,31 @@
                 />
             </p-inputgroup-addon>
         </p-inputgroup>
-        <p-button
-            severity="secondary"
-            [label]="'admin.emissionSource.uploadToMinio' | translate"
-            icon="pi pi-upload"
-            outlined
-            (onClick)="fileInput.click()"
-            size="small"
-        />
-        <input
-            #fileInput
-            type="file"
-            accept=".xlsx"
-            style="display: none"
-            (change)="uploadExcelToMinio($event)"
-        />
-        <p-button
-            severity="secondary"
-            [label]="'admin.emissionSource.downloadFile' | translate"
-            icon="pi pi-download"
-            outlined
-            (onClick)="onDownloadFile()"
-            size="small"
-        />
+        <div class="flex justify-between gap-2 lg:justify-end">
+            <p-button
+                severity="secondary"
+                [label]="'admin.emissionSource.uploadToMinio' | translate"
+                icon="pi pi-upload"
+                outlined
+                (onClick)="fileInput.click()"
+                size="small"
+            />
+            <input
+                #fileInput
+                type="file"
+                accept=".xlsx"
+                style="display: none"
+                (change)="uploadExcelToMinio($event)"
+            />
+            <p-button
+                severity="secondary"
+                [label]="'admin.emissionSource.downloadFile' | translate"
+                icon="pi pi-download"
+                outlined
+                (onClick)="onDownloadFile()"
+                size="small"
+            />
+        </div>
     </div>
 </ng-template>
 <ng-template
