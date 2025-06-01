@@ -20,7 +20,7 @@ export class LandingPageComponent implements OnInit {
   ngOnInit(): void {
     this.carouselItems = [
       {
-        image: 'assets/images/landing-page/carouse.jpg',
+        image: 'https://res.cloudinary.com/dctk1pw18/image/upload/v1748767978/carouse_nrjhsp.webp',
         title: 'Green Building',
         subtitle: 'landingPage.carousel.title',
         description: 'landingPage.carousel.description'

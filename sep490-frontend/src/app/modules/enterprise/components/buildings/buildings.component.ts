@@ -21,9 +21,9 @@ import {CreditDeductionHistoryDialogComponent} from '../../dialog/credit-deducti
 import {PopupService} from '../../services/popup.service';
 import {BuildingPopupMarkerComponent} from '../building-popup-marker/building-popup-marker.component';
 
-const iconRetinaUrl = 'assets/marker-icon-2x.png';
-const iconUrl = 'assets/marker-icon.png';
-const shadowUrl = 'assets/marker-shadow.png';
+const iconRetinaUrl = 'assets/marker-icon-2x.webp';
+const iconUrl = 'assets/marker-icon.webp';
+const shadowUrl = 'assets/marker-shadow.webp';
 const iconDefault = L.icon({
   iconRetinaUrl,
   iconUrl,
