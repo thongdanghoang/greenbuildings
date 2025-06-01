@@ -1,5 +1,13 @@
 <master-layout title="admin.emissionSource.name">
     <div subtitle>{{ 'admin.emissionSource.description' | translate }}</div>
+    <p-button
+        actions
+        severity="primary"
+        [label]="'admin.emissionSource.addEmissionSource' | translate"
+        icon="pi pi-user-plus"
+        outlined
+        (onClick)="addEmissionSource()"
+    />
     <div class="my-2">
         <h3 class="mb-2 font-semibold text-primary">
             {{ 'admin.emissionSource.upload.title' | translate }}
@@ -38,8 +46,8 @@
 </master-layout>
 
 <ng-template #captionTemplateRef>
-    <div class="flex flex-col items-end justify-between gap-2 lg:flex-row lg:items-center">
-        <p-inputgroup class="max-w-96">
+    <div class="-mx-4 flex flex-col-reverse items-end justify-between gap-2 *:w-full lg:flex-row lg:items-center">
+        <p-inputgroup>
             <input
                 [(ngModel)]="searchCriteria.criteria"
                 type="text"
@@ -56,36 +64,31 @@
                 />
             </p-inputgroup-addon>
         </p-inputgroup>
-        <p-button
-            severity="primary"
-            [label]="'admin.emissionSource.addEmissionSource' | translate"
-            icon="pi pi-user-plus"
-            outlined
-            (onClick)="addEmissionSource()"
-        />
-        <p-button
-            severity="secondary"
-            [label]="'admin.emissionSource.uploadToMinio' | translate"
-            icon="pi pi-upload"
-            outlined
-            (onClick)="fileInput.click()"
-            size="small"
-        />
-        <input
-            #fileInput
-            type="file"
-            accept=".xlsx"
-            style="display: none"
-            (change)="uploadExcelToMinio($event)"
-        />
-        <p-button
-            severity="secondary"
-            [label]="'admin.emissionSource.downloadFile' | translate"
-            icon="pi pi-download"
-            outlined
-            (onClick)="onDownloadFile()"
-            size="small"
-        />
+        <div class="flex justify-between gap-2 lg:justify-end">
+            <p-button
+                severity="secondary"
+                [label]="'admin.emissionSource.uploadToMinio' | translate"
+                icon="pi pi-upload"
+                outlined
+                (onClick)="fileInput.click()"
+                size="small"
+            />
+            <input
+                #fileInput
+                type="file"
+                accept=".xlsx"
+                style="display: none"
+                (change)="uploadExcelToMinio($event)"
+            />
+            <p-button
+                severity="secondary"
+                [label]="'admin.emissionSource.downloadFile' | translate"
+                icon="pi pi-download"
+                outlined
+                (onClick)="onDownloadFile()"
+                size="small"
+            />
+        </div>
     </div>
 </ng-template>
 

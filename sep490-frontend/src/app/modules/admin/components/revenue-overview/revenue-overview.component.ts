@@ -51,12 +51,17 @@ export class RevenueOverviewComponent extends SubscriptionAwareComponent impleme
           label: this.translate.instant('admin.revenue.title'),
           data: revenues,
           backgroundColor: [
-            'rgba(249, 115, 22, 0.2)',
-            'rgba(6, 182, 212, 0.2)',
-            'rgb(107, 114, 128, 0.2)',
-            'rgba(139, 92, 246, 0.2)'
+            this.documentStyle.getPropertyValue('--p-primary-500'),
+            this.documentStyle.getPropertyValue('--p-red-500'),
+            this.documentStyle.getPropertyValue('--p-yellow-500'),
+            this.documentStyle.getPropertyValue('--p-sky-500')
           ],
-          borderColor: ['rgb(249, 115, 22)', 'rgb(6, 182, 212)', 'rgb(107, 114, 128)', 'rgb(139, 92, 246)'],
+          borderColor: [
+            this.documentStyle.getPropertyValue('--p-primary-700'),
+            this.documentStyle.getPropertyValue('--p-red-700'),
+            this.documentStyle.getPropertyValue('--p-yellow-700'),
+            this.documentStyle.getPropertyValue('--p-sky-700')
+          ],
           borderWidth: 1
         }
       ]
@@ -81,12 +86,16 @@ export class RevenueOverviewComponent extends SubscriptionAwareComponent impleme
         {
           data: revenues,
           backgroundColor: [
-            this.documentStyle.getPropertyValue('--p-cyan-500'),
-            this.documentStyle.getPropertyValue('--p-orange-500')
+            this.documentStyle.getPropertyValue('--p-primary-500'),
+            this.documentStyle.getPropertyValue('--p-red-500'),
+            this.documentStyle.getPropertyValue('--p-yellow-500'),
+            this.documentStyle.getPropertyValue('--p-sky-500')
           ],
           hoverBackgroundColor: [
-            this.documentStyle.getPropertyValue('--p-cyan-400'),
-            this.documentStyle.getPropertyValue('--p-orange-400')
+            this.documentStyle.getPropertyValue('--p-primary-400'),
+            this.documentStyle.getPropertyValue('--p-sky-400'),
+            this.documentStyle.getPropertyValue('--p-red-400'),
+            this.documentStyle.getPropertyValue('--p-yellow-400')
           ]
         }
       ]

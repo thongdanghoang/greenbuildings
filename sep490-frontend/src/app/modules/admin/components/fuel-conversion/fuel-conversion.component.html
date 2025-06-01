@@ -9,6 +9,15 @@
         styleClass="overlay-spinner"
     ></p-progressSpinner>
 
+    <p-button
+        actions
+        severity="primary"
+        [label]="'admin.fuel.addFuel' | translate"
+        icon="pi pi-user-plus"
+        outlined
+        (onClick)="addFuel()"
+    />
+
     <!-- Drag & Drop upload -->
     <p-fileUpload
         name="file"
@@ -37,8 +46,8 @@
 </master-layout>
 
 <ng-template #captionTemplateRef>
-    <div class="flex flex-col items-end justify-between gap-2 lg:flex-row lg:items-center">
-        <p-inputgroup class="max-w-96">
+    <div class="-mx-4 flex flex-col-reverse items-end justify-between gap-2 *:w-full lg:flex-row lg:items-center">
+        <p-inputgroup>
             <input
                 [(ngModel)]="searchCriteria.criteria"
                 type="text"
@@ -55,36 +64,31 @@
                 />
             </p-inputgroup-addon>
         </p-inputgroup>
-        <p-button
-            severity="primary"
-            [label]="'admin.fuel.addFuel' | translate"
-            icon="pi pi-user-plus"
-            outlined
-            (onClick)="addFuel()"
-        />
-        <p-button
-            severity="secondary"
-            [label]="'admin.emissionSource.uploadToMinio' | translate"
-            icon="pi pi-upload"
-            outlined
-            (onClick)="fileInput.click()"
-            size="small"
-        />
-        <input
-            #fileInput
-            type="file"
-            accept=".xlsx"
-            style="display: none"
-            (change)="uploadExcelToMinio($event)"
-        />
-        <p-button
-            severity="secondary"
-            [label]="'admin.emissionSource.downloadFile' | translate"
-            icon="pi pi-download"
-            outlined
-            (onClick)="onDownloadFile()"
-            size="small"
-        />
+        <div class="flex justify-between gap-2 lg:justify-end">
+            <input
+                #fileInput
+                type="file"
+                accept=".xlsx"
+                style="display: none"
+                (change)="uploadExcelToMinio($event)"
+            />
+            <p-button
+                severity="secondary"
+                [label]="'admin.emissionSource.uploadToMinio' | translate"
+                icon="pi pi-upload"
+                outlined
+                (onClick)="fileInput.click()"
+                size="small"
+            />
+            <p-button
+                severity="secondary"
+                [label]="'admin.emissionSource.downloadFile' | translate"
+                icon="pi pi-download"
+                outlined
+                (onClick)="onDownloadFile()"
+                size="small"
+            />
+        </div>
     </div>
 </ng-template>
 <ng-template
