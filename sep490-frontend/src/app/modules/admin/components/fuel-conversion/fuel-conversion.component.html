@@ -1,14 +1,15 @@
 <master-layout title="sidebar.admin.fuel">
     <div subtitle>{{ 'admin.fuel.description' | translate }}</div>
-    <h3 class="my-2 font-semibold text-primary">
-        {{ 'admin.emissionSource.upload.title' | translate }}
-    </h3>
-    <!-- import.component.html -->
-    <p-progressSpinner
-        *ngIf="isLoading"
-        styleClass="overlay-spinner"
-    ></p-progressSpinner>
-
+    <div class="my-2 flex items-center justify-center">
+        <!--        <h3 class="my-2 font-semibold text-primary">-->
+        <!--            {{ 'admin.emissionSource.upload.title' | translate }}-->
+        <!--        </h3>-->
+        <!-- import.component.html -->
+        <p-progressSpinner
+            *ngIf="isLoading"
+            styleClass="overlay-spinner"
+        ></p-progressSpinner>
+    </div>
     <p-button
         actions
         severity="primary"
@@ -17,22 +18,6 @@
         outlined
         (onClick)="addFuel()"
     />
-
-    <!-- Drag & Drop upload -->
-    <p-fileUpload
-        name="file"
-        accept=".xlsx"
-        mode="advanced"
-        customUpload="true"
-        [multiple]="false"
-        (uploadHandler)="uploadExcel($event)"
-        [chooseLabel]="'admin.emissionSource.upload.chooseFile' | translate"
-        [uploadLabel]="'admin.emissionSource.upload.import' | translate"
-        [cancelLabel]="'admin.emissionSource.upload.cancel' | translate"
-        [auto]="false"
-        [maxFileSize]="5000000"
-    >
-    </p-fileUpload>
     <table-template
         [fetch]="fetchFuel"
         [columns]="cols"
@@ -65,21 +50,33 @@
             </p-inputgroup-addon>
         </p-inputgroup>
         <div class="flex justify-between gap-2 lg:justify-end">
-            <input
-                #fileInput
-                type="file"
+            <!--            <input-->
+            <!--                #fileInput-->
+            <!--                type="file"-->
+            <!--                accept=".xlsx"-->
+            <!--                style="display: none"-->
+            <!--                (change)="uploadExcelToMinio($event)"-->
+            <!--            />-->
+            <!--            <p-button-->
+            <!--                severity="secondary"-->
+            <!--                [label]="'admin.emissionSource.uploadToMinio' | translate"-->
+            <!--                icon="pi pi-upload"-->
+            <!--                outlined-->
+            <!--                (onClick)="fileInput.click()"-->
+            <!--                size="small"-->
+            <!--            />-->
+            <p-fileUpload
+                name="file"
                 accept=".xlsx"
-                style="display: none"
-                (change)="uploadExcelToMinio($event)"
-            />
-            <p-button
-                severity="secondary"
-                [label]="'admin.emissionSource.uploadToMinio' | translate"
-                icon="pi pi-upload"
-                outlined
-                (onClick)="fileInput.click()"
-                size="small"
-            />
+                mode="basic"
+                chooseIcon="pi pi-upload"
+                [customUpload]="true"
+                (uploadHandler)="uploadExcel($event)"
+                [chooseLabel]="'admin.emissionSource.upload.chooseFile' | translate"
+                [auto]="true"
+                [maxFileSize]="5000000"
+            >
+            </p-fileUpload>
             <p-button
                 severity="secondary"
                 [label]="'admin.emissionSource.downloadFile' | translate"

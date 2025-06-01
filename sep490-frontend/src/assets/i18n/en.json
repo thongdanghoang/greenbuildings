@@ -697,7 +697,7 @@
       "addEmissionSource": "Add Emission Source",
       "upload": {
         "title": "Import multiple records via Excel file",
-        "chooseFile": "Choose File",
+        "chooseFile": "Import data",
         "import": "Import",
         "cancel": "Cancel"
       },

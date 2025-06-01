@@ -49,7 +49,6 @@ export class EmissionSourceComponent extends SubscriptionAwareComponent implemen
   uploadExcel(event: any): void {
     const file = event.files[0];
     if (!file) return;
-
     this.isLoading = true;
     this.emissionSourceService.importEmissionSources(file).subscribe({
       next: () => {
