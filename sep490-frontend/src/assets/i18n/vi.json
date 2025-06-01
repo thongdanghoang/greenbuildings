@@ -690,7 +690,7 @@
       "addEmissionSource": "Thêm Nguồn Phát Thải",
       "upload": {
         "title": "Nhập nhiều dữ liệu qua file Excel",
-        "chooseFile": "Chọn File",
+        "chooseFile": "Nhập dữ liệu",
         "import": "Nhập",
         "cancel": "Hủy"
       },

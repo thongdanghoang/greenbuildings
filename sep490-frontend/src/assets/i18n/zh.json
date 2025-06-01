@@ -690,7 +690,7 @@
       "addEmissionSource": "添加排放源",
       "upload": {
         "title": "通过 Excel 文件导入多个数据",
-        "chooseFile": "选择文件",
+        "chooseFile": "导入数据",
         "import": "导入",
         "cancel": "取消"
       },
