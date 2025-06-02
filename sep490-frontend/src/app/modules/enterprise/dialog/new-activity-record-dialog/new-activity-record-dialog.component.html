@@ -41,6 +41,8 @@
             <p-select
                 [options]="selectableAssets"
                 formControlName="assetId"
+                [filter]="true"
+                filterBy="label"
                 optionLabel="label"
                 optionValue="value"
                 class="w-full"
