@@ -19,6 +19,7 @@ import greenbuildings.enterprise.utils.CalculationUtils;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.collections.map.HashedMap;
 import org.apache.poi.ss.usermodel.BorderStyle;
+import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFCell;
@@ -99,11 +100,11 @@ public class ReportServiceImpl implements ReportService {
                 for (var recordEntity : activityRecords) {
                     groupMergeMap.put(group != null ? group.getId() : null, rowIdx);
                     Row row = sheet.createRow(rowIdx++);
-                    fillActivityDataInRow(recordEntity, group, row, activity);
+                    fillActivityDataInRow(recordEntity, group, row, activity, cellStyle);
                 }
-                handleMergeCommonFieldInActivities(endRow, startRow, sheet);
+//                handleMergeCommonFieldInActivities(endRow, startRow, sheet);
             }
-            handleMergeBuildingGroupName(groupMergeMap, sheet);
+//            handleMergeBuildingGroupName(groupMergeMap, sheet);
             fillGroupsInfo(sheet, records, buildingGroups, cellStyle);
             
             try (var byteArrayOutputStream = new ByteArrayOutputStream()) {
@@ -184,34 +185,77 @@ public class ReportServiceImpl implements ReportService {
         return records;
     }
     
-    private void fillActivityDataInRow(EmissionActivityRecordEntity recordEntity, BuildingGroupEntity group, Row row, EmissionActivityEntity activity) {
+    private void fillActivityDataInRow(EmissionActivityRecordEntity recordEntity, BuildingGroupEntity group, Row row,
+                                       EmissionActivityEntity activity, XSSFCellStyle cellStyle) {
         int colIdx = 0;
-        if (group != null) {
-            row.createCell(colIdx++).setCellValue(group.getName());
-        } else {
-            row.createCell(colIdx++).setCellValue("-");
-        }
         
-        row.createCell(colIdx++).setCellValue(activity.getName());
-        row.createCell(colIdx++).setCellValue(activity.getType() != null ? activity.getType().getName() : "-");
-        row.createCell(colIdx++).setCellValue(activity.getCategory());
-        row.createCell(colIdx++).setCellValue(activity.getDescription() != null ? activity.getDescription() : "-");
-        row.createCell(colIdx++).setCellValue(activity.getEmissionFactorEntity().getSource().getNameVN());
-        row.createCell(colIdx++).setCellValue(activity.getEmissionFactorEntity().getNameVN());
+        Cell cell = row.createCell(colIdx++);
+        cell.setCellValue(group != null ? group.getName() : "-");
+        cell.setCellStyle(cellStyle);
+        
+        cell = row.createCell(colIdx++);
+        cell.setCellValue(activity.getName());
+        cell.setCellStyle(cellStyle);
+        
+        cell = row.createCell(colIdx++);
+        cell.setCellValue(activity.getType() != null ? activity.getType().getName() : "-");
+        cell.setCellStyle(cellStyle);
+        
+        cell = row.createCell(colIdx++);
+        cell.setCellValue(activity.getCategory());
+        cell.setCellStyle(cellStyle);
+        
+        cell = row.createCell(colIdx++);
+        cell.setCellValue(activity.getDescription() != null ? activity.getDescription() : "-");
+        cell.setCellStyle(cellStyle);
+        
+        cell = row.createCell(colIdx++);
+        cell.setCellValue(activity.getEmissionFactorEntity().getSource().getNameVN());
+        cell.setCellStyle(cellStyle);
+        
+        cell = row.createCell(colIdx++);
+        cell.setCellValue(activity.getEmissionFactorEntity().getNameVN());
+        cell.setCellStyle(cellStyle);
+        
+        cell = row.createCell(colIdx++);
         if (activity.getEmissionFactorEntity().getEnergyConversion() != null) {
-            row.createCell(colIdx++).setCellValue(activity.getEmissionFactorEntity().getEnergyConversion().getFuel().getNameVN());
+            cell.setCellValue(activity.getEmissionFactorEntity().getEnergyConversion().getFuel().getNameVN());
         } else {
-            row.createCell(colIdx++).setCellValue("-");
+            cell.setCellValue("-");
         }
-        row.createCell(colIdx++).setCellValue(recordEntity.getStartDate().toString());
-        row.createCell(colIdx++).setCellValue(recordEntity.getEndDate().toString());
-        row.createCell(colIdx++).setCellValue(recordEntity.getQuantity());
-        row.createCell(colIdx++).setCellValue(recordEntity.getValue().toString());
-        row.createCell(colIdx++).setCellValue(recordEntity.getUnit().name());
+        cell.setCellStyle(cellStyle);
+        
+        cell = row.createCell(colIdx++);
+        cell.setCellValue(recordEntity.getStartDate().toString());
+        cell.setCellStyle(cellStyle);
+        
+        cell = row.createCell(colIdx++);
+        cell.setCellValue(recordEntity.getEndDate().toString());
+        cell.setCellStyle(cellStyle);
+        
+        cell = row.createCell(colIdx++);
+        cell.setCellValue(recordEntity.getQuantity());
+        cell.setCellStyle(cellStyle);
+        
+        cell = row.createCell(colIdx++);
+        cell.setCellValue(recordEntity.getValue().toString());
+        cell.setCellStyle(cellStyle);
+        
+        cell = row.createCell(colIdx++);
+        cell.setCellValue(recordEntity.getUnit().name());
+        cell.setCellStyle(cellStyle);
+        
         BigDecimal ghg = recordEntity.getGhg().setScale(2, RoundingMode.HALF_UP);
-        row.createCell(colIdx++).setCellValue(ghg.toString());
+        
+        cell = row.createCell(colIdx++);
+        cell.setCellValue(ghg.toString());
+        cell.setCellStyle(cellStyle);
+        
         ghg = CalculationUtils.convertUnit(EmissionUnit.KILOGRAM, EmissionUnit.GIGAGRAM, ghg);
-        row.createCell(colIdx++).setCellValue(ghg.toString());
+        
+        cell = row.createCell(colIdx++);
+        cell.setCellValue(ghg.toString());
+        cell.setCellStyle(cellStyle);
     }
     
     private static void handleMergeCommonFieldInActivities(int endRow, int startRow, XSSFSheet sheet) {
