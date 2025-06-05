@@ -1,0 +1,1 @@
+INSERT INTO public.invitations (id, version, building_group_id, email, status, created_date, created_by, last_modified_date, last_modified_by) VALUES ('c5f31fe5-1c55-4dd9-b491-54b53288408c', 1, '8fc2eea8-716d-44b2-a794-697455fcb6b1', 'thucngan07@gmail.com', 'ACCEPTED', '2025-05-30 08:03:06.410751', 'fptu.hcm@fpt.edu.vn', '2025-05-31 04:54:05.252590', 'thucngan07@gmail.com');

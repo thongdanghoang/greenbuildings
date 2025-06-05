@@ -1,0 +1,1 @@
+INSERT INTO public.wallets (created_date, created_by, last_modified_date, last_modified_by, id, version, enterprise_id, balance) VALUES ('2025-05-28 13:29:41.011124', 'Unknown', '2025-06-01 07:39:36.944231', 'fptu.hcm@fpt.edu.vn', '2e950375-47c4-48da-adb9-df38a09388fe', 3, '8bf7acc5-120c-4b29-a2a7-1a8261bcbb56', 999860);

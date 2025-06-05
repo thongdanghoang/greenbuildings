@@ -1,0 +1,7 @@
+INSERT INTO public.user_authorities (id, user_id, reference_id, permission, deleted) VALUES ('4fddc253-dbe1-493c-9927-d9b81ed58cd8', 'bb83f2fe-a82c-484a-8d65-891b76da177c', null, 'SYSTEM_ADMIN', false);
+INSERT INTO public.user_authorities (id, user_id, reference_id, permission, deleted) VALUES ('195d7dd7-fc0b-48a3-8de1-fc51fcd4fe7e', 'bdf06f23-06e4-4ec7-9762-473f170e4c87', null, 'BASIC_USER', false);
+INSERT INTO public.user_authorities (id, user_id, reference_id, permission, deleted) VALUES ('f098e734-be2b-4207-a0ba-6c573bb7f3b3', 'bdf06f23-06e4-4ec7-9762-473f170e4c87', '8bf7acc5-120c-4b29-a2a7-1a8261bcbb56', 'ENTERPRISE_OWNER', false);
+INSERT INTO public.user_authorities (id, user_id, reference_id, permission, deleted) VALUES ('0df3906b-169c-4826-99d2-0a8567535711', 'cf77b73a-4f99-4402-a3c5-bb6138b07700', null, 'BASIC_USER', false);
+INSERT INTO public.user_authorities (id, user_id, reference_id, permission, deleted) VALUES ('45179f21-801b-4cbe-bfb7-a2c3270f56f7', 'cf77b73a-4f99-4402-a3c5-bb6138b07700', 'fb51f715-12c4-4614-8672-87ea1ec4fed3', 'TENANT', false);
+INSERT INTO public.user_authorities (id, user_id, reference_id, permission, deleted) VALUES ('54ed3d88-9cf6-4e95-abb7-7700ead50f14', 'f43dc08e-0b9f-465b-aab0-a01e01f3a859', null, 'BASIC_USER', false);
+INSERT INTO public.user_authorities (id, user_id, reference_id, permission, deleted) VALUES ('2ff33cd6-579d-4179-928e-3f3b97c62d5e', 'f43dc08e-0b9f-465b-aab0-a01e01f3a859', 'a606ea87-7dc6-4818-952e-4de7c3abba35', 'TENANT', false);

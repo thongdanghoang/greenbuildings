@@ -1,0 +1,1 @@
+INSERT INTO public.dashboard (id, version, title, src, enterprise_id) VALUES ('bd3043a1-51cc-4644-8349-0b2f16fecdcc', 0, 'Chart of FPT', 'https://app.powerbi.com/reportEmbed?reportId=4d7e1f43-d4cc-403e-9b3e-d8c825e2ee7e&autoAuth=true&ctid=447080b4-b9c6-4b0b-92fd-b543a68b4e97', '8bf7acc5-120c-4b29-a2a7-1a8261bcbb56');

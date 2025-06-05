@@ -1,0 +1,1 @@
+INSERT INTO public.user_otp (id, version, user_id, otp_code, expired_time) VALUES ('c112f6e5-2fc9-460e-b580-6c0d222d7408', 0, 'cf77b73a-4f99-4402-a3c5-bb6138b07700', '247055', '2025-05-31 05:05:06.223609');

@@ -1,0 +1,3 @@
+INSERT INTO public.chemical_density (id, version, chemical_formula, value, unit_numerator, unit_denominator) VALUES ('c42194fc-6245-432f-9a87-894b5807d517', 1, 'CO2', 1.977, 'KILOGRAM', 'CUBIC_METER');
+INSERT INTO public.chemical_density (id, version, chemical_formula, value, unit_numerator, unit_denominator) VALUES ('39293687-73e5-4e6f-aa2f-0b0751c09d69', 1, 'CH4', 0.717, 'KILOGRAM', 'CUBIC_METER');
+INSERT INTO public.chemical_density (id, version, chemical_formula, value, unit_numerator, unit_denominator) VALUES ('d522d260-808b-4d6b-a05b-c953bfaa5c90', 1, 'N2O', 1.978, 'KILOGRAM', 'CUBIC_METER');
