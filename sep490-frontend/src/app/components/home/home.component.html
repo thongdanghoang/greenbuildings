@@ -3,7 +3,7 @@
     class="flex min-h-[calc(100vh-4rem)] flex-col items-center justify-center"
 >
     <div class="w-full max-w-4xl rounded-lg p-8 shadow-lg">
-        @if (userRoles.includes(UserRole.BASIC_USER) && userData && userInfo) {
+        @if (userRoles.includes(UserRole.BASIC_USER) && userRoles.length === 1 && userData && userInfo) {
             <div class="text-center">
                 <div class="mb-8">
                     <h1 class="mb-4 text-3xl font-bold text-primary">
