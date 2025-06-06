@@ -34,6 +34,11 @@
     "name": "姓名"
   },
   "validation": {
+    "asset": {
+      "code": {
+        "duplicate": "資產代碼不能重複。"
+      }
+    },
     "unsavedChanges": {
       "title": "未保存的更改",
       "message": "您确定要放弃这些更改吗?",
@@ -408,7 +413,7 @@
             "factor": "排放系数",
             "source": "排放源",
             "quantity": "活动数量",
-            "ghg": "温室气体（kgCO2e）",
+            "ghg": "温室气体",
             "file": {
               "title": "文件",
               "choose": "选择文件"

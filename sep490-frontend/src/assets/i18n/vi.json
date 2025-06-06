@@ -34,6 +34,11 @@
     "name": "Tên"
   },
   "validation": {
+    "asset": {
+      "code": {
+        "duplicate": "Mã số tài sản không được trùng lặp."
+      }
+    },
     "unsavedChanges": {
       "title": "Thay đổi chưa lưu",
       "message": "Bạn có chắc chắn muốn hủy bỏ những thay đổi không?",
@@ -408,7 +413,7 @@
             "factor": "Hệ số phát thải",
             "source": "Nguồn phát thải",
             "quantity": "Số hoạt động",
-            "ghg": "Khí nhà kính (kgCO2e)",
+            "ghg": "Khí nhà kính",
             "file": {
               "title": "Tập tin",
               "choose": "Chọn tập tin"

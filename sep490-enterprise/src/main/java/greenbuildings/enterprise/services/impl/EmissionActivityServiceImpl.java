@@ -120,14 +120,13 @@ public class EmissionActivityServiceImpl implements EmissionActivityService {
                 || noActivities >= allValidSubscriptions.getFirst().getMaxNumberOfDevices()) {
                 throw new BusinessException("maxNumberOfActivities", "validation.subscription.noActivities");
             }
-            entity = emissionActivityRepository.save(entity);
-            return emissionActivityRepository.findDetailsById(entity.getId()).orElseThrow();
+            return emissionActivityRepository.save(entity);
         }
-        EmissionActivityEntity existing = emissionActivityRepository.findById(entity.getId()).orElseThrow();
+        var existing = emissionActivityRepository.findById(entity.getId()).orElseThrow();
         updateActivity(entity, existing);
-        emissionActivityRepository.save(existing);
+        emissionActivityRepository.saveAndFlush(existing);
         
-        return emissionActivityRepository.findDetailsById(entity.getId()).orElseThrow();
+        return existing;
     }
     
     private void mapActivityType(EmissionActivityEntity entity) {

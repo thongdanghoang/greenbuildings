@@ -111,6 +111,7 @@ public class EmissionFactorServiceImpl implements EmissionFactorService {
     }
     
     @Override
+    @CacheEvict(value = "emissionFactors", allEntries = true)
     public void createOrUpdate(EmissionFactorEntity factor) {
         if (factor.getValidFrom().isAfter(factor.getValidTo())) {
             throw new BusinessException("emissionFactor.date");
@@ -119,6 +120,7 @@ public class EmissionFactorServiceImpl implements EmissionFactorService {
     }
 
     @Override
+    @CacheEvict(value = "emissionFactors", allEntries = true)
     public void importFactorFromExcel(MultipartFile file) {
         try {
             Workbook workbook = new XSSFWorkbook(file.getInputStream());

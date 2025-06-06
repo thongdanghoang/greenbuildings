@@ -37,7 +37,6 @@ export class EmissionFactorComponent extends SubscriptionAwareComponent implemen
   @ViewChild('isDirectEmissionTemplate', {static: true})
   isDirectEmissionTemplate!: TemplateRef<any>; // New template reference
   ref: DynamicDialogRef | undefined;
-  isLoading: boolean = false;
   importExcelDTO: ExcelImportDTO | undefined;
   protected fetchEmissionFactor!: (
     criteria: SearchCriteriaDto<EmissionFactorCriteria>
@@ -76,10 +75,8 @@ export class EmissionFactorComponent extends SubscriptionAwareComponent implemen
     const file = event.files[0];
     if (!file) return;
 
-    this.isLoading = true;
     this.emissionFactorService.importEmissionFactorExcel(file).subscribe({
       next: () => {
-        this.isLoading = false;
         this.messageService.success({
           severity: 'success',
           summary: 'Thành công',
@@ -88,7 +85,6 @@ export class EmissionFactorComponent extends SubscriptionAwareComponent implemen
         this.search(); // Refresh lại table
       },
       error: err => {
-        this.isLoading = false;
         this.messageService.businessError({
           severity: 'error',
           summary: 'Lỗi',
@@ -102,10 +98,8 @@ export class EmissionFactorComponent extends SubscriptionAwareComponent implemen
     const file = event.target.files[0];
     if (!file) return;
 
-    this.isLoading = true;
     this.emissionFactorService.uploadExcelToMinio(file).subscribe({
       next: () => {
-        this.isLoading = false;
         this.messageService.success({
           severity: 'success',
           summary: 'Thành công',
@@ -114,7 +108,6 @@ export class EmissionFactorComponent extends SubscriptionAwareComponent implemen
         this.search(); // Refresh lại table
       },
       error: err => {
-        this.isLoading = false;
         this.messageService.businessError({
           severity: 'error',
           summary: 'Lỗi',
@@ -188,6 +181,16 @@ export class EmissionFactorComponent extends SubscriptionAwareComponent implemen
       templateRef: this.nameTemplate // Tham chiếu đến template mới
     });
     this.cols.push({
+      field: 'emissionSourceDTO',
+      header: 'admin.emissionSource.name',
+      templateRef: this.emissionSourceTemplate
+    });
+    this.cols.push({
+      field: 'energyConversionDTO',
+      header: 'sidebar.admin.fuel',
+      templateRef: this.energyConversionTemplate
+    });
+    this.cols.push({
       field: 'co2',
       header: 'Co2'
     });
@@ -199,28 +202,11 @@ export class EmissionFactorComponent extends SubscriptionAwareComponent implemen
       field: 'n2o',
       header: 'N2o'
     });
-    this.cols.push({
-      field: 'emissionUnitNumerator',
-      header: 'admin.emissionFactor.numerator'
-    });
-    this.cols.push({
-      field: 'emissionUnitDenominator',
-      header: 'admin.emissionFactor.denominator'
-    });
-    this.cols.push({
-      field: 'emissionSourceDTO',
-      header: 'admin.emissionSource.name',
-      templateRef: this.emissionSourceTemplate
-    });
+
     this.cols.push({
       field: 'directEmission',
       header: 'admin.emissionFactor.isDirectEmission',
       templateRef: this.isDirectEmissionTemplate
-    });
-    this.cols.push({
-      field: 'energyConversionDTO',
-      header: 'sidebar.admin.fuel',
-      templateRef: this.energyConversionTemplate
     });
     this.cols.push({
       field: 'active',

@@ -85,7 +85,18 @@ export class NewActivityRecordDialogComponent extends AbstractFormComponent<Emis
     this.assetService
       .selectable(this.data?.buildingId, this.data?.editRecord?.assetId)
       .pipe(takeUntil(this.destroy$))
-      .subscribe(assets => (this.selectableAssets = assets));
+      .subscribe(assets => {
+        this.selectableAssets = assets;
+
+        if (this.formGroupDisable) {
+          this.formGroup.disable();
+        }
+      });
+  }
+
+  get formGroupDisable(): boolean {
+    const assetId = this.data?.editRecord?.assetId;
+    return !!(assetId && this.selectableAssets.filter(asset => asset.value === assetId)[0].disabled);
   }
 
   getRecordedDateRanges(activityId: UUID, excludeRecordId?: UUID, assetId?: UUID): void {

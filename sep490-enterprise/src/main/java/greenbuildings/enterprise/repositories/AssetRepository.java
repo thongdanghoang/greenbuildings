@@ -2,7 +2,6 @@ package greenbuildings.enterprise.repositories;
 
 import greenbuildings.commons.springfw.impl.repositories.AbstractBaseRepository;
 import greenbuildings.enterprise.entities.AssetEntity;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -60,4 +59,25 @@ public interface AssetRepository
     Page<AssetEntity> search(Pageable pageable, UUID organizationId, String keyword, List<UUID> buildings);
     
     List<AssetEntity> findByBuildingIdAndDisabled(UUID buildingId, boolean disabled);
+    
+    @Query(
+            """
+                    SELECT CASE WHEN COUNT(a) > 0 THEN TRUE ELSE FALSE END
+                    FROM AssetEntity a
+                    WHERE a.code LIKE :code
+                    AND (a.enterprise.id = :organizationId OR a.tenant.id = :organizationId)
+                    """
+    )
+    boolean existsAllByCodeEqualsAndOrganizationId(String code, UUID organizationId);
+    
+    @Query(
+            """
+                    SELECT CASE WHEN COUNT(a) > 0 THEN TRUE ELSE FALSE END
+                    FROM AssetEntity a
+                    WHERE a.code LIKE :code
+                    AND (a.enterprise.id = :organizationId OR a.tenant.id = :organizationId)
+                    AND (a.id != :existId)
+                    """
+    )
+    boolean existsAllByCodeEqualsAndOrganizationId(String code, UUID organizationId, UUID existId);
 }

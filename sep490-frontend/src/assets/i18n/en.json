@@ -35,6 +35,11 @@
     "lastUpdated": "Last updated"
   },
   "validation": {
+    "asset": {
+      "code": {
+        "duplicate": "Asset code cannot be duplicate."
+      }
+    },
     "unsavedChanges": {
       "title": "Unsaved Changes",
       "message": "Are you sure you want to discard the changes?",
@@ -409,7 +414,7 @@
             "factor": "Emission Factor",
             "source": "Emission Source",
             "quantity": "Number of activities",
-            "ghg": "Greenhouse gas (kgCO2e)",
+            "ghg": "Greenhouse gas",
             "file": {
               "title": "File",
               "choose": "Choose file"

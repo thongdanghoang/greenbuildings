@@ -116,7 +116,13 @@ public class EmissionActivityController {
         } else {
             entity = this.mapper.createNewActivity(dto);
         }
-        return ResponseEntity.ok(mapper.toDetailsDTO(emissionActivityService.addOrUpdate(entity)));
+        return ResponseEntity.ok(
+                mapper.toDetailsDTO(
+                        emissionActivityService.getEmissionActivityDetails(
+                                emissionActivityService.addOrUpdate(entity).getId()
+                                                                          )
+                                   )
+                                );
     }
     
     @DeleteMapping
