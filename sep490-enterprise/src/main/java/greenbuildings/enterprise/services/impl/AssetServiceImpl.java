@@ -8,6 +8,7 @@ import greenbuildings.enterprise.repositories.AssetRepository;
 import greenbuildings.enterprise.repositories.EmissionActivityRecordRepository;
 import greenbuildings.enterprise.repositories.specifications.AssetsSpecifications;
 import greenbuildings.enterprise.services.AssetService;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;
@@ -62,9 +63,9 @@ public class AssetServiceImpl implements AssetService {
     }
     
     private void validateAsset(AssetEntity asset) {
-        var organizationId = Optional
-                .ofNullable(asset.getEnterprise().getId())
-                .orElse(Optional.ofNullable(asset.getEnterprise().getId()).orElseThrow());
+        var organizationId = Objects.nonNull(asset.getEnterprise())
+                             ? asset.getEnterprise().getId()
+                             : Optional.ofNullable(asset.getTenant()).orElseThrow().getId();
         var duplicate = Objects.isNull(asset.getId())
                         ? assetRepository.existsAllByCodeEqualsAndOrganizationId(asset.getCode(), organizationId)
                         : assetRepository.existsAllByCodeEqualsAndOrganizationId(asset.getCode(), organizationId, asset.getId());

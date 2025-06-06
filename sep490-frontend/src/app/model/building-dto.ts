@@ -19,4 +19,5 @@ export interface BuildingDTO {
   latitude?: number;
   longitude?: number;
   subscriptionDTO?: SubscriptionDTO;
+  limit?: number;
 }

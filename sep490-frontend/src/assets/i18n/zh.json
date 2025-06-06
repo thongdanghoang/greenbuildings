@@ -288,6 +288,10 @@
         }
       },
       "management": {
+        "danger": "警报",
+        "highGhgEmission": "该建筑物当前的排放系数超出了您设定的限制{{percentage}}%。",
+        "warning": "警告",
+        "highGhgEmissionWarning": "该建筑的温室气体排放量已达到极限{{percentage}}%。",
         "subtitle": "全面的建筑跟踪和管理，包括租户信息、团体、注册、活动和共享资源权限。",
         "title": "建筑管理",
         "list": "建筑群组列表",
@@ -330,7 +334,8 @@
           "name": "建筑名称",
           "levels": "楼层数",
           "area": "建筑面积",
-          "numberOfDevices": "预计活动数量",
+          "limit": "排放限值",
+          "numberOfDevices": "排放限值（kgCO2e）",
           "haveSubscriptionOfNumberOfDevices": "订阅中的最大数量",
           "maxNumberOfDevices": "估计建筑物内的活动库存量",
           "validFromInclusive": "有效日期",

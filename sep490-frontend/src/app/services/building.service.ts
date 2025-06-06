@@ -1,5 +1,6 @@
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Injectable} from '@angular/core';
+import {BuildingGhgAlertView} from '@generated/models/building-ghg-alert-view';
 import {SearchCriteriaDTOSearchTenantCriteria} from '@generated/models/search-criteria-dto-search-tenant-criteria';
 import {TenantView} from '@generated/models/tenant-view';
 import {Building, BuildingDetails, OverviewBuildingDTO} from '@models/enterprise';
@@ -22,6 +23,10 @@ export class BuildingService {
 
   get generateReportUrl(): string {
     return `${this.BUILDINGS_URL}/generate-report`;
+  }
+
+  getBuildingGhgAlertView(id: UUID): Observable<BuildingGhgAlertView> {
+    return this.httpClient.get<BuildingGhgAlertView>(`${this.BUILDINGS_URL}/${id}/ghg`);
   }
 
   getBuildingDetails(id: UUID): Observable<BuildingDetails> {

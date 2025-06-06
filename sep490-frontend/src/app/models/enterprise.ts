@@ -1,7 +1,7 @@
+import {BaseDTO} from '@shared/models/base-models';
 import {UUID} from '../../types/uuid';
-import {EmissionFactorDTO, EmissionUnit} from './shared-models';
 import {BuildingPermissionRole} from './building-permission-role';
-import {BaseDTO} from '../modules/shared/models/base-models';
+import {EmissionFactorDTO, EmissionUnit} from './shared-models';
 
 export interface Building extends BaseDTO {
   name: string;
@@ -30,6 +30,7 @@ export interface BuildingDetails extends BaseDTO {
   area: number;
   subscriptionDTO?: Subscription;
   buildingGroups: BuildingGroup[];
+  limit: number;
 }
 
 export interface Tenant extends BaseDTO {

@@ -13,6 +13,7 @@ import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -23,6 +24,7 @@ import org.hibernate.annotations.ParamDef;
 import org.hibernate.annotations.SoftDelete;
 import org.hibernate.annotations.SqlFragmentAlias;
 
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -94,6 +96,10 @@ public class BuildingEntity extends AbstractAuditableEntity {
     @DecimalMax("180.0")
     @Column(name = "longitude")
     private double longitude;
+    
+    @PositiveOrZero
+    @Column(name = "ghg_limit")
+    private BigDecimal limit = BigDecimal.ZERO;
     
     @OneToMany(mappedBy = "building")
     private Set<SubscriptionEntity> subscriptions = new HashSet<>();
