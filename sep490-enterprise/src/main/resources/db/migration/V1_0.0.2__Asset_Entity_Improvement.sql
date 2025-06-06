@@ -1,6 +1,6 @@
 -- 1. Add the column (already done)
 alter table assets
-    add column code varchar(8);
+    add column code varchar(32);
 
 -- 2. Set random string values for existing records
 update assets

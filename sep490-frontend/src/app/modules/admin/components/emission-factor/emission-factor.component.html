@@ -1,15 +1,11 @@
 <master-layout title="enterprise.emission.activity.dialog.EmissionFactor">
     <div subtitle>{{ 'admin.emissionFactor.description1' | translate }}</div>
-    <div class="my-2 flex items-center justify-center">
-        <!--        <h3 class="my-2 font-semibold text-primary">-->
-        <!--            {{ 'admin.emissionSource.upload.title' | translate }}-->
-        <!--        </h3>-->
-        <!-- import.component.html -->
-        <p-progressSpinner
-            *ngIf="isLoading"
-            styleClass="overlay-spinner"
-        ></p-progressSpinner>
-    </div>
+    <!--    <div class="my-2 flex items-center justify-center">-->
+    <!--                <h3 class="my-2 font-semibold text-primary">-->
+    <!--                    {{ 'admin.emissionSource.upload.title' | translate }}-->
+    <!--                </h3>-->
+    <!--         import.component.html -->
+    <!--    </div>-->
     <table-template
         [fetch]="fetchEmissionFactor"
         [columns]="cols"

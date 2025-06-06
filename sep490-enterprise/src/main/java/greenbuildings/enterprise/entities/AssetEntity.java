@@ -1,7 +1,6 @@
 package greenbuildings.enterprise.entities;
 
 import greenbuildings.commons.springfw.impl.entities.AbstractAuditableEntity;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -9,11 +8,10 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import java.util.UUID;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldNameConstants;
-
-import java.util.UUID;
 
 @Entity
 @Table(name = "assets")
@@ -35,7 +33,7 @@ public class AssetEntity extends AbstractAuditableEntity {
     private String name;
     
     @NotBlank
-    @Size(max = 8)
+    @Size(max = 32)
     @Column(name = "code")
     private String code;
     

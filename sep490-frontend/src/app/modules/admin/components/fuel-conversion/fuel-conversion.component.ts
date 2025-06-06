@@ -26,7 +26,6 @@ export class FuelConversionComponent extends SubscriptionAwareComponent implemen
   fuelTemplate!: TemplateRef<any>;
   @ViewChild('actionsTemplate', {static: true})
   actionsTemplate!: TemplateRef<any>;
-  isLoading: boolean = false;
   importExcelDTO: ExcelImportDTO | undefined;
   ref: DynamicDialogRef | undefined;
   protected fetchFuel!: (
@@ -55,10 +54,8 @@ export class FuelConversionComponent extends SubscriptionAwareComponent implemen
     const file = event.files[0];
     if (!file) return;
 
-    this.isLoading = true;
     this.fuelConversionService.importFuelExcel(file).subscribe({
       next: () => {
-        this.isLoading = false;
         this.messageService.success({
           severity: 'success',
           summary: 'Thành công',
@@ -67,7 +64,6 @@ export class FuelConversionComponent extends SubscriptionAwareComponent implemen
         this.search(); // Refresh lại table
       },
       error: err => {
-        this.isLoading = false;
         this.messageService.businessError({
           severity: 'error',
           summary: 'Lỗi',
@@ -81,10 +77,8 @@ export class FuelConversionComponent extends SubscriptionAwareComponent implemen
     const file = event.target.files[0];
     if (!file) return;
 
-    this.isLoading = true;
     this.fuelConversionService.uploadExcelToMinio(file).subscribe({
       next: () => {
-        this.isLoading = false;
         this.messageService.success({
           severity: 'success',
           summary: 'Thành công',
@@ -93,7 +87,6 @@ export class FuelConversionComponent extends SubscriptionAwareComponent implemen
         this.search(); // Refresh lại table
       },
       error: err => {
-        this.isLoading = false;
         this.messageService.businessError({
           severity: 'error',
           summary: 'Lỗi',

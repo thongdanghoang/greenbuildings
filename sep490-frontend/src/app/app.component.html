@@ -3,7 +3,7 @@
 <div class="h-dvh max-h-dvh pt-14">
     <div class="container mx-auto grid h-full grid-cols-5 gap-4 px-4 pt-6 sm:px-6">
         <div
-            class="hidden overflow-y-hidden"
+            class="hidden overflow-y-auto"
             [class.lg:block]="authenticated && emailVerified | async"
         >
             @if (authenticated | async) {
@@ -11,7 +11,7 @@
             }
         </div>
         <div
-            class="no-scrollbar col-span-5 overflow-auto"
+            class="col-span-5 overflow-auto"
             [class.lg:col-span-4]="authenticated && emailVerified | async"
         >
             <router-outlet></router-outlet>
@@ -19,4 +19,4 @@
     </div>
 </div>
 
-<p-toast position="bottom-right" />
+<p-toast />

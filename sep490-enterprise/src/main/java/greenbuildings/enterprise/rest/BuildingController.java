@@ -10,12 +10,15 @@ import greenbuildings.enterprise.dtos.BuildingDTO;
 import greenbuildings.enterprise.dtos.DownloadReportDTO;
 import greenbuildings.enterprise.dtos.OverviewBuildingDTO;
 import greenbuildings.enterprise.dtos.dashboard.SelectableBuildingDTO;
+import greenbuildings.enterprise.entities.EmissionActivityEntity;
 import greenbuildings.enterprise.mappers.BuildingGroupMapper;
 import greenbuildings.enterprise.mappers.BuildingMapper;
 import greenbuildings.enterprise.services.BuildingGroupService;
 import greenbuildings.enterprise.services.BuildingService;
+import greenbuildings.enterprise.services.EmissionActivityService;
 import greenbuildings.enterprise.services.EnterpriseService;
 import greenbuildings.enterprise.services.ReportService;
+import greenbuildings.enterprise.views.buildings.BuildingGhgAlertView;
 import greenbuildings.enterprise.views.buildings.details.TenantView;
 
 import jakarta.annotation.security.RolesAllowed;
@@ -32,7 +35,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @RestController
@@ -49,10 +55,36 @@ public class BuildingController extends AbstractRestController {
     private final BuildingGroupService buildingGroupService;
     private final BuildingGroupMapper buildingGroupMapper;
     private final ReportService reportService;
+    private final EmissionActivityService activityService;
     
     @GetMapping("/{id}")
     public ResponseEntity<BuildingDTO> getBuildingById(@PathVariable UUID id) {
         return ResponseEntity.ok(buildingMapper.toDto(buildingService.findById(id)));
+    }
+    
+    @GetMapping("/{id}/ghg")
+    public ResponseEntity<BuildingGhgAlertView> getBuildingGhgAlertView(
+            @PathVariable UUID id,
+            @AuthenticationPrincipal UserContextData userContextData) {
+        var building = buildingService.findById(id);
+        var enterpriseId = userContextData.getEnterpriseId().orElseThrow();
+        var activities = activityService.findByEnterpriseAndBuildingsFetchRecords(enterpriseId, Set.of(id));
+        var ghgEmission = activityService
+                .calculationActivitiesTotalGhg(activities)
+                .stream()
+                .map(EmissionActivityEntity::getTotalEmission)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+        var percentage = building.getLimit().longValue() == 0L
+                         ? building.getLimit()
+                         : ghgEmission.divide(building.getLimit(), 2, RoundingMode.HALF_UP);
+        var response = BuildingGhgAlertView
+                .builder()
+                .id(building.getId())
+                .ghgEmission(ghgEmission)
+                .limit(building.getLimit())
+                .percentage(percentage)
+                .build();
+        return ResponseEntity.ok(response);
     }
     
     @GetMapping("/selectable")

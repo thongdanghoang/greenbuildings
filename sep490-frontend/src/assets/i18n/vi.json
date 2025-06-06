@@ -34,6 +34,11 @@
     "name": "Tên"
   },
   "validation": {
+    "asset": {
+      "code": {
+        "duplicate": "Mã số tài sản không được trùng lặp."
+      }
+    },
     "unsavedChanges": {
       "title": "Thay đổi chưa lưu",
       "message": "Bạn có chắc chắn muốn hủy bỏ những thay đổi không?",
@@ -287,6 +292,10 @@
         "description": "Xem và quản lý tất cả các hoạt động chung được chia sẻ trong toàn bộ tòa nhà"
       },
       "management": {
+        "danger": "Báo động",
+        "highGhgEmission": "Hệ số phát thải hiện tại của toà nhà đã vượt quá giới hạn {{percentage}}% so với mà bạn đã thiết lập",
+        "warning": "Cảnh báo",
+        "highGhgEmissionWarning": "Hệ số phát thải khí nhà kính của toà nhà đang ở mức cao {{percentage}}%",
         "subtitle": "Theo dõi và quản lý toàn diện tòa nhà, gồm thông tin thuê, nhóm, đăng ký, hoạt động và phân quyền tài nguyên dùng chung.",
         "title": "Quản lý tòa nhà",
         "list": "Danh sách nhóm tòa nhà",
@@ -325,6 +334,7 @@
           "name": "Tên tòa nhà",
           "levels": "Số lượng tầng",
           "area": "Diện tích (m²)",
+          "limit": "Giới hạn phát thải (kgCO2e)",
           "numberOfDevices": "Số lượng hoạt động dự kiến",
           "haveSubscriptionOfNumberOfDevices": "Số lượng hoạt động tối đa",
           "maxNumberOfDevices": "Ước tính số lượng hoạt động kiểm kê trong tòa nhà",
@@ -408,7 +418,7 @@
             "factor": "Hệ số phát thải",
             "source": "Nguồn phát thải",
             "quantity": "Số hoạt động",
-            "ghg": "Khí nhà kính (kgCO2e)",
+            "ghg": "Khí nhà kính",
             "file": {
               "title": "Tập tin",
               "choose": "Chọn tập tin"

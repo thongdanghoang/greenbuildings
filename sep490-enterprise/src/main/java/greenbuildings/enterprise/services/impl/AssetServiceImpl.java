@@ -3,6 +3,7 @@ package greenbuildings.enterprise.services.impl;
 import greenbuildings.commons.springfw.impl.securities.UserContextData;
 import greenbuildings.enterprise.entities.AssetEntity;
 import greenbuildings.enterprise.events.BuildingGroupUnlinkedEvent;
+import greenbuildings.enterprise.exceptions.EntityAlreadyExists;
 import greenbuildings.enterprise.repositories.AssetRepository;
 import greenbuildings.enterprise.repositories.EmissionActivityRecordRepository;
 import greenbuildings.enterprise.repositories.specifications.AssetsSpecifications;
@@ -19,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -32,12 +34,14 @@ public class AssetServiceImpl implements AssetService {
     
     @Override
     public AssetEntity updateAsset(AssetEntity asset) {
+        validateAsset(asset);
         var oldBuilding = assetRepository.getReferenceById(asset.getId()).getBuilding();
         var newBuilding = asset.getBuilding();
         
         var isMoveFromBuildingMoveToAny = Objects.nonNull(oldBuilding);
         var isMoveToDifferentBuilding = Objects.isNull(newBuilding)
-                                        || (isMoveFromBuildingMoveToAny && !Objects.equals(oldBuilding.getId(), newBuilding.getId()));
+                                        || (isMoveFromBuildingMoveToAny && !Objects.equals(oldBuilding.getId(),
+                                                                                           newBuilding.getId()));
         
         if (isMoveFromBuildingMoveToAny
             && isMoveToDifferentBuilding
@@ -54,7 +58,20 @@ public class AssetServiceImpl implements AssetService {
     
     @Override
     public AssetEntity createAsset(AssetEntity assetEntity) {
+        validateAsset(assetEntity);
         return assetRepository.save(assetEntity);
+    }
+    
+    private void validateAsset(AssetEntity asset) {
+        var organizationId = Objects.nonNull(asset.getEnterprise())
+                             ? asset.getEnterprise().getId()
+                             : Optional.ofNullable(asset.getTenant()).orElseThrow().getId();
+        var duplicate = Objects.isNull(asset.getId())
+                        ? assetRepository.existsAllByCodeEqualsAndOrganizationId(asset.getCode(), organizationId)
+                        : assetRepository.existsAllByCodeEqualsAndOrganizationId(asset.getCode(), organizationId, asset.getId());
+        if (duplicate) {
+            throw new EntityAlreadyExists(AssetEntity.Fields.code, "asset.code.duplicate");
+        }
     }
     
     @Override
@@ -74,8 +91,10 @@ public class AssetServiceImpl implements AssetService {
     
     @Transactional(readOnly = true)
     @Override
-    public Page<AssetEntity> search(Pageable pageable, UUID organizationId, String keyword, List<UUID> buildings) {
-        return assetRepository.findAll(AssetsSpecifications.withFilters(organizationId, keyword, buildings), pageable);
+    public Page<AssetEntity> search(Pageable pageable, UUID organizationId, String keyword,
+                                    List<UUID> buildings) {
+        return assetRepository.findAll(
+                AssetsSpecifications.withFilters(organizationId, keyword, buildings), pageable);
     }
     
     @Transactional(readOnly = true)
@@ -89,11 +108,14 @@ public class AssetServiceImpl implements AssetService {
     }
     
     @Override
-    public List<AssetEntity> selectableByBuildingId(UserContextData userContext, UUID buildingId, UUID excludeId) {
+    public List<AssetEntity> selectableByBuildingId(UserContextData userContext, UUID buildingId,
+                                                    UUID excludeId) {
         if (userContext.getEnterpriseId().isPresent()) {
-            return assetRepository.selectableByEnterpriseId(userContext.getEnterpriseId().get(), buildingId, excludeId);
+            return assetRepository.selectableByEnterpriseId(userContext.getEnterpriseId().get(),
+                                                            buildingId, excludeId);
         }
-        return assetRepository.selectableByTenantId(userContext.getTenantId().orElseThrow(), buildingId, excludeId);
+        return assetRepository.selectableByTenantId(userContext.getTenantId().orElseThrow(), buildingId,
+                                                    excludeId);
     }
     
     @EventListener

@@ -48,5 +48,4 @@ public interface EmissionActivityService {
     List<EmissionActivityEntity> findByEnterpriseIdFetchRecords(UUID enterpriseId);
     
     List<EmissionActivityEntity> findByEnterpriseAndBuildingsFetchRecords(UUID enterpriseId, Set<UUID> buildings);
-    
 }

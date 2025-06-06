@@ -60,6 +60,7 @@ import java.util.UUID;
         name = EmissionActivityEntity.SEARCH_PAGE_GRAPH,
         attributeNodes = {
                 @NamedAttributeNode(value = "buildingGroup"),
+                @NamedAttributeNode(value = "type"),
                 @NamedAttributeNode(value = "records", subgraph = "record"),
                 @NamedAttributeNode(value = "emissionFactorEntity", subgraph = "emissionFactor")
         },

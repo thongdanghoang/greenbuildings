@@ -35,6 +35,11 @@
     "lastUpdated": "Last updated"
   },
   "validation": {
+    "asset": {
+      "code": {
+        "duplicate": "Asset code cannot be duplicate."
+      }
+    },
     "unsavedChanges": {
       "title": "Unsaved Changes",
       "message": "Are you sure you want to discard the changes?",
@@ -301,6 +306,10 @@
         }
       },
       "management": {
+        "danger": "Alert",
+        "highGhgEmission": "The building's current emission factor exceeds the limit you have set {{percentage}}%",
+        "warning": "Warning",
+        "highGhgEmissionWarning": "The building's greenhouse gas emissions are at the high GHG emissions {{percentage}}%",
         "subtitle": "Comprehensive building tracking and management, including tenant information, groups, registrations, activities, and shared resource permissions.",
         "title": "Building Management",
         "list": "Building group list",
@@ -326,6 +335,7 @@
           "name": "Building name",
           "levels": "Number of Levels",
           "area": "Total area (m²)",
+          "limit": "Emission limits (kgCO2e)",
           "numberOfDevices": "Expected number of activities",
           "haveSubscriptionOfNumberOfDevices": "Max number of activities",
           "maxNumberOfDevices": "Estimate the amount of activities inventory in the building",
@@ -409,7 +419,7 @@
             "factor": "Emission Factor",
             "source": "Emission Source",
             "quantity": "Number of activities",
-            "ghg": "Greenhouse gas (kgCO2e)",
+            "ghg": "Greenhouse gas",
             "file": {
               "title": "File",
               "choose": "Choose file"

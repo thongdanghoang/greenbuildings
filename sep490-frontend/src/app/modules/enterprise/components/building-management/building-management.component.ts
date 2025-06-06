@@ -1,22 +1,23 @@
 import {Component, EventEmitter, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
+import {BuildingGhgAlertView} from '@generated/models/building-ghg-alert-view';
 import {BuildingGroupCriteria} from '@models/building-group';
+import {BuildingDetails, BuildingGroup, OverviewBuildingDTO} from '@models/enterprise';
 import {TranslateService} from '@ngx-translate/core';
+import {ApplicationService} from '@services/application.service';
+import {BuildingGroupService} from '@services/building-group.service';
+import {BuildingService} from '@services/building.service';
+import {TableTemplateColumn} from '@shared/components/table-template/table-template.component';
+import {SubscriptionAwareComponent} from '@shared/directives/subscription-aware.component';
+import {SearchCriteriaDto, SearchResultDto} from '@shared/models/base-models';
+import {ModalProvider} from '@shared/services/modal-provider';
+import {ToastProvider} from '@shared/services/toast-provider';
 import moment from 'moment/moment';
 import {DialogService, DynamicDialogConfig} from 'primeng/dynamicdialog';
 import {Observable, filter, map, switchMap, takeUntil} from 'rxjs';
 import {validate} from 'uuid';
 import {UUID} from '../../../../../types/uuid';
 import {AppRoutingConstants} from '../../../../app-routing.constant';
-import {BuildingDetails, BuildingGroup, OverviewBuildingDTO} from '@models/enterprise';
-import {BuildingGroupService} from '@services/building-group.service';
-import {BuildingService} from '@services/building.service';
-import {ApplicationService} from '@services/application.service';
-import {SubscriptionAwareComponent} from '@shared/directives/subscription-aware.component';
-import {TableTemplateColumn} from '@shared/components/table-template/table-template.component';
-import {SearchCriteriaDto, SearchResultDto} from '@shared/models/base-models';
-import {ModalProvider} from '@shared/services/modal-provider';
-import {ToastProvider} from '@shared/services/toast-provider';
 import {ReportDialogComponent} from '../../dialog/report-dialog/report-dialog.component';
 
 @Component({
@@ -38,6 +39,7 @@ export class BuildingManagementComponent extends SubscriptionAwareComponent impl
   protected overviewBuilding?: OverviewBuildingDTO;
   protected selected: BuildingGroup[] = [];
   protected readonly AppRoutingConstants = AppRoutingConstants;
+  protected buildingGhgAlertView?: BuildingGhgAlertView;
 
   constructor(
     protected readonly applicationService: ApplicationService,
@@ -77,10 +79,6 @@ export class BuildingManagementComponent extends SubscriptionAwareComponent impl
     });
   }
 
-  goBack(): void {
-    void this.router.navigate([AppRoutingConstants.ENTERPRISE_PATH, AppRoutingConstants.BUILDING_PATH]);
-  }
-
   navigateToBuildingGroupDetail(group: BuildingGroup): void {
     void this.router.navigate([AppRoutingConstants.ENTERPRISE_PATH, AppRoutingConstants.BUILDING_GROUP_PATH, group.id]);
   }
@@ -96,8 +94,6 @@ export class BuildingManagementComponent extends SubscriptionAwareComponent impl
     };
     this.dialogService.open(ReportDialogComponent, config);
   }
-
-  openNewActivityDialog(): void {}
 
   getRemainingDays(): number | string {
     if (!this.buildingDetails?.subscriptionDTO?.endDate) {
@@ -173,6 +169,9 @@ export class BuildingManagementComponent extends SubscriptionAwareComponent impl
         this.buildingService
           .getBuildingOverview(this.buildingDetails.id)
           .subscribe(overview => (this.overviewBuilding = overview));
+        this.buildingService
+          .getBuildingGhgAlertView(this.buildingDetails.id)
+          .subscribe(res => (this.buildingGhgAlertView = res));
       });
   }
 }

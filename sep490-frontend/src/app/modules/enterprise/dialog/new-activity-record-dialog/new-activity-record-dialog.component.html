@@ -87,6 +87,7 @@
             [auto]="false"
             accept="image/*,application/pdf"
             (onSelect)="onFileSelect($event)"
+            [disabled]="formGroupDisable"
         ></p-fileUpload>
         <p
             *ngIf="data?.editRecord?.file && selectedFile === null"
@@ -122,7 +123,7 @@
             <p-button
                 type="submit"
                 [label]="'common.save' | translate"
-                [disabled]="!formGroup.valid"
+                [disabled]="formGroup.invalid || formGroupDisable"
             ></p-button>
         </div>
     </form>

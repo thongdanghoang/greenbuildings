@@ -23,7 +23,6 @@ export class EmissionSourceComponent extends SubscriptionAwareComponent implemen
   @ViewChild('actionsTemplate', {static: true})
   actionsTemplate!: TemplateRef<any>;
   ref: DynamicDialogRef | undefined;
-  isLoading: boolean = false;
   importExcelDTO: ExcelImportDTO | undefined;
   protected fetchEmissionSource!: (
     criteria: SearchCriteriaDto<EmissionSourceCriteria>
@@ -49,10 +48,8 @@ export class EmissionSourceComponent extends SubscriptionAwareComponent implemen
   uploadExcel(event: any): void {
     const file = event.files[0];
     if (!file) return;
-    this.isLoading = true;
     this.emissionSourceService.importEmissionSources(file).subscribe({
       next: () => {
-        this.isLoading = false;
         this.messageService.success({
           severity: 'success',
           summary: 'Thành công',
@@ -61,7 +58,6 @@ export class EmissionSourceComponent extends SubscriptionAwareComponent implemen
         this.search(); // Refresh lại table
       },
       error: err => {
-        this.isLoading = false;
         this.messageService.businessError({
           severity: 'error',
           summary: 'Lỗi',
@@ -75,10 +71,8 @@ export class EmissionSourceComponent extends SubscriptionAwareComponent implemen
     const file = event.target.files[0];
     if (!file) return;
 
-    this.isLoading = true;
     this.emissionSourceService.uploadExcelToMinio(file).subscribe({
       next: () => {
-        this.isLoading = false;
         this.messageService.success({
           severity: 'success',
           summary: 'Thành công',
@@ -87,7 +81,6 @@ export class EmissionSourceComponent extends SubscriptionAwareComponent implemen
         this.search(); // Refresh lại table
       },
       error: err => {
-        this.isLoading = false;
         this.messageService.businessError({
           severity: 'error',
           summary: 'Lỗi',

@@ -56,6 +56,18 @@
             class="flex flex-col gap-2"
             errorMessages
         >
+            <label class="text-lg font-medium">{{ 'enterprise.buildings.details.labels.limit' | translate }}</label>
+            <p-inputnumber
+                formControlName="limit"
+                suffix=" (kgCO2e)"
+            >
+            </p-inputnumber>
+            <form-field-error></form-field-error>
+        </div>
+        <div
+            class="flex flex-col gap-2"
+            errorMessages
+        >
             <label class="text-lg font-medium">{{ 'enterprise.buildings.details.labels.address' | translate }}</label>
             <p-inputgroup>
                 <p-autoComplete

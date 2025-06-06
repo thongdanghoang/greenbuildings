@@ -62,7 +62,8 @@ export class AssetDetailsDialogComponent extends AbstractFormComponent<AssetView
             id: asset.id,
             buildingId: asset.building?.id,
             name: asset.name ?? null,
-            description: asset.description ?? null
+            description: asset.description ?? null,
+            code: asset.code ?? null
           })
         );
     }

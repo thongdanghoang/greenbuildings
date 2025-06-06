@@ -35,6 +35,7 @@ export class BuildingDetailsComponent extends AbstractFormComponent<BuildingDeta
     name: new FormControl(null, Validators.required),
     numberOfLevels: new FormControl<number | null>(0, Validators.required),
     area: new FormControl<number | null>(0, Validators.required),
+    limit: new FormControl<number | null>(null, [Validators.required, Validators.min(0)]),
     latitude: new FormControl<number | null>(null),
     longitude: new FormControl<number | null>(null),
     address: new FormControl<string | null>(null, Validators.required),
@@ -67,21 +68,6 @@ export class BuildingDetailsComponent extends AbstractFormComponent<BuildingDeta
       field: 'buildingGroupName',
       header: 'enterprise.buildings.details.groups.name'
     });
-  }
-
-  back(): void {
-    if (this.showMap) {
-      this.showMap = false;
-      if (this.map) {
-        this.map.remove();
-        this.map = null as any;
-        this.marker = null;
-        this.markers = [];
-      }
-    }
-    setTimeout(() => {
-      void this.router.navigate(['/', AppRoutingConstants.ENTERPRISE_PATH, AppRoutingConstants.BUILDING_PATH]);
-    }, 0); // Delay navigation để đảm bảo logic chạy xong
   }
 
   get isEdit(): boolean {
@@ -120,16 +106,16 @@ export class BuildingDetailsComponent extends AbstractFormComponent<BuildingDeta
 
   showMapView(): void {
     if (this.showMap) {
-      // If map is currently shown, hide it
+      // If a map is currently shown, hide it
       this.showMap = false;
       if (this.map) {
         this.map.remove(); // Remove the map instance to clean up
         this.map = null as any; // Reset the map reference
         this.marker = null; // Reset the marker reference
-        this.markers = []; // Clear the markers array
+        this.markers = []; // Clear the marker array
       }
     } else {
-      // If map is not shown, display it
+      // If a map is not shown, display it
       this.showMap = true;
       setTimeout(() => {
         this.initMap();
@@ -140,13 +126,13 @@ export class BuildingDetailsComponent extends AbstractFormComponent<BuildingDeta
 
   onSubmit(): void {
     if (this.showMap) {
-      // If map is currently shown, hide it
+      // If a map is currently shown, hide it
       this.showMap = false;
       if (this.map) {
         this.map.remove(); // Remove the map instance to clean up
         this.map = null as any; // Reset the map reference
         this.marker = null; // Reset the marker reference
-        this.markers = []; // Clear the markers array
+        this.markers = []; // Clear the marker array
       }
     }
     this.submit();
