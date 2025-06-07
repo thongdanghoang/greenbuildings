@@ -60,7 +60,7 @@ public class EmissionActivityRecordEntity extends AbstractAuditableEntity {
     private RecordFileEntity file;
     
     @Transient
-    private BigDecimal ghg;
+    private BigDecimal ghg = BigDecimal.ZERO;
     
     @NotNull
     @ManyToOne
