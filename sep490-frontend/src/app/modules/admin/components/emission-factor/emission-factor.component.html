@@ -1,5 +1,13 @@
-<master-layout title="enterprise.emission.activity.dialog.EmissionFactor">
-    <div subtitle>{{ 'admin.emissionFactor.description1' | translate }}</div>
+<master-layout
+    title="enterprise.emission.activity.dialog.EmissionFactor"
+    data-testid="admin-emission-factor-root"
+>
+    <div
+        subtitle
+        data-testid="admin-emission-factor-subtitle"
+    >
+        {{ 'admin.emissionFactor.description1' | translate }}
+    </div>
     <!--    <div class="my-2 flex items-center justify-center">-->
     <!--                <h3 class="my-2 font-semibold text-primary">-->
     <!--                    {{ 'admin.emissionSource.upload.title' | translate }}-->
@@ -14,12 +22,16 @@
         [triggerSearch]="searchEvent"
         [captionTemplateRef]="captionTemplateRef"
         (selectionChange)="onSelectionChange($event)"
+        data-testid="admin-emission-factor-table"
     >
     </table-template>
 </master-layout>
 
 <ng-template #captionTemplateRef>
-    <div class="flex flex-col items-end justify-between gap-2 *:w-full lg:flex-row lg:items-center">
+    <div
+        class="flex flex-col items-end justify-between gap-2 *:w-full lg:flex-row lg:items-center"
+        data-testid="admin-emission-factor-search"
+    >
         <p-inputgroup>
             <input
                 [(ngModel)]="searchCriteria.criteria"
@@ -27,6 +39,7 @@
                 pInputText
                 placeholder="{{ 'common.search' | translate }}"
                 (keydown.enter)="search()"
+                data-testid="admin-emission-factor-search-input"
             />
             <p-inputgroup-addon>
                 <p-button
@@ -34,25 +47,14 @@
                     severity="secondary"
                     text
                     (onClick)="searchEvent.emit()"
+                    data-testid="admin-emission-factor-search-button"
                 />
             </p-inputgroup-addon>
         </p-inputgroup>
-        <div class="flex justify-between gap-2 lg:justify-end">
-            <!--            <p-button-->
-            <!--                severity="secondary"-->
-            <!--                [label]="'admin.emissionSource.uploadToMinio' | translate"-->
-            <!--                icon="pi pi-upload"-->
-            <!--                outlined-->
-            <!--                (onClick)="fileInput.click()"-->
-            <!--                size="small"-->
-            <!--            />-->
-            <!--            <input-->
-            <!--                #fileInput-->
-            <!--                type="file"-->
-            <!--                accept=".xlsx"-->
-            <!--                style="display: none"-->
-            <!--                (change)="uploadExcelToMinio($event)"-->
-            <!--            />-->
+        <div
+            class="flex justify-between gap-2 lg:justify-end"
+            data-testid="admin-emission-factor-actions"
+        >
             <p-fileUpload
                 name="file"
                 accept=".xlsx"
@@ -63,6 +65,7 @@
                 [chooseLabel]="'admin.emissionSource.upload.chooseFile' | translate"
                 [auto]="true"
                 [maxFileSize]="5000000"
+                data-testid="admin-emission-factor-upload"
             >
             </p-fileUpload>
             <p-button
@@ -72,6 +75,7 @@
                 outlined
                 (onClick)="onDownloadFile()"
                 size="small"
+                data-testid="admin-emission-factor-download"
             />
         </div>
     </div>
@@ -80,17 +84,22 @@
     #actionsTemplate
     let-rowData
 >
-    <div class="flex items-center gap-2">
+    <div
+        class="flex items-center gap-2"
+        data-testid="admin-emission-factor-row-actions"
+    >
         <p-button
             icon="pi pi-pencil"
             [rounded]="true"
             [text]="true"
             severity="info"
             (onClick)="onEdit(rowData)"
+            data-testid="admin-emission-factor-edit"
         />
         <p-inputSwitch
             [ngModel]="rowData.active"
             (onChange)="onDelete(rowData)"
+            data-testid="admin-emission-factor-switch"
         ></p-inputSwitch>
     </div>
 </ng-template>

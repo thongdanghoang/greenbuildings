@@ -1,5 +1,13 @@
-<master-layout title="sidebar.admin.fuel">
-    <div subtitle>{{ 'admin.fuel.description' | translate }}</div>
+<master-layout
+    title="sidebar.admin.fuel"
+    data-testid="admin-fuel-conversion-root"
+>
+    <div
+        subtitle
+        data-testid="admin-fuel-conversion-subtitle"
+    >
+        {{ 'admin.fuel.description' | translate }}
+    </div>
     <!--    <div class="my-2 flex items-center justify-center">-->
     <!--        <h3 class="my-2 font-semibold text-primary">-->
     <!--            {{ 'admin.emissionSource.upload.title' | translate }}-->
@@ -13,6 +21,7 @@
         icon="pi pi-user-plus"
         outlined
         (onClick)="addFuel()"
+        data-testid="admin-fuel-conversion-add"
     />
     <table-template
         [fetch]="fetchFuel"
@@ -23,11 +32,15 @@
         [captionTemplateRef]="captionTemplateRef"
         [checkbox]="true"
         (selectionChange)="onSelectionChange($event)"
+        data-testid="admin-fuel-conversion-table"
     />
 </master-layout>
 
 <ng-template #captionTemplateRef>
-    <div class="-mx-4 flex flex-col-reverse items-end justify-between gap-2 *:w-full lg:flex-row lg:items-center">
+    <div
+        class="-mx-4 flex flex-col-reverse items-end justify-between gap-2 *:w-full lg:flex-row lg:items-center"
+        data-testid="admin-fuel-conversion-search"
+    >
         <p-inputgroup>
             <input
                 [(ngModel)]="searchCriteria.criteria"
@@ -35,6 +48,7 @@
                 pInputText
                 placeholder="{{ 'common.search' | translate }}"
                 (keydown.enter)="search()"
+                data-testid="admin-fuel-conversion-search-input"
             />
             <p-inputgroup-addon>
                 <p-button
@@ -42,25 +56,14 @@
                     severity="secondary"
                     text
                     (onClick)="search()"
+                    data-testid="admin-fuel-conversion-search-button"
                 />
             </p-inputgroup-addon>
         </p-inputgroup>
-        <div class="flex justify-between gap-2 lg:justify-end">
-            <!--            <input-->
-            <!--                #fileInput-->
-            <!--                type="file"-->
-            <!--                accept=".xlsx"-->
-            <!--                style="display: none"-->
-            <!--                (change)="uploadExcelToMinio($event)"-->
-            <!--            />-->
-            <!--            <p-button-->
-            <!--                severity="secondary"-->
-            <!--                [label]="'admin.emissionSource.uploadToMinio' | translate"-->
-            <!--                icon="pi pi-upload"-->
-            <!--                outlined-->
-            <!--                (onClick)="fileInput.click()"-->
-            <!--                size="small"-->
-            <!--            />-->
+        <div
+            class="flex justify-between gap-2 lg:justify-end"
+            data-testid="admin-fuel-conversion-actions"
+        >
             <p-fileUpload
                 name="file"
                 accept=".xlsx"
@@ -71,6 +74,7 @@
                 [chooseLabel]="'admin.emissionSource.upload.chooseFile' | translate"
                 [auto]="true"
                 [maxFileSize]="5000000"
+                data-testid="admin-fuel-conversion-upload"
             >
             </p-fileUpload>
             <p-button
@@ -80,6 +84,7 @@
                 outlined
                 (onClick)="onDownloadFile()"
                 size="small"
+                data-testid="admin-fuel-conversion-download"
             />
         </div>
     </div>
@@ -88,13 +93,17 @@
     #actionsTemplate
     let-rowData
 >
-    <div class="flex">
+    <div
+        class="flex"
+        data-testid="admin-fuel-conversion-row-actions"
+    >
         <p-button
             icon="pi pi-pencil"
             [rounded]="true"
             [text]="true"
             severity="info"
             (onClick)="onEdit(rowData)"
+            data-testid="admin-fuel-conversion-edit"
         />
     </div>
 </ng-template>

@@ -1,8 +1,19 @@
-<master-layout title="admin.ratio.title1">
-    <div subtitle>{{ 'admin.ratio.description' | translate }}</div>
+<master-layout
+    title="admin.ratio.title1"
+    data-testid="admin-credit-convert-ratio-root"
+>
+    <div
+        subtitle
+        data-testid="admin-credit-convert-ratio-subtitle"
+    >
+        {{ 'admin.ratio.description' | translate }}
+    </div>
     <div class="grid grid-cols-1 items-center justify-center gap-4 p-4 md:grid-cols-2 lg:grid-cols-2">
         @for (ratio of creditConvertRatios; track ratio.id) {
-            <p-card class="rounded-2xl shadow-lg">
+            <p-card
+                class="rounded-2xl shadow-lg"
+                data-testid="admin-credit-convert-ratio-card"
+            >
                 <ng-template #header>
                     <div class="bg-primary-400 py-6 text-center text-lg font-semibold dark:bg-primary-600">
                         {{ 'admin.ratio.type.' + ratio.convertType | translate }}
@@ -22,6 +33,7 @@
                                 border: 1px solid rgba(75, 175, 80, 0.3);
                                 --p-ripple-background: rgba(75, 175, 80, 0.3);
                             "
+                            [attr.data-testid]="'admin-credit-convert-ratio-value-' + ratio.id"
                         >
                             <span class="font-bold">{{ ratio.ratio }}</span>
                         </div>
@@ -36,6 +48,7 @@
                             outlined
                             icon="pi pi-wrench"
                             (onClick)="control(ratio)"
+                            data-testid="admin-credit-convert-ratio-control"
                         />
                     </div>
                 </ng-template>

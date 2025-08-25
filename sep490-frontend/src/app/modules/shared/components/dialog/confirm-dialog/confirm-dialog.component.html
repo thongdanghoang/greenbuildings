@@ -1,17 +1,25 @@
-<div class="flex w-80 flex-grow items-center gap-3 overflow-y-auto lg:w-96">
+<div
+    class="flex w-80 flex-grow items-center gap-3 overflow-y-auto lg:w-96"
+    data-testid="confirm-dialog-root"
+>
     @if (option('icon')) {
         <i
             class="text-2xl"
             [class]="option('icon')"
+            data-testid="confirm-dialog-icon"
         ></i>
     }
     <span
         class="p-confirm-dialog-message"
         [innerHTML]="option('message')"
+        data-testid="confirm-dialog-message"
     ></span>
 </div>
 <!-- Footer -->
-<div class="flex items-center justify-end gap-2">
+<div
+    class="flex items-center justify-end gap-2"
+    data-testid="confirm-dialog-footer"
+>
     <button
         type="button"
         pRipple
@@ -21,6 +29,7 @@
         [ngClass]="'p-confirm-dialog-reject'"
         [class]="option('rejectButtonStyleClass')"
         outlined
+        data-testid="confirm-dialog-reject"
     ></button>
     <button
         type="button"
@@ -30,5 +39,6 @@
         (click)="accept()"
         [ngClass]="'p-confirm-dialog-accept'"
         [class]="option('acceptButtonStyleClass')"
+        data-testid="confirm-dialog-accept"
     ></button>
 </div>

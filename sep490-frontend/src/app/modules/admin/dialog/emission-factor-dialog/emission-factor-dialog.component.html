@@ -1,6 +1,12 @@
-<div class="mt-4 w-[300px] sm:w-[400px] md:w-[500px]">
+<div
+    class="mt-4 w-[300px] sm:w-[400px] md:w-[500px]"
+    data-testid="admin-emission-factor-dialog-root"
+>
     <!-- Dialog Header -->
-    <div class="p-dialog-header border-b p-0">
+    <div
+        class="p-dialog-header border-b p-0"
+        data-testid="admin-emission-factor-dialog-header"
+    >
         <span class="text-xl font-semibold">
             {{ 'enterprise.emission.activity.record.table.factor' | translate }}
         </span>
@@ -10,6 +16,7 @@
             icon="pi pi-times"
             class="p-button-rounded p-button-text"
             (click)="closeDialog()"
+            data-testid="admin-emission-factor-dialog-close"
         ></button>
     </div>
 
@@ -17,6 +24,7 @@
     <p-stepper
         [value]="1"
         class="block"
+        data-testid="admin-emission-factor-dialog-stepper"
     >
         <p-step-panels class="block h-full">
             <!-- Step 1: Names and Description -->
@@ -33,6 +41,7 @@
                                     formControlName="nameVN"
                                     class="w-full"
                                     autocomplete="off"
+                                    data-testid="admin-emission-factor-dialog-name-vn"
                                 />
                                 <label>{{ 'common.name' | translate }} (VN)</label>
                             </p-iftalabel>
@@ -42,6 +51,7 @@
                                     formControlName="nameEN"
                                     class="w-full"
                                     autocomplete="off"
+                                    data-testid="admin-emission-factor-dialog-name-en"
                                 />
                                 <label>{{ 'common.name' | translate }} (EN)</label>
                             </p-iftalabel>
@@ -51,6 +61,7 @@
                                     formControlName="nameZH"
                                     class="w-full"
                                     autocomplete="off"
+                                    data-testid="admin-emission-factor-dialog-name-zh"
                                 />
                                 <label>{{ 'common.name' | translate }} (ZH)</label>
                             </p-iftalabel>
@@ -60,6 +71,7 @@
                                     formControlName="description"
                                     class="w-full"
                                     autocomplete="off"
+                                    data-testid="admin-emission-factor-dialog-description"
                                 />
                                 <label>{{ 'admin.emissionFactor.description' | translate }}</label>
                             </p-iftalabel>
@@ -70,6 +82,7 @@
                                 icon="pi pi-arrow-right"
                                 iconPos="right"
                                 (onClick)="activateCallback(2)"
+                                data-testid="admin-emission-factor-dialog-next-1"
                             ></p-button>
                         </div>
                     </div>
@@ -91,6 +104,7 @@
                                     class="w-full"
                                     autocomplete="off"
                                     type="number"
+                                    data-testid="admin-emission-factor-dialog-co2"
                                 />
                                 <label>{{ 'CO2' | translate }}</label>
                             </p-iftalabel>
@@ -101,6 +115,7 @@
                                     class="w-full"
                                     autocomplete="off"
                                     type="number"
+                                    data-testid="admin-emission-factor-dialog-ch4"
                                 />
                                 <label>{{ 'CH4' | translate }}</label>
                             </p-iftalabel>
@@ -111,6 +126,7 @@
                                     class="w-full"
                                     autocomplete="off"
                                     type="number"
+                                    data-testid="admin-emission-factor-dialog-n2o"
                                 />
                                 <label>{{ 'N2O' | translate }}</label>
                             </p-iftalabel>
@@ -121,12 +137,14 @@
                                 severity="secondary"
                                 icon="pi pi-arrow-left"
                                 (onClick)="activateCallback(1)"
+                                data-testid="admin-emission-factor-dialog-back-2"
                             ></p-button>
                             <p-button
                                 label="{{ 'common.next' | translate }}"
                                 icon="pi pi-arrow-right"
                                 iconPos="right"
                                 (onClick)="activateCallback(3)"
+                                data-testid="admin-emission-factor-dialog-next-2"
                             ></p-button>
                         </div>
                     </div>
@@ -148,6 +166,7 @@
                                     inputId="validFrom"
                                     dateFormat="dd/mm/yy"
                                     [style]="{width: '100%'}"
+                                    data-testid="admin-emission-factor-dialog-valid-from"
                                 ></p-calendar>
                                 <label>{{ 'enterprise.emission.activity.record.table.startDate' | translate }}</label>
                             </p-iftalabel>
@@ -158,6 +177,7 @@
                                     inputId="validTo"
                                     dateFormat="dd/mm/yy"
                                     [style]="{width: '100%'}"
+                                    data-testid="admin-emission-factor-dialog-valid-to"
                                 ></p-calendar>
                                 <label>{{ 'enterprise.emission.activity.record.table.endDate' | translate }}</label>
                             </p-iftalabel>
@@ -168,6 +188,7 @@
                                 severity="secondary"
                                 icon="pi pi-arrow-left"
                                 (onClick)="activateCallback(2)"
+                                data-testid="admin-emission-factor-dialog-back-3"
                             ></p-button>
                             <p-button
                                 label="{{ 'common.save' | translate }}"
@@ -175,6 +196,7 @@
                                 severity="primary"
                                 [disabled]="formGroup.invalid"
                                 (onClick)="submit()"
+                                data-testid="admin-emission-factor-dialog-save"
                             ></p-button>
                         </div>
                     </div>

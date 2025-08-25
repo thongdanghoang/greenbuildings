@@ -1,6 +1,7 @@
 <p-stepper
     [value]="1"
     class="block max-w-sm sm:max-w-md md:min-w-[500px]"
+    data-testid="report-dialog-root"
 >
     <p-step-panels class="block h-full">
         <p-step-panel [value]="1">
@@ -8,14 +9,18 @@
                 #content
                 let-activateCallback="activateCallback"
             >
-                <p>
+                <p data-testid="report-dialog-step1-title">
                     {{ 'enterprise.emission.activity.selectGroups' | translate }}
                 </p>
-                <form [formGroup]="formGroup">
+                <form
+                    [formGroup]="formGroup"
+                    data-testid="report-dialog-step1-form"
+                >
                     <div class="my-4 grid grid-cols-2 gap-4">
                         <div
                             *ngFor="let activity of groups"
                             class="flex items-center"
+                            data-testid="report-dialog-group-item"
                         >
                             <p-checkbox
                                 [formControlName]="'selectedGroups'"
@@ -43,6 +48,7 @@
                             iconPos="right"
                             [disabled]="formStructure.selectedGroups.value!.length === 0"
                             (onClick)="activateCallback(2)"
+                            data-testid="report-dialog-next"
                         ></p-button>
                     </div>
                 </form>
@@ -54,7 +60,10 @@
                 #content
                 let-activateCallback="activateCallback"
             >
-                <form [formGroup]="formGroup">
+                <form
+                    [formGroup]="formGroup"
+                    data-testid="report-dialog-step2-form"
+                >
                     <p-iftalabel class="my-2">
                         <p-date-picker
                             formControlName="rangeDates"
@@ -62,6 +71,7 @@
                             selectionMode="range"
                             [style]="{width: '100%'}"
                             [inline]="true"
+                            data-testid="report-dialog-date-range"
                         ></p-date-picker>
                         <label>{{ 'enterprise.emission.activity.record.table.dateRange' | translate }}</label>
                     </p-iftalabel>
@@ -71,6 +81,7 @@
                             severity="secondary"
                             icon="pi pi-arrow-left"
                             (onClick)="activateCallback(1)"
+                            data-testid="report-dialog-back"
                         ></p-button>
                         <p-button
                             label="{{ 'common.download' | translate }}"
@@ -78,6 +89,7 @@
                             severity="primary"
                             [disabled]="formGroup.invalid"
                             (onClick)="submit()"
+                            data-testid="report-dialog-download"
                         ></p-button>
                     </div>
                 </form>

@@ -1,12 +1,21 @@
 <master-layout
     title="enterprise.buildings.group.title"
     [showBack]="true"
+    data-testid="building-group-detail-root"
 >
-    <div subtitle>{{ 'enterprise.buildings.group.subtitle' | translate }}</div>
+    <div
+        subtitle
+        data-testid="building-group-detail-subtitle"
+    >
+        {{ 'enterprise.buildings.group.subtitle' | translate }}
+    </div>
     <ng-container *ngIf="buildingGroup">
         <div class="my-2 flex flex-col lg:flex-row">
             <div class="m-2 md:w-1/2">
-                <p-card styleClass="rounded-xl overflow-hidden h-full w-full">
+                <p-card
+                    styleClass="rounded-xl overflow-hidden h-full w-full"
+                    data-testid="building-group-detail-card"
+                >
                     <!-- Header -->
                     <ng-template pTemplate="header">
                         <div class="items-center bg-primary-50 p-4 lg:p-6 dark:bg-primary-950">
@@ -37,14 +46,18 @@
                             <span class="hidden font-semibold lg:block">
                                 {{ 'buildingGroup.building.name' | translate }}:
                             </span>
-                            <span>{{ buildingGroup.building.name || '-' }}</span>
+                            <span data-testid="building-group-detail-building-name">{{
+                                buildingGroup.building.name || '-'
+                            }}</span>
                         </div>
                         <div class="flex items-start gap-3">
                             <i class="pi pi-map-marker text-lg text-sky-500"></i>
                             <span class="hidden min-w-fit font-semibold lg:block">
                                 {{ 'buildingGroup.building.address' | translate }}:
                             </span>
-                            <span>{{ buildingGroup.building.address }}</span>
+                            <span data-testid="building-group-detail-building-address">{{
+                                buildingGroup.building.address
+                            }}</span>
                         </div>
                     </div>
 
@@ -60,6 +73,7 @@
                                     outlined
                                     styleClass="transition-colors duration-200"
                                     (onClick)="navigateToEnterpriseDetail()"
+                                    data-testid="building-group-detail-enterprise-detail"
                                 ></p-button>
                             </ng-container>
                             <ng-template #spacer>
@@ -72,6 +86,7 @@
                                 severity="primary"
                                 styleClass="transition-colors duration-200"
                                 (onClick)="openNewActivityDialog()"
+                                data-testid="building-group-detail-new-activity"
                             ></p-button>
                         </div>
                     </ng-template>
@@ -81,6 +96,7 @@
                 <p-card
                     *ngIf="userRole === UserRole.ENTERPRISE_OWNER"
                     styleClass="rounded-xl overflow-hidden h-full w-full"
+                    data-testid="building-group-detail-tenant-card"
                 >
                     <!-- Header -->
                     <ng-template pTemplate="header">
@@ -109,21 +125,27 @@
                                     <span class="hidden font-semibold lg:block">
                                         {{ 'tenant.building' | translate }}
                                     </span>
-                                    <span>{{ buildingGroup.tenant.name || '-' }}</span>
+                                    <span data-testid="building-group-detail-tenant-building">{{
+                                        buildingGroup.tenant.name || '-'
+                                    }}</span>
                                 </div>
                                 <div class="flex items-center gap-3">
                                     <i class="pi pi-envelope text-lg text-sky-500"></i>
                                     <span class="hidden font-semibold lg:block">
                                         {{ 'tenant.email' | translate }}
                                     </span>
-                                    <span>{{ buildingGroup.tenant.email || '-' }}</span>
+                                    <span data-testid="building-group-detail-tenant-email">{{
+                                        buildingGroup.tenant.email || '-'
+                                    }}</span>
                                 </div>
                                 <div class="flex items-center gap-3">
                                     <i class="pi pi-phone text-lg text-sky-500"></i>
                                     <span class="hidden font-semibold lg:block">
                                         {{ 'tenant.hotline' | translate }}
                                     </span>
-                                    <span>{{ buildingGroup.tenant.hotline || '-' }}</span>
+                                    <span data-testid="building-group-detail-tenant-hotline">{{
+                                        buildingGroup.tenant.hotline || '-'
+                                    }}</span>
                                 </div>
                             </div>
                         </ng-container>
@@ -131,11 +153,15 @@
                             <div
                                 *ngIf="!pendingInvitation"
                                 class="flex items-center justify-center py-3"
+                                data-testid="building-group-detail-no-tenant"
                             >
                                 <i class="pi pi-exclamation-circle mr-2"></i>
                                 <span>{{ 'tenant.noTenant' | translate }}</span>
                             </div>
-                            <div *ngIf="pendingInvitation">
+                            <div
+                                *ngIf="pendingInvitation"
+                                data-testid="building-group-detail-pending-invitation"
+                            >
                                 {{ 'tenant.pendingInvitation' | translate }}
                                 <span class="font-semibold">{{ pendingInvitation.email }}</span>
                             </div>
@@ -154,6 +180,7 @@
                                 severity="danger"
                                 styleClass="transition-colors duration-200"
                                 (onClick)="unlinkTenant()"
+                                data-testid="building-group-detail-unlink-tenant"
                             ></p-button>
                             <p-button
                                 label="{{ 'tenant.detail' | translate }}"
@@ -162,6 +189,7 @@
                                 outlined
                                 styleClass="transition-colors duration-200"
                                 (onClick)="navigateToTenantDetail()"
+                                data-testid="building-group-detail-tenant-detail"
                             ></p-button>
                         </div>
                         <div
@@ -174,6 +202,7 @@
                                 severity="primary"
                                 styleClass=" transition-colors duration-200"
                                 (onClick)="navigateToAssignTenant()"
+                                data-testid="building-group-detail-assign-tenant"
                             ></p-button>
                         </div>
                     </ng-template>
@@ -192,6 +221,7 @@
         [triggerClearSelected]="clearSelectedEvent"
         (selectionChange)="onSelectionChange($event)"
         [checkbox]="true"
+        data-testid="building-group-detail-activities-table"
     />
 </master-layout>
 
@@ -207,6 +237,7 @@
                 [(ngModel)]="searchCriteria.name"
                 placeholder="{{ 'common.search' | translate }}"
                 (keydown.enter)="searchEvent.emit()"
+                data-testid="building-group-detail-activities-search"
             />
             <p-inputgroup-addon>
                 <p-button
@@ -214,6 +245,7 @@
                     severity="secondary"
                     variant="text"
                     (onClick)="searchEvent.emit()"
+                    data-testid="building-group-detail-activities-search-button"
                 />
             </p-inputgroup-addon>
         </p-inputgroup>
@@ -228,6 +260,7 @@
             outlined
             [disabled]="!selected || !selected.length"
             (onClick)="confirmDelete()"
+            data-testid="building-group-detail-activities-delete"
         />
     </div>
 </ng-template>
@@ -241,17 +274,26 @@
         [text]="true"
         severity="contrast"
         (onClick)="openActivityDetailsDialog(activity)"
+        data-testid="building-group-detail-activities-edit"
     />
 </ng-template>
 <ng-template
     #typeTemplate
     let-activity
 >
-    <span *ngIf="activity.type">{{ activity?.type.name }}</span>
+    <span
+        *ngIf="activity.type"
+        data-testid="building-group-detail-activity-type"
+        >{{ activity?.type.name }}</span
+    >
 </ng-template>
 <ng-template
     #factorNameTemplate
     let-activity
 >
-    <span *ngIf="activity.emissionFactor">{{ getFactorName(activity) }}</span>
+    <span
+        *ngIf="activity.emissionFactor"
+        data-testid="building-group-detail-activity-factor"
+        >{{ getFactorName(activity) }}</span
+    >
 </ng-template>

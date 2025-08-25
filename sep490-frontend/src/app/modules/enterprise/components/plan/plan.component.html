@@ -1,5 +1,11 @@
-<master-layout title="purchaseCredit.title">
-    <div class="flex flex-col items-center justify-center gap-2.5 pl-0 lg:flex-row lg:justify-start">
+<master-layout
+    title="purchaseCredit.title"
+    data-testid="enterprise-plan-root"
+>
+    <div
+        class="flex flex-col items-center justify-center gap-2.5 pl-0 lg:flex-row lg:justify-start"
+        data-testid="enterprise-plan-header"
+    >
         <p>{{ 'purchaseCredit.introduceMethod' | translate }}</p>
         <div class="flex flex-row gap-1.5">
             <img
@@ -13,6 +19,7 @@
     </div>
     <div
         class="block items-center justify-center rounded-md border border-gray-50 bg-primary-50 py-24 dark:border-gray-950 dark:bg-primary-950"
+        data-testid="enterprise-plan-balance-card"
     >
         <div
             class="relative flex flex-col items-center justify-stretch gap-2.5 text-black lg:flex-row dark:text-white/80"
@@ -23,7 +30,10 @@
             <div
                 class="mr-0 flex w-full flex-col items-center justify-center gap-2.5 lg:mr-10 lg:flex-row lg:items-end"
             >
-                <p class="text-5xl font-medium text-primary">
+                <p
+                    class="text-5xl font-medium text-primary"
+                    data-testid="enterprise-plan-balance"
+                >
                     {{ balance | number: '1.0-0' }}
                 </p>
                 <span>{{ 'payment.history.credit.title' | translate }}</span>
@@ -33,35 +43,48 @@
 
     <div
         class="block items-center justify-center rounded-md border border-gray-50 bg-primary-50 dark:border-gray-950 dark:bg-primary-950"
+        data-testid="enterprise-plan-packages"
     >
         <div class="flex flex-col gap-16">
             <div
                 class="mx-6 mt-8 flex items-center justify-center rounded-md border border-gray-50 bg-white px-4 py-2 lg:justify-start dark:border-zinc-900 dark:bg-zinc-900"
+                data-testid="enterprise-plan-select-title"
             >
                 <p>{{ 'purchaseCredit.selectCreditPackage' | translate }}</p>
             </div>
-            <div class="mx-6 flex flex-col items-center justify-center gap-16 lg:flex-row">
+            <div
+                class="mx-6 flex flex-col items-center justify-center gap-16 lg:flex-row"
+                data-testid="enterprise-plan-packages-list"
+            >
                 @for (pkg of creditPackages; track pkg.id) {
                     <ng-container *ngTemplateOutlet="creditBundleTemplate; context: {$implicit: pkg}"></ng-container>
                 }
             </div>
-            <div class="mb-8 flex items-center justify-center gap-4">
+            <div
+                class="mb-8 flex items-center justify-center gap-4"
+                data-testid="enterprise-plan-actions"
+            >
                 <p-button
                     severity="primary"
                     [label]="'payment.history.button.buyCredit' | translate"
                     [disabled]="!selectedPackage"
                     (onClick)="onBuyCredit()"
+                    data-testid="enterprise-plan-buy"
                 />
                 <p-button
                     severity="secondary"
                     [label]="'purchaseCredit.guide' | translate"
                     (onClick)="showCreditPackageDialog()"
+                    data-testid="enterprise-plan-guide"
                 />
             </div>
         </div>
     </div>
 
-    <div class="block items-center justify-center rounded-md border border-gray-50 dark:border-gray-950">
+    <div
+        class="block items-center justify-center rounded-md border border-gray-50 dark:border-gray-950"
+        data-testid="enterprise-plan-accordion"
+    >
         <p-accordion
             [value]="0"
             [multiple]="true"
@@ -122,6 +145,7 @@
             'border-gray-50 hover:border-primary/50 hover:shadow-md': selectedPackage?.id !== creditBundle.id
         }"
         (click)="selectPackage(creditBundle)"
+        data-testid="enterprise-plan-package-card"
     >
         <div
             class="absolute -left-3 -top-3 flex h-12 !w-12 rotate-[332deg] transform-gpu items-center justify-center rounded-full bg-red-500 text-base font-bold text-white shadow-md"
@@ -136,11 +160,17 @@
                 class="mx-auto w-16"
             />
         </div>
-        <div class="border-b p-4 text-lg font-semibold">
+        <div
+            class="border-b p-4 text-lg font-semibold"
+            data-testid="enterprise-plan-package-credits"
+        >
             {{ creditBundle.numberOfCredits | number: '1.0-0' }}
             {{ 'payment.history.credit.title' | translate }}
         </div>
-        <div class="p-2 text-center text-base font-medium text-gray-600 dark:text-gray-400">
+        <div
+            class="p-2 text-center text-base font-medium text-gray-600 dark:text-gray-400"
+            data-testid="enterprise-plan-package-price"
+        >
             {{ formatedCurrencyAfterDiscount(creditBundle.convertedPriceCurrency, creditBundle.discount) }}
         </div>
     </div>

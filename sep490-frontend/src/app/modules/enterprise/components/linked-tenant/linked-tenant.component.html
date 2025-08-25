@@ -1,5 +1,13 @@
-<master-layout title="linkedTenant.title">
-    <p subtitle>{{ 'linkedTenant.description' | translate }}</p>
+<master-layout
+    title="linkedTenant.title"
+    data-testid="linked-tenant-root"
+>
+    <p
+        subtitle
+        data-testid="linked-tenant-subtitle"
+    >
+        {{ 'linkedTenant.description' | translate }}
+    </p>
 
     <table-template
         [fetch]="fetchTenant"
@@ -8,11 +16,15 @@
         [captionTemplateRef]="captionTemplateRef"
         [criteria]="searchCriteria"
         [triggerSearch]="searchEvent"
+        data-testid="linked-tenant-table"
     />
 </master-layout>
 
 <ng-template #captionTemplateRef>
-    <div class="flex flex-col items-end justify-between gap-2 lg:flex-row lg:items-center">
+    <div
+        class="flex flex-col items-end justify-between gap-2 lg:flex-row lg:items-center"
+        data-testid="linked-tenant-search"
+    >
         <p-inputgroup class="max-w-96">
             <input
                 type="text"
@@ -20,6 +32,7 @@
                 [(ngModel)]="searchCriteria.email"
                 placeholder="{{ 'common.search' | translate }}"
                 (keydown.enter)="searchEvent.emit()"
+                data-testid="linked-tenant-search-input"
             />
             <p-inputgroup-addon>
                 <p-button
@@ -27,6 +40,7 @@
                     severity="secondary"
                     variant="text"
                     (onClick)="searchEvent.emit()"
+                    data-testid="linked-tenant-search-button"
                 />
             </p-inputgroup-addon>
         </p-inputgroup>
@@ -50,6 +64,7 @@
                     building.id
                 ]"
                 class="flex items-baseline gap-1 text-primary-600 hover:underline"
+                data-testid="linked-tenant-building-link"
             >
                 <i class="pi pi-building"></i>
                 <span class="font-semibold">{{ building.name }}</span>
@@ -63,6 +78,7 @@
                     building.buildingGroup.id
                 ]"
                 class="flex items-baseline gap-1 text-sky-600 hover:underline"
+                data-testid="linked-tenant-group-link"
             >
                 <i class="pi pi-user"></i>
                 <span class="font-semibold">{{ building.buildingGroup.name }}</span>
@@ -81,5 +97,6 @@
         icon="pi pi-eye"
         class="p-button-rounded p-button-text"
         (click)="onView(rowData.id)"
+        data-testid="linked-tenant-view"
     ></button>
 </ng-template>

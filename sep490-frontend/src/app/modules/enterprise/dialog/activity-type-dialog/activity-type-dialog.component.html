@@ -1,7 +1,13 @@
 <!-- activity-type-dialog.component.html -->
-<div class="mt-4 w-[300px] sm:w-[400px] md:w-[500px]">
+<div
+    class="mt-4 w-[300px] sm:w-[400px] md:w-[500px]"
+    data-testid="activity-type-dialog-root"
+>
     <!-- Dialog Header -->
-    <div class="p-dialog-header border-b p-0">
+    <div
+        class="p-dialog-header border-b p-0"
+        data-testid="activity-type-dialog-header"
+    >
         <span class="text-xl font-semibold">
             {{ 'enterprise.type.name' | translate }}
         </span>
@@ -11,12 +17,16 @@
             icon="pi pi-times"
             class="p-button-rounded p-button-text"
             (click)="closeDialog()"
+            data-testid="activity-type-dialog-close"
         ></button>
     </div>
 
     <!-- Form Content -->
     <div class="p-dialog-content flex min-h-[150px] flex-col overflow-hidden p-0">
-        <form [formGroup]="formGroup">
+        <form
+            [formGroup]="formGroup"
+            data-testid="activity-type-dialog-form"
+        >
             <p-iftalabel
                 class="my-2"
                 errorMessages
@@ -26,6 +36,7 @@
                     formControlName="name"
                     class="w-full"
                     autocomplete="off"
+                    data-testid="activity-type-dialog-name"
                 />
                 <label>{{ 'common.name' | translate }}</label>
                 <form-field-error></form-field-error>
@@ -39,6 +50,7 @@
                     formControlName="description"
                     class="w-full"
                     autocomplete="off"
+                    data-testid="activity-type-dialog-description"
                 />
                 <label>{{ 'admin.emissionFactor.description' | translate }}</label>
                 <form-field-error></form-field-error>
@@ -51,6 +63,7 @@
                 severity="primary"
                 [disabled]="formGroup.invalid"
                 (onClick)="submit()"
+                data-testid="activity-type-dialog-save"
             ></p-button>
         </div>
     </div>

@@ -1,11 +1,18 @@
 <master-layout
     title="enterprise.building-group.create.title"
     [showBack]="true"
+    data-testid="new-building-group-root"
 >
-    <div subtitle>{{ 'enterprise.building-group.create.subtitle1' | translate }}</div>
+    <div
+        subtitle
+        data-testid="new-building-group-subtitle"
+    >
+        {{ 'enterprise.building-group.create.subtitle1' | translate }}
+    </div>
     <form
         [formGroup]="formGroup"
         class="py-5 sm:mt-5 sm:px-5"
+        data-testid="new-building-group-form"
     >
         <div class="my-3 mb-8 grid grid-cols-12 items-center gap-2 sm:gap-4">
             <label
@@ -24,6 +31,7 @@
                     id="name"
                     type="text"
                     [placeholder]="'enterprise.building-group.create.placeholders.name' | translate"
+                    data-testid="new-building-group-name"
                 />
                 <form-field-error></form-field-error>
             </div>
@@ -45,6 +53,7 @@
                     id="description"
                     type="text"
                     [placeholder]="'enterprise.building-group.create.placeholders.description' | translate"
+                    data-testid="new-building-group-description"
                 />
                 <form-field-error></form-field-error>
             </div>
@@ -66,6 +75,7 @@
                     id="name"
                     type="text"
                     [placeholder]="'enterprise.buildings.tenant.placeholder.email' | translate"
+                    data-testid="new-building-group-tenant-email"
                 />
                 <form-field-error></form-field-error>
             </div>
@@ -77,12 +87,14 @@
                 severity="primary"
                 styleClass="w-full"
                 (onClick)="submit()"
+                data-testid="new-building-group-save"
             ></p-button>
             <p-button
                 [label]="'common.revert' | translate"
                 severity="secondary"
                 styleClass="w-full"
                 (onClick)="reset()"
+                data-testid="new-building-group-revert"
             ></p-button>
         </div>
     </form>

@@ -1,6 +1,12 @@
-<div class="mt-4 w-[300px] sm:w-[400px] md:w-[500px]">
+<div
+    class="mt-4 w-[300px] sm:w-[400px] md:w-[500px]"
+    data-testid="fuel-dialog-root"
+>
     <!-- Dialog Header -->
-    <div class="p-dialog-header border-b p-0">
+    <div
+        class="p-dialog-header border-b p-0"
+        data-testid="fuel-dialog-header"
+    >
         <span class="text-xl font-semibold">
             {{ 'sidebar.admin.fuel' | translate }}
         </span>
@@ -10,6 +16,7 @@
             icon="pi pi-times"
             class="p-button-rounded p-button-text"
             (click)="closeDialog()"
+            data-testid="fuel-dialog-close"
         ></button>
     </div>
 
@@ -17,6 +24,7 @@
     <p-stepper
         [value]="1"
         class="block"
+        data-testid="fuel-dialog-stepper"
     >
         <p-step-panels class="block h-full">
             <!-- Step 1: Fuel Names (Vietnamese, English, Chinese) -->
@@ -25,7 +33,10 @@
                     #content
                     let-activateCallback="activateCallback"
                 >
-                    <div class="p-dialog-content flex min-h-[400px] flex-col overflow-hidden p-0">
+                    <div
+                        class="p-dialog-content flex min-h-[400px] flex-col overflow-hidden p-0"
+                        data-testid="fuel-dialog-step1"
+                    >
                         <div [formGroup]="fuelFormGroup">
                             <p-iftalabel class="my-2">
                                 <input
@@ -33,6 +44,7 @@
                                     formControlName="nameVN"
                                     class="w-full"
                                     autocomplete="off"
+                                    data-testid="fuel-dialog-name-vn"
                                 />
                                 <label>{{ 'common.name' | translate }} (VN)</label>
                             </p-iftalabel>
@@ -42,6 +54,7 @@
                                     formControlName="nameEN"
                                     class="w-full"
                                     autocomplete="off"
+                                    data-testid="fuel-dialog-name-en"
                                 />
                                 <label>{{ 'common.name' | translate }} (EN)</label>
                             </p-iftalabel>
@@ -51,6 +64,7 @@
                                     formControlName="nameZH"
                                     class="w-full"
                                     autocomplete="off"
+                                    data-testid="fuel-dialog-name-zh"
                                 />
                                 <label>{{ 'common.name' | translate }} (ZH)</label>
                             </p-iftalabel>
@@ -61,6 +75,7 @@
                                 icon="pi pi-arrow-right"
                                 iconPos="right"
                                 (onClick)="activateCallback(2)"
+                                data-testid="fuel-dialog-next"
                             ></p-button>
                         </div>
                     </div>
@@ -73,7 +88,10 @@
                     #content
                     let-activateCallback="activateCallback"
                 >
-                    <div class="p-dialog-content flex min-h-[400px] flex-col overflow-hidden p-0">
+                    <div
+                        class="p-dialog-content flex min-h-[400px] flex-col overflow-hidden p-0"
+                        data-testid="fuel-dialog-step2"
+                    >
                         <div [formGroup]="formGroup">
                             <p-iftalabel class="my-2">
                                 <input
@@ -82,6 +100,7 @@
                                     class="w-full"
                                     autocomplete="off"
                                     type="number"
+                                    data-testid="fuel-dialog-conversion-value"
                                 />
                                 <label>{{ 'admin.energyConversion.conversionValue' | translate }}</label>
                             </p-iftalabel>
@@ -93,6 +112,7 @@
                                     optionValue="value"
                                     [style]="{width: '100%'}"
                                     placeholder="{{ 'Select Numerator Unit' | translate }}"
+                                    data-testid="fuel-dialog-conversion-unit-numerator"
                                 ></p-dropdown>
                                 <label>{{ 'admin.energyConversion.conversionUnitNumerator' | translate }}</label>
                             </p-iftalabel>
@@ -104,6 +124,7 @@
                                     optionValue="value"
                                     [style]="{width: '100%'}"
                                     placeholder="{{ 'Select Denominator Unit' | translate }}"
+                                    data-testid="fuel-dialog-conversion-unit-denominator"
                                 ></p-dropdown>
                                 <label>{{ 'admin.energyConversion.conversionUnitDenominator' | translate }}</label>
                             </p-iftalabel>
@@ -114,6 +135,7 @@
                                 severity="secondary"
                                 icon="pi pi-arrow-left"
                                 (onClick)="activateCallback(1)"
+                                data-testid="fuel-dialog-back"
                             ></p-button>
                             <p-button
                                 label="{{ 'common.save' | translate }}"
@@ -121,6 +143,7 @@
                                 severity="primary"
                                 [disabled]="formGroup.invalid"
                                 (onClick)="submit()"
+                                data-testid="fuel-dialog-save"
                             ></p-button>
                         </div>
                     </div>

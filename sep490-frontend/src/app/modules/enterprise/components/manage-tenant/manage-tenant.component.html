@@ -1,6 +1,17 @@
-<master-layout title="enterprise.buildings.management.title1">
-    <div subtitle>{{ 'enterprise.buildings.management.description' | translate }}</div>
-    <div *ngFor="let group of buildingGroups">
+<master-layout
+    title="enterprise.buildings.management.title1"
+    data-testid="manage-tenant-root"
+>
+    <div
+        subtitle
+        data-testid="manage-tenant-subtitle"
+    >
+        {{ 'enterprise.buildings.management.description' | translate }}
+    </div>
+    <div
+        *ngFor="let group of buildingGroups"
+        data-testid="manage-tenant-group-list"
+    >
         <ng-container *ngTemplateOutlet="buildingGroupTemplate; context: {$implicit: group}"></ng-container>
     </div>
 </master-layout>
@@ -9,13 +20,21 @@
     #buildingGroupTemplate
     let-group
 >
-    <div class="rounded border-t-2 border-t-sky-500 shadow *:w-full">
+    <div
+        class="rounded border-t-2 border-t-sky-500 shadow *:w-full"
+        data-testid="manage-tenant-group-card"
+    >
         <div
             class="flex flex-col justify-between gap-4 rounded-t bg-sky-50 p-2 lg:flex-row lg:gap-0 lg:p-4 dark:bg-sky-950"
         >
             <div class="flex items-baseline gap-2">
                 <i class="pi pi-building"></i>
-                <div class="text-xl font-bold">{{ group.building.name }}</div>
+                <div
+                    class="text-xl font-bold"
+                    data-testid="manage-tenant-group-building"
+                >
+                    {{ group.building.name }}
+                </div>
             </div>
             <div class="flex justify-end">
                 <p-button
@@ -23,6 +42,7 @@
                     icon="pi pi-info"
                     text
                     severity="info"
+                    data-testid="manage-tenant-group-details"
                 ></p-button>
             </div>
         </div>
@@ -32,7 +52,10 @@
                     <small>
                         {{ 'invitation.group' | translate }}
                     </small>
-                    <p class="text-nowrap">
+                    <p
+                        class="text-nowrap"
+                        data-testid="manage-tenant-group-name"
+                    >
                         {{ group.name }}
                     </p>
                 </div>
@@ -40,7 +63,10 @@
                     <small>
                         {{ 'invitation.description1' | translate }}
                     </small>
-                    <p class="text-nowrap">
+                    <p
+                        class="text-nowrap"
+                        data-testid="manage-tenant-group-description"
+                    >
                         {{ group.description || 'No description provided.' }}
                     </p>
                 </div>
@@ -48,7 +74,10 @@
                     <small>
                         {{ 'invitation.address' | translate }}
                     </small>
-                    <p class="max-w-96 truncate">
+                    <p
+                        class="max-w-96 truncate"
+                        data-testid="manage-tenant-group-address"
+                    >
                         {{ group.building.address }}
                     </p>
                 </div>

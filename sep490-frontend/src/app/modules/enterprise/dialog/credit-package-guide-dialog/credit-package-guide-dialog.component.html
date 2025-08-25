@@ -1,6 +1,12 @@
-<div class="mt-4">
+<div
+    class="mt-4"
+    data-testid="credit-package-guide-root"
+>
     <!-- Header -->
-    <div class="p-dialog-header border-b p-0">
+    <div
+        class="p-dialog-header border-b p-0"
+        data-testid="credit-package-guide-header"
+    >
         <span class="text-xl font-semibold">
             {{ 'creditPackageGuide.guideTitle' | translate }}
         </span>
@@ -10,6 +16,7 @@
             icon="pi pi-times"
             class="p-button-rounded p-button-text"
             (click)="closeDialog()"
+            data-testid="credit-package-guide-close"
         ></button>
     </div>
 
@@ -17,6 +24,7 @@
     <p-stepper
         [value]="1"
         class="block"
+        data-testid="credit-package-guide-stepper"
     >
         <p-step-panels class="block h-full">
             <!-- Step 1: Confirmation -->
@@ -25,7 +33,10 @@
                     #content
                     let-activateCallback="activateCallback"
                 >
-                    <div class="p-dialog-content flex flex-col overflow-hidden p-0">
+                    <div
+                        class="p-dialog-content flex flex-col overflow-hidden p-0"
+                        data-testid="credit-package-guide-step1"
+                    >
                         <ng-container>
                             <p>
                                 {{ 'creditPackageGuide.confirmationMessage' | translate }}
@@ -39,6 +50,7 @@
                                     iconPos="right"
                                     class="ml-2"
                                     (onClick)="activateCallback(2)"
+                                    data-testid="credit-package-guide-next"
                                 ></p-button>
                             </div>
                         </div>
@@ -52,7 +64,10 @@
                     #content
                     let-activateCallback="activateCallback"
                 >
-                    <div class="p-dialog-content flex flex-col overflow-hidden p-0">
+                    <div
+                        class="p-dialog-content flex flex-col overflow-hidden p-0"
+                        data-testid="credit-package-guide-step2"
+                    >
                         <ng-container>
                             <!-- Balance and Info -->
                             <div class="mb-4 flex flex-col justify-center gap-2 border border-primary px-4 lg:flex-row">
@@ -97,6 +112,7 @@
                             <form
                                 [formGroup]="formGroup"
                                 class="mt-2 grid justify-between gap-4 px-4 pt-4 lg:grid-cols-2"
+                                data-testid="credit-package-guide-form"
                             >
                                 <div class="mb-4 block">
                                     <div class="mb-4 flex items-center justify-evenly gap-2">
@@ -115,6 +131,7 @@
                                             [inputStyle]="{width: '4rem'}"
                                             [inputStyleClass]="'text-center'"
                                             (onInput)="calculateTotalToPay()"
+                                            data-testid="credit-package-guide-months"
                                         >
                                             <ng-template #incrementbuttonicon>
                                                 <span class="pi pi-plus"></span>
@@ -128,6 +145,7 @@
                                         <span
                                             class="text-sm text-red-500"
                                             *ngIf="formGroup.get('months')?.invalid && formGroup.get('months')?.touched"
+                                            data-testid="credit-package-guide-months-error"
                                         >
                                             {{ 'creditPackageGuide.stepTwo.monthsError' | translate }}
                                         </span>
@@ -151,6 +169,7 @@
                                             [inputStyleClass]="'text-center'"
                                             [allowEmpty]="false"
                                             (onInput)="calculateTotalToPay()"
+                                            data-testid="credit-package-guide-devices"
                                         >
                                             <ng-template #incrementbuttonicon>
                                                 <span class="pi pi-plus"></span>
@@ -167,6 +186,7 @@
                                                 formGroup.get('numberOfDevices')?.invalid &&
                                                 formGroup.get('numberOfDevices')?.touched
                                             "
+                                            data-testid="credit-package-guide-devices-error"
                                         >
                                             {{ 'creditPackageGuide.stepTwo.devicesError' | translate }}
                                         </span>
@@ -177,7 +197,10 @@
                             <!-- Total and Confirmation -->
                             <div class="flex flex-col gap-8 p-4">
                                 <div class="flex flex-col-reverse items-center justify-between gap-2 lg:flex-row">
-                                    <span class="block text-surface-500 dark:text-surface-400">
+                                    <span
+                                        class="block text-surface-500 dark:text-surface-400"
+                                        data-testid="credit-package-guide-total"
+                                    >
                                         {{ 'creditPackageGuide.stepTwo.totalCredit' | translate }}:
                                         {{ totalToPay | number }}
                                     </span>
@@ -190,12 +213,14 @@
                                 severity="secondary"
                                 icon="pi pi-arrow-left"
                                 (onClick)="activateCallback(1)"
+                                data-testid="credit-package-guide-back"
                             ></p-button>
                             <p-button
                                 label="{{ 'creditPackageGuide.proceed' | translate }}"
                                 icon="pi pi-arrow-right"
                                 severity="primary"
                                 (onClick)="proceedToStep3(activateCallback)"
+                                data-testid="credit-package-guide-proceed"
                             ></p-button>
                         </div>
                     </div>
@@ -208,7 +233,10 @@
                     #content
                     let-activateCallback="activateCallback"
                 >
-                    <div class="p-dialog-content flex flex-col overflow-hidden p-0">
+                    <div
+                        class="p-dialog-content flex flex-col overflow-hidden p-0"
+                        data-testid="credit-package-guide-step3"
+                    >
                         <ng-container>
                             <h3 class="text-lg font-semibold">
                                 {{ 'creditPackageGuide.stepThree.title' | translate }}
@@ -221,6 +249,7 @@
                                 <ng-container *ngIf="recommendedPackage; else noPackage">
                                     <div
                                         class="box-shadow relative w-full max-w-40 cursor-pointer rounded-lg border border-2 border-t-2 border-gray-50 border-primary bg-white text-center shadow-lg shadow-primary/20 transition-all duration-300 *:w-full dark:border-gray-950 dark:bg-zinc-900"
+                                        data-testid="credit-package-guide-recommended-card"
                                     >
                                         <div
                                             class="absolute -left-3 -top-3 flex h-12 !w-12 rotate-[332deg] transform-gpu items-center justify-center rounded-full bg-red-500 text-base font-bold text-white shadow-md"
@@ -235,19 +264,26 @@
                                                 class="mx-auto w-16"
                                             />
                                         </div>
-                                        <div class="border-b p-4 text-lg font-semibold">
+                                        <div
+                                            class="border-b p-4 text-lg font-semibold"
+                                            data-testid="credit-package-guide-recommended-credits"
+                                        >
                                             {{ recommendedPackage.numberOfCredits | number: '1.0-0' }}
                                             {{ 'payment.history.credit.title' | translate }}
                                         </div>
                                         <div
                                             class="p-2 text-center text-base font-medium text-gray-600 dark:text-gray-400"
+                                            data-testid="credit-package-guide-recommended-price"
                                         >
                                             {{ formatedCurrency(recommendedPackage.convertedPriceCurrency) }}
                                         </div>
                                     </div>
                                 </ng-container>
                                 <ng-template #noPackage>
-                                    <p class="text-red-500">
+                                    <p
+                                        class="text-red-500"
+                                        data-testid="credit-package-guide-no-package"
+                                    >
                                         {{ 'creditPackageGuide.stepThree.noSuitablePackage' | translate }}
                                     </p>
                                 </ng-template>
@@ -259,12 +295,14 @@
                                 severity="secondary"
                                 icon="pi pi-arrow-left"
                                 (onClick)="activateCallback(2)"
+                                data-testid="credit-package-guide-step3-back"
                             ></p-button>
                             <p-button
                                 label="{{ 'creditPackageGuide.close' | translate }}"
                                 icon="pi pi-check"
                                 severity="primary"
                                 (onClick)="closeDialog()"
+                                data-testid="credit-package-guide-close-button"
                             ></p-button>
                         </div>
                     </div>

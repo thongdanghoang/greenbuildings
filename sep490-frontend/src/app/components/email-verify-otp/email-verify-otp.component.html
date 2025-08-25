@@ -1,4 +1,7 @@
-<div class="mx-auto mt-12 w-full max-w-md rounded-xl bg-white p-6 shadow-lg dark:bg-slate-800">
+<div
+    class="mx-auto mt-12 w-full max-w-md rounded-xl bg-white p-6 shadow-lg dark:bg-slate-800"
+    data-testid="otp-root"
+>
     <h2 class="text-center text-2xl font-semibold text-slate-800 dark:text-white">
         {{ 'mailOTP.title' | translate }}
     </h2>
@@ -12,6 +15,7 @@
     <form
         [formGroup]="formGroup"
         class="mt-6 space-y-4"
+        data-testid="otp-form"
     >
         <div
             *ngIf="firstSent"
@@ -26,6 +30,7 @@
                 [length]="6"
                 size="large"
                 [integerOnly]="true"
+                [attr.data-testid]="'otp-input'"
             ></p-inputotp>
             <form-field-error></form-field-error>
         </div>
@@ -38,6 +43,7 @@
             iconPos="right"
             (click)="sendOtp()"
             class="w-full"
+            data-testid="otp-send"
         ></button>
 
         <p-button
@@ -48,12 +54,14 @@
             label="{{ 'mailOTP.verify' | translate }}"
             class="w-full"
             [disabled]="formGroup.invalid || !firstSent"
+            data-testid="otp-verify"
         ></p-button>
     </form>
 
     <div
         *ngIf="firstSent"
         class="mt-4 flex items-center justify-between text-sm text-slate-500 dark:text-slate-400"
+        data-testid="otp-resend"
     >
         <span>{{ 'mailOTP.notReceived' | translate }}</span>
         <p-button
@@ -62,6 +70,7 @@
             text
             label="{{ 'mailOTP.resend' | translate }}"
             (click)="sendOtp()"
+            data-testid="otp-resend-button"
         ></p-button>
     </div>
 </div>

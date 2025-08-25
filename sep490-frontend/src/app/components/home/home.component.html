@@ -1,6 +1,7 @@
 <div
     *ngIf="emailVerified"
     class="flex min-h-[calc(100vh-4rem)] flex-col items-center justify-center"
+    data-testid="home-root"
 >
     <div class="w-full max-w-4xl rounded-lg p-8 shadow-lg">
         @if (userRoles.includes(UserRole.BASIC_USER) && userRoles.length === 1 && userData && userInfo) {
@@ -25,12 +26,16 @@
                     }
                 </div>
 
-                <div class="flex flex-col items-center justify-center gap-4 sm:flex-row">
+                <div
+                    class="flex flex-col items-center justify-center gap-4 sm:flex-row"
+                    data-testid="home-actions-basic"
+                >
                     <p-button
                         [label]="'home.viewProfile' | translate"
                         icon="pi pi-user"
                         [routerLink]="['/', AppRoutingConstants.ENTERPRISE_PATH, AppRoutingConstants.ACCOUNT_INFO_PATH]"
                         styleClass="p-button-secondary"
+                        data-testid="home-view-profile"
                     ></p-button>
                     <p-button
                         [label]="'home.createEnterprise' | translate"
@@ -41,6 +46,7 @@
                             AppRoutingConstants.CREATE_ENTERPRISE_PATH
                         ]"
                         styleClass="p-button-primary"
+                        data-testid="home-create-enterprise"
                     ></p-button>
                 </div>
             </div>
@@ -52,12 +58,16 @@
                 <p class="mb-8 text-lg">
                     {{ 'home.enterpriseDescription' | translate }}
                 </p>
-                <div class="flex justify-center">
+                <div
+                    class="flex justify-center"
+                    data-testid="home-actions-owner"
+                >
                     <p-button
                         [label]="'home.viewDashboard' | translate"
                         icon="pi pi-chart-line"
                         [routerLink]="['/', AppRoutingConstants.DASHBOARD_PATH]"
                         styleClass="p-button-primary"
+                        data-testid="home-view-dashboard"
                     ></p-button>
                 </div>
             </div>
@@ -69,12 +79,16 @@
                 <p class="mb-8 text-lg">
                     {{ 'home.enterpriseDescription' | translate }}
                 </p>
-                <div class="flex flex-col items-center justify-center gap-4 sm:flex-row">
+                <div
+                    class="flex flex-col items-center justify-center gap-4 sm:flex-row"
+                    data-testid="home-actions-tenant"
+                >
                     <p-button
                         [label]="'home.viewProfile' | translate"
                         icon="pi pi-user"
                         [routerLink]="['/', AppRoutingConstants.ENTERPRISE_PATH, AppRoutingConstants.ACCOUNT_INFO_PATH]"
                         styleClass="p-button-secondary"
+                        data-testid="home-tenant-view-profile"
                     ></p-button>
 
                     <p-button
@@ -82,6 +96,7 @@
                         icon="pi pi-envelope"
                         [routerLink]="[AppRoutingConstants.ENTERPRISE_PATH, AppRoutingConstants.INVITATION_PATH]"
                         styleClass="p-button-primary"
+                        data-testid="home-view-invitation"
                     ></p-button>
                 </div>
             </div>
@@ -97,4 +112,7 @@
         }
     </div>
 </div>
-<app-email-verify-otp *ngIf="!emailVerified"></app-email-verify-otp>
+<app-email-verify-otp
+    *ngIf="!emailVerified"
+    data-testid="home-verify-otp"
+></app-email-verify-otp>

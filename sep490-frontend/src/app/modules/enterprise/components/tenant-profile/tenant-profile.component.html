@@ -1,8 +1,12 @@
-<master-layout title="tenant.profile.title">
+<master-layout
+    title="tenant.profile.title"
+    data-testid="tenant-profile-root"
+>
     <form
         [formGroup]="formGroup"
         unsavedChanges
         id="tenantProfileForm"
+        data-testid="tenant-profile-form"
     >
         <!-- Email -->
         <div
@@ -22,6 +26,7 @@
                     id="email"
                     formControlName="email"
                     class="p-inputtext w-full rounded-r-md"
+                    data-testid="tenant-profile-email"
                 />
             </div>
             <form-field-error></form-field-error>
@@ -44,6 +49,7 @@
                     id="name"
                     formControlName="name"
                     class="p-inputtext w-full rounded-r-md"
+                    data-testid="tenant-profile-name"
                 />
             </div>
             <form-field-error></form-field-error>
@@ -66,6 +72,7 @@
                     id="taxCode"
                     pInputText
                     [placeholder]="'enterprise.create.placeholders.enterTaxCode' | translate"
+                    data-testid="tenant-profile-tax-code"
                 />
                 <form-field-error></form-field-error>
             </div>
@@ -88,6 +95,7 @@
                     type="text"
                     id="address"
                     pInputText
+                    data-testid="tenant-profile-address"
                 />
                 <form-field-error></form-field-error>
             </div>
@@ -110,13 +118,17 @@
                     id="hotline"
                     formControlName="hotline"
                     class="p-inputtext w-full rounded-r-md"
+                    data-testid="tenant-profile-hotline"
                 />
             </div>
             <form-field-error></form-field-error>
         </div>
     </form>
 
-    <div class="mt-4 flex justify-end gap-4">
+    <div
+        class="mt-4 flex justify-end gap-4"
+        data-testid="tenant-profile-actions"
+    >
         <button
             pButton
             type="button"
@@ -124,12 +136,14 @@
             (click)="reset()"
             label="{{ 'common.revert' | translate }}"
             outlined
+            data-testid="tenant-profile-revert"
         ></button>
         <p-button
             type="submit"
             icon="pi pi-save"
             [label]="'common.save' | translate"
             (onClick)="submit()"
+            data-testid="tenant-profile-save"
         ></p-button>
     </div>
 </master-layout>

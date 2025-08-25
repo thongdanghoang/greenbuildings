@@ -12,6 +12,7 @@
     (selectionChange)="onSelectionChange($event)"
     [stripedRows]="isMobile"
     dataKey="id"
+    data-testid="table-template"
 >
     @if (captionTemplateRef) {
         <ng-template pTemplate="caption">
@@ -22,17 +23,24 @@
         pTemplate="header"
         let-columns
     >
-        <tr *ngIf="!isMobile">
+        <tr
+            *ngIf="!isMobile"
+            data-testid="table-header-row"
+        >
             @if (checkbox) {
                 <th
                     style="width: 3rem"
                     id="checkbox"
+                    data-testid="table-header-checkbox"
                 >
                     <p-tableHeaderCheckbox />
                 </th>
             }
             @if (expandedTemplateRef) {
-                <th style="width: 5rem"></th>
+                <th
+                    style="width: 5rem"
+                    data-testid="table-header-expand"
+                ></th>
             }
             @for (col of columns; track col.field) {
                 @if (col.header) {
@@ -40,12 +48,16 @@
                         <th
                             [id]="col.field"
                             [pSortableColumn]="col.sortField ?? col.field"
+                            [attr.data-testid]="'table-header-' + col.field"
                         >
                             {{ col.header | translate }}
                             <p-sortIcon [field]="col.sortField ?? col.field" />
                         </th>
                     } @else {
-                        <th [id]="col.header">
+                        <th
+                            [id]="col.header"
+                            [attr.data-testid]="'table-header-' + col.field"
+                        >
                             {{ col.header | translate }}
                         </th>
                     }
@@ -53,6 +65,7 @@
                     <th
                         [id]="col.field"
                         style="width: 5rem"
+                        [attr.data-testid]="'table-header-' + col.field"
                     ></th>
                 }
             }
@@ -65,10 +78,13 @@
         let-expanded="expanded"
     >
         @if (isMobile) {
-            <tr>
+            <tr data-testid="table-mobile-row">
                 <table class="w-full">
                     @if (checkbox) {
-                        <tr class="grid grid-cols-2 *:truncate *:border *:p-2 *:text-left">
+                        <tr
+                            class="grid grid-cols-2 *:truncate *:border *:p-2 *:text-left"
+                            data-testid="table-mobile-checkbox-row"
+                        >
                             <td>
                                 <p-tableCheckbox [value]="rowData" />
                             </td>
@@ -78,6 +94,7 @@
                     <tr
                         *ngFor="let col of columns"
                         class="grid grid-cols-2 *:truncate *:border *:p-2 *:text-left"
+                        [attr.data-testid]="'table-mobile-col-' + col.field"
                     >
                         @if (col.header) {
                             <th [id]="col.header">
@@ -99,13 +116,19 @@
                 </table>
             </tr>
         } @else {
-            <tr>
+            <tr data-testid="table-desktop-row">
                 @if (checkbox) {
-                    <td style="width: 3rem">
+                    <td
+                        style="width: 3rem"
+                        data-testid="table-row-checkbox"
+                    >
                         <p-tableCheckbox [value]="rowData" />
                     </td>
                 }
-                <td *ngIf="expandedTemplateRef">
+                <td
+                    *ngIf="expandedTemplateRef"
+                    data-testid="table-row-expand"
+                >
                     <p-button
                         type="button"
                         pRipple
@@ -116,7 +139,10 @@
                         [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"
                     />
                 </td>
-                <td *ngFor="let col of columns">
+                <td
+                    *ngFor="let col of columns"
+                    [attr.data-testid]="'table-cell-' + col.field"
+                >
                     @if (col.templateRef) {
                         <ng-container *ngTemplateOutlet="col.templateRef; context: {$implicit: rowData}"></ng-container>
                     } @else {
@@ -131,7 +157,7 @@
             #expandedrow
             let-rowData
         >
-            <tr>
+            <tr data-testid="table-expanded-row">
                 <ng-container *ngTemplateOutlet="expandedTemplateRef; context: {$implicit: rowData}"></ng-container>
             </tr>
         </ng-template>
@@ -140,6 +166,7 @@
         <td
             [attr.colspan]="columns.length + (checkbox ? 1 : 0)"
             class="px-3 py-4"
+            data-testid="table-empty-message"
         >
             {{ 'common.noRow' | translate }}
         </td>
@@ -156,4 +183,5 @@
     [showJumpToPageDropdown]="false"
     [rowsPerPageOptions]="ApplicationConstant.DEFAULT_PAGE_OPTIONS"
     currentPageReportTemplate="{{ paginatorTemplateString }}"
+    data-testid="table-paginator"
 />
