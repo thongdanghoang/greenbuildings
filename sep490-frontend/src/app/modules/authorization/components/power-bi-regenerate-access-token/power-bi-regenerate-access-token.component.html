@@ -1,14 +1,20 @@
-<div class="flex items-center justify-between border-b py-2">
+<div
+    class="flex items-center justify-between border-b py-2"
+    data-testid="powerbi-regenerate-header"
+>
     <p class="text-xl">{{ 'powerBi.regenerateTokenTitle' | translate }}</p>
 </div>
 
-<div class="rounded-lg border border-yellow-200 bg-yellow-50 dark:border-yellow-800 dark:bg-yellow-950">
+<div
+    class="rounded-lg border border-yellow-200 bg-yellow-50 dark:border-yellow-800 dark:bg-yellow-950"
+    data-testid="powerbi-regenerate-banner"
+>
     <div class="flex items-center gap-5 p-5">
         {{ 'powerBi.submitThisForm' | translate }}
     </div>
 </div>
 
-<div>
+<div data-testid="powerbi-regenerate-form">
     <label class="font-semibold">{{ 'powerBi.expiration' | translate }}</label>
     <div class="flex gap-2">
         <p-select
@@ -16,6 +22,7 @@
             [options]="selectableExpirationTimes"
             scrollHeight="300px"
             class="min-w-64"
+            data-testid="powerbi-regenerate-expiration"
         >
             <ng-template
                 #selectedItem
@@ -46,22 +53,28 @@
                 [(ngModel)]="expirationTime"
                 [iconDisplay]="'input'"
                 [showIcon]="true"
+                data-testid="powerbi-regenerate-datepicker"
             ></p-datepicker>
         }
     </div>
     <small>{{ 'powerBi.tokenWillExpire' | translate }}</small>
 </div>
 
-<div class="flex gap-4">
+<div
+    class="flex gap-4"
+    data-testid="powerbi-regenerate-actions"
+>
     <p-button
         (onClick)="regenerateAccessToken()"
         class="*:min-w-16"
         label="{{ 'powerBi.accessToken.regenerate' | translate }}"
+        data-testid="powerbi-regenerate-submit"
     />
     <p-button
         (onClick)="navigateToPowerBiAccessTokens()"
         class="*:min-w-24"
         label="{{ 'powerBi.accessToken.cancel' | translate }}"
         [outlined]="true"
+        data-testid="powerbi-regenerate-cancel"
     />
 </div>

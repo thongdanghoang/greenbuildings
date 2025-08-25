@@ -1,7 +1,11 @@
-<master-layout title="sidebar.owner.settings.items.powerBiAccessToken">
+<master-layout
+    title="sidebar.owner.settings.items.powerBiAccessToken"
+    data-testid="powerbi-access-token-root"
+>
     <div
         *ngIf="accessTokens.length === 0"
         subtitle
+        data-testid="powerbi-access-token-subtitle"
     >
         {{ 'powerBi.accessToken.description' | translate }}
     </div>
@@ -9,12 +13,14 @@
     <div
         *ngIf="accessTokens.length > 0"
         actions
+        data-testid="powerbi-access-token-actions"
     >
         <ng-container *ngTemplateOutlet="generateNewToken"></ng-container>
     </div>
     <div
         *ngIf="accessTokens.length > 0"
         subtitle
+        data-testid="powerbi-access-token-subtitle-has-token"
     >
         {{ 'powerBi.tokenGenerated' | translate }}
     </div>
@@ -27,6 +33,7 @@
                 pInputText
                 id="tokenInput"
                 [(ngModel)]="userToken"
+                data-testid="powerbi-access-token-input"
             />
             <label for="tokenInput">{{ 'powerBi.enterAccessToken' | translate }}</label>
         </p-floatlabel>
@@ -34,6 +41,7 @@
         <div
             *ngIf="userToken.length > 0"
             class="mb-2 p-2"
+            data-testid="powerbi-access-token-url"
         >
             <div class="w-full">
                 <code class="break-all text-gray-700">{{ getUrl(userToken) }}</code>
@@ -45,6 +53,7 @@
                 iconPos="right"
                 (click)="goToLink(getUrl(userToken))"
                 [label]="'common.goToLink' | translate"
+                data-testid="powerbi-access-token-go"
             >
             </p-button>
             <p-button
@@ -54,6 +63,7 @@
                 iconPos="right"
                 (click)="copyToClipboard(getUrl(userToken))"
                 [label]="'common.copy' | translate"
+                data-testid="powerbi-access-token-copy"
             >
             </p-button>
         </div>
@@ -67,13 +77,17 @@
                 text="{{ 'powerBi.messageMakeSure' | translate }}"
                 class="h-full"
             />
-            <div class="rounded-lg border">
+            <div
+                class="rounded-lg border"
+                data-testid="powerbi-access-token-newest"
+            >
                 <div class="rounded-t bg-green-100 p-3 text-black">
                     <i class="pi pi-check text-green-700"></i>
                     {{ newestCreatedTokenKey }}
                     <i
                         class="pi pi-copy text-primary hover:cursor-pointer"
                         (click)="copyToClipboard(newestCreatedTokenKey)"
+                        data-testid="powerbi-access-token-copy-new"
                     ></i>
                 </div>
                 <ng-container
@@ -85,6 +99,7 @@
         <div
             *ngIf="accessTokens.length > 0 && accessTokens[0].id !== newestCreatedTokenId"
             class="rounded-lg border"
+            data-testid="powerbi-access-token-list"
         >
             @for (token of accessTokens; track token.id) {
                 @if (token.id !== newestCreatedTokenId) {
@@ -104,12 +119,14 @@
                 icon="pi pi-plus"
                 outlined
                 (onClick)="navigateToDetail()"
+                data-testid="powerbi-access-token-generate-mobile"
             />
             <p-button
                 icon="pi pi-question"
                 [rounded]="true"
                 (click)="userGuidePowerBi()"
                 severity="primary"
+                data-testid="powerbi-access-token-guide-mobile"
             />
         </div>
     } @else {
@@ -118,19 +135,24 @@
                 [label]="'powerBi.buttonGenerateToken' | translate"
                 outlined
                 (onClick)="navigateToDetail()"
+                data-testid="powerbi-access-token-generate"
             />
             <p-button
                 [label]="'purchaseCredit.guide' | translate"
                 outlined
                 (click)="userGuidePowerBi()"
                 severity="secondary"
+                data-testid="powerbi-access-token-guide"
             />
         </div>
     }
 </ng-template>
 
 <ng-template #noTokens>
-    <div class="flex h-96 flex-col items-center justify-center gap-4">
+    <div
+        class="flex h-96 flex-col items-center justify-center gap-4"
+        data-testid="powerbi-access-token-empty"
+    >
         <i class="pi pi-key text-2xl"></i>
         <h3 class="text-xl font-semibold">
             {{ 'powerBi.noAccessToken' | translate }}
@@ -146,16 +168,23 @@
     #tokenRowTemplate
     let-token
 >
-    <div class="p-3">
+    <div
+        class="p-3"
+        data-testid="powerbi-access-token-row"
+    >
         <div class="flex flex-col items-baseline justify-between lg:flex-row lg:gap-4">
             <div>
                 <strong
                     class="text-primary hover:cursor-pointer"
                     (click)="navigateToDetail(token.id)"
+                    data-testid="powerbi-access-token-row-note"
                     >{{ token.note }}</strong
                 >
                 —
-                <span class="text-sm italic">
+                <span
+                    class="text-sm italic"
+                    data-testid="powerbi-access-token-row-scope"
+                >
                     {{ token.scope }}
                 </span>
             </div>
@@ -176,6 +205,7 @@
                     severity="danger"
                     outlined
                     (onClick)="showDeleteConfirmDialog(token.id)"
+                    data-testid="powerbi-access-token-row-delete"
                 />
             </div>
         </div>

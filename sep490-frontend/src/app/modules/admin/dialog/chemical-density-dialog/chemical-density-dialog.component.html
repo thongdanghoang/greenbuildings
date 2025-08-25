@@ -1,7 +1,13 @@
 <!-- chemical-density-dialog.component.html -->
-<div class="mt-4 w-[300px] sm:w-[400px] md:w-[500px]">
+<div
+    class="mt-4 w-[300px] sm:w-[400px] md:w-[500px]"
+    data-testid="admin-chemical-density-dialog-root"
+>
     <!-- Dialog Header -->
-    <div class="p-dialog-header border-b p-0">
+    <div
+        class="p-dialog-header border-b p-0"
+        data-testid="admin-chemical-density-dialog-header"
+    >
         <span class="text-xl font-semibold">
             {{ 'sidebar.admin.chemicalDensity' | translate }}
         </span>
@@ -11,6 +17,7 @@
             icon="pi pi-times"
             class="p-button-rounded p-button-text"
             (click)="closeDialog()"
+            data-testid="admin-chemical-density-dialog-close"
         ></button>
     </div>
 
@@ -19,6 +26,7 @@
         <form
             [formGroup]="formGroup"
             class="p-4"
+            data-testid="admin-chemical-density-dialog-form"
         >
             <p-iftalabel class="my-2">
                 <input
@@ -26,6 +34,7 @@
                     formControlName="chemicalFormula"
                     class="w-full"
                     autocomplete="off"
+                    data-testid="admin-chemical-density-dialog-formula"
                 />
                 <label>{{ 'admin.chemicalDensity.formal' | translate }}</label>
             </p-iftalabel>
@@ -37,6 +46,7 @@
                     formControlName="value"
                     class="w-full"
                     autocomplete="off"
+                    data-testid="admin-chemical-density-dialog-value"
                 />
                 <label>{{ 'admin.chemicalDensity.value' | translate }}</label>
             </p-iftalabel>
@@ -47,6 +57,7 @@
                     formControlName="unitNumerator"
                     class="w-full"
                     [showClear]="true"
+                    data-testid="admin-chemical-density-dialog-unit-numerator"
                 ></p-dropdown>
                 <label>{{ 'admin.chemicalDensity.unitNumerator' | translate }}</label>
             </p-iftalabel>
@@ -57,6 +68,7 @@
                     formControlName="unitDenominator"
                     class="w-full"
                     [showClear]="true"
+                    data-testid="admin-chemical-density-dialog-unit-denominator"
                 ></p-dropdown>
                 <label>{{ 'admin.chemicalDensity.unitDenominator' | translate }}</label>
             </p-iftalabel>
@@ -69,6 +81,7 @@
                 severity="primary"
                 [disabled]="formGroup.invalid"
                 (onClick)="submit()"
+                data-testid="admin-chemical-density-dialog-save"
             ></p-button>
         </div>
     </div>

@@ -1,5 +1,13 @@
-<master-layout title="sentInvitation.title">
-    <p subtitle>{{ 'sentInvitation.description' | translate }}</p>
+<master-layout
+    title="sentInvitation.title"
+    data-testid="enterprise-sent-invitation-root"
+>
+    <p
+        subtitle
+        data-testid="enterprise-sent-invitation-subtitle"
+    >
+        {{ 'sentInvitation.description' | translate }}
+    </p>
 
     <table-template
         [fetch]="fetchInvitations"
@@ -8,11 +16,15 @@
         [captionTemplateRef]="captionTemplateRef"
         [criteria]="searchCriteria"
         [triggerSearch]="searchEvent"
+        data-testid="enterprise-sent-invitation-table"
     />
 </master-layout>
 
 <ng-template #captionTemplateRef>
-    <div class="-mx-4 grid grid-cols-3 gap-2.5 lg:mx-0">
+    <div
+        class="-mx-4 grid grid-cols-3 gap-2.5 lg:mx-0"
+        data-testid="enterprise-sent-invitation-filters"
+    >
         <p-iconfield class="col-span-3 *:w-full lg:col-span-1">
             <p-inputicon styleClass="pi pi-search" />
             <input
@@ -20,6 +32,7 @@
                 pInputText
                 [(ngModel)]="searchCriteria.tenantEmail"
                 placeholder="{{ 'sentInvitation.table.email' | translate }}"
+                data-testid="enterprise-sent-invitation-filter-email"
             />
         </p-iconfield>
         <p-select
@@ -34,6 +47,7 @@
             optionLabel="label"
             optionValue="value"
             [placeholder]="'sentInvitation.table.selectBuilding' | translate"
+            data-testid="enterprise-sent-invitation-filter-building"
         />
         <p-select
             class="col-span-3 lg:col-span-1"
@@ -45,6 +59,7 @@
             optionLabel="name"
             optionValue="id"
             [placeholder]="'sentInvitation.table.selectBuildingGroup' | translate"
+            data-testid="enterprise-sent-invitation-filter-group"
         />
         <div class="col-span-3 flex w-full justify-end gap-2.5">
             <p-button
@@ -53,6 +68,7 @@
                 icon="pi pi-times"
                 outlined
                 (onClick)="clearCriteria()"
+                data-testid="enterprise-sent-invitation-reset"
             />
             <p-button
                 severity="primary"
@@ -60,6 +76,7 @@
                 icon="pi pi-search"
                 outlined
                 (onClick)="searchEvent.emit()"
+                data-testid="enterprise-sent-invitation-search"
             />
         </div>
     </div>
@@ -69,14 +86,14 @@
     #buildingNameTemplate
     let-invitation
 >
-    <span>{{ invitation?.buildingGroup.building.name }}</span>
+    <span data-testid="enterprise-sent-invitation-building">{{ invitation?.buildingGroup.building.name }}</span>
 </ng-template>
 
 <ng-template
     #buildingGroupNameTemplate
     let-invitation
 >
-    <span>{{ invitation?.buildingGroup.name }}</span>
+    <span data-testid="enterprise-sent-invitation-group">{{ invitation?.buildingGroup.name }}</span>
 </ng-template>
 
 <ng-template
@@ -86,6 +103,7 @@
     <p-tag
         [ngClass]="'font-medium ' + getStatusClass(rowData.status)"
         [value]="'enum.invitation.status.' + rowData.status | translate"
+        data-testid="enterprise-sent-invitation-status"
     />
 </ng-template>
 <ng-template
@@ -99,5 +117,6 @@
         [text]="true"
         severity="danger"
         (onClick)="onRejectInvitation(rowData)"
+        data-testid="enterprise-sent-invitation-reject"
     />
 </ng-template>

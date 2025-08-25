@@ -1,7 +1,15 @@
-<div *ngIf="enterprise">
+<div
+    *ngIf="enterprise"
+    data-testid="enterprise-detail-dialog-root"
+>
     <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
         <div>
-            <h2 class="mb-4 text-xl font-semibold text-primary">{{ 'enterprise.create.title' | translate }}</h2>
+            <h2
+                class="mb-4 text-xl font-semibold text-primary"
+                data-testid="enterprise-detail-dialog-title"
+            >
+                {{ 'enterprise.create.title' | translate }}
+            </h2>
             <p-iftalabel class="my-2 block">
                 <input
                     pInputText
@@ -9,6 +17,7 @@
                     class="w-full"
                     readonly
                     autocomplete="off"
+                    data-testid="enterprise-detail-dialog-name"
                 />
                 <label>{{ 'enterprise.create.name' | translate }}</label>
             </p-iftalabel>
@@ -20,6 +29,7 @@
                     class="w-full"
                     readonly
                     autocomplete="off"
+                    data-testid="enterprise-detail-dialog-email"
                 />
                 <label>{{ 'enterprise.create.email' | translate }}</label>
             </p-iftalabel>
@@ -31,6 +41,7 @@
                     class="w-full"
                     readonly
                     autocomplete="off"
+                    data-testid="enterprise-detail-dialog-hotline"
                 />
                 <label>{{ 'enterprise.create.hotline' | translate }}</label>
             </p-iftalabel>
@@ -42,6 +53,7 @@
                     class="w-full"
                     readonly
                     autocomplete="off"
+                    data-testid="enterprise-detail-dialog-address"
                 />
                 <label>{{ 'enterprise.create.address' | translate }}</label>
             </p-iftalabel>
@@ -53,6 +65,7 @@
                     class="w-full"
                     readonly
                     autocomplete="off"
+                    data-testid="enterprise-detail-dialog-tax-code"
                 />
                 <label>{{ 'enterprise.create.taxCode' | translate }}</label>
             </p-iftalabel>
@@ -67,6 +80,7 @@
                     class="w-full cursor-pointer text-primary"
                     readonly
                     autocomplete="off"
+                    data-testid="enterprise-detail-dialog-license"
                 />
                 <label
                     >{{ 'enterprise.create.businessLicenseImageUrl' | translate }}
@@ -86,6 +100,7 @@
                     class="w-full"
                     readonly
                     autocomplete="off"
+                    data-testid="enterprise-detail-dialog-representative-name"
                 />
                 <label>{{ 'enterprise.create.representativeName' | translate }}</label>
             </p-iftalabel>
@@ -97,6 +112,7 @@
                     class="w-full"
                     readonly
                     autocomplete="off"
+                    data-testid="enterprise-detail-dialog-representative-position"
                 />
                 <label>{{ 'enterprise.create.representativePosition' | translate }}</label>
             </p-iftalabel>
@@ -108,6 +124,7 @@
                     class="w-full"
                     readonly
                     autocomplete="off"
+                    data-testid="enterprise-detail-dialog-representative-contact"
                 />
                 <label>{{ 'enterprise.create.representativeContact' | translate }}</label>
             </p-iftalabel>
@@ -119,6 +136,7 @@
             label="{{ 'common.cancel' | translate }}"
             styleClass="p-button-secondary"
             (onClick)="this.close()"
+            data-testid="enterprise-detail-dialog-close"
         ></p-button>
     </div>
 </div>

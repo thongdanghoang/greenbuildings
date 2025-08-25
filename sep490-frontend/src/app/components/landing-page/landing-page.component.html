@@ -3,16 +3,21 @@
     [numVisible]="1"
     [numScroll]="1"
     [showNavigators]="false"
+    [attr.data-testid]="'landing-carousel'"
 >
     <ng-template
         let-item
         pTemplate="item"
     >
-        <div class="relative">
+        <div
+            class="relative"
+            [attr.data-testid]="'landing-carousel-item-' + item.subtitle"
+        >
             <p-image
                 [src]="item.image"
                 alt="Carousel image"
                 class="w-full object-cover"
+                [attr.data-testid]="'landing-carousel-item-image-' + item.subtitle"
             />
             <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40">
                 <div class="p-6 text-center">
@@ -58,11 +63,17 @@
     </ng-template>
 </p-carousel>
 <!-- About Section Start -->
-<div class="py-16">
+<div
+    class="py-16"
+    data-testid="landing-about"
+>
     <div class="container mx-auto px-6 lg:px-20">
         <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
             <!-- Left: Images -->
-            <div class="animate-fadeInLeft relative">
+            <div
+                class="animate-fadeInLeft relative"
+                data-testid="landing-about-images"
+            >
                 <div class="relative h-[400px] w-full">
                     <img
                         src="https://res.cloudinary.com/dctk1pw18/image/upload/v1748767978/getStart_pnfgai.webp"
@@ -80,7 +91,10 @@
             </div>
 
             <!-- Right: Content -->
-            <div class="animate-fadeInRight">
+            <div
+                class="animate-fadeInRight"
+                data-testid="landing-about-content"
+            >
                 <div class="text-start">
                     <h1 class="mt-2 text-4xl font-bold leading-tight md:text-5xl">
                         {{ 'landingPage.intro.title' | translate }}
@@ -109,7 +123,10 @@
 </div>
 <!-- About Section End -->
 <!-- Team Section Start -->
-<div class="py-16">
+<div
+    class="py-16"
+    data-testid="landing-dashboard"
+>
     <div class="container mx-auto px-6 lg:px-20">
         <!-- Section Title -->
         <div class="animate-fadeInUp mb-10 text-center">
@@ -126,6 +143,7 @@
             <!-- Team Member -->
             <div
                 class="animate-fadeInUp transform overflow-hidden rounded-lg bg-white shadow-lg transition-all hover:scale-105"
+                data-testid="landing-dashboard-card-1"
             >
                 <div class="relative">
                     <img
@@ -147,6 +165,7 @@
             <!-- Repeat for other members -->
             <div
                 class="animate-fadeInUp transform overflow-hidden rounded-lg bg-white shadow-lg transition-all delay-100 hover:scale-105"
+                data-testid="landing-dashboard-card-2"
             >
                 <div class="relative">
                     <img
@@ -167,6 +186,7 @@
 
             <div
                 class="animate-fadeInUp transform overflow-hidden rounded-lg bg-white shadow-lg transition-all delay-200 hover:scale-105"
+                data-testid="landing-dashboard-card-3"
             >
                 <div class="relative">
                     <img
@@ -187,6 +207,7 @@
 
             <div
                 class="animate-fadeInUp transform overflow-hidden rounded-lg bg-white shadow-lg transition-all delay-300 hover:scale-105"
+                data-testid="landing-dashboard-card-4"
             >
                 <div class="relative">
                     <img
@@ -212,6 +233,7 @@
 <section
     id="features"
     class="w-full py-16"
+    data-testid="landing-features"
 >
     <div class="container px-4 md:px-6">
         <div class="flex flex-col items-center justify-center space-y-4 text-center">
@@ -227,8 +249,14 @@
                 </p>
             </div>
         </div>
-        <div class="mx-auto grid max-w-5xl items-center gap-6 py-12 lg:grid-cols-3 lg:gap-12">
-            <div class="flex flex-col justify-center space-y-4">
+        <div
+            class="mx-auto grid max-w-5xl items-center gap-6 py-12 lg:grid-cols-3 lg:gap-12"
+            data-testid="landing-features-grid"
+        >
+            <div
+                class="flex flex-col justify-center space-y-4"
+                data-testid="landing-feature-1"
+            >
                 <div class="flex h-12 w-12 items-center justify-center rounded-lg bg-green-100 text-green-700">
                     <i class="pi pi-building text-xl"></i>
                 </div>
@@ -241,7 +269,10 @@
                     </p>
                 </div>
             </div>
-            <div class="flex flex-col justify-center space-y-4">
+            <div
+                class="flex flex-col justify-center space-y-4"
+                data-testid="landing-feature-2"
+            >
                 <div class="flex h-12 w-12 items-center justify-center rounded-lg bg-green-100 text-green-700">
                     <i class="pi pi-sitemap text-xl"></i>
                 </div>
@@ -254,7 +285,10 @@
                     </p>
                 </div>
             </div>
-            <div class="flex flex-col justify-center space-y-4">
+            <div
+                class="flex flex-col justify-center space-y-4"
+                data-testid="landing-feature-3"
+            >
                 <div class="flex h-12 w-12 items-center justify-center rounded-lg bg-green-100 text-green-700">
                     <i class="pi pi-user text-xl"></i>
                 </div>
@@ -271,7 +305,10 @@
     </div>
 </section>
 <!-- Testimonial Section Start -->
-<div class="py-16">
+<div
+    class="py-16"
+    data-testid="landing-testimonials-banner"
+>
     <div class="container mx-auto px-6 lg:px-20">
         <!-- Thẻ con với màu nền và chiều rộng giới hạn -->
         <div class="max-w-full rounded-lg bg-primary-300 py-8 dark:bg-primary-700">
@@ -292,7 +329,10 @@
 </div>
 <!-- Testimonial Section End -->
 <!-- Blog Section Start -->
-<div class="py-16">
+<div
+    class="py-16"
+    data-testid="landing-why-choose"
+>
     <div class="container mx-auto px-6 lg:px-20">
         <!-- Section Title -->
         <div class="animate-fadeInUp mb-10 text-center">
@@ -312,6 +352,7 @@
             <!-- Blog Post -->
             <div
                 class="animate-fadeInUp transform overflow-hidden rounded-lg bg-white shadow-lg transition-all hover:scale-105"
+                data-testid="landing-why-card-1"
             >
                 <img
                     src="https://res.cloudinary.com/dctk1pw18/image/upload/v1748767975/unige_108443_500_wybv8s.webp"
@@ -334,6 +375,7 @@
             <!-- Repeat for Other Blog Posts -->
             <div
                 class="animate-fadeInUp transform overflow-hidden rounded-lg bg-white shadow-lg transition-all delay-100 hover:scale-105"
+                data-testid="landing-why-card-2"
             >
                 <img
                     src="https://res.cloudinary.com/dctk1pw18/image/upload/v1748767976/sky_cze0uf.webp"
@@ -355,6 +397,7 @@
 
             <div
                 class="animate-fadeInUp transform overflow-hidden rounded-lg bg-white shadow-lg transition-all delay-200 hover:scale-105"
+                data-testid="landing-why-card-3"
             >
                 <img
                     src="assets/images/landing-page/water.webp"
@@ -374,6 +417,7 @@
             </div>
             <div
                 class="animate-fadeInUp transform overflow-hidden rounded-lg bg-white shadow-lg transition-all hover:scale-105"
+                data-testid="landing-why-card-4"
             >
                 <img
                     src="assets/images/landing-page/tree.webp"
@@ -399,6 +443,7 @@
 <section
     id="testimonials"
     class="w-full py-12 md:py-24 lg:py-32"
+    data-testid="landing-testimonials"
 >
     <div class="container px-4 md:px-6">
         <div class="flex flex-col items-center justify-center space-y-4 text-center">
@@ -455,7 +500,10 @@
     </div>
 </section>
 <!-- Footer -->
-<section class="w-full border-t py-6 md:py-12">
+<section
+    class="w-full border-t py-6 md:py-12"
+    data-testid="landing-footer"
+>
     <div class="container flex flex-col gap-6 px-4 md:flex-row md:items-center md:px-6">
         <div class="flex flex-col gap-2">
             <div class="flex items-center gap-2">

@@ -1,10 +1,12 @@
 <master-layout
     title="enterprise.emission.activity.title"
     [showBack]="true"
+    data-testid="emission-activity-root"
 >
     <div
         class="mb-2 mt-2 md:w-1/2"
         *ngIf="buildingDetail"
+        data-testid="emission-activity-building-card"
     >
         <p-card header="{{ buildingDetail.name }}">
             <ng-template pTemplate="subtitle">
@@ -44,6 +46,7 @@
                         outlined
                         styleClass="w-full"
                         (onClick)="generateReport()"
+                        data-testid="emission-activity-generate-report"
                     ></p-button>
 
                     <p-button
@@ -52,6 +55,7 @@
                         (onClick)="openNewActivityDialog()"
                         severity="primary"
                         styleClass="w-full"
+                        data-testid="emission-activity-new"
                     ></p-button>
                 </div>
             </ng-template>
@@ -68,12 +72,16 @@
         [triggerClearSelected]="clearSelectedEvent"
         (selectionChange)="onSelectionChange($event)"
         [checkbox]="true"
+        data-testid="emission-activity-table"
     >
     </table-template
 ></master-layout>
 
 <ng-template #captionTemplateRef>
-    <div class="flex items-center justify-between">
+    <div
+        class="flex items-center justify-between"
+        data-testid="emission-activity-search"
+    >
         <div class="flex gap-2.5">
             <p-iconfield>
                 <p-inputicon styleClass="pi pi-search" />
@@ -82,6 +90,7 @@
                     pInputText
                     [(ngModel)]="searchCriteria.name"
                     placeholder="{{ 'common.search' | translate }}"
+                    data-testid="emission-activity-search-input"
                 />
             </p-iconfield>
             <p-button
@@ -90,6 +99,7 @@
                 icon="pi pi-search"
                 outlined
                 (onClick)="searchEvent.emit()"
+                data-testid="emission-activity-search-button"
             />
         </div>
         <div class="flex gap-2.5">
@@ -104,6 +114,7 @@
                 outlined
                 [disabled]="!selected || !selected.length"
                 (onClick)="confirmDelete()"
+                data-testid="emission-activity-delete-selected"
             />
         </div>
     </div>
@@ -118,11 +129,16 @@
         [text]="true"
         severity="contrast"
         (onClick)="openActivityDetailsDialog(activity)"
+        data-testid="emission-activity-edit"
     />
 </ng-template>
 <ng-template
     #typeTemplate
     let-activity
 >
-    <span *ngIf="activity.type">{{ activity?.type.name }}</span>
+    <span
+        *ngIf="activity.type"
+        data-testid="emission-activity-type"
+        >{{ activity?.type.name }}</span
+    >
 </ng-template>

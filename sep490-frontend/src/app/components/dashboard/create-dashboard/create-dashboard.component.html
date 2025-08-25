@@ -1,4 +1,7 @@
-<p-floatlabel variant="in">
+<p-floatlabel
+    variant="in"
+    data-testid="create-dashboard-root"
+>
     <textarea
         pTextarea
         id="over_label"
@@ -7,12 +10,16 @@
         cols="50"
         style="resize: none"
         class="h-full"
+        data-testid="create-dashboard-textarea"
     ></textarea>
     <label for="over_label">{{ 'powerBi.embeddedIfFrame' | translate }}</label>
 </p-floatlabel>
 
 @if (powerBiEmbedded && !isValid()) {
-    <div class="min-h-6 text-red-600">
+    <div
+        class="min-h-6 text-red-600"
+        data-testid="create-dashboard-invalid"
+    >
         {{ 'powerBi.invalidIfFrame' | translate }}
     </div>
 }
@@ -36,12 +43,14 @@
     <p-button
         (onClick)="close()"
         outlined
+        data-testid="create-dashboard-close"
         >{{ 'powerBi.close' | translate }}</p-button
     >
     <p-button
         [raised]="true"
         (onClick)="submit()"
         [disabled]="!isValid()"
+        data-testid="create-dashboard-submit"
         >{{ 'powerBi.submit' | translate }}</p-button
     >
 </div>

@@ -1,8 +1,12 @@
 <master-layout
     title="enterprise.emission.activity.title"
     [showBack]="true"
+    data-testid="emission-activity-detail-root"
 >
-    <p-card [header]="'enterprise.emission.activity.details.title' | translate">
+    <p-card
+        [header]="'enterprise.emission.activity.details.title' | translate"
+        data-testid="emission-activity-detail-card"
+    >
         <ng-template pTemplate="subtitle">
             <i class="pi pi-info-circle"></i>
             {{ 'enterprise.emission.activity.details.subtitle' | translate }}
@@ -17,6 +21,7 @@
                         [formGroup]="formGroup"
                         (ngSubmit)="submit()"
                         class="grid grid-cols-1 gap-4 md:grid-cols-2"
+                        data-testid="emission-activity-detail-form"
                     >
                         <p-iftalabel class="col-span-2 my-2 md:col-span-1">
                             <input
@@ -24,6 +29,7 @@
                                 formControlName="name"
                                 class="w-full"
                                 autocomplete="off"
+                                data-testid="emission-activity-detail-name"
                             />
                             <label>{{ 'enterprise.emission.activity.table.name' | translate }}</label>
                         </p-iftalabel>
@@ -38,6 +44,7 @@
                                 [showClear]="true"
                                 formControlName="type"
                                 class="w-full"
+                                data-testid="emission-activity-detail-type"
                             >
                                 <ng-template
                                     pTemplate="selectedItem"
@@ -66,6 +73,7 @@
                                 id="factorName"
                                 class="w-full"
                                 disabled
+                                data-testid="emission-activity-detail-factor"
                             />
                             <label for="factorName">{{
                                 'enterprise.emission.activity.record.table.factor' | translate
@@ -79,6 +87,7 @@
                                 [value]="getSourceName()"
                                 id="sourceName"
                                 disabled
+                                data-testid="emission-activity-detail-source"
                             />
                             <label for="sourceName">{{
                                 'enterprise.emission.activity.record.table.source' | translate
@@ -91,6 +100,7 @@
                                 formControlName="category"
                                 class="w-full"
                                 autocomplete="off"
+                                data-testid="emission-activity-detail-category"
                             />
                             <label>{{ 'enterprise.emission.activity.table.category' | translate }}</label>
                         </p-iftalabel>
@@ -100,6 +110,7 @@
                                 pInputText
                                 formControlName="description"
                                 class="w-full"
+                                data-testid="emission-activity-detail-description"
                             />
                             <label>{{ 'enterprise.emission.activity.dialog.Description' | translate }}</label>
                         </p-iftalabel>
@@ -109,6 +120,7 @@
                                 type="submit"
                                 [label]="'common.update' | translate"
                                 [disabled]="disableUpdateBtn()"
+                                data-testid="emission-activity-detail-update"
                             ></p-button>
                         </div>
                     </form>
@@ -128,6 +140,7 @@
             [triggerClearSelected]="clearSelectedEvent"
             (selectionChange)="onSelectionChange($event)"
             [checkbox]="true"
+            data-testid="emission-activity-detail-records-table"
         >
         </table-template>
     </p-card>
@@ -147,11 +160,13 @@
                 outlined
                 [disabled]="!selected || !selected.length"
                 (onClick)="confirmDelete()"
+                data-testid="emission-activity-detail-delete"
             />
             <p-button
                 [label]="'enterprise.emission.activity.record.new' | translate"
                 [severity]="'primary'"
                 (onClick)="onNewRecord()"
+                data-testid="emission-activity-detail-new-record"
             ></p-button>
         </div>
     </div>
@@ -167,6 +182,7 @@
         [text]="true"
         severity="contrast"
         (onClick)="openEditRecordDialog(record)"
+        data-testid="emission-activity-detail-edit-record"
     />
 </ng-template>
 
@@ -182,6 +198,7 @@
             [style]="{maxWidth: '200px'}"
             [styleClass]="'p-button-text p-button-sm'"
             (onClick)="onDownloadFile(rowData)"
+            data-testid="emission-activity-detail-download-file"
         >
         </p-button>
         <p-button
@@ -189,6 +206,7 @@
             severity="danger"
             [text]="true"
             (onClick)="removeFile(rowData)"
+            data-testid="emission-activity-detail-remove-file"
         />
     </div>
 </ng-template>

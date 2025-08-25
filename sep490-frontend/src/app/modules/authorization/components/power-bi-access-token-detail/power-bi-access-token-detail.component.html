@@ -1,6 +1,7 @@
 <master-layout
     title="{{ isEdit ? 'powerBi.editAccessToken' : 'powerBi.newAccessToken' }}"
     [showBack]="true"
+    data-testid="powerbi-access-token-detail-root"
 >
     @if (isEdit) {
         <div class="rounded-lg border border-yellow-200 bg-yellow-50 dark:border-yellow-800 dark:bg-yellow-950">
@@ -16,6 +17,7 @@
                     [label]="'powerBi.buttonCreateToken' | translate"
                     severity="warn"
                     (onClick)="navigateToRegenerate()"
+                    data-testid="powerbi-access-token-detail-regenerate"
                 />
             </div>
         </div>
@@ -25,6 +27,7 @@
         [formGroup]="formGroup"
         unsavedChanges
         id="powerBiAccessTokenForm"
+        data-testid="powerbi-access-token-detail-form"
     >
         <div
             class="flex flex-col *:max-w-96"
@@ -40,6 +43,7 @@
                 type="text"
                 pInputText
                 formControlName="note"
+                data-testid="powerbi-access-token-detail-note"
             />
             <small>{{ 'powerBi.whatToken' | translate }}</small>
             <form-field-error></form-field-error>
@@ -56,6 +60,7 @@
                     [options]="selectableExpirationTimes"
                     scrollHeight="300px"
                     class="min-w-64"
+                    data-testid="powerbi-access-token-detail-expiration"
                 >
                     <ng-template
                         #selectedItem
@@ -88,6 +93,7 @@
                         formControlName="expirationTime"
                         [iconDisplay]="'input'"
                         [showIcon]="true"
+                        data-testid="powerbi-access-token-detail-datepicker"
                     ></p-datepicker>
                 }
             </div>
@@ -109,6 +115,7 @@
                     optionValue="value"
                     optionDisabled="disabled"
                     class="w-full"
+                    data-testid="powerbi-access-token-detail-scope"
                 >
                     <ng-template
                         #selectedItem
@@ -138,6 +145,7 @@
                         optionValue="value"
                         [placeholder]="'enterprise.Users.placeholders.selectBuildings' | translate"
                         lazy="true"
+                        data-testid="powerbi-access-token-detail-buildings"
                     ></p-multiselect>
                     <form-field-error></form-field-error>
                 </div>
@@ -151,17 +159,22 @@
             class="*:min-w-24"
             label="{{ 'powerBi.accessToken.cancel' | translate }}"
             [outlined]="true"
+            data-testid="powerbi-access-token-detail-cancel"
         />
         <p-button
             (onClick)="submit()"
             class="*:min-w-16"
             label="{{ (isEdit ? 'powerBi.accessToken.save' : 'powerBi.accessToken.create') | translate }}"
+            data-testid="powerbi-access-token-detail-submit"
         />
     </div>
 </master-layout>
 
 <ng-template #regenerateTokenLinkTemplate>
-    <div class="mb-6">
+    <div
+        class="mb-6"
+        data-testid="powerbi-access-token-detail-regenerate-link"
+    >
         {{ 'powerBi.thisTokenExpireOn' | translate }}
         <strong>{{ powerBiAuthorityFormStructure.expirationTime.value | date: 'MMM d, yyyy' }}</strong
         >{{ 'powerBi.toSetNewExpireDate' | translate }}

@@ -1,5 +1,13 @@
-<master-layout title="sidebar.admin.chemicalDensity">
-    <div subtitle>{{ 'admin.chemicalDensity.description' | translate }}</div>
+<master-layout
+    title="sidebar.admin.chemicalDensity"
+    data-testid="admin-chemical-density-root"
+>
+    <div
+        subtitle
+        data-testid="admin-chemical-density-subtitle"
+    >
+        {{ 'admin.chemicalDensity.description' | translate }}
+    </div>
     <table-template
         [fetch]="fetchUsers"
         [columns]="cols"
@@ -10,11 +18,15 @@
         [captionTemplateRef]="captionTemplateRef"
         [checkbox]="true"
         (selectionChange)="onSelectionChange($event)"
+        data-testid="admin-chemical-density-table"
     />
 </master-layout>
 
 <ng-template #captionTemplateRef>
-    <div class="flex flex-col items-end justify-between gap-2 lg:flex-row lg:items-center">
+    <div
+        class="flex flex-col items-end justify-between gap-2 lg:flex-row lg:items-center"
+        data-testid="admin-chemical-density-search"
+    >
         <p-inputgroup class="max-w-96">
             <input
                 [(ngModel)]="searchCriteria.criteria"
@@ -22,6 +34,7 @@
                 pInputText
                 placeholder="{{ 'common.search' | translate }}"
                 (keydown.enter)="search()"
+                data-testid="admin-chemical-density-search-input"
             />
             <p-inputgroup-addon>
                 <p-button
@@ -29,10 +42,14 @@
                     severity="secondary"
                     text
                     (onClick)="search()"
+                    data-testid="admin-chemical-density-search-button"
                 />
             </p-inputgroup-addon>
         </p-inputgroup>
-        <div class="flex gap-2.5">
+        <div
+            class="flex gap-2.5"
+            data-testid="admin-chemical-density-actions"
+        >
             <p-button
                 severity="danger"
                 [label]="
@@ -44,6 +61,7 @@
                 outlined
                 [disabled]="!selected || !selected.length"
                 (onClick)="confirmDelete()"
+                data-testid="admin-chemical-density-delete"
             />
             <p-button
                 severity="primary"
@@ -51,6 +69,7 @@
                 icon="pi pi-user-plus"
                 outlined
                 (onClick)="addEmissionSource()"
+                data-testid="admin-chemical-density-add"
             />
         </div>
     </div>
@@ -59,13 +78,17 @@
     #actionsTemplate
     let-rowData
 >
-    <div class="flex">
+    <div
+        class="flex"
+        data-testid="admin-chemical-density-row-actions"
+    >
         <p-button
             icon="pi pi-pencil"
             [rounded]="true"
             [text]="true"
             severity="info"
             (onClick)="onEdit(rowData)"
+            data-testid="admin-chemical-density-edit"
         />
         <p-button
             icon="pi pi-trash"
@@ -73,6 +96,7 @@
             [text]="true"
             severity="danger"
             (onClick)="onDelete(rowData)"
+            data-testid="admin-chemical-density-row-delete"
         />
     </div>
 </ng-template>

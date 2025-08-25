@@ -1,11 +1,18 @@
 <master-layout
     title="enterprise.tenant.create.title"
     [showBack]="true"
+    data-testid="new-tenant-root"
 >
-    <div subtitle>{{ 'enterprise.tenant.create.subtitle' | translate }}</div>
+    <div
+        subtitle
+        data-testid="new-tenant-subtitle"
+    >
+        {{ 'enterprise.tenant.create.subtitle' | translate }}
+    </div>
     <form
         [formGroup]="formGroup"
         class="py-5 sm:mt-5 sm:px-5"
+        data-testid="new-tenant-form"
     >
         <div class="my-3 mb-8 grid grid-cols-12 items-baseline gap-2 sm:gap-4">
             <label
@@ -25,6 +32,7 @@
                     id="name"
                     type="text"
                     [placeholder]="'enterprise.buildings.tenant.placeholder.email' | translate"
+                    data-testid="new-tenant-email"
                 />
                 <form-field-error></form-field-error>
             </div>
@@ -32,6 +40,7 @@
         <div
             *ngIf="!preSelected"
             class="my-3 mb-8 grid grid-cols-12 items-start gap-2 sm:gap-4"
+            data-testid="new-tenant-groups"
         >
             <label class="col-span-12 font-normal sm:col-span-3">
                 {{ 'enterprise.buildings.tenant.buildingGroup' | translate }}
@@ -39,6 +48,7 @@
             <p
                 class="col-span-12 sm:col-span-9"
                 *ngIf="availableGroups.length === 0"
+                data-testid="new-tenant-no-groups"
             >
                 {{ 'enterprise.buildings.tenant.noGroups' | translate }}
             </p>
@@ -52,6 +62,7 @@
                         'border-gray-300 bg-blue-50 hover:bg-gray-50': formStructure.selectedGroupId.value !== group.id
                     }"
                     class="cursor-pointer rounded-xl border p-4 shadow-sm transition-all duration-200"
+                    data-testid="new-tenant-group-item"
                 >
                     <h3 class="text-base font-semibold text-gray-800">
                         {{ group.name }}
@@ -73,12 +84,14 @@
                 styleClass="w-full"
                 [disabled]="this.formGroup.invalid"
                 (onClick)="submit()"
+                data-testid="new-tenant-submit"
             ></p-button>
             <p-button
                 [label]="'common.revert' | translate"
                 severity="secondary"
                 styleClass="w-full"
                 (onClick)="reset()"
+                data-testid="new-tenant-revert"
             ></p-button>
         </div>
     </form>

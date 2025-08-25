@@ -1,17 +1,27 @@
-<div class="bg-white dark:bg-black">
+<div
+    class="bg-white dark:bg-black"
+    data-testid="header-root"
+>
     <div class="container mx-auto flex h-14 items-center justify-between gap-8 px-4 sm:px-6">
         <div class="flex items-center gap-4">
             <div
                 class="flex gap-2 hover:cursor-pointer"
                 (click)="homepage()"
+                data-testid="header-logo"
             >
                 <ng-container *ngTemplateOutlet="logo"></ng-container>
             </div>
         </div>
-        <div class="flex items-center gap-6 max-lg:hidden">
+        <div
+            class="flex items-center gap-6 max-lg:hidden"
+            data-testid="header-desktop-actions"
+        >
             <ng-container *ngTemplateOutlet="desktopQuickActions"></ng-container>
         </div>
-        <div class="flex items-center gap-2.5 lg:hidden">
+        <div
+            class="flex items-center gap-2.5 lg:hidden"
+            data-testid="header-mobile-actions"
+        >
             <ng-container *ngTemplateOutlet="mobileQuickActions"></ng-container>
         </div>
     </div>
@@ -39,10 +49,14 @@
     *ngIf="isMobile"
     [(visible)]="visible"
     position="full"
+    [attr.data-testid]="visible ? 'header-mobile-drawer-open' : 'header-mobile-drawer'"
 >
     <ng-template #headless>
         <div class="flex h-full flex-col px-4 pb-4 dark:bg-black">
-            <div class="flex h-14 shrink-0 items-center justify-between border-b">
+            <div
+                class="flex h-14 shrink-0 items-center justify-between border-b"
+                data-testid="header-mobile-drawer-topbar"
+            >
                 <span
                     class="inline-flex items-center gap-2"
                     (click)="homepage()"
@@ -57,22 +71,28 @@
                         outlined
                         text
                         styleClass="h-8 w-8"
+                        data-testid="header-mobile-close"
                     ></p-button>
                 </span>
             </div>
-            <div class="flex items-center justify-between gap-4 pt-4">
+            <div
+                class="flex items-center justify-between gap-4 pt-4"
+                data-testid="header-mobile-toggles"
+            >
                 <ng-container *ngTemplateOutlet="toggleDarkLight" />
                 <ng-container *ngTemplateOutlet="selectLanguage" />
             </div>
             <div
                 class="overflow-y-auto"
                 (click)="closeCallback($event)"
+                data-testid="header-mobile-menu"
             >
                 <app-sidebar></app-sidebar>
             </div>
             <div
                 *ngIf="authenticated | async"
                 (click)="closeCallback($event)"
+                data-testid="header-mobile-user"
             >
                 <ng-container *ngTemplateOutlet="userProfileMobile" />
             </div>
@@ -84,6 +104,7 @@
                         [label]="'common.logout' | translate"
                         (onClick)="logout()"
                         outlined
+                        data-testid="header-mobile-logout"
                     />
                 } @else {
                     <p-button
@@ -91,6 +112,7 @@
                         iconPos="right"
                         [label]="'common.login' | translate"
                         (onClick)="login()"
+                        data-testid="header-mobile-login"
                     />
                 }
             </div>
@@ -102,12 +124,17 @@
     ><p-menu
         [model]="userMenuMobileItems"
         class="bg-transparent *:border-none *:bg-transparent"
+        [attr.data-testid]="'header-mobile-usermenu'"
     >
         <ng-template
             #submenuheader
             let-item
         >
-            <span class="-ml-3 font-bold text-primary">{{ item.label | translate }}</span>
+            <span
+                class="-ml-3 font-bold text-primary"
+                [attr.data-testid]="'header-mobile-usermenu-submenu-' + item.label"
+                >{{ item.label | translate }}</span
+            >
         </ng-template>
         <ng-template
             #item
@@ -117,17 +144,27 @@
                 pRipple
                 [routerLink]="item.route"
                 class="p-menu-item-link flex items-center px-0"
+                [attr.data-testid]="'header-mobile-usermenu-item-' + item.label"
             >
-                <span [class]="item.icon"></span>
-                <span class="ml-2">{{ item.label | translate }}</span>
+                <span
+                    [class]="item.icon"
+                    [attr.data-testid]="'header-mobile-usermenu-item-icon-' + item.label"
+                ></span>
+                <span
+                    class="ml-2"
+                    [attr.data-testid]="'header-mobile-usermenu-item-label-' + item.label"
+                    >{{ item.label | translate }}</span
+                >
                 <p-badge
                     *ngIf="item.badge"
                     class="ml-auto"
                     [value]="item.badge"
+                    [attr.data-testid]="'header-mobile-usermenu-item-badge-' + item.label"
                 />
                 <span
                     *ngIf="item.shortcut"
                     class="ml-auto rounded border p-1 text-xs border-surface bg-emphasis text-muted-color"
+                    [attr.data-testid]="'header-mobile-usermenu-item-shortcut-' + item.label"
                     >{{ item.shortcut }}</span
                 >
             </a>
@@ -141,6 +178,7 @@
         icon="pi pi-bars"
         outlined
         text
+        data-testid="header-mobile-open"
     />
 </ng-template>
 
@@ -159,6 +197,7 @@
     <div
         (click)="menu.toggle($event)"
         class="flex h-8 w-8 items-center justify-center rounded-full border border-black/80 text-black hover:cursor-pointer dark:border-white/80 dark:text-white/80"
+        data-testid="header-avatar"
     >
         <i class="pi pi-user"></i>
     </div>
@@ -167,6 +206,7 @@
     #menu
     [model]="menuItems"
     [popup]="true"
+    [attr.data-testid]="'header-avatar-menu'"
 >
     <ng-template
         #item
@@ -176,13 +216,22 @@
             pRipple
             [routerLink]="item.route"
             class="p-menu-item-link flex items-center"
+            [attr.data-testid]="'header-avatar-menu-item-' + item.label"
         >
-            <span [class]="item.icon"></span>
-            <span class="ml-2 block w-full">{{ item.label | translate }}</span>
+            <span
+                [class]="item.icon"
+                [attr.data-testid]="'header-avatar-menu-item-icon-' + item.label"
+            ></span>
+            <span
+                class="ml-2 block w-full"
+                [attr.data-testid]="'header-avatar-menu-item-label-' + item.label"
+                >{{ item.label | translate }}</span
+            >
             <p-badge
                 *ngIf="item.badge"
                 class="ml-auto"
                 [value]="item.badge"
+                [attr.data-testid]="'header-avatar-menu-item-badge-' + item.label"
             />
         </a>
     </ng-template>
@@ -194,6 +243,7 @@
         [label]="'common.login' | translate"
         variant="text"
         (onClick)="login()"
+        data-testid="header-login"
     />
 </ng-template>
 
@@ -203,6 +253,7 @@
         [rounded]="true"
         [text]="true"
         (onClick)="toggleLightDark()"
+        data-testid="header-toggle-theme"
     />
 </ng-template>
 
@@ -213,5 +264,6 @@
         [(ngModel)]="selectedLanguage"
         (onChange)="changeLanguage($event.value)"
         optionLabel="display"
+        [attr.data-testid]="'header-select-language'"
     />
 </ng-template>

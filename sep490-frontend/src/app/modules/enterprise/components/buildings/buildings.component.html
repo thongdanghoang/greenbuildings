@@ -1,11 +1,23 @@
-<master-layout title="enterprise.buildings.overview.title">
-    <div subtitle>{{ 'enterprise.buildings.overview.description' | translate }}</div>
-    <div actions>
+<master-layout
+    title="enterprise.buildings.overview.title"
+    data-testid="buildings-root"
+>
+    <div
+        subtitle
+        data-testid="buildings-subtitle"
+    >
+        {{ 'enterprise.buildings.overview.description' | translate }}
+    </div>
+    <div
+        actions
+        data-testid="buildings-actions"
+    >
         <p-button
             severity="primary"
             [label]="'enterprise.buildings.overview.btn.add' | translate"
             icon="pi pi-building"
             (onClick)="navigateToCreateBuilding()"
+            data-testid="buildings-add"
         />
     </div>
 
@@ -14,6 +26,7 @@
         [options]="justifyOptions"
         [(ngModel)]="viewMode"
         optionValue="value"
+        data-testid="buildings-view-mode"
     >
         <ng-template
             #item
@@ -25,7 +38,10 @@
 
     @if (listView) {
         @if (buildings.length === 0) {
-            <p class="px-3 py-4">
+            <p
+                class="px-3 py-4"
+                data-testid="buildings-empty"
+            >
                 {{ 'enterprise.buildings.overview.noRow' | translate }}
             </p>
         }
@@ -40,6 +56,7 @@
     [hidden]="listView"
     class="mt-4 h-full"
     id="map"
+    data-testid="buildings-map"
 ></div>
 
 <ng-template
@@ -49,6 +66,7 @@
     <div
         class="rounded border-t-2 shadow *:w-full"
         [class]="building.subscriptionDTO ? 'border-t-primary' : 'border-t-yellow-500'"
+        data-testid="buildings-card"
     >
         <div
             class="flex flex-col justify-between gap-4 rounded-t p-2 lg:flex-row lg:gap-0 lg:p-4"
@@ -80,11 +98,13 @@
                     icon="pi pi-info"
                     text
                     severity="info"
+                    data-testid="buildings-view-details"
                 />
                 <p-button
                     icon="pi pi-map"
                     text
                     (onClick)="zoomTo(building.latitude, building.longitude)"
+                    data-testid="buildings-zoom"
                 />
                 <p-button
                     *ngIf="!building.subscriptionDTO"
@@ -92,12 +112,14 @@
                     severity="danger"
                     text
                     (onClick)="confirmDelete(building.id)"
+                    data-testid="buildings-delete"
                 />
                 <p-button
                     (onClick)="viewHistoryUseCredit(building.id)"
                     icon="pi pi-history"
                     text
                     severity="secondary"
+                    data-testid="buildings-view-history"
                 />
             </div>
         </div>
@@ -153,6 +175,7 @@
                         : ('enterprise.buildings.overview.btn.update' | translate)
                 "
                 [outlined]="building.subscriptionDTO !== null"
+                data-testid="buildings-activate-update"
             />
             <p-button
                 *ngIf="hasSubscription(building)"
@@ -161,6 +184,7 @@
                 label="{{ 'enterprise.buildings.overview.btn.manage' | translate }}"
                 [routerLink]="getManageBuildingPath(building)"
                 outlined
+                data-testid="buildings-manage"
             />
         </div>
     </div>

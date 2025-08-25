@@ -1,11 +1,13 @@
 <master-layout
     title="powerBi.dashboard"
     styleClass="h-full"
+    data-testid="dashboard-root"
 >
     <div subtitle>{{ 'powerBi.dashboardDescription' | translate }}</div>
     <div
         actions
         class="flex gap-3"
+        data-testid="dashboard-actions"
     >
         <ng-container *ngTemplateOutlet="addNewDashboard"></ng-container>
         @if (dashboards.length > 0) {
@@ -21,13 +23,17 @@
                 class="h-full w-full"
                 [title]="selectedDashboard.value.title"
                 [src]="safeUrl"
+                data-testid="dashboard-iframe"
             ></iframe>
         }
     </ng-container>
 </master-layout>
 
 <ng-template #noDashboards>
-    <div class="flex flex-col gap-4 p-8">
+    <div
+        class="flex flex-col gap-4 p-8"
+        data-testid="dashboard-empty"
+    >
         <!-- Total emissions card -->
         <div class="p-4">
             <div class="mb-3 text-lg">{{ 'powerBi.totalEmissions' | translate }}</div>
@@ -39,12 +45,14 @@
                 type="pie"
                 [data]="dataPieArea"
                 [options]="optionsPieOptions"
+                [attr.data-testid]="'dashboard-chart-pie'"
             />
             <p-chart
                 type="bar"
                 class="w-full"
                 [data]="basicData"
                 [options]="basicOptions"
+                [attr.data-testid]="'dashboard-chart-bar'"
             />
         </div>
     </div>

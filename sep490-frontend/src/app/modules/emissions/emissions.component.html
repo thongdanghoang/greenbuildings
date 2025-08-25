@@ -1,9 +1,18 @@
-<master-layout title="emissions.title">
-    <div subtitle>{{ 'emissions.subtitle' | translate }}</div>
+<master-layout
+    title="emissions.title"
+    data-testid="emissions-root"
+>
+    <div
+        subtitle
+        data-testid="emissions-subtitle"
+    >
+        {{ 'emissions.subtitle' | translate }}
+    </div>
 
     <div
         class=""
         actions
+        data-testid="emissions-actions"
     >
         <ng-container
             *ngTemplateOutlet="addActivityBtn; context: {styleClass: 'block lg:hidden', mobile: true}"
@@ -20,6 +29,7 @@
         [triggerSearch]="searchEvent"
         [captionTemplateRef]="captionTemplateRef"
         [expandedTemplateRef]="expandedTemplateRef"
+        data-testid="emissions-table"
     />
 </master-layout>
 
@@ -30,44 +40,71 @@
     <td
         colspan="7"
         class="p-3"
+        data-testid="emissions-expanded-row"
     >
-        <p class="mb-2 text-sm font-semibold">
+        <p
+            class="mb-2 text-sm font-semibold"
+            data-testid="emissions-activity-title"
+        >
             {{ 'emissions.activities.table.recordsFor' | translate }}
             {{ activity.name }}
         </p>
         <p-table
             [value]="activity.records"
             dataKey="id"
+            data-testid="emissions-records-table"
         >
             <ng-template #header>
-                <tr>
-                    <th pSortableColumn="value">
+                <tr data-testid="emissions-records-header">
+                    <th
+                        pSortableColumn="value"
+                        data-testid="emissions-records-header-value"
+                    >
                         {{ 'enterprise.emission.activity.record.table.value' | translate }} <p-sortIcon field="value" />
                     </th>
-                    <th pSortableColumn="unit }">
+                    <th
+                        pSortableColumn="unit }"
+                        data-testid="emissions-records-header-unit"
+                    >
                         {{ 'enterprise.emission.activity.record.table.unit' | translate }} <p-sortIcon field="unit" />
                     </th>
-                    <th pSortableColumn="quantity">
+                    <th
+                        pSortableColumn="quantity"
+                        data-testid="emissions-records-header-quantity"
+                    >
                         {{ 'enterprise.emission.activity.record.table.quantity' | translate }}
                         <p-sortIcon field="quantity" />
                     </th>
-                    <th pSortableColumn="startDate">
+                    <th
+                        pSortableColumn="startDate"
+                        data-testid="emissions-records-header-startDate"
+                    >
                         {{ 'enterprise.emission.activity.record.table.startDate' | translate }}
                         <p-sortIcon field="startDate" />
                     </th>
-                    <th pSortableColumn="endDate">
+                    <th
+                        pSortableColumn="endDate"
+                        data-testid="emissions-records-header-endDate"
+                    >
                         {{ 'enterprise.emission.activity.record.table.endDate' | translate }}
                         <p-sortIcon field="endDate" />
                     </th>
-                    <th pSortableColumn="ghg">
+                    <th
+                        pSortableColumn="ghg"
+                        data-testid="emissions-records-header-ghg"
+                    >
                         {{ 'enterprise.emission.activity.record.table.ghg' | translate }} <p-sortIcon field="ghg" />
                     </th>
-                    <th class="flex justify-end">
+                    <th
+                        class="flex justify-end"
+                        data-testid="emissions-records-header-actions"
+                    >
                         <p-button
                             icon="pi pi-plus"
                             outlined
                             severity="contrast"
                             (onClick)="onNewEmissionRecord(activity)"
+                            data-testid="emissions-add-record"
                         />
                     </th>
                 </tr>
@@ -76,26 +113,36 @@
                 #body
                 let-record
             >
-                <tr>
-                    <td>{{ record.value }}</td>
-                    <td>{{ 'unit.' + record.unit | translate }}</td>
-                    <td>{{ record.quantity | number: '1.0-0' }}</td>
-                    <td>{{ record.startDate | date: 'dd.MM.yyyy' }}</td>
-                    <td>{{ record.endDate | date: 'dd.MM.yyyy' }}</td>
-                    <td class="font-bold text-primary">{{ record.ghg | number: '1.0-0' }}</td>
-                    <td class="flex justify-end">
+                <tr data-testid="emissions-record-row">
+                    <td data-testid="emissions-record-value">{{ record.value }}</td>
+                    <td data-testid="emissions-record-unit">{{ 'unit.' + record.unit | translate }}</td>
+                    <td data-testid="emissions-record-quantity">{{ record.quantity | number: '1.0-0' }}</td>
+                    <td data-testid="emissions-record-startDate">{{ record.startDate | date: 'dd.MM.yyyy' }}</td>
+                    <td data-testid="emissions-record-endDate">{{ record.endDate | date: 'dd.MM.yyyy' }}</td>
+                    <td
+                        class="font-bold text-primary"
+                        data-testid="emissions-record-ghg"
+                    >
+                        {{ record.ghg | number: '1.0-0' }}
+                    </td>
+                    <td
+                        class="flex justify-end"
+                        data-testid="emissions-record-actions"
+                    >
                         <p-button
                             icon="pi pi-pencil"
                             outlined
                             text
                             severity="contrast"
                             (onClick)="openEditRecordDialog(activity, record)"
+                            data-testid="emissions-edit-record"
                         />
                         <p-button
                             icon="pi pi-trash"
                             severity="danger"
                             [text]="true"
                             (onClick)="onDeleteEmissionRecord(record.id)"
+                            data-testid="emissions-delete-record"
                         />
                     </td>
                 </tr>

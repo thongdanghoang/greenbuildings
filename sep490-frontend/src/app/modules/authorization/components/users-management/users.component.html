@@ -1,9 +1,20 @@
-<div class="mb-4 flex items-center justify-between border-b pb-1">
-    <h1 class="text-lg font-bold text-primary">
+<div
+    class="mb-4 flex items-center justify-between border-b pb-1"
+    data-testid="users-management-header"
+>
+    <h1
+        class="text-lg font-bold text-primary"
+        data-testid="users-management-title"
+    >
         {{ 'enterprise.Users.title' | translate }}
     </h1>
 </div>
-<p class="mb-4">{{ 'enterprise.Users.description' | translate }}</p>
+<p
+    class="mb-4"
+    data-testid="users-management-description"
+>
+    {{ 'enterprise.Users.description' | translate }}
+</p>
 <table-template
     [fetch]="fetchUsers"
     [columns]="cols"
@@ -14,12 +25,19 @@
     [captionTemplateRef]="captionTemplateRef"
     [checkbox]="true"
     (selectionChange)="onSelectionChange($event)"
+    data-testid="users-management-table"
 >
 </table-template>
 <ng-template #captionTemplateRef>
-    <div class="flex items-center justify-between">
-        <div class="flex gap-2.5">
-            <p-iconfield>
+    <div
+        class="flex items-center justify-between"
+        data-testid="users-management-search"
+    >
+        <div
+            class="flex gap-2.5"
+            data-testid="users-management-search-inputs"
+        >
+            <p-iconfield data-testid="users-management-search-field">
                 <p-inputicon styleClass="pi pi-search" />
                 <input
                     [(ngModel)]="searchCriteria.criteria"
@@ -27,6 +45,7 @@
                     pInputText
                     placeholder="{{ 'common.search' | translate }}"
                     (keydown.enter)="search()"
+                    data-testid="users-management-search-input"
                 />
             </p-iconfield>
             <p-button
@@ -35,22 +54,30 @@
                 icon="pi pi-search"
                 outlined
                 (onClick)="search()"
+                data-testid="users-management-search-button"
             />
         </div>
-        <div class="flex gap-2.5"></div>
+        <div
+            class="flex gap-2.5"
+            data-testid="users-management-actions"
+        ></div>
     </div>
 </ng-template>
 <ng-template
     #actionsTemplate
     let-rowData
 >
-    <div class="flex">
+    <div
+        class="flex"
+        data-testid="users-management-row-actions"
+    >
         <p-button
             icon="pi pi-pencil"
             [rounded]="true"
             [text]="true"
             severity="info"
             (onClick)="onEdit(rowData)"
+            data-testid="users-management-edit"
         />
         <p-button
             icon="pi pi-trash"
@@ -58,6 +85,7 @@
             [text]="true"
             severity="danger"
             (onClick)="onDelete(rowData)"
+            data-testid="users-management-delete"
         />
     </div>
 </ng-template>
@@ -65,5 +93,5 @@
     #scopeTemplate
     let-rowData
 >
-    <p>{{ 'enum.scope.' + rowData.scope | translate }}</p>
+    <p data-testid="users-management-scope">{{ 'enum.scope.' + rowData.scope | translate }}</p>
 </ng-template>

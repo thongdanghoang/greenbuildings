@@ -1,18 +1,28 @@
-<div class="p-dialog-header">
+<div
+    class="p-dialog-header"
+    data-testid="building-subscription-header"
+>
     <div class="inline-flex items-center justify-center gap-2">
         <p-avatar
             icon="pi pi-building"
             class="mr-2 flex items-center justify-center"
             size="large"
         />
-        <span class="whitespace-nowrap font-bold">{{
-            data.type === TransactionType.NEW_PURCHASE
-                ? ('dialog.subscription.header.title' | translate)
-                : ('dialog.subscription.header.titleUpdate' | translate)
-        }}</span>
+        <span
+            class="whitespace-nowrap font-bold"
+            data-testid="building-subscription-title"
+            >{{
+                data.type === TransactionType.NEW_PURCHASE
+                    ? ('dialog.subscription.header.title' | translate)
+                    : ('dialog.subscription.header.titleUpdate' | translate)
+            }}</span
+        >
     </div>
 </div>
-<div class="p-dialog-content">
+<div
+    class="p-dialog-content"
+    data-testid="building-subscription-content"
+>
     <div class="mb-4 flex flex-col justify-between border border-primary px-4 lg:flex-row">
         <div class="flex flex-col items-center gap-5 p-5 lg:items-start">
             <span class="block text-surface-500 dark:text-surface-400"
@@ -43,6 +53,7 @@
     <form
         [formGroup]="formGroup"
         class="mt-2 grid justify-between gap-4 px-4 pt-4 lg:grid-cols-2"
+        data-testid="building-subscription-form"
     >
         <div
             class="mb-4 block"
@@ -62,6 +73,7 @@
                     [inputStyle]="{width: '4rem'}"
                     [inputStyleClass]="'text-center'"
                     (onInput)="calculateTotalToPay()"
+                    data-testid="building-subscription-months"
                 >
                     <ng-template #incrementbuttonicon>
                         <span class="pi pi-plus"></span>
@@ -98,6 +110,7 @@
                     [inputStyleClass]="'text-center'"
                     [allowEmpty]="false"
                     (onInput)="calculateTotalToPay()"
+                    data-testid="building-subscription-devices"
                 >
                     <ng-template #incrementbuttonicon>
                         <span class="pi pi-plus"></span>
@@ -128,6 +141,7 @@
                     inputId="confirm_ckb"
                     [(ngModel)]="checked"
                     [binary]="true"
+                    data-testid="building-subscription-confirm"
                 />
                 <label
                     class="ml-2"
@@ -151,6 +165,7 @@
                     [routerLink]="['/', AppRoutingConstants.ENTERPRISE_PATH, AppRoutingConstants.PLAN_PATH]"
                     (click)="closeDialog()"
                     class="text-primary hover:underline"
+                    data-testid="building-subscription-recharge"
                 >
                     {{ 'common.rechargeNow' | translate }}
                 </a>
@@ -158,18 +173,23 @@
         }
     </div>
 </div>
-<div class="p-dialog-footer">
+<div
+    class="p-dialog-footer"
+    data-testid="building-subscription-footer"
+>
     <p-button
         label="{{ 'dialog.subscription.footer.button.cancel' | translate }}"
         [text]="true"
         severity="primary"
         [outlined]="true"
         (click)="closeDialog()"
+        data-testid="building-subscription-cancel"
     />
     <p-button
         label="{{ 'dialog.subscription.footer.button.buy' | translate }}"
         severity="primary"
         [disabled]="!checked"
         (click)="submit()"
+        data-testid="building-subscription-buy"
     />
 </div>
