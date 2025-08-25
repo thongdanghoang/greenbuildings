@@ -1,11 +1,13 @@
 <master-layout
     title="{{ isEdit ? 'enterprise.buildings.details.edit' : 'enterprise.buildings.details.create' }}"
     [showBack]="true"
+    data-testid="building-details-root"
     ><form
         unsavedChanges
         id="buildingDetailsForm"
         [formGroup]="formGroup"
         class="flex flex-col gap-2.5 rounded-lg border border-black/20 p-4 dark:border-white/20"
+        data-testid="building-details-form"
     >
         <div
             class="flex flex-col gap-2"
@@ -21,6 +23,7 @@
                 formControlName="name"
                 id="name"
                 type="text"
+                data-testid="building-details-name"
             />
             <form-field-error></form-field-error>
         </div>
@@ -34,6 +37,7 @@
                 [showButtons]="true"
                 [min]="0"
                 inputId="Levels"
+                [attr.data-testid]="'building-details-levels'"
             >
             </p-inputnumber>
             <form-field-error></form-field-error>
@@ -48,6 +52,7 @@
                 inputId="horizontal"
                 [min]="0"
                 suffix=" (m²)"
+                [attr.data-testid]="'building-details-area'"
             >
             </p-inputnumber>
             <form-field-error></form-field-error>
@@ -60,6 +65,7 @@
             <p-inputnumber
                 formControlName="limit"
                 suffix=" (kgCO2e)"
+                [attr.data-testid]="'building-details-limit'"
             >
             </p-inputnumber>
             <form-field-error></form-field-error>
@@ -82,6 +88,7 @@
                     [minLength]="2"
                     [dropdown]="false"
                     [forceSelection]="false"
+                    [attr.data-testid]="'building-details-address'"
                 />
                 <p-inputgroup-addon>
                     <p-button
@@ -90,6 +97,7 @@
                         severity="secondary"
                         text
                         class="h-full"
+                        data-testid="building-details-show-map"
                     />
                 </p-inputgroup-addon>
             </p-inputgroup>
@@ -108,6 +116,7 @@
                     id="startDate"
                     type="text"
                     [disabled]="false"
+                    data-testid="building-details-start-date"
                 />
             </div>
         </ng-container>
@@ -124,6 +133,7 @@
                     id="endDate"
                     type="text"
                     [disabled]="false"
+                    data-testid="building-details-end-date"
                 />
             </div>
         </ng-container>
@@ -144,6 +154,7 @@
                     id="maxNumberOfDevices"
                     type="text"
                     [disabled]="false"
+                    data-testid="building-details-max-devices"
                 />
             </div>
         </ng-container>
@@ -154,25 +165,34 @@
                 class="*:min-w-24"
                 label="{{ 'common.revert' | translate }}"
                 [outlined]="true"
+                data-testid="building-details-revert"
             />
             <p-button
                 (onClick)="onSubmit()"
-                class="*:min-w-16"
+                class=":min-w-16"
                 label="{{ (isEdit ? 'common.save' : 'common.create') | translate }}"
+                data-testid="building-details-submit"
             />
         </div>
     </form>
 
     @if (showMap) {
-        <div style="height: 600px; width: 100%">
+        <div
+            style="height: 600px; width: 100%"
+            data-testid="building-details-map-wrapper"
+        >
             <div
                 id="building-details-map"
                 style="height: 100%; width: 100%"
+                data-testid="building-details-map"
             ></div>
         </div>
     }
 
-    <div *ngIf="isEdit && activated">
+    <div
+        *ngIf="isEdit && activated"
+        data-testid="building-details-users"
+    >
         <div class="mb-1 mt-2 flex items-center justify-start">
             <p class="font-bold text-primary">
                 {{ 'enterprise.userInBuildings' | translate }}
@@ -182,6 +202,7 @@
             [fetch]="fetchData"
             [columns]="cols"
             [triggerSearch]="triggerSearch"
+            data-testid="building-details-users-table"
         >
         </table-template>
     </div>

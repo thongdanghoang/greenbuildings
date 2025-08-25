@@ -1,30 +1,59 @@
 <master-layout
     title="enterprise.create.title"
     [showBack]="true"
+    data-testid="create-enterprise-root"
 >
-    <p subtitle>
+    <p
+        subtitle
+        data-testid="create-enterprise-subtitle"
+    >
         {{ 'enterprise.create.description' | translate }}
     </p>
 
-    <div class="card flex justify-center">
+    <div
+        class="card flex justify-center"
+        data-testid="create-enterprise-stepper-container"
+    >
         <p-stepper
             [value]="1"
             class="w-full"
             [linear]="true"
+            data-testid="create-enterprise-stepper"
         >
-            <p-step-list>
-                <p-step [value]="1">{{ 'enterprise.create.header1' | translate }}</p-step>
-                <p-step [value]="2">{{ 'enterprise.create.header2' | translate }}</p-step>
-                <p-step [value]="3">{{ 'enterprise.create.header3' | translate }}</p-step>
+            <p-step-list data-testid="create-enterprise-step-list">
+                <p-step
+                    [value]="1"
+                    data-testid="create-enterprise-step-1"
+                    >{{ 'enterprise.create.header1' | translate }}</p-step
+                >
+                <p-step
+                    [value]="2"
+                    data-testid="create-enterprise-step-2"
+                    >{{ 'enterprise.create.header2' | translate }}</p-step
+                >
+                <p-step
+                    [value]="3"
+                    data-testid="create-enterprise-step-3"
+                    >{{ 'enterprise.create.header3' | translate }}</p-step
+                >
             </p-step-list>
             <p-step-panels>
-                <p-step-panel [value]="1">
+                <p-step-panel
+                    [value]="1"
+                    data-testid="create-enterprise-panel-1"
+                >
                     <ng-template
                         #content
                         let-activateCallback="activateCallback"
                     >
-                        <div class="flex flex-col">
-                            <div class="rounded-xl border border-primary-100 p-5 dark:border-primary-900">
+                        <div
+                            class="flex flex-col"
+                            data-testid="create-enterprise-welcome"
+                        >
+                            <div
+                                class="rounded-xl border border-primary-100 p-5 dark:border-primary-900"
+                                data-testid="create-enterprise-welcome-content"
+                            >
                                 <h2 class="mb-3 text-2xl font-semibold text-gray-800 dark:text-gray-200">
                                     👋
                                     {{ 'enterprise.create.welcomeTitle' | translate }}
@@ -51,36 +80,51 @@
                                     {{ 'enterprise.create.callToAction' | translate }}
                                 </p>
                             </div>
-                            <div class="flex justify-end pt-6">
+                            <div
+                                class="flex justify-end pt-6"
+                                data-testid="create-enterprise-welcome-actions"
+                            >
                                 <p-button
                                     [label]="'common.next' | translate"
                                     icon="pi pi-arrow-right"
                                     iconPos="right"
                                     (onClick)="activateCallback(2)"
+                                    data-testid="create-enterprise-next"
                                 />
                             </div>
                         </div>
                     </ng-template>
                 </p-step-panel>
 
-                <p-step-panel [value]="2">
+                <p-step-panel
+                    [value]="2"
+                    data-testid="create-enterprise-panel-2"
+                >
                     <ng-template
                         #content
                         let-activateCallback="activateCallback"
                     >
-                        <div class="flex flex-col">
+                        <div
+                            class="flex flex-col"
+                            data-testid="create-enterprise-form"
+                        >
                             <form
                                 [formGroup]="formGroup"
                                 class="rounded-xl border border-primary-100 p-5 dark:border-primary-900"
+                                data-testid="create-enterprise-form-content"
                             >
-                                <div class="mb-4 flex items-start gap-3">
+                                <div
+                                    class="mb-4 flex items-start gap-3"
+                                    data-testid="create-enterprise-role-tenant"
+                                >
                                     <p-radiobutton
                                         inputId="tenant"
                                         formControlName="role"
                                         size="large"
                                         [value]="UserRole[UserRole.TENANT]"
+                                        data-testid="create-enterprise-role-tenant-radio"
                                     ></p-radiobutton>
-                                    <div>
+                                    <div data-testid="create-enterprise-role-tenant-content">
                                         <label
                                             for="tenant"
                                             class="text-sm font-semibold"
@@ -356,13 +400,17 @@
                                 </div>
                             </form>
                         </div>
-                        <div class="flex justify-between">
+                        <div
+                            class="flex justify-between"
+                            data-testid="create-enterprise-form-actions"
+                        >
                             <p-button
                                 [label]="'common.back' | translate"
                                 icon="pi pi-arrow-left"
                                 iconPos="left"
                                 outlined
                                 (onClick)="activateCallback(2)"
+                                data-testid="create-enterprise-back"
                             />
                             <p-button
                                 [label]="'common.create' | translate"
@@ -370,6 +418,7 @@
                                 severity="primary"
                                 [disabled]="disableSubmitButton"
                                 (onClick)="submit()"
+                                data-testid="create-enterprise-submit"
                             ></p-button>
                         </div>
                     </ng-template>
@@ -379,11 +428,12 @@
     </div>
 </master-layout>
 
-<div>
+<div data-testid="create-enterprise-toast-container">
     <p-toast
         key="center"
         position="top-center"
         styleClass="w-full max-w-md mx-auto bg-transparent shadow-none border-none animate-slide-down"
+        data-testid="create-enterprise-toast"
     >
         <ng-template
             let-message

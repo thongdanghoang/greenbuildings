@@ -1,5 +1,13 @@
-<master-layout title="sidebar.admin.enterprise">
-    <div subtitle>{{ 'admin.enterprise.description' | translate }}</div>
+<master-layout
+    title="sidebar.admin.enterprise"
+    data-testid="enterprise-management-root"
+>
+    <div
+        subtitle
+        data-testid="enterprise-management-subtitle"
+    >
+        {{ 'admin.enterprise.description' | translate }}
+    </div>
     <table-template
         [fetch]="fetchEnterprises"
         [columns]="cols"
@@ -8,18 +16,26 @@
         [triggerSearch]="searchEvent"
         [captionTemplateRef]="captionTemplateRef"
         [checkbox]="false"
+        data-testid="enterprise-management-table"
     />
 </master-layout>
 
 <ng-template #captionTemplateRef>
-    <div class="flex flex-col items-end justify-between gap-2 lg:flex-row lg:items-center">
-        <p-inputgroup class="max-w-96">
+    <div
+        class="flex flex-col items-end justify-between gap-2 lg:flex-row lg:items-center"
+        data-testid="enterprise-management-search"
+    >
+        <p-inputgroup
+            class="max-w-96"
+            data-testid="enterprise-management-search-input-group"
+        >
             <input
                 [(ngModel)]="searchCriteria.criteria"
                 type="text"
                 pInputText
                 placeholder="{{ 'common.search' | translate }}"
                 (keydown.enter)="search()"
+                data-testid="enterprise-management-search-input"
             />
             <p-inputgroup-addon>
                 <p-button
@@ -27,6 +43,7 @@
                     severity="secondary"
                     text
                     (onClick)="searchEvent.emit()"
+                    data-testid="enterprise-management-search-button"
                 />
             </p-inputgroup-addon>
         </p-inputgroup>

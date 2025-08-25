@@ -1,5 +1,8 @@
 <!-- Dialog Header -->
-<div class="flex items-center justify-between rounded-t-2xl py-4">
+<div
+    class="flex items-center justify-between rounded-t-2xl py-4"
+    data-testid="payment-detail-header"
+>
     <span class="flex items-center gap-3 text-xl font-bold text-primary-600 dark:text-primary-400">
         <i class="pi pi-wallet text-2xl text-primary-600 dark:text-primary-400"></i>
         {{ 'paymentDetail.header' | translate }}
@@ -12,11 +15,15 @@
         (click)="closeDialog()"
         severity="secondary"
         text
+        data-testid="payment-detail-close"
     ></button>
 </div>
 
 <ng-container *ngIf="paymentDetail">
-    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+    <div
+        class="grid grid-cols-1 gap-4 sm:grid-cols-2"
+        data-testid="payment-detail-body"
+    >
         <!-- Created Date -->
         <div class="rounded-xl bg-gray-50 p-4 transition-shadow hover:shadow-md dark:bg-gray-700">
             <label class="flex items-center gap-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
@@ -38,6 +45,7 @@
                 <span
                     [ngClass]="getStatusClass(paymentDetail.status)"
                     class="inline-block rounded-full bg-primary-100 px-3 py-1 text-sm font-medium text-primary-800 dark:bg-primary-900 dark:text-primary-200"
+                    data-testid="payment-detail-status"
                 >
                     {{ 'enum.status.payment.' + paymentDetail.status | translate }}
                 </span>
@@ -50,7 +58,10 @@
                 <i class="pi pi-dollar text-primary-600 dark:text-primary-400"></i>
                 {{ 'paymentDetail.labels.amount' | translate }}
             </label>
-            <p class="mt-2 text-base font-semibold text-gray-900 dark:text-gray-100">
+            <p
+                class="mt-2 text-base font-semibold text-gray-900 dark:text-gray-100"
+                data-testid="payment-detail-amount"
+            >
                 {{ formatAmount(paymentDetail.amount) }}
                 {{ paymentDetail.currency }}
             </p>
@@ -62,7 +73,10 @@
                 <i class="pi pi-star text-primary-600 dark:text-primary-400"></i>
                 {{ 'paymentDetail.labels.credits' | translate }}
             </label>
-            <p class="mt-2 text-base text-gray-900 dark:text-gray-100">
+            <p
+                class="mt-2 text-base text-gray-900 dark:text-gray-100"
+                data-testid="payment-detail-credits"
+            >
                 {{ paymentDetail.numberOfCredits || ('paymentDetail.fallback.na' | translate) }}
             </p>
         </div>
@@ -73,7 +87,10 @@
                 <i class="pi pi-user text-primary-600 dark:text-primary-400"></i>
                 {{ 'paymentDetail.labels.accountName' | translate }}
             </label>
-            <p class="mt-2 text-base text-gray-900 dark:text-gray-100">
+            <p
+                class="mt-2 text-base text-gray-900 dark:text-gray-100"
+                data-testid="payment-detail-account-name"
+            >
                 {{ paymentDetail.accountName || ('paymentDetail.fallback.na' | translate) }}
             </p>
         </div>
@@ -84,7 +101,10 @@
                 <i class="pi pi-id-card text-primary-600 dark:text-primary-400"></i>
                 {{ 'paymentDetail.labels.accountNumber' | translate }}
             </label>
-            <p class="mt-2 text-base text-gray-900 dark:text-gray-100">
+            <p
+                class="mt-2 text-base text-gray-900 dark:text-gray-100"
+                data-testid="payment-detail-account-number"
+            >
                 {{
                     paymentDetail.accountNumber
                         ? '**** **** **** ' + paymentDetail.accountNumber.slice(-4)
@@ -96,6 +116,7 @@
         <!-- Enterprise Info -->
         <div
             class="col-span-1 rounded-xl bg-gray-50 p-4 transition-shadow hover:shadow-md sm:col-span-2 dark:bg-gray-700"
+            data-testid="payment-detail-enterprise"
         >
             <label class="flex items-center gap-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
                 <i class="pi pi-building text-primary-600 dark:text-primary-400"></i>

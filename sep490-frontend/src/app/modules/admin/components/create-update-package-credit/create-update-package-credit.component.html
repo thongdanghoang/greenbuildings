@@ -5,8 +5,12 @@
     severity="primary"
     outlined="true"
     icon="pi pi-arrow-left"
+    data-testid="admin-package-credit-back"
 />
-<div class="mt-4 px-5">
+<div
+    class="mt-4 px-5"
+    data-testid="admin-package-credit-title"
+>
     @if (isEdit) {
         <h1 class="text-lg font-bold">
             {{ 'enterprise.buildings.details.edit' | translate }}
@@ -22,6 +26,7 @@
     class="p-5 sm:mt-5"
     unsavedChanges
     id="creditBundleForm"
+    data-testid="admin-package-credit-form"
 >
     <!-- number of credit -->
     <div
@@ -41,6 +46,7 @@
                 id="numberOfCredits"
                 pInputText
                 [placeholder]="'admin.packageCredit.input.enterNumberCredit' | translate"
+                data-testid="admin-package-credit-number-credits"
             />
             <form-field-error></form-field-error>
         </div>
@@ -64,6 +70,7 @@
                 id="price"
                 pInputText
                 [placeholder]="'admin.packageCredit.input.enterPrice' | translate"
+                data-testid="admin-package-credit-price"
             />
             <form-field-error></form-field-error>
         </div>
@@ -86,13 +93,17 @@
                 type="number"
                 id="discount"
                 pInputText
+                data-testid="admin-package-credit-discount"
             />
             <form-field-error></form-field-error>
         </div>
     </div>
 
     <!-- Buttons -->
-    <div class="flex justify-end gap-4 *:min-w-24 md:justify-start">
+    <div
+        class="flex justify-end gap-4 *:min-w-24 md:justify-start"
+        data-testid="admin-package-credit-actions"
+    >
         <!-- Create Button -->
         <p-button
             [label]="(isEdit ? 'common.save' : 'common.create') | translate"
@@ -100,6 +111,7 @@
             severity="primary"
             [disabled]="disableSubmitButton"
             (onClick)="submit()"
+            data-testid="admin-package-credit-submit"
         ></p-button>
 
         <!-- Revert Button -->
@@ -108,6 +120,7 @@
             styleClass="w-full"
             severity="secondary"
             (onClick)="reset()"
+            data-testid="admin-package-credit-revert"
         ></p-button>
     </div>
 </form>

@@ -1,8 +1,12 @@
 <master-layout
     title="enterprise.type.name"
     [showBack]="true"
+    data-testid="enterprise-activity-type-root"
 >
-    <div subtitle>
+    <div
+        subtitle
+        data-testid="enterprise-activity-type-subtitle"
+    >
         {{ 'enterprise.type.description' | translate }}
     </div>
 
@@ -16,11 +20,15 @@
         [captionTemplateRef]="captionTemplateRef"
         [checkbox]="true"
         (selectionChange)="onSelectionChange($event)"
+        data-testid="enterprise-activity-type-table"
     />
 </master-layout>
 
 <ng-template #captionTemplateRef>
-    <div class="flex items-center justify-between">
+    <div
+        class="flex items-center justify-between"
+        data-testid="enterprise-activity-type-search"
+    >
         <div class="flex gap-2.5">
             <p-iconfield>
                 <p-inputicon styleClass="pi pi-search" />
@@ -30,6 +38,7 @@
                     pInputText
                     placeholder="{{ 'common.search' | translate }}"
                     (keydown.enter)="searchEvent.emit()"
+                    data-testid="enterprise-activity-type-search-input"
                 />
             </p-iconfield>
             <p-button
@@ -38,6 +47,7 @@
                 icon="pi pi-search"
                 outlined
                 (onClick)="searchEvent.emit()"
+                data-testid="enterprise-activity-type-search-button"
             />
         </div>
         <div class="flex gap-2.5">
@@ -52,6 +62,7 @@
                 outlined
                 [disabled]="!selected || !selected.length"
                 (onClick)="confirmDelete()"
+                data-testid="enterprise-activity-type-delete"
             />
             <p-button
                 severity="primary"
@@ -59,6 +70,7 @@
                 icon="pi pi-user-plus"
                 outlined
                 (onClick)="addActivityType()"
+                data-testid="enterprise-activity-type-add"
             />
         </div>
     </div>
@@ -67,13 +79,17 @@
     #actionsTemplate
     let-rowData
 >
-    <div class="flex">
+    <div
+        class="flex"
+        data-testid="enterprise-activity-type-row-actions"
+    >
         <p-button
             icon="pi pi-pencil"
             [rounded]="true"
             [text]="true"
             severity="info"
             (onClick)="onEdit(rowData)"
+            data-testid="enterprise-activity-type-edit"
         />
         <p-button
             icon="pi pi-trash"
@@ -81,6 +97,7 @@
             [text]="true"
             severity="danger"
             (onClick)="onDelete(rowData)"
+            data-testid="enterprise-activity-type-row-delete"
         />
     </div>
 </ng-template>

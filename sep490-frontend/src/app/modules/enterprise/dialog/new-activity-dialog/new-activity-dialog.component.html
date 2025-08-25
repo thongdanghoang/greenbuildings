@@ -1,5 +1,11 @@
-<div class="mt-4 w-[300px] sm:w-[400px] md:w-[500px]">
-    <div class="p-dialog-header border-b p-0">
+<div
+    class="mt-4 w-[300px] sm:w-[400px] md:w-[500px]"
+    data-testid="enterprise-new-activity-dialog-root"
+>
+    <div
+        class="p-dialog-header border-b p-0"
+        data-testid="enterprise-new-activity-dialog-header"
+    >
         <span class="text-xl font-semibold">{{ 'enterprise.emission.activity.dialog.title' | translate }}</span>
         <button
             pButton
@@ -7,12 +13,14 @@
             icon="pi pi-times"
             class="p-button-rounded p-button-text"
             (click)="closeDialog()"
+            data-testid="enterprise-new-activity-dialog-close"
         ></button>
     </div>
 
     <p-stepper
         [value]="1"
         class="block"
+        data-testid="enterprise-new-activity-dialog-stepper"
     >
         <p-step-panels class="block h-full">
             <!-- Step 1 Panel -->
@@ -24,6 +32,7 @@
                     <form
                         [formGroup]="formGroup"
                         class="p-dialog-content flex min-h-[400px] flex-col overflow-hidden p-0"
+                        data-testid="enterprise-new-activity-dialog-form-step1"
                     >
                         <p-iftalabel
                             *ngIf="selectableBuildings.length > 0"
@@ -36,6 +45,7 @@
                                 formControlName="buildingId"
                                 class="w-full break-words"
                                 (onChange)="onSelectedBuildingChanged()"
+                                data-testid="enterprise-new-activity-dialog-building"
                             >
                             </p-select>
                             <label>{{ 'enterprise.emission.activity.dialog.building' | translate }}</label>
@@ -52,6 +62,7 @@
                                 formControlName="buildingGroupID"
                                 class="w-full break-words"
                                 showClear
+                                data-testid="enterprise-new-activity-dialog-building-group"
                             >
                             </p-select>
                             <label>{{ 'enterprise.emission.activity.dialog.buildingGroup' | translate }}</label>
@@ -66,6 +77,7 @@
                                 formControlName="emissionSourceID"
                                 class="w-full break-words"
                                 (onChange)="onSourceChange()"
+                                data-testid="enterprise-new-activity-dialog-source"
                             >
                                 <ng-template
                                     pTemplate="selectedItem"
@@ -99,6 +111,7 @@
                                 optionValue="id"
                                 formControlName="emissionFactorID"
                                 class="w-full"
+                                data-testid="enterprise-new-activity-dialog-factor"
                             >
                                 <ng-template
                                     pTemplate="selectedItem"
@@ -133,6 +146,7 @@
                                     !this.formStructure.emissionFactorID.value || !this.formStructure.buildingId.value
                                 "
                                 (onClick)="activateCallback(2)"
+                                data-testid="enterprise-new-activity-dialog-next-1"
                             ></p-button>
                         </div>
                     </form>
@@ -148,6 +162,7 @@
                     <form
                         [formGroup]="formGroup"
                         class="p-dialog-content min-h-[400px] p-0"
+                        data-testid="enterprise-new-activity-dialog-form-step2"
                     >
                         <!-- Name -->
                         <p-iftalabel class="my-2">
@@ -156,6 +171,7 @@
                                 formControlName="name"
                                 class="w-full"
                                 autocomplete="off"
+                                data-testid="enterprise-new-activity-dialog-name"
                             />
                             <label>{{ 'enterprise.emission.activity.dialog.Name' | translate }}</label>
                         </p-iftalabel>
@@ -170,6 +186,7 @@
                                 [showClear]="true"
                                 formControlName="type"
                                 class="w-full"
+                                data-testid="enterprise-new-activity-dialog-type"
                             >
                                 <ng-template
                                     pTemplate="selectedItem"
@@ -198,6 +215,7 @@
                                 formControlName="category"
                                 class="w-full"
                                 autocomplete="off"
+                                data-testid="enterprise-new-activity-dialog-category"
                             />
                             <label>{{ 'enterprise.emission.activity.dialog.Category' | translate }}</label>
                         </p-iftalabel>
@@ -209,6 +227,7 @@
                                 formControlName="description"
                                 class="w-full"
                                 autocomplete="off"
+                                data-testid="enterprise-new-activity-dialog-description"
                             />
                             <label>{{ 'enterprise.emission.activity.dialog.Description' | translate }}</label>
                         </p-iftalabel>
@@ -220,6 +239,7 @@
                             severity="secondary"
                             icon="pi pi-arrow-left"
                             (onClick)="activateCallback(1)"
+                            data-testid="enterprise-new-activity-dialog-back-2"
                         ></p-button>
                         <p-button
                             label="{{ 'common.save' | translate }}"
@@ -227,6 +247,7 @@
                             severity="primary"
                             [disabled]="formGroup.invalid"
                             (onClick)="submit()"
+                            data-testid="enterprise-new-activity-dialog-save"
                         ></p-button>
                     </div>
                 </ng-template>

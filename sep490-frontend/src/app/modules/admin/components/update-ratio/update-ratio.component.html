@@ -1,5 +1,11 @@
-<div class="flex items-center justify-center">
-    <p-card class="mx-auto w-full max-w-md rounded-2xl shadow-lg">
+<div
+    class="flex items-center justify-center"
+    data-testid="admin-update-ratio-root"
+>
+    <p-card
+        class="mx-auto w-full max-w-md rounded-2xl shadow-lg"
+        data-testid="admin-update-ratio-card"
+    >
         <ng-template #header>
             <div class="mt-2 flex items-center justify-center">
                 <h2 class="text-xl font-semibold">
@@ -9,7 +15,7 @@
         </ng-template>
         <ng-template #title>
             <div class="flex items-center justify-center text-primary-emphasis">
-                <p>
+                <p data-testid="admin-update-ratio-type">
                     {{ 'admin.ratio.adjustRatio' | translate }}:
                     {{ 'admin.ratio.type.' + selectedConvertType | translate }}
                 </p>
@@ -23,6 +29,7 @@
                         class="py-5 sm:mt-5"
                         unsavedChanges
                         id="updateRatioForm"
+                        data-testid="admin-update-ratio-form"
                     >
                         <div
                             errorMessages
@@ -38,6 +45,7 @@
                                 [minFractionDigits]="1"
                                 [maxFractionDigits]="2"
                                 [inputStyle]="{width: '5rem'}"
+                                [attr.data-testid]="'admin-update-ratio-input'"
                             >
                                 <ng-template #incrementbuttonicon>
                                     <span class="pi pi-plus"></span>
@@ -53,18 +61,23 @@
             </div>
         </ng-template>
         <ng-template #footer>
-            <div class="mt-4 flex flex-col-reverse items-center justify-center gap-4 lg:flex-row">
+            <div
+                class="mt-4 flex flex-col-reverse items-center justify-center gap-4 lg:flex-row"
+                data-testid="admin-update-ratio-actions"
+            >
                 <p-button
                     label="{{ 'dialog.subscription.footer.button.cancel' | translate }}"
                     [text]="true"
                     severity="primary"
                     [outlined]="true"
                     (onClick)="return()"
+                    data-testid="admin-update-ratio-cancel"
                 />
                 <p-button
                     label="{{ 'common.save' | translate }}"
                     severity="primary"
                     (onClick)="submit()"
+                    data-testid="admin-update-ratio-save"
                 />
             </div>
         </ng-template>

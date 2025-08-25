@@ -1,10 +1,22 @@
-<master-layout title="admin.packageCredit.title">
-    <div subtitle>{{ 'admin.packageCredit.description' | translate }}</div>
-    <div actions>
+<master-layout
+    title="admin.packageCredit.title"
+    data-testid="admin-package-credit-root"
+>
+    <div
+        subtitle
+        data-testid="admin-package-credit-subtitle"
+    >
+        {{ 'admin.packageCredit.description' | translate }}
+    </div>
+    <div
+        actions
+        data-testid="admin-package-credit-actions"
+    >
         <button
             pButton
             class="p-button font-bold"
             [routerLink]="['/', AppRoutingConstants.ADMIN_PATH, AppRoutingConstants.PACKAGE_CREDIT_DETAILS_PATH]"
+            data-testid="admin-package-credit-add"
         >
             <i class="pi pi-credit-card"></i>
             {{ 'admin.packageCredit.addPackageCredit' | translate }}
@@ -15,6 +27,7 @@
         [columns]="cols"
         [triggerSearch]="triggerSearch"
         (selectionChange)="onSelectionChange($event)"
+        data-testid="admin-package-credit-table"
     />
 </master-layout>
 
@@ -22,20 +35,24 @@
     #priceTemplate
     let-rowData
 >
-    <p>{{ rowData.price | number: '1.0-0' }} VND</p>
+    <p data-testid="admin-package-credit-price-cell">{{ rowData.price | number: '1.0-0' }} VND</p>
 </ng-template>
 
 <ng-template
     #actionsTemplate
     let-rowData
 >
-    <div class="flex">
+    <div
+        class="flex"
+        data-testid="admin-package-credit-row-actions"
+    >
         <p-button
             icon="pi pi-pencil"
             [rounded]="true"
             [text]="true"
             severity="info"
             (onClick)="onEdit(rowData)"
+            data-testid="admin-package-credit-edit"
         />
     </div>
 </ng-template>
@@ -43,7 +60,10 @@
     #activeTemplate
     let-rowData
 >
-    <div class="flex items-center gap-2">
+    <div
+        class="flex items-center gap-2"
+        data-testid="admin-package-credit-active"
+    >
         <p-inputSwitch
             [ngModel]="rowData.active"
             (onChange)="onDelete(rowData)"
@@ -60,6 +80,7 @@
         [text]="true"
         severity="primary"
         (onClick)="onViewVersions(rowData)"
+        data-testid="admin-package-credit-view-versions"
     />
 </ng-template>
 
@@ -69,12 +90,14 @@
     [closable]="true"
     [header]="'admin.packageCredit.versionList' | translate"
     [style]="{width: '500px'}"
+    data-testid="admin-package-credit-versions-dialog"
 >
     <div *ngIf="selectedPackageVersions.length > 0; else noDataTemplate">
         <div class="grid gap-3">
             <div
                 *ngFor="let version of selectedPackageVersions"
                 class="flex items-center justify-between rounded-lg border border-gray-300 p-3 shadow-sm"
+                data-testid="admin-package-credit-version-row"
             >
                 <div class="flex items-center gap-3">
                     <i class="pi pi-bitcoin text-lg text-yellow-500"></i>
@@ -91,13 +114,17 @@
                             : ('admin.packageCredit.outdated' | translate)
                     "
                     [styleClass]="version.active ? 'bg-green-500 text-white' : 'bg-red-500 text-white'"
+                    data-testid="admin-package-credit-version-chip"
                 ></p-chip>
             </div>
         </div>
     </div>
 
     <ng-template #noDataTemplate>
-        <div class="flex flex-col items-center justify-center py-4 text-lg text-gray-500">
+        <div
+            class="flex flex-col items-center justify-center py-4 text-lg text-gray-500"
+            data-testid="admin-package-credit-no-versions"
+        >
             <i class="pi pi-info-circle mb-2 text-2xl"></i>
             <p>{{ 'admin.packageCredit.noVersions' | translate }}</p>
         </div>

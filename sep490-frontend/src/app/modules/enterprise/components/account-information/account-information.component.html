@@ -1,8 +1,12 @@
 <master-layout
     title="account.title"
     [showBack]="true"
+    data-testid="account-info-root"
 >
-    <div actions>
+    <div
+        actions
+        data-testid="account-info-actions"
+    >
         <p-button
             [label]="'enterprise.Users.managePasskey' | translate"
             severity="info"
@@ -10,12 +14,14 @@
             iconPos="right"
             icon="pi pi-key"
             class="*:min-w-28"
+            data-testid="account-info-manage-passkey"
         />
     </div>
     <form
         [formGroup]="formGroup"
         unsavedChanges
         id="accountInformationForm"
+        data-testid="account-info-form"
     >
         <!-- Email -->
         <div
@@ -35,6 +41,7 @@
                     id="email"
                     pInputText
                     [placeholder]="'account.placeholders.enterEmail' | translate"
+                    data-testid="account-info-email"
                 />
                 <form-field-error></form-field-error>
             </div>
@@ -58,6 +65,7 @@
                     id="firstName"
                     pInputText
                     [placeholder]="'account.placeholders.enterFirstName' | translate"
+                    data-testid="account-info-firstname"
                 />
                 <form-field-error></form-field-error>
             </div>
@@ -81,6 +89,7 @@
                     id="lastName"
                     pInputText
                     [placeholder]="'account.placeholders.enterLastName' | translate"
+                    data-testid="account-info-lastname"
                 />
                 <form-field-error></form-field-error>
             </div>
@@ -104,6 +113,7 @@
                     id="phone"
                     pInputText
                     [placeholder]="'account.placeholders.enterPhone' | translate"
+                    data-testid="account-info-phone"
                 />
                 <form-field-error></form-field-error>
             </div>
@@ -118,6 +128,7 @@
                 severity="primary"
                 [disabled]="disableSubmitButton"
                 (onClick)="submit()"
+                data-testid="account-info-save"
             ></p-button>
 
             <!-- Revert Button -->
@@ -126,6 +137,7 @@
                 styleClass="w-full"
                 severity="secondary"
                 (onClick)="revert()"
+                data-testid="account-info-revert"
             ></p-button>
         </div>
     </form>

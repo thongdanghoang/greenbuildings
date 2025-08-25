@@ -1,4 +1,7 @@
-<master-layout title="sidebar.admin.payment">
+<master-layout
+    title="sidebar.admin.payment"
+    data-testid="admin-payment-enterprise-root"
+>
     <!-- Table -->
     <table-template
         [fetch]="fetchPayments"
@@ -9,11 +12,15 @@
         [triggerClearSelected]="clearSelectedEvent"
         [captionTemplateRef]="captionTemplateRef"
         (selectionChange)="onSelectionChange($event)"
+        data-testid="admin-payment-enterprise-table"
     ></table-template>
 </master-layout>
 
 <ng-template #captionTemplateRef>
-    <div class="flex flex-col items-end justify-between gap-2 lg:flex-row lg:items-center">
+    <div
+        class="flex flex-col items-end justify-between gap-2 lg:flex-row lg:items-center"
+        data-testid="admin-payment-enterprise-search"
+    >
         <p-inputgroup class="max-w-96">
             <input
                 [(ngModel)]="searchCriteria.criteria"
@@ -21,6 +28,7 @@
                 pInputText
                 placeholder="{{ 'common.search' | translate }}"
                 (keydown.enter)="search()"
+                data-testid="admin-payment-enterprise-search-input"
             />
             <p-inputgroup-addon>
                 <p-button
@@ -28,6 +36,7 @@
                     severity="secondary"
                     text
                     (onClick)="search()"
+                    data-testid="admin-payment-enterprise-search-button"
                 />
             </p-inputgroup-addon>
         </p-inputgroup>
@@ -41,6 +50,7 @@
     <p-tag
         [ngClass]="'font-medium ' + getStatusClass(rowData.status)"
         [value]="'enum.status.payment.' + rowData.status | translate"
+        data-testid="admin-payment-enterprise-status"
     />
 </ng-template>
 
@@ -48,5 +58,5 @@
     #amountTemplate
     let-rowData
 >
-    <p>+{{ rowData.numberOfCredits }}</p>
+    <p data-testid="admin-payment-enterprise-credits">+{{ rowData.numberOfCredits }}</p>
 </ng-template>

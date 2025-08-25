@@ -1,8 +1,17 @@
-<master-layout title="invitation.title">
-    <div subtitle>{{ 'invitation.description' | translate }}</div>
+<master-layout
+    title="invitation.title"
+    data-testid="enterprise-invitation-root"
+>
+    <div
+        subtitle
+        data-testid="enterprise-invitation-subtitle"
+    >
+        {{ 'invitation.description' | translate }}
+    </div>
     <div
         *ngIf="!invitations?.length"
         class="mt-4 flex justify-center"
+        data-testid="enterprise-invitation-empty"
     >
         <div
             class="w-full max-w-md rounded-lg border border-gray-300 bg-white p-8 text-center shadow-md dark:border-gray-600 dark:bg-gray-800"
@@ -21,6 +30,7 @@
                 icon="pi pi-refresh"
                 (click)="refetchPendingInvitation()"
                 styleClass="p-button-outlined"
+                data-testid="enterprise-invitation-refresh"
             ></p-button>
         </div>
     </div>
@@ -41,6 +51,7 @@
             'border-t-green-500': invitation.status === 'ACCEPTED',
             'border-t-red-500': invitation.status === 'REJECTED'
         }"
+        data-testid="enterprise-invitation-card"
     >
         <div
             class="flex flex-col justify-between gap-4 rounded-t p-2 lg:flex-row lg:gap-0 lg:p-4"
@@ -91,6 +102,7 @@
                 outlined
                 severity="danger"
                 (click)="rejectInvitation(invitation)"
+                data-testid="enterprise-invitation-reject"
             >
                 {{ 'invitation.reject' | translate }}
             </p-button>
@@ -98,6 +110,7 @@
                 outlined
                 severity="primary"
                 (click)="acceptInvitation(invitation)"
+                data-testid="enterprise-invitation-accept"
             >
                 {{ 'invitation.accept' | translate }}
             </p-button>

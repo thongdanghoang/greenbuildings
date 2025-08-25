@@ -1,6 +1,12 @@
-<div class="mt-4 w-[900px] sm:w-[800] md:w-[1000px]">
+<div
+    class="mt-4 w-[900px] sm:w-[800] md:w-[1000px]"
+    data-testid="credit-deduction-history-root"
+>
     <!-- Dialog Header -->
-    <div class="p-dialog-header border-b p-4">
+    <div
+        class="p-dialog-header border-b p-4"
+        data-testid="credit-deduction-history-header"
+    >
         <span class="text-xl font-semibold text-primary">
             {{ 'useCreditHistory.title' | translate }}
         </span>
@@ -10,11 +16,15 @@
             icon="pi pi-times"
             class="p-button-rounded p-button-text"
             (click)="ref.close()"
+            data-testid="credit-deduction-history-close"
         ></button>
     </div>
 
     <!-- Dialog Content -->
-    <div class="p-dialog-content flex min-h-[400px] flex-col overflow-hidden p-0">
+    <div
+        class="p-dialog-content flex min-h-[400px] flex-col overflow-hidden p-0"
+        data-testid="credit-deduction-history-content"
+    >
         <!-- Table -->
         <table-template
             [fetch]="fetchTransaction"
@@ -24,13 +34,14 @@
             [triggerSearch]="searchEvent"
             [triggerClearSelected]="clearSelectedEvent"
             (selectionChange)="onSelectionChange($event)"
+            data-testid="credit-deduction-history-table"
         ></table-template>
     </div>
     <ng-template
         #typeTemplate
         let-rowData
     >
-        <p>
+        <p data-testid="credit-deduction-history-type">
             {{ 'useCreditHistory.table.' + rowData.transactionType | translate }}
         </p>
     </ng-template>

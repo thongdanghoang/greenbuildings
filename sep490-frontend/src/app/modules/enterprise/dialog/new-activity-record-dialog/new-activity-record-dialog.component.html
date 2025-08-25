@@ -1,4 +1,7 @@
-<div class="max-w-sm space-y-4 p-4 sm:max-w-md md:min-w-[500px]">
+<div
+    class="max-w-sm space-y-4 p-4 sm:max-w-md md:min-w-[500px]"
+    data-testid="enterprise-new-activity-record-dialog-root"
+>
     <div class="flex items-center justify-between">
         <h2 class="text-xl font-semibold">
             {{ 'enterprise.emission.activity.record.new' | translate }}
@@ -8,6 +11,7 @@
             text
             rounded
             (click)="onCancel()"
+            data-testid="enterprise-new-activity-record-dialog-close"
         ></p-button>
     </div>
     <div class="grid grid-cols-1 gap-2">
@@ -17,6 +21,7 @@
                 [value]="getFactorName()"
                 class="w-full"
                 [disabled]="true"
+                data-testid="enterprise-new-activity-record-dialog-factor"
             />
             <label>{{ 'enterprise.emission.activity.record.table.factor' | translate }}</label>
         </p-iftalabel>
@@ -27,6 +32,7 @@
                 [value]="getSourceName()"
                 id="sourceName"
                 disabled
+                data-testid="enterprise-new-activity-record-dialog-source"
             />
             <label for="sourceName">{{ 'enterprise.emission.activity.record.table.source' | translate }}</label>
         </p-iftalabel>
@@ -36,6 +42,7 @@
         [formGroup]="formGroup"
         (ngSubmit)="submit()"
         class="grid grid-cols-1 gap-4 md:grid-cols-1"
+        data-testid="enterprise-new-activity-record-dialog-form"
     >
         <p-iftalabel>
             <p-select
@@ -49,6 +56,7 @@
                 [showClear]="true"
                 [appendTo]="'body'"
                 [panelStyle]="{'min-width': '100%'}"
+                data-testid="enterprise-new-activity-record-dialog-asset"
             />
             <label>{{ 'enterprise.emission.activity.record.table.asset' | translate }}</label>
         </p-iftalabel>
@@ -57,6 +65,7 @@
                 formControlName="quantity"
                 class="w-full"
                 [min]="0"
+                [attr.data-testid]="'enterprise-new-activity-record-dialog-quantity'"
             >
             </p-inputnumber>
             <label>{{ 'enterprise.emission.activity.record.table.quantity' | translate }}</label>
@@ -67,6 +76,7 @@
                 [options]="unitOptions"
                 class="w-full break-words"
                 [placeholder]="'enterprise.emission.activity.record.table.unit' | translate"
+                data-testid="enterprise-new-activity-record-dialog-unit"
             ></p-dropdown>
             <label>{{ 'enterprise.emission.activity.record.table.unit' | translate }}</label>
         </p-iftalabel>
@@ -76,6 +86,7 @@
                 formControlName="value"
                 class="w-full"
                 [min]="0"
+                [attr.data-testid]="'enterprise-new-activity-record-dialog-value'"
             >
             </p-inputnumber>
             <label>{{ 'enterprise.emission.activity.record.table.value' | translate }}</label>
@@ -88,10 +99,12 @@
             accept="image/*,application/pdf"
             (onSelect)="onFileSelect($event)"
             [disabled]="formGroupDisable"
+            data-testid="enterprise-new-activity-record-dialog-file"
         ></p-fileUpload>
         <p
             *ngIf="data?.editRecord?.file && selectedFile === null"
             class="cursor-pointer text-center text-primary hover:underline"
+            data-testid="enterprise-new-activity-record-dialog-file-download"
         >
             <a (click)="onDownloadFile()">
                 {{ data?.editRecord?.file?.fileName }}
@@ -108,6 +121,7 @@
                 [maxDate]="maxDate"
                 [disabledDates]="disabledDates"
                 [selectOtherMonths]="true"
+                data-testid="enterprise-new-activity-record-dialog-dates"
             >
             </p-date-picker>
             <label>{{ 'enterprise.emission.activity.record.table.dateRange' | translate }}</label>
@@ -119,11 +133,13 @@
                 (click)="onCancel()"
                 outlined="true"
                 [label]="'common.cancel' | translate"
+                data-testid="enterprise-new-activity-record-dialog-cancel"
             ></p-button>
             <p-button
                 type="submit"
                 [label]="'common.save' | translate"
                 [disabled]="formGroup.invalid || formGroupDisable"
+                data-testid="enterprise-new-activity-record-dialog-save"
             ></p-button>
         </div>
     </form>

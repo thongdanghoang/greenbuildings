@@ -1,9 +1,18 @@
 <master-layout
     title="enterprise.buildings.management.title"
     [showBack]="true"
+    data-testid="building-management-root"
 >
-    <div subtitle>{{ 'enterprise.buildings.management.subtitle' | translate }}</div>
-    <div actions>
+    <div
+        subtitle
+        data-testid="building-management-subtitle"
+    >
+        {{ 'enterprise.buildings.management.subtitle' | translate }}
+    </div>
+    <div
+        actions
+        data-testid="building-management-actions"
+    >
         <p-button
             label="{{ 'enterprise.emission.activity.generateReport' | translate }}"
             class="flex-1"
@@ -12,6 +21,7 @@
             severity="primary"
             outlined
             styleClass="w-full h-full"
+            data-testid="building-management-generate-report"
         ></p-button>
     </div>
 
@@ -19,6 +29,7 @@
     <div
         *ngIf="buildingGhgAlertView && buildingGhgAlertView.percentage && buildingGhgAlertView.percentage > 0.95"
         class="mb-3 space-y-1 border-l-4 border-red-500 bg-red-100 p-4 text-red-700"
+        data-testid="building-management-danger-alert"
     >
         <div class="flex items-baseline">
             <i class="pi pi-exclamation-triangle mr-2 text-red-500"></i>
@@ -39,6 +50,7 @@
             buildingGhgAlertView.percentage <= 0.95
         "
         class="mb-3 space-y-1 border-l-4 border-yellow-500 bg-yellow-100 p-4 text-yellow-700"
+        data-testid="building-management-warning-alert"
     >
         <div class="flex items-baseline">
             <i class="pi pi-exclamation-circle mr-2 text-yellow-500"></i>
@@ -55,11 +67,16 @@
     <div
         *ngIf="buildingDetails"
         class="flex flex-col gap-3 lg:flex-row"
+        data-testid="building-management-content"
     >
-        <div class="w-full md:w-1/2">
+        <div
+            class="w-full md:w-1/2"
+            data-testid="building-management-details"
+        >
             <p-card
                 header="{{ buildingDetails.name }}"
                 styleClass="h-full w-full block"
+                data-testid="building-management-card"
             >
                 <ng-template pTemplate="subtitle">
                     <i class="pi pi-map-marker"></i>

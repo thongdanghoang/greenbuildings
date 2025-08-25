@@ -2,10 +2,11 @@
   <p-toast
     key="center"
     position="top-center"
+    data-testid="dev-toast"
   />
 </div>
 
-<div class="mb-6 flex flex-wrap justify-center gap-4">
+<div class="mb-6 flex flex-wrap justify-center gap-4" data-testid="dev-buttons-raised">
   <p-button
     label="Primary"
     [raised]="true"
@@ -48,7 +49,7 @@
   />
 </div>
 
-<div class="mb-6 flex flex-wrap justify-center gap-4">
+<div class="mb-6 flex flex-wrap justify-center gap-4" data-testid="dev-buttons-text">
   <p-button
     label="Primary"
     variant="text"
@@ -90,7 +91,7 @@
   />
 </div>
 
-<div class="mb-6 flex flex-wrap justify-center gap-4">
+<div class="mb-6 flex flex-wrap justify-center gap-4" data-testid="dev-buttons-text-raised">
   <p-button
     label="Primary"
     variant="text"
@@ -140,248 +141,63 @@
   />
 </div>
 
-<div class="mb-6 flex flex-wrap justify-center gap-4">
-  <p-button
-    label="Primary"
-    variant="outlined"
-  />
-  <p-button
-    label="Secondary"
-    variant="outlined"
-    severity="secondary"
-  />
-  <p-button
-    label="Success"
-    variant="outlined"
-    severity="success"
-  />
-  <p-button
-    label="Info"
-    variant="outlined"
-    severity="info"
-  />
-  <p-button
-    label="Warn"
-    variant="outlined"
-    severity="warn"
-  />
-  <p-button
-    label="Help"
-    variant="outlined"
-    severity="help"
-  />
-  <p-button
-    label="Danger"
-    variant="outlined"
-    severity="danger"
-  />
-  <p-button
-    label="Contrast"
-    variant="outlined"
-    severity="contrast"
-  />
+<div class="mb-6 flex flex-wrap justify-center gap-4" data-testid="dev-buttons-outlined">
+  <p-button label="Primary" variant="outlined" />
+  <p-button label="Secondary" variant="outlined" severity="secondary" />
+  <p-button label="Success" variant="outlined" severity="success" />
+  <p-button label="Info" variant="outlined" severity="info" />
+  <p-button label="Warn" variant="outlined" severity="warn" />
+  <p-button label="Help" variant="outlined" severity="help" />
+  <p-button label="Danger" variant="outlined" severity="danger" />
+  <p-button label="Contrast" variant="outlined" severity="contrast" />
 </div>
 
-<div class="mb-6 flex flex-wrap justify-center gap-4">
+<div class="mb-6 flex flex-wrap justify-center gap-4" data-testid="dev-buttons-icons">
   <p-button icon="pi pi-check" />
-  <p-button
-    icon="pi pi-bookmark"
-    severity="secondary"
-  />
-  <p-button
-    icon="pi pi-search"
-    severity="success"
-  />
-  <p-button
-    icon="pi pi-user"
-    severity="info"
-  />
-  <p-button
-    icon="pi pi-bell"
-    severity="warn"
-  />
-  <p-button
-    icon="pi pi-heart"
-    severity="help"
-  />
-  <p-button
-    icon="pi pi-times"
-    severity="danger"
-  />
+  <p-button icon="pi pi-bookmark" severity="secondary" />
+  <p-button icon="pi pi-search" severity="success" />
+  <p-button icon="pi pi-user" severity="info" />
+  <p-button icon="pi pi-bell" severity="warn" />
+  <p-button icon="pi pi-heart" severity="help" />
+  <p-button icon="pi pi-times" severity="danger" />
 </div>
 
-<div class="mb-6 flex flex-wrap justify-center gap-4">
-  <p-button
-    icon="pi pi-check"
-    [rounded]="true"
-  />
-  <p-button
-    icon="pi pi-bookmark"
-    [rounded]="true"
-    severity="secondary"
-  />
-  <p-button
-    icon="pi pi-search"
-    [rounded]="true"
-    severity="success"
-  />
-  <p-button
-    icon="pi pi-user"
-    [rounded]="true"
-    severity="info"
-  />
-  <p-button
-    icon="pi pi-bell"
-    [rounded]="true"
-    severity="warn"
-  />
-  <p-button
-    icon="pi pi-heart"
-    [rounded]="true"
-    severity="help"
-  />
-  <p-button
-    icon="pi pi-times"
-    [rounded]="true"
-    severity="danger"
-  />
+<div class="mb-6 flex flex-wrap justify-center gap-4" data-testid="dev-buttons-rounded">
+  <p-button icon="pi pi-check" [rounded]="true" />
+  <p-button icon="pi pi-bookmark" [rounded]="true" severity="secondary" />
+  <p-button icon="pi pi-search" [rounded]="true" severity="success" />
+  <p-button icon="pi pi-user" [rounded]="true" severity="info" />
+  <p-button icon="pi pi-bell" [rounded]="true" severity="warn" />
+  <p-button icon="pi pi-heart" [rounded]="true" severity="help" />
+  <p-button icon="pi pi-times" [rounded]="true" severity="danger" />
 </div>
 
-<div class="mb-6 flex flex-wrap justify-center gap-4">
-  <p-button
-    icon="pi pi-check"
-    [rounded]="true"
-    [outlined]="true"
-  />
-  <p-button
-    icon="pi pi-bookmark"
-    [rounded]="true"
-    severity="secondary"
-    [outlined]="true"
-  />
-  <p-button
-    icon="pi pi-search"
-    [rounded]="true"
-    severity="success"
-    [outlined]="true"
-  />
-  <p-button
-    icon="pi pi-user"
-    [rounded]="true"
-    severity="info"
-    [outlined]="true"
-  />
-  <p-button
-    icon="pi pi-bell"
-    [rounded]="true"
-    severity="warn"
-    [outlined]="true"
-  />
-  <p-button
-    icon="pi pi-heart"
-    [rounded]="true"
-    severity="help"
-    [outlined]="true"
-  />
-  <p-button
-    icon="pi pi-times"
-    [rounded]="true"
-    severity="danger"
-    [outlined]="true"
-  />
+<div class="mb-6 flex flex-wrap justify-center gap-4" data-testid="dev-buttons-rounded-outlined">
+  <p-button icon="pi pi-check" [rounded]="true" [outlined]="true" />
+  <p-button icon="pi pi-bookmark" [rounded]="true" severity="secondary" [outlined]="true" />
+  <p-button icon="pi pi-search" [rounded]="true" severity="success" [outlined]="true" />
+  <p-button icon="pi pi-user" [rounded]="true" severity="info" [outlined]="true" />
+  <p-button icon="pi pi-bell" [rounded]="true" severity="warn" [outlined]="true" />
+  <p-button icon="pi pi-heart" [rounded]="true" severity="help" [outlined]="true" />
+  <p-button icon="pi pi-times" [rounded]="true" severity="danger" [outlined]="true" />
 </div>
 
-<div class="mb-6 flex flex-wrap justify-center gap-4">
-  <p-button
-    icon="pi pi-check"
-    [rounded]="true"
-    [text]="true"
-    [raised]="true"
-  />
-  <p-button
-    icon="pi pi-bookmark"
-    [rounded]="true"
-    [text]="true"
-    [raised]="true"
-    severity="secondary"
-  />
-  <p-button
-    icon="pi pi-search"
-    [rounded]="true"
-    [text]="true"
-    [raised]="true"
-    severity="success"
-  />
-  <p-button
-    icon="pi pi-user"
-    [rounded]="true"
-    [text]="true"
-    [raised]="true"
-    severity="info"
-  />
-  <p-button
-    icon="pi pi-bell"
-    [rounded]="true"
-    [text]="true"
-    [raised]="true"
-    severity="warn"
-  />
-  <p-button
-    icon="pi pi-heart"
-    [rounded]="true"
-    [text]="true"
-    [raised]="true"
-    severity="help"
-  />
-  <p-button
-    icon="pi pi-times"
-    [rounded]="true"
-    [text]="true"
-    [raised]="true"
-    severity="danger"
-  />
+<div class="mb-6 flex flex-wrap justify-center gap-4" data-testid="dev-buttons-rounded-text">
+  <p-button icon="pi pi-check" [rounded]="true" [text]="true" [raised]="true" />
+  <p-button icon="pi pi-bookmark" [rounded]="true" [text]="true" [raised]="true" severity="secondary" />
+  <p-button icon="pi pi-search" [rounded]="true" [text]="true" [raised]="true" severity="success" />
+  <p-button icon="pi pi-user" [rounded]="true" [text]="true" [raised]="true" severity="info" />
+  <p-button icon="pi pi-bell" [rounded]="true" [text]="true" [raised]="true" severity="warn" />
+  <p-button icon="pi pi-heart" [rounded]="true" [text]="true" [raised]="true" severity="help" />
+  <p-button icon="pi pi-times" [rounded]="true" [text]="true" [raised]="true" severity="danger" />
 </div>
 
-<div class="mb-6 flex flex-wrap justify-center gap-4">
-  <p-button
-    icon="pi pi-check"
-    [rounded]="true"
-    [text]="true"
-  />
-  <p-button
-    icon="pi pi-bookmark"
-    [rounded]="true"
-    [text]="true"
-    severity="secondary"
-  />
-  <p-button
-    icon="pi pi-search"
-    [rounded]="true"
-    [text]="true"
-    severity="success"
-  />
-  <p-button
-    icon="pi pi-user"
-    [rounded]="true"
-    [text]="true"
-    severity="info"
-  />
-  <p-button
-    icon="pi pi-bell"
-    [rounded]="true"
-    [text]="true"
-    severity="warn"
-  />
-  <p-button
-    icon="pi pi-heart"
-    [rounded]="true"
-    [text]="true"
-    severity="help"
-  />
-  <p-button
-    icon="pi pi-times"
-    [rounded]="true"
-    [text]="true"
-    severity="danger"
-  />
+<div class="mb-6 flex flex-wrap justify-center gap-4" data-testid="dev-buttons-rounded-text-minimal">
+  <p-button icon="pi pi-check" [rounded]="true" [text]="true" />
+  <p-button icon="pi pi-bookmark" [rounded]="true" [text]="true" severity="secondary" />
+  <p-button icon="pi pi-search" [rounded]="true" [text]="true" severity="success" />
+  <p-button icon="pi pi-user" [rounded]="true" [text]="true" severity="info" />
+  <p-button icon="pi pi-bell" [rounded]="true" [text]="true" severity="warn" />
+  <p-button icon="pi pi-heart" [rounded]="true" [text]="true" severity="help" />
+  <p-button icon="pi pi-times" [rounded]="true" [text]="true" severity="danger" />
 </div>

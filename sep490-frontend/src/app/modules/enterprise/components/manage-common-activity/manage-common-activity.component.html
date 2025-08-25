@@ -1,15 +1,25 @@
 <master-layout
     title="enterprise.buildings.commonActivity.title"
     [showBack]="true"
+    data-testid="manage-common-activity-root"
 >
-    <div subtitle>{{ 'enterprise.buildings.commonActivity.description' | translate }}</div>
+    <div
+        subtitle
+        data-testid="manage-common-activity-subtitle"
+    >
+        {{ 'enterprise.buildings.commonActivity.description' | translate }}
+    </div>
 
-    <div actions>
+    <div
+        actions
+        data-testid="manage-common-activity-actions"
+    >
         <p-button
             label="{{ 'buildingGroup.enterprise.emission.activity.new' | translate }}"
             icon="pi pi-plus"
             severity="primary"
             (onClick)="openNewActivityDialog()"
+            data-testid="manage-common-activity-new"
         ></p-button>
     </div>
 
@@ -23,11 +33,15 @@
         [triggerClearSelected]="clearSelectedEvent"
         (selectionChange)="onSelectionChange($event)"
         [checkbox]="true"
+        data-testid="manage-common-activity-table"
     />
 </master-layout>
 
 <ng-template #captionTemplateRef>
-    <div class="flex flex-col items-end justify-between gap-2 lg:flex-row lg:items-center">
+    <div
+        class="flex flex-col items-end justify-between gap-2 lg:flex-row lg:items-center"
+        data-testid="manage-common-activity-search"
+    >
         <p-inputgroup class="max-w-96">
             <input
                 type="text"
@@ -35,6 +49,7 @@
                 [(ngModel)]="searchCriteria.name"
                 placeholder="{{ 'common.search' | translate }}"
                 (keydown.enter)="searchEvent.emit()"
+                data-testid="manage-common-activity-search-input"
             />
             <p-inputgroup-addon>
                 <p-button
@@ -42,6 +57,7 @@
                     severity="secondary"
                     variant="text"
                     (onClick)="searchEvent.emit()"
+                    data-testid="manage-common-activity-search-button"
                 />
             </p-inputgroup-addon>
         </p-inputgroup>
@@ -57,6 +73,7 @@
             outlined
             [disabled]="!selected || !selected.length"
             (onClick)="confirmDelete()"
+            data-testid="manage-common-activity-delete"
         />
     </div>
 </ng-template>
@@ -70,17 +87,26 @@
         [text]="true"
         severity="contrast"
         (onClick)="openActivityDetailsDialog(activity)"
+        data-testid="manage-common-activity-edit"
     />
 </ng-template>
 <ng-template
     #typeTemplate
     let-activity
 >
-    <span *ngIf="activity.type">{{ activity?.type.name }}</span>
+    <span
+        *ngIf="activity.type"
+        data-testid="manage-common-activity-type"
+        >{{ activity?.type.name }}</span
+    >
 </ng-template>
 <ng-template
     #factorNameTemplate
     let-activity
 >
-    <span *ngIf="activity.emissionFactor">{{ getFactorName(activity) }}</span>
+    <span
+        *ngIf="activity.emissionFactor"
+        data-testid="manage-common-activity-factor"
+        >{{ getFactorName(activity) }}</span
+    >
 </ng-template>

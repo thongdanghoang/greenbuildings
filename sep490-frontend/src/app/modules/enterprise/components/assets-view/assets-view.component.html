@@ -1,5 +1,11 @@
-<master-layout title="assets.title">
-    <div actions>
+<master-layout
+    title="assets.title"
+    data-testid="assets-view-root"
+>
+    <div
+        actions
+        data-testid="assets-view-actions"
+    >
         <ng-container
             *ngTemplateOutlet="addAssetsBtn; context: {styleClass: 'block lg:hidden', mobile: true}"
         ></ng-container>
@@ -14,11 +20,15 @@
         [triggerSearch]="searchEvent"
         [captionTemplateRef]="captionTemplateRef"
         [criteria]="criteria"
+        data-testid="assets-view-table"
     />
 </master-layout>
 
 <ng-template #captionTemplateRef>
-    <form [formGroup]="filterFormGroup">
+    <form
+        [formGroup]="filterFormGroup"
+        data-testid="assets-view-filters"
+    >
         <div class="-mx-4 grid grid-cols-4 gap-2.5 lg:mx-0">
             <p-iconfield class="col-span-4 *:w-full lg:col-span-1">
                 <p-inputicon styleClass="pi pi-search" />
@@ -28,6 +38,7 @@
                     pInputText
                     formControlName="keyword"
                     placeholder="{{ 'assets.table.filters.keyword' | translate }}"
+                    data-testid="assets-view-filter-keyword"
                 />
             </p-iconfield>
             <div class="col-span-4 *:w-full lg:col-span-1">
@@ -38,6 +49,7 @@
                     placeholder="{{ 'assets.table.filters.buildings' | translate }}"
                     [maxSelectedLabels]="1"
                     optionValue="value"
+                    data-testid="assets-view-filter-buildings"
                 >
                 </p-multiselect>
             </div>
@@ -49,6 +61,7 @@
                         icon="pi pi-times"
                         outlined
                         (onClick)="onResetFilters()"
+                        data-testid="assets-view-filter-reset"
                     />
                     <p-button
                         severity="primary"
@@ -56,6 +69,7 @@
                         icon="pi pi-search"
                         outlined
                         (onClick)="onFilter()"
+                        data-testid="assets-view-filter-search"
                     />
                 </div>
             </div>
@@ -74,6 +88,7 @@
         icon="pi pi-plus"
         severity="primary"
         (onClick)="openNewAssetDialog()"
+        data-testid="assets-view-add"
     ></p-button>
 </ng-template>
 
@@ -88,18 +103,23 @@
     #assetColActions
     let-rowData
 >
-    <div class="flex">
+    <div
+        class="flex"
+        data-testid="assets-view-row-actions"
+    >
         <p-button
             icon="pi pi-pencil"
             text
             severity="contrast"
             (onClick)="openEditAsset(rowData.id)"
+            data-testid="assets-view-action-edit"
         />
         <p-button
             icon="pi pi-trash"
             severity="danger"
             [text]="true"
             (onClick)="onDeleteAsset(rowData.id)"
+            data-testid="assets-view-action-delete"
         />
     </div>
 </ng-template>

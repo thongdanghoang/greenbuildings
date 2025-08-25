@@ -1,9 +1,13 @@
 <master-layout
     title="{{ 'powerBiGuide.title' | translate }}"
     [showBack]="true"
+    data-testid="user-guide-powerbi-root"
 >
     <!-- Section 1 -->
-    <section class="mb-6">
+    <section
+        class="mb-6"
+        data-testid="user-guide-powerbi-section-1"
+    >
         <h2 class="mb-4 text-2xl font-bold">{{ 'powerBiGuide.title1' | translate }}</h2>
         <ol class="list-decimal space-y-6 pl-5">
             <li>
@@ -94,7 +98,7 @@
     </section>
 
     <!-- Section 2 -->
-    <section>
+    <section data-testid="user-guide-powerbi-section-2">
         <h2 class="mb-4 text-2xl font-bold">{{ 'powerBiGuide.title2' | translate }}</h2>
         <ol class="list-decimal space-y-6 pl-5">
             <li>
